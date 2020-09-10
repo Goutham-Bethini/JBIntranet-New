@@ -1,0 +1,43 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.ExpiringCMNs.ReportsRulesVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "Rules";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3 class="middle" style="text-align:center;">CMN Rules</h3>
+
+<center>
+    <table>
+        <tr>
+            <td style="text-decoration:underline;">@Html.ActionLink("Reports", "ExpiringCMNs", "ExpiringCMNs", null, null) </td>
+            <td>|</td>
+            <td style="text-decoration:underline;">@Html.ActionLink("Special Doctors", "SpecialDoctors", "SpecialDoctors", null, null) </td>
+            <td>|</td>
+            <td style="text-decoration:underline;">@Html.ActionLink("Documentation", "Documentation", "Rules", null, null) </td>
+        </tr>
+    </table>
+    <br />
+    <font style="background-color:#FFFF66">
+        Please read the documentation before changing any of the rules-some of these rules affect how eligibility runs.<br />
+        If you do not feel comfortable updating the rules for your team, please <a href='mailto:it@jandbmedical.com?subject=CMN Rules Help' style="text-decoration:underline;">Contact IT</a> for help.
+    </font>
+    <br />
+    <br />
+    <font>
+        Use the links below to edit rules for these reports:
+    </font>
+    <br />
+    <br />
+    @if (Model != null && Model.Details != null && Model.Details.Count > 0)
+    {
+    <table style="text-decoration:underline;">
+        @foreach (var rec in Model.Details)
+        {
+            <tr>
+                <td align="center">@Html.ActionLink(@rec.ReportName.Trim()+" Team", "ReportRules", "Rules", new { reportId = @rec.ReportId, report= @rec.ReportName.Trim() }, null)</td>             
+            </tr>
+        }
+    </table>
+    }
+</center>
+

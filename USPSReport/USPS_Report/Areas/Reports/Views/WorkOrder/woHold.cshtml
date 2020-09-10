@@ -1,0 +1,63 @@
+﻿@model IEnumerable<USPS_Report.Areas.Reports.Models.WoOnHoldVM>
+
+@{
+    ViewBag.Title = "woHold";
+    Layout = "~/Areas/Reports/Views/Shared/_ReportLayout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Account)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HoldFromShippingReason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Request_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InsType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reference)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PayerName)
+        </th>
+      
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Account)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoldFromShippingReason)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Request_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InsType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reference)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayerName)
+            </td>
+          
+        </tr>
+    }
+
+</table>
+

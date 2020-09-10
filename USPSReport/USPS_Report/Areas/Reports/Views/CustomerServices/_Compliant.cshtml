@@ -1,0 +1,724 @@
+﻿@model USPS_Report.Areas.Reports.Models.CallLogVM
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <h3> <label><strong>FedEx</strong></label></h3>
+    </div>
+</div>*@
+@*<hr />
+<div class="outer">
+    <p>FedEx</p>
+</div>*@
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <label>  Tracking Number </label>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.TrackingNumber)
+    </div>
+    </div>
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <label>  WorkOrder# </label>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.WorkOrder)
+    </div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <label>  Product# </label>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.Product)
+    </div>
+</div>
+
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <label>  Delivery Company </label>
+    </div>
+    <div class="col-md-2">
+        @Html.DropDownListFor(t => t.DeliveryCompany, new List<SelectListItem>
+
+               {
+                   new SelectListItem { Text = "FedEx" , Value = "FedEx"},
+                   new SelectListItem { Text = "USPS" , Value = "USPS"},
+                      new SelectListItem { Text = "SmartPost", Value = "SmartPost" },
+                    new SelectListItem { Text = "Company Vehicle", Value = "Company Vehicle" },
+                    
+               }, "Select Option")
+
+
+     @*@Html.TextBoxFor(m => m.DeliveryCompany)*@
+    </div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <label>  BCN Provider </label>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.BCNProvider)
+    </div>
+</div>
+
+
+
+<hr />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.Damaged) <label> Damaged Product </label></div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.WrongProductShipped) <label> Wrong Product  </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.QualityOfProduct) <label> Quality Of Product </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.Defective) <label> Defective Product  </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.other_MissingProduct) <label> Missing Product </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.Driver) <label> Driver Issue </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.DidntFollowDelIns) <label> Did not follow delivery instructions  </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.WrongArea) <label> Delivered to wrong address </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        @Html.CheckBoxFor(m => m.Impolite_Offensive) <label>
+           Impolite/Offensive CSR
+        </label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.VConfirmationCalls) <label> Victor Confirmation Calls   </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.VPaymentCalles) <label> Victor Payment Calls    </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.SAJamesPhonePromts) <label> Smart Action/Julie Phone Prompts     </label></div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.SAJamesSelfService) <label>Smart Action/Julie self service     </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.VirtualCallBack) <label>Virtual Callback feature  </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.Website) <label>Website/Portal  </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        @Html.CheckBoxFor(m => m.HoldTimes) <label>
+            Hold Times
+        </label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.NoFollowUp) <label>No follow up on account/on documentation</label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.ReturnedFromVM) <label>Call not returned from VM</label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.NoFollowUpWithMem) <label>No follow up with member </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.NeverRecivedSupplies) <label>Never received supplies</label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.PhysicianIssue) <label>Physician Issue</label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.InsLimitGuidelines) <label>Insurance Limitations/Guidelines</label></div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.BCNProviderIssue) <label>BCN Provider Issue </label></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.CivilRights) <label>Civil Rights </label></div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class= "col-md-3">@Html.CheckBoxFor(m => m.Other) <label>Other </label></div>
+</div>
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.TextAreaFor(m => m.FedExTextArea, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.TextAreaFor(m => m.FedExTextArea, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+</div>*@
+@*<hr />
+<div class="outer">
+    <p>Product</p>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.Incorrect) <label> Incorrect </label></div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.Mispick) <label> Mispick </label></div>
+
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.TextAreaFor(m => m.ProductTextArea, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+</div>
+<hr />
+<div class="outer">
+    <p>Customer Services</p>
+</div>
+<br />
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.TextAreaFor(m => m.CustomerServiceTextArea, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+</div>
+
+<hr />
+<div class="outer">
+    <p>Other</p>
+</div>*@
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.TextAreaFor(m => m.Others, new { rows = "6", cols = "40" , disabled = "disabled" })</div>
+
+</div>
+
+<hr />
+<div class="outer">
+    <p>OutCome</p>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-1">
+    </div>
+            <div class="col-md-7">
+                @Html.DropDownListFor(t => t.ComplainOutCome, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Handled Concern" , Value = "Handled Concern"},
+                    new SelectListItem { Text = "Not Resolved Transferred to Team Leaders" , Value = "Not Resolved Transferred to Team Leaders"},
+                   
+               }, "Please select one Option")
+            </div>
+    
+</div>
+<br />
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.HandledConcerns) <label> Handled Concerns </label></div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.Resolved) <label> Resolved </label></div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.NotResolved) <label> Not Resolved (follow-up needed) </label></div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.TransferredTeamLeader) <label> Transferred to Team Leader</label></div>
+
+</div>*@
+
+
+
+@*<br />
+<div>
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-8">
+            @Html.CheckBoxFor(m => m.Compliant) <label>Compliant
+           @Html.ActionLink("Go to Complaint Form", "CSRComlaintlog", "CustomerServices", new { area = "Reports" , accountNo = Model.Account, refNo = Model.refnum}, new { target = "_black" })
+            
+        </label>
+    </div>
+
+</div>
+
+</div>*@
+
+
+<style>
+    .outer {
+        width: 100%;
+        color: navy;
+        background-color:lightblue;
+        /*border: 2px solid blue;*/
+        padding: 5px;
+    }
+
+    .c {
+        text-align: center;
+    }
+</style>
+
+<script>
+    $('#Damaged').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#WrongProductShipped').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#QualityOfProduct').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Defective').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#other_MissingProduct').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Driver').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#DidntFollowDelIns').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#WrongArea').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Impolite_Offensive').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#VConfirmationCalls').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#VPaymentCalles').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#SAJamesPhonePromts').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#SAJamesSelfService').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#VirtualCallBack').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Website').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#HoldTimes').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#NoFollowUp').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#ReturnedFromVM').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#NoFollowUpWithMem').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#NeverRecivedSupplies').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+
+    $('#CivilRights').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+
+    $('#PhysicianIssue').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#InsLimitGuidelines').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#BCNProviderIssue').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+    $('#Other').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+</script>
+@*<script>
+ 
+    $('#Damaged').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#FedExTextArea').removeAttr("disabled");
+        } else {
+            $('#FedExTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Driver').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#FedExTextArea').removeAttr("disabled");
+        } else {
+            $('#FedExTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#WrongProductShipped').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#FedExTextArea').removeAttr("disabled");
+        } else {
+            $('#FedExTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#QualityOfProduct').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#FedExTextArea').removeAttr("disabled");
+        } else {
+            $('#FedExTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#WrongArea').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#FedExTextArea').removeAttr("disabled");
+        } else {
+            $('#FedExTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#other_MissingProduct').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#FedExTextArea').removeAttr("disabled");
+        } else {
+            $('#FedExTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Incorrect').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ProductTextArea').removeAttr("disabled");
+        } else {
+            $('#ProductTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Mispick').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ProductTextArea').removeAttr("disabled");
+        } else {
+            $('#ProductTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Defective').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ProductTextArea').removeAttr("disabled");
+        } else {
+            $('#ProductTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Impolite_Offensive').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#CustomerServiceTextArea').removeAttr("disabled");
+        } else {
+            $('#CustomerServiceTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#HoldTimes').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#CustomerServiceTextArea').removeAttr("disabled");
+        } else {
+            $('#CustomerServiceTextArea').attr("disabled", "disabled")
+        }
+    });
+</script>*@

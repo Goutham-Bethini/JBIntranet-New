@@ -1,0 +1,185 @@
+﻿@model USPS_Report.Areas.Reports.Models.ReturnItems.ReturnItemsInfoVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "ReturnInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("CreateReturn", "ReturnItems", FormMethod.Post))
+{
+    <table align="center" style="border:1px black solid;">  
+        <tr>
+            <td colspan="2">
+                @Html.HiddenFor(m => m.Account)
+                @Html.HiddenFor(m => m.WorkOrder_ID)
+                @Html.HiddenFor(m => m.Return_ID)
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                @Html.RadioButtonFor(m => m.Tag_Type, "RedTag")<label>Red Tag</label>
+                @Html.RadioButtonFor(m => m.Tag_Type, "CallTag")<label>Call Tag</label>                
+            </td>
+        </tr>
+        <tr>
+            <td>Oracle RMA #:</td>
+            <td>
+                @Html.TextBoxFor(m => m.OracleRMA)
+            </td>
+        </tr>
+        <tr>
+            <td>Notes about return:</td>
+            <td>
+                @Html.TextAreaFor(m => m.Return_Note)
+            </td>
+        </tr>
+        <tr>
+            <td>Reason Returned:</td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(m => m.Reason__List_Option_ID, Model.ReturnReasonList, "--Select Option--")
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.ValidationMessageFor(t => t.Reason__List_Option_ID, "", new { @class = "redText" })
+                        </td>
+                    </tr>
+                </table>              
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                @*@Html.TextBoxFor(m => m.Return_Other_Reason, new { @style = "text-align:left;" })*@
+                Other Reason: @Html.TextBoxFor(m => m.Return_Other_Reason)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @if (Model != null && Model.WorkOrderItems != null)
+                {
+                    <table id="tblReturnInfo">
+                        <tr>
+                            <th></th>
+                            <th>Product Code</th>
+                            <th>Product Description</th>
+                            <th>Qty Shipped</th>
+                            <th>Qty Returned</th>
+                        </tr>
+                        @for (int i = 0; i < Model.WorkOrderItems.Count(); i++)
+                        {
+                            <tr>
+                                <td> @Html.CheckBoxFor(m => m.WorkOrderItems[i].Need, new { @class = "ChBox", id = "chb" + i })</td>
+                                <td> @Html.DisplayFor(m => m.WorkOrderItems[i].ProductCode) </td>
+                                <td> @Html.DisplayFor(m => m.WorkOrderItems[i].ProductDescription) </td>
+                                <td> @Html.DisplayFor(m => m.WorkOrderItems[i].QtyShipped) </td>
+                                <td>
+                                    @*@Html.TextBoxFor(m => m.WorkOrderItems[i].perQty, new { @class = "quantity", id = "pq" + i, hidden = "true", style = "width:60px;" })
+                                        @Html.TextBoxFor(m => m.WorkOrderItems[i].Multiplier, new { @class = "quantity", id = "mul" + i, hidden = "true", style = "width:60px;" })*@
+                                    @Html.TextBoxFor(m => m.WorkOrderItems[i].QtyReturned, new { @class = "quantityReturned", id = "qy" + i, style = "width:60px;" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.HiddenFor(m => m.WorkOrderItems[i].Account)
+                                    @Html.HiddenFor(m => m.WorkOrderItems[i].WorkOrder_ID)
+                                    @Html.HiddenFor(m => m.WorkOrderItems[i].WorkOrder_Line)
+                                    @Html.HiddenFor(m => m.WorkOrderItems[i].QtyShipped)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>Date Returned:</td>
+            <td>
+                @Html.TextBoxFor(m => m.Date_Returned)
+            </td>
+        </tr>
+        <tr>
+            <td># of Boxes Returned:</td>
+            <td>
+                @Html.TextBoxFor(m => m.Boxes_Returned)
+            </td>
+        </tr>
+        <tr>
+            <td>Reshipped?</td>
+            <td>
+                @Html.RadioButtonFor(m => m.Reshipped, "Yes")<label>Yes</label>
+                @Html.RadioButtonFor(m => m.Reshipped, "No")<label>No</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Tracking Number(s):
+                <br />
+                (used for call tags only)
+            </td>
+            <td>
+                @Html.TextAreaFor(m => m.Tracking_Number)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="left">
+                <br />
+                @Html.CheckBoxFor(m => m.Send_To_Billing)<label>Check here to complete warehouse return process</label>
+                <br />
+                @Html.CheckBoxFor(m => m.Dont_Display)<label>Check here to delete this return</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <table>
+                    <tr>
+                        <td>
+                            @Html.ActionLink("Cancel", "ReturnItemsData", "ReturnItems", null, new { @class = "btn btn-primary btn-large" })
+                            @*<a class="btn btn-primary btn-large" href="javascript:void(0);" onclick="history.go(-1);">Cancel</a>*@
+                        </td>
+                        <td width="5px"></td>
+                        <td>
+                            <a class="btn btn-primary btn-large" href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+                        </td>
+                        <td width="5px"></td>
+                        <td>
+                            <button class="btn btn-primary btn-large" id="btnSubmit" type="submit">Next</button>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    @*<span  class="error">You must select at least 1 item to be returned.</span>*@
+}
+
+<style>
+    .redText {
+        color: Red;
+    }
+    .input-validation-error {
+        border: 1px solid #ff0000;
+        background-color: #ffeeee;
+    }
+    /*.error {
+        color: red;
+        display: none;
+    }*/
+</style>
+<script>
+    $(function () {
+        $("#btnSubmit").click(function () {
+            var checked_checkboxes = $("#tblReturnInfo input[type=checkbox]:checked");
+            if (checked_checkboxes.length == 0) {
+                alert("You must select at least 1 item to be returned.");
+                //$(".error").show();
+                return false;
+            }
+            return true;
+        });
+    });
+</script>

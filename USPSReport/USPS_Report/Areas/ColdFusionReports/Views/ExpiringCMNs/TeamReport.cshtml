@@ -1,0 +1,69 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.ExpiringCMNs.ExpiringCMNsVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "TeamReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="middle" style="text-align:center;">Expiring CMNs</h3>
+<center>
+    <table>
+        <tr>
+            @if (Model != null && Model.Reports != null && Model.Reports.Count > 0)
+            {
+                foreach (var rec in Model.Reports)
+                {
+
+                    <td align="center" style="text-decoration:underline;">@Html.ActionLink(@rec.ReportName.Trim(), "TeamReport", "ExpiringCMNs", new { team = @rec.ReportName.Trim(), year = Convert.ToInt32(DateTime.Now.ToString("yyyy")) }, null)</td>
+                    <td>|</td>
+                }
+
+            }
+            <td style="text-decoration:underline;">@Html.ActionLink("Alpha Split", "AlphaSplit", "AlphaSplit", null, null) </td>
+            <td>|</td>
+            <td style="text-decoration:underline;">@Html.ActionLink("Special Doctors", "SpecialDoctors", "SpecialDoctors", null, null) </td>
+            <td>|</td>
+            <td style="text-decoration:underline;">@Html.ActionLink("Report Rules", "Rules", "Rules", null, null) </td>
+        </tr>   
+    </table>
+</center>
+<h4 class="middle" style="text-align:center;">@Model.ReportName Team</h4>
+<center>
+    <div>
+        <table width="40%">
+            <tr>
+                <td style="text-align:left;text-decoration:underline; color:blue;font-size:small;">@Html.ActionLink("Previous Year", "TeamReport", "ExpiringCMNs", new { team = @Model.ReportName, year = @Model.PreviousYear }, null)</td>
+                <td style="text-align:right;text-decoration:underline; color:blue;font-size:small;">@Html.ActionLink("Next Year", "TeamReport", "ExpiringCMNs", new { team = @Model.ReportName, year = @Model.NextYear }, null)</td>
+            </tr>
+        </table>
+    </div>
+</center>
+@if (Model != null && Model.Details != null)
+{
+    <center>
+        <div class="table-responsive middle" style="width:40%;">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th style="text-align:center;">Month</th>
+                        <th style="text-align:center;">Expiring</th>
+                        <th style="text-align:center;">Recertified</th>
+                        <th style="text-align:center;">Not Recertified</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rec in Model.Details)
+                    {
+                        <tr>
+                            <td style="text-align:center;text-decoration:underline;">@Html.ActionLink(@rec.Month, "ExpiringCMNs_Report", "ExpiringCMNs", new { team = @Model.ReportName, month = @rec.Month }, null) </td>
+                            <td style="text-align:center;text-decoration:underline;">@Html.ActionLink(@rec.Expiring.ToString(), "ExpiringCMNs_Report", "ExpiringCMNs", new { team = @Model.ReportName, month = @rec.Month }, null) </td>
+                            <td style="text-align:center;text-decoration:underline;">@Html.ActionLink(@rec.Recertified.ToString(), "ExpiringCMNs_Report", "ExpiringCMNs", new { team = @Model.ReportName, month = @rec.Month, recert = "yes" }, null) </td>
+                            <td style="text-align:center;text-decoration:underline;">@Html.ActionLink(@rec.NotRecertified.ToString(), "ExpiringCMNs_Report", "ExpiringCMNs", new { team = @Model.ReportName, month = @rec.Month, recert = "no" }, null) </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </center>
+}
+

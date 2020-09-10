@@ -1,0 +1,191 @@
+﻿@model USPS_Report.Areas.Reports.Models.ProductVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "ProductForcast";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+        <div id="signupbox" class="container" style="padding:0px;">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-user"></i> Product Forcast
+
+                    </div>
+                </div>
+                
+                        @using (Html.BeginForm("ProductForcast", "WoReports", FormMethod.Post))
+                        {
+
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <label>Enter either a Product Code and Date Range, Vendor and Date Range, or just a Date Range!</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <strong>Product Code</strong> 
+
+                                @Html.TextBoxFor(m => m.productCode, new { @class = "form-control" })
+                            </div>
+                            </div>
+                            <hr />
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                              <strong>Vendor Name</strong>
+
+                                @Html.DropDownListFor(m => m.vendorid, Model.VendorList, "select", new { @style = "width:200px;" })
+
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-3">
+                            <strong> Start Date</strong>  
+
+
+                                @Html.Kendo().DatePicker().Name("StartDate").Value(Model.StartDate).Format("MM/dd/yyyy")
+                            </div>
+                            <div class="col-md-3">
+                               
+                                <strong>End Date</strong> 
+
+                                @Html.Kendo().DatePicker().Name("EndDate").Value(Model.EndDate).Format("MM/dd/yyyy")
+                            </div>
+
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary btn-large" type="submit" style="width: 300px; margin: 0 auto">View</button>
+                            </div>
+                        </div>
+
+                        }
+
+
+                    </div>
+
+</div>
+              
+
+
+
+                    <hr />
+                    <div class="middle">
+                        @if (Model != null && Model.StartDate != null && Model.EndDate != null && Model.productData != null && (Model.vendorid <= 0 || Model.vendorid == null) && (Model.productCode == null || Model.productCode ==""))
+                        {
+                            <div class="table-responsive">
+                                <table data-sortable class="table table-hover table-striped" style="width:1500px">
+                                    <thead>
+                                        <tr>
+                                            <th>ProductCode</th>
+                                            <th>ProductDescription</th>
+                                            <th>Quantity</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var rec in Model.productData)
+                                        {
+                                            <tr>
+                                                <td>@rec.Productcode</td>
+                                                <td>@rec.ProductDescription</td>
+                                                <td>@rec.ROQty</td>
+
+
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        }
+                        @if (Model != null && Model.vendorid > 0 && Model.productData != null && Model.StartDate != null && Model.EndDate != null && Model.productCode != null && Model.productCode != "")
+                        {
+                            <div class="table-responsive">
+                                <table data-sortable class="table table-hover table-striped" style="width:1500px">
+                                    <thead>
+                                        <tr>
+                                            <th>ProductCode</th>
+                                            <th>ProductDescription</th>
+                                            <th>Quantity</th>
+                                            <th>Product On Hand</th>
+                                            <th>Difference</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var rec in Model.productData)
+                                        {
+                                            <tr>
+                                                <td>@rec.Productcode</td>
+                                                <td>@rec.ProductDescription</td>
+                                                <td>@rec.ROQty</td>
+                                                <td>@rec.ProdonHand</td>
+                                                <td>@rec.Difference</td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        }
+
+
+                        @if (Model != null && Model.vendorid > 0 && Model.productData != null && Model.StartDate != null && Model.EndDate != null && (Model.productCode == null || Model.productCode == ""))
+                        {
+                            <div class="table-responsive">
+                                <table data-sortable class="table table-hover table-striped" style="width:1500px">
+                                    <thead>
+                                        <tr>
+                                            <th>ProductCode</th>
+                                            <th>ProductDescription</th>
+                                            <th>Quantity</th>
+                                            <th>VendorName</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var rec in Model.productData)
+                                        {
+                                            <tr>
+                                                <td>@rec.Productcode</td>
+                                                <td>@rec.ProductDescription</td>
+                                                <td>@rec.ROQty</td>
+                                                <td>@rec.vendorName</td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        }
+
+                    </div>
+
+<style>
+    .middle {
+        margin: auto;
+        width: 1500px;
+    }
+
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+</style>
+

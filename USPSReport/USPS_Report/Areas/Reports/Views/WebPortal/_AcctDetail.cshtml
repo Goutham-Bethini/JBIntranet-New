@@ -1,0 +1,88 @@
+﻿@model USPS_Report.Areas.Reports.Models.WebAcctCreatorVm
+@using Kendo.Mvc.UI
+
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2"> <label>Account Number:</label> </div>
+    <div class=" col-md-5"> @Html.DisplayFor(m => m.details.Account2)</div>
+</div>
+
+<div class="row">
+    <div class=" col-md-5"></div>
+    <div class="col-md-2"><label> Customer Name:  </label></div>
+    <div class="col-md-5">@Html.DisplayFor(m => m.details.firstName)</div>
+
+</div>
+@if (Model.details.Account2 != null && Model.details.Account2 != 0)
+{
+    <div class="row">
+        <div class=" col-md-5"></div>
+        <div class="col-md-2"><label>Address: </label></div>
+        <div class="col-md-5">
+            @Html.DisplayFor(m => m.details.address1),
+            @Html.DisplayFor(m => m.details.address2),
+
+
+            @Html.DisplayFor(m => m.details.city),
+            @Html.DisplayFor(m => m.details.state),
+            @Html.DisplayFor(m => m.details.zipcode)
+
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-5"></div>
+        <div class="col-md-2"><label> Date of Birth  </label></div>
+        <div class="col-md-5">@Html.DisplayFor(m => m.details.DOB)</div>
+
+    </div>
+
+    <div class="row">
+        <div class=" col-md-5"></div>
+        <div class="col-md-2"><label> Phone:  </label></div>
+        <div class="col-md-5">@Html.DisplayFor(m => m.details.phone)</div>
+
+    </div>
+
+    <div class="row">
+        <div class=" col-md-5"></div>
+        <div class="col-md-2"><label> Email:  </label></div>
+        <div class="col-md-5">@Html.DisplayFor(m => m.details.Email)</div>
+
+    </div>
+
+    <br />
+    <div class="row">
+        @*<h4 class="text-center"><strong> Is this the correct customer?</strong></h4>*@
+        <h3 class="text-center"><strong> Do you want to create a web portal account?</strong></h3>
+    </div>
+}
+
+
+
+
+<script>
+
+    $('#Relation').click(function () {
+        var $this = $(this);
+
+        if ($this.val()=='Other') {
+            $('#otherRelname').removeAttr("disabled");
+        } else {
+            $('#otherRelname').attr("disabled", "disabled")
+        }
+        });
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+

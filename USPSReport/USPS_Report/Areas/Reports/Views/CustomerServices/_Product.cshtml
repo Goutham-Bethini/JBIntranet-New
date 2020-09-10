@@ -1,0 +1,63 @@
+﻿@model USPS_Report.Areas.Reports.Models.CSRComplaintVM
+
+<br />
+
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.ProductIncorrect) <label> Incorrect </label></div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.ProductMispick) <label> Mispick </label></div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.ProductDefective) <label> Defective </label></div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.TextAreaFor(m => m.ProductTextArea, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+</div>
+
+<script>
+    $('#ProductMispick').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ProductTextArea').removeAttr("disabled");
+        } else {
+            $('#ProductTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#ProductDefective').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ProductTextArea').removeAttr("disabled");
+        } else {
+            $('#ProductTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#ProductIncorrect').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ProductTextArea').removeAttr("disabled");
+        } else {
+            $('#ProductTextArea').attr("disabled", "disabled")
+        }
+    });
+
+</script>

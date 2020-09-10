@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "Documentation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3 class="middle" style="text-align:center;">CMN Documentation</h3>
+
+<center>
+    <table>
+        <tr>
+            <td style="text-decoration:underline;">@Html.ActionLink("Reports", "ExpiringCMNs", "ExpiringCMNs", null, null) </td>
+            <td>|</td>
+            <td style="text-decoration:underline;">@Html.ActionLink("Special Doctors", "SpecialDoctors", "SpecialDoctors", null, null) </td>
+            <td>|</td>
+            <td style="text-decoration:underline;">@Html.ActionLink("Rules", "Rules", "Rules", null, null) </td>
+        </tr>
+    </table>
+    <h4><strong>If you have questions that are not answered here, please contact the <a href='MailTo:it@jandbmedical.com?subject=CMN Rules Question' style="text-decoration:underline;">IT Department</a>.</strong></h4>
+    <table width=75% cellpadding=0 cellspacing=0 style="border: 1px solid black;" >
+        <tr>
+            <th colspan=2 style="text-align:center;border: 1px solid black;background:rgb(153, 153, 204);">CMN Rules</th>
+        </tr>
+        <tr>
+            <td  colspan=2>
+                <font style="background-color:#FFFF66">The purpose of CMN rules is to determine which accounts should appear on reports for each team.</font>  Different rules can be set for each team.  Having accounts show on one report does not necessarily restrict them from appearing on another team's report as well - if rules are not set up correctly, they could be seen by multiple teams or no team at all.
+            </td>
+        </tr>
+        <tr>
+            <td  colspan=2>
+                <br /><font style="background-color:#FFFF66">CMN rules can affect eligibility and which orders hold.</font>  If a particular payer is not included on ANY team's report, that payer will never hold for CMN when going through eligibility.  Payer is the only rule type that affects eligibility.
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2>
+                <br />Without any rules, every single account would appear on each team's report.  Using rules, we can narrow down the information on each report so it is customized to the team using it.  There are five different types of rules: Payer, PayerType, DocType, Provider, and StatusCode - and each of these five rules can be made either Inclusive or Exclusive.<br />
+            </td>
+        </tr>
+        <tr>
+            <td width=30>&nbsp;</td>
+            <td >
+                <u>Payer:</u><br />
+                The Payer rule identifies a specific payer to either include or exclude from a report.  It is ID specific - meaning if there's one payer that has multple entries in POS/HDMS, it will need to be added into the rules multiple times - once for each payer id.  The payer drop down lists on the rules page contain all active payers that are not 'Do Not Bill' payers.
+            </td>
+        </tr>
+        <tr>
+            <td width=30>&nbsp;</td>
+            <td>
+                <br /><u>Payer Type:</u><br />
+                The PayerType rule identifies groups of payers to include or exclude from a report.  Payer types are set up in HDMS.  You can view which type a payer is by viewing the payer table in HDMS.  If you need to view this information and do not have rights, please get this information from IT or Billing.  The payer type drop down lists on the rules page contain all payer types.
+            </td>
+        </tr>
+        <tr>
+            <td width=30>&nbsp;</td>
+            <td>
+                <br /><u>Doc Type:</u><br />
+                The DocType rule identifies specific CMN Doc Types to include or exclude from a report.  Doc types are defined in POS.  The doc type drop down lists on the rules page contain all doc types.
+            </td>
+        </tr>
+        <tr>
+            <td width=30>&nbsp;</td>
+            <td>
+                <br /><u>Provider:</u><br />
+                The Provider rule identifies specific providers to include or exclude from a report.  Providers are defined in HDMS.  Each account is assigned a  default provider when set up.  It is this default provider that is looked at to determine which reports an account should be on.  The provider drop down lists on the rules page contain all active providers.
+            </td>
+        </tr>
+        <tr>
+            <td width=30>&nbsp;</td>
+            <td>
+                <br /><u>Status Code:</u><br />
+                The Status code rule identifies specific status codes to include or exclude from a report.  Status codes are defined in HDMS.  Each account can have up to 12 status codes defined in demographics.  CMN rules looks at any/all of these fields to determine which reports an account should be on.  The status codes drop down lists on the rules page contain all active account status codes.
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2>
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td width=30>&nbsp;</td>
+            <td>
+                <u>Exclude:</u><br />
+                An exclusive rule means that all data will be returned EXCEPT for data matching the rule.  For example, if there is a rule excluding the PayerType of 'HMO', then the report would include ALL PayerTypes, except HMO.
+            </td>
+        </tr>
+        <tr>
+            <td width=30>&nbsp;</td>
+            <td>
+                <br /><u>Include:</u><br />
+                An inclusive rule means that ONLY data that matches the rule will be returned.  For example, if there is a rule including the PayerType of 'HMO', then the report would include ONLY accounts with HMO payers.
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2>
+                <br /><br />
+                <u>Using multiple rules together</u> can be tricky.  It is important to remember that all rules will be applied to each account that is considered.  Each rule works to cut down on the number of accounts listed - a rule will NEVER add more accounts - adding an Inclusive rule means that all accounts shown must include that particular criteria.  The only exception to this is when multiple values are added for the same rule type.  When there is more than one rule of the same type, the account needs to only meet the criteria of one of the rules. Example:<br /><br />
+            </td>
+        </tr>
+        <tr>
+            <td width=30>&nbsp;</td>
+            <td>
+                Payer - Michigan Mediciad - Include<br />
+                Payer - Medicare Part A - Include<br />
+                PayerType - HMO - Exclude<br /><br />
+                These three rules used together would return Expiring CMNS for all accounts that: Have either Michigan Medicaid OR Medicare Part A listed as an active payer in the insurance screen AND do not have an HMO payer as an active payer in the insurance screen.
+            </td>
+        </tr>
+    </table>
+</center>

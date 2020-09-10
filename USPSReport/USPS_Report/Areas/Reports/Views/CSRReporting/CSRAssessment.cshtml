@@ -1,0 +1,74 @@
+﻿@model USPS_Report.Areas.Reports.Models.CSRAssessmentVM
+
+@{
+    ViewBag.Title = "CSRAssessment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="middle">
+    <h1>Customer Service Assessment Tracking</h1>
+</div>
+<br />
+
+
+
+@if (Model != null && Model.csrAssessment != null)
+{
+    <div class="row">
+     
+        <div>
+            <div class=" row middle">
+                <h3 style="color:blue">
+                    Total Count =  @Model.csrAssessment.Count()
+                </h3>
+            </div>
+            <hr />
+
+
+            <div class="table-responsive middle">
+                <table data-sortable class="table table-hover table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Account</th>
+                            <th>Assessment Date</th>
+                            <th>Created By</th>
+                            <th>Creat date</th>
+                           
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rec in Model.csrAssessment)
+                {
+                            <tr>
+                                <td>@rec.Account</td>
+                                <td>@rec.AssessmentDate</td>
+                                <td>@rec.ID_CreateBy</td>
+                                <td>@rec.CreateDate</td>
+                            
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+}
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+</style>
+
+
+
+

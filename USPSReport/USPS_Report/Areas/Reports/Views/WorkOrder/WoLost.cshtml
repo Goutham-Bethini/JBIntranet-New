@@ -1,0 +1,80 @@
+﻿@model IEnumerable<USPS_Report.Areas.Reports.Models.WOLost>
+
+@{
+    ViewBag.Title = "WoLost";
+    Layout = "~/Areas/Reports/Views/Shared/_ReportLayout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Account)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkOrderID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Request_Date.Value.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastPrintDate.Value.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NextPrintDate.Value.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusComments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OracleStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShippedInOracle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrackingNoFounnd)
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Account)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkOrderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Request_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastPrintDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NextPrintDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusComments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OracleStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippedInOracle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackingNoFounnd)
+            </td>
+
+        </tr>
+    }
+
+</table>

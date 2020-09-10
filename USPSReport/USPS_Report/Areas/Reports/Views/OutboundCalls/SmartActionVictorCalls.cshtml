@@ -1,0 +1,92 @@
+﻿@model USPS_Report.Areas.Reports.Models.SAVictorCalls
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "SmartAction Victor Calls";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+
+<style>
+    .word-wrap {
+        word-break: break-all;
+    }
+
+    .no-wrap {
+        white-space: nowrap;
+    }
+</style>
+
+<div class="middle">
+    @using (Html.BeginForm("SmartActionVictorCalls", "OutboundCalls", FormMethod.Post))
+    {
+        @*<div class="form-inline">
+                <label>Start Date </label>
+
+
+                @Html.Kendo().DatePicker().Name("StartDate").Value(Model.StartDate).Format("MM/dd/yyyy")
+                <label>End Date</label>
+                @Html.Kendo().DatePicker().Name("EndDate").Value(Model.EndDate).Format("MM/dd/yyyy")
+                <button class="btn btn-primary btn-large" type="submit">View</button>
+            </div>*@
+
+    }
+</div>
+
+<hr />
+<h3 class="middle">Total records are: @Model.victorCalls.Count()</h3>
+<hr />
+@if (Model != null && Model.victorCalls != null)
+{
+    <div class="container-fluid">
+
+        <div class="table-responsive" style="margin:10px">
+            @*<h3>Total count : @Html.DisplayName(Model.GetAssessmentCountReport.Count().ToString()) </h3>*@
+            <table data-sortable class="table table-hover table-striped" style="border:solid;">
+                <thead>
+                    <tr>
+                        <th style="border:solid; border-width:1px;" class="col-xs-1">Account</th>
+                        <th style="border:solid; border-width:1px;" class="col-xs-1">OrderDate</th>
+                        <th style="border:solid; border-width:1px;" class="col-xs-1">Date Confirmed</th>
+                        <th style="border:solid; border-width:1px;" class="col-xs-1">Work Order</th>
+                        <th style="border:solid; border-width:1px;" class="col-xs-1">Request Date</th>
+                        <th style="border:solid; border-width:1px;" class="col-xs-2">Hold Reason</th>
+                        <th style="border:solid; border-width:1px;" class="col-xs-2">Provide CreditCard Info</th>
+                        <th style="border:solid; border-width:1px;" class="col-xs-2">Primary Payer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rec in Model.victorCalls)
+                    {
+                    <tr>
+                        <td style="border:solid;  border-width:1px; ">@rec.AccountNumber </td>
+                        <td style="border:solid;  border-width:1px; ">@rec.OrderDate.ToString("MM/dd/yyyy") </td>
+                        <td style="border:solid;  border-width:1px;  ">@rec.DateConfirmed.ToString("MM/dd/yyyy") </td>
+                        <td style="border:solid;  border-width:1px;  ">@rec.WorkOrder </td>
+                        <td style="border:solid;  border-width:1px; ">@rec.Request_Date.ToString("MM/dd/yyyy") </td>
+                        <td style="border:solid;  border-width:1px;" class="word-wrap">@rec.HoldFromShippingReason </td>
+                        <td style="border:solid;  border-width:1px;" class="word-wrap">@rec.ProvidedCreditCard </td>
+                        <td style="border:solid;  border-width:1px;" class="word-wrap">@rec.PayerName </td>
+
+                    </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+}
+
+
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+</style>
+
+

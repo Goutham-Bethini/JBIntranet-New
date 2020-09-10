@@ -1,0 +1,161 @@
+﻿@model USPS_Report.Areas.Reports.Models.CallLogVM
+@using Kendo.Mvc.UI
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><label> Member Name  </label></div>
+        <div class="col-md-2">@Html.DisplayFor(m => m.details.firstName)</div> 
+
+      </div>
+@if (Model.details.Account2 != null && Model.details.Account2 != 0)
+{
+<div class="row">
+    <div class=" col-md-1"></div>
+    <div class="col-md-2"><label></label></div>
+    <div class="col-md-2">
+        @Html.DisplayFor(m => m.details.address1),
+        @Html.DisplayFor(m => m.details.address2)
+        <br />
+
+        @Html.DisplayFor(m => m.details.city),
+        @Html.DisplayFor(m => m.details.state),
+        @Html.DisplayFor(m => m.details.zipcode)
+        <br />
+        @Html.DisplayFor(m => m.details.phone)
+        <br />
+        @Html.DisplayFor(m => m.details.DOB)
+
+
+
+    </div>
+    </div>
+
+   
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2"><label> Verified PHI  </label></div>
+        <div class="col-md-1">
+            @Html.CheckBoxFor(m => m.VerifiedPHI)
+        </div>
+    </div>
+
+   
+}
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2"><label> Voices For Health  </label></div>
+    <div class="col-md-1">
+        @Html.CheckBoxFor(m => m.VoicesForHealth)
+    </div>
+</div>
+   @*new { data_val = "true", data_val_required = "Name is required" }*@
+<div class="outer">
+    <p>Log Type</p>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.Call) <label> Call </label></div>
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.Task) <label> Task </label></div>
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.Email) <label> E-mail </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.Fax) <label> Fax </label></div>
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.Web) <label> Web </label></div>
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.LogTypeOther) <label> Other </label></div>
+</div>
+    <hr />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <label>Caller Information</label>
+        </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><label> Name </label></div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.Name )
+            </div>
+        </div>
+
+<br />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><label> Relation  </label></div>
+        <div class="col-md-2">
+            @Html.DropDownListFor(t => t.Relation, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Member" , Value = "Member"},
+                    new SelectListItem { Text = "Caregiver" , Value = "Caregiver"},
+                    new SelectListItem { Text = "Guardian" , Value = "Guardian"},
+                    new SelectListItem { Text = "Parent" , Value = "Parent"},
+                     new SelectListItem { Text = "Provider" , Value = "Provider"},
+                      new SelectListItem { Text = "CaseWorker" , Value = "CaseWorker"},
+                        new SelectListItem { Text = "Other" , Value = "Other"},
+
+
+               }, "Select Relation")
+        </div>
+    </div>
+  
+   @*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">Other</div>
+    <div class="col-md-1">
+        @Html.CheckBoxFor(m => m.otherRelations)
+
+    </div>
+</div>*@
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.otherRelname, new { disabled = "disabled" })
+    </div>
+</div>
+
+
+    @*<script>
+
+        $('#otherRelations').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#otherRelname').removeAttr("disabled");
+        } else {
+            $('#otherRelname').attr("disabled", "disabled")
+        }
+        });
+
+
+     
+    </script>*@
+
+<script>
+
+    $('#Relation').click(function () {
+        var $this = $(this);
+
+        if ($this.val()=='Other') {
+            $('#otherRelname').removeAttr("disabled");
+        } else {
+            $('#otherRelname').attr("disabled", "disabled")
+        }
+        });
+
+
+
+</script>
+
+
+
+  
+
+
+

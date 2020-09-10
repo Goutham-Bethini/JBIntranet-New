@@ -1,0 +1,95 @@
+﻿@model USPS_Report.Areas.Reports.Models.AOBReportModel
+@using Kendo.Mvc.UI
+
+@{
+    ViewBag.Title = "AOBReporting Tool";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="middle">
+    @using (Html.BeginForm("AOBReport", "CSRReporting", FormMethod.Post))
+    {
+        <div><br /><h3><u>AOB Inbound Details</u></h3><br /></div>
+        <div class="form-inline">
+            <label>StartDate </label>
+
+
+            @Html.Kendo().DatePicker().Name("StartDate").Value(Model.EndDate).Format("MM/dd/yyyy")
+
+            <label>EndDate </label>
+
+
+            @Html.Kendo().DatePicker().Name("EndDate").Value(Model.EndDate).Format("MM/dd/yyyy")
+
+            <button class="btn btn-primary btn-large" type="submit">View</button>
+        </div>
+
+    }
+</div>
+
+<hr />
+ 
+    @if (Model != null && Model.AOBDetailList != null)
+    {
+
+        <div class="table-responsive middle">
+            @*<h3>Total numbers of calls are : @Html.DisplayName(Model.callPerPeroson.Sum(t => t.Count).ToString()) </h3>*@
+            <table data-sortable class="table table-hover table-striped" style="border:groove;width:300px">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>FirstName </th>
+                        <th>LastName </th>
+                        <th>isDocSubmitted  </th>
+                        <th>DocSubmittedMethod </th>
+                        <th>ResendMethod  </th>
+                        <th>ResendEmailAddress </th>
+                        <th>ResendFaxNumber  </th>
+                        <th> IsMailingCorrect  </th>
+                        <th> UseMailingAsPermBillingAddr  </th>
+                        <th> MailingAddress  </th>
+                        <th> CallTime  </th>
+                        <th> AOBSubmitDate   </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rec in Model.AOBDetailList)
+                {
+                        <tr>
+                            <td>@rec.Account </td>
+                            <td>@rec.FirstName  </td>
+                            <td>@rec.LastName  </td>
+                            <td>@rec.isDocSubmitted   </td>
+                            <td>@rec.DocSubmittedMethod  </td>
+                            <td>@rec.ResendMethod  </td>
+                            <td>@rec.ResendEmailAddress   </td>
+                            <td>@rec.ResendFaxNumber   </td>
+                            <td> @rec.IsMailingCorrect  </td>
+                            <td> @rec.UseMailingAsPermBillingAddr   </td>
+                            <td> @rec.MailingAddress   </td>
+                            <td> @rec.CallTime  </td>
+                            <th> @rec.AOBSubmitDate   </th>
+
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+ 
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 95% ;
+        text-align:center;
+
+    }
+    
+</style>

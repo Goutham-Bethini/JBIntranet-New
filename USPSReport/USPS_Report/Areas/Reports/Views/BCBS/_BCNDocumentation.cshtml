@@ -1,0 +1,213 @@
+﻿@model USPS_Report.Areas.Reports.Controllers.BCNCallLogVM
+
+
+<br />
+@*<div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
+
+        <div class="col-md-2">
+            @Html.DropDownListFor(t => t.Documentation, new List<SelectListItem>
+
+                   {
+                        new SelectListItem { Text = "AOB" , Value = "AOB"},
+                        new SelectListItem { Text = "Prescription" , Value = "Prescription"},
+                         new SelectListItem { Text = "CMN" , Value = "CMN"},
+                        new SelectListItem { Text = "Prior Authorization" , Value = "PriorAuthorization"},
+                         new SelectListItem { Text = "Supporting Documentation" , Value = "SupportingDoc"},
+                        new SelectListItem { Text = "Teacher Letter" , Value = "TeacherLetter"},
+                         new SelectListItem { Text = "Logs" , Value = "Logs"},
+                          new SelectListItem { Text = "ABN" , Value = "ABN"},
+
+
+                   }, "Select Option")
+        </div>
+
+    </div>*@
+
+
+<div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">@Html.CheckBoxFor(m => m.AOB) <label>AOB Sent</label> &nbsp;&nbsp;&nbsp;&nbsp; <strong>  <a href="http://10.10.1.49/JBIntranet/Reports/Generator" target="_blank">Click here for Letter Generator</a>  </strong></div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"> @Html.CheckBoxFor(m => m.Prescription) <label>Prescription request sent</label>  </div>
+
+    </div>
+
+   
+
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.PriorAuthorization)<label> Prior Authorization</label> </div>
+
+    </div>
+
+    @*<div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.SupportingDoc) <label>Supporting Documentation</label>  </div>
+
+    </div>*@
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.AOBReceived) <label>AOB Received</label>  </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.RXReceived) <label>RX Received</label>  </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.PASent) <label>PA Sent</label>  </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.PAReceived) <label>PA Received</label>  </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.ClinicalDocsReq) <label>Clinical Documentation Requested</label>  </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.ClinicalDocsReceived) <label>Clinical Documentation Received</label>  </div>
+
+    </div>
+
+
+    
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.TextAreaFor(m => m.DocumentationTxt, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+    </div>
+
+</div>
+
+<script>
+    $('#AOB').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#DocumentationTxt').removeAttr("disabled");
+        } else {
+            $('#DocumentationTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Prescription').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#DocumentationTxt').removeAttr("disabled");
+        } else {
+            $('#DocumentationTxt').attr("disabled", "disabled")
+        }
+    });
+
+    
+
+    $('#PriorAuthorization').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#DocumentationTxt').removeAttr("disabled");
+        } else {
+            $('#DocumentationTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#SupportingDoc').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#DocumentationTxt').removeAttr("disabled");
+        } else {
+            $('#DocumentationTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#AOBReceived').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#DocumentationTxt').removeAttr("disabled");
+        } else {
+            $('#DocumentationTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#RXReceived').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#DocumentationTxt').removeAttr("disabled");
+        } else {
+            $('#DocumentationTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#PASent').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#DocumentationTxt').removeAttr("disabled");
+        } else {
+            $('#DocumentationTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#PAReceived').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#DocumentationTxt').removeAttr("disabled");
+        } else {
+            $('#DocumentationTxt').attr("disabled", "disabled")
+        }
+    });
+
+
+    $('#ClinicalDocsReq').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#DocumentationTxt').removeAttr("disabled");
+        } else {
+            $('#DocumentationTxt').attr("disabled", "disabled")
+        }
+    });
+
+    
+    $('#ClinicalDocsReceived').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#DocumentationTxt').removeAttr("disabled");
+        } else {
+            $('#DocumentationTxt').attr("disabled", "disabled")
+        }
+    });
+    
+
+    
+</script>

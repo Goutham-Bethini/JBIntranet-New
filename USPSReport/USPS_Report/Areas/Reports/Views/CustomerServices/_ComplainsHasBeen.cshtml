@@ -1,0 +1,52 @@
+﻿@model USPS_Report.Areas.Reports.Models.CSRComplaintVM
+
+<br />
+
+
+
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-7">
+        @Html.DropDownListFor(t => t.ComplaintHasBeen, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Pending Resolution–supervisor" , Value = "Pending Resolution–supervisor"},
+                    new SelectListItem { Text = "Pending Resolution–Management" , Value = "Pending Resolution–Management"},
+                     new SelectListItem { Text = "Pending Resolution–Other" , Value = "Pending Resolution–Other"},
+                      new SelectListItem { Text = "Resolved within 24 hours" , Value = "Resolved within 24 hours"},
+                       new SelectListItem { Text = "Unable to resolve within 24 hours–Resolved" , Value = "Unable to resolve within 24 hours–Resolved"},
+
+               }, "Please select one Option", new { id = "ComplaintHasBeen" })
+    </div>
+
+    @*<div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-2">@Html.CheckBoxFor(m => m.HandledConcerns) <label> Handled Concerns </label></div>
+
+        </div>*@
+
+
+
+
+</div>
+<br />
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.Resolved) <label> Resolved </label></div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.NotResolved) <label> Not Resolved (follow-up needed) </label></div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.TransferredTeamLeader)) <label> Transferred to Team Leader</label></div>
+
+</div>*@
+

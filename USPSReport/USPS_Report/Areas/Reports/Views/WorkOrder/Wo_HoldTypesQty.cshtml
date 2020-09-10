@@ -1,0 +1,47 @@
+﻿@model USPS_Report.Areas.Reports.Models.HoldPayerVM
+
+@{
+    ViewBag.Title = "Wo_HoldTypesQty";
+    Layout = "~/Areas/Reports/Views/Shared/_ReportLayout.cshtml";
+}
+
+@*<p>
+    @Model.HoldPayerPieChart
+</p>*@
+<table class="table">
+    <tr>
+        <th>
+          Instype
+        </th>
+        <th>
+           Count
+        </th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model.GetHoldPayer)
+    {
+        <tr>
+            <td>
+
+                @Html.ActionLink(item.InsType, "woHold", "WorkOrder", new { id = item.InsType }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+           
+        </tr>
+    }
+    <tr>
+        <td>
+            @Html.ActionLink("All Hold", "woHold", "WorkOrder", new { id = "AllHolds" }, null);
+        </td>
+        <td>
+            @Html.DisplayName(Model.GetHoldPayer.Sum(t => t.Count).ToString())
+        </td>
+    </tr>
+
+</table>
+
+

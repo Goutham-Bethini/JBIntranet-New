@@ -1,0 +1,81 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.NewExpiringCMNs.NewExpiringCMNsVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "NewExpiringCMNs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("NewExpiringCMNs", "NewExpiringCMNs", FormMethod.Post))
+{
+    <h2 class="center">Expiring CMNs</h2>
+    <div class="row">
+        <div class="center">
+            @Html.ValidationMessageFor(model => model.Month, "", new { @class = "redText" })
+            <br />
+            @Html.ValidationMessageFor(model => model.Year, "", new { @class = "redText" })
+            <h4>
+                Month : @Html.TextBoxFor(m => m.Month) Year: @Html.TextBoxFor(m => m.Year)
+            </h4>
+            <br />
+            <button class="btn btn-primary btn-large" type="submit" style="width: 300px; margin: 0 auto">Submit</button>
+        </div>
+
+    </div>
+    if (Model != null && Model.Month != null && Model.Year != null)
+    {
+        <hr />
+        <div class="center">
+            @(Html.Kendo().Grid<USPS_Report.Areas.ColdFusionReports.Models.DataModels.NewExpiringCMNs.NewExpiringCMNsData>()
+                                        .Name("CMNs")
+                                        .Columns(columns =>
+                                        {
+                                            columns.Bound(t => t.Account).Title("Account");
+                                            columns.Bound(t => t.AlphaSplit).Title("Alpha Split");
+                                            columns.Bound(t => t.PatientName).Title("Patient Name");
+                                            columns.Bound(t => t.ProductLine).Title("Product Line");
+                                            columns.Bound(t => t.ExpirationDate).Title("Expiration Date");
+                                            columns.Bound(t => t.DueDate).Title("Due Date");
+                                            columns.Bound(t => t.Attempt1st).Title("1st Attempt");
+                                            columns.Bound(t => t.Attempt2nd).Title("2nd Attempt");
+                                            columns.Bound(t => t.Attempt3rd).Title("3rd Attempt");
+                                            columns.Bound(t => t.AdvActionLetter).Title("Adv Action Letter?");
+                                            columns.Bound(t => t.UnableToSvcLetter).Title("Unable To Svc Letter?");
+                                            columns.Bound(t => t.Completed).Title("Completed?");
+                                            columns.Bound(t => t.NotNeeded).Title("Not Needed?");
+                                            columns.Bound(t => t.ComplianceCheck).Title("Compliance Check?");
+                                            columns.Bound(t => t.DateCMNEntered).Title("Date CMN Entered"); 
+                            })
+                                               .ToolBar(tools => tools.Excel())
+                                        .Sortable()
+                                         .Pageable()
+                                             .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                                           .Excel(excel => excel
+                                                .FileName("ExpiringCMNs.xlsx")
+                                                .AllPages(true)
+                                                .Filterable(true)
+                                                .ProxyURL(Url.Action("Excel_Export_Save", "NewExpiringCMNs"))
+                                            )
+                                       .HtmlAttributes(new { style = "width:3000px;" })
+                                            .Reorderable(r => r.Columns(true))
+                                            .Resizable(r => r.Columns(true))
+                                            .ColumnMenu()
+                                        .DataSource(dataSource => dataSource
+                                            .Ajax()
+                                             .PageSize(50)
+                                             .ServerOperation(false)
+                                            .Model(model => model.Id(p => p.Account))
+                                            .Read(read => read.Action("NewExpiringCMNsData", "NewExpiringCMNs", new { month = Model.Month, year = Model.Year }))                                      
+                                        )
+            )
+        </div>
+    }
+}
+
+<style>
+    .center {
+        text-align: center;
+    }
+    .redText {
+        color: Red;
+    }
+</style>

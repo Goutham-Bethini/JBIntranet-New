@@ -1,0 +1,115 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.AssessmentReport.AssessmentReportVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "AssessmentReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3 class="middle" style="text-align:center;">Assessment Report</h3>
+<hr />
+
+<div>
+    <center>
+        <table>
+            <tr>
+                <td width="50%">
+                    @if (Model != null && Model.Details != null)
+                    {
+                        <div>
+                            <table align="center" border="1">
+                                <tbody>
+                                    @foreach (var rec in Model.Details)
+                                    {
+                                        <tr>
+                                            <td style="vertical-align:top"><strong>@rec.OperatorName</strong></td>
+                                            <td>
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Type</th>
+                                                            <th>Date Worked</th>
+                                                            <th>Qty</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var rec2 in @rec.OperatorsData)
+                                                        {
+                                                            <tr>
+                                                                <td>@rec2.Type</td>
+                                                                <td>@rec2.DateWorked</td>
+                                                                <td>@rec2.Qty</td>
+                                                            </tr>
+                                                        }                                                        
+                                                    </tbody>
+                                                </table>
+                                                <table align="right">
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            <strong>Total: </strong>@rec.Total
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                    }
+                </td>
+                <td width="5%"></td>
+                <td width="45%" style="vertical-align:top">
+                    @using (Html.BeginForm("AssessmentReportData", "AssessmentReport", FormMethod.Post))
+                    {
+                        <table>
+                            <tr>
+                                <td colspan="2">Input a range for this report.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Start:</strong></td>
+                                <td>@Html.TextBoxFor(t => t.Start)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>End:</strong></td>
+                                <td>@Html.TextBoxFor(t => t.End)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-primary btn-large" type="submit">Submit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    @Html.ValidationMessageFor(t => t.Start, "", new { @class = "redText" })
+                                    <br />
+                                    @Html.ValidationMessageFor(t => t.End, "", new { @class = "redText" })
+                                </td>
+                            </tr>
+                        </table>
+                    }
+
+                    <br />
+                    <br />
+                    <table>
+                        <tr>
+                            <td><strong>Grand Total:</strong> @Model.GrandTotal</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DIS:</strong> @Model.DIScount</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </center>
+</div>
+
+<style>
+    .redText {
+        color: Red;
+    }
+</style>
+
+
+

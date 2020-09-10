@@ -1,0 +1,39 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.ExpiringCMNs.AlphaSplitVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "AlphaSplit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="middle" style="text-align:center;">Alpha Split</h3>
+<div>
+    <center>
+        @if (Model != null && Model.DepartmentDetails != null && Model.DepartmentDetails.Count>0)
+        {
+            foreach (var rec in Model.DepartmentDetails)
+            {
+                <table border="1" width="30%" align="center">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;text-decoration:underline;">@Html.ActionLink(@rec.DeptName, "AlphaSplitDeptEmployees", "AlphaSplit", new { deptId = @rec.DeptId, dept= @rec.DeptName }, null)</th>
+                        </tr>                        
+                    </thead>
+                    <tbody>
+                        @if (@rec.EmployeeDetails != null && @rec.EmployeeDetails.Count > 0)
+                        {
+                            foreach (var item in @rec.EmployeeDetails)
+                            {
+                                <tr>
+                                    <td style="text-align:center;">@item.EmpFullName &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item.AlphaStart - @item.AlphaEnd</td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+                <br />
+            }
+        }    
+    </center>
+</div>
+

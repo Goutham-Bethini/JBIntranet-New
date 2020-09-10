@@ -1,0 +1,68 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.ProductivityReport.StationUpdateVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "StationUpdate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3 class="middle" style="text-align:center;">Update PackStation Names</h3>
+<br />
+<div width="100%" style="text-align:center;font-size:medium;">
+    <span class="middle" style="color:blue;text-decoration:underline;">@Html.ActionLink("Productivity Report", "ProductivityReport", "ProductivityReport", null, null)</span>
+</div>
+<br />
+<div>
+    @using (Html.BeginForm("UpdateStationDetails", "ProductivityReport", FormMethod.Post))
+    {
+        <center>
+            <table>
+                <tr>
+                    <td colspan="2" style="text-align:center;">@Html.ValidationMessageFor(t => t.Name, "", new { @class = "redText" })</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right;"><strong>Meter Number: </strong></td>
+                    <td>@Html.DisplayFor(m => m.MeterNumber) @Html.HiddenFor(m => m.MeterNumber)</td>
+                </tr>
+                <tr>
+                    <td style="text-align:right;"><strong>Name: </strong></td>
+                    <td>@Html.TextBoxFor(m => m.Name)</td>
+                </tr>
+            </table>
+            <br />
+            <button class="btn btn-primary btn-large" type="submit">Submit</button>
+        </center>
+    }
+</div>
+@if (Model != null && Model.Details != null)
+{
+    <div class="table-responsive middle">
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Meter Number</th>
+                    <th>Name</th>
+                    <th>Updated</th>
+                    <th>Updated By</th>                 
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rec in Model.Details)
+                {
+                    <tr>
+                        <td style="text-decoration:underline;">@Html.ActionLink(@rec.MeterNumber, "StationUpdate", "ProductivityReport", new { meter_Number = @rec.MeterNumber, stationName = @rec.StationName }, null)</td>
+                        <td>@rec.StationName </td>
+                        <td>@rec.Updated </td>
+                        <td>@rec.UpdatedBy </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+<style>
+    .redText {
+        color: Red;
+    }
+</style>
+
+
+

@@ -1,0 +1,161 @@
+﻿@model USPS_Report.Areas.Reports.Models.WorkOrder
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "woReports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
+        <h3 style="color:blue">Order Status</h3>
+    </div>
+</div>
+
+<div class="row">
+    <br />
+
+    <div class="col-md-3"></div>
+   
+    <div>
+        @using (Html.BeginForm("woReports", "WorkOrder", FormMethod.Post)) { 
+            <div class="form-inline ">
+                <label>Account </label>
+                @Html.TextBoxFor(m => m.Account, new { @class = "form-control" })
+                <label>    No. of Orders </label>
+                @Html.TextBoxFor(m => m.Numbers, new { @class = "form-control" })
+                <button class="btn btn-primary btn-sm" type="submit">View</button>
+
+            </div>
+    }
+        </div>
+
+
+</div>
+       
+<div class="row">
+   
+        <hr />
+
+        <div class="col-md-1"></div>
+    <div class="col-md-10">
+        @if (Model != null && Model.Account > 0)
+        {
+            <div>
+                @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.WorkOrder>()
+             .Name("woGrid")
+             .Columns(columns =>
+             {
+                 columns.Bound(t => t.WorkOrderID).Width(50).Title("#Orders");
+
+                 columns.Bound(t => t.Request_Date).Width(110).Title("RequestDate").Format("{0:MM/dd/yyyy}");
+                 columns.Bound(t => t.CreatedBy).Width(90).Title("CreatedBy");
+                 columns.Bound(t => t.ReleasedBy).Width(90).Title("ReleasedBy");
+                 columns.Bound(t => t.CancelledBy).Width(90).Title("CancelledBy");
+                 columns.Bound(t => t.Status).HtmlAttributes(new {Style = "background-color: white;" }).Width(120).Title("Status").Encoded(false).ClientTemplate("#= getHtmlNewLinesString(Status) #");
+
+                 columns.Bound(t => t.TrackingNumbers).Width(120).Title("Tracking Number").ClientTemplate("#= getHtmlNewLinesStringwithCS(TrackingNumbers) #").ClientTemplate(" # if (TrackingNumbers != null && TrackingNumbers.length == 22) { #" +
+    "<a href='https://tools.usps.com/go/TrackConfirmAction.action?tRef=fullpage&tLc=1&text28777=&tLabels=#=TrackingNumbers#' target='_blank'>#= (TrackingNumbers == null)? '': TrackingNumbers #</a>" +
+        "# } else { #" +
+        "<a href='http://www.fedex.com/Tracking?cntry_code=us&tracknumber_list=#=TrackingNumbers#&language=english' target='_blank'>#= (TrackingNumbers == null)? '': TrackingNumbers #</a>" + "#}#");
+
+
+                 columns.Bound(t => t.History).Width(260).Title("History").Encoded(false).ClientTemplate("#= getHtmlNewLinesString(History) #"); ;
+
+             })
+                //  .ToolBar(tools => tools.Excel())
+
+
+                .HtmlAttributes(new { style = "height:auto;" })
+            .Reorderable(r => r.Columns(true))
+                 // .Pageable()
+                 .Sortable()
+
+            .ClientDetailTemplateId("template")
+            .Events(events => events.DataBound("onDataBound"))
+             .DataSource(dataSource => dataSource
+             .Ajax()
+
+             // .PageSize(10)
+             .ServerOperation(true)
+             .Model(model =>
+             {
+                 model.Id(p => p.WorkOrderID);
+             })
+
+                                    .Read(read => read.Action("wo_Search", "WorkOrder", new { account = Model.Account, num = Model.Numbers })
+            // .Read(read => read.Action("wo_Search", "WorkOrder")
+            )
+
+              )
+    .Resizable(resize => resize.Columns(true))
+
+                )
+
+
+                <script id="template" type="text/kendo-tmpl">
+                    @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.ProductDetails>()
+                                    .Name("woGrid_#=WorkOrderID#")
+                                  
+            .Columns(columns =>
+            {
+                columns.Bound(t => t.Product).Width(40).Title("Product");
+
+                columns.Bound(t => t.Description).Width(120).Title("Description");
+
+                columns.Bound(t => t.UOM).Width(60).Title("UOM");
+
+                columns.Bound(t => t.Ordered).Width(40).Title("Ordered");
+                columns.Bound(t => t.Shipped).Width(40).Title("Shipped");
+
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+
+                                        .Read(read => read.Action("pd_Report", "WorkOrder", new { woID = "#=WorkOrderID#" }))
+            )
+
+
+            .ToClientTemplate()
+                    )
+                </script>
+
+
+                <script type="text/javascript">
+
+                    function onDataBound(arg) {
+                        $('.k-grid-content').height(window.innerHeight - 110);
+                    }
+
+
+                </script>
+
+
+           
+
+            </div>
+        }
+    </div>
+    </div>
+
+
+<script>
+
+    function getHtmlNewLinesString(text) {
+        var regexp = new RegExp('\n', 'g');
+        return text.replace(regexp, '<br>');
+    }
+
+    function getHtmlNewLinesStringwithCS(text) {
+        var regexp = new RegExp('\n', 'g');
+        return text.replace(regexp, '<br>');
+    }
+
+
+
+
+
+ </script>
+
+
+

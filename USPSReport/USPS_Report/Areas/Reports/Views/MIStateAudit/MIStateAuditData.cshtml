@@ -1,0 +1,136 @@
+﻿@model USPS_Report.Areas.Reports.Models.MIStateAudit.MIStateAuditVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "MIStateAuditReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="middle" style="text-align:center;">MI State Audit</h3>
+<hr />
+<h4 class="middle" style="text-align:center;">Generate New Report</h4>
+<hr />
+
+<div>
+    @using (Html.BeginForm("MIStateAuditGenerateNewReport", "MIStateAudit", FormMethod.Post))
+    {
+        <center>         
+            @Html.ValidationMessageFor(t => t.Report, "", new { @class = "redText" })
+            <div class="form-inline">
+                <table>
+                    <tr>
+                        <td>@Html.RadioButtonFor(m => m.Report, "New Accounts")<label>New Accounts</label></td>
+                    </tr>
+                    <tr>
+                        <td>@Html.RadioButtonFor(m => m.Report, "Products Added")<label>Products Added</label></td>
+                    </tr>
+                    <tr>
+                        <td>@Html.RadioButtonFor(m => m.Report, "Deactivated Accounts")<label>Deactivated Accounts</label></td>
+                    </tr>
+                </table>
+                @*<br />*@
+                <table>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(t => t.Quarter, new List<SelectListItem>
+
+               {
+                         new SelectListItem { Text = "1st Quarter" , Value = "1stQtr"},
+                    new SelectListItem { Text = "2nd Quarter" , Value = "2ndQtr"},
+                      new SelectListItem { Text = "3rd Quarter" , Value = "3rdQtr"},
+                      new SelectListItem { Text = "4th Quarter" , Value = "4thQtr"}
+
+               }, "Select Option")
+                            @Html.TextBoxFor(t => t.Year) (yyyy)
+                        </td>
+                    </tr>                 
+                </table>
+                @Html.ValidationMessageFor(t => t.Quarter, "", new { @class = "redText" })
+                @Html.ValidationMessageFor(t => t.Year, "", new { @class = "redText" })
+                <br />
+                <button class="btn btn-primary btn-large" type="submit">Submit</button>
+            </div>
+        </center>
+    }
+    @if (ViewBag.Message != null)
+    {        
+        <script type="text/javascript">
+            window.onload = function () {
+                //debugger;
+                alert("@ViewBag.message");
+            };
+        </script>
+    }
+</div>
+<hr />
+<h4 class="middle" style="text-align:center;">View/Download existing reports</h4>
+<br />
+<p class="middle">*if the report you're looking for isn't listed, generate it with the form above. You can regenerate any report that has already been created.</p>
+<hr />
+
+
+@if (Model != null && Model.Details != null)
+{
+    <div class="table-responsive middle">
+        <table data-sortable class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Quarter</th>
+                    <th>Report</th>
+                    <th>DateCreated</th>
+                    <th style="display:none">FileName</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rec in Model.Details)
+                {
+                    <tr>
+                        <td>@rec.Year </td>
+                        <td>@rec.Quarter </td>
+                        <td>@Html.ActionLink(@rec.Report, "DownloadReportFile", "MIStateAudit", new { fileName = @rec.FileName }, null) </td>                        
+                        @*<td><a href="#" onclick="DownloadFile(this)" data-id='@rec.FileName'>@rec.Report</a> </td>*@
+                        <td> @rec.DateCreated </td>
+                        <td style="display:none">@rec.FileName </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+}
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+
+    .redText {
+        color: Red;
+    }
+</style>
+<script>
+    function DownloadFile(value) {
+        debugger;
+        var values = { fileName: $(value).attr('data-id') };        
+        //console.log(value);
+        $.ajax({
+            url: '@Url.Action("DownloadReportFile", "MIStateAudit")',
+            type: 'POST',
+            data: values,
+            success: function (result) {
+                //debugger;
+                if (result == false) { alert('Oops! The system cannot find the file, you can regenerate it.'); }               
+               },
+            error: function () {
+            }
+        });
+    }
+</script>
+
+

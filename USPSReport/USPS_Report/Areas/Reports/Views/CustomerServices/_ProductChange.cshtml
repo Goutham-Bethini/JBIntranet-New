@@ -1,0 +1,127 @@
+﻿@model USPS_Report.Areas.Reports.Models.CallLogVM
+
+
+<br />
+    @*<div class="row">
+    <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <label for="age1">Do you want to increase the product?</label>
+        </div>
+
+
+    <div class="Increase col-md-3" >
+        @Html.RadioButtonFor(m => m.PC_Increase, "Yes") Yes
+        @Html.RadioButtonFor(m => m.PC_Increase, "No") No
+    </div>
+</div>
+          
+
+    <div class="row" id="parentIncrease">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+        <h2>Increase the product</h2>
+            </div>
+    </div>*@
+
+
+<div>
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.CheckBoxFor(m => m.PC_IncreaseOrDecrease)  <label>Increase/Decrease</label></div>
+       
+    </div>
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2"> @Html.CheckBoxFor(m => m.PC_Hold)  <label>Hold</label></div>
+        
+    </div>
+   
+
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2"> @Html.CheckBoxFor(m => m.PC_RemoveOrAdd) <label>Remove/Add</label></div>
+      
+    </div>
+
+   
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.CheckBoxFor(m => m.ProductChange) <label>Product Change</label></div>
+       
+    </div>
+
+   
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.TextAreaFor(m => m.ProductChangeTxt, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+        >
+    </div>
+
+</div>
+
+
+
+
+
+    @*<script>
+        $(document).ready(function () {
+            $("#parentIncrease").css("display", "none");
+            $(".Increase").click(function () {
+                if ($('input[name=PC_Increase]:checked').val() == "Yes") {
+                    $("#parentIncrease").slideDown("fast"); //Slide Down Effect
+                } else {
+                    $("#parentIncrease").slideUp("fast");  //Slide Up Effect
+                }
+            });
+        });
+
+     
+    </script>*@
+
+
+<script>
+    $('#PC_IncreaseOrDecrease').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ProductChangeTxt').removeAttr("disabled");
+        } else {
+            $('#ProductChangeTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#PC_Hold').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ProductChangeTxt').removeAttr("disabled");
+        } else {
+            $('#ProductChangeTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#PC_RemoveOrAdd').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ProductChangeTxt').removeAttr("disabled");
+        } else {
+            $('#ProductChangeTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#ProductChange').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ProductChangeTxt').removeAttr("disabled");
+        } else {
+            $('#ProductChangeTxt').attr("disabled", "disabled")
+        }
+    });
+</script>

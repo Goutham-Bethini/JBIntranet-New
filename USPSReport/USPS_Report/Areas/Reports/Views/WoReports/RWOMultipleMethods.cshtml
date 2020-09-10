@@ -1,0 +1,74 @@
+﻿@model USPS_Report.Areas.Reports.Models.RWOMultipleMethodsVM
+
+@{
+    ViewBag.Title = "RWOMultipleMethods";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="middle">
+    <h1>Accounts with Multiple Delivery Methods</h1>
+</div>
+<br />
+
+@if (Model != null && Model.rwoMultipleMethods != null)
+{
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <div class=" row">
+                <h3 style="color:blue">
+                    Total Count =  @Model.rwoMultipleMethods.Count()
+                </h3>
+            </div>
+            <hr />
+
+            <div class="table-responsive">
+                <table data-sortable class="table table-hover table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Account</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Methods</th>
+                            <th>Method1</th>
+                            <th>Method2</th>
+
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @foreach (var rec in Model.rwoMultipleMethods)
+                {
+                            <tr>
+                                <td>@rec.Account</td>
+                                <td>@rec.First_Name</td>
+                                <td>@rec.Last_Name</td>
+                                <td>@rec.Methods</td>
+                                <td>@rec.Method1</td>
+                                <td>@rec.Method2</td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+}
+            <style>
+                th {
+                    background-color: dodgerblue;
+                    color: white;
+                }
+
+                 .middle {
+        margin: auto;
+        width: 900px;
+    }
+            </style>

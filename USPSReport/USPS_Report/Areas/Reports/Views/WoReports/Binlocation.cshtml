@@ -1,0 +1,76 @@
+﻿@model USPS_Report.Areas.Reports.Models.BinLocationVM
+
+@{
+    ViewBag.Title = "Binlocation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="middle">
+    <h1>Empty Bin Locations</h1>
+</div>
+
+<br />
+
+
+
+@if (Model != null && Model.binLocationData != null)
+{
+    <div class=" row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+
+            <div class=" row">
+                <h3 style="color:blue">
+                    Total Records =  @Model.binLocationData.Count()
+                </h3>
+            </div>
+            <hr />
+
+
+            <div class="table-responsive">
+                <table data-sortable class="table table-hover table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Product Category</th>
+                            <th>Product Code</th>
+                            <th>Product Description</th>
+
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @foreach (var rec in Model.binLocationData)
+                {
+                        <tr>
+                            <td>@rec.ProdCategory</td>
+                            <td>@rec.ProdCode</td>
+                            <td>@rec.ProdDescription</td>
+
+
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+}
+
+
+
+            <style>
+                th {
+                    background-color: dodgerblue;
+                    color: white;
+                }
+
+                .middle {
+        margin: auto;
+        width: 900px;
+    }
+
+            </style>
+

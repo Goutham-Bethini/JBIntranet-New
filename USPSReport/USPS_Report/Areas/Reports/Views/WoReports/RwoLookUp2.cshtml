@@ -1,0 +1,470 @@
+﻿@model USPS_Report.Areas.Reports.Models.RWOLookUPVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "RwoLookUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<div id="signupbox" class="rwoContainer">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="panel-title">
+                RWO Loop-Up
+
+            </div>
+        </div>
+
+        @using (Html.BeginForm("RwoLookUp", "WoReports", FormMethod.Post))
+            {
+            <br />
+
+            <div class=" row rwoContainer">
+                <div class="col-md-3">
+                    <label>Start Date </label>
+                    @Html.Kendo().DatePicker().Name("StartDate").Value(Model.StartDate).Format("MM/dd/yyyy")
+                </div>
+                <div class="col-md-3">
+                    <label>End Date</label>
+                    @Html.Kendo().DatePicker().Name("EndDate").Value(Model.EndDate).Format("MM/dd/yyyy")
+                </div>
+                <div class="col-md-3">
+                    <label>Product Code </label>
+                    @Html.TextBoxFor(m => m.ProductCode, new
+                   {
+                       @class = "roundTextbox" @*style = "width:180px; height = 70px; "*@ })
+                </div>
+                <div class="col-md-3">
+                    <label>Payer Id</label>
+                    @Html.TextBoxFor(m => m.PayerId, new { @class = "roundTextbox" })
+                </div>
+
+            </div>
+                <hr />
+                <div class="row rwoContainer">
+                    <div class="col-md-3 SmallComboBox">
+                        <label>DeliveryTime</label>
+                        @(Html.Kendo().ComboBox()
+                    .Name("DelTimeComboBox")
+                    .DataTextField("DeliveryTime")
+                    .DataValueField("TimeID")
+                    .BindTo(Model.DeliveryTimeList)
+                    .SelectedIndex(0)
+                   .Suggest(true)
+                        )
+
+                    </div>
+
+                    <div class="col-md-3 SmallComboBox">
+                        <label>Active/Inactive</label>
+
+                        @(Html.Kendo().ComboBox()
+                         .Name("InactiveAccount")
+                        .Filter("contains")
+                        .Placeholder("Select Option...")
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .BindTo(new List<SelectListItem>() {
+                         new SelectListItem() {
+                         Text = "All", Value = "2"
+                         },
+                         new SelectListItem() {
+                         Text = "Active", Value = "0"
+                        },
+                       new SelectListItem() {
+                       Text = "Inactive", Value = "1"
+                      },
+
+                     })
+                    .SelectedIndex(0)
+                    .Suggest(true)
+                        )
+                    </div>
+
+                    <div class="col-md-3 MediumComboBox">
+                        <label>Frequency</label>
+                        @(Html.Kendo().ComboBox()
+                        .Name("DelFreqComboBox")
+                        .DataTextField("freqTitle")
+                        .DataValueField("freqComment")
+                         .BindTo(Model.FrequencyList)
+                         .SelectedIndex(0)
+                          .Suggest(true)
+                        )
+
+                    </div>
+
+                    <div class="col-md-3 SmallComboBox">
+                        <label>Assigned/UnAssigned</label>
+                        @(Html.Kendo().ComboBox()
+                         .Name("IsAssigned")
+                         .Filter("contains")
+                         .Placeholder("Select Option...")
+                         .DataTextField("Text")
+                         .DataValueField("Value")
+                        .BindTo(new List<SelectListItem>() {
+                          new SelectListItem() {
+                           Text = "Both", Value = "2"
+                          },
+                          new SelectListItem() {
+                            Text = "Assigned", Value = "1"
+                          },
+                          new SelectListItem() {
+                           Text = "Unassigned", Value = "0"
+                          },
+
+                         })
+                         .SelectedIndex(0)
+                         .Suggest(true)
+                        )
+                    </div>
+
+                </div>
+                <hr />
+                <div class="row rwoContainer">
+
+                    <div class="col-md-4  LargeComboBox">
+                        <label>Location</label>
+                        @(Html.Kendo().ComboBox()
+              .Name("locationComboBox")
+              .DataTextField("deliveryLocationName")
+              .DataValueField("locationID")
+              .BindTo(Model.locationList)
+             .SelectedIndex(0)
+             .Suggest(true)//Select an item with index 10. Note that the indexes are zero based.
+                        )
+                    </div>
+
+                    <div class="col-md-3 MediumComboBox ">
+                        <label>Method</label>
+                        @(Html.Kendo().ComboBox()
+                       .Name("MethodComboBox")
+                      .DataTextField("MethodName")
+                      .DataValueField("MethodID")
+                      .BindTo(Model.MethodList)
+                      .SelectedIndex(0)
+                      .Suggest(true)//Select an item with index 10. Note that the indexes are zero based.
+                        )
+
+                    </div>
+
+                    <div class="col-md-3 SmallComboBox">
+                        <label>MakeRWOIncomplete</label>
+
+                        @(Html.Kendo().ComboBox()
+                        .Name("MakeRWOIncomplete")
+                        .Filter("contains")
+                        .Placeholder("Select Option...")
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .BindTo(new List<SelectListItem>() {
+                         new SelectListItem() {
+                           Text = "Both", Value = "2"
+                        },
+                       new SelectListItem() {
+                       Text = "Incomplete", Value = "1"
+                       },
+                       new SelectListItem() {
+                       Text = "Complete", Value = "0"
+                      },
+
+                   })
+                  .SelectedIndex(1)
+                  .Suggest(true)
+                        )
+                    </div>
+
+                    <div class="col-md-2 SmallComboBox">
+                        <label>Holds</label>
+                        @(Html.Kendo().ComboBox()
+                 .Name("Holds")
+                 .Filter("contains")
+                 .Placeholder("Select Option...")
+                 .DataTextField("Text")
+                 .DataValueField("Value")
+                 .BindTo(new List<SelectListItem>() {
+                  new SelectListItem() {
+                    Text = "All", Value = "2"
+                 },
+                 new SelectListItem() {
+                  Text = "Without Holds", Value = "0"
+                },
+                new SelectListItem() {
+                  Text = "With Holds", Value = "1"
+               },
+            })
+            .SelectedIndex(0)
+            .Suggest(true)
+                        )
+                    </div>
+
+
+                </div>
+                <hr />
+
+                <div class="row rwoContainer">
+
+
+                    <div class="col-md-3 SmallComboBox">
+                        <label>ServiceType</label>
+                        @(Html.Kendo().ComboBox()
+                 .Name("ServiceType")
+                 .Filter("contains")
+                 .Placeholder("Select Option...")
+                 .DataTextField("Text")
+                 .DataValueField("Value")
+                 .BindTo(new List<SelectListItem>() {
+                  new SelectListItem() {
+                    Text = "Purchase", Value = "1"
+                 },
+                 new SelectListItem() {
+                  Text = "Cash Sale", Value = "3"
+                },
+                new SelectListItem() {
+                  Text = "Clinical Visit", Value = "79"
+               },
+                     new SelectListItem() {
+                  Text = "Service", Value = "80"
+               },
+            })
+            .SelectedIndex(0)
+            .Suggest(true)
+                        )
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>HCPC</label>
+                        @Html.TextBoxFor(m => m.HCPC, new
+                   {
+                       @class = "roundTextbox" @*style = "width:180px; height = 70px; "*@ })
+                    </div>
+
+
+
+                </div>
+                <hr />
+                <div class="row rwoContainer" style="text-align:center">
+                    <button class="btn btn-primary btn-large" type="submit" style="width: 300px; margin: 0 auto" id="get">View RWO</button>
+                </div>
+                <hr />
+                <div class="row rwoContainer">
+                    @Html.TextBoxFor(m => m.locationId, new { id = "locId", hidden = "true" })
+                    @Html.TextBoxFor(m => m.methodId, new { id = "metId", hidden = "true" })
+                    @Html.TextBoxFor(m => m.HoldCode, new { id = "HoldId", hidden = "true" })
+                    @Html.TextBoxFor(m => m.InactiveORActive, new { id = "InactiveId", hidden = "true" })
+                    @Html.TextBoxFor(m => m.delTimeId, new { id = "delTimeId", hidden = "true" })
+                    @Html.TextBoxFor(m => m.FreqID, new { id = "freqId", hidden = "true" })
+                    @Html.TextBoxFor(m => m.IsAssigned, new { id = "IsAssignedId", hidden = "true" })
+                    @Html.TextBoxFor(m => m.makeRwoIncomplete, new { id = "makeRwoIncompleteId", hidden = "true" })
+                    @Html.TextBoxFor(m => m.ServiceType, new { id = "ServiceTypeId", hidden = "true" })
+
+                </div>
+
+        }
+
+    </div>
+
+</div>
+
+<hr />
+
+
+
+<div>
+    @if (Model.rwoLookUp != null)
+    {
+        <h3 style="color:blue">
+        
+
+            @Model.rwoLookUp.Take(1).Select(t => t.RecordCount).SingleOrDefault() Records
+            <br />
+            @Model.rwoLookUp.Take(1).Select(t => t.DistinctAccCount).SingleOrDefault() Accounts
+        </h3>
+    <div class="table-responsive">
+        <table data-sortable class="table table-hover table-striped k-content" id="grid" style="display:none;overflow-x:scroll">
+           <thead>
+
+              <tr>
+        <th style="width:90px"> Account</th>
+        <th style="width:100px">Last_Name</th>
+        <th style="width:100px">First_Name</th>
+        <th style="width:110px">ProductCode</th>
+        <th style="width:40px">UOMName</th>
+        <th style="width:40px">PerUnitQty</th>
+        <th style="width:40px">Qty</th>
+        <th style="width:160px">NextRepeatDate</th>
+        @*<td style="width:40px">InActive</td>*@
+        <td style="width:40px">Hold</td>
+        @*<td style="width:120px">ServiceType</td>*@
+        <th style="width:160px">DeliveryLocationName</th>
+        <th style="width:120px">DeliveryMethod</th>
+        @*<td style="width:200px">DeliveryTime</td>*@
+               @*<th style="width:300px">AcceptAssignment</th>
+    <th style="width:300px">MakeRwoIncomplete</th>*@
+
+
+        </tr>
+           </thead>
+              
+
+            <tbody>
+
+                @foreach (var rec in Model.rwoLookUp)
+                {
+                    <tr>
+                        <td style="width:90px">@rec.Account</td>
+                        <td style="width:100px">@rec.Last_Name</td>
+                        <td style="width:100px">@rec.First_Name</td>
+                        <td style="width:110px">@rec.ProductCode</td>
+                        <td style="width:40px">@rec.UOMName</td>
+                        <td style="width:40px">@rec.PerUnitQty</td>
+                        <td style="width:40px">@rec.Qty</td>
+                        <td style="width:160px">@rec.NextRepeatDate</td>
+                        @*<td style="width:50px">@rec.InActive</td>*@
+                        <td style="width:40px">@rec.Hold</td>
+                        @*<td style="width:120px">@rec.ServiceType</td>*@
+                        <td style="width:160px">@rec.DeliveryLocationName</td>
+                        <td style="width:120px">@rec.DeliveryMethod</td>
+                        @*<td style="width:200px">@rec.DeliveryTime</td>
+                      <td style="width:300px">@rec.AcceptAssignment</td>
+                    <td style="width:300px">@rec.MakeRwoIncomplete</td>*@
+
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+    }
+
+
+  
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#grid').kendoGrid();
+        $('#grid').show('fast');
+    
+    });
+
+    $('#grid').kendoGrid({
+      
+        sortable: true,
+        pageable: true,
+      
+        filterable: true,
+     
+       
+         dataSource: { pageSize: 100 },
+         columns: [
+                { field: "Account", title: "Account", headerAttributes: { width: 90 }, attributes: { width: 105 } },
+        { field: "First_Name", title: "First Name", headerAttributes: { width: 100 }, attributes: { width: 119 } },
+    { field: "Last_Name", title: "Last Name", headerAttributes: { width: 100 }, attributes: { width: 119 } },
+   
+      { field: "ProductCode", title: "Product Code", headerAttributes: { width: 110 }, attributes: { width: 128 } },
+     { field: "UOMName", title: "UOM", headerAttributes: { width: 40 }, attributes: { width: 59 } },
+    { field: "PerUnitQty", title: "Per Unit Qty", headerAttributes: { width: 40 }, attributes: { width: 58 } },
+    { field: "Qty", title: "Qty", title: "Per Unit Qty", headerAttributes: { width: 40 }, attributes: { width: 58 } },
+    { field: "NextRepeatDate", title: "NextRepeatDate", headerAttributes: { width: 160 }, attributes: { width: 177 } },
+  
+        //{ field: "InActive", title: "Status", headerAttributes: { width: 50 }, attributes: { width: 65 } },
+           { field: "Hold", title: "Hold", headerAttributes: { width: 40 }, attributes: { width: 56 } },
+    //    { field: "ServiceType", title: "Service Type", headerAttributes: { width: 120 }, attributes: { width: 135 } },
+        
+        { field: "DeliveryLocationName", title: "Location", headerAttributes: { width: 160 }, attributes: { width: 177} },
+       { field: "DeliveryMethod", title: "Method", headerAttributes: { width: 120 }, attributes: { width: 135 } },
+    //    { field: "DeliveryTime", title: "Time", headerAttributes: { width: 200 }, attributes: { width: 215 } }
+        //{ field: "AcceptAssignment", headerAttributes: { width: 300 }, attributes: { width: 300 } },
+        //{ field: "MakeRwoIncomplete", headerAttributes: { width: 300 }, attributes: { width: 300 } }
+        ],
+    
+         serverPaging: false,
+         serverGrouping: false,
+         height: 543,
+         scrollable: {
+             virtual: true
+         },
+        serverSorting: false//defining page size      
+    });
+  
+
+    $(document).ready(function () {
+        var locationComboBox = $("#locationComboBox").data("kendoComboBox");
+        var MethodComboBox = $("#MethodComboBox").data("kendoComboBox");
+        var HoldsComboBox = $("#Holds").data("kendoComboBox");
+        var InactiveComboBox = $("#InactiveAccount").data("kendoComboBox");
+        var DelTimeComboBox = $("#DelTimeComboBox").data("kendoComboBox");
+        var DelFreqComboBox = $("#DelFreqComboBox").data("kendoComboBox");
+        var IsAssignedComboBox = $("#IsAssigned").data("kendoComboBox");
+        var MakeRWOIncompleteComboBox = $("#MakeRWOIncomplete").data("kendoComboBox");
+        var ServiceTypeComboBox = $("#ServiceType").data("kendoComboBox");
+
+        MethodComboBox.list.width("auto");
+        MethodComboBox.list.css("min-width", "230px");
+
+        locationComboBox.list.width("auto");
+        locationComboBox.list.css("min-width", "300px");
+
+        //InactiveComboBox.list.width("auto");
+        //InactiveComboBox.list.css("min-width", "125px");
+
+
+        //HoldsComboBox.list.width("auto");
+        //HoldsComboBox.list.css("min-width", "125px");
+
+        $("#get").click(function () {
+            // alert('Thank you! Your Choice is- ID: ' + locationComboBox.value());
+            $("#locId").val(locationComboBox.value());  //metId
+            $("#metId").val(MethodComboBox.value());
+            $("#HoldId").val(HoldsComboBox.value());
+            $("#InactiveId").val(InactiveComboBox.value());
+            $("#delTimeId").val(DelTimeComboBox.value());
+            $("#freqId").val(DelFreqComboBox.value());
+            $("#IsAssignedId").val(IsAssignedComboBox.value());
+            $("#makeRwoIncomplete").val(MakeRWOIncompleteComboBox.value());
+            $("#ServiceTypeId").val(ServiceTypeComboBox.value());
+
+        });
+    });
+</script>
+
+<style>
+      #grid table
+                {
+                    min-width: 1190px;
+                }
+    .roundTextbox {
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: solid 1px #B2DCF8;
+        padding: 5px;
+    }
+
+    .LargeComboBox .k-combobox {
+        width: 300px;
+    }
+
+    .MediumComboBox .k-combobox {
+        width: 230px;
+    }
+
+    .SmallComboBox .k-combobox {
+        width: 130px;
+    }
+
+    .rwoContainer {
+        width: 95%;
+        height: auto;
+        margin: 0px auto;
+        padding: 5px;
+    }
+
+
+    .k-readonly {
+        color: gray;
+    }
+</style>

@@ -1,0 +1,113 @@
+﻿@model USPS_Report.Areas.Reports.Models.callLogReportVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "CSRCallLogReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center>
+    <h2> Call Log Reports</h2>
+    @using (Html.BeginForm("CSRCallLogReport", "CSRReporting", FormMethod.Post))
+    {
+        <div class="form-inline">
+            <label>Start Date </label>
+
+
+            @Html.Kendo().DatePicker().Name("startDt").Value(Model.startDt).Format("MM/dd/yyyy")
+            <label>End Date </label>
+            @Html.Kendo().DatePicker().Name("endDt").Value(Model.endDt).Format("MM/dd/yyyy")
+            @*<label>OutCome </label>
+            @Html.DropDownListFor(t => t.ComplaintOutcome, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "All" , Value = "0"},
+                    new SelectListItem { Text = "Handled Concern" , Value = "1"},
+                     new SelectListItem { Text = "Not Resolved Transferred to Team Lead" , Value = "2"},
+
+               })*@
+
+            <button class="btn btn-primary btn-large" type="submit" style="background-color:black">Create Report</button>
+        </div>
+
+    }
+</center>
+
+<center>
+
+    @if (Model != null && Model.records != null)
+    {
+        <div class="row">
+          
+            <div>
+                <div class=" row">
+                    <h3 style="color:blue">
+                        Total Count =  @Model.records.Count()
+                    </h3>
+                </div>
+                <hr />
+
+
+                <div class="table-responsive">
+                    <table data-sortable class="table table-hover table-striped table-bordered" style="width:97%; align-content:center">
+                        <thead>
+                            <tr>
+                                <th>Account</th>
+                                <th>Ref Num</th>
+                                <th>CreatedBy</th>
+                                <th>CreatedOn</th>
+                                @*<th>Payer</th>*@
+                                <th>Primary Payer</th>
+                                <th>Secondary Payer</th>
+                                <th>Teritiary Payer</th>
+                                <th>Complaint Received</th>
+                                <th>Issue</th>
+                                 <th>Resolution</th>
+                                <th>Note</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var rec in Model.records)
+                {
+                                <tr>
+                                    <td>@rec.account</td>
+                                    <td>@rec.ReferenceNumber</td>
+                                    <td>@rec.CreatedBy</td>
+                                    <td>@rec.CreatedOn</td>
+                                    
+                                    @*<td>@rec.Payer</td>*@
+                                    <td>@rec.PrimaryPayer</td>
+                                    <td>@rec.SecondaryPayer</td>
+                                    <td>@rec.TeritiaryPayer</td>
+                                    <td>@rec.ComplaintRecieved</td>
+                                    <td>@rec.Issue</td>
+                                  
+                                    <td>@rec.Resolution</td>
+                                    <td>@rec.Note</td>
+                                    
+
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    }
+</center>
+    <style>
+        th {
+            background-color: dodgerblue;
+            color: white;
+        }
+
+        .middle {
+            margin: auto;
+            width: 900px;
+        }
+    </style>
+
+
+

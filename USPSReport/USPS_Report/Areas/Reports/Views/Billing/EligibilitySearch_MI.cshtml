@@ -1,0 +1,195 @@
+﻿@model USPS_Report.Areas.Reports.Models.EligSearchMIVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "EligibilitySearch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="signupbox" class="container" style="padding:0px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <i class="fa fa-user"></i> Eligibility String Search - MI Medicaid
+
+            </div>
+        </div>
+
+        @using (Html.BeginForm("EligibilitySearch_MI", "Billing", FormMethod.Post))
+        {
+
+            @*<div class="row">
+                <div class="col-md-2"></div>
+                <label>Enter either a Product Code and Date Range, Vendor and Date Range, or just a Date Range!</label>
+            </div>*@
+            <br />
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-1">
+                    <strong>Claim No.</strong>
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Claim, new { @class = "roundTextbox" })
+                </div>
+                <div class="col-md-1">
+                    <strong>WorkOrder</strong>
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.WorkOrder, new { @class = "roundTextbox" })
+                </div>
+          </div>
+
+          <hr />
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-1">
+                <strong>Account</strong>
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Account, new { @class = "roundTextbox" })
+            </div>
+            <div class="col-md-1">
+                <strong>DateOfService</strong>
+            </div>
+            <div class="col-md-2">
+                @Html.Kendo().DatePicker().Name("DateOfService").Value(Model.DateOfService).Format("MM/dd/yyyy")
+            </div>
+        </div>
+
+        <hr />
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-6" style="align-items:center">
+                    <button class="btn btn-primary btn-large" type="submit" style="width: 300px; margin: 0 auto">Submit</button>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+
+</div>
+
+
+
+
+<hr />
+@if (Model.noCriteria == true)
+{
+<div class="row" style="text-align:center">
+    <h2 style="color:red; font-weight:600">No Search Criteria Found - Please try again</h2>
+
+</div>
+}
+
+
+<div class="row">
+  
+    @if (Model != null && Model.eligSerachMIVM != null)
+    {
+        
+           
+            <div style="margin-left:100px">
+                <div class="row">
+                    <h3 style="color:blue">
+                        Total Count =  @Model.eligSerachMIVM.Count()
+                    </h3>
+                </div>
+              
+
+                <div class="table-responsive" >
+                    <table data-sortable class="table table-hover table-striped table-bordered" >
+                        <thead>
+                            <tr>
+                                <th>System</th>
+                                <th>Account</th>
+                                <th>Clm#</th>
+                                <th>WO#</th>
+                                <th>Shipped</th>
+                                <th>Canceled</th>
+                                <th>Requested</th>
+                                <th>DOS</th>
+                                <th>Elig Checked</th>
+                                <th>Eligible</th>
+                                <th>Reason</th>
+                                <th>Eligibility String</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var rec in Model.eligSerachMIVM)
+                {
+                                <tr>
+                                    <td>@rec.DB</td>
+                                    <td>@rec.Account</td>
+                                    <td>@rec.ClaimNum</td>
+                                    <td>@rec.WONum</td>
+                                    <td>@rec.completed_date</td>
+                                    <td>@rec.cancel_date</td>
+                                    <td>@rec.request_date</td>
+                                    <td>@rec.Invoice_Date</td>
+                                    <td>@rec.DateChecked</td>
+                                    @if (rec.Is_Eligible == true)
+                                    {
+                                    <td>X</td>
+                                    }
+                                    else
+                                    {
+                                    <td></td>
+                                    }
+                                @if (rec.Elig_Response_ID == null)
+                                {
+                                    <td>N/A</td>
+                                }
+                                else
+                                {
+                                    <td>@rec.Is_Eligible_Reason</td>
+                                }
+
+                                   @if (rec.Elig_Response_ID == null && rec.LegalName != "Kara Scott")
+                                   {
+                                       <td>Response String not available - order manually created by @rec.LegalName</td>
+                                   }
+                                   else if (rec.Elig_Response_ID == null && rec.PrintUser != "Kara Scott" && rec.PrintUser != null)
+                                   {
+                                    <td>Response String not available - order printed by  @rec.PrintUser</td>
+                                   }
+                                   else
+                                   {
+                                    <td>@rec.Elig_Response_String</td>
+                                   }
+                                  
+                                  
+
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        
+    }
+</div>
+
+<style>
+    .middle {
+        margin: auto;
+        width: 1500px;
+    }
+
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+     .roundTextbox {
+
+  -moz-border-radius: 5px;
+ border-radius: 5px;
+
+    border:solid 1px #B2DCF8; 
+    padding:5px;
+    }
+</style>

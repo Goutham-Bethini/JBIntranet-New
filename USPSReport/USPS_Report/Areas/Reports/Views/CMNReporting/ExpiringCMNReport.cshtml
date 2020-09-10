@@ -1,0 +1,110 @@
+﻿@model USPS_Report.Areas.Reports.Models.CMNReportModel
+
+@using Kendo.Mvc.UI;
+
+@{
+    ViewBag.Title = "ExpiringCMNReporting Tool";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    @using (Ajax.BeginForm("ExpiringCMNReport", new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "viewData", InsertionMode = InsertionMode.Replace }))
+    {
+        <div class="well">
+            <div class="form-inline">
+                <form id="CMNReportingForm" data-role="validator" novalidate="novalidate">
+                    <label>Date </label>
+                    @Html.TextBoxFor(model => model._pickedDate, new { id = "monthpicker" })
+                    @*<input type="date" value="@Model.pickedDate" id="monthpicker" title="date" />*@
+
+                    <button class="btn btn-primary btn-large" type="submit"><i class="glyphicon glyphicon-search"> View</i></button>
+                </form>
+            </div>
+        </div>
+        <div id="viewData" class="well col-md-12">
+            <div class="col-md-12">
+                @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.ExpiringCMNDetails>()
+                        .Name("ExpiringCMNDetails")
+                        .Scrollable()
+                        .Columns(columns =>
+                        {
+                            columns.Bound(c => c.Account).Title("Account").Width(200);
+                            columns.Bound(c => c.AlphaSplit).Title("AlphaSplit").Width(200);
+                            columns.Bound(c => c.PatientName).Title("PatientName").Width(200);
+                            columns.Bound(c => c.ProductLine).Title("ProductLine").Width(200);
+                            columns.Bound(c => c.ExpirationDate).Title("ExpirationDate").Width(200);
+                            columns.Bound(c => c.DueDate).Title("DueDate").Width(200);
+                            columns.Bound(c => c.FirstAttempt).Title("FirstAttempt").Width(200);
+                            columns.Bound(c => c.SecondAttempt).Title("SecondAttempt").Width(200);
+                            columns.Bound(c => c.ThirdAttempt).Title("ThirdAttempt").Width(200);
+                            columns.Bound(c => c.AdvActionLetter).Title("AdvActionLetter").Width(200);
+                            columns.Bound(c => c.UnableToSVCLetter).Title("UnableToSVCLetter").Width(200);
+                            columns.Bound(c => c.Completed).Title("Completed").Width(200);
+                            columns.Bound(c => c.NotNeeded).Title("NotNeeded").Width(200);
+                            columns.Bound(c => c.ComplianceCheck).Title("ComplianceCheck").Width(100);
+                            columns.Bound(c => c.DateCMNEntered).Title("DateCMNEntered").Width(200);
+                        })
+                         .ToolBar(tools => tools.Excel())
+                            .Sortable()
+                             .Pageable()
+                                 .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                               .Excel(excel => excel
+                                    .FileName("ExpiringCMNReport.xlsx")
+                                    .AllPages(true)
+                                    .Filterable(true)
+                                    .ProxyURL(Url.Action("Excel_Export_Save", "CMNReporting"))
+                                )
+                           .HtmlAttributes(new { style = "width:470px;" })
+                                .Reorderable(r => r.Columns(true))
+                                .Resizable(r => r.Columns(true))
+                                .ColumnMenu()
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(200)
+                            .ServerOperation(false)
+                            .Read(read => read.Action("ReadExpiringCMNDetails", "CMNReporting", Model))
+                        )
+                        .HtmlAttributes(new { style = "height: 800px;" })
+                )
+            </div>
+            @*@Html.Partial("GetExpiringCMNDetails", Model.ExpiringCMNDetails)*@
+        </div>
+    }
+</div>
+
+
+
+
+
+<script>
+
+            $(document).ready(function() {
+
+                $("#monthpicker").kendoDatePicker({
+                    // defines the start view
+                    start: "year",
+
+                    // defines when the calendar should return date
+                    depth: "year",
+
+                    // display month and year in the input
+                    format: "MMMM yyyy",
+
+                    // specifies that DateInput is used for masking the input element
+                    dateInput: true
+                });
+            });
+</script>
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+</style>
+

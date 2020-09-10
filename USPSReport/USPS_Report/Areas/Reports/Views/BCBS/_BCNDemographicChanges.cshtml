@@ -1,0 +1,161 @@
+﻿@model USPS_Report.Areas.Reports.Controllers.BCNCallLogVM
+
+
+<br />
+<div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.CheckBoxFor(m => m.Address) <label> Address </label></div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.CheckBoxFor(m => m.Physician) <label> Physician </label></div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.CheckBoxFor(m => m.Phone) <label> Phone Number </label></div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.TextAreaFor(m => m.DemographicChanges, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+    </div>
+
+</div>
+
+@*<div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"></div>
+
+            <div class="col-md-2">
+                @Html.DropDownListFor(t => t.MailingOrShipping, new List<SelectListItem>
+
+                   {
+                        new SelectListItem { Text = "Mailing Address" , Value = "Mailing"},
+                        new SelectListItem { Text = "Shipping Address" , Value = "Shipping"},
+
+
+                   }, "Select Option")
+            </div>
+
+        </div>
+       <hr />
+
+
+
+        <div class=" row">
+            <div class=" col-md-1"></div>
+            <div class=" col-md-2"><label> Address Line1 </label> </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Address1, new { @class = "form-control" })
+            </div>
+            </div>
+
+    <br />
+        <div class=" row">
+            <div class=" col-md-1"></div>
+            <div class=" col-md-2"> <label> Address Line2 </label></div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Address2, new { @class = "form-control" })
+            </div>
+
+        </div>
+
+        <br />
+        <div class=" row">
+            <div class=" col-md-1"></div>
+            <div class=" col-md-2"><label> City </label></div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+            </div>
+
+        </div>
+        <br />
+        <div class=" row">
+            <div class=" col-md-1"></div>
+            <div class=" col-md-2"><label> State  </label></div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
+            </div>
+
+        </div>
+    <br />
+        <div class=" row">
+            <div class=" col-md-1"></div>
+            <div class=" col-md-2"><label> ZipCode </label></div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Zipcode, new { @class = "form-control" })
+            </div>
+
+        </div>
+       <br />
+        <div class=" row">
+            <div class=" col-md-1"></div>
+            <div class=" col-md-2"><label> Phone No </label></div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+            </div>
+
+        </div>
+       <br />
+        <div class=" row">
+            <div class=" col-md-1"></div>
+            <div class=" col-md-2"><label> Physician </label></div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Physician, new { @class = "form-control" })
+            </div>
+
+        </div>
+        <br />
+        <div class=" row">
+            <div class=" col-md-1"></div>
+            <div class=" col-md-2"><label> InsuranceChange </label></div>
+            <div class="col-md-2">
+                @Html.CheckBoxFor(m => m.InsuranceChange)
+            </div>
+
+        </div>
+
+
+
+
+    </div>*@
+
+<script>
+
+    $('#Address').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#DemographicChanges').removeAttr("disabled");
+        } else {
+            $('#DemographicChanges').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Physician').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#DemographicChanges').removeAttr("disabled");
+        } else {
+            $('#DemographicChanges').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Phone').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#DemographicChanges').removeAttr("disabled");
+        } else {
+            $('#DemographicChanges').attr("disabled", "disabled")
+        }
+    });
+</script>

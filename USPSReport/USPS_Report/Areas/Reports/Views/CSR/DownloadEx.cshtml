@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "DownloadEx";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DownloadEx</h2>
+
+@Html.ActionLink("Download Here", "DownloadExampleFiles", "CSR", new { fileName = "test" }, new { @target = "_blank" })

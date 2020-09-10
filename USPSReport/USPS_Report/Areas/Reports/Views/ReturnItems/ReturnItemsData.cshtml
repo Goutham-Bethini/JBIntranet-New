@@ -1,0 +1,154 @@
+﻿@model USPS_Report.Areas.Reports.Models.ReturnItems.ReturnItemsVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "ReturnItemsData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>ReturnItemsData</h2>*@
+
+    <table width="100%" align="center" border="1">
+        <tr>
+            <td width="23%" valign="top">
+                @using (Html.BeginForm("ChooseAccount", "ReturnItems", FormMethod.Post))
+                {
+                <table width="100%">
+                    <tr>
+                        <td colspan="2" align="center" style="font-weight:bold;">Please enter account information</td>
+                    </tr>
+                    <tr>
+                        <td>Account:</td>
+                        <td>
+                            @Html.TextBoxFor(t => t.Account)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>First Name:</td>
+                        <td>@Html.TextBoxFor(t => t.FirstName)</td>
+
+                    </tr>
+                    <tr>
+                        <td>Last Name:</td>
+                        <td>@Html.TextBoxFor(t => t.LastName)</td>
+
+                    </tr>
+                    <tr>
+                        <td>Address:</td>
+                        <td>@Html.TextBoxFor(t => t.Address1)</td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>@Html.TextBoxFor(t => t.Address2)</td>
+
+                    </tr>
+                    <tr>
+                        <td>City:</td>
+                        <td>@Html.TextBoxFor(t => t.City)</td>
+
+                    </tr>
+                    <tr>
+                        <td>State:</td>
+                        <td>@Html.TextBoxFor(t => t.State)</td>
+
+                    </tr>
+                    <tr>
+                        <td>Zip code:</td>
+                        <td>@Html.TextBoxFor(t => t.ZipCode)</td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <button class="btn btn-primary btn-large" type="submit">Next</button>
+                        </td>
+                    </tr>
+                </table>
+                    @Html.ValidationMessageFor(t => t.Account, "", new { @class = "redText" })
+                }
+                @*<br />
+                <br />
+                <br />
+                <table>
+                    <tr>
+                        <td align="left" width="23%" style="font-weight:bold;text-decoration-line:underline;">Send Alert To:</td>
+                    </tr>
+                    <tr>
+                        <td align="center" width="23%">
+                            <button class="btn btn-primary btn-large" type="submit">Shipping Team</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="20px"></td>
+                    </tr>
+                    <tr>
+                        <td align="center" width="23%">
+                            <button class="btn btn-primary btn-large" type="submit">Receiving Team</button>
+                        </td>
+                    </tr>
+                </table>*@
+            </td>
+            <td width="77%" valign="top">
+                @if (Model != null && Model.Details != null)
+                {
+
+                <table width="100%">
+                    <tr>
+                        <td colspan="2" align="center" style="font-weight:bold;">To edit a return please click on the return item</td>
+                    </tr>
+                </table>
+                    <table width="100%">
+                        <thead>
+                            @*<tr>
+
+                            </tr>*@
+                            <tr>
+                                <th style="display:none;">Return Id</th>
+                                <th>RMA #</th>
+                                <th>Account #</th>
+                                <th>Client Name</th>
+                                <th>Phone #</th>
+                                <th>Tag_type</th>
+                                <th>D.O.S</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var rec in Model.Details)
+                            {
+                                <tr>
+                                    <td style="display:none;">@rec.ReturnId</td>
+                                    <td>@rec.RMAnum</td>
+                                    <td>@Html.ActionLink(@rec.AccountNum.ToString(), "ReturnInfo", "ReturnItems", new { returnId = @rec.ReturnId.ToString() }, null) </td>
+                                    <td>@Html.ActionLink(@rec.First_Name + " " + @rec.Last_Name, "ReturnInfo", "ReturnItems", new { returnId = @rec.ReturnId.ToString() }, null) </td>
+                                    <td> @rec.PhNum </td>
+                                    <td>@rec.TagType </td>
+                                    <td>@rec.RequestDate </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                }
+            </td>
+        </tr>
+    </table>
+
+
+
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+
+    .redText {
+        color: Red;
+    }
+</style>
+<script></script>

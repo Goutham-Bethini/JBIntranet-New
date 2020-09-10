@@ -1,0 +1,73 @@
+﻿@model USPS_Report.Areas.Reports.Models.CSRLogComplaints
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "Call";
+    Layout = "~/Areas/Reports/Views/Shared/_noSideBarLayout.cshtml";
+}
+
+
+
+<div>
+
+    @using (Html.BeginForm("NewCall", "CustomerServices", FormMethod.Post))
+    {
+        <div>
+            <label>Account </label>
+            @Html.TextBoxFor(m => m.Account, new { @class = "form-control" })
+            <button class="btn btn-primary btn-large" type="submit">Submit</button>
+        </div>
+    }
+</div>
+
+
+<hr />
+@if (Model != null && Model.Account != null)
+{
+
+    @*<div>
+
+        @(Html.Kendo().PanelBar()
+                    .Name("newcalllog")
+                         .ExpandMode(PanelBarExpandMode.Multiple)
+                    .Items(items =>
+                    {
+                    items.Add()
+                        .Text("AccountInfo")
+                        .Content( @<div> @Html.Partial("_abc",Model) </div>)
+
+                                //   .LoadContentFrom("CallComplaints", "CustomerServices", new {account = Model.Account})
+                                .Expanded(true);
+                    items.Add()
+                        .Text("AccountStatus")
+                       // .LoadContentFrom("Others", "CustomerServices",new { _vm = Model});
+                       .Content( @<div> @Html.Partial("_AccountStatus", Model) </div>);
+
+                        //items.Add()
+                        //   .Text("AccountStatus")
+                        //  .LoadContentFrom("AccountStatus", "CustomerServices", new { _vm = Model });
+
+
+                    })
+)
+    </div>*@
+    <div class="box-info full animated fadeInDown">
+
+        @using (Html.BeginForm("CallComplaints", "CustomerServices", FormMethod.Post, new { @role = "form", id = "myWizard" }))
+        {
+            @Html.AntiForgeryToken()
+
+          //  @Html.HiddenFor(m => m.sId)
+            <h4> @Html.ValidationSummary("", new { @class = "text-danger" })</h4>
+
+            <section class="step" data-step-title="AccountInfo">
+              //  @Html.Partial("_AccountInfo", Model)
+            </section>
+            <section class="step" data-step-title="Others">
+               // @Html.Partial("_others", Model)
+            </section>
+           
+        }
+    </div>
+}
+
+

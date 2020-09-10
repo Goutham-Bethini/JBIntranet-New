@@ -1,0 +1,165 @@
+﻿@model USPS_Report.Areas.Reports.Models.ErrorDecorderVM
+
+@{
+    ViewBag.Title = "ChampsErrorDecorder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <div class="row middle">
+        <h1><strong> CHAMPS Error Decoder </strong></h1>
+        <h4> <strong>  *Please provide a comma delimited list of codes </strong></h4>
+        </div>
+        @using (Html.BeginForm("ChampsErrorDecorder", "Billing_Champs", FormMethod.Post))
+        {
+            <div class="row middle">
+                <div class="col-md-12 text-center">
+                    <label><strong>  *Reason Code: </strong></label>
+
+                    @Html.TextBoxFor(t => t.ReasonCode)
+                </div>
+
+
+            </div>
+
+            <div class="row middle">
+                <div class="col-md-12 text-center">
+                    <label><strong> *Remark Code : </strong></label>
+
+                    @Html.TextBoxFor(t => t.RemarkCode)
+
+                </div>
+
+            </div>
+            <div class="row middle">
+                <div class="col-md-12 text-center">
+                    <button class="btn btn-primary btn-large" type="submit"><strong> View </strong></button>
+                </div>
+            </div>
+        }
+    @if (Model != null && Model.withoutIgnoreList != null)
+    {
+    <h4>
+        <button class="btn btn-primary btn-large" type="submit" id="show"> <strong> @Html.DisplayFor(t => t.Count) Ignore Errors - Click to show </strong></button>
+
+    </h4>
+    }
+@using (Html.BeginForm("ChampsErrorDecorder", "Billing_Champs", FormMethod.Post))
+{
+
+    if (Model != null && Model.withoutIgnoreList != null)
+
+    {
+
+                <div class="row" style="width:80%;margin:auto">
+                 
+                    <hr />
+                    <div class="table-responsive">
+                        @{ var bg = "##FFFF66"; }
+                        @{ var id = "hide"; }
+                        <table data-sortable class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th><strong> Error Code </strong></th>
+                                    <th> <strong> Reason Code </strong></th>
+                                    <th> <strong>Remark Code </strong></th>
+                                    <th> <strong> Error  </strong></th>
+                                    <th> <strong>**Ignore  </strong></th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.withoutIgnoreList.Count(); i += 1)
+                                {
+
+                                    //if (Model.withoutIgnoreList[i].cieID != null)
+                                    //{
+                                    //    bg = "#FF0066";
+
+                                    //}
+                                    //else
+                                    //{
+                                    //    bg = "#6699CC";
+
+                                    //}
+
+                                    <tr>
+                                        <td>
+                                            <strong>  @Html.DisplayFor(x => x.withoutIgnoreList[i].errCode) </strong>
+                                            @Html.HiddenFor(x => x.withoutIgnoreList[i].errCode)
+                                        </td>
+                                        <td><strong> @Html.DisplayFor(x => x.withoutIgnoreList[i].errAdjCode) </strong></td>
+                                        <td><strong> @Html.DisplayFor(x => x.withoutIgnoreList[i].errRemitCode) </strong></td>
+                                        <td><strong> @Html.DisplayFor(x => x.withoutIgnoreList[i].Error) </strong></td>
+                                        <td><strong> @Html.CheckBoxFor(x => x.withoutIgnoreList[i].ignore) </strong></td>
+
+                                    </tr>
+                                }
+                                
+                                @for (int i = 0; i < Model.IgnoreList.Count(); i += 1)
+                    {
+
+
+                                    <tr class="check" style="display:none"  >
+                                        <td>
+                                            <strong>   @Html.DisplayFor(x => x.IgnoreList[i].errCode) </strong>
+                                            @Html.HiddenFor(x => x.IgnoreList[i].errCode)
+                                        </td>
+                                        <td> <strong> @Html.DisplayFor(x => x.IgnoreList[i].errAdjCode) </strong></td>
+                                        <td> <strong> @Html.DisplayFor(x => x.IgnoreList[i].errRemitCode) </strong></td>
+                                        <td style="color:orangered"> <strong> @Html.DisplayFor(x => x.IgnoreList[i].Error) </strong></td>
+                                        <td> <strong> @Html.CheckBoxFor(x => x.IgnoreList[i].ignore) </strong></td>
+
+                                    </tr>
+                                }
+                                    
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h4><strong>**Only ignore an error if you don't want to see it for ANY claims in the future. </strong></h4>
+                                <button class="btn btn-primary btn-large" type="submit"> <strong> Submit </strong></button>
+                            </div>
+                        </div>
+
+                                }
+
+                            }
+
+    
+    </div>
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 500px;
+    }
+</style>
+
+<script>
+    $('#show').click(function () {
+        var a = $('#show').text().toString();
+        if (a.indexOf('show') > -1)
+        {
+            var text = $(this).text().replace('show', 'hide');
+            $(this).text(text);
+        }
+       else if (a.indexOf('hide') > -1) {
+            var text = $(this).text().replace('hide', 'show');
+            $(this).text(text);
+        }
+
+        
+       $('.check').toggle();
+    });
+</script>

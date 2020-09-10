@@ -1,0 +1,80 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.ProductivityReport.ProductivityReportVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "ProductivityReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="middle" style="text-align:center;">Warehouse Productivity Report for @Model.SelectedDate.ToShortDateString()</h3>
+<br />
+<h4 class="middle" style="text-align:center;">as of @DateTime.Now.ToString("MM/dd/yyyy h:mm t")</h4>
+<br />
+<div>
+    <table width="100%">
+        <tr>
+            <td style="text-align:center;color:blue;font-size:medium;"><span><-- </span>@Html.ActionLink(@Model.PreDate.ToShortDateString(), "ProductivityReportByDate", "ProductivityReport", new { selectedDate = @Model.PreDate.ToShortDateString() }, null)</td>
+            <td style="text-align:center;color:blue;font-size:medium;">@Html.ActionLink(@Model.NextDate.ToShortDateString(), "ProductivityReportByDate", "ProductivityReport", new { selectedDate = @Model.NextDate.ToShortDateString() }, null)<span> --></span></td>
+        </tr>
+    </table>
+</div>
+
+@if (Model != null && Model.Details != null && Model.Details.Count>0)
+{    
+    <div class="table-responsive middle">
+        <h5 class="middle" style="text-align:center;">*Click the station names to update</h5>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Station*</th>
+                    <th>First Scan</th>
+                    <th>Last Scan</th>
+                    <th>Time Elapsed</th>
+                    <th>Work Orders</th>
+                    <th>Packages</th>
+                    <th>Packages/Order</th>
+                    <th>Work Orders/Hour</th>
+                    <th>Packages/Hour</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rec in Model.Details)
+                {
+                    <tr>
+                        <td>@rec.User </td>
+                        <td style="text-decoration:underline;">@Html.ActionLink(@rec.Station, "StationUpdate", "ProductivityReport", new { meter_Number = @rec.Meter_Number, stationName= @rec.Station }, null)</td>
+                        <td>@rec.FirstScan </td>
+                        <td>@rec.LastScan </td>
+                        <td>@rec.TimeElapsed </td>
+                        <td>@rec.WorkOrders </td>
+                        <td>@rec.Packages </td>
+                        <td>@rec.PackagesByOrder </td>
+                        <td>@rec.WorkOrdersByHour </td>
+                        <td>@rec.PackagesByHour </td>
+                    </tr>
+                }
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align:right;"><strong>Total:</strong></td>
+                    <td><strong>@Model.WorkOrdersTotal</strong></td>
+                    <td><strong>@Model.PackagesTotal</strong></td>
+                    <td><strong>@Model.PtotalByWOtotal</strong></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+}
+else
+{    
+    <div width="100%" style="text-align:center;font-size:medium;">
+        <span class="middle" style="color:red;">No Data Found</span>
+    </div>
+    
+}

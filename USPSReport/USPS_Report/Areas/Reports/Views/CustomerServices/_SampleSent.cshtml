@@ -1,0 +1,53 @@
+﻿@model USPS_Report.Areas.Reports.Models.CallLogVM
+
+
+<br />
+<div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.CheckBoxFor(m => m.SampleChoice) <label> Sample Choice </label></div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.CheckBoxFor(m => m.SampleTask) <label> Sample Task </label></div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.TextAreaFor(m => m.SampleTxt, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+        
+    </div>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-3">
+            <lable><strong> Message: Complete task on CSR Task Tracker </strong></lable>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#SampleChoice').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#SampleTxt').removeAttr("disabled");
+        } else {
+            $('#SampleTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#SampleTask').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#SampleTxt').removeAttr("disabled");
+        } else {
+            $('#SampleTxt').attr("disabled", "disabled")
+        }
+    });
+</script>

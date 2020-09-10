@@ -1,0 +1,32 @@
+﻿@model USPS_Report.Areas.Reports.Models.CSRLogComplaints
+
+<div>
+    <table>
+     
+        <tr>
+            <td>
+                <label class="col-md-5 control-label">FedExComplaints </label>
+                <div class="col-md-7">
+                    @Html.CheckBoxFor(m => m.FedExComplaints)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="col-md-5 control-label"> FedExTrack</label>
+                <div class="col-md-7">
+                    @Html.TextBoxFor(m => m.FedExTrack, new { @class = "form-control" })
+                    </div>
+</td>
+        </tr>
+        <tr>
+            <td>
+                <label class="col-md-5 control-label">  Description </label>
+                <div class="col-md-7">
+                    @Html.TextBoxFor(m => m.C_Description, new { @class = "form-control" })
+                    </div>
+</td>
+        </tr>
+
+    </table>
+</div>

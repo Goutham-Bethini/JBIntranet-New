@@ -1,0 +1,109 @@
+﻿@model USPS_Report.Areas.Reports.Models.AssessmentVM
+@using Kendo.Mvc.UI
+
+
+@{
+    ViewBag.Title = "AssessmentsCompleted";
+    Layout = "~/Areas/Reports/Views/Shared/_ReportLayout.cshtml";
+}
+
+<h2>Assessments Completed</h2>
+<div>
+    @using (Html.BeginForm("AssessmentsCompleted", "ClinicalAssessment", FormMethod.Post))
+    {
+        <div class="form-inline">
+            <label>Start Date </label>
+
+
+            @Html.Kendo().DatePicker().Name("StartDate").Value(Model.StartDate).Format("MM/dd/yyyy")
+            <label>End Date</label>
+            @Html.Kendo().DatePicker().Name("EndDate").Value(Model.EndDate).Format("MM/dd/yyyy")
+            <button class="btn btn-primary btn-large" type="submit">View</button>
+        </div>
+
+    }
+</div>
+<hr />
+
+@Model.TotalAssessmentBarChart
+<hr />
+
+
+
+
+
+@if (Model != null && Model.assessmentData != null)
+{
+    var name="";
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Qty</th>
+                    <th>Type</th>
+
+                </tr>
+            </thead>
+            <tbody>
+           
+                @foreach (var rec in Model.assessmentData)
+                {
+
+                    if (name != @rec.Name)
+                    {
+
+
+                        foreach (var recN in Model.totalAssessmentList)
+                        {
+                            if (recN.name == name)
+                            {
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td style="background-color : deepskyblue">Total </td>
+                            <td style="background-color : deepskyblue">@recN.Total</td>
+                        </tr>
+                            }
+                        }
+
+                        name = @rec.Name;
+                    <tr style="background-color:burlywood">
+                        <td style="color:red">
+                            @rec.Name
+                        </td>
+                        <td>@String.Format("{0:MM/dd/yyyy}",rec.Date)</td>
+                        <td>@rec.Qty</td>
+                        <td>@rec.Type</td>
+                    
+                    </tr>
+                    }
+                    else
+                    {
+                        
+                        <tr >
+                            <td>
+                               
+                            </td>
+                            <td>@String.Format("{0:MM/dd/yyyy}", rec.Date)</td>
+                            <td>@rec.Qty</td>
+                            <td>@rec.Type</td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+    </div>
+}
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+</style>
+

@@ -1,0 +1,160 @@
+﻿
+@{
+    ViewBag.Title = "UnCancel Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ 
+ 
+<script src="~/Scripts/spin.min.js"></script>
+<style type="text/css">
+    #loading {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.8);
+        z-index: 1000;
+    }
+
+    #loadingcontent {
+        display: table;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #loadingspinner {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        text-align: center;
+        font-size: larger;
+        padding-top: 80px;
+    }
+</style>
+<div id="loading">
+    <div id="loadingcontent">
+        <p id="loadingspinner">
+            Please wait, Upload file is in progress...
+        </p>
+    </div>
+</div>
+<h1 style="margin-left:25px;text-decoration:underline">UNCANCEL ORDERS</h1>
+@using (Html.BeginForm("UnCancelOrders", "ManageOrder", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", id = "cancelform" }))
+{
+    <h3 style="color:green;margin-left:50px" id="successMsg"></h3>
+
+    <h3 style="color:red;margin-left:50px" id="errorMsg"></h3>
+
+
+    <p>&nbsp;</p>
+    <div class="container-fluid">
+
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">Upload Uncancel Orders file:</label>
+            <div class="col-sm-10">
+                <input type="file" id="file" name="file" />
+            </div>
+
+        </div>
+        <p>&nbsp;</p>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-primary" onclick="confirmUpload()">Submit</button>
+                &nbsp; &nbsp; &nbsp;<p>
+                    <b> Important Note : Please use this upload functionality Only to Uncancel Orders.</b>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+ 
+
+
+<script type="text/javascript">
+        var opts = {
+            lines: 12, // The number of lines to draw
+            length: 7, // The length of each line
+            width: 4, // The line thickness
+            radius: 10, // The radius of the inner circle
+            color: '#000', // #rgb or #rrggbb
+            speed: 1, // Rounds per second
+            trail: 60, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false // Whether to use hardware acceleration
+        };
+        var target = document.getElementById('loading');
+        var spinner = new Spinner(opts).spin(target);
+        $(document)
+            .ajaxStart(function () {
+                $('#successMsg').html('');
+                $('#errorMsg').html('');
+
+                $("#loading").fadeIn();
+            })
+            .ajaxStop(function () {
+                $("#loading").fadeOut();
+            });
+
+        function confirmUpload() {
+            var txt;
+            if (confirm("Are you sure you want perfrom UNCANCEL ORDERS")) {
+                SubmitButtonOnclick(); 
+            } else {
+
+            }
+
+        }
+            function SubmitButtonOnclick()
+            {
+
+              //  e.preventDefault(); // stop the standard form submission
+
+
+                var formData= new FormData();
+                var file = document.getElementById("file").files[0];
+                formData.append("file", file);
+
+                $.ajax({
+                    url: '@Url.Action("UnCancelOrders", "ManageOrder", new { Area = "Reports" })',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: formData,
+                    success: function (result) {
+                        $("#loading").fadeOut();
+
+                        if (result.Success) {
+                            var $el = $('#file');
+                            $el.wrap('<form>').closest('form').get(0).reset();
+                            $('#cancelform')[0].reset();
+                            $el.unwrap();
+                            $('#successMsg').html(result.Message);
+                        } else {
+                            $('#errorMsg').html(result.Message);
+                        }
+
+                       // alert(result.Message);
+                    },
+                    error: function (err) {
+                     //   alert("Error Uploading File");
+                      //  $('#successMsg').html('');
+                        $('#errorMsg').html('Error Uploading File');
+                    }
+                });
+            }
+
+       
+ 
+</script>
+

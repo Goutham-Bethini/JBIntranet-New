@@ -1,0 +1,109 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.ShippedOrders.ShippedOrdersVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "ShippedOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3 class="middle" style="text-align:center;">Shipped Orders</h3>
+<div>
+    <table>
+        <tr>
+            <td width="80%">
+                <div id="scheduler">
+                    @(Html.Kendo().Scheduler<USPS_Report.Areas.ColdFusionReports.Models.DataModels.ShippedOrders.ShippedOrdersData>()
+                            .Name("scheduler")
+                            .Editable(true)
+                            .Views(views =>
+                            {
+                                views.MonthView(mv => mv.Selected(true));
+                                views.MonthView(mv => mv.EventHeight(22));
+                            })
+                            .Timezone("Etc/UTC")
+                            .DataSource(d => d.Read(read => read.Action("GetShippedOrders", "ShippedOrders").Data("getAdditionalData")).ServerOperation(true)))
+                </div>
+            </td>
+            <td width="20%" style="vertical-align:top;" class="middle">
+                <div class="middle" style="text-align:-webkit-center">
+                    <table>
+                        <tr>
+                            <td>
+                                <span><strong style="text-decoration-line: underline;">Monthly Totals</strong></span>
+                                <br />
+                                <div id="MonthlyTotals"></div>
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <br />
+                    <table>
+                        <tr>
+                            <td>
+                                <span><strong style="text-decoration-line: underline;">Daily Average</strong></span>
+                                <br />
+                                <div id="DailyAverage"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    function getAdditionalData() {
+        //debugger;
+        var scheduler = $("#scheduler").data("kendoScheduler");
+        var result = {
+            start: scheduler.view().startDate().toISOString(),
+            end: scheduler.view().endDate().toISOString()
+        }
+        //debugger;
+        Call4Summery(result);
+        return result;
+    }
+
+    function Call4Summery(result) {
+        //debugger;
+        $.ajax({
+            url: '@Url.Action("ShippedOrdersSummery", "ShippedOrders")',
+            type: 'POST',
+            data: result,
+            success: function (result) {
+                //debugger;
+                //alert("success");
+                var html = '<table class="table table-striped">';
+                var flag = 0;
+                $.each(result.MonthlyTotalsDetails, function (index, value) {
+                    html += '<tr>';
+                    $.each(value, function (index2, value2) {
+                        html += '<td>' + value2 + '</td>';
+                    });
+                    html += '<tr>';
+                });
+                html += '</table>';
+                $('#MonthlyTotals').html(html);
+
+                var html2 = '<table class="table table-striped">';
+                var flag = 0;
+                $.each(result.DailyAvgDetails, function (index, value) {
+                    html2 += '<tr>';
+                    $.each(value, function (index2, value2) {
+                        html2 += '<td>' + value2 + '</td>';
+                    });
+                    html2 += '<tr>';
+                });
+                html2 += '</table>';
+                $('#DailyAverage').html(html2);
+            },
+            error: function () {
+            //alert("Failure");
+            }
+            });
+            }
+</script>
+<style>
+    #scheduler td[role='gridcell'] {
+        height: 130px !important;
+    }
+</style>
+

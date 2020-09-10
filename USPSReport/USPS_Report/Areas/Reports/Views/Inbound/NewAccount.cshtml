@@ -1,0 +1,109 @@
+﻿@model USPS_Report.Areas.Reports.Models.NewAcctDetails
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "New Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+ 
+   @using (Html.BeginForm("NewAccount", "Inbound", FormMethod.Post))
+   {
+        @*<div class="form-inline">
+            <label>Start Date </label>
+
+
+            @Html.Kendo().DatePicker().Name("StartDate").Value(Model.StartDate).Format("MM/dd/yyyy")
+            <label>End Date</label>
+            @Html.Kendo().DatePicker().Name("EndDate").Value(Model.EndDate).Format("MM/dd/yyyy")
+            <button class="btn btn-primary btn-large" type="submit">View</button>
+        </div>*@
+
+    <h3 class="middle">New Account Self Service</h3><hr />
+
+
+
+
+ if (Model != null && Model.details != null)
+{
+    <div class="table-responsive" style = "margin-left:10px">
+        @*<h3>Total count : @Html.DisplayName(Model.GetAssessmentCountReport.Count().ToString()) </h3>*@
+        <table data-sortable class="table table-hover table-striped" style="border:solid 1px">
+            <thead>
+                <tr style="border:solid 1px">
+                    <th style="border:solid 1px">ISUpdated</th>
+                    <th style="border:solid 1px">SupplyType</th>
+                    <th style="border:solid 1px">Gender</th>
+                    <th style="border:solid 1px">DOB</th>
+                    <th style="border:solid 1px">FullName</th>
+                    <th style="border:solid 1px">PrimaryPhone</th>
+                    <th style="border:solid 1px">AltPhone</th>
+                    <th style="border:solid 1px">IsTransfer</th>
+                    <th style="border:solid 1px">InsProvider</th>
+                    <th style="border:solid 1px">ProviderPhn</th>
+                    <th style="border:solid 1px">InsuranceID</th>
+                    <th style="border:solid 1px">DoctorName</th>
+                    <th style="border:solid 1px">DoctorLocation</th>
+                    <th style="border:solid 1px">DoctorPhone</th>
+                    <th style="border:solid 1px">DeliveryMethod</th>
+                    <th style="border:solid 1px">DeliveryEmail</th>
+                    <th style="border:solid 1px">DeliveryFax</th>
+                    <th style="border:solid 1px">Address</th>
+                    <th style="border:solid 1px">IsAddrValid</th>
+                    <th style="border:solid 1px">UpdateTime</th>
+                   
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rec in Model.details)
+                {
+                    <tr style="border:solid 1px">
+                        <td>@Html.ActionLink("Done", "NewAccount", "Inbound", new { id = @rec.id },new { @class = "btn btn-primary", @style = "color:white" } )</td>
+                        <td style="border:solid 1px">@rec.SupplyType </td>
+                        <td style="border:solid 1px">@rec.Gender </td>
+                        <td style="border:solid 1px">@rec.DOB </td>
+                        <td style="border:solid 1px">@rec.FullName </td>
+                        <td style="border:solid 1px">@rec.PrimaryPhone </td>
+                        <td style="border:solid 1px">@rec.AltPhone </td>
+                        <td style="border:solid 1px">@rec.IsNewAccountTransfer </td>
+                        <td style="border:solid 1px">@rec.InsuranceProvider </td>
+                        <td style="border:solid 1px">@rec.InsuranceProviderPhone </td>
+                        <td style="border:solid 1px">@rec.InsuranceID </td>
+                        <td style="border:solid 1px">@rec.DoctorName </td>
+                        <td style="border:solid 1px">@rec.DoctorLocation </td>
+                        <td style="border:solid 1px">@rec.DoctorPhone </td>
+                        <td style="border:solid 1px">@rec.DeliveryMethod </td>
+                        <td style="border:solid 1px">@rec.DeliveryEmail </td>
+                        <td style="border:solid 1px">@rec.DeliveryFax </td>
+                        <td style="border:solid 1px">@rec.Address </td>
+                        <td style="border:solid 1px">@rec.IsNewAddrValid </td>
+                        <td style="border:solid 1px">@rec.UpdateTime </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+}
+   }
+
+
+
+
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+
+ 
+</style>
+

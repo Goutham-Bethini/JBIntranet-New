@@ -1,0 +1,226 @@
+﻿@model USPS_Report.Areas.Reports.Models.EligSearchWIVM
+
+@{
+    ViewBag.Title = "EligibilitySearch_WI";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="signupbox" class="container" style="padding:0px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <i class="fa fa-user"></i> Wisconsin Eligibility String Search
+
+            </div>
+        </div>
+
+        @using (Html.BeginForm("EligibilitySearch_WI", "Billing", FormMethod.Post))
+        {
+
+            @*<div class="row">
+                    <div class="col-md-2"></div>
+                    <label>Enter either a Product Code and Date Range, Vendor and Date Range, or just a Date Range!</label>
+                </div>*@
+            <br />
+            <div class="row">
+                <div class="col-md-2"></div>
+
+                <div class="col-md-4">
+                    <strong>Search String: </strong>
+                    @Html.DropDownListFor(t => t.SearchString, new List<SelectListItem>
+
+               {
+                   new SelectListItem { Text = "Account#" , Value = "account"},
+                   new SelectListItem { Text = "WorkOrder#" , Value = "workorder"},
+                      new SelectListItem { Text = "Last Name", Value = "lastname" },
+
+               }, "Select Option")
+                </div>
+
+                <div class="col-md-4">
+                    <strong>Search By: </strong>
+                    @Html.TextBoxFor(m => m.Parameter, new { @class = "roundTextbox" })
+                </div>
+         
+           
+         
+            </div>
+
+       
+         <br />
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-6" style="align-items:center">
+                    <button class="btn btn-primary btn-large" type="submit" style="width: 300px; margin: 0 auto">Submit</button>
+                </div>
+            </div>
+
+        }
+
+
+    </div>
+
+</div>
+
+
+
+<hr />
+<div class="row">
+
+    @if (Model != null && Model.eligSerach_WI != null)
+    {
+
+
+        <div style="margin-left:100px">
+            <div class=" row">
+                <h3 style="color:blue">
+                    Total Count =  @Model.eligSerach_WI.Count()
+                </h3>
+            </div>
+
+            <div>
+
+                <table cellpadding=0 cellspacing=0>
+                    <tr>
+                        <td bgcolor='#FF0066'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td style="font-size:x-small">=Canceled Orders</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td bgcolor='#66CC99'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td style="font-size:x-small">=Orders didn't hold</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td bgcolor='#6699CC'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td style="font-size:x-small">=Released Orders</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td bgcolor='#FFFF00'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td style="font-size:x-small">=Not Attached to Order (possible testing scenario)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="table-responsive">
+                @{ var bg = "##FFFF66"; }
+                <table data-sortable class="table table-bordered">
+                    <thead>
+                        <tr>
+                           
+                            <th>Account</th>
+                            <th>workOrder</th>
+                            <th>Request Date</th>
+                            <th>Order Status</th>
+                            <th>Updated/Released</th>
+                            <th>Last Name</th>
+                            <th>First Name</th>
+                            <th>Tracking ##</th>
+                            <th>HoldReason</th>
+                            <th>Eligibility String</th>
+                          
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rec in Model.eligSerach_WI)
+                        {
+
+                            if (rec.Cancel_Date != null)
+                            {
+                                bg = "#FF0066";
+                            }
+                            else if (rec.Last_Updated_Date != null)
+                            {
+                                bg = "#6699CC";
+                            }
+
+                            else if (rec.completed_date != null)
+                            {
+                                bg = "#66CC99";
+                            }
+                            else
+                            {
+                                bg = "#FFFF00";
+                            }
+                            <tr>
+                                <td bgcolor= '@bg' >@rec.werAccount</td>
+                                <td bgcolor= '@bg' >@rec.werWorkOrder</td>
+                                <td bgcolor= '@bg' >@rec.werDOS</td>
+                               @if (rec.completed_date != null && rec.Completed_By != null)
+                               {
+                                <td bgcolor= '@bg' >
+                                    Completed <br /> @String.Format("{0:dd/MM/yyyy}", rec.completed_date) <br /> By- @rec.Completed_By <br /><br /> @rec.Cancel_Note
+                                </td>
+                               }
+                               else if (rec.completed_date != null && rec.Completed_By == null)
+                               {
+                                <td bgcolor= '@bg' >
+                                    Completed <br /> @String.Format("{0:dd/MM/yyyy}", rec.completed_date)  <br /><br /> @rec.Cancel_Note
+                                </td>
+                               }
+                               else if (rec.Cancel_Date != null && rec.Cancel_by != null)
+                               {
+                                   <td bgcolor= '@bg' >
+                                       Canceled <br /> @String.Format("{0:dd/MM/yyyy}", rec.Cancel_Date) <br /> By- @rec.Cancel_by <br /><br /> @rec.Cancel_Note
+                                    </td>
+                               }
+                               else if (rec.Cancel_Date != null && rec.Cancel_by == null)
+                               {
+                                <td bgcolor= '@bg' >
+                                    Canceled <br />  @String.Format("{0:dd/MM/yyyy}", rec.Cancel_Date) <br /><br /> @rec.Cancel_Note
+                                </td>
+                               }
+                               else if (@rec.ID != null)
+                               {
+                                   <td bgcolor= '@bg' >Open Order</td>
+                               }
+                               else
+                               {
+                                   <td bgcolor= '@bg' >N/A</td>
+                               }
+
+                                @if (rec.ID == null)
+                                {
+                                    <td bgcolor= '@bg' >
+                                       N/A
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td bgcolor= '@bg' >@String.Format("{0:dd/MM/yyyy}", rec.Last_Updated_Date) <br />
+                                        @rec.Last_Updated_By
+                                   </td>
+                                }
+                                <td bgcolor= '@bg' >@rec.werLastName</td>
+                                <td bgcolor= '@bg' >@rec.werFirstName</td>
+                                <td bgcolor= '@bg' >@rec.werTrackingNum</td>
+                                <td bgcolor= '@bg' >@rec.werHoldReason</td>
+                               <td bgcolor= '@bg' >@rec.werEligString</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+    }
+</div>
+
+<style>
+    .middle {
+        margin: auto;
+        width: 1500px;
+    }
+
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .roundTextbox {
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: solid 1px #B2DCF8;
+        padding: 5px;
+    }
+</style>
+

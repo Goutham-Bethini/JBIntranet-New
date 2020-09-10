@@ -1,0 +1,96 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.CallTagSearch.CallTagSearchVM
+@{
+    ViewBag.Title = "CallTagSearch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="middle" style="text-align:center;">Call Tag Search</h3>
+
+
+<div>
+    @using (Html.BeginForm("CallTagSearchData", "CallTagSearch", FormMethod.Post))
+    {
+        <center>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        @Html.ValidationMessageFor(t => t.CallTagSearchType, "", new { @class = "redText" })
+                        <br />
+                        @Html.ValidationMessageFor(t => t.CallTagSearchValue, "", new { @class = "redText" })
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Search By:</strong></td>
+                    <td><strong>Search Value:</strong></td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DropDownListFor(t => t.CallTagSearchType, new List<SelectListItem>
+                               {
+                                         new SelectListItem { Text = "Account" , Value = "Account"},
+                                    new SelectListItem { Text = "WorkOrder" , Value = "WorkOrder"},
+                                      new SelectListItem { Text = "OracleRMA" , Value = "OracleRMA"}
+                               }, "Select Option")
+                    </td>
+                    <td>@Html.TextBoxFor(t => t.CallTagSearchValue)</td>
+                </tr>
+            </table>
+            <br />
+
+            <button class="btn btn-primary btn-large" type="submit">Submit</button>
+        </center>
+    }
+</div>
+<hr />
+@if (Model != null && Model.Details != null)
+{
+    <div class="table-responsive middle">
+        <table data-sortable class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Account</th>
+                    <th>WorkOrder</th>
+                    <th>Shipped</th>
+                    <th>Reshipped</th>
+                    <th>Date Returned</th>
+                    <th>Tag Type</th>
+                    <th>Oracle RMA</th>
+                    <th>Return Note</th>
+                    <th>Reason</th>
+                    <th>Other Reason</th>
+                    <th>Tracking Number</th>
+                    <th>Boxes Returned</th>
+                    <th>Product (Qty)</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rec in Model.Details)
+                {
+                <tr>
+                    <td>@rec.Account </td>
+                    <td>@rec.WorkOrder </td>
+                    <td>@rec.Shipped </td>
+                    <td>@rec.Reshipped </td>
+                    <td>@rec.DateReturned </td>
+                    <td>@rec.TagType </td>
+                    <td>@rec.OracleRMA</td>
+                    <td>@rec.ReturnNote</td>
+                    <td>@rec.Reason </td>
+                    <td>@rec.OtherReason </td>
+                    <td>@rec.TrackingNumber </td>
+                    <td>@rec.BoxesReturned</td>
+                    <td>@rec.ProductAndQty</td>
+                </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+}
+
+<style>
+    .redText {
+        color: Red;
+    }
+</style>

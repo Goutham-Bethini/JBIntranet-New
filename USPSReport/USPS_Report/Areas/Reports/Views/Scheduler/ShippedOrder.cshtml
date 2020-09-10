@@ -1,0 +1,54 @@
+﻿@model USPS_Report.Areas.Reports.Models.ShippedOrderVM
+@using Kendo.Mvc.UI
+
+@{
+    ViewBag.Title = "ShippedOrder";
+    Layout = "~/Areas/Reports/Views/Shared/_ReportLayout.cshtml";
+}
+
+
+<div id="scheduler">
+    @(Html.Kendo().Scheduler<USPS_Report.Areas.Reports.Models.TaskViewModel>()
+    .Name("scheduler")
+
+      //  .Editable(e => e.TemplateId("editor") )
+      // .Editable(e => e.Destroy(false))
+      // .Editable(e => e.Create(false))
+      // .Editable(e => e.Update(false))
+      .Editable(false)
+
+
+    // .Editable(e => e.TemplateId("event-template") )
+    .Views(views =>
+    {
+        // views.DayView();
+        //  views.WorkWeekView();
+        //  views.WeekView();
+        views.MonthView(mv => mv.Selected(true));
+        views.MonthView(mv => mv.EventHeight(22));
+       
+
+        //  views.AgendaView();
+    })
+    .Timezone("Etc/UTC")
+    .DataSource(d => d
+        .Read("GetOrder", "Scheduler")
+    ))
+</div>
+
+
+@*<script id="editor" type="text/javascript">
+
+       <p>@Html.ActionLink("chk", "WoNotPrinted", "WorkOrder", new { area = "Reports" }, null)</p>
+
+
+
+    </script>*@
+
+<style>
+    #scheduler td[role='gridcell'] {
+        height: 130px !important;
+    }
+</style>
+
+

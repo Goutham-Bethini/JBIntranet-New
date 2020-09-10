@@ -1,0 +1,218 @@
+﻿@model USPS_Report.Models.DetailReport
+
+
+@using (Html.BeginForm("GenPdf", "Home", FormMethod.Post))
+{
+<div class="modal-body body-content">
+ @Html.HiddenFor(m=>m.Acccount)
+@Html.HiddenFor(m=>m.Address1)
+    @Html.HiddenFor(m => m.Address2)
+    @Html.HiddenFor(m => m.Amount)
+    @Html.HiddenFor(m => m.City)
+    @Html.HiddenFor(m => m.Confirmation)
+    @Html.HiddenFor(m => m.CustomerID)
+    @Html.HiddenFor(m => m.DDate)
+    @Html.HiddenFor(m => m.DStatus)
+    @Html.HiddenFor(m => m.FileExists)
+    @Html.HiddenFor(m => m.Name)
+    @Html.HiddenFor(m => m.PdfExists)
+    @Html.HiddenFor(m => m.PICNumber)
+    @Html.HiddenFor(m => m.PostMDate)
+    @Html.HiddenFor(m => m.State)
+    @Html.HiddenFor(m => m.TDate)
+    @Html.HiddenFor(m => m.Tracknum)
+    @Html.HiddenFor(m => m.Weight)
+    @Html.HiddenFor(m => m.WorkOrderId)
+    @Html.HiddenFor(m => m.Zip)
+    @Html.HiddenFor(m => m._id)
+  
+
+    <div id="signupbox" class="container" style="padding:0px;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="fa fa-user"></i> USPS Info
+                    <button type="button" class="btn btn-danger col-md-offset-10" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+            
+            <div  id="mainDisplayDIV" class="panel-body" style="padding:15px;">
+                <div style="height:30px"></div>
+                <div style="width:260px; height:100px">
+                    <img src="~/Image/USPS_Template.jpg" />
+                </div>
+                <div class="clear-fix"></div>
+                <div class="profile-panel">
+             
+                    <div class="row">
+                        <div style="height:30px"></div>
+                        <div class="col-md-6"> <strong> @System.DateTime.Now.Date </strong></div>
+                    </div>
+
+                    <div class="row">
+                        <div style="height:30px"></div>
+                        <div class="col-md-6"> <strong>Dear Customer: </strong></div>
+                    </div>
+
+                    <div class="row">
+                        <div style="height:30px"></div>
+                        <div class="col-md-7"> <strong>The Following is the proof of delivery for tracking number:</strong></div>
+                        <div class="col-md-3"><span class="profile-val">@Html.DisplayFor(m => m.Confirmation) </span></div>
+                    </div>
+
+                    <hr style="border:solid 1px" />
+                    <div class="row">
+                        <div class="col-md-6"> <strong>Delivery Information:</strong></div>
+                    </div>
+                    <hr style="border:solid 1px" />
+
+                    <div class="row">
+
+                        <div class="col-md-3"> <strong>Status:</strong></div>
+                        <div class="col-md-3"><span class="profile-val">@Html.DisplayFor(m => m.DStatus) </span></div>
+                        <div class="col-md-3"> <strong>Delivery Location:</strong></div>
+                        <div class="col-md-3">
+                            <span class="profile-val">@Html.DisplayFor(m => m.Address1) </span>
+                            <br /> <span class="profile-val">@Html.DisplayFor(m => m.City),@Html.DisplayFor(m => m.State)  </span>
+                            @*<br /> <span class="profile-val">@Html.DisplayFor(m => m.State) </span>*@
+                            <br /> <span class="profile-val">@Html.DisplayFor(m => m.Zip) </span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-3"> <strong>Signed for by:</strong></div>
+                        <div class="col-md-3">Signature not required</div>
+                        <div class="col-md-3"> <strong>Delivery date:</strong></div>
+                        <div class="col-md-3"> <span class="profile-val">@Html.DisplayFor(m => m.DDate) </span></div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div style="height:30px"></div>
+                        <div class="col-md-3"> <strong>Service type:</strong></div>
+                        <div class="col-md-3">Standard</div>
+
+                    </div>
+
+
+
+                    <hr style="border:solid 1px" />
+                    <div class="row">
+
+                        <div class="col-md-6"> <strong>Shipping Information:</strong></div>
+
+                    </div>
+                    <hr style="border:solid 1px" />
+
+
+                    <div class="row">
+                        <div class="col-md-3"> <strong>Tracking Number:</strong></div>
+                        <div class="col-md-3"><span class="profile-val">@Html.DisplayFor(m => m.Confirmation) </span></div>
+                        <div class="col-md-3">
+                            <strong>Ship Date:</strong>
+                            <br />
+                            <strong>Weight:</strong>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="profile-val">@Html.DisplayFor(m => m.TDate) </span>
+                            <br />
+                            <span class="profile-val">@Html.DisplayFor(m => m.Weight) </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Recipient:</strong>
+                            <br />
+                            <span class="profile-val">  &nbsp;&nbsp;&nbsp;@Html.DisplayFor(m => m.Name) </span>
+                            <br />
+                            <span class="profile-val">  &nbsp;&nbsp;&nbsp;@Html.DisplayFor(m => m.Address1) </span>
+                            <br />
+                            <span class="profile-val">  &nbsp;&nbsp;&nbsp;@Html.DisplayFor(m => m.City), @Html.DisplayFor(m => m.State) </span>
+                            @*<br />
+                                <span class="profile-val">@Html.DisplayFor(m => m.State) </span>*@
+                            <br />
+                            <span class="profile-val"> &nbsp;&nbsp;&nbsp;@Html.DisplayFor(m => m.Zip) </span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <strong>Shipper:</strong>
+                            <br />
+                            &nbsp;&nbsp;&nbsp; J&amp;B Medical Supply Inc
+                            <br />
+                            &nbsp;&nbsp;&nbsp; Shipping Department
+                            <br />
+                            &nbsp;&nbsp;&nbsp; 50486 Pontiac Trail
+                            <br />
+                            &nbsp;&nbsp;&nbsp; Wixom, MI 48393
+
+                        </div>
+
+                    </div>
+
+                    <hr style="border:solid 1px" />
+
+                    <div class="row">
+
+                        <div class="col-md-6"> <strong> Reference Information:</strong></div>
+
+                    </div>
+                    <hr style="border:solid 1px" />
+
+                    <div class="row">
+                        <div class="col-md-6"> <strong>J&amp;B WorkOrder Number:</strong></div>
+
+                        <div class="col-md-6">
+                            <span class="profile-val">@Html.DisplayFor(m => m.WorkOrderId) </span>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>J&amp;B Customer Account Number:</strong>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <span class="profile-val">@Html.DisplayFor(m => m.Acccount) </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-10">
+                        <button class="btn btn-primary btn-large" type="submit">Generate Pdf</button>
+                    </div>
+                </div>
+
+
+              
+            </div>
+        </div>
+    </div>
+  
+    
+
+    
+</div>
+
+}
+
+
+
+
+
+
+
+
+

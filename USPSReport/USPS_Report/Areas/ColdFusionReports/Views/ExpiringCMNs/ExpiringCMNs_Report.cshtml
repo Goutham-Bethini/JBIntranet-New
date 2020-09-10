@@ -1,0 +1,69 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.ExpiringCMNs.CMNsReportVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "ExpiringCMNs_Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<center>
+    <table>
+        <tr>
+            @if (Model != null && Model.Reports != null && Model.Reports.Count > 0)
+            {
+                foreach (var rec in Model.Reports)
+                {
+
+                    <td align="center" style="text-decoration:underline;">@Html.ActionLink(@rec.ReportName.Trim(), "TeamReport", "ExpiringCMNs", new { team = @rec.ReportName.Trim(), year = Convert.ToInt32(DateTime.Now.ToString("yyyy")) }, null)</td>
+                    <td>|</td>
+                }
+
+            }
+            <td style="text-decoration:underline;">@Html.ActionLink("Alpha Split", "AlphaSplit", "AlphaSplit", null, null) </td>
+            <td>|</td>
+            <td style="text-decoration:underline;">@Html.ActionLink("Special Doctors", "SpecialDoctors", "SpecialDoctors", null, null) </td>
+            <td>|</td>
+            <td style="text-decoration:underline;">@Html.ActionLink("Report Rules", "Rules", "Rules", null, null) </td>
+        </tr>        
+    </table>
+</center>
+<h3 class="middle" style="text-align:center;">Expiring CMNs - @Model.ReportName Team</h3>
+<h4 class="middle" style="text-align:center;">@Model.Count CMN's expiring in @Model.Month</h4>
+
+@if (Model != null && Model.Details != null && Model.Details.Count>0 )
+{    
+    <div class="center">
+        @(Html.Kendo().Grid<USPS_Report.Areas.ColdFusionReports.Models.DataModels.ExpiringCMNs.ReportData>()
+                                                    .Name("CMNsReportData")
+                                                    .Columns(columns =>
+                                                    {
+                                                        columns.Bound(t => t.Account).Title("Account");
+                                                        columns.Bound(t => t.LastName).Title("Last Name");
+                                                        columns.Bound(t => t.FirstName).Title("First Name");
+                                                        columns.Bound(t => t.EffectiveDate).Title("Effective Date");
+                                                        columns.Bound(t => t.Duration).Title("Duration");
+                                                        columns.Bound(t => t.Expires).Title("Expires");
+                                                        columns.Bound(t => t.RecertReturned).Title("Recert Returned");
+                                                        columns.Bound(t => t.DocType).Title("Doc Type");
+                                                        columns.Bound(t => t.Doctor).Title("Doctor");
+                                                        columns.Bound(t => t.Phone).Title("Phone");
+                                                        columns.Bound(t => t.isSpecialDoctor).Width(160).Title("Special Doctor?");
+                                                    })
+                                                   .Scrollable()
+                                                   .HtmlAttributes(new { style = "height: 500px" })
+                                                    .Sortable()                                                    
+                                                     .Pageable()
+                                                         .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                                                        .Reorderable(r => r.Columns(true))
+                                                        .Resizable(r => r.Columns(true))
+                                                        .ColumnMenu()
+                                                    .DataSource(dataSource => dataSource
+                                                        .Ajax()
+                                                         .PageSize(25)
+                                                         .ServerOperation(false)
+                                                        .Read(read => read.Action("ExpiringCMNs_Report2", "ExpiringCMNs", null))
+                                                    )
+        )
+    </div>
+}
+
+

@@ -1,0 +1,209 @@
+﻿@model USPS_Report.Areas.Reports.Models.AssessmentLogList
+
+@{
+    ViewBag.Title = "Index1";
+    Layout = "~/Areas/Reports/Views/Shared/_ReportLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+
+    <div class="middle">
+        <h2>Assessment Log</h2>
+
+    </div>
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-2"> </div>
+            <div class="col-md-2"><label><strong>Account</strong></label> </div>
+            <div class="col-md-1">
+                @Html.TextBoxFor(m => m.assessmentLog.Account, new { Title = "Enter a Valid Account Number" })
+            </div>
+        </div>
+        @Html.ValidationMessageFor(model => model.assessmentLog.Account)
+
+
+        <div class="form-group">
+            <div class="col-md-2"> </div>
+            <div class="col-md-2"><label><strong>New Assessment</strong></label> </div>
+            <div class="col-md-1">
+                @Html.CheckBoxFor(m => m.assessmentLog.NewAssessment)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2"> </div>
+            <div class="col-md-2"><label><strong>Update Assessment</strong></label> </div>
+            <div class="col-md-1">
+                @Html.CheckBoxFor(m => m.assessmentLog.UpdateAssessment)
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2"> </div>
+            <div class="col-md-2"><label><strong>DIS</strong></label> </div>
+            <div class="col-md-1">
+                @Html.CheckBoxFor(m => m.assessmentLog.UpdatePCU)
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2"> </div>
+            <div class="col-md-2"><label><strong>URO</strong></label> </div>
+            <div class="col-md-1">
+                @Html.CheckBoxFor(m => m.assessmentLog.OneTimePA)
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2"> </div>
+            <div class="col-md-2"><label><strong>1st Rx</strong></label> </div>
+            <div class="col-md-1">
+                @Html.CheckBoxFor(m => m.assessmentLog.InitPAProcess)
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2"> </div>
+            <div class="col-md-2"><label><strong>Ostomy</strong></label> </div>
+            <div class="col-md-1">
+                @Html.CheckBoxFor(m => m.assessmentLog.POSorRWOcreated)
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2"> </div>
+            <div class="col-md-2"><label><strong>FaxesToState</strong></label> </div>
+            <div class="col-md-1">
+                @Html.CheckBoxFor(m => m.assessmentLog.FaxesToState)
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2"> </div>
+            <div class="col-md-2"><label><strong>LMN/Letter</strong></label> </div>
+            <div class="col-md-1">
+                @Html.CheckBoxFor(m => m.assessmentLog.LMletter)
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-primary btn-large" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<hr />
+
+@if (Model != null && Model.assessmentLogRec != null && Model.assessmentLogRec.Account != null)
+{
+    <div class="table-responsive">
+        <table data-sortable class="table table-hover table-striped" widht="700px">
+            <thead>
+                <tr>
+
+                    <th>Account</th>
+                    <th>New</th>
+                    <th>Updated</th>
+                    <th>DIS</th>
+                    <th>URO</th>
+                    <th>Ostomy</th>
+                    <th>FaxesToState</th>
+                    <th>1st Rx</th>
+                    <th>LMN/Letter</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                    <td>@Model.assessmentLogRec.Account</td>
+                    <td>@Model.assessmentLogRec.NewAssessment</td>
+                    <td>@Model.assessmentLogRec.UpdateAssessment</td>
+                    <td>@Model.assessmentLogRec.UpdatePCU</td>
+                    <td>@Model.assessmentLogRec.OneTimePA</td>
+                    <td>@Model.assessmentLogRec.POSorRWOcreated</td>
+                    <td>@Model.assessmentLogRec.FaxesToState</td>
+                    <td>@Model.assessmentLogRec.InitPAProcess</td>
+                    <td>@Model.assessmentLogRec.LMletter</td>
+
+
+                </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+
+}
+
+
+
+<style>
+    .outer {
+        width: 100%;
+        color: navy;
+        background-color: lightblue;
+        /*border: 2px solid blue;*/
+        padding: 5px;
+    }
+
+    .c {
+        text-align: center;
+    }
+
+    .text-field {
+        background-color: #FFFFCC;
+        color: #FF0000;
+        width: 60px;
+        font-size: large;
+    }
+
+    .field-validation-error {
+        color: #ff0000;
+    }
+
+    .field-validation-valid {
+        display: none;
+    }
+
+    .input-validation-error {
+        border: 1px solid #ff0000;
+        background-color: #ffeeee;
+    }
+
+    .validation-summary-errors {
+        font-weight: bold;
+        color: #ff0000;
+    }
+
+    .validation-summary-valid {
+        display: none;
+    }
+
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+
+
+    .middle {
+        margin: auto;
+        width: 90%;
+    }
+</style>

@@ -1,0 +1,133 @@
+﻿@model USPS_Report.Areas.Reports.Models.ExpiredLMNs_VM
+
+@{
+    ViewBag.Title = "ExpiredProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="middle">Expiring LMN's</h2>
+
+<div>
+@using (Html.BeginForm("Index", "CSR", FormMethod.Post))
+{
+    <table data-sortable class="table table-hover table-striped table-bordered" style="width:50%; margin:auto">
+        <thead>
+            <tr>
+                <th colspan="3"><strong>Filter : </strong> </th>
+               
+            </tr>
+        </thead>
+        <tbody>
+         <tr>
+            <td>
+                <strong>LMN Type:</strong>
+                @Html.DropDownListFor(m => m.LMNTypeid, Model.LMNTypeList, "All", new { @style = "width:350px;" })
+            </td>
+             <td>
+                 <strong>Expiration Month:</strong>
+                 @Html.DropDownListFor(m => m.Month, Model.MonthList, "All", new { @style = "width:50px;" })
+             </td>
+             <td>
+                 <strong>Expiration Year:</strong>
+                 @Html.DropDownListFor(m => m.Year, Model.YearList, "All", new { @style = "width:50px;" })
+             </td>
+     
+         </tr>
+            <tr>
+                <td colspan="3">
+                    <button class="btn btn-primary btn-large" type="submit" style="width: 300px; margin: 0 auto">View</button>
+                </td>
+            </tr>
+           
+        </tbody>
+
+    </table>
+  
+  
+
+}
+</div>
+<br />
+<div style="width:90%; margin:auto">
+    @if (Model != null && Model.expiredLMNs != null)
+    {
+        <h4 style="color:blue">Total Count = @Model.expiredLMNs.Count()</h4>
+        <div class="table-responsive">
+            <table data-sortable class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Doc Type </th>
+                        <th>Account</th>
+                        <th>Full Name</th>
+                        <th>Description</th>
+                        <th>EffectiveDate</th>
+                        <th>ExpirationDate</th>
+                    
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @*<tr>
+                        <td>
+                          <hr style="height:10px;background-color:blue">
+                            
+                        </td>
+                        <td colspan="5" style="background:green">
+                            
+                            <span style="font-size:25px; ">Your J&B Medical Supply Order Confirmation</span><br />
+                            <span style="font-size:15px">Your J&B Medical Supply Order Confirmation</span>
+                        </td>
+                       
+                    </tr>*@
+
+                    @foreach (var rec in Model.expiredLMNs)
+                    {
+
+
+                        <tr>
+                            <td>
+                                @rec.doctypedescription
+                            </td>
+                            <td>
+                                @rec.account
+                            </td>
+                            <td>
+                                @rec.FullName
+                            </td>
+                            <td>
+                                @rec.DocDescription
+                            </td>
+                            <td>
+                                @rec.EffectiveDate
+                            </td>
+                            <td>
+                                @rec.Expiration
+                            </td>
+
+                           
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+
+
+</div>
+
+
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 400px;
+    }
+</style>
+
+

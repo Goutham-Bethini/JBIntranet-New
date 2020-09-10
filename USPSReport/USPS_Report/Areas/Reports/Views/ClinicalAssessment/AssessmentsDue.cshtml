@@ -1,0 +1,53 @@
+﻿@model USPS_Report.Areas.Reports.Models.AssessmentDueVM
+
+@{
+    ViewBag.Title = "AssessmentsDue";
+    Layout = "~/Areas/Reports/Views/Shared/_ReportLayout.cshtml";
+}
+
+<div class="middle">
+    <h2>Assessments to be Completed</h2>
+
+</div>
+
+    <div class="table-responsive middle">
+       @foreach (var rec in Model.assesment_counts)
+       {
+        <table data-sortable class="table table-hover table-striped" style="border:groove;width:420px">
+            <thead>
+                <tr>
+                 
+                    <th>Month</th>
+                    <th>Year</th>
+                    <th>Assessments</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in rec.assessmentDueData)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(item.MonthName, "AssessmentsDueByMonth", "ClinicalAssessment", new { year = item.Year, month =item.MonthName}, new { target = "_blank" })</td>
+                        <td>@item.Year </td>
+                        <td>@item.MonthTotal </td>
+
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+       }
+    </div>
+
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+</style>

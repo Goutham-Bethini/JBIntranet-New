@@ -1,0 +1,70 @@
+﻿@model USPS_Report.Areas.Reports.Models.SurverAnalysis
+
+@{
+    ViewBag.Title = "SurverResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+ 
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-8">
+        @Html.ActionLink("Enter Survey", "Indiana_Survey", "Indiana") &nbsp; &nbsp;
+
+        @Html.ActionLink("Survey Results", "SurverResult", "Indiana") &nbsp; &nbsp;
+
+        @Html.ActionLink("Surveys with optional information", "SurverOptionInfo", "Indiana")
+    </div>
+
+
+</div>
+
+<center><h3 style="font-family:'Times New Roman'"  >Indiana Medicaid Patient Survey Results (@Model.TotalRecord)</h3></center>
+
+<hr />
+@{ int i = 0; }
+@foreach(var ques in Model.surveyResults)
+{
+    i += 1;
+
+    <center><h4 style="font-family:'Times New Roman'; font-weight:400; background-color: blanchedalmond; width:700px; height:26px"> @i. @ques.ques</h4></center>
+    <br />
+
+   
+
+    if (Model != null && ques.answer != null)
+    {
+    <div class="table-responsive">
+        <table data-sortable class="table table-hover table-striped table-bordered" style="width:500px;margin:auto">
+            <thead>
+                <tr>
+                    <th style="background-color:skyblue"> </th>
+                    <th style="background-color:skyblue"> Qty</th>
+                    <th style="background-color:skyblue">Percentage</th>
+                   
+
+                </tr>
+            </thead>
+            <tbody>
+
+@foreach (var ans in ques.answer)
+{
+                <tr>
+                    <td>@ans.Ques</td>
+                    <td> @ans.TotalCount</td>
+                   
+                    <td> @ans.Percentage %</td>
+
+                </tr>
+}
+
+            </tbody>
+
+        </table>
+    </div>
+
+}
+
+}
+
+ 
+

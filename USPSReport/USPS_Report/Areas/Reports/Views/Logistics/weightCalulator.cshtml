@@ -1,0 +1,386 @@
+﻿@model USPS_Report.Areas.Reports.Models.WeightCal_Vm
+@{
+    ViewBag.Title = "Weight Calculator";
+    Layout = "~/Areas/Reports/Views/Shared/_noSideBarLayout.cshtml";
+   // Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-2">
+                <h3 style="color:blue">Weight Calculator</h3>
+            </div>
+        </div>
+
+
+        <div>
+            @using (Html.BeginForm("weightCalulator", "Logistics", FormMethod.Post))
+        {
+                @Html.ValidationMessageFor(model => model.Account)
+                <div>
+
+                    <label>Account: </label>
+
+                    @Html.TextBoxFor(m => m.Account, new { Title = "Enter a Valid Account Number" })
+                    <button class="btn btn-primary btn-sm" type="submit">View</button>
+                </div>
+        }
+        </div>
+
+<br />
+
+
+
+       @*@using (Html.BeginForm("ReturnWeight", "Logistics", FormMethod.Post))
+    {*@
+@Html.TextBoxFor(m=>m.totalWt, new { hidden = "true", id = "Totalwt"})
+
+            <div style="border:double;">
+                @if (Model != null && Model.Account > 0 && Model.details != null)
+    {
+
+                    <br />
+        if (Model.details.firstName == "WrongAccount")
+        {
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <h3 style="color:red">Invalid Account Number</h3>
+                            </div>
+                        </div>
+        }
+
+        else
+        {
+
+                        <div class="outer">
+                            <p>Account Information</p>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class=" col-md-1"></div>
+                            <div class="col-md-2"><label> Member Name  </label></div>
+                            <div class="col-md-2">@Html.DisplayFor(m => m.details.firstName)</div>
+
+                        </div>
+            if (Model.details.Account2 != null && Model.details.Account2 != 0)
+            {
+                            <div class="row">
+                                <div class=" col-md-1"></div>
+                                <div class="col-md-2"><label></label></div>
+                                <div class="col-md-2">
+                                    @Html.DisplayFor(m => m.details.address1),
+                                    @Html.DisplayFor(m => m.details.address2)
+                                    <br />
+
+                                    @Html.DisplayFor(m => m.details.city),
+                                    @Html.DisplayFor(m => m.details.state),
+                                    @Html.DisplayFor(m => m.details.zipcode)
+                                    <br />
+                                    @Html.DisplayFor(m => m.details.phone)
+                                    <br />
+                                    @Html.DisplayFor(m => m.details.DOB)
+
+
+
+                                </div>
+                            </div>
+            }
+
+                        <div class="outer">
+                            <p>WorkOrder Details</p>
+                        </div>
+                        <br />
+            if (Model != null && Model.workOrderDetail != null)
+            {
+
+                // foreach (var rec in Model.workOrderDetail)
+                for (int i = 0; i < Model.workOrderDetail.Count(); i += 1)
+                {
+                                <div>
+                                    <table data-sortable class="table table-hover table-striped table-bordered" style="width:90% " align="center">
+
+                                        <thead>
+                                            <tr>
+                                                <th style="width:5%"></th>
+
+                                                <th style="width:15%">Order#</th>
+
+                                                <th style="width:30%">Request Date</th>
+
+
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td>
+
+                                                    @Html.CheckBoxFor(x => x.workOrderDetail[i].checkbox, new { @class = "futurCheck" ,  id = "chk" + i  })
+                                                    @Html.HiddenFor(x => x.workOrderDetail[i].checkbox)
+                                                    @Html.HiddenFor(x => x.workOrderDetail[i].WorkOrderID)
+                                                    @Html.HiddenFor(x => x.workOrderDetail[i].Request_Date)
+                                                    @Html.TextBoxFor(x => x.workOrderDetail[i].totalProductsWt, new { hidden = "true", id = "wt"+i })
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(x => x.workOrderDetail[i].WorkOrderID)
+
+                                                </td>
+                                                <td>@Html.DisplayFor(x => x.workOrderDetail[i].Request_Date)</td>
+
+                                            </tr>
+
+
+                                        </tbody>
+
+                                    </table>
+
+
+                                    <table data-sortable class="table table-hover table-striped table-bordered" style="width:85%" align="center">
+
+                                        <thead>
+                                            <tr>
+
+                                                <th style="width:12%">Product</th>
+                                                <th style="width:35%">Description</th>
+                                                <th style="width:12%">Unit Weight</th>
+                                                <th style="width:7%">UOM</th>
+                                                <th style="width:5%">Ordered</th>
+                                                <th style="width:5%">Shipped</th>
+                                                <th style="width:12%">Total Weight</th>
+
+
+
+                                            </tr>
+                                        </thead>
+                                        @* @foreach (var pro in @rec.productDetails)*@
+                                        @for (int j = 0; j < Model.workOrderDetail[i].productDetails.Count(); j += 1)
+                                {
+                                            <tbody>
+
+                                                <tr>
+                                                    <td>
+                                                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].Product)
+                                                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].Product)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].Description)
+                                                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].Description)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].UnitWeight)
+                                                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].UnitWeight)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].UOM)
+                                                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].UOM)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].Ordered)
+                                                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].Ordered)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].Shipped)
+                                                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].UnitWeight)
+                                                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].Shipped)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].TotalWeight)
+                                                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].TotalWeight)
+
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                            }
+
+                                    </table>
+                                    <hr class="solidRedLine"/>
+                                </div>
+                            }
+
+
+
+                            <div id="TotalW">
+                                <!--Textboxes will be added here -->
+                            </div>
+
+                            <div class="weights" style="text-align:center">
+
+                                <table border="0" cellspacing="2" style="width:50% " align="center">
+                                    <tr>
+
+                                        <td><input type="button" id="add" value="Add Weight Box" /></td>
+                                        <td style="width:100px;"></td>
+                                        <td><input type="button" id="del" value="Delete Weight Box" /></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td><hr /></td>
+                                        <td><hr /></td>
+                                        <td><hr /></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><strong> Doc Tab Weight:  </strong></td>
+                                        <td style="width:100px;"></td>
+                                        <td><input type="text" id="tab" value="0" name="tab" /></td>
+                                    </tr>
+
+
+                                    <tr></tr>
+                                    <tr>
+
+                                        <td></td>
+                                    </tr>
+                                </table>
+                                <hr />
+                                <button class="btn btn-primary btn-large" id="btnGet" type="submit" style="width: 300px; margin: 0 auto">Calculate</button>
+
+                            </div>
+
+
+                             @*<div style="text-align:center">
+
+                                <button class="btn btn-primary btn-large" type="submit" style="width: 300px; margin: 0 auto">Calculate</button>
+                            </div>*@
+
+            }
+
+        }
+
+    }
+
+            </div>
+
+          
+       @*}*@
+
+
+<style>
+    .outer {
+        width: 100%;
+        color: navy;
+        background-color: lightblue;
+        /*border: 2px solid blue;*/
+        padding: 3px;
+    }
+
+    .c {
+        text-align: center;
+    }
+
+     th {
+        background-color: dodgerblue;
+        color: white;
+    }
+   .solidRedLine {
+        color: #f00;
+        background-color: #f00;
+        height: 5px;
+    }
+
+        .field-validation-error
+{
+color: #ff0000;
+}
+.field-validation-valid
+{
+display: none;
+}
+.input-validation-error
+{
+border: 1px solid #ff0000;
+background-color: #ffeeee;
+}
+.validation-summary-errors
+{
+font-weight: bold;
+color: #ff0000;
+}
+.validation-summary-valid
+{
+display: none;
+}
+</style>
+
+
+<script>
+
+    $(function () {
+
+        $(".futurCheck").change(function () {
+            var isChecked = $(this).is(':checked');
+         
+            if (isChecked != null) {
+                var _chkId = '#' + this.id;
+                var _totalWt = _chkId.replace("chk", "wt");
+             
+                var Totval = parseFloat($("#Totalwt").val());
+          
+                Totval =  Totval +parseFloat( $(_totalWt).val());
+         
+                $("#Totalwt").val(Totval);
+               
+            } else {
+
+                //$(_UnitPriceID).hide();
+                //$(_TotalPriceID).hide();
+
+                //$(_UnitPriceID).get(0).value = "0";
+                //$(_UnitPriceID).get(0).value = "0";
+
+            }
+
+        
+
+        });
+
+    });
+   
+
+
+
+
+    $('#add').click(function () {
+        var table = $(this).closest('table');
+        if (table.find('input:text').length < 7) {
+            table.append('<tr> <td><strong> Doc Tab Weight:  </strong></td><td style="width:100px;"></td><td><input type="text" id="tab" value="0" name="tab"/></td></tr>');
+        }
+    });
+    $('#del').click(function () {
+        var table = $(this).closest('table');
+        if (table.find('input:text').length > 1) {
+            table.find('input:text').last().closest('tr').remove();
+        }
+    });
+
+    $("#btnGet").bind("click", function () {
+        var values = 0;
+        var diff = 0;
+        $("input[name=tab]").each(function () {
+            //  values += $(this).val() + "\n";
+            values += parseFloat($(this).val());
+
+        });
+
+        var totalWt = parseFloat( $("#Totalwt").val());
+       
+        diff = totalWt - values;// @*@_totalWight*@ -values;
+        $("#TotalW").html("");
+        var div = $("<div />");
+
+      
+        div.html("<h4 style=" + "color:blue" + ">Total Product Weight=" + totalWt.toFixed(3) + "</h4><hr /><h4 style=" + "color:blue" + ">Total Doc Tab Weight=" + values.toFixed(3) + "</h4> <hr /> <h4 style=" + "color:blue" + ">Difference In Weight=" + diff.toFixed(3) + "</h4> <hr />");
+        $("#TotalW").append(div);
+    });
+
+
+
+</script>
+

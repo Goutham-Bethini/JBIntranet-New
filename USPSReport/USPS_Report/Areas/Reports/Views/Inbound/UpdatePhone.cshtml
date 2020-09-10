@@ -1,0 +1,99 @@
+﻿@model USPS_Report.Models.phoneModel
+@{
+    ViewBag.Title = "AddChange";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="middle">
+    <h3>Update Phone information</h3>
+    
+    
+
+    <hr />
+
+    @if (Model != null )
+    {
+        <div class="table-responsive middle">
+            <table data-sortable class="table table-hover table-striped" style="width:1000px">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Account</th>
+                        <th>Primary Phone</th>
+                        <th>Secondary Phone</th>
+                        <th>UpdateTime</th>
+                        <th>Delete</th>
+                        <th>Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                    @*@foreach (var rec in Model.updatePhone)*@
+                        @for (int i = 0; i < Model.updatePhone.Count(); i += 1)
+
+                        {
+                        <tr>
+                            
+                            <td>
+                                @Html.HiddenFor(x => x.updatePhone[i].id)
+                                @Html.DisplayFor(x => x.updatePhone[i].id)
+                            </td>
+                            <td>
+                                @Html.HiddenFor(x => x.updatePhone[i].Account)
+                                @Html.DisplayFor(x => x.updatePhone[i].Account)
+                            </td>
+                            <td>
+                                @Html.HiddenFor(x => x.updatePhone[i].PriPhone)
+                                @Html.DisplayFor(x => x.updatePhone[i].PriPhone)
+                           </td>
+                            <td>
+                            @Html.HiddenFor(x => x.updatePhone[i].AltPhone)
+                            @Html.DisplayFor(x => x.updatePhone[i].AltPhone)
+                          </td>
+                            <td>
+                                @Html.HiddenFor(x => x.updatePhone[i].UpdateTime)
+                                @Html.DisplayFor(x => x.updatePhone[i].UpdateTime)
+                           </td>
+                            <td>
+                                @*@Html.HiddenFor(x => x.updatePhone[i].UpdateStatus)
+                                @Html.CheckBoxFor(x => x.updatePhone[i].UpdateStatus,   new { @class = "futurCheck", id = "chk" + i })*@
+                              
+                                @Html.ActionLink("X", "DeleteUpdatePhoneReq", "Inbound", new { ID = Model.updatePhone[i].id }, null)
+
+
+                            </td>
+                             <td>
+                                 @Html.ActionLink("Update", "UpdatePhoneinHDMS", "Inbound", new { ID = Model.updatePhone[i].id }, null)
+
+                             </td>
+
+                        </tr>
+                        }
+                </tbody>
+
+            </table>
+        </div>
+
+    
+    }
+
+</div>
+
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+     
+
+    .middle {
+        margin: auto;
+        width: 90%;
+    }
+</style>
+
+ 
+

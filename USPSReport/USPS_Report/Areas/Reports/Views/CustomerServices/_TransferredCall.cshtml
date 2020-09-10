@@ -1,0 +1,52 @@
+﻿@model USPS_Report.Areas.Reports.Models.CallLogVM
+@using Kendo.Mvc.UI
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        <strong>Transferred Call &nbsp;</strong>
+
+        @Html.DropDownListFor(t => t.TransferredCall, new List<SelectListItem>
+
+               {
+                   new SelectListItem { Text = "BCN Team" , Value = "BCNTeam"},
+                   new SelectListItem { Text = "Billing Department" , Value = "Billing Department"},
+                      new SelectListItem { Text = "Breast Pump Team", Value = "Breast Pump Team" },
+                    new SelectListItem { Text = "Cash Sales / Med Surg", Value = "Cash Sales Or MedSurg" },
+                    new SelectListItem { Text = "CSR Product Assessment Team" , Value = "CSR Product Assessment Team"},
+                      new SelectListItem { Text = "Dynamic Synergy ", Value = "Dynamic Synergy " },
+                        new SelectListItem { Text = "Management ", Value = "Management" },
+                        new SelectListItem { Text = "MCO Team", Value = "MCO Team" },
+                    new SelectListItem { Text = "Medical Documents" , Value = "Medical Documents"},
+                    new SelectListItem { Text = "Intake Team" , Value = "Intake Team"},
+                       new SelectListItem { Text = "Verification Team" , Value = "Verification Team"},
+                    new SelectListItem { Text = "Nurses" , Value = "Nurses"},
+                      new SelectListItem { Text = "PA Team", Value = "PA Team" },
+                   new SelectListItem { Text = "Pharmacy" , Value = "Pharmacy"},
+                    new SelectListItem { Text = " Qualtiy Assurance", Value = "Qualtiy Assurance" },
+                   new SelectListItem { Text = "WC/Ostomy/Enteral Team", Value = "WC/Ostomy/Enteral Team" },
+                      new SelectListItem { Text = "Web Support", Value = "Web Support" },
+                     new SelectListItem { Text = "Senior CSR Team", Value = "Add Senior CSR Team" },
+                  new SelectListItem { Text = "Shipping Team", Value = "Shipping Team" },
+                   new SelectListItem { Text = "Other ", Value = "Other" },
+               }, "Select Option")
+    </div>
+
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.TextAreaFor(m => m.TransferredCallTxtArea, new { rows = "6", cols = "40" })</div>
+
+</div>
+
+<hr />
+
+
+
+
+
+
+

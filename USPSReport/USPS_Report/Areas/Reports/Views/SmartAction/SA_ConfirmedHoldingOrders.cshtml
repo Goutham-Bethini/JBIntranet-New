@@ -1,0 +1,70 @@
+﻿@model USPS_Report.Areas.Reports.Models.ConfirmedHoldingOrdersVM
+
+@{
+    ViewBag.Title = "SA_ConfirmedHoldingOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="middle">
+    <h1>Holding Accounts with Positive Order Confirmation</h1>
+    <h4>***Holding Accounts with Positive Order Confirmations on Record***</h4>
+</div>
+<br />
+
+
+@if (Model != null && Model.confirmedHoldingOrders != null)
+{
+
+    <div class="row" style="width:85%;margin:auto">
+
+        <h3 style="color:blue">
+            Total Count =  @Model.confirmedHoldingOrders.Count()
+        </h3>
+        <div class="table-responsive">
+            <table data-sortable class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Account</th>
+                        <th>Order Date</th>
+                        <th>Confirmed Date</th>
+                        <th>Work Order</th>
+                        <th>Request Date</th>
+                        <th>Hold Reason</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rec in Model.confirmedHoldingOrders)
+                {
+                        <tr>
+                            <td>@rec.AccountNumber</td>
+                            <td>@String.Format("{0:MM/dd/yyyy}", rec.OrderDate)</td>
+                            <td>@String.Format("{0:MM/dd/yyyy}", rec.DateConfirmed)</td>
+                            <td>@rec.WorkOrder</td>
+                            <td>@String.Format("{0:MM/dd/yyyy}", rec.Request_Date)</td>
+                            <td>@rec.HoldFromShippingReason</td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+}
+
+        <style>
+            th {
+                background-color: dodgerblue;
+                color: white;
+            }
+
+            .middle {
+                margin: auto;
+                width: 900px;
+            }
+        </style>
+
+
+

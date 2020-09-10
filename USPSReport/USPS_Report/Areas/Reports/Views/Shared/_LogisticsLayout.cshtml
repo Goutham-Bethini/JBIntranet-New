@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "_LogisticsLayout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="span2">
+    <div class="well sidebar-nav">
+
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active ">@Html.ActionLink("  Dashboard", "Index", "Home", new { area = "" }, new { @class = "glyphicon glyphicon-dashboard" })</li>
+
+         
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Logistics Tools
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("WO_Reports", "woReports", "WorkOrder", new { area = "Reports" }, null)</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("WO's Not Printed", "WoNotPrinted", "WorkOrder", new { area = "Reports" }, null)</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("LostWO's", "WoLost", "WorkOrder", new { area = "Reports" }, null)</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("WO_Hold", "Wo_HoldTypesQty", "WorkOrder", new { area = "Reports" }, null)</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("InactiveAccount with RO's", "InactiveAccount", "WorkOrder", new { area = "Reports" }, null)</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("RO's Not setup as Purchase", "RONotPurchaseReport", "WorkOrder", new { area = "Reports" }, null)</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Discontinued Products", "DiscontProdReport", "WorkOrder", new { area = "Reports" }, null)</li>
+                </ul>
+            </li>
+
+           
+            <li>@Html.ActionLink("DOM Report", "Index", "Scheduler", new { area = "Reports" }, null)</li>
+
+
+
+        </ul>
+
+    </div>
+</div>
+
+<div class="span10">
+    <br />
+
+    <div class="row-fluid">
+        @RenderBody()
+    </div>
+</div>
+

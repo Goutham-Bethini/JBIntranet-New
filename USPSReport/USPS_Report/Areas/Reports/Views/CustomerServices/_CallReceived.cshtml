@@ -1,0 +1,41 @@
+﻿@model USPS_Report.Areas.Reports.Models.CSRComplaintVM
+
+@using Kendo.Mvc.UI
+
+
+ 
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">@Html.CheckBoxFor(m => m.Call, new { id = "Call" }) <label> Call </label></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-2">@Html.CheckBoxFor(m => m.Email, new { id = "Email" }) <label> Email </label></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-2">@Html.CheckBoxFor(m => m.Fax, new { id = "Fax" }) <label> Fax </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">@Html.CheckBoxFor(m => m.CallRcvdWebsite, new { id = "CallRcvdWebsite" }) <label> Website </label></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-2">@Html.CheckBoxFor(m => m.SocialMedia, new { id = "SocialMedia" }) <label> Social Media </label></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-2">@Html.CheckBoxFor(m => m.InsCompany, new { id = "InsCompany" }) <label> Insurance Company </label></div>
+ 
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">@Html.CheckBoxFor(m => m.CallRcvdOther, new { id = "CallRcvdOther" }) <label> Other </label></div>
+</div>
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,89 @@
+﻿@model USPS_Report.Areas.Reports.Models.FuruteOrderConfirmationVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "FutureOreder_Confirmation";
+    Layout = "~/Areas/Reports/Views/Shared/_ReportLayout.cshtml";
+}
+
+<h2>FutureOreder_Confirmation</h2>
+<hr />
+@using (Html.BeginForm("FutureOreder_Confirmation", "WoReports", FormMethod.Post))
+{
+
+ 
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <strong>Vendor Name</strong>
+
+                                    @Html.DropDownListFor(m => m.InsType, Model.InsTypeList, "select", new { @style = "width:200px;" })
+
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-3">
+                                    <strong> Start Date</strong>
+
+
+                                    @Html.Kendo().DatePicker().Name("StartDate").Value(Model.StartDate).Format("MM/dd/yyyy")
+                                </div>
+                                <div class="col-md-3">
+
+                                    <strong>End Date</strong>
+
+                                    @Html.Kendo().DatePicker().Name("EndDate").Value(Model.EndDate).Format("MM/dd/yyyy")
+                                </div>
+
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-primary btn-large" type="submit">View</button>
+                                </div>
+                            </div>
+
+
+
+}
+
+@if (Model != null && Model.futureOredreConfirmationData != null)
+{
+    <div class="table-responsive">
+        <table data-sortable class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>OrderType</th>
+                    <th>Account</th>
+                    <th>Date</th>
+                    <th>Name</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rec in Model.futureOredreConfirmationData)
+                {
+                    <tr>
+                        <td>@rec.InsType</td>
+                        <td>@rec.Account</td>
+                        <td>@String.Format("{0:MM/dd/yyyy}", rec.NextRepeatDate)</td>
+                        <td>@rec.First_Name @rec.Last_Name  </td>
+                       
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+}
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+</style>
+
+

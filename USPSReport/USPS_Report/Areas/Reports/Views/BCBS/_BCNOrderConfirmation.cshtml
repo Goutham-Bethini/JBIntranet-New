@@ -1,0 +1,46 @@
+﻿@model USPS_Report.Areas.Reports.Controllers.BCNCallLogVM
+@using Kendo.Mvc.UI
+
+
+<br />
+<div>
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-8">
+            @Html.CheckBoxFor(m => m.OrderConfirmation) <label>
+            Order Confirmation
+            <a href="https://jbreports.jandbmedical.com/JBPortal/CSRTools/CSRTool" target="_blank"> Click here for e-Confirmation tool </a>
+        </label>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.TextAreaFor(m => m.OrderConfirmationTxt, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">
+        <lable><strong> Message: Complete E-confirmation Tool </strong></lable>
+    </div>
+</div>
+
+</div>
+
+
+<script>
+    $('#OrderConfirmation').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#OrderConfirmationTxt').removeAttr("disabled");
+        } else {
+            $('#OrderConfirmationTxt').attr("disabled", "disabled")
+        }
+    });
+</script>
+

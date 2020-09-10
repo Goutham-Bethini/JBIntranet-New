@@ -1,0 +1,158 @@
+﻿@model USPS_Report.Areas.Reports.Models.CallLogVM
+@using Kendo.Mvc.UI
+
+<br />
+
+<div>
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">@Html.CheckBoxFor(m => m.DefectiveProductOrNotUsable) <label>Defective Product/Product not Usable</label></div>
+
+    </div>
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">@Html.CheckBoxFor(m => m.WrongOrExtraProductShipped) <label>Wrong/Extra product shipped</label></div>
+
+    </div>
+
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">@Html.CheckBoxFor(m => m.MissingProduct) <label>Missing Product</label></div>
+
+    </div>
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">@Html.CheckBoxFor(m => m.Sh_Other) <label>  Other:</label></div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.ShippingOtherName, new { disabled = "disabled" })
+
+        </div>
+        </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.TextAreaFor(m => m.ShippingIssueTxt, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+    </div>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-3">
+            <lable><strong> Message: Complete task on Shipping Task Tracker </strong></lable>
+        </div>
+    </div>
+
+    </div>
+<script>
+
+
+    $('#Sh_Other').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ShippingOtherName').removeAttr("disabled");
+        } else {
+            $('#ShippingOtherName').attr("disabled", "disabled")
+        }
+    });
+
+
+    $('#DefectiveProductOrNotUsable').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ShippingIssueTxt').removeAttr("disabled");
+        } else {
+            $('#ShippingIssueTxt').attr("disabled", "disabled")
+        }
+    });
+
+
+    $('#WrongOrExtraProductShipped').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ShippingIssueTxt').removeAttr("disabled");
+        } else {
+            $('#ShippingIssueTxt').attr("disabled", "disabled")
+        }
+    });
+
+
+    $('#MissingProduct').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ShippingIssueTxt').removeAttr("disabled");
+        } else {
+            $('#ShippingIssueTxt').attr("disabled", "disabled")
+        }
+    });
+
+
+    $('#Sh_Other').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#ShippingIssueTxt').removeAttr("disabled");
+        } else {
+            $('#ShippingIssueTxt').attr("disabled", "disabled")
+        }
+    });
+
+</script>
+
+
+
+    @*<div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"></div>
+
+            <div class="col-md-2">
+                @Html.DropDownListFor(t => t.ShippingIssueTxt, new List<SelectListItem>
+
+                       {
+                            new SelectListItem { Text = "Quality of product" , Value = "QualityOfproduct"},
+                            new SelectListItem { Text = "Wrong product shipped" , Value = "WrongProductShipped"},
+                             new SelectListItem { Text = "Missing product" , Value = "MissingProduct"},
+
+                              new SelectListItem { Text = "Other" , Value = "Other"},
+
+
+                       }, "Select Option")
+            </div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.ShippingIssueOtherTxt, new { disabled = "disabled" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-5"><label>Message: Complete task on Shipping Task Tracker</label></div>
+        </div>
+
+        <script>
+
+
+            $('#ShippingIssueTxt').click(function () {
+                var $this = $(this);
+
+                if ($this.val() == 'Other') {
+                    $('#ShippingIssueOtherTxt').removeAttr("disabled");
+                } else {
+                    $('#ShippingIssueOtherTxt').attr("disabled", "disabled")
+                }
+            });
+
+        </script>*@
+
+

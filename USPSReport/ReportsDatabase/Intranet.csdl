@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="IntranetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="assessment_log">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Account_Number" Type="Int32" />
+    <Property Name="Initial_Assessment" Type="Byte" />
+    <Property Name="Update_Assessment" Type="Byte" />
+    <Property Name="Update_PCU" Type="Byte" />
+    <Property Name="OneTime_PA" Type="Byte" />
+    <Property Name="Initial_PA_Process" Type="Byte" />
+    <Property Name="POS_RWO_Created" Type="Byte" />
+    <Property Name="Faxes_to_State" Type="Byte" />
+    <Property Name="LM_Letter" Type="Byte" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="User_ID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="IntranetEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="assessment_log" EntityType="Self.assessment_log" />
+    <EntitySet Name="Employees_New" EntityType="IntranetModel.Employees_New" />
+    <EntitySet Name="CHAMPS_Adj_Codes" EntityType="IntranetModel.CHAMPS_Adj_Codes" />
+    <EntitySet Name="CHAMPS_Error_Codes" EntityType="IntranetModel.CHAMPS_Error_Codes" />
+    <EntitySet Name="CHAMPS_Remit_Codes" EntityType="IntranetModel.CHAMPS_Remit_Codes" />
+    <EntitySet Name="CHAMPS_Ignore_Errors" EntityType="IntranetModel.CHAMPS_Ignore_Errors" />
+    <EntitySet Name="RWO_Product_Substitutions" EntityType="IntranetModel.RWO_Product_Substitutions" />
+    <EntitySet Name="IndianaMedicaidSurveys" EntityType="IntranetModel.IndianaMedicaidSurvey" />
+    <EntitySet Name="tbl_CSRCallLog" EntityType="IntranetModel.tbl_CSRCallLog" />
+    <EntitySet Name="tbl_CSRComplaintLog" EntityType="IntranetModel.tbl_CSRComplaintLog" />
+    <EntitySet Name="tbl_CSRInsDetail" EntityType="IntranetModel.tbl_CSRInsDetail" />
+    <EntitySet Name="BCBS_ProviderList" EntityType="IntranetModel.BCBS_ProviderList" />
+    <EntitySet Name="tbl_BCNCallLog" EntityType="IntranetModel.tbl_BCNCallLog" />
+    <EntitySet Name="Eligibility_Orders" EntityType="IntranetModel.Eligibility_Orders" />
+  </EntityContainer>
+  <EntityType Name="Employees_New">
+    <Key>
+      <PropertyRef Name="empID" />
+    </Key>
+    <Property Name="empID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="empLogin" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="empEmail" Type="String" MaxLength="40" FixedLength="true" Unicode="true" />
+    <Property Name="empFullName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="empManager" Type="Byte" />
+    <Property Name="empTeamLeader" Type="Byte" />
+    <Property Name="empCanEnterTicket" Type="Byte" />
+    <Property Name="empDepartment" Type="Int32" />
+    <Property Name="empTeam" Type="Int32" />
+    <Property Name="empAdded" Type="DateTime" Precision="3" />
+    <Property Name="empRemoved" Type="DateTime" Precision="3" />
+    <Property Name="empAutoUpdate" Type="DateTime" Precision="3" />
+    <Property Name="empSort" Type="Byte" />
+    <Property Name="empPhone" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="empPOSid" Type="Double" />
+  </EntityType>
+  <EntityType Name="CHAMPS_Adj_Codes">
+    <Key>
+      <PropertyRef Name="adjCode" />
+    </Key>
+    <Property Name="adjCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="adjDescription" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="CHAMPS_Error_Codes">
+    <Key>
+      <PropertyRef Name="errCode" />
+    </Key>
+    <Property Name="errCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="errShortDesc" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="errRemitCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="errAdjCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="errHighlight" Type="Byte" />
+  </EntityType>
+  <EntityType Name="CHAMPS_Remit_Codes">
+    <Key>
+      <PropertyRef Name="remCode" />
+    </Key>
+    <Property Name="remCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="remDescription" Type="String" MaxLength="300" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="CHAMPS_Ignore_Errors">
+    <Key>
+      <PropertyRef Name="cieID" />
+    </Key>
+    <Property Name="cieID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cieCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="cieAdded" Type="DateTime" Precision="3" />
+    <Property Name="cieAddedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="cieDeleted" Type="DateTime" Precision="3" />
+    <Property Name="cieDeletedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="RWO_Product_Substitutions">
+    <Key>
+      <PropertyRef Name="subID" />
+    </Key>
+    <Property Name="subID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="subOldProd" Type="Int32" />
+    <Property Name="subNewProd" Type="Int32" />
+    <Property Name="subDL" Type="Int32" />
+    <Property Name="subAddComment" Type="Byte" />
+    <Property Name="subRWOcount" Type="Int32" />
+    <Property Name="subAdded" Type="DateTime" Precision="3" />
+    <Property Name="subAddedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="subApproved" Type="DateTime" Precision="3" />
+    <Property Name="subApprovedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="subDenied" Type="DateTime" Precision="3" />
+    <Property Name="subDeniedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="subDeleted" Type="DateTime" Precision="3" />
+    <Property Name="subDeletedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <Property Name="subOldProdQty" Type="Int32" />
+    <Property Name="subNewProdQty" Type="Int32" />
+    <Property Name="QtyOldProd" Type="Int32" />
+    <Property Name="QtyNewProd" Type="Int32" />
+    <Property Name="allProds" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IndianaMedicaidSurvey">
+    <Key>
+      <PropertyRef Name="imsID" />
+    </Key>
+    <Property Name="imsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="imsQ1" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="imsQ2" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="imsQ3" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="imsQ4" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="imsQ5" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="imsQ6" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="imsName" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="imsAddress" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="imsComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="imsEnteredDate" Type="DateTime" Precision="3" />
+    <Property Name="imsEnteredBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tbl_CSRCallLog">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RefNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Account" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="CallDuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Relation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OtherRelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BillingTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DocumentationTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DemographicChangesTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TypeSupplies_1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TypeSupplies_2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TypeSuppliesOther" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ShippingOthersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="InsuranceChangeTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NewAccountTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OrderConfirmationTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OrderStatusTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="RWOChangeTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SampleTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ShippingIssueTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TransferredCall" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TransferredCallTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OtherHandlingTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="VerifiedPHI" Type="Boolean" Nullable="false" />
+    <Property Name="VoiceForHealth" Type="Boolean" Nullable="false" />
+    <Property Name="Eligibility" Type="Boolean" Nullable="false" />
+    <Property Name="Copay" Type="Boolean" Nullable="false" />
+    <Property Name="Billing" Type="Boolean" Nullable="false" />
+    <Property Name="Address" Type="Boolean" Nullable="false" />
+    <Property Name="Physician" Type="Boolean" Nullable="false" />
+    <Property Name="Phone" Type="Boolean" Nullable="false" />
+    <Property Name="AOB" Type="Boolean" Nullable="false" />
+    <Property Name="Prescription" Type="Boolean" Nullable="false" />
+    <Property Name="CMN" Type="Boolean" Nullable="false" />
+    <Property Name="PriorAuthorization" Type="Boolean" Nullable="false" />
+    <Property Name="SupportingDoc" Type="Boolean" Nullable="false" />
+    <Property Name="TeacherLetter" Type="Boolean" Nullable="false" />
+    <Property Name="ABN" Type="Boolean" Nullable="false" />
+    <Property Name="Logs" Type="Boolean" Nullable="false" />
+    <Property Name="InsuarnceChanges_" Type="Boolean" Nullable="false" />
+    <Property Name="NewAcconunt" Type="Boolean" Nullable="false" />
+    <Property Name="Restart" Type="Boolean" Nullable="false" />
+    <Property Name="OrderConfirmation" Type="Boolean" Nullable="false" />
+    <Property Name="FedExOrUSPSTracking" Type="Boolean" Nullable="false" />
+    <Property Name="OrderShipped" Type="Boolean" Nullable="false" />
+    <Property Name="OrderETA" Type="Boolean" Nullable="false" />
+    <Property Name="OrderHolding" Type="Boolean" Nullable="false" />
+    <Property Name="RWOCreated" Type="Boolean" Nullable="false" />
+    <Property Name="PC_IncreaseOrDecrease" Type="Boolean" Nullable="false" />
+    <Property Name="PC_Hold" Type="Boolean" Nullable="false" />
+    <Property Name="PC_RemoveOrAdd" Type="Boolean" Nullable="false" />
+    <Property Name="ProductChange" Type="Boolean" Nullable="false" />
+    <Property Name="DefectiveProductOrNotUsable" Type="Boolean" Nullable="false" />
+    <Property Name="WrongOrExtraProductShipped" Type="Boolean" Nullable="false" />
+    <Property Name="MissingProduct" Type="Boolean" Nullable="false" />
+    <Property Name="ShippingOther" Type="Boolean" Nullable="false" />
+    <Property Name="ReturnedCall_LeftVoicemail" Type="Boolean" Nullable="false" />
+    <Property Name="WrongNumber" Type="Boolean" Nullable="false" />
+    <Property Name="Nursing_CSRassessment" Type="Boolean" Nullable="false" />
+    <Property Name="AccountDeactivate" Type="Boolean" Nullable="false" />
+    <Property Name="ComplaintOutcome" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TrackingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="WorkOrder" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Damaged" Type="Boolean" Nullable="false" />
+    <Property Name="Driver" Type="Boolean" Nullable="false" />
+    <Property Name="WrongProductShipped" Type="Boolean" Nullable="false" />
+    <Property Name="QualityOfProdut" Type="Boolean" Nullable="false" />
+    <Property Name="WrongArea" Type="Boolean" Nullable="false" />
+    <Property Name="OtherIssue_MissingProduct" Type="Boolean" Nullable="false" />
+    <Property Name="FedExTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProductIncrease" Type="Boolean" Nullable="false" />
+    <Property Name="ProductMispick" Type="Boolean" Nullable="false" />
+    <Property Name="ProductDefective" Type="Boolean" Nullable="false" />
+    <Property Name="ProductTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ImpoliteORoffensive" Type="Boolean" Nullable="false" />
+    <Property Name="HoldTimes" Type="Boolean" Nullable="false" />
+    <Property Name="customerServiceTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OtherTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FedExOrUSPSTrackingNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SampleChoice" Type="Boolean" Nullable="false" />
+    <Property Name="SampleTask" Type="Boolean" Nullable="false" />
+    <Property Name="Other_CallHandling" Type="Boolean" Nullable="false" />
+    <Property Name="LMN" Type="Boolean" Nullable="false" />
+    <Property Name="Call" Type="Boolean" Nullable="false" />
+    <Property Name="Task" Type="Boolean" Nullable="false" />
+    <Property Name="Web" Type="Boolean" Nullable="false" />
+    <Property Name="Fax" Type="Boolean" Nullable="false" />
+    <Property Name="Email" Type="Boolean" Nullable="false" />
+    <Property Name="LogTypeOther" Type="Boolean" Nullable="false" />
+    <Property Name="Product" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DeliveryCompany" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="BCNProvider" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Other" Type="Boolean" Nullable="false" />
+    <Property Name="BCNProviderIssue" Type="Boolean" Nullable="false" />
+    <Property Name="InsLimitGuidelines" Type="Boolean" Nullable="false" />
+    <Property Name="PhysicianIssue" Type="Boolean" Nullable="false" />
+    <Property Name="NeverRecivedSupplies" Type="Boolean" Nullable="false" />
+    <Property Name="NoFollowUpWithMem" Type="Boolean" Nullable="false" />
+    <Property Name="ReturnedFromVM" Type="Boolean" Nullable="false" />
+    <Property Name="NoFollowUp" Type="Boolean" Nullable="false" />
+    <Property Name="Website" Type="Boolean" Nullable="false" />
+    <Property Name="VirtualCallBack" Type="Boolean" Nullable="false" />
+    <Property Name="SAJamesSelfService" Type="Boolean" Nullable="false" />
+    <Property Name="SAJamesPhonePromts" Type="Boolean" Nullable="false" />
+    <Property Name="VPaymentCalles" Type="Boolean" Nullable="false" />
+    <Property Name="VConfirmationCalls" Type="Boolean" Nullable="false" />
+    <Property Name="DidntFollowDelIns" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_CSRComplaintLog">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Account" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="PayerType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TrackingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Damaged" Type="Boolean" />
+    <Property Name="Driver" Type="Boolean" />
+    <Property Name="WrongProductShipped" Type="Boolean" />
+    <Property Name="QualityOfProdut" Type="Boolean" />
+    <Property Name="WrongArea" Type="Boolean" />
+    <Property Name="MissingProduct" Type="Boolean" />
+    <Property Name="FedExTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProductIncrease" Type="Boolean" />
+    <Property Name="ProductMispick" Type="Boolean" />
+    <Property Name="ProductDefective" Type="Boolean" />
+    <Property Name="ProductTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ImpoliteORoffensive" Type="Boolean" />
+    <Property Name="HoldTimes" Type="Boolean" />
+    <Property Name="customerServiceTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OtherTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ComplaintHasBeen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Product" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DeliveryCompany" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="BCNProvider" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Other" Type="Boolean" Nullable="false" />
+    <Property Name="BCNProviderIssue" Type="Boolean" Nullable="false" />
+    <Property Name="InsLimitGuidelines" Type="Boolean" Nullable="false" />
+    <Property Name="PhysicianIssue" Type="Boolean" Nullable="false" />
+    <Property Name="NeverRecivedSupplies" Type="Boolean" Nullable="false" />
+    <Property Name="NoFollowUpWithMem" Type="Boolean" Nullable="false" />
+    <Property Name="ReturnedFromVM" Type="Boolean" Nullable="false" />
+    <Property Name="NoFollowUp" Type="Boolean" Nullable="false" />
+    <Property Name="Website" Type="Boolean" Nullable="false" />
+    <Property Name="VirtualCallBack" Type="Boolean" Nullable="false" />
+    <Property Name="SAJamesSelfService" Type="Boolean" Nullable="false" />
+    <Property Name="SAJamesPhonePromts" Type="Boolean" Nullable="false" />
+    <Property Name="VPaymentCalles" Type="Boolean" Nullable="false" />
+    <Property Name="VConfirmationCalls" Type="Boolean" Nullable="false" />
+    <Property Name="DidntFollowDelIns" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_CSRInsDetail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" Nullable="false" MaxLength="430" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="VerifiedThrough" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NameMatched" Type="Boolean" Nullable="false" />
+    <Property Name="NameNotMatched" Type="Boolean" Nullable="false" />
+    <Property Name="EffectiveDate" Type="DateTime" Precision="3" />
+    <Property Name="TermDate" Type="DateTime" Precision="3" />
+    <Property Name="BenefitPlan" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="LevelOfCare" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="COBnOtherIns" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="InNetwork" Type="Boolean" Nullable="false" />
+    <Property Name="OutofNetwork" Type="Boolean" Nullable="false" />
+    <Property Name="Deductible" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="OutofPocketMax" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="CopayCoins" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CopayCoinsWaived" Type="Boolean" Nullable="false" />
+    <Property Name="CopayCoinsNotWaived" Type="Boolean" Nullable="false" />
+    <Property Name="DME" Type="Boolean" Nullable="false" />
+    <Property Name="Medical" Type="Boolean" Nullable="false" />
+    <Property Name="Pharmacy" Type="Boolean" Nullable="false" />
+    <Property Name="Medicaid" Type="Boolean" Nullable="false" />
+    <Property Name="Medicare" Type="Boolean" Nullable="false" />
+    <Property Name="Other" Type="Boolean" Nullable="false" />
+    <Property Name="HCPCnQtyLimitations" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="HHE" Type="Boolean" Nullable="false" />
+    <Property Name="Hospice" Type="Boolean" Nullable="false" />
+    <Property Name="Hospital" Type="Boolean" Nullable="false" />
+    <Property Name="NursingHome" Type="Boolean" Nullable="false" />
+    <Property Name="MemEnrollNone" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BCBS_ProviderList">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="HDMSID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbl_BCNCallLog">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Account" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="CallDuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Mem_FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Mem_LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Mem_Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Mem_Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Mem_DOB" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Mem_City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Mem_State" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Mem_ZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Primary_Physician" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Provider" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Mem_County" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Mem_Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="WebAccountCreated" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Manufacturer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Relation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OtherRelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BillingTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DocumentationTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DemographicChangesTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TypeSupplies_1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TypeSupplies_2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TypeSuppliesOther" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ShippingOthersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="InsuranceChangeTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NewAccountTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OrderConfirmationTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OrderStatusTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="RWOChangeTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SampleTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ShippingIssueTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TransferredCall" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TransferredCallTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OtherHandlingTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="VerifiedPHI" Type="Boolean" Nullable="false" />
+    <Property Name="VoiceForHealth" Type="Boolean" Nullable="false" />
+    <Property Name="Copay" Type="Boolean" Nullable="false" />
+    <Property Name="Billing" Type="Boolean" Nullable="false" />
+    <Property Name="Address" Type="Boolean" Nullable="false" />
+    <Property Name="Physician" Type="Boolean" Nullable="false" />
+    <Property Name="assmnt_Diab" Type="Boolean" Nullable="false" />
+    <Property Name="assmnt_Insulin" Type="Boolean" Nullable="false" />
+    <Property Name="Phone" Type="Boolean" Nullable="false" />
+    <Property Name="AOB" Type="Boolean" Nullable="false" />
+    <Property Name="RxForm" Type="Boolean" Nullable="false" />
+    <Property Name="Prescription" Type="Boolean" Nullable="false" />
+    <Property Name="PriorAuthorization" Type="Boolean" Nullable="false" />
+    <Property Name="SupportingDoc" Type="Boolean" Nullable="false" />
+    <Property Name="AOBReceived" Type="Boolean" Nullable="false" />
+    <Property Name="RXReceived" Type="Boolean" Nullable="false" />
+    <Property Name="PASent" Type="Boolean" Nullable="false" />
+    <Property Name="PAReceived" Type="Boolean" Nullable="false" />
+    <Property Name="ClinicalDocsReq" Type="Boolean" Nullable="false" />
+    <Property Name="ClinicalDocsReceived" Type="Boolean" Nullable="false" />
+    <Property Name="InsuarnceChanges_" Type="Boolean" Nullable="false" />
+    <Property Name="NewAcconunt" Type="Boolean" Nullable="false" />
+    <Property Name="Restart" Type="Boolean" Nullable="false" />
+    <Property Name="OrderConfirmation" Type="Boolean" Nullable="false" />
+    <Property Name="FedExOrUSPSTracking" Type="Boolean" Nullable="false" />
+    <Property Name="OrderShipped" Type="Boolean" Nullable="false" />
+    <Property Name="OrderETA" Type="Boolean" Nullable="false" />
+    <Property Name="OrderHolding" Type="Boolean" Nullable="false" />
+    <Property Name="RWOCreated" Type="Boolean" Nullable="false" />
+    <Property Name="PC_IncreaseOrDecrease" Type="Boolean" Nullable="false" />
+    <Property Name="PC_Hold" Type="Boolean" Nullable="false" />
+    <Property Name="PC_RemoveOrAdd" Type="Boolean" Nullable="false" />
+    <Property Name="ProductChange" Type="Boolean" Nullable="false" />
+    <Property Name="DefectiveProductOrNotUsable" Type="Boolean" Nullable="false" />
+    <Property Name="WrongOrExtraProductShipped" Type="Boolean" Nullable="false" />
+    <Property Name="MissingProduct" Type="Boolean" Nullable="false" />
+    <Property Name="ShippingOther" Type="Boolean" Nullable="false" />
+    <Property Name="ReturnedCall_LeftVoicemail" Type="Boolean" Nullable="false" />
+    <Property Name="WrongNumber" Type="Boolean" Nullable="false" />
+    <Property Name="SentReqPurchasing" Type="Boolean" Nullable="false" />
+    <Property Name="AccountDeactivate" Type="Boolean" Nullable="false" />
+    <Property Name="ComplaintOutcome" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TrackingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="WorkOrder" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Damaged" Type="Boolean" Nullable="false" />
+    <Property Name="Driver" Type="Boolean" Nullable="false" />
+    <Property Name="WrongProductShipped" Type="Boolean" Nullable="false" />
+    <Property Name="QualityOfProdut" Type="Boolean" Nullable="false" />
+    <Property Name="WrongArea" Type="Boolean" Nullable="false" />
+    <Property Name="Incorrect" Type="Boolean" Nullable="false" />
+    <Property Name="MisPick" Type="Boolean" Nullable="false" />
+    <Property Name="Complain_MissingProduct" Type="Boolean" Nullable="false" />
+    <Property Name="ProductDefective" Type="Boolean" Nullable="false" />
+    <Property Name="ImpoliteORoffensive" Type="Boolean" Nullable="false" />
+    <Property Name="HoldTimes" Type="Boolean" Nullable="false" />
+    <Property Name="FedExOrUSPSTrackingNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ComplaintsOthers" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="SampleChoice" Type="Boolean" Nullable="false" />
+    <Property Name="SampleOrderSent" Type="Boolean" Nullable="false" />
+    <Property Name="SampleTask" Type="Boolean" Nullable="false" />
+    <Property Name="Other_CallHandling" Type="Boolean" Nullable="false" />
+    <Property Name="Call" Type="Boolean" Nullable="false" />
+    <Property Name="Task" Type="Boolean" Nullable="false" />
+    <Property Name="Web" Type="Boolean" Nullable="false" />
+    <Property Name="Fax" Type="Boolean" Nullable="false" />
+    <Property Name="Email" Type="Boolean" Nullable="false" />
+    <Property Name="LogTypeOther" Type="Boolean" Nullable="false" />
+    <Property Name="Other" Type="Boolean" Nullable="false" />
+    <Property Name="NoPresORCMN" Type="Boolean" Nullable="false" />
+    <Property Name="NoFollowUp" Type="Boolean" Nullable="false" />
+    <Property Name="PhonePrompts_SelfService" Type="Boolean" Nullable="false" />
+    <Property Name="Julie_VictorCalls" Type="Boolean" Nullable="false" />
+    <Property Name="EligMedicare" Type="Boolean" />
+    <Property Name="EligMedicaid" Type="Boolean" />
+    <Property Name="EligOther" Type="Boolean" />
+    <Property Name="InsIdMedicare" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="InsIdMedicaid" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="InsIdOther" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MadePayment" Type="Boolean" />
+    <Property Name="Assmnt_completedtxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_reltomember" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_edudoneby" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_memtrained" Type="Boolean" />
+    <Property Name="Assmnt_physicianforsupp" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_currsuppfrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_lastorderrecieveddt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_supporderfrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_Ord30or90" Type="Int32" />
+    <Property Name="Assmnt_remsupplies" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_neworexistdiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_Testingtimesdiab" Type="Int32" />
+    <Property Name="Assmnt_InsulinTreateddiab" Type="Boolean" />
+    <Property Name="Assmnt_nameofinsulindiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_pregduedatediab" Type="DateTime" Precision="3" />
+    <Property Name="Assmnt_pregexistingdiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_currmeterdiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_meterservicediab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_diffmeterdiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_talkingmeterdiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_lancetsservicediab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_injsuppliesdiab" Type="Boolean" />
+    <Property Name="Assmnt_injfromothersuppdiab" Type="Boolean" />
+    <Property Name="Assmnt_injothersupptxtdiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_syrwtneedlediab" Type="Boolean" />
+    <Property Name="Assmnt_syrwtneedle_gaugediab" Type="Int32" />
+    <Property Name="Assmnt_syrwtneedle_lendiab" Type="Int32" />
+    <Property Name="Assmnt_syrwtneedle_unitsdiab" Type="Int32" />
+    <Property Name="Assmnt_syrwtneedle_qtydiab" Type="Int32" />
+    <Property Name="Assmnt_needleonly_diab" Type="Boolean" />
+    <Property Name="Assmnt_needleonly_gauge" Type="Int32" />
+    <Property Name="Assmnt_needleonly_len" Type="Int32" />
+    <Property Name="Assmnt_needleonly_qty" Type="Int32" />
+    <Property Name="Assmnt_alcoholwipes" Type="Boolean" />
+    <Property Name="assmnt_ketonediab" Type="Boolean" />
+    <Property Name="Assmnt_alcoholwp_othersuppdiab" Type="Boolean" />
+    <Property Name="Assmnt_UrineKetonediab" Type="Boolean" />
+    <Property Name="Assmnt_UrineKetone_Freqtestingdiab" Type="Int32" />
+    <Property Name="Assmnt_BloodKetone_Freqtestingdiab" Type="Int32" />
+    <Property Name="Assmnt_BloodKetonediab" Type="Boolean" />
+    <Property Name="Assmnt_diagnosedCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_InsTreatedCGM" Type="Boolean" />
+    <Property Name="Assmnt_InsTreatedTypeCGM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_reqpumpCGM" Type="Boolean" />
+    <Property Name="Assmnt_reqpumpsuppCGM" Type="Boolean" />
+    <Property Name="Assmnt_pumpothersuppCGM" Type="Boolean" />
+    <Property Name="Assmnt_pumpothersupptxtCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_neworreplacementCGM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_manufacturerCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_currpumpnmCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_serialnumCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_outofwarrantydtCGM" Type="DateTime" Precision="3" />
+    <Property Name="Assmnt_InsurancepaidforCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_NewPumpNameCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_NewPumpColorCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_PumpReplacereasonCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_meterusedCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_InfusionsetCGM" Type="Boolean" />
+    <Property Name="Assmnt_InfusionsettxtCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_catridgesCGM" Type="Boolean" />
+    <Property Name="Assmnt_catridgestxtCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_catridgesoftnchngtxtCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_BarrierWipesCGM" Type="Boolean" />
+    <Property Name="Assmnt_RemoverWipesCGM" Type="Boolean" />
+    <Property Name="Assmnt_AlcoholWipesCGM" Type="Boolean" />
+    <Property Name="Assmnt_TransparentdressingCGM" Type="Boolean" />
+    <Property Name="Assmnt_BatteriesCGM" Type="Boolean" />
+    <Property Name="Assmnt_memownedorusedCGM" Type="Boolean" />
+    <Property Name="Assmnt_memcurronCGM" Type="Boolean" />
+    <Property Name="Assmnt_transmitter_dtreceivedCGM" Type="DateTime" Precision="3" />
+    <Property Name="Assmnt_transmitter_outofwarrantydtCGM" Type="DateTime" Precision="3" />
+    <Property Name="Assmnt_transmitter_serialnoCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_receiver_dtreceivedCGM" Type="DateTime" Precision="3" />
+    <Property Name="Assmnt_receiver_outofwarrantydtCGM" Type="DateTime" Precision="3" />
+    <Property Name="Assmnt_receiver_serialnoCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_memneedtransmitterCGM" Type="Boolean" />
+    <Property Name="Assmnt_memneedreceiverCGM" Type="Boolean" />
+    <Property Name="Assmnt_memneedsensorsCGM" Type="Boolean" />
+    <Property Name="Assmnt_othersupplierCGM" Type="Boolean" />
+    <Property Name="Assmnt_othersuppliertxtCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_transmittertypeCGM" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_receivertypeCGM" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_transmitorreceiver_replacementreasonCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_sensorsforprodcodeCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Assmnt_memawareofsignCGM" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Eligibility_Orders">
+    <Key>
+      <PropertyRef Name="ordID" />
+    </Key>
+    <Property Name="ordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ordELRid" Type="Int32" />
+    <Property Name="ordWOId" Type="Int32" />
+    <Property Name="ordAdded" Type="DateTime" Precision="3" />
+  </EntityType>
+</Schema>

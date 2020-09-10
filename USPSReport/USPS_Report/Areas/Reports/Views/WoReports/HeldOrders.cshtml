@@ -1,0 +1,95 @@
+﻿@using Kendo.Mvc.UI
+@model USPS_Report.Areas.Reports.Models.HeldOrdersVM
+@{
+    ViewBag.Title = "HeldOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div class="row">
+        <div class="col-md-3">
+
+        </div>
+
+        <hr />
+
+
+        <div>
+
+            <div style="width:75%;margin:0 auto;">
+                @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.HeldOrdersVM>()
+        .Name("HeldOrdersGrid")
+             .Columns(columns =>
+             {
+                 columns.Bound(t => t.ID).Width(100).Title("ID").Locked(true).Lockable(false);
+                 columns.Bound(t => t.Account).Width(100).Title("Account").Locked(true);
+                 columns.Bound(t => t.Request_Date).Width(100).Title("Rquest_Date").Format("{0:MM/dd/yyyy}");
+                 columns.Bound(t => t.HoldFromShippingReason).Width(150).Title("Reason");
+
+             })
+              .ToolBar(tools => tools.Excel())
+        // .Scrollable()
+        .Reorderable(reorderable => reorderable.Columns(true))
+        //.Resizable(resizable => resizable.Columns(true))
+        //.Pageable()
+        //.Filterable()
+        //.Sortable()
+        .Groupable()
+        .ColumnMenu()
+
+
+        //  .ToolBar(tools => tools.Excel())
+
+        .Resizable(resize => resize.Columns(true))
+         //  .Scrollable()
+         .Sortable()
+
+          .Pageable()
+            .Excel(excel => excel
+                        .FileName("PriorityHolds.xlsx")
+                         .AllPages(true)
+                        .Filterable(true)
+                        .ProxyURL(Url.Action("Excel_Export_Save", "WoReports"))
+                    )
+         .Filterable()
+         .ColumnMenu()
+        .DataSource(dataSource => dataSource
+        .Ajax()
+
+         .PageSize(100)
+
+         .Read(read => read.Action("GetHeldOredrs", "WoReports"))
+
+
+            .ServerOperation(true)
+
+             .Model(model =>
+             {
+                 model.Id(p => p.Account);
+             }
+             )
+            )
+
+                )
+
+
+
+
+
+
+            </div>
+
+        </div>
+     
+    </div>
+</div>
+
+@*<script>
+    $("#HeldOrdersGrid").kendoGrid({
+        toolbar: ["excel"],
+        excel: {
+            allPages: true
+        }});
+</script>*@
+
+

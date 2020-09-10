@@ -1,0 +1,375 @@
+﻿
+@model USPS_Report.Areas.Reports.Controllers.BCNCallLogVM
+@using Kendo.Mvc.UI
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><label> Member Name  </label></div>
+    <div class="col-md-2">@Html.DisplayFor(m => m.details.firstName)</div>
+
+</div>
+@if (Model.details.Account2 != null && Model.details.Account2 != 0)
+{
+    <div class="row">
+        <div class=" col-md-1"></div>
+        <div class="col-md-2"><label></label></div>
+        <div class="col-md-2">
+            @Html.DisplayFor(m => m.details.address1),
+            @Html.DisplayFor(m => m.details.address2)
+            <br />
+
+            @Html.DisplayFor(m => m.details.city),
+            @Html.DisplayFor(m => m.details.state),
+            @Html.DisplayFor(m => m.details.zipcode)
+            <br />
+            @Html.DisplayFor(m => m.details.phone) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Html.DisplayFor(m => m.details.ALtphone) 
+            <br />
+            @Html.DisplayFor(m => m.details.DOB)
+            <br />
+            @Html.DisplayFor(m => m.details.PrimaryPhysician)
+           
+
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><label> Phone Number  </label></div>
+        <div class="col-md-2">
+            @Html.DisplayFor(m => m.details.phone)
+        </div>
+        <div class="col-md-2"><label> Alt-Phone  </label></div>
+        <div class="col-md-2">@Html.DisplayFor(m => m.details.ALtphone) </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><label> Gender  </label></div>
+        <div class="col-md-1">
+            @Html.DisplayFor(m => m.details.Gender)
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><label> DOB  </label></div>
+        <div class="col-md-1">
+            @Html.DisplayFor(m => m.details.DOB)
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><label> Primary Physician  </label></div>
+        <div class="col-md-1">
+            @Html.DisplayFor(m => m.details.PrimaryPhysician)
+
+
+        </div>
+    </div>
+
+
+}
+else
+{
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><label>  First Name  </label></div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.Mem_FN) 
+        </div>
+        <div class="col-md-1"><label>   Middle    </label></div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.Mem_MN)
+        </div>
+        <div class="col-md-1"><label>  Last Name  </label></div>
+        <div class="col-md-1">
+            @Html.TextBoxFor(m => m.Mem_LN)
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><label> Address line 1 </label></div>
+        <div class="col-md-1">
+            @Html.TextBoxFor(m => m.Mem_Add1)
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><label> Address line 2 </label></div>
+        <div class="col-md-1">
+            @Html.TextBoxFor(m => m.Mem_Add2)
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><label>  City    </label></div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.Mem_City)
+        </div>
+        <div class="col-md-1"><label>   State    </label></div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.Mem_State)
+        </div>
+        <div class="col-md-1"><label>  Zip  </label></div>
+        <div class="col-md-1">
+            @Html.TextBoxFor(m => m.Mem_ZIp)
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><label> County </label></div>
+        <div class="col-md-1">
+            @Html.TextBoxFor(m => m.Mem_County)
+        </div>
+    </div>
+    <br />
+
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><label> BirthDate </label></div>
+        <div class="col-md-1">
+             @Html.Kendo().DatePicker().Name("Mem_DOB").Value(Model.Mem_DOB).Format("MM/dd/yyyy")
+        </div>
+    </div>
+    <br />
+
+
+}
+
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><label>   Provider  </label></div>
+    <div class="col-md-1">
+      
+            @Html.DropDownListFor(m => m.Providerid, Model.ProviderList, "J&B Medical Supply, Inc.", new { @style = "width:350px;" })
+        
+    
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><label> Verified PHI  </label></div>
+    <div class="col-md-1">
+        @Html.CheckBoxFor(m => m.VerifiedPHI)
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2"><label> Voices For Health  </label></div>
+    <div class="col-md-1">
+        @Html.CheckBoxFor(m => m.VoicesForHealth)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><label> Web Account Created?    </label></div>
+    <div class="col-md-5">
+        @Html.DropDownListFor(t => t.WebAccountCreated, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Yes" , Value = "Yes"},
+                    new SelectListItem { Text = "No" , Value = "No"},
+
+               }, "Select Relation")    &nbsp;&nbsp;&nbsp;&nbsp; <strong> <a href="http://10.10.1.49/JBIntranet/Reports/WebPortal" target="_blank">Click here Web Account Creator</a>  </strong>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><label> Manufacturer  </label></div>
+    <div class="col-md-2">
+        @Html.DropDownListFor(t => t.Manufacturer, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Abbott" , Value = "Abbott"},
+                    new SelectListItem { Text = "Dexcom" , Value = "Dexcom"},
+                    new SelectListItem { Text = "Insulet" , Value = "Insulet"},
+                    new SelectListItem { Text = "Medtronic" , Value = "Medtronic"},
+                        new SelectListItem { Text = "Tandem" , Value = "Tandem"},
+                         new SelectListItem { Text = "Undecided" , Value = "Undecided"},
+
+               }, "Select ")
+    </div>
+</div>
+
+
+
+@*new { data_val = "true", data_val_required = "Name is required" }*@
+<div class="outer">
+    <p>Log Type</p>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-1">@Html.CheckBoxFor(m => m.Call) <label> Call </label></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-1">@Html.CheckBoxFor(m => m.Task) <label> Task </label></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-1">@Html.CheckBoxFor(m => m.Email) <label> E-mail </label></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-1">@Html.CheckBoxFor(m => m.Fax) <label> Fax </label></div>
+</div>
+<div class="row">
+  
+    <div class="col-md-1"></div>
+    <div class="col-md-1">@Html.CheckBoxFor(m => m.Web) <label> Web </label></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-1">@Html.CheckBoxFor(m => m.LogTypeOther) <label> Other </label></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-2">@Html.CheckBoxFor(m => m.RxForm) <label> Rx/Referral form </label></div>
+   
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><label> Order Status  </label></div>
+    <div class="col-md-2">
+        @Html.DropDownListFor(t => t.OrderStatus, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Shipped" , Value = "Shipped"},
+                    new SelectListItem { Text = "Drop Shipped" , Value = "Drop Shipped"},
+                    new SelectListItem { Text = "Back Order" , Value = "InsulBack Order"},
+                    new SelectListItem { Text = "Wait List" , Value = "Wait List"},
+                        new SelectListItem { Text = "Closed/Cancelled" , Value = "Closed/Cancelled"},
+                       
+
+               }, "Select Order Status ")
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <label>Caller Information</label>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><label> Name </label></div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.Name)
+    </div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><label> Relation  </label></div>
+    <div class="col-md-2">
+        @Html.DropDownListFor(t => t.Relation, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Member" , Value = "Member"},
+                    new SelectListItem { Text = "Caregiver" , Value = "Caregiver"},
+                    new SelectListItem { Text = "Guardian" , Value = "Guardian"},
+                    new SelectListItem { Text = "Parent" , Value = "Parent"},
+                     new SelectListItem { Text = "Provider" , Value = "Provider"},
+                      new SelectListItem { Text = "CaseWorker" , Value = "CaseWorker"},
+                        new SelectListItem { Text = "Other" , Value = "Other"},
+
+
+               }, "Select Relation")
+    </div>
+</div>
+
+@*<div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">Other</div>
+        <div class="col-md-1">
+            @Html.CheckBoxFor(m => m.otherRelations)
+
+        </div>
+    </div>*@
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.otherRelname, new { disabled = "disabled" })
+    </div>
+</div>
+
+
+@*<script>
+
+        $('#otherRelations').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#otherRelname').removeAttr("disabled");
+        } else {
+            $('#otherRelname').attr("disabled", "disabled")
+        }
+        });
+
+
+
+    </script>*@
+
+<script>
+
+    $('#Relation').click(function () {
+        var $this = $(this);
+
+        if ($this.val()=='Other') {
+            $('#otherRelname').removeAttr("disabled");
+        } else {
+            $('#otherRelname').attr("disabled", "disabled")
+        }
+        });
+
+
+
+</script>
+
+<style>
+    a:link {
+    color: blue; 
+    background-color: transparent; 
+    text-decoration: none;
+}
+
+a:visited {
+    color: deepskyblue;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+a:active {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: underline;
+}
+</style>
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="06e14ec970774f8ca7e8dd2db5cf8e4c" Name="Diagram1">
+        <EntityTypeShape EntityType="CallAgentDBModel.InboundProductConfirmation" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CallAgentDBModel.OrderConfirmation" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CallAgentDBModel.InboundChangeAddress" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="CallAgentDBModel.DelOrderConfirmation" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CallAgentDBModel.InboundCall" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CallAgentDBModel.InboundChangePhone" Width="1.5" PointX="3.375" PointY="7.75" />
+        <EntityTypeShape EntityType="CallAgentDBModel.Call" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="CallAgentDBModel.ProductConfirmation" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CallAgentDBModel.PharmacyCall" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="CallAgentDBModel.PharmacyConfirmation" Width="1.5" PointX="9.75" PointY="3.75" />
+        <EntityTypeShape EntityType="CallAgentDBModel.InboundReassmentProdConfirmation" Width="1.5" PointX="9.375" PointY="6.75" />
+        <EntityTypeShape EntityType="CallAgentDBModel.InboundReassessment" Width="1.5" PointX="5.375" PointY="9.75" />
+        <EntityTypeShape EntityType="CallAgentDBModel.UpdatedMeridianCallsOB" Width="1.5" PointX="7.375" PointY="9.75" />
+        <EntityTypeShape EntityType="CallAgentDBModel.InboundUpdateDoctor" Width="1.5" PointX="9.375" PointY="9.75" />
+        <EntityTypeShape EntityType="CallAgentDBModel.InboundUpdateInsurance" Width="1.5" PointX="11.375" PointY="6.75" />
+        <EntityTypeShape EntityType="CallAgentDBModel.tbl_AOB" Width="1.5" PointX="11.375" PointY="10.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

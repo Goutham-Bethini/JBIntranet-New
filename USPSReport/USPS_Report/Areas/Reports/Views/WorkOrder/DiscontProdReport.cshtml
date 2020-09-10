@@ -1,0 +1,70 @@
+﻿@model IEnumerable<USPS_Report.Areas.Reports.Models.DisconProdVM>
+
+@{
+    ViewBag.Title = "DiscontProdReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="middle">
+    <h1>Accounts that have discontinued products in RWO</h1>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+        <div class=" row">
+            <h3 style="color:blue">
+              @Model.Count() Accounts that have discontinued products in RWO
+            </h3>
+        </div>
+        <hr />
+        <div class=" row">
+
+            <div class="col-md-5 table-responsive">
+                <table data-sortable class="table table-hover table-striped" style="border:groove;width:700px">
+                    <thead>
+                        <tr>
+                            <th>
+                                Account
+                            </th>
+
+                            <th>
+                                Product Description
+                            </th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var item in Model)
+            {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Account)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+
+      th {
+        background-color: dodgerblue;
+        color: white;
+    }
+</style>
+

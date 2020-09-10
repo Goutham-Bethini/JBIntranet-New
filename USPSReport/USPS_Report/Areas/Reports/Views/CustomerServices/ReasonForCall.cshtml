@@ -1,0 +1,222 @@
+﻿@model USPS_Report.Areas.Reports.Models.CSRReasonforCall
+
+@{
+    ViewBag.Title = "ReasonForCall";
+    Layout = "~/Areas/Reports/Views/Shared/_noSideBarLayout.cshtml";
+}
+
+
+<div>
+
+    @using (Html.BeginForm("ReasonForCall", "CustomerServices", FormMethod.Post))
+    {
+        <div>
+            <label>Account </label>
+            @Html.TextBoxFor(m => m.Account, new { @class = "form-control" })
+            <button class="btn btn-primary btn-large" type="submit">Submit</button>
+        </div>
+    }
+</div>
+
+@if (Model.firsttime == true)
+{
+    <div>
+        @using (Html.BeginForm("CallReason", "CustomerServices", FormMethod.Post))
+        {
+            <div>
+                <div class="row">
+                    <div class="col-md-4"><strong>Account</strong></div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Account, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4"><strong>Call Duration </strong></div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.CallDuration, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>
+                            New Account
+                        </strong>
+                    </div>
+
+                    <div class="col-md-2">
+                        @Html.CheckBoxFor(m => m.NewAccount, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4"><strong>States </strong></div>
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(t => t.SState, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Michigan" , Value = "Michigan"},
+                    new SelectListItem { Text = "Indiana" , Value = "Indiana"},
+                    new SelectListItem { Text = "Wisconsin" , Value = "Wisconsin"},
+                    new SelectListItem { Text = "Molina HC" , Value = "Molina HC"},
+                     new SelectListItem { Text = "HP of MI" , Value = "HP of MI"},
+                      new SelectListItem { Text = "GLHP" , Value = "GLHP"},
+                      new SelectListItem { Text = "Midwest HP" , Value = "Midwest HP"},
+                       new SelectListItem { Text = "UPHP" , Value = "UPHP"},
+                        new SelectListItem { Text = "Priority Health Gov" , Value = "Priority Health Gov"},
+                         new SelectListItem { Text = "Health Plus Partners" , Value = "Health Plus Partners"},
+                          new SelectListItem { Text = "McLaren" , Value = "McLaren"},
+                           new SelectListItem { Text = "OmniCare" , Value = "OmniCare"},
+                             new SelectListItem { Text = "Other" , Value = "Other"}
+               }, "Select State")
+                    </div>
+                    
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4"><strong>Product Change </strong></div>
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(t => t.SState, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Increase" , Value = "Increase"},
+                    new SelectListItem { Text = "Decrease" , Value = "Decrease"},
+                    new SelectListItem { Text = "Hold" , Value = "Hold"},
+                    new SelectListItem { Text ="Remove" , Value = "Remove"},
+                     new SelectListItem { Text = "Size/ProductChange" , Value = "Size/ProductChange"},
+                      new SelectListItem { Text = "Add on" , Value = "Add on"}
+                      
+               }, "Change Product")
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>
+                            Demographic Change
+                        </strong>
+                    </div>
+
+                    <div class="col-md-2">
+                        @Html.CheckBoxFor(m => m.Demographic, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+              
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>
+                            Samples Sent
+                        </strong>
+                    </div>
+
+                    <div class="col-md-2">
+                        @Html.CheckBoxFor(m => m.Samples, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>
+                            SampleChoice called in
+                        </strong>
+                    </div>
+
+                    <div class="col-md-2">
+                        @Html.CheckBoxFor(m => m.SampleChoice, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4"><strong>Account Status </strong></div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.AStatus, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>
+                            OrderConfirmation
+                        </strong>
+                    </div>
+
+                    <div class="col-md-2">
+                        @Html.CheckBoxFor(m => m.OrderConfirmation, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>
+                            Restart
+                        </strong>
+                    </div>
+
+                    <div class="col-md-2">
+                        @Html.CheckBoxFor(m => m.Restart, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4"><strong>TranferredCall </strong></div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.TranferredCall, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                @*<div class="row">
+                    <div class="col-md-4"><strong>TCallOther </strong></div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.TCallOther, new { @class = "form-control" })
+                    </div>
+                </div>*@
+                <br />
+                <div class="row">
+                    <div class="col-md-4"><strong>ShippingRelatedIssues </strong></div>
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(t => t.SState, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Quality of product	" , Value = "Quality of product	"},
+                    new SelectListItem { Text = "Wrong product shipped" , Value = "Wrong product shipped"},
+                    new SelectListItem { Text = "Missing product" , Value = "Missing product"},
+                    new SelectListItem { Text ="Shipping ETA" , Value = "Shipping ETA"},
+                     
+
+               }, "Select Issue")
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>
+                            OtherCallHandling
+                        </strong>
+                    </div>
+
+                    <div class="col-md-2">
+                        @Html.CheckBoxFor(m => m.OtherCallHandling, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4"><strong>CallHandlingInfo </strong></div>
+                    <div class="col-md-2">
+                        @Html.TextAreaFor(m => m.OtherCallHandlingInfo, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+
+                <div class="row">
+                    <button class="btn btn-primary btn-large" type="submit">Submit</button>
+                </div>
+            </div>
+
+        }
+    </div>
+}
+
+
+

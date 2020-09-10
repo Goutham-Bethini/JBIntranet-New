@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IntranetModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CHAMPS_Adj_Codes">
+          <Key>
+            <PropertyRef Name="adjCode" />
+          </Key>
+          <Property Name="adjCode" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="adjDescription" Type="nchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CHAMPS_Error_Codes">
+          <Key>
+            <PropertyRef Name="errCode" />
+          </Key>
+          <Property Name="errCode" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="errShortDesc" Type="nchar" MaxLength="255" />
+          <Property Name="errRemitCode" Type="nchar" MaxLength="10" />
+          <Property Name="errAdjCode" Type="nchar" MaxLength="10" />
+          <Property Name="errHighlight" Type="tinyint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Intranet.dbo.CHAMPS_Ignore_Errors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CHAMPS_Ignore_Errors">
+          <Key>
+            <PropertyRef Name="cieID" />
+          </Key>
+          <Property Name="cieID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cieCode" Type="varchar" MaxLength="20" />
+          <Property Name="cieAdded" Type="datetime" />
+          <Property Name="cieAddedBy" Type="varchar" MaxLength="30" />
+          <Property Name="cieDeleted" Type="datetime" />
+          <Property Name="cieDeletedBy" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="CHAMPS_Remit_Codes">
+          <Key>
+            <PropertyRef Name="remCode" />
+          </Key>
+          <Property Name="remCode" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="remDescription" Type="nchar" MaxLength="300" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Intranet.dbo.Employees_New' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Employees_New">
+          <Key>
+            <PropertyRef Name="empID" />
+          </Key>
+          <Property Name="empID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="empLogin" Type="nchar" MaxLength="30" />
+          <Property Name="empEmail" Type="nchar" MaxLength="40" />
+          <Property Name="empFullName" Type="nchar" MaxLength="50" />
+          <Property Name="empManager" Type="tinyint" />
+          <Property Name="empTeamLeader" Type="tinyint" />
+          <Property Name="empCanEnterTicket" Type="tinyint" />
+          <Property Name="empDepartment" Type="int" />
+          <Property Name="empTeam" Type="int" />
+          <Property Name="empAdded" Type="datetime" />
+          <Property Name="empRemoved" Type="datetime" />
+          <Property Name="empAutoUpdate" Type="datetime" />
+          <Property Name="empSort" Type="tinyint" />
+          <Property Name="empPhone" Type="nchar" MaxLength="30" />
+          <Property Name="empPOSid" Type="float" />
+        </EntityType>
+        <EntityContainer Name="IntranetModel1StoreContainer">
+          <EntitySet Name="CHAMPS_Adj_Codes" EntityType="Self.CHAMPS_Adj_Codes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHAMPS_Error_Codes" EntityType="Self.CHAMPS_Error_Codes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHAMPS_Remit_Codes" EntityType="Self.CHAMPS_Remit_Codes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHAMPS_Ignore_Errors" EntityType="Self.CHAMPS_Ignore_Errors" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CHAMPS_Ignore_Errors].[cieID] AS [cieID], 
+    [CHAMPS_Ignore_Errors].[cieCode] AS [cieCode], 
+    [CHAMPS_Ignore_Errors].[cieAdded] AS [cieAdded], 
+    [CHAMPS_Ignore_Errors].[cieAddedBy] AS [cieAddedBy], 
+    [CHAMPS_Ignore_Errors].[cieDeleted] AS [cieDeleted], 
+    [CHAMPS_Ignore_Errors].[cieDeletedBy] AS [cieDeletedBy]
+    FROM [dbo].[CHAMPS_Ignore_Errors] AS [CHAMPS_Ignore_Errors]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Employees_New" EntityType="Self.Employees_New" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Employees_New].[empID] AS [empID], 
+    [Employees_New].[empLogin] AS [empLogin], 
+    [Employees_New].[empEmail] AS [empEmail], 
+    [Employees_New].[empFullName] AS [empFullName], 
+    [Employees_New].[empManager] AS [empManager], 
+    [Employees_New].[empTeamLeader] AS [empTeamLeader], 
+    [Employees_New].[empCanEnterTicket] AS [empCanEnterTicket], 
+    [Employees_New].[empDepartment] AS [empDepartment], 
+    [Employees_New].[empTeam] AS [empTeam], 
+    [Employees_New].[empAdded] AS [empAdded], 
+    [Employees_New].[empRemoved] AS [empRemoved], 
+    [Employees_New].[empAutoUpdate] AS [empAutoUpdate], 
+    [Employees_New].[empSort] AS [empSort], 
+    [Employees_New].[empPhone] AS [empPhone], 
+    [Employees_New].[empPOSid] AS [empPOSid]
+    FROM [dbo].[Employees_New] AS [Employees_New]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IntranetModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Employees_New">
+          <Key>
+            <PropertyRef Name="empID" />
+          </Key>
+          <Property Name="empID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="empLogin" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="empEmail" Type="String" MaxLength="40" FixedLength="true" Unicode="true" />
+          <Property Name="empFullName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="empManager" Type="Byte" />
+          <Property Name="empTeamLeader" Type="Byte" />
+          <Property Name="empCanEnterTicket" Type="Byte" />
+          <Property Name="empDepartment" Type="Int32" />
+          <Property Name="empTeam" Type="Int32" />
+          <Property Name="empAdded" Type="DateTime" Precision="3" />
+          <Property Name="empRemoved" Type="DateTime" Precision="3" />
+          <Property Name="empAutoUpdate" Type="DateTime" Precision="3" />
+          <Property Name="empSort" Type="Byte" />
+          <Property Name="empPhone" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="empPOSid" Type="Double" />
+        </EntityType>
+        <EntityContainer Name="IntranetEntitiesTest" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employees_New" EntityType="Self.Employees_New" />
+          <EntitySet Name="CHAMPS_Adj_Codes" EntityType="IntranetModel1.CHAMPS_Adj_Codes" />
+          <EntitySet Name="CHAMPS_Error_Codes" EntityType="IntranetModel1.CHAMPS_Error_Codes" />
+          <EntitySet Name="CHAMPS_Remit_Codes" EntityType="IntranetModel1.CHAMPS_Remit_Codes" />
+          <EntitySet Name="CHAMPS_Ignore_Errors" EntityType="IntranetModel1.CHAMPS_Ignore_Errors" />
+        </EntityContainer>
+        <EntityType Name="CHAMPS_Adj_Codes">
+          <Key>
+            <PropertyRef Name="adjCode" />
+          </Key>
+          <Property Name="adjCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="adjDescription" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CHAMPS_Error_Codes">
+          <Key>
+            <PropertyRef Name="errCode" />
+          </Key>
+          <Property Name="errCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="errShortDesc" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="errRemitCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="errAdjCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="errHighlight" Type="Byte" />
+        </EntityType>
+        <EntityType Name="CHAMPS_Remit_Codes">
+          <Key>
+            <PropertyRef Name="remCode" />
+          </Key>
+          <Property Name="remCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="remDescription" Type="String" MaxLength="300" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CHAMPS_Ignore_Errors">
+          <Key>
+            <PropertyRef Name="cieID" />
+          </Key>
+          <Property Name="cieID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cieCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cieAdded" Type="DateTime" Precision="3" />
+          <Property Name="cieAddedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="cieDeleted" Type="DateTime" Precision="3" />
+          <Property Name="cieDeletedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IntranetModel1StoreContainer" CdmEntityContainer="IntranetEntitiesTest">
+          <EntitySetMapping Name="Employees_New">
+            <EntityTypeMapping TypeName="IntranetModel1.Employees_New">
+              <MappingFragment StoreEntitySet="Employees_New">
+                <ScalarProperty Name="empID" ColumnName="empID" />
+                <ScalarProperty Name="empLogin" ColumnName="empLogin" />
+                <ScalarProperty Name="empEmail" ColumnName="empEmail" />
+                <ScalarProperty Name="empFullName" ColumnName="empFullName" />
+                <ScalarProperty Name="empManager" ColumnName="empManager" />
+                <ScalarProperty Name="empTeamLeader" ColumnName="empTeamLeader" />
+                <ScalarProperty Name="empCanEnterTicket" ColumnName="empCanEnterTicket" />
+                <ScalarProperty Name="empDepartment" ColumnName="empDepartment" />
+                <ScalarProperty Name="empTeam" ColumnName="empTeam" />
+                <ScalarProperty Name="empAdded" ColumnName="empAdded" />
+                <ScalarProperty Name="empRemoved" ColumnName="empRemoved" />
+                <ScalarProperty Name="empAutoUpdate" ColumnName="empAutoUpdate" />
+                <ScalarProperty Name="empSort" ColumnName="empSort" />
+                <ScalarProperty Name="empPhone" ColumnName="empPhone" />
+                <ScalarProperty Name="empPOSid" ColumnName="empPOSid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHAMPS_Adj_Codes">
+            <EntityTypeMapping TypeName="IntranetModel1.CHAMPS_Adj_Codes">
+              <MappingFragment StoreEntitySet="CHAMPS_Adj_Codes">
+                <ScalarProperty Name="adjDescription" ColumnName="adjDescription" />
+                <ScalarProperty Name="adjCode" ColumnName="adjCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHAMPS_Error_Codes">
+            <EntityTypeMapping TypeName="IntranetModel1.CHAMPS_Error_Codes">
+              <MappingFragment StoreEntitySet="CHAMPS_Error_Codes">
+                <ScalarProperty Name="errHighlight" ColumnName="errHighlight" />
+                <ScalarProperty Name="errAdjCode" ColumnName="errAdjCode" />
+                <ScalarProperty Name="errRemitCode" ColumnName="errRemitCode" />
+                <ScalarProperty Name="errShortDesc" ColumnName="errShortDesc" />
+                <ScalarProperty Name="errCode" ColumnName="errCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHAMPS_Remit_Codes">
+            <EntityTypeMapping TypeName="IntranetModel1.CHAMPS_Remit_Codes">
+              <MappingFragment StoreEntitySet="CHAMPS_Remit_Codes">
+                <ScalarProperty Name="remDescription" ColumnName="remDescription" />
+                <ScalarProperty Name="remCode" ColumnName="remCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHAMPS_Ignore_Errors">
+            <EntityTypeMapping TypeName="IntranetModel1.CHAMPS_Ignore_Errors">
+              <MappingFragment StoreEntitySet="CHAMPS_Ignore_Errors">
+                <ScalarProperty Name="cieDeletedBy" ColumnName="cieDeletedBy" />
+                <ScalarProperty Name="cieDeleted" ColumnName="cieDeleted" />
+                <ScalarProperty Name="cieAddedBy" ColumnName="cieAddedBy" />
+                <ScalarProperty Name="cieAdded" ColumnName="cieAdded" />
+                <ScalarProperty Name="cieCode" ColumnName="cieCode" />
+                <ScalarProperty Name="cieID" ColumnName="cieID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+<!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ReportsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="USPS_POD_tbl">
+          <Key>
+            <PropertyRef Name="uID" />
+          </Key>
+          <Property Name="uID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WorkOrder" Type="int" />
+          <Property Name="ConfirmationNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="USPSReply" Type="nvarchar(max)" />
+          <Property Name="PostDate" Type="datetime" />
+          <Property Name="Updated" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="ReportsModelStoreContainer">
+          <EntitySet Name="USPS_POD_tbl" EntityType="Self.USPS_POD_tbl" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ReportsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="USPS_POD_tbl">
+          <Key>
+            <PropertyRef Name="uID" />
+          </Key>
+          <Property Name="uID" Type="Guid" Nullable="false" />
+          <Property Name="WorkOrder" Type="Int32" />
+          <Property Name="ConfirmationNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="USPSReply" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PostDate" Type="DateTime" Precision="3" />
+          <Property Name="Updated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="ReportsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="USPS_POD_tbl" EntityType="Self.USPS_POD_tbl" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ReportsModelStoreContainer" CdmEntityContainer="ReportsEntities">
+          <EntitySetMapping Name="USPS_POD_tbl">
+            <EntityTypeMapping TypeName="ReportsModel.USPS_POD_tbl">
+              <MappingFragment StoreEntitySet="USPS_POD_tbl">
+                <ScalarProperty Name="uID" ColumnName="uID" />
+                <ScalarProperty Name="WorkOrder" ColumnName="WorkOrder" />
+                <ScalarProperty Name="ConfirmationNum" ColumnName="ConfirmationNum" />
+                <ScalarProperty Name="USPSReply" ColumnName="USPSReply" />
+                <ScalarProperty Name="PostDate" ColumnName="PostDate" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

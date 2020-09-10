@@ -1,0 +1,111 @@
+﻿@model USPS_Report.Areas.Reports.Models.ErrorDecorderVM
+
+@{
+    ViewBag.Title = "ShowIgnore";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="middle">
+    <h1>CHAMPS Error Decoder</h1>
+    <h4>*Please provide a comma delimited list of codes</h4>
+
+    @using (Html.BeginForm("ChampsErrorDecorder1", "Billing_Champs", FormMethod.Post))
+            {
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <label> *Reason Code: </label>
+
+                @Html.TextBoxFor(t => t.ReasonCode)
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <label>*Remark Code :</label>
+
+                @Html.TextBoxFor(t => t.RemarkCode)
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button class="btn btn-primary btn-large" type="submit">View</button>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+@if (Model != null && Model.errorDecorder != null)
+
+{
+    using (Html.BeginForm("ChampsIgnoreList", "Billing_Champs", FormMethod.Post))
+    {
+        <div class="row" style="width:80%;margin:auto">
+            <h4 style="color:red">
+                @if (Model.showAll == true)
+                {
+                    @Html.ActionLink(Model.Count.ToString() + "Ignored Errors - Click to hide", "HideIgnore", "Billing_Champs", new { _reason = Model.ReasonCode, _remark = Model.RemarkCode }, new { @class = "modal-link btn btn-success" })
+                }
+                else
+                {
+                    @Html.ActionLink("Ignored Errors - Click to show", "ShowIgnore", "Billing_Champs", new { _reason = Model.ReasonCode, _remark = Model.RemarkCode }, new { @class = "modal-link btn btn-success" })
+
+                }
+            </h4>
+            <hr />
+            <div class="table-responsive">
+                <table data-sortable class="table table-hover table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Error Code</th>
+                            <th>Reason Code</th>
+                            <th>Remark Code</th>
+                            <th>Error</th>
+                            <th>**Ignore</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.errorDecorder.Count(); i += 1)
+                    {
+                            <tr>
+                                <td> @Html.DisplayFor(x => x.errorDecorder[i].errCode) </td>
+                                <td>@Html.DisplayFor(x => x.errorDecorder[i].errAdjCode)</td>
+                                <td>@Html.DisplayFor(x => x.errorDecorder[i].errRemitCode)</td>
+                                <td>@Html.DisplayFor(x => x.errorDecorder[i].Error)</td>
+                                <td>@Html.CheckBoxFor(x => x.errorDecorder[i].ignore, new { @class = "Ignore", id = "chk" + i })</td>
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h4>**Only ignore an error if you don't want to see it for ANY claims in the future.</h4>
+                <button class="btn btn-primary btn-large" type="submit">View</button>
+            </div>
+        </div>
+    }
+}
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 500px;
+    }
+</style>
+

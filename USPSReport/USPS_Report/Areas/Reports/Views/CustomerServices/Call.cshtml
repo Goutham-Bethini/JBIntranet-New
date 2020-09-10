@@ -1,0 +1,153 @@
+﻿@model USPS_Report.Areas.Reports.Models.CSRLogComplaints
+
+@{
+    ViewBag.Title = "Call";
+    Layout = "~/Areas/Reports/Views/Shared/_noSideBarLayout.cshtml";
+}
+
+
+
+<div>
+
+    @using (Html.BeginForm("Call", "CustomerServices", FormMethod.Post))
+    {
+        <div>
+            <label>Account </label>
+            @Html.TextBoxFor(m => m.Account, new { @class = "form-control" })
+            <button class="btn btn-primary btn-large" type="submit">Submit</button>
+        </div>
+    }
+</div>
+
+
+
+@if (Model.firsttime == true)
+{
+    <div>
+        @using (Html.BeginForm("CallComplaints", "CustomerServices", FormMethod.Post))
+        {
+            <div>
+                <div class="row">
+                    <div class="col-md-4"><strong>Account</strong></div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Account, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4"><strong>Call Duration </strong></div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.CallDuration, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4"><strong> HandlingConcernstrong</strong> </div>
+                    <div class="col-md-2"> @Html.CheckBoxFor(m => m.HandlingConcern, new { @class = "form-control" }) </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>
+                            Complains
+                        </strong>
+                    </div>
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(t => t.Complaint, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Damaged" , Value = "Damaged"},
+                    new SelectListItem { Text = "Driver" , Value = "Driver"},
+                    new SelectListItem { Text = "Wrong Product Shipped" , Value = "WrongProductShipped"},
+                    new SelectListItem { Text = "Quality of Product" , Value = "QualityofProduct"},
+                     new SelectListItem { Text = "Wrong Area" , Value = "WrongArea"},
+                      new SelectListItem { Text = "Missing Product" , Value = "MissingProduct"},
+                      new SelectListItem { Text = "Custimer Service Issue" , Value = "CustimerServiceIssue"},
+
+               }, "Customer Complaint:")
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>
+                            FedExComplaints
+                        </strong>
+                    </div>
+
+                    <div class="col-md-2">
+                        @Html.CheckBoxFor(m => m.FedExComplaints, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <strong>
+                            FedExTrack
+                        </strong>
+                    </div>
+
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.FedExTrack, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <strong>
+                            Description
+                        </strong>
+                    </div>
+
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.C_Description, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>
+                            Correction
+                        </strong>
+                    </div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.C_Corrective, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <strong>
+                            Resolved
+                        </strong>
+                    </div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.C_Resolved, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>
+                            WICSComplaints
+                        </strong>
+                    </div>
+                    <div class="col-md-2">
+                        @Html.CheckBoxFor(m => m.WICSComplaints, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <button class="btn btn-primary btn-large" type="submit">Submit</button>
+                </div>
+            </div>
+
+        }
+    </div>
+}
+
+

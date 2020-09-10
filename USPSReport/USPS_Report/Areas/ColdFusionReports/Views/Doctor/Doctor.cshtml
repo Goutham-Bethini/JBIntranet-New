@@ -1,0 +1,71 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.Doctor.DoctorVM
+@{
+    ViewBag.Title = "Doctor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="middle" style="text-align:center;">Find who changed or deleted Physician information</h3>
+<hr />
+
+<div>
+    @using (Html.BeginForm("DoctorData", "Doctor", FormMethod.Post))
+    {
+        <center>
+            <table>
+                <tr>
+                    <td>@Html.ValidationMessageFor(t => t.PhysicianID, "", new { @class = "redText" })</td>
+                </tr>
+                <tr>
+                    <td>Physician ID: @Html.TextBoxFor(t => t.PhysicianID)</td>
+                </tr>
+            </table>
+            <br />
+            <button class="btn btn-primary btn-large" type="submit">Submit</button>
+        </center>
+    }
+</div>
+<hr />
+@if (Model != null && Model.Details != null)
+{
+    <div class="table-responsive middle">
+        <table data-sortable class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Created</th>
+                    <th>Changed By</th>
+                    <th>Last Changed</th>
+                    <th>Deleted By</th>
+                    <th>Deleted</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rec in Model.Details)
+                {
+                <tr>
+                    <td>@rec.Id </td>
+                    <td>@rec.FirstName </td>
+                    <td>@rec.LastName </td>
+                    <td>@rec.Created </td>
+                    <td>@rec.ChangedBy </td>
+                    <td>@rec.LastChanged </td>
+                    <td>@rec.DeletedBy</td>
+                    <td>@rec.Deleted</td>
+                </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+}
+
+<style>
+    .redText {
+        color: Red;
+    }
+</style>
+
+

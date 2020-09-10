@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="IntranetModelStoreContainer" CdmEntityContainer="IntranetEntities">
+    <EntitySetMapping Name="assessment_log">
+      <EntityTypeMapping TypeName="IntranetModel.assessment_log">
+        <MappingFragment StoreEntitySet="assessment_log">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Account_Number" ColumnName="Account_Number" />
+          <ScalarProperty Name="Initial_Assessment" ColumnName="Initial_Assessment" />
+          <ScalarProperty Name="Update_Assessment" ColumnName="Update_Assessment" />
+          <ScalarProperty Name="Update_PCU" ColumnName="Update_PCU" />
+          <ScalarProperty Name="OneTime_PA" ColumnName="OneTime_PA" />
+          <ScalarProperty Name="Initial_PA_Process" ColumnName="Initial_PA_Process" />
+          <ScalarProperty Name="POS_RWO_Created" ColumnName="POS_RWO_Created" />
+          <ScalarProperty Name="Faxes_to_State" ColumnName="Faxes_to_State" />
+          <ScalarProperty Name="LM_Letter" ColumnName="LM_Letter" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees_New">
+      <EntityTypeMapping TypeName="IntranetModel.Employees_New">
+        <MappingFragment StoreEntitySet="Employees_New">
+          <ScalarProperty Name="empPOSid" ColumnName="empPOSid" />
+          <ScalarProperty Name="empPhone" ColumnName="empPhone" />
+          <ScalarProperty Name="empSort" ColumnName="empSort" />
+          <ScalarProperty Name="empAutoUpdate" ColumnName="empAutoUpdate" />
+          <ScalarProperty Name="empRemoved" ColumnName="empRemoved" />
+          <ScalarProperty Name="empAdded" ColumnName="empAdded" />
+          <ScalarProperty Name="empTeam" ColumnName="empTeam" />
+          <ScalarProperty Name="empDepartment" ColumnName="empDepartment" />
+          <ScalarProperty Name="empCanEnterTicket" ColumnName="empCanEnterTicket" />
+          <ScalarProperty Name="empTeamLeader" ColumnName="empTeamLeader" />
+          <ScalarProperty Name="empManager" ColumnName="empManager" />
+          <ScalarProperty Name="empFullName" ColumnName="empFullName" />
+          <ScalarProperty Name="empEmail" ColumnName="empEmail" />
+          <ScalarProperty Name="empLogin" ColumnName="empLogin" />
+          <ScalarProperty Name="empID" ColumnName="empID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHAMPS_Adj_Codes">
+      <EntityTypeMapping TypeName="IntranetModel.CHAMPS_Adj_Codes">
+        <MappingFragment StoreEntitySet="CHAMPS_Adj_Codes">
+          <ScalarProperty Name="adjDescription" ColumnName="adjDescription" />
+          <ScalarProperty Name="adjCode" ColumnName="adjCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHAMPS_Error_Codes">
+      <EntityTypeMapping TypeName="IntranetModel.CHAMPS_Error_Codes">
+        <MappingFragment StoreEntitySet="CHAMPS_Error_Codes">
+          <ScalarProperty Name="errHighlight" ColumnName="errHighlight" />
+          <ScalarProperty Name="errAdjCode" ColumnName="errAdjCode" />
+          <ScalarProperty Name="errRemitCode" ColumnName="errRemitCode" />
+          <ScalarProperty Name="errShortDesc" ColumnName="errShortDesc" />
+          <ScalarProperty Name="errCode" ColumnName="errCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHAMPS_Remit_Codes">
+      <EntityTypeMapping TypeName="IntranetModel.CHAMPS_Remit_Codes">
+        <MappingFragment StoreEntitySet="CHAMPS_Remit_Codes">
+          <ScalarProperty Name="remDescription" ColumnName="remDescription" />
+          <ScalarProperty Name="remCode" ColumnName="remCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHAMPS_Ignore_Errors">
+      <EntityTypeMapping TypeName="IntranetModel.CHAMPS_Ignore_Errors">
+        <MappingFragment StoreEntitySet="CHAMPS_Ignore_Errors">
+          <ScalarProperty Name="cieDeletedBy" ColumnName="cieDeletedBy" />
+          <ScalarProperty Name="cieDeleted" ColumnName="cieDeleted" />
+          <ScalarProperty Name="cieAddedBy" ColumnName="cieAddedBy" />
+          <ScalarProperty Name="cieAdded" ColumnName="cieAdded" />
+          <ScalarProperty Name="cieCode" ColumnName="cieCode" />
+          <ScalarProperty Name="cieID" ColumnName="cieID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RWO_Product_Substitutions">
+      <EntityTypeMapping TypeName="IntranetModel.RWO_Product_Substitutions">
+        <MappingFragment StoreEntitySet="RWO_Product_Substitutions">
+          <ScalarProperty Name="allProds" ColumnName="allProds" />
+          <ScalarProperty Name="QtyNewProd" ColumnName="QtyNewProd" />
+          <ScalarProperty Name="QtyOldProd" ColumnName="QtyOldProd" />
+          <ScalarProperty Name="subNewProdQty" ColumnName="subNewProdQty" />
+          <ScalarProperty Name="subOldProdQty" ColumnName="subOldProdQty" />
+          <ScalarProperty Name="subDeletedBy" ColumnName="subDeletedBy" />
+          <ScalarProperty Name="subDeleted" ColumnName="subDeleted" />
+          <ScalarProperty Name="subDeniedBy" ColumnName="subDeniedBy" />
+          <ScalarProperty Name="subDenied" ColumnName="subDenied" />
+          <ScalarProperty Name="subApprovedBy" ColumnName="subApprovedBy" />
+          <ScalarProperty Name="subApproved" ColumnName="subApproved" />
+          <ScalarProperty Name="subAddedBy" ColumnName="subAddedBy" />
+          <ScalarProperty Name="subAdded" ColumnName="subAdded" />
+          <ScalarProperty Name="subRWOcount" ColumnName="subRWOcount" />
+          <ScalarProperty Name="subAddComment" ColumnName="subAddComment" />
+          <ScalarProperty Name="subDL" ColumnName="subDL" />
+          <ScalarProperty Name="subNewProd" ColumnName="subNewProd" />
+          <ScalarProperty Name="subOldProd" ColumnName="subOldProd" />
+          <ScalarProperty Name="subID" ColumnName="subID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IndianaMedicaidSurveys">
+      <EntityTypeMapping TypeName="IntranetModel.IndianaMedicaidSurvey">
+        <MappingFragment StoreEntitySet="IndianaMedicaidSurvey">
+          <ScalarProperty Name="imsEnteredBy" ColumnName="imsEnteredBy" />
+          <ScalarProperty Name="imsEnteredDate" ColumnName="imsEnteredDate" />
+          <ScalarProperty Name="imsComment" ColumnName="imsComment" />
+          <ScalarProperty Name="imsAddress" ColumnName="imsAddress" />
+          <ScalarProperty Name="imsName" ColumnName="imsName" />
+          <ScalarProperty Name="imsQ6" ColumnName="imsQ6" />
+          <ScalarProperty Name="imsQ5" ColumnName="imsQ5" />
+          <ScalarProperty Name="imsQ4" ColumnName="imsQ4" />
+          <ScalarProperty Name="imsQ3" ColumnName="imsQ3" />
+          <ScalarProperty Name="imsQ2" ColumnName="imsQ2" />
+          <ScalarProperty Name="imsQ1" ColumnName="imsQ1" />
+          <ScalarProperty Name="imsID" ColumnName="imsID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_CSRCallLog">
+      <EntityTypeMapping TypeName="IntranetModel.tbl_CSRCallLog">
+        <MappingFragment StoreEntitySet="tbl_CSRCallLog">
+          <ScalarProperty Name="DidntFollowDelIns" ColumnName="DidntFollowDelIns" />
+          <ScalarProperty Name="VConfirmationCalls" ColumnName="VConfirmationCalls" />
+          <ScalarProperty Name="VPaymentCalles" ColumnName="VPaymentCalles" />
+          <ScalarProperty Name="SAJamesPhonePromts" ColumnName="SAJamesPhonePromts" />
+          <ScalarProperty Name="SAJamesSelfService" ColumnName="SAJamesSelfService" />
+          <ScalarProperty Name="VirtualCallBack" ColumnName="VirtualCallBack" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="NoFollowUp" ColumnName="NoFollowUp" />
+          <ScalarProperty Name="ReturnedFromVM" ColumnName="ReturnedFromVM" />
+          <ScalarProperty Name="NoFollowUpWithMem" ColumnName="NoFollowUpWithMem" />
+          <ScalarProperty Name="NeverRecivedSupplies" ColumnName="NeverRecivedSupplies" />
+          <ScalarProperty Name="PhysicianIssue" ColumnName="PhysicianIssue" />
+          <ScalarProperty Name="InsLimitGuidelines" ColumnName="InsLimitGuidelines" />
+          <ScalarProperty Name="BCNProviderIssue" ColumnName="BCNProviderIssue" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+          <ScalarProperty Name="BCNProvider" ColumnName="BCNProvider" />
+          <ScalarProperty Name="DeliveryCompany" ColumnName="DeliveryCompany" />
+          <ScalarProperty Name="Product" ColumnName="Product" />
+          <ScalarProperty Name="LogTypeOther" ColumnName="LogTypeOther" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Web" ColumnName="Web" />
+          <ScalarProperty Name="Task" ColumnName="Task" />
+          <ScalarProperty Name="Call" ColumnName="Call" />
+          <ScalarProperty Name="LMN" ColumnName="LMN" />
+          <ScalarProperty Name="Other_CallHandling" ColumnName="Other_CallHandling" />
+          <ScalarProperty Name="SampleTask" ColumnName="SampleTask" />
+          <ScalarProperty Name="SampleChoice" ColumnName="SampleChoice" />
+          <ScalarProperty Name="FedExOrUSPSTrackingNumber" ColumnName="FedExOrUSPSTrackingNumber" />
+          <ScalarProperty Name="OtherTxt" ColumnName="OtherTxt" />
+          <ScalarProperty Name="customerServiceTxt" ColumnName="customerServiceTxt" />
+          <ScalarProperty Name="HoldTimes" ColumnName="HoldTimes" />
+          <ScalarProperty Name="ImpoliteORoffensive" ColumnName="ImpoliteORoffensive" />
+          <ScalarProperty Name="ProductTxt" ColumnName="ProductTxt" />
+          <ScalarProperty Name="ProductDefective" ColumnName="ProductDefective" />
+          <ScalarProperty Name="ProductMispick" ColumnName="ProductMispick" />
+          <ScalarProperty Name="ProductIncrease" ColumnName="ProductIncrease" />
+          <ScalarProperty Name="FedExTxt" ColumnName="FedExTxt" />
+          <ScalarProperty Name="OtherIssue_MissingProduct" ColumnName="OtherIssue_MissingProduct" />
+          <ScalarProperty Name="WrongArea" ColumnName="WrongArea" />
+          <ScalarProperty Name="QualityOfProdut" ColumnName="QualityOfProdut" />
+          <ScalarProperty Name="WrongProductShipped" ColumnName="WrongProductShipped" />
+          <ScalarProperty Name="Driver" ColumnName="Driver" />
+          <ScalarProperty Name="Damaged" ColumnName="Damaged" />
+          <ScalarProperty Name="WorkOrder" ColumnName="WorkOrder" />
+          <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
+          <ScalarProperty Name="ComplaintOutcome" ColumnName="ComplaintOutcome" />
+          <ScalarProperty Name="AccountDeactivate" ColumnName="AccountDeactivate" />
+          <ScalarProperty Name="Nursing_CSRassessment" ColumnName="Nursing_CSRassessment" />
+          <ScalarProperty Name="WrongNumber" ColumnName="WrongNumber" />
+          <ScalarProperty Name="ReturnedCall_LeftVoicemail" ColumnName="ReturnedCall_LeftVoicemail" />
+          <ScalarProperty Name="ShippingOther" ColumnName="ShippingOther" />
+          <ScalarProperty Name="MissingProduct" ColumnName="MissingProduct" />
+          <ScalarProperty Name="WrongOrExtraProductShipped" ColumnName="WrongOrExtraProductShipped" />
+          <ScalarProperty Name="DefectiveProductOrNotUsable" ColumnName="DefectiveProductOrNotUsable" />
+          <ScalarProperty Name="ProductChange" ColumnName="ProductChange" />
+          <ScalarProperty Name="PC_RemoveOrAdd" ColumnName="PC_RemoveOrAdd" />
+          <ScalarProperty Name="PC_Hold" ColumnName="PC_Hold" />
+          <ScalarProperty Name="PC_IncreaseOrDecrease" ColumnName="PC_IncreaseOrDecrease" />
+          <ScalarProperty Name="RWOCreated" ColumnName="RWOCreated" />
+          <ScalarProperty Name="OrderHolding" ColumnName="OrderHolding" />
+          <ScalarProperty Name="OrderETA" ColumnName="OrderETA" />
+          <ScalarProperty Name="OrderShipped" ColumnName="OrderShipped" />
+          <ScalarProperty Name="FedExOrUSPSTracking" ColumnName="FedExOrUSPSTracking" />
+          <ScalarProperty Name="OrderConfirmation" ColumnName="OrderConfirmation" />
+          <ScalarProperty Name="Restart" ColumnName="Restart" />
+          <ScalarProperty Name="NewAcconunt" ColumnName="NewAcconunt" />
+          <ScalarProperty Name="InsuarnceChanges_" ColumnName="InsuarnceChanges " />
+          <ScalarProperty Name="Logs" ColumnName="Logs" />
+          <ScalarProperty Name="ABN" ColumnName="ABN" />
+          <ScalarProperty Name="TeacherLetter" ColumnName="TeacherLetter" />
+          <ScalarProperty Name="SupportingDoc" ColumnName="SupportingDoc" />
+          <ScalarProperty Name="PriorAuthorization" ColumnName="PriorAuthorization" />
+          <ScalarProperty Name="CMN" ColumnName="CMN" />
+          <ScalarProperty Name="Prescription" ColumnName="Prescription" />
+          <ScalarProperty Name="AOB" ColumnName="AOB" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Physician" ColumnName="Physician" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Billing" ColumnName="Billing" />
+          <ScalarProperty Name="Copay" ColumnName="Copay" />
+          <ScalarProperty Name="Eligibility" ColumnName="Eligibility" />
+          <ScalarProperty Name="VoiceForHealth" ColumnName="VoiceForHealth" />
+          <ScalarProperty Name="VerifiedPHI" ColumnName="VerifiedPHI" />
+          <ScalarProperty Name="OtherHandlingTxt" ColumnName="OtherHandlingTxt" />
+          <ScalarProperty Name="TransferredCallTxt" ColumnName="TransferredCallTxt" />
+          <ScalarProperty Name="TransferredCall" ColumnName="TransferredCall" />
+          <ScalarProperty Name="ShippingIssueTxt" ColumnName="ShippingIssueTxt" />
+          <ScalarProperty Name="SampleTxt" ColumnName="SampleTxt" />
+          <ScalarProperty Name="RWOChangeTxt" ColumnName="RWOChangeTxt" />
+          <ScalarProperty Name="OrderStatusTxt" ColumnName="OrderStatusTxt" />
+          <ScalarProperty Name="OrderConfirmationTxt" ColumnName="OrderConfirmationTxt" />
+          <ScalarProperty Name="NewAccountTxt" ColumnName="NewAccountTxt" />
+          <ScalarProperty Name="InsuranceChangeTxt" ColumnName="InsuranceChangeTxt" />
+          <ScalarProperty Name="ShippingOthersName" ColumnName="ShippingOthersName" />
+          <ScalarProperty Name="TypeSuppliesOther" ColumnName="TypeSuppliesOther" />
+          <ScalarProperty Name="TypeSupplies_2" ColumnName="TypeSupplies_2" />
+          <ScalarProperty Name="TypeSupplies_1" ColumnName="TypeSupplies_1" />
+          <ScalarProperty Name="DemographicChangesTxt" ColumnName="DemographicChangesTxt" />
+          <ScalarProperty Name="DocumentationTxt" ColumnName="DocumentationTxt" />
+          <ScalarProperty Name="BillingTxt" ColumnName="BillingTxt" />
+          <ScalarProperty Name="OtherRelName" ColumnName="OtherRelName" />
+          <ScalarProperty Name="Relation" ColumnName="Relation" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CallDuration" ColumnName="CallDuration" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_CSRComplaintLog">
+      <EntityTypeMapping TypeName="IntranetModel.tbl_CSRComplaintLog">
+        <MappingFragment StoreEntitySet="tbl_CSRComplaintLog">
+          <ScalarProperty Name="DidntFollowDelIns" ColumnName="DidntFollowDelIns" />
+          <ScalarProperty Name="VConfirmationCalls" ColumnName="VConfirmationCalls" />
+          <ScalarProperty Name="VPaymentCalles" ColumnName="VPaymentCalles" />
+          <ScalarProperty Name="SAJamesPhonePromts" ColumnName="SAJamesPhonePromts" />
+          <ScalarProperty Name="SAJamesSelfService" ColumnName="SAJamesSelfService" />
+          <ScalarProperty Name="VirtualCallBack" ColumnName="VirtualCallBack" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="NoFollowUp" ColumnName="NoFollowUp" />
+          <ScalarProperty Name="ReturnedFromVM" ColumnName="ReturnedFromVM" />
+          <ScalarProperty Name="NoFollowUpWithMem" ColumnName="NoFollowUpWithMem" />
+          <ScalarProperty Name="NeverRecivedSupplies" ColumnName="NeverRecivedSupplies" />
+          <ScalarProperty Name="PhysicianIssue" ColumnName="PhysicianIssue" />
+          <ScalarProperty Name="InsLimitGuidelines" ColumnName="InsLimitGuidelines" />
+          <ScalarProperty Name="BCNProviderIssue" ColumnName="BCNProviderIssue" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+          <ScalarProperty Name="BCNProvider" ColumnName="BCNProvider" />
+          <ScalarProperty Name="DeliveryCompany" ColumnName="DeliveryCompany" />
+          <ScalarProperty Name="Product" ColumnName="Product" />
+          <ScalarProperty Name="ComplaintHasBeen" ColumnName="ComplaintHasBeen" />
+          <ScalarProperty Name="OtherTxt" ColumnName="OtherTxt" />
+          <ScalarProperty Name="customerServiceTxt" ColumnName="customerServiceTxt" />
+          <ScalarProperty Name="HoldTimes" ColumnName="HoldTimes" />
+          <ScalarProperty Name="ImpoliteORoffensive" ColumnName="ImpoliteORoffensive" />
+          <ScalarProperty Name="ProductTxt" ColumnName="ProductTxt" />
+          <ScalarProperty Name="ProductDefective" ColumnName="ProductDefective" />
+          <ScalarProperty Name="ProductMispick" ColumnName="ProductMispick" />
+          <ScalarProperty Name="ProductIncrease" ColumnName="ProductIncrease" />
+          <ScalarProperty Name="FedExTxt" ColumnName="FedExTxt" />
+          <ScalarProperty Name="MissingProduct" ColumnName="MissingProduct" />
+          <ScalarProperty Name="WrongArea" ColumnName="WrongArea" />
+          <ScalarProperty Name="QualityOfProdut" ColumnName="QualityOfProdut" />
+          <ScalarProperty Name="WrongProductShipped" ColumnName="WrongProductShipped" />
+          <ScalarProperty Name="Driver" ColumnName="Driver" />
+          <ScalarProperty Name="Damaged" ColumnName="Damaged" />
+          <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
+          <ScalarProperty Name="PayerType" ColumnName="PayerType" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_CSRInsDetail">
+      <EntityTypeMapping TypeName="IntranetModel.tbl_CSRInsDetail">
+        <MappingFragment StoreEntitySet="tbl_CSRInsDetail">
+          <ScalarProperty Name="MemEnrollNone" ColumnName="MemEnrollNone" />
+          <ScalarProperty Name="NursingHome" ColumnName="NursingHome" />
+          <ScalarProperty Name="Hospital" ColumnName="Hospital" />
+          <ScalarProperty Name="Hospice" ColumnName="Hospice" />
+          <ScalarProperty Name="HHE" ColumnName="HHE" />
+          <ScalarProperty Name="HCPCnQtyLimitations" ColumnName="HCPCnQtyLimitations" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+          <ScalarProperty Name="Medicare" ColumnName="Medicare" />
+          <ScalarProperty Name="Medicaid" ColumnName="Medicaid" />
+          <ScalarProperty Name="Pharmacy" ColumnName="Pharmacy" />
+          <ScalarProperty Name="Medical" ColumnName="Medical" />
+          <ScalarProperty Name="DME" ColumnName="DME" />
+          <ScalarProperty Name="CopayCoinsNotWaived" ColumnName="CopayCoinsNotWaived" />
+          <ScalarProperty Name="CopayCoinsWaived" ColumnName="CopayCoinsWaived" />
+          <ScalarProperty Name="CopayCoins" ColumnName="CopayCoins" />
+          <ScalarProperty Name="OutofPocketMax" ColumnName="OutofPocketMax" />
+          <ScalarProperty Name="Deductible" ColumnName="Deductible" />
+          <ScalarProperty Name="OutofNetwork" ColumnName="OutofNetwork" />
+          <ScalarProperty Name="InNetwork" ColumnName="InNetwork" />
+          <ScalarProperty Name="COBnOtherIns" ColumnName="COBnOtherIns" />
+          <ScalarProperty Name="LevelOfCare" ColumnName="LevelOfCare" />
+          <ScalarProperty Name="BenefitPlan" ColumnName="BenefitPlan" />
+          <ScalarProperty Name="TermDate" ColumnName="TermDate" />
+          <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+          <ScalarProperty Name="NameNotMatched" ColumnName="NameNotMatched" />
+          <ScalarProperty Name="NameMatched" ColumnName="NameMatched" />
+          <ScalarProperty Name="VerifiedThrough" ColumnName="VerifiedThrough" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BCBS_ProviderList">
+      <EntityTypeMapping TypeName="IntranetModel.BCBS_ProviderList">
+        <MappingFragment StoreEntitySet="BCBS_ProviderList">
+          <ScalarProperty Name="HDMSID" ColumnName="HDMSID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_BCNCallLog">
+      <EntityTypeMapping TypeName="IntranetModel.tbl_BCNCallLog">
+        <MappingFragment StoreEntitySet="tbl_BCNCallLog">
+          <ScalarProperty Name="Assmnt_memawareofsignCGM" ColumnName="Assmnt_memawareofsignCGM" />
+          <ScalarProperty Name="Assmnt_sensorsforprodcodeCGM" ColumnName="Assmnt_sensorsforprodcodeCGM" />
+          <ScalarProperty Name="Assmnt_transmitorreceiver_replacementreasonCGM" ColumnName="Assmnt_transmitorreceiver_replacementreasonCGM" />
+          <ScalarProperty Name="Assmnt_receivertypeCGM" ColumnName="Assmnt_receivertypeCGM" />
+          <ScalarProperty Name="Assmnt_transmittertypeCGM" ColumnName="Assmnt_transmittertypeCGM" />
+          <ScalarProperty Name="Assmnt_othersuppliertxtCGM" ColumnName="Assmnt_othersuppliertxtCGM" />
+          <ScalarProperty Name="Assmnt_othersupplierCGM" ColumnName="Assmnt_othersupplierCGM" />
+          <ScalarProperty Name="Assmnt_memneedsensorsCGM" ColumnName="Assmnt_memneedsensorsCGM" />
+          <ScalarProperty Name="Assmnt_memneedreceiverCGM" ColumnName="Assmnt_memneedreceiverCGM" />
+          <ScalarProperty Name="Assmnt_memneedtransmitterCGM" ColumnName="Assmnt_memneedtransmitterCGM" />
+          <ScalarProperty Name="Assmnt_receiver_serialnoCGM" ColumnName="Assmnt_receiver_serialnoCGM" />
+          <ScalarProperty Name="Assmnt_receiver_outofwarrantydtCGM" ColumnName="Assmnt_receiver_outofwarrantydtCGM" />
+          <ScalarProperty Name="Assmnt_receiver_dtreceivedCGM" ColumnName="Assmnt_receiver_dtreceivedCGM" />
+          <ScalarProperty Name="Assmnt_transmitter_serialnoCGM" ColumnName="Assmnt_transmitter_serialnoCGM" />
+          <ScalarProperty Name="Assmnt_transmitter_outofwarrantydtCGM" ColumnName="Assmnt_transmitter_outofwarrantydtCGM" />
+          <ScalarProperty Name="Assmnt_transmitter_dtreceivedCGM" ColumnName="Assmnt_transmitter_dtreceivedCGM" />
+          <ScalarProperty Name="Assmnt_memcurronCGM" ColumnName="Assmnt_memcurronCGM" />
+          <ScalarProperty Name="Assmnt_memownedorusedCGM" ColumnName="Assmnt_memownedorusedCGM" />
+          <ScalarProperty Name="Assmnt_BatteriesCGM" ColumnName="Assmnt_BatteriesCGM" />
+          <ScalarProperty Name="Assmnt_TransparentdressingCGM" ColumnName="Assmnt_TransparentdressingCGM" />
+          <ScalarProperty Name="Assmnt_AlcoholWipesCGM" ColumnName="Assmnt_AlcoholWipesCGM" />
+          <ScalarProperty Name="Assmnt_RemoverWipesCGM" ColumnName="Assmnt_RemoverWipesCGM" />
+          <ScalarProperty Name="Assmnt_BarrierWipesCGM" ColumnName="Assmnt_BarrierWipesCGM" />
+          <ScalarProperty Name="Assmnt_catridgesoftnchngtxtCGM" ColumnName="Assmnt_catridgesoftnchngtxtCGM" />
+          <ScalarProperty Name="Assmnt_catridgestxtCGM" ColumnName="Assmnt_catridgestxtCGM" />
+          <ScalarProperty Name="Assmnt_catridgesCGM" ColumnName="Assmnt_catridgesCGM" />
+          <ScalarProperty Name="Assmnt_InfusionsettxtCGM" ColumnName="Assmnt_InfusionsettxtCGM" />
+          <ScalarProperty Name="Assmnt_InfusionsetCGM" ColumnName="Assmnt_InfusionsetCGM" />
+          <ScalarProperty Name="Assmnt_meterusedCGM" ColumnName="Assmnt_meterusedCGM" />
+          <ScalarProperty Name="Assmnt_PumpReplacereasonCGM" ColumnName="Assmnt_PumpReplacereasonCGM" />
+          <ScalarProperty Name="Assmnt_NewPumpColorCGM" ColumnName="Assmnt_NewPumpColorCGM" />
+          <ScalarProperty Name="Assmnt_NewPumpNameCGM" ColumnName="Assmnt_NewPumpNameCGM" />
+          <ScalarProperty Name="Assmnt_InsurancepaidforCGM" ColumnName="Assmnt_InsurancepaidforCGM" />
+          <ScalarProperty Name="Assmnt_outofwarrantydtCGM" ColumnName="Assmnt_outofwarrantydtCGM" />
+          <ScalarProperty Name="Assmnt_serialnumCGM" ColumnName="Assmnt_serialnumCGM" />
+          <ScalarProperty Name="Assmnt_currpumpnmCGM" ColumnName="Assmnt_currpumpnmCGM" />
+          <ScalarProperty Name="Assmnt_manufacturerCGM" ColumnName="Assmnt_manufacturerCGM" />
+          <ScalarProperty Name="Assmnt_neworreplacementCGM" ColumnName="Assmnt_neworreplacementCGM" />
+          <ScalarProperty Name="Assmnt_pumpothersupptxtCGM" ColumnName="Assmnt_pumpothersupptxtCGM" />
+          <ScalarProperty Name="Assmnt_pumpothersuppCGM" ColumnName="Assmnt_pumpothersuppCGM" />
+          <ScalarProperty Name="Assmnt_reqpumpsuppCGM" ColumnName="Assmnt_reqpumpsuppCGM" />
+          <ScalarProperty Name="Assmnt_reqpumpCGM" ColumnName="Assmnt_reqpumpCGM" />
+          <ScalarProperty Name="Assmnt_InsTreatedTypeCGM" ColumnName="Assmnt_InsTreatedTypeCGM" />
+          <ScalarProperty Name="Assmnt_InsTreatedCGM" ColumnName="Assmnt_InsTreatedCGM" />
+          <ScalarProperty Name="Assmnt_diagnosedCGM" ColumnName="Assmnt_diagnosedCGM" />
+          <ScalarProperty Name="Assmnt_BloodKetonediab" ColumnName="Assmnt_BloodKetonediab" />
+          <ScalarProperty Name="Assmnt_BloodKetone_Freqtestingdiab" ColumnName="Assmnt_BloodKetone_Freqtestingdiab" />
+          <ScalarProperty Name="Assmnt_UrineKetone_Freqtestingdiab" ColumnName="Assmnt_UrineKetone_Freqtestingdiab" />
+          <ScalarProperty Name="Assmnt_UrineKetonediab" ColumnName="Assmnt_UrineKetonediab" />
+          <ScalarProperty Name="Assmnt_alcoholwp_othersuppdiab" ColumnName="Assmnt_alcoholwp_othersuppdiab" />
+          <ScalarProperty Name="assmnt_ketonediab" ColumnName="assmnt_ketonediab" />
+          <ScalarProperty Name="Assmnt_alcoholwipes" ColumnName="Assmnt_alcoholwipes" />
+          <ScalarProperty Name="Assmnt_needleonly_qty" ColumnName="Assmnt_needleonly_qty" />
+          <ScalarProperty Name="Assmnt_needleonly_len" ColumnName="Assmnt_needleonly_len" />
+          <ScalarProperty Name="Assmnt_needleonly_gauge" ColumnName="Assmnt_needleonly_gauge" />
+          <ScalarProperty Name="Assmnt_needleonly_diab" ColumnName="Assmnt_needleonly_diab" />
+          <ScalarProperty Name="Assmnt_syrwtneedle_qtydiab" ColumnName="Assmnt_syrwtneedle_qtydiab" />
+          <ScalarProperty Name="Assmnt_syrwtneedle_unitsdiab" ColumnName="Assmnt_syrwtneedle_unitsdiab" />
+          <ScalarProperty Name="Assmnt_syrwtneedle_lendiab" ColumnName="Assmnt_syrwtneedle_lendiab" />
+          <ScalarProperty Name="Assmnt_syrwtneedle_gaugediab" ColumnName="Assmnt_syrwtneedle_gaugediab" />
+          <ScalarProperty Name="Assmnt_syrwtneedlediab" ColumnName="Assmnt_syrwtneedlediab" />
+          <ScalarProperty Name="Assmnt_injothersupptxtdiab" ColumnName="Assmnt_injothersupptxtdiab" />
+          <ScalarProperty Name="Assmnt_injfromothersuppdiab" ColumnName="Assmnt_injfromothersuppdiab" />
+          <ScalarProperty Name="Assmnt_injsuppliesdiab" ColumnName="Assmnt_injsuppliesdiab" />
+          <ScalarProperty Name="Assmnt_lancetsservicediab" ColumnName="Assmnt_lancetsservicediab" />
+          <ScalarProperty Name="Assmnt_talkingmeterdiab" ColumnName="Assmnt_talkingmeterdiab" />
+          <ScalarProperty Name="Assmnt_diffmeterdiab" ColumnName="Assmnt_diffmeterdiab" />
+          <ScalarProperty Name="Assmnt_meterservicediab" ColumnName="Assmnt_meterservicediab" />
+          <ScalarProperty Name="Assmnt_currmeterdiab" ColumnName="Assmnt_currmeterdiab" />
+          <ScalarProperty Name="Assmnt_pregexistingdiab" ColumnName="Assmnt_pregexistingdiab" />
+          <ScalarProperty Name="Assmnt_pregduedatediab" ColumnName="Assmnt_pregduedatediab" />
+          <ScalarProperty Name="Assmnt_nameofinsulindiab" ColumnName="Assmnt_nameofinsulindiab" />
+          <ScalarProperty Name="Assmnt_InsulinTreateddiab" ColumnName="Assmnt_InsulinTreateddiab" />
+          <ScalarProperty Name="Assmnt_Testingtimesdiab" ColumnName="Assmnt_Testingtimesdiab" />
+          <ScalarProperty Name="Assmnt_neworexistdiab" ColumnName="Assmnt_neworexistdiab" />
+          <ScalarProperty Name="Assmnt_remsupplies" ColumnName="Assmnt_remsupplies" />
+          <ScalarProperty Name="Assmnt_Ord30or90" ColumnName="Assmnt_Ord30or90" />
+          <ScalarProperty Name="Assmnt_supporderfrom" ColumnName="Assmnt_supporderfrom" />
+          <ScalarProperty Name="Assmnt_lastorderrecieveddt" ColumnName="Assmnt_lastorderrecieveddt" />
+          <ScalarProperty Name="Assmnt_currsuppfrom" ColumnName="Assmnt_currsuppfrom" />
+          <ScalarProperty Name="Assmnt_physicianforsupp" ColumnName="Assmnt_physicianforsupp" />
+          <ScalarProperty Name="Assmnt_memtrained" ColumnName="Assmnt_memtrained" />
+          <ScalarProperty Name="Assmnt_edudoneby" ColumnName="Assmnt_edudoneby" />
+          <ScalarProperty Name="Assmnt_reltomember" ColumnName="Assmnt_reltomember" />
+          <ScalarProperty Name="Assmnt_completedtxt" ColumnName="Assmnt_completedtxt" />
+          <ScalarProperty Name="MadePayment" ColumnName="MadePayment" />
+          <ScalarProperty Name="InsIdOther" ColumnName="InsIdOther" />
+          <ScalarProperty Name="InsIdMedicaid" ColumnName="InsIdMedicaid" />
+          <ScalarProperty Name="InsIdMedicare" ColumnName="InsIdMedicare" />
+          <ScalarProperty Name="EligOther" ColumnName="EligOther" />
+          <ScalarProperty Name="EligMedicaid" ColumnName="EligMedicaid" />
+          <ScalarProperty Name="EligMedicare" ColumnName="EligMedicare" />
+          <ScalarProperty Name="Julie_VictorCalls" ColumnName="Julie_VictorCalls" />
+          <ScalarProperty Name="PhonePrompts_SelfService" ColumnName="PhonePrompts_SelfService" />
+          <ScalarProperty Name="NoFollowUp" ColumnName="NoFollowUp" />
+          <ScalarProperty Name="NoPresORCMN" ColumnName="NoPresORCMN" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+          <ScalarProperty Name="LogTypeOther" ColumnName="LogTypeOther" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Web" ColumnName="Web" />
+          <ScalarProperty Name="Task" ColumnName="Task" />
+          <ScalarProperty Name="Call" ColumnName="Call" />
+          <ScalarProperty Name="Other_CallHandling" ColumnName="Other_CallHandling" />
+          <ScalarProperty Name="SampleTask" ColumnName="SampleTask" />
+          <ScalarProperty Name="SampleOrderSent" ColumnName="SampleOrderSent" />
+          <ScalarProperty Name="SampleChoice" ColumnName="SampleChoice" />
+          <ScalarProperty Name="ComplaintsOthers" ColumnName="ComplaintsOthers" />
+          <ScalarProperty Name="FedExOrUSPSTrackingNumber" ColumnName="FedExOrUSPSTrackingNumber" />
+          <ScalarProperty Name="HoldTimes" ColumnName="HoldTimes" />
+          <ScalarProperty Name="ImpoliteORoffensive" ColumnName="ImpoliteORoffensive" />
+          <ScalarProperty Name="ProductDefective" ColumnName="ProductDefective" />
+          <ScalarProperty Name="Complain_MissingProduct" ColumnName="Complain_MissingProduct" />
+          <ScalarProperty Name="MisPick" ColumnName="MisPick" />
+          <ScalarProperty Name="Incorrect" ColumnName="Incorrect" />
+          <ScalarProperty Name="WrongArea" ColumnName="WrongArea" />
+          <ScalarProperty Name="QualityOfProdut" ColumnName="QualityOfProdut" />
+          <ScalarProperty Name="WrongProductShipped" ColumnName="WrongProductShipped" />
+          <ScalarProperty Name="Driver" ColumnName="Driver" />
+          <ScalarProperty Name="Damaged" ColumnName="Damaged" />
+          <ScalarProperty Name="WorkOrder" ColumnName="WorkOrder" />
+          <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
+          <ScalarProperty Name="ComplaintOutcome" ColumnName="ComplaintOutcome" />
+          <ScalarProperty Name="AccountDeactivate" ColumnName="AccountDeactivate" />
+          <ScalarProperty Name="SentReqPurchasing" ColumnName="SentReqPurchasing" />
+          <ScalarProperty Name="WrongNumber" ColumnName="WrongNumber" />
+          <ScalarProperty Name="ReturnedCall_LeftVoicemail" ColumnName="ReturnedCall_LeftVoicemail" />
+          <ScalarProperty Name="ShippingOther" ColumnName="ShippingOther" />
+          <ScalarProperty Name="MissingProduct" ColumnName="MissingProduct" />
+          <ScalarProperty Name="WrongOrExtraProductShipped" ColumnName="WrongOrExtraProductShipped" />
+          <ScalarProperty Name="DefectiveProductOrNotUsable" ColumnName="DefectiveProductOrNotUsable" />
+          <ScalarProperty Name="ProductChange" ColumnName="ProductChange" />
+          <ScalarProperty Name="PC_RemoveOrAdd" ColumnName="PC_RemoveOrAdd" />
+          <ScalarProperty Name="PC_Hold" ColumnName="PC_Hold" />
+          <ScalarProperty Name="PC_IncreaseOrDecrease" ColumnName="PC_IncreaseOrDecrease" />
+          <ScalarProperty Name="RWOCreated" ColumnName="RWOCreated" />
+          <ScalarProperty Name="OrderHolding" ColumnName="OrderHolding" />
+          <ScalarProperty Name="OrderETA" ColumnName="OrderETA" />
+          <ScalarProperty Name="OrderShipped" ColumnName="OrderShipped" />
+          <ScalarProperty Name="FedExOrUSPSTracking" ColumnName="FedExOrUSPSTracking" />
+          <ScalarProperty Name="OrderConfirmation" ColumnName="OrderConfirmation" />
+          <ScalarProperty Name="Restart" ColumnName="Restart" />
+          <ScalarProperty Name="NewAcconunt" ColumnName="NewAcconunt" />
+          <ScalarProperty Name="InsuarnceChanges_" ColumnName="InsuarnceChanges " />
+          <ScalarProperty Name="ClinicalDocsReceived" ColumnName="ClinicalDocsReceived" />
+          <ScalarProperty Name="ClinicalDocsReq" ColumnName="ClinicalDocsReq" />
+          <ScalarProperty Name="PAReceived" ColumnName="PAReceived" />
+          <ScalarProperty Name="PASent" ColumnName="PASent" />
+          <ScalarProperty Name="RXReceived" ColumnName="RXReceived" />
+          <ScalarProperty Name="AOBReceived" ColumnName="AOBReceived" />
+          <ScalarProperty Name="SupportingDoc" ColumnName="SupportingDoc" />
+          <ScalarProperty Name="PriorAuthorization" ColumnName="PriorAuthorization" />
+          <ScalarProperty Name="Prescription" ColumnName="Prescription" />
+          <ScalarProperty Name="RxForm" ColumnName="RxForm" />
+          <ScalarProperty Name="AOB" ColumnName="AOB" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="assmnt_Insulin" ColumnName="assmnt_Insulin" />
+          <ScalarProperty Name="assmnt_Diab" ColumnName="assmnt_Diab" />
+          <ScalarProperty Name="Physician" ColumnName="Physician" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Billing" ColumnName="Billing" />
+          <ScalarProperty Name="Copay" ColumnName="Copay" />
+          <ScalarProperty Name="VoiceForHealth" ColumnName="VoiceForHealth" />
+          <ScalarProperty Name="VerifiedPHI" ColumnName="VerifiedPHI" />
+          <ScalarProperty Name="OtherHandlingTxt" ColumnName="OtherHandlingTxt" />
+          <ScalarProperty Name="TransferredCallTxt" ColumnName="TransferredCallTxt" />
+          <ScalarProperty Name="TransferredCall" ColumnName="TransferredCall" />
+          <ScalarProperty Name="ShippingIssueTxt" ColumnName="ShippingIssueTxt" />
+          <ScalarProperty Name="SampleTxt" ColumnName="SampleTxt" />
+          <ScalarProperty Name="RWOChangeTxt" ColumnName="RWOChangeTxt" />
+          <ScalarProperty Name="OrderStatusTxt" ColumnName="OrderStatusTxt" />
+          <ScalarProperty Name="OrderConfirmationTxt" ColumnName="OrderConfirmationTxt" />
+          <ScalarProperty Name="NewAccountTxt" ColumnName="NewAccountTxt" />
+          <ScalarProperty Name="InsuranceChangeTxt" ColumnName="InsuranceChangeTxt" />
+          <ScalarProperty Name="ShippingOthersName" ColumnName="ShippingOthersName" />
+          <ScalarProperty Name="TypeSuppliesOther" ColumnName="TypeSuppliesOther" />
+          <ScalarProperty Name="TypeSupplies_2" ColumnName="TypeSupplies_2" />
+          <ScalarProperty Name="TypeSupplies_1" ColumnName="TypeSupplies_1" />
+          <ScalarProperty Name="DemographicChangesTxt" ColumnName="DemographicChangesTxt" />
+          <ScalarProperty Name="DocumentationTxt" ColumnName="DocumentationTxt" />
+          <ScalarProperty Name="BillingTxt" ColumnName="BillingTxt" />
+          <ScalarProperty Name="OtherRelName" ColumnName="OtherRelName" />
+          <ScalarProperty Name="Relation" ColumnName="Relation" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+          <ScalarProperty Name="WebAccountCreated" ColumnName="WebAccountCreated" />
+          <ScalarProperty Name="Mem_Gender" ColumnName="Mem_Gender" />
+          <ScalarProperty Name="Mem_County" ColumnName="Mem_County" />
+          <ScalarProperty Name="Provider" ColumnName="Provider" />
+          <ScalarProperty Name="Primary_Physician" ColumnName="Primary_Physician" />
+          <ScalarProperty Name="Mem_ZipCode" ColumnName="Mem_ZipCode" />
+          <ScalarProperty Name="Mem_State" ColumnName="Mem_State" />
+          <ScalarProperty Name="Mem_City" ColumnName="Mem_City" />
+          <ScalarProperty Name="Mem_DOB" ColumnName="Mem_DOB" />
+          <ScalarProperty Name="Mem_Address2" ColumnName="Mem_Address2" />
+          <ScalarProperty Name="Mem_Address1" ColumnName="Mem_Address1" />
+          <ScalarProperty Name="Mem_LastName" ColumnName="Mem_LastName" />
+          <ScalarProperty Name="Mem_FirstName" ColumnName="Mem_FirstName" />
+          <ScalarProperty Name="CallDuration" ColumnName="CallDuration" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Eligibility_Orders">
+      <EntityTypeMapping TypeName="IntranetModel.Eligibility_Orders">
+        <MappingFragment StoreEntitySet="Eligibility_Orders">
+          <ScalarProperty Name="ordAdded" ColumnName="ordAdded" />
+          <ScalarProperty Name="ordWOId" ColumnName="ordWOId" />
+          <ScalarProperty Name="ordELRid" ColumnName="ordELRid" />
+          <ScalarProperty Name="ordID" ColumnName="ordID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

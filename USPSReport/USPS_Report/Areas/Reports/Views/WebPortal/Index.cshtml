@@ -1,0 +1,356 @@
+﻿
+@model USPS_Report.Areas.Reports.Models.WebAcctCreatorVm
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "WebPortal Acc Creator";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="text-center">
+    <h3>Web Portal Account Creator </h3>
+
+    @using (Html.BeginForm("Index", "WebPortal", FormMethod.Post))
+    {
+        @Html.ValidationMessageFor(model => model.Account)
+        <div>
+            <h4>
+                <label>Account </label>
+                @Html.TextBoxFor(m => m.Account, new { Title = "Enter a Valid Account Number" })
+            </h4>
+            @if (Model.IsSubmit == true)
+            {
+                <button class="btn btn-primary btn-large" type="submit" style="display:none">Submit</button>
+
+            }
+            else
+            {
+                <button class="btn btn-primary btn-large" type="submit">Submit</button>
+            }
+        </div> 
+    }
+</div>
+
+
+
+
+
+<hr />
+@if (Model.ISActive == false)
+{
+    <h3 style="color:red" class="text-center">
+        This account is inactive in HDMS! <br />
+        Reactivate account in HDMS before attempting to create portal account.
+    </h3>
+    <br />
+    <h3><strong>@Html.ActionLink("Click here", "Index", "WebPortal", new { area = "Reports" }) to create a web portal account for another patient.</strong></h3>
+
+}
+
+@if (Model.IsAcctExists == true)
+{
+    <h3 style="color:red" class="text-center">
+        Portal account already exists for this account number!
+    </h3>
+    <br />
+
+    <div class="text-center">
+        <lable>
+            UserName : &nbsp;&nbsp;&nbsp;&nbsp;<strong>
+                @foreach (var item in Model.webUsername.Split(','))
+                { @item; <br /> }
+                @*@Html.DisplayFor(m => m.webUsername)*@
+
+            </strong>
+        </lable>
+
+
+        <br />
+        <h3><strong>@Html.ActionLink("Click here", "Index", "WebPortal", new { area = "Reports" }) to create a web portal account for another patient.</strong></h3>
+    </div>
+
+
+}
+@if (Model.decline == true)
+{
+    <h3 style="color:green" class="text-center">
+        A decline note has been added to HDMS.
+    </h3>
+
+    <br />
+    <h3 class="text-center"><strong>@Html.ActionLink("Click here", "Index", "WebPortal", new { area = "Reports" }) to create a web portal account for another patient.</strong></h3>
+
+}
+
+@if (Model.IsAcctCreated == true)
+{
+    <h3 style="color:green" class="text-center">
+        Portal account Created Successfully!
+    </h3>
+    <br />
+    <div class="text-center">
+        <div class="text-center">
+            <lable>
+                UserName : &nbsp;&nbsp;&nbsp;&nbsp;<strong>
+                    @foreach (var item in Model.webUsername.Split(','))
+                    { @item; <br /> }
+                    @*@Html.DisplayFor(m => m.webUsername)*@
+
+                </strong>
+            </lable>
+        </div>
+
+        <div class="text-center">
+            <lable>
+                Password : &nbsp;&nbsp;&nbsp;&nbsp;<strong>
+                    @foreach (var item in Model.webUsername.Split(','))
+                    { @item; <br /> }
+                    @*@Html.DisplayFor(m => m.webUsername)*@
+
+                </strong>
+            </lable>
+        </div>
+        @*<lable>UserName : &nbsp;&nbsp;&nbsp;&nbsp;<strong> @Html.DisplayFor(m => m.webUsername)</strong></lable><br />
+            <lable>Password : &nbsp;&nbsp;&nbsp;&nbsp;<strong> @Html.DisplayFor(m => m.webUsername)</strong></lable>*@
+
+        <br />
+        <h3 class="text-center"><strong>@Html.ActionLink("Click here", "Index", "WebPortal", new { area = "Reports" }) to create a web portal account for another patient.</strong></h3>
+    </div>
+}
+@if (Model.IsEmail == true && (Model.details != null && Model.details.firstName != "WrongAccount"))
+{
+    <h3 style="color:red" class="text-center">This Account doesn't have Email address in the database. Please add the Email in HDMS to create an Web Account.</h3>
+    <br />
+
+
+}
+
+@if (Model.IsEmail == true && Model.details == null)
+{
+    <h3 style="color:red" class="text-center">This Account doesn't have Email address in the database. Please add the Email in HDMS to create an Web Account.</h3>
+    <br />
+    <h3 class="text-center"><strong>@Html.ActionLink("Click here", "Index", "WebPortal", new { area = "Reports" }) to create a web portal account for another patient.</strong></h3>
+
+}
+
+    @*@if (Model.MissingEmail == true)
+        {
+            <h3 style="color:red" class="text-center">To create a web account, please enter the email in HDMS and try it again.</h3>
+            <br />
+
+        }*@
+
+    @if (Model.IsAcctCreated == false && Model.IsEmail != true)
+    {
+        <h3 style="color:red" class="text-center">
+            Portal account created service failed, Please contact to IT.
+        </h3>
+        @*<br />
+            <div class="text-center">
+                <lable>Error : &nbsp;&nbsp;&nbsp;&nbsp;<strong> @Html.DisplayFor(m => m.errorMsg)</strong></lable><br />
+
+            </div>*@
+
+        <br />
+        <h3><strong>@Html.ActionLink("Click here", "Index", "WebPortal", new { area = "Reports" }) to create a web portal account for another patient.</strong></h3>
+    }
+
+
+    @if (Model != null && Model.firstTime == true && Model.details != null)
+    {
+
+        if (Model.details.firstName == "WrongAccount")
+        {
+            <h3 style="color:red" class="text-center">This account number does not exist in HDMS!</h3>
+            <br />
+            <h3 class="text-center"><strong>@Html.ActionLink("Click here", "Index", "WebPortal", new { area = "Reports" }) to create a web portal account for another patient.</strong></h3>
+        }
+        else
+        {
+            <div>
+                @using (Html.BeginForm("CreatAcct", "WebPortal", FormMethod.Post ))
+                {
+                    @Html.ValidationSummary();
+
+                    @Html.HiddenFor(m => m.Account, new { id = "act" })
+
+                    @Html.HiddenFor(t => t.IsEmail )
+                    @Html.HiddenFor(t=> t.details.Email, new { id = "eml" })
+
+                    <h3 class="text-center"><u>Account Information</u></h3>
+
+                    @Html.Partial("_AcctDetail", Model)
+                    <br />
+
+                    <br />
+
+
+                    @*<div class="row">
+                            <div class="col-md-12 text-center">
+                                <button style="background-color:lightblue" > <strong>  @Html.ActionLink("Patient declines to add account to web portal..", "DeclineWebAcc", "WebPortal", new { Acct = Model.Account }, new { @class = "link"}) </strong></button>
+
+                            </div>
+                        </div>*@
+
+                    <br />
+                    <br />
+
+                    //if (Model.details.Email != null && Model.details.Email != "")
+                    //{
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3 text-center">
+                            <button type="submit" value="Save" class="btn btn-primary" style="color:white; background-color:green">
+                                <i class="fa fa-save"></i>
+                                <strong>
+                                    Create the web account
+                                </strong>
+                            </button>
+
+                        </div>
+
+                        <div class="col-md-3 text-center">
+                            @*<button class="btn btn-danger" type="submit" style="color:white" id="dec"> <strong>  
+                                @Html.ActionLink("Member declines web portal account", "DeclineWebAcc", "WebPortal", new { Acct = Model.Account, Email = Model.details.Email }, null) 
+                                </strong></button>*@
+
+
+                            <button type="reset" id="declineAcct" value="Cancel" class="btn reset" style="color:black; background-color:red">
+                                <strong>
+                                    Member declines web portal account
+                                </strong>
+                            </button> 
+                            @*<button class="next">
+                                @Ajax.ActionLink("NEXT >>", "DeclineWebAcc", new AjaxOptions
+                                             {
+                                                 HttpMethod = "POST",
+                                                 InsertionMode = InsertionMode.Replace,
+                                                 UpdateTargetId = "user-component-wrapper",
+                                             })
+                        </button>*@
+                            @*<button type="reset" id="getAcct" value="Cancel" class="btn btn-danger" style="color:white">
+                                    <i class="fa fa-cancel"></i>
+                                  Do not create the web account
+                                </button>*@
+                        </div>
+                    </div>
+                    <br />
+                    <div class="text-center">
+
+
+                        <div class="row">
+                            <button type="reset" id="getAcct" value="Cancel" class="btn reset" style="color:black; background-color:Yellow">
+                                <strong>
+                                    Enter a different account
+                                </strong>
+                            </button>
+                        </div>
+                    </div>
+                    @*}
+                        else {
+                            <h3 style="color:red" class="text-center">This Account doesn't have Email address in the database. Please add the Email in HDMS to create an Web Account.</h3>
+                        }*@
+                }
+            </div>
+        }
+    }
+
+    <style>
+        .link {
+            color: white;
+            font-family: 'Times New Roman';
+            font-size: large;
+        }
+
+        .outer {
+            width: 100%;
+            color: navy;
+            background-color: lightblue;
+            padding: 5px;
+        }
+
+        .c {
+            text-align: center;
+        }
+
+        .text-field {
+            background-color: #FFFFCC;
+            color: #FF0000;
+            width: 60px;
+            font-size: large;
+        }
+
+        .field-validation-error {
+            color: #ff0000;
+        }
+
+        .field-validation-valid {
+            display: none;
+        }
+
+        .input-validation-error {
+            border: 1px solid #ff0000;
+            background-color: #ffeeee;
+        }
+
+        .validation-summary-errors {
+            font-weight: bold;
+            color: #ff0000;
+        }
+
+        .validation-summary-valid {
+            display: none;
+        }
+    </style>
+
+    <script>
+    $("#getAcct").click(
+    function() {
+        var url = '@Url.Action("index", "WebPortal")';
+        window.location.href = url;
+
+    })
+
+
+
+    $("#declineAcct").click(
+function () {
+    var acctt = $('#act').val();
+    var emll = $('#eml').val();
+    
+    var url = '@Url.Action("DeclineWebAcc", "WebPortal")?Acct='+acctt+'&Email='+emll;
+   
+    window.location.href = url;
+
+})
+
+        $("#declineAcct2").click(
+function () {
+    $.ajax({
+        url: '@Url.Action("DeclineWebAcc", "WebPortal")',
+            type: 'POST',
+            data: { Acct: $('#act').val(), Email: $('#eml').val() },
+            success: function (result) {
+                alert('success');
+               },
+            error: function () {
+                alert('error');
+            }
+        });
+
+})
+
+
+    $('form').submit(function () {
+        $(this).find("button[type='submit']").prop('disabled', true);
+    });
+
+    $("#dec").click(
+function () {
+    $(this).prop('disabled', true);
+})
+    </script>
+
+
+

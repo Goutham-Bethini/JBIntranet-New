@@ -1,0 +1,37 @@
+﻿@model USPS_Report.Areas.Reports.Models.GeneratorModel
+@{Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<body>
+    <table border="1" width='500' bordercolor="RED">
+    <tr>
+        <td colspan="2" bgcolor="LightGreen" align="center" valign="top">
+        SSLC Marks Sheet 2013
+        </td>
+      </tr>
+    <tr>
+        <td>
+        </td>
+        <td colspan="2" align="left">
+        </td>
+        </tr>
+   
+    <tr>
+        <td>
+                 @Html.DisplayFor(m=>m.Account)
+        </td>
+        <td>
+                @Html.DisplayFor(m => m.details.firstName)
+        </td>
+       </tr>
+        <tr>
+        <td>
+        </td>
+        <td>
+        <strong>
+            <font color="GREEN">Total</font>
+            </strong>
+        </td></tr></table>
+</body>
+</html>

@@ -1,0 +1,54 @@
+﻿@model USPS_Report.Areas.Reports.Models.ShippingOrderVM
+
+@{
+    ViewBag.Title = "ShippingOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ShippingOrders</h2>
+
+<div>
+    @(Model.ShippingChart)
+</div>
+<hr />
+
+<div id="signupbox" class="container" style="padding:0px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3"> <strong>Date</strong></div>
+                    <div class="col-md-3"> <strong>Hours</strong></div>
+                    <div class="col-md-3"> <strong>Worked</strong></div>
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="panel-body" style="padding:15px;>
+
+            <div class="clear-fix"></div>
+            <div class="profile-panel">
+
+                @foreach (var item in Model.ShipData)
+                {
+                   
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-3">@item.Date</div>
+                                    <div class="col-md-3">@item.Hours</div>
+                                    <div class="col-md-3">@item.Worked</div>
+                                    <hr />
+                                    
+                                </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

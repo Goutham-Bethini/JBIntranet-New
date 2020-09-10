@@ -1,0 +1,179 @@
+﻿@model USPS_Report.Areas.Reports.Models.CSRComplaintVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "CSRComplaintLog";
+    Layout = "~/Areas/Reports/Views/Shared/_noSideBarLayout.cshtml";
+}
+
+
+
+@if (Model.OpPermission == true)
+{
+
+    <h3 style="color:red">You do not have permission to access this page </h3>
+    <p>Click <a href='@(Url.Action("AddPermission", "Generator"))'><b>Here</b></a> to request access.You will be notified via email once a decision has been made. </p>
+}
+
+else
+{
+
+
+
+
+
+<div>
+
+    @using (Html.BeginForm("CSRComlaintlog", "CustomerServices", FormMethod.Post))
+    {
+
+        <div>
+            @Html.CheckBoxFor(m => m.newAccount)
+            <label>New Account</label>  OR
+            <label>Reference Number </label>
+            @Html.TextBoxFor(m => m.id)
+
+
+            
+
+            <button class="btn btn-primary btn-large" type="submit">Submit</button>
+        </div>
+    }
+</div>
+
+
+<hr />
+if (Model != null && Model.details != null)
+{
+    if (Model.details.firstName == "wrong" )
+    {
+<p style = "color:red"> Please enter a correct reference number </p>
+        }
+       else if (Model.details.firstName == "WrongAccount")
+        {
+            <p style="color:red"> Please enter a correct Account number </p>
+        }
+        else
+        {
+
+
+
+    <div>
+        @using (Html.BeginForm("AddCSRComlaintlog", "CustomerServices", FormMethod.Post, new { onsubmit = "return SubmitConfirm()" }))
+        {
+        @Html.HiddenFor(m => m.Account)
+            @Html.HiddenFor(m => m.id)
+            @Html.HiddenFor(m => m.newAccount)
+
+
+            @(Html.Kendo().PanelBar()
+                                            .Name("newComplaintlog")
+                                                 .ExpandMode(PanelBarExpandMode.Multiple)
+                                            .Items(items =>
+                                            {
+                                            items.Add()
+                        .Text("AccountInfo")
+                        .Content( @<div> @Html.Partial("_AccountDetailsComplaint", Model) </div>)
+                                                             .Expanded(true);
+
+
+
+
+                                            items.Add()
+                         .Text("Call Handling")
+                        .Content( @<div> @Html.Partial("_CallHandling", Model) </div>)
+                                                             .Expanded(true);
+
+
+
+
+                                            items.Add()
+
+                      .Text("Complaint Received")
+                        .Content( @<div> @Html.Partial("_CallReceived", Model) </div>)
+                                                             .Expanded(true);
+
+
+
+
+                                            items.Add()
+
+           .Text("Complaint")
+           .Content( @<div> @Html.Partial("_Fedex", Model) </div>);
+
+                                            @*items.Add()
+       .Text("Product")
+       .Content( @<div> @Html.Partial("_Product", Model) </div>);
+
+                                            items.Add()
+  .Text("Customer Service")
+  .Content( @<div> @Html.Partial("_CustomerService", Model) </div>);
+
+                                            items.Add()
+.Text("Other")
+.Content( @<div> @Html.Partial("_Other", Model) </div>);*@
+
+                                            items.Add()
+     .Text("Compliant Has Been")
+     .Content( @<div> @Html.Partial("_ComplainsHasBeen", Model) </div>);
+                                            })
+
+
+)
+            <button class="btn btn-primary btn-large" id="startandstopbutton" type="submit">Submit </button>
+        }
+    </div>
+    }
+}
+
+
+
+}
+<script type="text/javascript">
+
+
+    function SubmitConfirm() {
+        var i = $('#ComplaintHasBeen').val();
+        if ($('#Call').prop("checked") == false && $('#Email').prop("checked") == false && $('#Fax').prop("checked") == false && $('#CallRcvdWebsite').prop("checked") == false && $('#SocialMedia').prop("checked") == false && $('#InsCompany').prop("checked") == false && $('#CallRcvdOther').prop("checked") == false)
+        {
+            alert("No Opition is selected under Complaint Recieved Section");
+            return false;
+        }
+        else if ($('#ComplaintProduct').prop("checked") == false && $('#ComplaintShipping').prop("checked") == false && $('#ComplaintService').prop("checked") == false && $('#ComplaintSmartAction').prop("checked") == false && $('#Website').prop("checked") == false && $('#InsLimitGuidelines').prop("checked") == false && $('#BCNProviderIssue').prop("checked") == false && $('#COther').prop("checked") == false) {
+            alert("No Opition is selected under Complaint Section");
+            return false;
+        }
+        else if ($('#COthers').val() == '') {
+            alert("No Text is added to the Comment Box under Complaint Section");
+            return false;
+        }
+        else if ($('#ComplaintHasBeen').val() =='') {
+            alert("No Option is selected under ComplaintHasBeen Section");
+            return false;
+        }
+     else if (confirm("Are you sure want to submit the record?"))
+        return true;
+    else
+        return false;
+    }
+
+
+    //$("#startandstopbutton").click(function(){
+    //    var i = $('#Call').prop("checked");
+    //    if ($('#Call').prop("checked") == false && $('#Email').prop("checked") == false && $('#Fax').prop("checked") == false && $('#CallRcvdWebsite').prop("checked") == false && $('#SocialMedia').prop("checked") == false && $('#InsCompany').prop("checked") == false && $('#CallRcvdOther').prop("checked") == false)
+    //    {
+    //        alert("No Opition is selected under Complaint Recieved Section");
+    //    }
+    //});
+
+
+</script>
+
+<style>
+    .text-field {
+        background-color: #FFFFCC;
+        color: #FF0000;
+        width: 60px;
+        font-size: large;
+    }
+</style>
+

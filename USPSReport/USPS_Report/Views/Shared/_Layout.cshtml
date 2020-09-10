@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    <link href="@Url.Content("~/Content/kendo/kendo.default.mobile.min.css")" rel="stylesheet" type="text/css" />
+   
+     @Styles.Render("~/Content/kendo/css")
+   
+     <link href="@Url.Content("~/Content/kendo/kendo.BlueOpal.min.css")" rel="stylesheet" type="text/css" id="sheet3" />
+
+     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+ 
+    <script src="@Url.Content("~/Scripts/kendo/jquery.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/kendo/jszip.min.js")"></script>
+   
+    <script src="@Url.Content("~/Scripts/kendo/kendo.all.min.js")"></script>
+  
+    <script src="@Url.Content("~/Scripts/kendo/kendo.aspnetmvc.min.js")"></script>
+  
+
+    <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+     @Scripts.Render("~/bundles/jqueryval")
+
+
+  
+
+    <style>
+        .modal-content {
+            width: 600px !important;
+            margin: 30px auto !important;
+            background-color: white;
+        }
+
+  
+}
+</style>
+
+
+
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+
+            <div class="container">
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><div> <img src="~/Image/logo_sm.gif" class="img-circle" width="75" height="50"  /></div></li>
+                        <li><div>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+                        <li>@Html.ActionLink("Reports", "Index", "Home", new { area = "" }, new { target = "_blank" })</li>
+                        @*<li>@Html.ActionLink("Logistics", "Index", "Logistics", new { area = "" }, null)</li>
+    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, null)</li>
+    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, null)</li>*@
+                        @*<li>
+                            <a href="#">Categories</a>
+                            <ul>
+                                <li><a href="#">@Html.ActionLink("Home", "Index", "Home")</a></li>
+                                <li><a href="#">@Html.ActionLink("About", "About", "Home")</a></li>
+                                <li><a href="#">@Html.ActionLink("Contact", "Contact", "Home")</a></li>
+                                <li><a href="#">Web design</a></li>
+                            </ul>
+                        </li>*@
+                       
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="navbar-text">@User.Identity.Name</li>
+                    </ul>
+                   
+                </div>
+
+
+            </div>
+        </div>
+
+                <div class="row-fluid "> 
+              
+                    @RenderBody()
+                </div>
+         
+        </div>
+   
+    @*@Scripts.Render("~/bundles/jqueryui") 
+    @Scripts.Render("~/bundles/jquery")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+
+
+
+
+            // Initialize numeric spinner input boxes
+            //$(".numeric-spinner").spinedit();
+
+            // Initalize modal dialog
+            // attach modal-container bootstrap attributes to links with .modal-link class.
+            // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+            $('body').on('click', '.modal-link', function (e) {
+                e.preventDefault();
+                $(this).attr('data-target', '#modal-container');
+                $(this).attr('data-toggle', 'modal');
+            });
+
+            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+            $('body').on('click', '.modal-close-btn', function () {
+                $('#modal-container').modal('hide');
+            });
+
+            //clear modal cache, so that new content can be loaded
+            $('#modal-container').on('hidden.bs.modal', function () {
+                $(this).removeData('bs.modal');
+            });
+
+            $('#CancelModal').on('click', function () {
+                return false;
+            });
+        });
+    </script>
+
+</body>
+</html>

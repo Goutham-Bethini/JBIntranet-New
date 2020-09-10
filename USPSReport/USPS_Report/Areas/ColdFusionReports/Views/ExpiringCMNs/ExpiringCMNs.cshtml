@@ -1,0 +1,32 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.ExpiringCMNs.ReportsVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "ExpiringCMNs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="middle" style="text-align:center;">Expiring CMNs</h3>
+<center>
+    <table>
+        <tr>
+            <td style="text-decoration:underline;">@Html.ActionLink("Rules", "Rules", "Rules", null, null) </td>
+            <td>|</td>
+            <td style="text-decoration:underline;">@Html.ActionLink("Special Doctors", "SpecialDoctors", "SpecialDoctors", null, null) </td>
+        </tr>
+    </table>
+</center>
+<h4 class="middle" style="text-align:center;">Choose Team:</h4>
+<center>
+    @if (Model != null && Model.Details != null && Model.Details.Count > 0)
+    {
+        <table style="text-decoration:underline;">
+            @foreach (var rec in Model.Details)
+            {
+                <tr>
+                    <td align="center">@Html.ActionLink(@rec.ReportName.Trim(), "TeamReport", "ExpiringCMNs", new { team = @rec.ReportName.Trim(), year = Convert.ToInt32(DateTime.Now.ToString("yyyy")) }, null)</td>
+                </tr>
+            }
+        </table>
+    }    
+</center>
+

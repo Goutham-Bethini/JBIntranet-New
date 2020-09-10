@@ -1,0 +1,73 @@
+﻿@model USPS_Report.Areas.Reports.Models.CallLogVM
+@using Kendo.Mvc.UI
+
+
+<br />
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"></div> 
+    <div class="col-md-2">
+        @Html.DropDownListFor(t => t.BillingOrPayments, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Copay" , Value = "Copay"},
+                    new SelectListItem { Text = "Billing" , Value = "Billing"},
+                    
+
+               }, "Select Option")
+    </div>
+
+</div>*@
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.Copay) <label> Copay </label></div>
+    
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.Billing) <label> Billing </label></div>
+    
+</div>
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.Eligibility) <label> Eligibility </label></div>
+
+</div>*@
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.TextAreaFor(m => m.BillingTxt, new { rows = "6", cols = "40" ,disabled = "disabled" })</div>
+    
+</div>
+
+
+<script>
+
+
+    $('#Billing').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#BillingTxt').removeAttr("disabled");
+        } else {
+            $('#BillingTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Copay').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#BillingTxt').removeAttr("disabled");
+        } else {
+            $('#BillingTxt').attr("disabled", "disabled")
+        }
+    });
+
+</script>
+
+
+
+
+

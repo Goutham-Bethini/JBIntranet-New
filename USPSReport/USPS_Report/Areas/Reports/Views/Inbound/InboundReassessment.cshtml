@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewBag.Title = "Inbound Reassessment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using Kendo.Mvc.UI
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-11">
+
+        <div class="card-panel z-depth-4">
+
+            <h3 style="font-family:'Times New Roman';font-size:large" class="label  label-primary">Inbound Reassessment- Self Service</h3>
+            <br />
+            <br />
+
+            @(Html.Kendo().Grid<USPS_Report.Models.InboundReassessmentVM>()
+    .Name("InboundReassessmentGrid")
+    .Columns(columns =>
+    {
+        //  columns.Bound(t => t.IsDeleted).Title("IsDeleted");
+        columns.Bound(t => t.Uploaded).Title("UploadToHDMS");
+        columns.Command(command => { command.Edit().Text("Update"); }).Width(200);
+        columns.Command(command => { command.Destroy().Text("Mark Done"); }).Width(160);
+        columns.Bound(t => t.id).Title("id").Hidden(true);
+        columns.Bound(t => t.Account).Title("Account");
+        columns.Bound(t => t.Relationship).Title("Relationship");
+        columns.Bound(t => t.HasPhoneChanged).Title("PhoneChanged");
+        columns.Bound(t => t.HasInsuranceChanged).Title("InsuranceChanged");
+        columns.Bound(t => t.NewInsuranceProvider).Title("InsProvider");
+        columns.Bound(t => t.NewInsuranceProviderId).Title("InsProviderId");
+        columns.Bound(t => t.NewInsuranceProviderPhone).Title("InsProviderPhone");
+        columns.Bound(t => t.DoctorName).Title("DoctorName");
+
+        columns.Bound(t => t.IsMeterWorking).Title("IsMeterWorking");
+        columns.Bound(t => t.TestingTimes).Title("TestingTimes");
+        columns.Bound(t => t.IsInjectInsulin).Title("IsInjectInsulin");
+        columns.Bound(t => t.DayContType).Title("DayContType");
+        columns.Bound(t => t.NiteContType).Title("NiteContType");
+        columns.Bound(t => t.IsDayBowelIncontinent).Title("IsDayBowelIncontinent");
+        columns.Bound(t => t.IsNightBowelIncontinent).Title("IsNightBowelIncontinent");
+        columns.Bound(t => t.IsDayUrineIncontinent).Title("IsDayUrineIncontinent");
+        columns.Bound(t => t.IsNightUrineIncontinent).Title("IsNightUrineIncontinent");
+        columns.Bound(t => t.IsUsageEvening).Title("IsUsageEvening");
+        columns.Bound(t => t.IsMentallyImpaired).Title("IsMentallyImpaired");
+        columns.Bound(t => t.IsDiapering).Title("IsDiapering");
+        columns.Bound(t => t.HasSeizureDisorder).Title("HasSeizureDisorder");
+        columns.Bound(t => t.CanWalk).Title("CanWalk");
+        columns.Bound(t => t.UseWalkAssist).Title("UseWalkAssist");
+        columns.Bound(t => t.HasAllergy).Title("HasAllergy");
+        columns.Bound(t => t.AllergyMaterials).Title("AllergyMaterials");
+        columns.Bound(t => t.HasSoreOrRash).Title("HasSoreOrRash");
+        columns.Bound(t => t.Weight).Title("Weight");
+        columns.Bound(t => t.EatByMouth).Title("EatByMouth");
+
+        columns.Bound(t => t.IsTubeFed).Title("IsTubeFed");
+        columns.Bound(t => t.IsVerbal).Title("IsVerbal");
+        columns.Bound(t => t.HasProductOverstock).Title("HasProductOverstock"); 
+        columns.Bound(t => t.IncontinentType).Title("IncontinentType");
+
+        columns.Bound(t => t.AdditionalSupplies).Title("AdditionalSupplies");
+        columns.Bound(t => t.IsReassessmentComplete).Title("IsReassessmentComplete");
+        columns.Bound(t => t.UploadTime).Title("UploadTime").Format("{0:MM/dd/yyyy}");
+
+
+        //   columns.Command(command => { command.Edit(); command.Destroy().Text("Mark Done"); }).Width(180);
+
+    })
+
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable()
+    .Sortable()
+    .ClientDetailTemplateId("templateReorder")
+    //.ClientDetailTemplateId("template3")
+    .HtmlAttributes(new { style = "width:4300px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(model =>
+        {
+            model.Field(p => p.id).Editable(false);
+            model.Field(p => p.Account).Editable(false);
+            model.Field(p => p.Relationship).Editable(false);
+            model.Field(p => p.HasPhoneChanged).Editable(false);
+            model.Field(p => p.HasAddressChanged).Editable(false);
+            model.Field(p => p.HasInsuranceChanged).Editable(false);
+            model.Field(p => p.NewInsuranceProvider).Editable(false);
+            model.Field(p => p.NewInsuranceProviderId).Editable(false);
+            model.Field(p => p.NewInsuranceProviderPhone).Editable(false);
+            model.Field(p => p.DoctorName).Editable(false);
+            model.Field(p => p.IsMeterWorking).Editable(false);
+            model.Field(p => p.TestingTimes).Editable(false);
+            model.Field(p => p.IsInjectInsulin).Editable(false);
+            model.Field(p => p.DayContType).Editable(false);
+            model.Field(p => p.NiteContType).Editable(false);
+            model.Field(p => p.IsDayBowelIncontinent).Editable(false);
+            model.Field(p => p.IsNightBowelIncontinent).Editable(false);
+            model.Field(p => p.IsDayUrineIncontinent).Editable(false);
+            model.Field(p => p.IsNightUrineIncontinent).Editable(false);
+            model.Field(p => p.IsUsageEvening).Editable(false);
+            model.Field(p => p.IsMentallyImpaired).Editable(false);
+            model.Field(p => p.IsDiapering).Editable(false);
+            model.Field(p => p.HasSeizureDisorder).Editable(false);
+            model.Field(p => p.CanWalk).Editable(false);
+            model.Field(p => p.UseWalkAssist).Editable(false);
+            model.Field(p => p.HasAllergy).Editable(false);
+            model.Field(p => p.AllergyMaterials).Editable(false);
+            model.Field(p => p.HasSoreOrRash).Editable(false);
+            model.Field(p => p.Weight).Editable(false);
+
+            model.Field(p => p.EatByMouth).Editable(false);
+            model.Field(p => p.IsTubeFed).Editable(false);
+            model.Field(p => p.IsVerbal).Editable(false);
+            model.Field(p => p.HasProductOverstock).Editable(false);
+            model.Field(p => p.AdditionalSupplies).Editable(false);
+            model.Field(p => p.IsReassessmentComplete).Editable(false);
+
+            model.Field(p => p.UploadTime).Editable(false);
+
+
+            model.Id(p => p.id);
+        })
+        .Read(read => read.Action("CustomerAccountReassessList", "Inbound").Type(HttpVerbs.Post))
+        .Destroy(update => update.Action("CustomerReassessmentList_Destroy", "Inbound"))
+        //  .Update(update => update.Action("CustomerAddresslist_Update", "Inbound"))
+        .Update("CustomeReassessment_Update", "Inbound")
+
+    )
+            )
+        </div>
+
+    </div>
+</div>
+
+<script id="templateReorder" type="text/kendo-tmpl">
+
+    @(Html.Kendo().Grid<USPS_Report.Models.ProductReq>()
+            .Name("InboundReorderGrid_#=id#")
+            .Columns(columns =>
+            {
+            //columns.Bound(o => o.Account).Title("Account");
+            columns.Bound(o => o.Id).Hidden(true).Title("DB").Width(100);
+
+            columns.Bound(o => o.ProductDescription).Title("Description").Width(300).Encoded(false);
+
+            columns.Bound(o => o.ProdNeeded).Title("IsNeeded").Width(200);
+                @*columns.Bound(o => o.ProdNeeded).Title("ProdNeeded").Template(@<text>
+                    @if (item.ProdNeeded == false)
+                    {
+                        <div style="background-color: Red;">
+                            @item.ProdNeeded
+                        </div>
+                    }
+                    else
+                    {
+                        <div >
+                            @item.ProdNeeded
+                        </div>
+                    }
+                            </text>).Width(200);*@
+
+
+                columns.Bound(o => o.Qty).Title("Qty").Width(200);
+
+
+            })
+
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                         .Model(model => model.Id(p => p.Id))
+                        .Read(read => read.Action("ProductListByAccount", "Inbound", new { IDNum = "#=id#" }))
+            )
+
+            .ToClientTemplate()
+    )
+</script>
+
+
+

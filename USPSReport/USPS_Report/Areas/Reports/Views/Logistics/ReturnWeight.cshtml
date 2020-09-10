@@ -1,0 +1,183 @@
+﻿@model USPS_Report.Areas.Reports.Models.WeightCal_Vm
+
+@{
+    ViewBag.Title = "ReturnWeight";
+     Layout = "~/Areas/Reports/Views/Shared/_noSideBarLayout.cshtml";
+  //  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+        <br />
+
+        @{ double? _totalWight = 0; }
+
+        @if (Model != null && Model.workOrderDetail != null)
+        {
+
+            <div>
+
+                <table data-sortable class="table table-hover table-striped table-bordered" style="width:95%" align="center">
+
+                    <thead>
+                        <tr>
+
+                            <th style="width:12%">Product</th>
+                            <th style="width:35%">Description</th>
+                            <th style="width:12%">Unit Weight</th>
+                            <th style="width:7%">UOM</th>
+                            <th style="width:7%">Ordered</th>
+                            <th style="width:7%">Shipped</th>
+                            <th style="width:12%">Total Weight</th>
+
+                        </tr>
+                    </thead>
+
+                    @for (int i = 0; i < Model.workOrderDetail.Count(); i += 1)
+            {
+
+                if (Model.workOrderDetail[i].checkbox)
+                {
+
+
+
+                    for (int j = 0; j < Model.workOrderDetail[i].productDetails.Count(); j += 1)
+                    {
+
+            <tbody>
+                <tr>
+
+                    <td>
+                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].Product)
+                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].Product)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].Description)
+                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].Description)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].UnitWeight)
+                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].UnitWeight)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].UOM)
+                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].UOM)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].Ordered)
+                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].Ordered)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].Shipped)
+                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].Shipped)
+                    </td>
+                    <td>
+                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].TotalWeight)
+                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].TotalWeight)
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+                        _totalWight = _totalWight + Model.workOrderDetail[i].productDetails[j].TotalWeight;
+                    }
+                }
+            }
+
+
+
+                </table>
+                <hr />
+                <h4 style="color:blue">Total Wights of Products =  @_totalWight</h4>
+                <hr />
+                @*<h4 style="color:blue">Total Wights of Products =  @values</h4>*@
+
+
+                <div id="TotalW">
+                    <!--Textboxes will be added here -->
+                </div>
+
+            </div>
+
+
+            <div class="weights" style="text-align:center">
+
+                <table border="0" cellspacing="2" style="width:50% " align="center">
+                    <tr>
+
+                        <td><input type="button" id="add" value="Add Weight Box" /></td>
+                        <td style="width:100px;"></td>
+                        <td><input type="button" id="del" value="Delete Weight Box" /></td>
+
+                    </tr>
+                    <tr>
+                        <td><hr /></td>
+                        <td><hr /></td>
+                        <td><hr /></td>
+                    </tr>
+
+                    <tr>
+                        <td><strong> Doc Tab Weight:  </strong></td>
+                        <td style="width:100px;"></td>
+                        <td><input type="text" id="tab" value="0" name="tab" /></td>
+                    </tr>
+
+
+                    <tr></tr>
+                    <tr>
+
+                        <td></td>
+                    </tr>
+                </table>
+                <hr />
+                <button class="btn btn-primary btn-large" id="btnGet" type="submit" style="width: 300px; margin: 0 auto">Calculate</button>
+
+            </div>
+
+        }
+
+
+
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+</style>
+
+<script>
+    $('#add').click(function () {
+        var table = $(this).closest('table');
+        if (table.find('input:text').length < 7) {
+            table.append('<tr> <td><strong> Doc Tab Weight:  </strong></td><td style="width:100px;"></td><td><input type="text" id="tab" value="0" name="tab"/></td></tr>');
+        }
+    });
+    $('#del').click(function () {
+        var table = $(this).closest('table');
+        if (table.find('input:text').length > 1) {
+            table.find('input:text').last().closest('tr').remove();
+        }
+    });
+
+    $("#btnGet").bind("click", function () {
+        var values = 0;
+        var diff = 0;
+        $("input[name=tab]").each(function () {
+            //  values += $(this).val() + "\n";
+            values += parseFloat($(this).val());
+
+        });
+        //alert(values.toString());
+        diff = @_totalWight -values;
+        $("#TotalW").html("");
+        var div = $("<div />");
+        div.html("<h4 style=" + "color:blue" + ">Total Doc Tab Weight=" + values + "</h4> <hr /> <h4 style=" + "color:blue" + ">Difference In Weight=" + diff.toFixed(3) + "</h4> <hr />");
+        $("#TotalW").append(div);
+    });
+
+
+
+</script>
+

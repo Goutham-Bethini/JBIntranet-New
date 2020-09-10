@@ -1,0 +1,140 @@
+﻿@model USPS_Report.Areas.Reports.Models.woVM
+
+
+
+
+@using (Html.BeginForm("ReleaseOrder", "WorkOrder", FormMethod.Post))
+{
+
+    <div class="modal-body body-content" id="div1">
+
+
+        <div id="signupbox" class="container" style="padding-top:200px;padding-left:50px;padding-right:50px">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-user"></i>Release Order#
+                        <button type="button" class="btn btn-danger col-md-offset-10" data-dismiss="modal">Do Not Release order</button>
+                    </div>
+                </div>
+
+
+                <div id="mainDisplayDIV" class="panel-body" style="padding:15px;">
+                    <div style="height:30px"></div>
+
+                    <div class="clear-fix"></div>
+                    <div class="profile-panel">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-7" style="text-align:center"><label>Are you sure you want to release this order manually?</label></div>
+                            <div class="col-md-1"></div>
+                            @Html.HiddenFor(m => m.ID)
+                            @Html.HiddenFor(m => m.CancelFlag)
+                        </div>
+                        @*<div class="row">
+                            <div style="height:30px"></div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">Reason for cancel:</div>
+
+                            <div class="col-md-8">
+                                <strong>
+                                    @Html.TextAreaFor(m => m.Reason, new { rows = "2", cols = "70" })
+
+                                    @Html.DropDownListFor(t => t.Reason, new List<SelectListItem>
+                          {
+                                new SelectListItem { Text = "ADDRESS CHANGE" , Value = "ADDRESS CHANGE"},
+                                new SelectListItem { Text = "AOB NOT ON FILE" , Value = "AOB NOT ON FILE"},
+                                new SelectListItem { Text = "CANNOT CONFIRM" , Value = "CANNOT CONFIRM"},
+                                new SelectListItem { Text = "CMN EXPIRED" , Value = "CMN EXPIRED"},
+                                new SelectListItem { Text = "CMN NOT ATTACHED" , Value = "CMN NOT ATTACHED"},
+                                new SelectListItem { Text = "DECEASED" , Value = "DECEASED"},
+                                new SelectListItem { Text = "DUPLICATE ORDER" , Value = "DUPLICATE ORDER"},
+                                new SelectListItem { Text = "ELIGIBILITY TEST HOLD" , Value = "ELIGIBILITY TEST HOLD"},
+                                new SelectListItem { Text = "EXTERNAL ELIGIBILITY RESPONSE FAILED" , Value = "EXTERNAL ELIGIBILITY RESPONSE FAILED"},
+                                new SelectListItem { Text = "FREQUENCY" , Value = "FREQUENCY"},
+                                new SelectListItem { Text = "INACTIVE COVERAGE" , Value = "INACTIVE COVERAGE"},
+                                new SelectListItem { Text = "INSURANCE CHANGE" , Value = "INSURANCE CHANGE "},
+                                 new SelectListItem { Text = "LWO" , Value = "LWO"},
+                                new SelectListItem { Text = "NOT NEEDED" , Value = "NOT NEEDED"},
+                                new SelectListItem { Text = "NURSING HOME" , Value = "NURSING HOME"},
+                                new SelectListItem { Text = "PRIOR AUTH NOT ATTACHED " , Value = "PRIOR AUTH NOT ATTACHED "},
+                                new SelectListItem { Text = "PRIOR AUTH NOT ON FILE " , Value = "PRIOR AUTH NOT ON FILE "},
+                                new SelectListItem { Text = "PRODUCT CHANGE" , Value = "PRODUCT CHANGE"},
+                                new SelectListItem { Text = "QMB MEDICAID BENEFITS ONLY  " , Value = "QMB MEDICAID BENEFITS ONLY  "},
+                                new SelectListItem { Text = "REQUEST DATE" , Value = "REQUEST DATE"},
+                                new SelectListItem { Text = "SPEND DOWN" , Value = "SPEND DOWN"},
+                                new SelectListItem { Text = "OTHER" , Value = "OTHER"},
+
+
+               }, "Please select one Option", new { required = "true" })
+                                    <br />
+                                    <br />
+                                    @Html.TextAreaFor(m => m.OtherReason, new { rows = "6", cols = "40", disabled = "disabled", required = "true" })
+
+
+                                    @Html.HiddenFor(m => m.ID)
+                                    @Html.HiddenFor(m => m.CancelFlag)
+                                </strong>
+                            </div>
+                        </div>*@
+
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-9">
+                                <button class="btn btn-primary btn-large" type="submit" id="btn">Release</button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+}
+
+
+<script>
+    $(document).ready(function () {
+        $("#btn").click(function () {
+
+            if (
+                (($('#Reason').val() != "OTHER") && $('#Reason').val() != null && $('#Reason').val() != "") ||
+                (($('#Reason').val() == "OTHER") && $('#OtherReason').val() != null && $('#OtherReason').val() != "")
+                ) {
+                $("#div1").hide()
+
+
+            }
+
+        });
+    });
+
+
+
+    $('#Reason').click(function () {
+        var $this = $(this);
+
+        if ($this.val()=='OTHER') {
+            $('#OtherReason').removeAttr("disabled");
+        } else {
+            $('#OtherReason').attr("disabled", "disabled")
+        }
+        });
+
+
+
+</script>

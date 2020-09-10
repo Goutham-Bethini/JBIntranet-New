@@ -1,0 +1,225 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.FedExPackStationLogins.FedExPackStationLoginsVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "FedExPackStationLogins";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="middle" style="text-align:center;">FedEx Pack Station Logins</h3>
+<center>
+    <div id="divMessage" class="redText">
+        @Html.DisplayFor(t => t.Message)
+    </div>    
+</center>
+<center>
+    <a href="#" id="lnkAddNewUser" class="middle" style="text-decoration:underline;">Add New User</a>
+</center>
+<center>
+    
+    @using (Html.BeginForm("FedExPackStationLoginAdd", "FedExPackStationLogins", FormMethod.Post))
+    {
+    <div class="table-responsive middle">
+        <strong><span id="divTitle" style="display:none;"></span></strong>
+        <table id="tblAdd" style="display:none;">            
+            <tr>
+                <td width=200 colspan="2">@Html.HiddenFor(t => t.Id, new { id = "hidId" })</td>
+            </tr>
+            <tr>
+                <th style="text-align:right;">Name:</th>
+                <td width=200>@Html.TextBoxFor(t => t.Name, new { id = "txtName" })</td>
+            </tr>
+            <tr>
+                <th style="text-align:right;">User Name:</th>
+                <td>@Html.TextBoxFor(t => t.UserName, new { id = "txtUN" })</td>
+            </tr>
+            <tr>
+                <th style="text-align:right;">Reset Password:</th>
+                <td>@Html.PasswordFor(t => t.ResetPassword, new { id = "txtPass1" })</td>
+            </tr>
+            <tr>
+                <th style="text-align:right;">Reset Password Check:</th>
+                <td>
+                    @Html.PasswordFor(t => t.ResetPasswordCheck, new { id = "txtPass2", onKeyUp = "checkPass()" })
+                    <span id="confirmMessage" class="confirmMessage"></span>
+                </td>
+            </tr>
+        </table>
+        <table id="tblDelete" style="display:none;">
+            <tr>
+                <td><span><strong>Delete Login:</strong></span> @Html.CheckBoxFor(t => t.NeedToDeleteLogin)</td>
+            </tr>
+        </table>
+        <br />
+        <button id="btnSubmit" style="display:none;" class="btn btn-primary btn-large" type="submit">Submit</button>
+        <table id="tblValidation">
+            <tr>
+                <td style="text-align:center;">
+                    @Html.ValidationMessageFor(t => t.Name, "", new { @class = "redText" })
+                    <br />
+                    @Html.ValidationMessageFor(t => t.UserName, "", new { @class = "redText" })
+                </td>
+            </tr>
+        </table>
+    </div> 
+    }
+</center>
+
+@if (Model != null && Model.Details != null && Model.Details.Count > 0)
+{
+    <div class="table-responsive middle">
+        <h4 class="middle" style="text-align:center;">Click the name to modify or delete.</h4>
+        <h4 class="middle" style="color:red;text-align:center;">Users cannot log into a packing station until a password has been set.</h4>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th style="display:none;">Id</th>
+                    <th>Name</th>
+                    <th>User Name</th>
+                    <th>Has Password?</th>
+                    <th>Updated</th>
+                    <th>Updated By</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rec in Model.Details)
+                {
+                    <tr>
+                        <td style="display:none;">@rec.Id</td>
+                        <td><a href="#" onclick="ModifyLogin(this)" data-id='@rec.Id;@rec.Name;@rec.UserName'>@rec.Name</a></td>                        
+                        <td>@rec.UserName</td>
+                        <td>@rec.HasPassword</td>
+                        <td>@rec.Updated</td>
+                        <td>@rec.UpdatedBy</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<script>
+    $('#btnSubmit').click(
+        function () {           
+            var tblValidation = document.getElementById("tblValidation");
+            tblValidation.style.display = "block";
+            tblValidation.style = "inline - size:max-content";
+            var txtPass1 = document.getElementById("txtPass1");
+            var txtPass2 = document.getElementById("txtPass2");
+
+            if (txtPass1.value === txtPass2.value) {
+
+            }
+            else {
+                alert("ERROR - PASSWORDS DO NOT MATCH");
+                return false;
+            }
+        });
+    $('#lnkAddNewUser').click(
+        function () {
+            var divMessage = document.getElementById("divMessage");
+            divMessage.style.display = "none";
+            var span = document.getElementById("divTitle");
+            var tblAdd = document.getElementById("tblAdd");
+            var deleteElement = document.getElementById("tblDelete");
+            deleteElement.style.display = "none";
+            var btnSubmit = document.getElementById("btnSubmit");
+
+            var tblValidation = document.getElementById("tblValidation");
+            tblValidation.style.display = "none";
+
+            if (span.style.display === "none") {
+                span.style.display = "block";
+                span.textContent = "Add New User";
+            } else {
+                span.style.display = "none";
+            }
+            if (tblAdd.style.display === "none") {
+                tblAdd.style.display = "block";
+                tblAdd.style = "inline - size:max-content";
+                $("input:hidden").val("");
+                $("input:text").val("");
+                $("input:checkbox").prop("checked", false);
+            } else {
+                tblAdd.style.display = "none";
+            }    
+            if (btnSubmit.style.display === "none") {
+                btnSubmit.style.display = "block";
+            } else {
+                btnSubmit.style.display = "none";
+            }
+        }
+    );
+    function ModifyLogin(value) {        
+        var divMessage = document.getElementById("divMessage");
+        divMessage.style.display = "none";
+        var tblValidation = document.getElementById("tblValidation");
+        tblValidation.style.display = "none";
+        var values = { toUpdate: $(value).attr('data-id') };
+        var lst = values.toUpdate.split(";");
+        $("#hidId").val(lst[0]);
+        $("#txtName").val(lst[1]);
+        $("#txtUN").val(lst[2]);
+        console.log(values.toUpdate.split(";"));
+        var span = document.getElementById("divTitle");
+        if (span.style.display === "none") {
+            span.style.display = "block";
+            span.textContent = "Modify Login";
+        }
+        else {
+            span.textContent = "Modify Login";
+        }      
+        var tblAdd = document.getElementById("tblAdd");
+        if (tblAdd.style.display === "none") {
+            tblAdd.style.display = "block";
+            tblAdd.style = "inline - size:max-content";           
+        }       
+        var deleteElement = document.getElementById("tblDelete");
+        if (deleteElement.style.display === "none") {
+            deleteElement.style.display = "block";
+            deleteElement.style = "inline - size:max-content";
+            $("input:checkbox").prop("checked", false);
+        }
+        else {
+            $("input:checkbox").prop("checked", false);
+        }
+        var btnSubmit = document.getElementById("btnSubmit");
+        if (btnSubmit.style.display === "none") {
+            btnSubmit.style.display = "block";
+        }      
+    }
+
+    function checkPass() {
+        //Store the password field objects into variables ...
+        var pass1 = document.getElementById('txtPass1');
+        var pass2 = document.getElementById('txtPass2');
+        //Store the Confimation Message Object ...
+        var message = document.getElementById('confirmMessage');
+        //Set the colors we will be using ...
+        var goodColor = "#66cc66";
+        var badColor = "#ff6666";
+        //Compare the values in the password field 
+        //and the confirmation field
+        if (pass1.value == pass2.value) {
+            //The passwords match. 
+            //Set the color to the good color and inform
+            //the user that they have entered the correct password 
+            pass2.style.backgroundColor = goodColor;
+            message.style.color = goodColor;
+            message.innerHTML = "Passwords Match!"
+        } else {
+            //The passwords do not match.
+            //Set the color to the bad color and
+            //notify the user.
+            pass2.style.backgroundColor = badColor;
+            message.style.color = badColor;
+            message.innerHTML = "Passwords Do Not Match!"
+        }
+    }  
+</script>
+
+<style>
+    .redText {
+        color: Red;
+    }
+</style>
+

@@ -1,0 +1,102 @@
+﻿@model USPS_Report.Areas.Reports.Models.CSRComplaintVM
+
+@using Kendo.Mvc.UI
+
+
+<br />
+<div class="row">
+    <div class=" col-md-1"></div>
+    <div class="col-md-2"><label> Member Name  </label></div>
+    <div class="col-md-2">@Html.DisplayFor(m => m.details.firstName)</div>
+
+</div>
+@if (Model.details.firstName != "New Memeber")
+{
+    <div class="row">
+        <div class=" col-md-1"></div>
+        <div class="col-md-2"><label></label></div>
+        <div class="col-md-2">
+            @Html.DisplayFor(m => m.details.address1),
+            @Html.DisplayFor(m => m.details.address2)
+            <br />
+
+            @Html.DisplayFor(m => m.details.city),
+            @Html.DisplayFor(m => m.details.state),
+            @Html.DisplayFor(m => m.details.zipcode)
+            <br />
+            @Html.DisplayFor(m => m.details.phone)
+            <br />
+            @Html.DisplayFor(m => m.details.DOB)
+
+            <br />
+            @foreach (var item in Model.payerTypeList)
+            {
+                Html.Display(item.payerType);
+                <ul>
+                    <li>@item.payerType</li>
+                </ul>
+                @*@Html.DropDownListFor(m => m.payerid, Model.payerType, new { @style = "width:200px;" })*@
+            }
+    </div>
+    </div>
+ 
+
+}
+
+
+
+
+
+<br />
+
+
+@*<div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">Other</div>
+        <div class="col-md-1">
+            @Html.CheckBoxFor(m => m.otherRelations)
+
+        </div>
+    </div>*@
+
+
+
+@*<script>
+
+        $('#otherRelations').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#otherRelname').removeAttr("disabled");
+        } else {
+            $('#otherRelname').attr("disabled", "disabled")
+        }
+        });
+
+
+
+    </script>*@
+
+<script>
+
+    $('#Relation').click(function () {
+        var $this = $(this);
+
+        if ($this.val()=='Other') {
+            $('#otherRelname').removeAttr("disabled");
+        } else {
+            $('#otherRelname').attr("disabled", "disabled")
+        }
+        });
+
+
+
+</script>
+
+
+
+
+
+
+
+

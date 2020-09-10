@@ -1,0 +1,88 @@
+﻿@model IEnumerable<USPS_Report.Areas.Reports.Models.ExpiredProductVM>
+
+@{
+    ViewBag.Title = "ExpiredProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="middle">Product Information</h2>
+
+<br />
+<div  style="width:80%; margin:auto">
+    @if (Model != null)
+    {
+        <h4 style="color:blue">Total Products without unit weight are @Model.Count()</h4>
+        <div class="table-responsive">
+            <table data-sortable class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Product Code </th>
+                        <th>Quantity</th>
+                        <th>Unit Of Measurement</th>
+                        <th>Date Expired</th>
+                        <th>Counted By</th>
+                        <th>Date Added</th>
+                        <th>Date Removed</th>
+                        <th>Removed By</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var rec in Model)
+                    {
+
+
+                        <tr>
+                            <td>
+                                @rec.Product_Code
+                            </td>
+                            <td>
+                                @rec.Quantity
+                            </td>
+                            <td>
+                                @rec.UOM
+                            </td>
+                            <td>
+                                @rec.DateExpired
+                            </td>
+                            <td>
+                                @rec.CountedBy
+                            </td>
+                            <td>
+                                @rec.DateAdded
+                            </td>
+
+                            <td>
+                                @rec.DateRemoved
+                            </td>
+
+                            <td>
+                                @rec.RemovedBy
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+
+
+</div>
+
+
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 400px;
+    }
+</style>
+
+

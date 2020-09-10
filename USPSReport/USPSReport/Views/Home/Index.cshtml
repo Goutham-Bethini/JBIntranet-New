@@ -1,0 +1,45 @@
+﻿@model USPSReport.Models.MainVM
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div >
+   
+    
+    
+   
+
+    @if(Model.dataList != null)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>WorkOrder</th>
+                    <th>Tracking#</th>
+                    <th>PostDate</th>
+                    <th>View Detail</th>
+                </tr>
+            </thead>
+       
+            <tbody>
+                @foreach (var item in Model.dataList)
+                {
+                <tr>
+                    <td>@item.WoID</td>
+                </tr>
+                    <tr>
+                    <td>@item.ConfirmationNum</td>
+                </tr>
+                    <tr>
+                    <td>@item.PostDate</td>
+                </tr>
+                    <tr>
+                    <td>@Html.ActionLink("Detail ", "MainMethod", "Home", new  {  _pId = item.uID}, new { @class = "modal-link btn btn-success" })</td>
+                </tr>
+
+                }
+            </tbody>
+    </table>
+    }
+    
+</div>

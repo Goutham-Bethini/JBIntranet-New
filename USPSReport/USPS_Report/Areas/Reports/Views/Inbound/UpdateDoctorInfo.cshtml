@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "UpdateDoctor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Kendo.Mvc.UI
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+
+        <div class="card-panel z-depth-4">
+
+            <h3 style="font-family:'Times New Roman';font-size:large" class="label  label-primary">Inbound Doctor information update- Self Service</h3>
+            <br />
+            <br />
+
+            @(Html.Kendo().Grid<USPS_Report.Models.DoctorChangeVM>()
+    .Name("InboundDoctorGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(t => t.id).Title("Id").Hidden(true);
+        columns.Bound(t => t.Account).Title("Account");
+        columns.Bound(t => t.DoctorName).Title("Doctor Name");
+        columns.Bound(t => t.DoctorPhone).Title("Doctor Phone");
+        columns.Bound(t => t.DoctorLocation).Title("Doctor Location");
+        columns.Bound(t => t.UpdateTime).Title("Date").Format("{0:MM/dd/yyyy}");
+        columns.Bound(t => t.UpdateStatus).Title("IsUpdated");
+        columns.Command(command => { command.Edit().Text("Update"); }).Width(160);
+        columns.Command(command => { command.Destroy().Text("Mark Done"); }).Width(160);
+
+        //   columns.Command(command => { command.Edit(); command.Destroy().Text("Mark Done"); }).Width(180);
+
+    })
+
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable()
+    .Sortable()
+   // .ClientDetailTemplateId("templateAddChng")
+    //.ClientDetailTemplateId("template3")
+    .HtmlAttributes(new { style = "width:1180px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(model =>
+        {
+            model.Field(p => p.Account).Editable(false);
+            model.Field(p => p.DoctorName).Editable(false);
+            model.Field(p => p.DoctorPhone).Editable(false);
+            model.Field(p => p.DoctorLocation).Editable(false);
+          
+            model.Field(p => p.UpdateTime).Editable(false);
+            model.Field(p => p.UpdateStatus).Editable(true);
+
+            model.Id(p => p.id);
+        })
+        .Read(read => read.Action("CustomerDoctorChangeList", "Inbound").Type(HttpVerbs.Post))
+        .Destroy(update => update.Action("CustomerDoctor_Destroy", "Inbound"))
+        //  .Update(update => update.Action("CustomerAddresslist_Update", "Inbound"))
+        .Update("CustomerDoctor_Update", "Inbound")
+
+    )
+            )
+        </div>
+
+    </div>
+</div>
+
+<script id="templateAddChng" type="text/kendo-tmpl">
+
+    @(Html.Kendo().Grid<USPS_Report.Models.ChangeAddReq>()
+            .Name("InboundAddressChangeGrid_#=Account#")
+            .Columns(columns =>
+            {
+                //columns.Bound(o => o.Account).Title("Account");
+                columns.Bound(o => o.DB).Title("DB").Width(100);
+
+                columns.Bound(o => o.Billing).Title("Billing").Width(500).Encoded(false);
+
+                columns.Bound(o => o.Shipping).Title("Shipping").Width(500);
+
+
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                         .Model(model => model.Id(p => p.Account))
+                        .Read(read => read.Action("AccountAddListByAccount", "Inbound", new { AccountNum = "#=Account#" }))
+            )
+
+            .ToClientTemplate()
+    )
+</script>

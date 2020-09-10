@@ -1,0 +1,886 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CallAgentDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Call">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountNumber" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="CallTypeId" Type="int" Nullable="false" />
+          <Property Name="CallStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CallTime" Type="datetime" Nullable="false" />
+          <Property Name="CallerId" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="SpokeWith" Type="nvarchar" MaxLength="200" />
+          <Property Name="RequiresCallback" Type="nvarchar" MaxLength="100" />
+          <Property Name="HasUpdatedAddress" Type="bit" />
+          <Property Name="IsInFacility" Type="bit" />
+          <Property Name="ReceivesHospiceCare" Type="bit" />
+          <Property Name="ReceivesHomeCare" Type="bit" />
+          <Property Name="IsOrderConfirmed" Type="bit" Nullable="false" />
+          <Property Name="RelationShip" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DelOrderConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountNumber" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="IsOrderConfirmed" Type="bit" Nullable="false" />
+          <Property Name="IsOrderReleasedFromHold" Type="bit" Nullable="false" />
+          <Property Name="LoadedDate" Type="datetime" Nullable="false" />
+          <Property Name="Source" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InboundCall">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CallId" Type="int" />
+          <Property Name="Account" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="Qty" Type="bit" Nullable="false" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdateStatus" Type="bit" Nullable="false" />
+          <Property Name="ISConfirmed" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="SpokeWith" Type="nvarchar" MaxLength="200" />
+          <Property Name="RelationShip" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="InboundChangeAddress">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="int" Nullable="false" />
+          <Property Name="B_Address_1" Type="varchar(max)" />
+          <Property Name="B_Address_2" Type="varchar" MaxLength="100" />
+          <Property Name="B_City" Type="varchar" MaxLength="50" />
+          <Property Name="B_State" Type="varchar" MaxLength="50" />
+          <Property Name="B_Zip" Type="varchar" MaxLength="50" />
+          <Property Name="S_Address_1" Type="varchar(max)" />
+          <Property Name="S_Address_2" Type="varchar" MaxLength="100" />
+          <Property Name="S_City" Type="varchar" MaxLength="50" />
+          <Property Name="S_State" Type="varchar" MaxLength="50" />
+          <Property Name="S_Zip" Type="varchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdateStatus" Type="bit" Nullable="false" />
+          <Property Name="Uploaded" Type="bit" />
+        </EntityType>
+        <EntityType Name="InboundChangePhone">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="int" Nullable="false" />
+          <Property Name="PriPhone" Type="varchar(max)" />
+          <Property Name="AltPhone" Type="varchar(max)" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdateStatus" Type="bit" Nullable="false" />
+          <Property Name="Uploaded" Type="bit" />
+        </EntityType>
+        <EntityType Name="InboundProductConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="int" Nullable="false" />
+          <Property Name="ProductDescription" Type="varchar" MaxLength="200" />
+          <Property Name="NeedsProduct" Type="bit" />
+          <Property Name="Qty_Number" Type="int" />
+        </EntityType>
+        <EntityType Name="InboundReassessment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="int" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="200" />
+          <Property Name="PrimaryPhone" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsCorrectPerson" Type="bit" />
+          <Property Name="IsAuthorizedRep" Type="bit" />
+          <Property Name="SpokeWith" Type="nvarchar" MaxLength="200" />
+          <Property Name="Relationship" Type="nvarchar" MaxLength="200" />
+          <Property Name="HasPhoneChanged" Type="bit" />
+          <Property Name="HasAddressChanged" Type="bit" />
+          <Property Name="HasInsuranceChanged" Type="bit" />
+          <Property Name="NewInsuranceProvider" Type="nvarchar" MaxLength="200" />
+          <Property Name="NewInsuranceProviderId" Type="nvarchar" MaxLength="200" />
+          <Property Name="NewInsuranceProviderPhone" Type="nvarchar" MaxLength="200" />
+          <Property Name="DoctorName" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsMeterWorking" Type="bit" />
+          <Property Name="TestingTimes" Type="int" />
+          <Property Name="IsInjectInsulin" Type="bit" />
+          <Property Name="DayContType" Type="nvarchar" MaxLength="200" />
+          <Property Name="NiteContType" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsDayBowelIncontinent" Type="bit" />
+          <Property Name="IsNightBowelIncontinent" Type="bit" />
+          <Property Name="IsDayUrineIncontinent" Type="bit" />
+          <Property Name="IsNightUrineIncontinent" Type="bit" />
+          <Property Name="IsUsageEvening" Type="bit" />
+          <Property Name="IsMentallyImpaired" Type="bit" />
+          <Property Name="IsDiapering" Type="bit" />
+          <Property Name="HasSeizureDisorder" Type="bit" />
+          <Property Name="CanWalk" Type="bit" />
+          <Property Name="UseWalkAssist" Type="bit" />
+          <Property Name="HasAllergy" Type="bit" />
+          <Property Name="AllergyMaterials" Type="nvarchar" MaxLength="200" />
+          <Property Name="HasSoreOrRash" Type="bit" />
+          <Property Name="Weight" Type="int" />
+          <Property Name="EatByMouth" Type="bit" />
+          <Property Name="IsTubeFed" Type="bit" />
+          <Property Name="IsVerbal" Type="bit" />
+          <Property Name="HasProductOverstock" Type="bit" />
+          <Property Name="NeedAdditionSupplies" Type="bit" />
+          <Property Name="AdditionalSupplies" Type="nvarchar" MaxLength="200" />
+          <Property Name="UpdateStatus" Type="bit" />
+          <Property Name="Uploaded" Type="bit" />
+          <Property Name="IsReassessmentComplete" Type="bit" />
+          <Property Name="PatientType" Type="nvarchar" MaxLength="200" />
+          <Property Name="UploadTime" Type="datetime" />
+          <Property Name="InsulinType" Type="nvarchar" MaxLength="200" />
+          <Property Name="IncontinentType" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="InboundReassmentProdConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CallId" Type="int" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="int" Nullable="false" />
+          <Property Name="NeedsProduct" Type="bit" />
+          <Property Name="ProductCategoryDescription" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="InboundUpdateDoctor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="int" Nullable="false" />
+          <Property Name="DoctorName" Type="nvarchar(max)" />
+          <Property Name="DoctorPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="DoctorLocation" Type="nvarchar(max)" />
+          <Property Name="UpdateStatus" Type="bit" Nullable="false" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InboundUpdateInsurance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="int" Nullable="false" />
+          <Property Name="InsuranceProvider" Type="nvarchar(max)" />
+          <Property Name="InsuranceProviderPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="InsuranceProviderID" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateStatus" Type="bit" Nullable="false" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountNumber" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="IsOrderConfirmed" Type="bit" Nullable="false" />
+          <Property Name="IsOrderReleasedFromHold" Type="bit" Nullable="false" />
+          <Property Name="LoadedDate" Type="datetime" Nullable="false" />
+          <Property Name="Source" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PharmacyCall">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CallId" Type="int" />
+          <Property Name="Account" Type="int" Nullable="false" />
+          <Property Name="RefillDate" Type="datetime" Nullable="false" />
+          <Property Name="Qty" Type="bit" Nullable="false" />
+          <Property Name="UpdateTime" Type="datetime" Nullable="false" />
+          <Property Name="UpdateStatus" Type="bit" Nullable="false" />
+          <Property Name="ISConfirmed" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="SpokeWith" Type="nvarchar" MaxLength="200" />
+          <Property Name="RelationShip" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="PharmacyConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="int" Nullable="false" />
+          <Property Name="ProductDescription" Type="varchar" MaxLength="200" />
+          <Property Name="NeedsProduct" Type="bit" />
+          <Property Name="Qty_Number" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CallId" Type="int" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="int" Nullable="false" />
+          <Property Name="NeedsProduct" Type="bit" />
+          <Property Name="Qty_Number" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_AOB">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="int" />
+          <Property Name="FirstName" Type="varchar(max)" />
+          <Property Name="LastName" Type="varchar(max)" />
+          <Property Name="isDocSubmitted" Type="bit" />
+          <Property Name="DocSubmittedMethod" Type="varchar(max)" />
+          <Property Name="ResendMethod" Type="varchar(max)" />
+          <Property Name="ResendEmailAddress" Type="varchar(max)" />
+          <Property Name="ResendFaxNumber" Type="varchar(max)" />
+          <Property Name="IsMailingCorrect" Type="bit" />
+          <Property Name="UseMailingAsPermBillingAddr" Type="bit" />
+          <Property Name="MailingAddress ID" Type="int" />
+          <Property Name="CallTime" Type="datetime" />
+          <Property Name="AOBSubmitDate" Type="datetime" />
+          <Property Name="IsUpdated" Type="bit" />
+        </EntityType>
+        <EntityType Name="UpdatedMeridianCallsOB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CallId" Type="int" Nullable="false" />
+          <Property Name="Upload" Type="datetime" Nullable="false" />
+          <Property Name="Updated" Type="bit" Nullable="false" />
+          <Property Name="UpdateBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ISConfirmed" Type="bit" />
+        </EntityType>
+        <Function Name="sp_CustomerReordersupplies_MarkDone" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="CallAgentDBModelStoreContainer">
+          <EntitySet Name="Call" EntityType="Self.Call" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DelOrderConfirmation" EntityType="Self.DelOrderConfirmation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InboundCall" EntityType="Self.InboundCall" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InboundChangeAddress" EntityType="Self.InboundChangeAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InboundChangePhone" EntityType="Self.InboundChangePhone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InboundProductConfirmation" EntityType="Self.InboundProductConfirmation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InboundReassessment" EntityType="Self.InboundReassessment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InboundReassmentProdConfirmation" EntityType="Self.InboundReassmentProdConfirmation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InboundUpdateDoctor" EntityType="Self.InboundUpdateDoctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InboundUpdateInsurance" EntityType="Self.InboundUpdateInsurance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderConfirmation" EntityType="Self.OrderConfirmation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PharmacyCall" EntityType="Self.PharmacyCall" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PharmacyConfirmation" EntityType="Self.PharmacyConfirmation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductConfirmation" EntityType="Self.ProductConfirmation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_AOB" EntityType="Self.tbl_AOB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UpdatedMeridianCallsOB" EntityType="Self.UpdatedMeridianCallsOB" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CallAgentDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="InboundProductConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="ProductDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NeedsProduct" Type="Boolean" />
+          <Property Name="Qty_Number" Type="Int32" />
+        </EntityType>
+        <EntityType Name="OrderConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountNumber" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsOrderConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="IsOrderReleasedFromHold" Type="Boolean" Nullable="false" />
+          <Property Name="LoadedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Source" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="CallAgentDBEntitiesnew" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="InboundProductConfirmations" EntityType="Self.InboundProductConfirmation" />
+          <EntitySet Name="OrderConfirmations" EntityType="Self.OrderConfirmation" />
+          <EntitySet Name="InboundChangeAddresses" EntityType="CallAgentDBModel.InboundChangeAddress" />
+          <EntitySet Name="DelOrderConfirmations" EntityType="CallAgentDBModel.DelOrderConfirmation" />
+          <EntitySet Name="InboundCalls" EntityType="CallAgentDBModel.InboundCall" />
+          <EntitySet Name="InboundChangePhones" EntityType="CallAgentDBModel.InboundChangePhone" />
+          <EntitySet Name="Calls" EntityType="CallAgentDBModel.Call" />
+          <EntitySet Name="ProductConfirmations" EntityType="CallAgentDBModel.ProductConfirmation" />
+          <EntitySet Name="PharmacyCalls" EntityType="CallAgentDBModel.PharmacyCall" />
+          <EntitySet Name="PharmacyConfirmations" EntityType="CallAgentDBModel.PharmacyConfirmation" />
+          <EntitySet Name="InboundReassmentProdConfirmations" EntityType="CallAgentDBModel.InboundReassmentProdConfirmation" />
+          <EntitySet Name="InboundReassessments" EntityType="CallAgentDBModel.InboundReassessment" />
+          <EntitySet Name="UpdatedMeridianCallsOBs" EntityType="CallAgentDBModel.UpdatedMeridianCallsOB" />
+          <EntitySet Name="InboundUpdateDoctors" EntityType="CallAgentDBModel.InboundUpdateDoctor" />
+          <EntitySet Name="InboundUpdateInsurances" EntityType="CallAgentDBModel.InboundUpdateInsurance" />
+          <EntitySet Name="tbl_AOB" EntityType="CallAgentDBModel.tbl_AOB" />
+          <FunctionImport Name="sp_CustomerReordersupplies_MarkDone" ReturnType="Collection(CallAgentDBModel.sp_CustomerReordersupplies_MarkDone_Result)" />
+        </EntityContainer>
+        <EntityType Name="InboundChangeAddress">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" Nullable="false" />
+          <Property Name="B_Address_1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="B_Address_2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="B_City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="B_State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="B_Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="S_Address_1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="S_Address_2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="S_City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="S_State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="S_Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateStatus" Type="Boolean" Nullable="false" />
+          <Property Name="Uploaded" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="DelOrderConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountNumber" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsOrderConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="IsOrderReleasedFromHold" Type="Boolean" Nullable="false" />
+          <Property Name="LoadedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Source" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="InboundCall">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CallId" Type="Int32" />
+          <Property Name="Account" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Qty" Type="Boolean" Nullable="false" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateStatus" Type="Boolean" Nullable="false" />
+          <Property Name="ISConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="SpokeWith" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="RelationShip" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="InboundChangePhone">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" Nullable="false" />
+          <Property Name="PriPhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AltPhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateStatus" Type="Boolean" Nullable="false" />
+          <Property Name="Uploaded" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Call">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountNumber" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CallTypeId" Type="Int32" Nullable="false" />
+          <Property Name="CallStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CallTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CallerId" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="SpokeWith" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="RequiresCallback" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HasUpdatedAddress" Type="Boolean" />
+          <Property Name="IsInFacility" Type="Boolean" />
+          <Property Name="ReceivesHospiceCare" Type="Boolean" />
+          <Property Name="ReceivesHomeCare" Type="Boolean" />
+          <Property Name="IsOrderConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="RelationShip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CallId" Type="Int32" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="NeedsProduct" Type="Boolean" />
+          <Property Name="Qty_Number" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PharmacyCall">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CallId" Type="Int32" />
+          <Property Name="Account" Type="Int32" Nullable="false" />
+          <Property Name="RefillDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Qty" Type="Boolean" Nullable="false" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateStatus" Type="Boolean" Nullable="false" />
+          <Property Name="ISConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="SpokeWith" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="RelationShip" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PharmacyConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="ProductDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NeedsProduct" Type="Boolean" />
+          <Property Name="Qty_Number" Type="Int32" />
+        </EntityType>
+        <EntityType Name="InboundReassmentProdConfirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CallId" Type="Int32" Nullable="false" />
+          <Property Name="ProductCategoryId" Type="Int32" Nullable="false" />
+          <Property Name="NeedsProduct" Type="Boolean" />
+          <Property Name="ProductCategoryDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="InboundReassessment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" />
+          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PrimaryPhone" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsCorrectPerson" Type="Boolean" />
+          <Property Name="IsAuthorizedRep" Type="Boolean" />
+          <Property Name="SpokeWith" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Relationship" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HasPhoneChanged" Type="Boolean" />
+          <Property Name="HasAddressChanged" Type="Boolean" />
+          <Property Name="HasInsuranceChanged" Type="Boolean" />
+          <Property Name="NewInsuranceProvider" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NewInsuranceProviderId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NewInsuranceProviderPhone" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DoctorName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsMeterWorking" Type="Boolean" />
+          <Property Name="TestingTimes" Type="Int32" />
+          <Property Name="IsInjectInsulin" Type="Boolean" />
+          <Property Name="DayContType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NiteContType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsDayBowelIncontinent" Type="Boolean" />
+          <Property Name="IsNightBowelIncontinent" Type="Boolean" />
+          <Property Name="IsDayUrineIncontinent" Type="Boolean" />
+          <Property Name="IsNightUrineIncontinent" Type="Boolean" />
+          <Property Name="IsUsageEvening" Type="Boolean" />
+          <Property Name="IsMentallyImpaired" Type="Boolean" />
+          <Property Name="IsDiapering" Type="Boolean" />
+          <Property Name="HasSeizureDisorder" Type="Boolean" />
+          <Property Name="CanWalk" Type="Boolean" />
+          <Property Name="UseWalkAssist" Type="Boolean" />
+          <Property Name="HasAllergy" Type="Boolean" />
+          <Property Name="AllergyMaterials" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HasSoreOrRash" Type="Boolean" />
+          <Property Name="Weight" Type="Int32" />
+          <Property Name="EatByMouth" Type="Boolean" />
+          <Property Name="IsTubeFed" Type="Boolean" />
+          <Property Name="IsVerbal" Type="Boolean" />
+          <Property Name="HasProductOverstock" Type="Boolean" />
+          <Property Name="NeedAdditionSupplies" Type="Boolean" />
+          <Property Name="AdditionalSupplies" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateStatus" Type="Boolean" />
+          <Property Name="Uploaded" Type="Boolean" />
+          <Property Name="IsReassessmentComplete" Type="Boolean" />
+          <Property Name="PatientType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UploadTime" Type="DateTime" Precision="3" />
+          <Property Name="InsulinType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IncontinentType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UpdatedMeridianCallsOB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CallId" Type="Int32" Nullable="false" />
+          <Property Name="Upload" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Updated" Type="Boolean" Nullable="false" />
+          <Property Name="UpdateBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ISConfirmed" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="InboundUpdateDoctor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" Nullable="false" />
+          <Property Name="DoctorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DoctorPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DoctorLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateStatus" Type="Boolean" Nullable="false" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="InboundUpdateInsurance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" Nullable="false" />
+          <Property Name="InsuranceProvider" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InsuranceProviderPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InsuranceProviderID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateStatus" Type="Boolean" Nullable="false" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_AOB">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isDocSubmitted" Type="Boolean" />
+          <Property Name="DocSubmittedMethod" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ResendMethod" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ResendEmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ResendFaxNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsMailingCorrect" Type="Boolean" />
+          <Property Name="UseMailingAsPermBillingAddr" Type="Boolean" />
+          <Property Name="MailingAddress_ID" Type="Int32" />
+          <Property Name="CallTime" Type="DateTime" Precision="3" />
+          <Property Name="AOBSubmitDate" Type="DateTime" Precision="3" />
+          <Property Name="IsUpdated" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="sp_CustomerReordersupplies_MarkDone_Result">
+          <Property Type="Int32" Name="ErrorNumber" Nullable="true" />
+          <Property Type="Int32" Name="ErrorSeverity" Nullable="true" />
+          <Property Type="Int32" Name="ErrorState" Nullable="true" />
+          <Property Type="String" Name="ErrorProcedure" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="ErrorLine" Nullable="true" />
+          <Property Type="String" Name="ErrorMessage" Nullable="true" MaxLength="4000" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CallAgentDBModelStoreContainer" CdmEntityContainer="CallAgentDBEntitiesnew">
+          <EntitySetMapping Name="InboundProductConfirmations">
+            <EntityTypeMapping TypeName="CallAgentDBModel.InboundProductConfirmation">
+              <MappingFragment StoreEntitySet="InboundProductConfirmation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="NeedsProduct" ColumnName="NeedsProduct" />
+                <ScalarProperty Name="Qty_Number" ColumnName="Qty_Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderConfirmations">
+            <EntityTypeMapping TypeName="CallAgentDBModel.OrderConfirmation">
+              <MappingFragment StoreEntitySet="OrderConfirmation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="IsOrderConfirmed" ColumnName="IsOrderConfirmed" />
+                <ScalarProperty Name="IsOrderReleasedFromHold" ColumnName="IsOrderReleasedFromHold" />
+                <ScalarProperty Name="LoadedDate" ColumnName="LoadedDate" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InboundChangeAddresses">
+            <EntityTypeMapping TypeName="CallAgentDBModel.InboundChangeAddress">
+              <MappingFragment StoreEntitySet="InboundChangeAddress">
+                <ScalarProperty Name="Uploaded" ColumnName="Uploaded" />
+                <ScalarProperty Name="UpdateStatus" ColumnName="UpdateStatus" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="S_Zip" ColumnName="S_Zip" />
+                <ScalarProperty Name="S_State" ColumnName="S_State" />
+                <ScalarProperty Name="S_City" ColumnName="S_City" />
+                <ScalarProperty Name="S_Address_2" ColumnName="S_Address_2" />
+                <ScalarProperty Name="S_Address_1" ColumnName="S_Address_1" />
+                <ScalarProperty Name="B_Zip" ColumnName="B_Zip" />
+                <ScalarProperty Name="B_State" ColumnName="B_State" />
+                <ScalarProperty Name="B_City" ColumnName="B_City" />
+                <ScalarProperty Name="B_Address_2" ColumnName="B_Address_2" />
+                <ScalarProperty Name="B_Address_1" ColumnName="B_Address_1" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DelOrderConfirmations">
+            <EntityTypeMapping TypeName="CallAgentDBModel.DelOrderConfirmation">
+              <MappingFragment StoreEntitySet="DelOrderConfirmation">
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="LoadedDate" ColumnName="LoadedDate" />
+                <ScalarProperty Name="IsOrderReleasedFromHold" ColumnName="IsOrderReleasedFromHold" />
+                <ScalarProperty Name="IsOrderConfirmed" ColumnName="IsOrderConfirmed" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InboundCalls">
+            <EntityTypeMapping TypeName="CallAgentDBModel.InboundCall">
+              <MappingFragment StoreEntitySet="InboundCall">
+                <ScalarProperty Name="RelationShip" ColumnName="RelationShip" />
+                <ScalarProperty Name="SpokeWith" ColumnName="SpokeWith" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ISConfirmed" ColumnName="ISConfirmed" />
+                <ScalarProperty Name="UpdateStatus" ColumnName="UpdateStatus" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="CallId" ColumnName="CallId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InboundChangePhones">
+            <EntityTypeMapping TypeName="CallAgentDBModel.InboundChangePhone">
+              <MappingFragment StoreEntitySet="InboundChangePhone">
+                <ScalarProperty Name="Uploaded" ColumnName="Uploaded" />
+                <ScalarProperty Name="UpdateStatus" ColumnName="UpdateStatus" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="AltPhone" ColumnName="AltPhone" />
+                <ScalarProperty Name="PriPhone" ColumnName="PriPhone" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Calls">
+            <EntityTypeMapping TypeName="CallAgentDBModel.Call">
+              <MappingFragment StoreEntitySet="Call">
+                <ScalarProperty Name="RelationShip" ColumnName="RelationShip" />
+                <ScalarProperty Name="IsOrderConfirmed" ColumnName="IsOrderConfirmed" />
+                <ScalarProperty Name="ReceivesHomeCare" ColumnName="ReceivesHomeCare" />
+                <ScalarProperty Name="ReceivesHospiceCare" ColumnName="ReceivesHospiceCare" />
+                <ScalarProperty Name="IsInFacility" ColumnName="IsInFacility" />
+                <ScalarProperty Name="HasUpdatedAddress" ColumnName="HasUpdatedAddress" />
+                <ScalarProperty Name="RequiresCallback" ColumnName="RequiresCallback" />
+                <ScalarProperty Name="SpokeWith" ColumnName="SpokeWith" />
+                <ScalarProperty Name="CallerId" ColumnName="CallerId" />
+                <ScalarProperty Name="CallTime" ColumnName="CallTime" />
+                <ScalarProperty Name="CallStatus" ColumnName="CallStatus" />
+                <ScalarProperty Name="CallTypeId" ColumnName="CallTypeId" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductConfirmations">
+            <EntityTypeMapping TypeName="CallAgentDBModel.ProductConfirmation">
+              <MappingFragment StoreEntitySet="ProductConfirmation">
+                <ScalarProperty Name="Qty_Number" ColumnName="Qty_Number" />
+                <ScalarProperty Name="NeedsProduct" ColumnName="NeedsProduct" />
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+                <ScalarProperty Name="CallId" ColumnName="CallId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PharmacyCalls">
+            <EntityTypeMapping TypeName="CallAgentDBModel.PharmacyCall">
+              <MappingFragment StoreEntitySet="PharmacyCall">
+                <ScalarProperty Name="RelationShip" ColumnName="RelationShip" />
+                <ScalarProperty Name="SpokeWith" ColumnName="SpokeWith" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ISConfirmed" ColumnName="ISConfirmed" />
+                <ScalarProperty Name="UpdateStatus" ColumnName="UpdateStatus" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="RefillDate" ColumnName="RefillDate" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="CallId" ColumnName="CallId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PharmacyConfirmations">
+            <EntityTypeMapping TypeName="CallAgentDBModel.PharmacyConfirmation">
+              <MappingFragment StoreEntitySet="PharmacyConfirmation">
+                <ScalarProperty Name="Qty_Number" ColumnName="Qty_Number" />
+                <ScalarProperty Name="NeedsProduct" ColumnName="NeedsProduct" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InboundReassmentProdConfirmations">
+            <EntityTypeMapping TypeName="CallAgentDBModel.InboundReassmentProdConfirmation">
+              <MappingFragment StoreEntitySet="InboundReassmentProdConfirmation">
+                <ScalarProperty Name="ProductCategoryDescription" ColumnName="ProductCategoryDescription" />
+                <ScalarProperty Name="NeedsProduct" ColumnName="NeedsProduct" />
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+                <ScalarProperty Name="CallId" ColumnName="CallId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InboundReassessments">
+            <EntityTypeMapping TypeName="CallAgentDBModel.InboundReassessment">
+              <MappingFragment StoreEntitySet="InboundReassessment">
+                <ScalarProperty Name="IncontinentType" ColumnName="IncontinentType" />
+                <ScalarProperty Name="InsulinType" ColumnName="InsulinType" />
+                <ScalarProperty Name="UploadTime" ColumnName="UploadTime" />
+                <ScalarProperty Name="PatientType" ColumnName="PatientType" />
+                <ScalarProperty Name="IsReassessmentComplete" ColumnName="IsReassessmentComplete" />
+                <ScalarProperty Name="Uploaded" ColumnName="Uploaded" />
+                <ScalarProperty Name="UpdateStatus" ColumnName="UpdateStatus" />
+                <ScalarProperty Name="AdditionalSupplies" ColumnName="AdditionalSupplies" />
+                <ScalarProperty Name="NeedAdditionSupplies" ColumnName="NeedAdditionSupplies" />
+                <ScalarProperty Name="HasProductOverstock" ColumnName="HasProductOverstock" />
+                <ScalarProperty Name="IsVerbal" ColumnName="IsVerbal" />
+                <ScalarProperty Name="IsTubeFed" ColumnName="IsTubeFed" />
+                <ScalarProperty Name="EatByMouth" ColumnName="EatByMouth" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="HasSoreOrRash" ColumnName="HasSoreOrRash" />
+                <ScalarProperty Name="AllergyMaterials" ColumnName="AllergyMaterials" />
+                <ScalarProperty Name="HasAllergy" ColumnName="HasAllergy" />
+                <ScalarProperty Name="UseWalkAssist" ColumnName="UseWalkAssist" />
+                <ScalarProperty Name="CanWalk" ColumnName="CanWalk" />
+                <ScalarProperty Name="HasSeizureDisorder" ColumnName="HasSeizureDisorder" />
+                <ScalarProperty Name="IsDiapering" ColumnName="IsDiapering" />
+                <ScalarProperty Name="IsMentallyImpaired" ColumnName="IsMentallyImpaired" />
+                <ScalarProperty Name="IsUsageEvening" ColumnName="IsUsageEvening" />
+                <ScalarProperty Name="IsNightUrineIncontinent" ColumnName="IsNightUrineIncontinent" />
+                <ScalarProperty Name="IsDayUrineIncontinent" ColumnName="IsDayUrineIncontinent" />
+                <ScalarProperty Name="IsNightBowelIncontinent" ColumnName="IsNightBowelIncontinent" />
+                <ScalarProperty Name="IsDayBowelIncontinent" ColumnName="IsDayBowelIncontinent" />
+                <ScalarProperty Name="NiteContType" ColumnName="NiteContType" />
+                <ScalarProperty Name="DayContType" ColumnName="DayContType" />
+                <ScalarProperty Name="IsInjectInsulin" ColumnName="IsInjectInsulin" />
+                <ScalarProperty Name="TestingTimes" ColumnName="TestingTimes" />
+                <ScalarProperty Name="IsMeterWorking" ColumnName="IsMeterWorking" />
+                <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
+                <ScalarProperty Name="NewInsuranceProviderPhone" ColumnName="NewInsuranceProviderPhone" />
+                <ScalarProperty Name="NewInsuranceProviderId" ColumnName="NewInsuranceProviderId" />
+                <ScalarProperty Name="NewInsuranceProvider" ColumnName="NewInsuranceProvider" />
+                <ScalarProperty Name="HasInsuranceChanged" ColumnName="HasInsuranceChanged" />
+                <ScalarProperty Name="HasAddressChanged" ColumnName="HasAddressChanged" />
+                <ScalarProperty Name="HasPhoneChanged" ColumnName="HasPhoneChanged" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+                <ScalarProperty Name="SpokeWith" ColumnName="SpokeWith" />
+                <ScalarProperty Name="IsAuthorizedRep" ColumnName="IsAuthorizedRep" />
+                <ScalarProperty Name="IsCorrectPerson" ColumnName="IsCorrectPerson" />
+                <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UpdatedMeridianCallsOBs">
+            <EntityTypeMapping TypeName="CallAgentDBModel.UpdatedMeridianCallsOB">
+              <MappingFragment StoreEntitySet="UpdatedMeridianCallsOB">
+                <ScalarProperty Name="ISConfirmed" ColumnName="ISConfirmed" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="Updated" ColumnName="Updated" />
+                <ScalarProperty Name="Upload" ColumnName="Upload" />
+                <ScalarProperty Name="CallId" ColumnName="CallId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InboundUpdateDoctors">
+            <EntityTypeMapping TypeName="CallAgentDBModel.InboundUpdateDoctor">
+              <MappingFragment StoreEntitySet="InboundUpdateDoctor">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateStatus" ColumnName="UpdateStatus" />
+                <ScalarProperty Name="DoctorLocation" ColumnName="DoctorLocation" />
+                <ScalarProperty Name="DoctorPhone" ColumnName="DoctorPhone" />
+                <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InboundUpdateInsurances">
+            <EntityTypeMapping TypeName="CallAgentDBModel.InboundUpdateInsurance">
+              <MappingFragment StoreEntitySet="InboundUpdateInsurance">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="UpdateStatus" ColumnName="UpdateStatus" />
+                <ScalarProperty Name="InsuranceProviderID" ColumnName="InsuranceProviderID" />
+                <ScalarProperty Name="InsuranceProviderPhone" ColumnName="InsuranceProviderPhone" />
+                <ScalarProperty Name="InsuranceProvider" ColumnName="InsuranceProvider" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AOB">
+            <EntityTypeMapping TypeName="CallAgentDBModel.tbl_AOB">
+              <MappingFragment StoreEntitySet="tbl_AOB">
+                <ScalarProperty Name="IsUpdated" ColumnName="IsUpdated" />
+                <ScalarProperty Name="AOBSubmitDate" ColumnName="AOBSubmitDate" />
+                <ScalarProperty Name="CallTime" ColumnName="CallTime" />
+                <ScalarProperty Name="MailingAddress_ID" ColumnName="MailingAddress ID" />
+                <ScalarProperty Name="UseMailingAsPermBillingAddr" ColumnName="UseMailingAsPermBillingAddr" />
+                <ScalarProperty Name="IsMailingCorrect" ColumnName="IsMailingCorrect" />
+                <ScalarProperty Name="ResendFaxNumber" ColumnName="ResendFaxNumber" />
+                <ScalarProperty Name="ResendEmailAddress" ColumnName="ResendEmailAddress" />
+                <ScalarProperty Name="ResendMethod" ColumnName="ResendMethod" />
+                <ScalarProperty Name="DocSubmittedMethod" ColumnName="DocSubmittedMethod" />
+                <ScalarProperty Name="isDocSubmitted" ColumnName="isDocSubmitted" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_CustomerReordersupplies_MarkDone" FunctionName="CallAgentDBModel.Store.sp_CustomerReordersupplies_MarkDone">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CallAgentDBModel.sp_CustomerReordersupplies_MarkDone_Result">
+                <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+                <ScalarProperty Name="ErrorSeverity" ColumnName="ErrorSeverity" />
+                <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+                <ScalarProperty Name="ErrorProcedure" ColumnName="ErrorProcedure" />
+                <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

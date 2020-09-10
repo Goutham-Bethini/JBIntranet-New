@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "ReorderSupplies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using Kendo.Mvc.UI
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+
+        <div class="card-panel z-depth-4">
+
+            <h3 style="font-family:'Times New Roman';font-size:large" class="label  label-primary">Inbound Reorder Supplies- Self Service</h3>
+            <br />
+            <br />
+
+            @(Html.Kendo().Grid<USPS_Report.Models.ReorderSuppliesVM>()
+    .Name("InboundReorderGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(t => t.id).Title("id").Hidden(true);
+        columns.Bound(t => t.Account).Title("Account");
+        columns.Bound(t => t.First_Name).Title("FirstName");
+        columns.Bound(t => t.Middle).Title("Middle");
+        columns.Bound(t => t.Last_Name).Title("LastName");
+        columns.Bound(t => t.EmailAddress).Title("Email");
+        // columns.Bound(t => t.MembershipId).Title("Mem_Id");
+        columns.Bound(t => t.BirthDate).Title("DOB").Format("{0:MM/dd/yyyy}");
+        columns.Bound(t => t.OrderDate).Title("OrderDate").Format("{0:MM/dd/yyyy}");
+        columns.Bound(t => t.UpdateTime).Title("Date").Format("{0:MM/dd/yyyy}");
+        columns.Bound(t => t.ISConfirmed).Title("Is Order Confirmed");
+      //  columns.Bound(t => t.IsDeleted).Title("IsDeleted");
+        columns.Command(command => { command.Edit().Text("Update"); }).Width(200);
+        columns.Command(command => { command.Destroy().Text("Mark Done"); }).Width(160);
+
+        //   columns.Command(command => { command.Edit(); command.Destroy().Text("Mark Done"); }).Width(180);
+
+    })
+
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable()
+    .Sortable()
+    .ClientDetailTemplateId("templateReorder")
+    //.ClientDetailTemplateId("template3")
+    .HtmlAttributes(new { style = "width:1350px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(model =>
+        {
+            model.Field(p => p.Account).Editable(false);
+            model.Field(p => p.First_Name).Editable(false);
+            model.Field(p => p.Middle).Editable(false);
+            model.Field(p => p.Last_Name).Editable(false);
+            model.Field(p => p.EmailAddress).Editable(false);
+            model.Field(p => p.BirthDate).Editable(false);
+            model.Field(p => p.UpdateTime).Editable(false);
+            model.Field(p => p.OrderDate).Editable(false);
+            model.Field(p => p.ISConfirmed).Editable(true);
+
+            model.Id(p => p.id);
+        })
+        .Read(read => read.Action("CustomerAccountReorderList", "Inbound").Type(HttpVerbs.Post))
+        .Destroy(update => update.Action("CustomerReorderAccountList_Destroy", "Inbound"))
+        //  .Update(update => update.Action("CustomerAddresslist_Update", "Inbound"))
+        .Update("CustomerReorderList_Update", "Inbound")
+
+    )
+            )
+        </div>
+
+    </div>
+</div>
+
+<script id="templateReorder" type="text/kendo-tmpl">
+
+    @(Html.Kendo().Grid<USPS_Report.Models.ProductReq>()
+            .Name("InboundReorderGrid_#=id#")
+            .Columns(columns =>
+            {
+                //columns.Bound(o => o.Account).Title("Account");
+                columns.Bound(o => o.Id).Hidden(true).Title("DB").Width(100);
+
+                columns.Bound(o => o.ProductDescription).Title("Description").Width(300).Encoded(false);
+
+                 columns.Bound(o => o.ProdNeeded).Title("IsNeeded").Width(200);
+                @*columns.Bound(o => o.ProdNeeded).Title("ProdNeeded").Template(@<text>
+        @if (item.ProdNeeded == false)
+        {
+            <div style="background-color: Red;">
+                @item.ProdNeeded
+            </div>
+        }
+        else
+        {
+            <div >
+                @item.ProdNeeded
+            </div>
+        }
+                </text>).Width(200);*@
+
+
+                columns.Bound(o => o.Qty).Title("Qty").Width(200);
+
+
+            })
+
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                         .Model(model => model.Id(p => p.Id))
+                        .Read(read => read.Action("ProductListByAccount", "Inbound", new { IDNum = "#=id#" }))
+            )
+
+            .ToClientTemplate()
+    )
+</script>
+

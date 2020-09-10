@@ -1,0 +1,41 @@
+﻿@model USPS_Report.Areas.Reports.Models.HoldReasonVM
+
+@{
+    ViewBag.Title = "HoldCountByReason";
+    Layout = "~/Areas/Reports/Views/Shared/_ReportLayout.cshtml";
+}
+
+<h2>HoldCountByReason</h2>
+
+
+<p>
+    @Model.HoldReasonPieChart
+</p>
+<table class="table">
+    <tr>
+        <th>
+          Count
+        </th>
+        <th>
+           HoldReason
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.GetHoldReason) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Count)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoldReason)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

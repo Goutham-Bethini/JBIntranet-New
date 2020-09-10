@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "PumpTracker";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Kendo.Mvc.UI
+
+<br />
+<br />
+
+<div class="center" style="width:95%">
+   
+    <div class="card-panel z-depth-4">
+
+        <h3 style="font-family:'Times New Roman';font-size:large" class="label  label-primary">Pump Tracker</h3>
+        <br />
+        <br />
+
+        @(Html.Kendo().Grid<USPS_Report.Models.PumpTrackerVM>()
+    .Name("PumpTrackerGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(t => t.id).Title("Id").Hidden(true);
+        columns.Bound(t => t.Account).Title("Account").Width(30);
+        columns.Bound(t => t.Manufacturer).Title("Manu").Width(30);
+        columns.Bound(t => t.OrderStatus).Title("Order Status").Width(50);
+        columns.Bound(t => t.Supplies1).Title("Supplies1").Width(100);
+        columns.Bound(t => t.Supplies2).Title("Supplies2").Width(100);
+        columns.Bound(t => t.SuppliesOther).Title("SuppliesOther").Width(100);
+        columns.Bound(t => t.Model).Title("ModelNum").Width(60);
+        columns.Bound(t => t.NewReplacement).Title("New/Replacement").Width(30);
+        columns.Bound(t => t.ReceiverProductCode).Title("Rx Product ").Width(50);
+        columns.Bound(t => t.ReceiverSerial).Title("Rx Serial").Width(50);
+        columns.Bound(t => t.TransmitterProductCode).Title("Tx Product").Width(50);
+        columns.Bound(t => t.TransmitterSerial).Title("Tx Serial").Width(50);
+        columns.Bound(t => t.SentRequestPurchasing).Title("SentRequestPurchasing").Width(30);
+        columns.Bound(t => t.ShipDate).Title("ShipDate").Format("{0:MM/dd/yyyy}").Width(50);
+        columns.Bound(t => t.InNeedOf).Title("InNeedOf").Width(100);
+        columns.Bound(t => t.AdditionalInformation).Title("Additional Info").Width(100);
+        // columns.Bound(t => t.MembershipId).Title("Mem_Id");
+        // columns.Bound(t => t.BirthDate).Title("DOB").Format("{0:MM/dd/yyyy}");
+
+        columns.Bound(t => t.Created).Title("Created").Format("{0:MM/dd/yyyy}").Width(50);
+        columns.Bound(t => t.Modified).Title("Modified").Format("{0:MM/dd/yyyy}").Width(50);
+        
+            columns.Command(command => { command.Edit().Text("Update"); }).Width(160);
+        
+        //   columns.Command(command => { command.Destroy().Text("Mark Done"); }).Width(160);
+
+        // columns.Command(command => { command.Edit(); command.Destroy().Text("Mark Done"); }).Width(180);
+
+    })
+
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable()
+    .Sortable()
+    .ClientDetailTemplateId("templateDetail")
+    //.ClientDetailTemplateId("template3")
+    .HtmlAttributes(new { style = "width:2100px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(model =>
+        {
+            model.Field(p => p.Account).Editable(false);
+
+            //model.Field(p => p.UpdateTime).Editable(false);
+            //model.Field(p => p.UpdateStatus).Editable(true);
+
+            model.Id(p => p.id);
+        })
+        .Read(read => read.Action("CustomerAccountList", "PumpTracker").Type(HttpVerbs.Post))
+      .Destroy(update => update.Action("CustomerAccountList_Destroy", "Inbound"))
+        //  .Update(update => update.Action("CustomerAddresslist_Update", "Inbound"))
+        .Update("AccountDetailUpdate", "PumpTracker")
+
+    )
+        )
+    </div>
+
+</div>
+ 
+@*<script>
+    $(document).ready(function () {
+        var grid = $('#PumpTrackerGrid').data('kendoGrid');
+        grid.hideColumn(19);
+    })
+
+  </script>*@
+
+<script id="templateDetail" type="text/kendo-tmpl">
+
+    @(Html.Kendo().Grid<USPS_Report.Models.OrderDetail>()
+            .Name("PumpTrackerGrid_#=Account#")
+            .Columns(columns =>
+            {
+                //columns.Bound(o => o.Account).Title("Account");
+                columns.Bound(o => o.First_Name).Title("FirstName").Width(50);
+
+                columns.Bound(o => o.Last_Name).Title("LastName").Width(50);
+
+                columns.Bound(o => o.Gender).Title("Sex").Width(50);
+                columns.Bound(o => o.EmailAddress).Title("Email").Width(50);
+                columns.Bound(o => o.Phone).Title("Phone").Width(50);
+                columns.Bound(o => o.BirthDate).Title("DOB").Format("{0:MM/dd/yyyy}").Width(50);
+                columns.Bound(o => o.Address).Title("Address").Width(50);
+                columns.Bound(o => o.State).Title("State").Width(50);
+                columns.Bound(o => o.Zip).Title("Zip").Width(50);
+                columns.Bound(o => o.PrimaryIns).Title("PriIns").Width(50);
+                columns.Bound(o => o.InsType).Title("InsType").Width(50);
+                columns.Bound(o => o.PhysicianFN).Title("DrFN").Width(50);
+                columns.Bound(o => o.PhysicianLN).Title("DrLN").Width(50);
+                columns.Bound(o => o.PhysicianAddress).Title("DrAdd").Width(50);
+                columns.Bound(o => o.PhysicianCity).Title("DrCity").Width(50);
+                columns.Bound(o => o.PhysicianState).Title("DrState").Width(50);
+                columns.Bound(o => o.PhysicianZip).Title("DrZip").Width(50);
+                columns.Bound(o => o.PhysicianNPI).Title("NPI").Width(50);
+              
+
+
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                         .Model(model => model.Id(p => p.Account))
+                        .Read(read => read.Action("AccountDetailByAccount", "PumpTracker", new { AccountNum = "#=Account#" }))
+            )
+
+            .ToClientTemplate()
+    )
+</script>
+ 
+<style>
+    #PumpTrackerGrid .k-grid-header .k-header
+{
+   font-size: 9pt; 
+   font-weight: bold;
+}
+</style>

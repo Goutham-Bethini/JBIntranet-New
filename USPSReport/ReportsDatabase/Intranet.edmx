@@ -1,0 +1,1836 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IntranetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AOB_track">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Uploaded" Type="bit" Nullable="false" />
+          <Property Name="Account" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="assessment_log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account_Number" Type="int" />
+          <Property Name="Initial_Assessment" Type="tinyint" />
+          <Property Name="Update_Assessment" Type="tinyint" />
+          <Property Name="Update_PCU" Type="tinyint" />
+          <Property Name="OneTime_PA" Type="tinyint" />
+          <Property Name="Initial_PA_Process" Type="tinyint" />
+          <Property Name="POS_RWO_Created" Type="tinyint" />
+          <Property Name="Faxes_to_State" Type="tinyint" />
+          <Property Name="LM_Letter" Type="tinyint" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="User_ID" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="BCBS_ProviderList">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="HDMSID" Type="int" />
+        </EntityType>
+        <EntityType Name="CHAMPS_Adj_Codes">
+          <Key>
+            <PropertyRef Name="adjCode" />
+          </Key>
+          <Property Name="adjCode" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="adjDescription" Type="nchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CHAMPS_Error_Codes">
+          <Key>
+            <PropertyRef Name="errCode" />
+          </Key>
+          <Property Name="errCode" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="errShortDesc" Type="nchar" MaxLength="255" />
+          <Property Name="errRemitCode" Type="nchar" MaxLength="10" />
+          <Property Name="errAdjCode" Type="nchar" MaxLength="10" />
+          <Property Name="errHighlight" Type="tinyint" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Intranet.dbo.CHAMPS_Ignore_Errors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CHAMPS_Ignore_Errors">
+          <Key>
+            <PropertyRef Name="cieID" />
+          </Key>
+          <Property Name="cieID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cieCode" Type="varchar" MaxLength="20" />
+          <Property Name="cieAdded" Type="datetime" />
+          <Property Name="cieAddedBy" Type="varchar" MaxLength="30" />
+          <Property Name="cieDeleted" Type="datetime" />
+          <Property Name="cieDeletedBy" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="CHAMPS_Remit_Codes">
+          <Key>
+            <PropertyRef Name="remCode" />
+          </Key>
+          <Property Name="remCode" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="remDescription" Type="nchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Eligibility_Orders">
+          <Key>
+            <PropertyRef Name="ordID" />
+          </Key>
+          <Property Name="ordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ordELRid" Type="int" />
+          <Property Name="ordWOId" Type="int" />
+          <Property Name="ordAdded" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Intranet.dbo.Employees_New' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Employees_New">
+          <Key>
+            <PropertyRef Name="empID" />
+          </Key>
+          <Property Name="empID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="empLogin" Type="nchar" MaxLength="30" />
+          <Property Name="empEmail" Type="nchar" MaxLength="40" />
+          <Property Name="empFullName" Type="nchar" MaxLength="50" />
+          <Property Name="empManager" Type="tinyint" />
+          <Property Name="empTeamLeader" Type="tinyint" />
+          <Property Name="empCanEnterTicket" Type="tinyint" />
+          <Property Name="empDepartment" Type="int" />
+          <Property Name="empTeam" Type="int" />
+          <Property Name="empAdded" Type="datetime" />
+          <Property Name="empRemoved" Type="datetime" />
+          <Property Name="empAutoUpdate" Type="datetime" />
+          <Property Name="empSort" Type="tinyint" />
+          <Property Name="empPhone" Type="nchar" MaxLength="30" />
+          <Property Name="empPOSid" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="IndianaMedicaidSurvey">
+          <Key>
+            <PropertyRef Name="imsID" />
+          </Key>
+          <Property Name="imsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imsQ1" Type="nchar" MaxLength="20" />
+          <Property Name="imsQ2" Type="nchar" MaxLength="20" />
+          <Property Name="imsQ3" Type="nchar" MaxLength="20" />
+          <Property Name="imsQ4" Type="nchar" MaxLength="20" />
+          <Property Name="imsQ5" Type="nchar" MaxLength="20" />
+          <Property Name="imsQ6" Type="nchar" MaxLength="20" />
+          <Property Name="imsName" Type="nchar" MaxLength="255" />
+          <Property Name="imsAddress" Type="nchar" MaxLength="255" />
+          <Property Name="imsComment" Type="text" />
+          <Property Name="imsEnteredDate" Type="datetime" />
+          <Property Name="imsEnteredBy" Type="nchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="RWO_Product_Substitutions">
+          <Key>
+            <PropertyRef Name="subID" />
+          </Key>
+          <Property Name="subID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subOldProd" Type="int" />
+          <Property Name="subNewProd" Type="int" />
+          <Property Name="subDL" Type="int" />
+          <Property Name="subAddComment" Type="tinyint" />
+          <Property Name="subRWOcount" Type="int" />
+          <Property Name="subAdded" Type="datetime" />
+          <Property Name="subAddedBy" Type="nchar" MaxLength="30" />
+          <Property Name="subApproved" Type="datetime" />
+          <Property Name="subApprovedBy" Type="nchar" MaxLength="30" />
+          <Property Name="subDenied" Type="datetime" />
+          <Property Name="subDeniedBy" Type="nchar" MaxLength="30" />
+          <Property Name="subDeleted" Type="datetime" />
+          <Property Name="subDeletedBy" Type="nchar" MaxLength="30" />
+          <Property Name="subOldProdQty" Type="int" />
+          <Property Name="subNewProdQty" Type="int" />
+          <Property Name="QtyOldProd" Type="int" />
+          <Property Name="QtyNewProd" Type="int" />
+          <Property Name="allProds" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_BCNCallLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="CallDuration" Type="varchar(max)" />
+          <Property Name="Mem_FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="Mem_LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Mem_Address1" Type="varchar" MaxLength="100" />
+          <Property Name="Mem_Address2" Type="varchar" MaxLength="50" />
+          <Property Name="Mem_DOB" Type="datetime" Nullable="false" />
+          <Property Name="Mem_City" Type="varchar" MaxLength="50" />
+          <Property Name="Mem_State" Type="varchar" MaxLength="25" />
+          <Property Name="Mem_ZipCode" Type="varchar" MaxLength="10" />
+          <Property Name="Primary_Physician" Type="varchar(max)" />
+          <Property Name="Provider" Type="varchar(max)" />
+          <Property Name="Mem_County" Type="varchar(max)" />
+          <Property Name="Mem_Gender" Type="varchar(max)" />
+          <Property Name="WebAccountCreated" Type="varchar" MaxLength="30" />
+          <Property Name="Manufacturer" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar(max)" />
+          <Property Name="Relation" Type="varchar(max)" />
+          <Property Name="OtherRelName" Type="varchar(max)" />
+          <Property Name="BillingTxt" Type="varchar(max)" />
+          <Property Name="DocumentationTxt" Type="varchar(max)" />
+          <Property Name="DemographicChangesTxt" Type="varchar(max)" />
+          <Property Name="TypeSupplies_1" Type="varchar(max)" />
+          <Property Name="TypeSupplies_2" Type="varchar(max)" />
+          <Property Name="TypeSuppliesOther" Type="varchar(max)" />
+          <Property Name="ShippingOthersName" Type="varchar(max)" />
+          <Property Name="InsuranceChangeTxt" Type="varchar(max)" />
+          <Property Name="NewAccountTxt" Type="varchar(max)" />
+          <Property Name="OrderConfirmationTxt" Type="varchar(max)" />
+          <Property Name="OrderStatusTxt" Type="varchar(max)" />
+          <Property Name="RWOChangeTxt" Type="varchar(max)" />
+          <Property Name="SampleTxt" Type="varchar(max)" />
+          <Property Name="ShippingIssueTxt" Type="varchar(max)" />
+          <Property Name="TransferredCall" Type="varchar(max)" />
+          <Property Name="TransferredCallTxt" Type="varchar(max)" />
+          <Property Name="OtherHandlingTxt" Type="varchar(max)" />
+          <Property Name="VerifiedPHI" Type="bit" Nullable="false" />
+          <Property Name="VoiceForHealth" Type="bit" Nullable="false" />
+          <Property Name="Copay" Type="bit" Nullable="false" />
+          <Property Name="Billing" Type="bit" Nullable="false" />
+          <Property Name="Address" Type="bit" Nullable="false" />
+          <Property Name="Physician" Type="bit" Nullable="false" />
+          <Property Name="assmnt_Diab" Type="bit" Nullable="false" />
+          <Property Name="assmnt_Insulin" Type="bit" Nullable="false" />
+          <Property Name="Phone" Type="bit" Nullable="false" />
+          <Property Name="AOB" Type="bit" Nullable="false" />
+          <Property Name="RxForm" Type="bit" Nullable="false" />
+          <Property Name="Prescription" Type="bit" Nullable="false" />
+          <Property Name="PriorAuthorization" Type="bit" Nullable="false" />
+          <Property Name="SupportingDoc" Type="bit" Nullable="false" />
+          <Property Name="AOBReceived" Type="bit" Nullable="false" />
+          <Property Name="RXReceived" Type="bit" Nullable="false" />
+          <Property Name="PASent" Type="bit" Nullable="false" />
+          <Property Name="PAReceived" Type="bit" Nullable="false" />
+          <Property Name="ClinicalDocsReq" Type="bit" Nullable="false" />
+          <Property Name="ClinicalDocsReceived" Type="bit" Nullable="false" />
+          <Property Name="InsuarnceChanges " Type="bit" Nullable="false" />
+          <Property Name="NewAcconunt" Type="bit" Nullable="false" />
+          <Property Name="Restart" Type="bit" Nullable="false" />
+          <Property Name="OrderConfirmation" Type="bit" Nullable="false" />
+          <Property Name="FedExOrUSPSTracking" Type="bit" Nullable="false" />
+          <Property Name="OrderShipped" Type="bit" Nullable="false" />
+          <Property Name="OrderETA" Type="bit" Nullable="false" />
+          <Property Name="OrderHolding" Type="bit" Nullable="false" />
+          <Property Name="RWOCreated" Type="bit" Nullable="false" />
+          <Property Name="PC_IncreaseOrDecrease" Type="bit" Nullable="false" />
+          <Property Name="PC_Hold" Type="bit" Nullable="false" />
+          <Property Name="PC_RemoveOrAdd" Type="bit" Nullable="false" />
+          <Property Name="ProductChange" Type="bit" Nullable="false" />
+          <Property Name="DefectiveProductOrNotUsable" Type="bit" Nullable="false" />
+          <Property Name="WrongOrExtraProductShipped" Type="bit" Nullable="false" />
+          <Property Name="MissingProduct" Type="bit" Nullable="false" />
+          <Property Name="ShippingOther" Type="bit" Nullable="false" />
+          <Property Name="ReturnedCall_LeftVoicemail" Type="bit" Nullable="false" />
+          <Property Name="WrongNumber" Type="bit" Nullable="false" />
+          <Property Name="SentReqPurchasing" Type="bit" Nullable="false" />
+          <Property Name="AccountDeactivate" Type="bit" Nullable="false" />
+          <Property Name="ComplaintOutcome" Type="varchar(max)" />
+          <Property Name="TrackingNumber" Type="varchar(max)" />
+          <Property Name="WorkOrder" Type="varchar(max)" />
+          <Property Name="Damaged" Type="bit" Nullable="false" />
+          <Property Name="Driver" Type="bit" Nullable="false" />
+          <Property Name="WrongProductShipped" Type="bit" Nullable="false" />
+          <Property Name="QualityOfProdut" Type="bit" Nullable="false" />
+          <Property Name="WrongArea" Type="bit" Nullable="false" />
+          <Property Name="Incorrect" Type="bit" Nullable="false" />
+          <Property Name="MisPick" Type="bit" Nullable="false" />
+          <Property Name="Complain_MissingProduct" Type="bit" Nullable="false" />
+          <Property Name="ProductDefective" Type="bit" Nullable="false" />
+          <Property Name="ImpoliteORoffensive" Type="bit" Nullable="false" />
+          <Property Name="HoldTimes" Type="bit" Nullable="false" />
+          <Property Name="FedExOrUSPSTrackingNumber" Type="varchar" MaxLength="50" />
+          <Property Name="ComplaintsOthers" Type="varchar" MaxLength="200" />
+          <Property Name="SampleChoice" Type="bit" Nullable="false" />
+          <Property Name="SampleOrderSent" Type="bit" Nullable="false" />
+          <Property Name="SampleTask" Type="bit" Nullable="false" />
+          <Property Name="Other_CallHandling" Type="bit" Nullable="false" />
+          <Property Name="Call" Type="bit" Nullable="false" />
+          <Property Name="Task" Type="bit" Nullable="false" />
+          <Property Name="Web" Type="bit" Nullable="false" />
+          <Property Name="Fax" Type="bit" Nullable="false" />
+          <Property Name="Email" Type="bit" Nullable="false" />
+          <Property Name="LogTypeOther" Type="bit" Nullable="false" />
+          <Property Name="Other" Type="bit" Nullable="false" />
+          <Property Name="NoPresORCMN" Type="bit" Nullable="false" />
+          <Property Name="NoFollowUp" Type="bit" Nullable="false" />
+          <Property Name="PhonePrompts_SelfService" Type="bit" Nullable="false" />
+          <Property Name="Julie_VictorCalls" Type="bit" Nullable="false" />
+          <Property Name="EligMedicare" Type="bit" />
+          <Property Name="EligMedicaid" Type="bit" />
+          <Property Name="EligOther" Type="bit" />
+          <Property Name="InsIdMedicare" Type="varchar(max)" />
+          <Property Name="InsIdMedicaid" Type="varchar(max)" />
+          <Property Name="InsIdOther" Type="varchar(max)" />
+          <Property Name="MadePayment" Type="bit" />
+          <Property Name="Assmnt_completedtxt" Type="varchar(max)" />
+          <Property Name="Assmnt_reltomember" Type="varchar(max)" />
+          <Property Name="Assmnt_edudoneby" Type="varchar(max)" />
+          <Property Name="Assmnt_memtrained" Type="bit" />
+          <Property Name="Assmnt_physicianforsupp" Type="varchar(max)" />
+          <Property Name="Assmnt_currsuppfrom" Type="varchar(max)" />
+          <Property Name="Assmnt_lastorderrecieveddt" Type="varchar(max)" />
+          <Property Name="Assmnt_supporderfrom" Type="varchar(max)" />
+          <Property Name="Assmnt_Ord30or90" Type="int" />
+          <Property Name="Assmnt_remsupplies" Type="varchar(max)" />
+          <Property Name="Assmnt_neworexistdiab" Type="varchar(max)" />
+          <Property Name="Assmnt_Testingtimesdiab" Type="int" />
+          <Property Name="Assmnt_InsulinTreateddiab" Type="bit" />
+          <Property Name="Assmnt_nameofinsulindiab" Type="varchar(max)" />
+          <Property Name="Assmnt_pregduedatediab" Type="datetime" />
+          <Property Name="Assmnt_pregexistingdiab" Type="varchar(max)" />
+          <Property Name="Assmnt_currmeterdiab" Type="varchar(max)" />
+          <Property Name="Assmnt_meterservicediab" Type="varchar(max)" />
+          <Property Name="Assmnt_diffmeterdiab" Type="varchar(max)" />
+          <Property Name="Assmnt_talkingmeterdiab" Type="varchar(max)" />
+          <Property Name="Assmnt_lancetsservicediab" Type="varchar(max)" />
+          <Property Name="Assmnt_injsuppliesdiab" Type="bit" />
+          <Property Name="Assmnt_injfromothersuppdiab" Type="bit" />
+          <Property Name="Assmnt_injothersupptxtdiab" Type="varchar(max)" />
+          <Property Name="Assmnt_syrwtneedlediab" Type="bit" />
+          <Property Name="Assmnt_syrwtneedle_gaugediab" Type="int" />
+          <Property Name="Assmnt_syrwtneedle_lendiab" Type="int" />
+          <Property Name="Assmnt_syrwtneedle_unitsdiab" Type="int" />
+          <Property Name="Assmnt_syrwtneedle_qtydiab" Type="int" />
+          <Property Name="Assmnt_needleonly_diab" Type="bit" />
+          <Property Name="Assmnt_needleonly_gauge" Type="int" />
+          <Property Name="Assmnt_needleonly_len" Type="int" />
+          <Property Name="Assmnt_needleonly_qty" Type="int" />
+          <Property Name="Assmnt_alcoholwipes" Type="bit" />
+          <Property Name="assmnt_ketonediab" Type="bit" />
+          <Property Name="Assmnt_alcoholwp_othersuppdiab" Type="bit" />
+          <Property Name="Assmnt_UrineKetonediab" Type="bit" />
+          <Property Name="Assmnt_UrineKetone_Freqtestingdiab" Type="int" />
+          <Property Name="Assmnt_BloodKetone_Freqtestingdiab" Type="int" />
+          <Property Name="Assmnt_BloodKetonediab" Type="bit" />
+          <Property Name="Assmnt_diagnosedCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_InsTreatedCGM" Type="bit" />
+          <Property Name="Assmnt_InsTreatedTypeCGM" Type="varchar" MaxLength="10" />
+          <Property Name="Assmnt_reqpumpCGM" Type="bit" />
+          <Property Name="Assmnt_reqpumpsuppCGM" Type="bit" />
+          <Property Name="Assmnt_pumpothersuppCGM" Type="bit" />
+          <Property Name="Assmnt_pumpothersupptxtCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_neworreplacementCGM" Type="varchar" MaxLength="10" />
+          <Property Name="Assmnt_manufacturerCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_currpumpnmCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_serialnumCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_outofwarrantydtCGM" Type="datetime" />
+          <Property Name="Assmnt_InsurancepaidforCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_NewPumpNameCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_NewPumpColorCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_PumpReplacereasonCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_meterusedCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_InfusionsetCGM" Type="bit" />
+          <Property Name="Assmnt_InfusionsettxtCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_catridgesCGM" Type="bit" />
+          <Property Name="Assmnt_catridgestxtCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_catridgesoftnchngtxtCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_BarrierWipesCGM" Type="bit" />
+          <Property Name="Assmnt_RemoverWipesCGM" Type="bit" />
+          <Property Name="Assmnt_AlcoholWipesCGM" Type="bit" />
+          <Property Name="Assmnt_TransparentdressingCGM" Type="bit" />
+          <Property Name="Assmnt_BatteriesCGM" Type="bit" />
+          <Property Name="Assmnt_memownedorusedCGM" Type="bit" />
+          <Property Name="Assmnt_memcurronCGM" Type="bit" />
+          <Property Name="Assmnt_transmitter_dtreceivedCGM" Type="datetime" />
+          <Property Name="Assmnt_transmitter_outofwarrantydtCGM" Type="datetime" />
+          <Property Name="Assmnt_transmitter_serialnoCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_receiver_dtreceivedCGM" Type="datetime" />
+          <Property Name="Assmnt_receiver_outofwarrantydtCGM" Type="datetime" />
+          <Property Name="Assmnt_receiver_serialnoCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_memneedtransmitterCGM" Type="bit" />
+          <Property Name="Assmnt_memneedreceiverCGM" Type="bit" />
+          <Property Name="Assmnt_memneedsensorsCGM" Type="bit" />
+          <Property Name="Assmnt_othersupplierCGM" Type="bit" />
+          <Property Name="Assmnt_othersuppliertxtCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_transmittertypeCGM" Type="varchar" MaxLength="30" />
+          <Property Name="Assmnt_receivertypeCGM" Type="varchar" MaxLength="30" />
+          <Property Name="Assmnt_transmitorreceiver_replacementreasonCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_sensorsforprodcodeCGM" Type="varchar(max)" />
+          <Property Name="Assmnt_memawareofsignCGM" Type="bit" />
+          <Property Name="Assmnt_nameofinsulindiab_Other" Type="varchar" MaxLength="100" />
+          <Property Name="OrderStatus" Type="varchar" MaxLength="100" />
+          <Property Name="OrderDropShipped" Type="bit" />
+          <Property Name="Assmnt_receiver_ProductCode" Type="varchar" MaxLength="200" />
+          <Property Name="Assmnt_transmitter_ProductCode" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tbl_CSRCallLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefNum" Type="varchar(max)" />
+          <Property Name="Account" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="CallDuration" Type="varchar(max)" />
+          <Property Name="Name" Type="varchar(max)" />
+          <Property Name="Relation" Type="varchar(max)" />
+          <Property Name="OtherRelName" Type="varchar(max)" />
+          <Property Name="BillingTxt" Type="varchar(max)" />
+          <Property Name="DocumentationTxt" Type="varchar(max)" />
+          <Property Name="DemographicChangesTxt" Type="varchar(max)" />
+          <Property Name="TypeSupplies_1" Type="varchar(max)" />
+          <Property Name="TypeSupplies_2" Type="varchar(max)" />
+          <Property Name="TypeSuppliesOther" Type="varchar(max)" />
+          <Property Name="ShippingOthersName" Type="varchar(max)" />
+          <Property Name="InsuranceChangeTxt" Type="varchar(max)" />
+          <Property Name="NewAccountTxt" Type="varchar(max)" />
+          <Property Name="OrderConfirmationTxt" Type="varchar(max)" />
+          <Property Name="OrderStatusTxt" Type="varchar(max)" />
+          <Property Name="RWOChangeTxt" Type="varchar(max)" />
+          <Property Name="SampleTxt" Type="varchar(max)" />
+          <Property Name="ShippingIssueTxt" Type="varchar(max)" />
+          <Property Name="TransferredCall" Type="varchar(max)" />
+          <Property Name="TransferredCallTxt" Type="varchar(max)" />
+          <Property Name="OtherHandlingTxt" Type="varchar(max)" />
+          <Property Name="VerifiedPHI" Type="bit" Nullable="false" />
+          <Property Name="VoiceForHealth" Type="bit" Nullable="false" />
+          <Property Name="Eligibility" Type="bit" Nullable="false" />
+          <Property Name="Copay" Type="bit" Nullable="false" />
+          <Property Name="Billing" Type="bit" Nullable="false" />
+          <Property Name="Address" Type="bit" Nullable="false" />
+          <Property Name="Physician" Type="bit" Nullable="false" />
+          <Property Name="Phone" Type="bit" Nullable="false" />
+          <Property Name="AOB" Type="bit" Nullable="false" />
+          <Property Name="Prescription" Type="bit" Nullable="false" />
+          <Property Name="CMN" Type="bit" Nullable="false" />
+          <Property Name="PriorAuthorization" Type="bit" Nullable="false" />
+          <Property Name="SupportingDoc" Type="bit" Nullable="false" />
+          <Property Name="TeacherLetter" Type="bit" Nullable="false" />
+          <Property Name="ABN" Type="bit" Nullable="false" />
+          <Property Name="Logs" Type="bit" Nullable="false" />
+          <Property Name="InsuarnceChanges " Type="bit" Nullable="false" />
+          <Property Name="NewAcconunt" Type="bit" Nullable="false" />
+          <Property Name="Restart" Type="bit" Nullable="false" />
+          <Property Name="OrderConfirmation" Type="bit" Nullable="false" />
+          <Property Name="FedExOrUSPSTracking" Type="bit" Nullable="false" />
+          <Property Name="OrderShipped" Type="bit" Nullable="false" />
+          <Property Name="OrderETA" Type="bit" Nullable="false" />
+          <Property Name="OrderHolding" Type="bit" Nullable="false" />
+          <Property Name="RWOCreated" Type="bit" Nullable="false" />
+          <Property Name="PC_IncreaseOrDecrease" Type="bit" Nullable="false" />
+          <Property Name="PC_Hold" Type="bit" Nullable="false" />
+          <Property Name="PC_RemoveOrAdd" Type="bit" Nullable="false" />
+          <Property Name="ProductChange" Type="bit" Nullable="false" />
+          <Property Name="DefectiveProductOrNotUsable" Type="bit" Nullable="false" />
+          <Property Name="WrongOrExtraProductShipped" Type="bit" Nullable="false" />
+          <Property Name="MissingProduct" Type="bit" Nullable="false" />
+          <Property Name="ShippingOther" Type="bit" Nullable="false" />
+          <Property Name="ReturnedCall_LeftVoicemail" Type="bit" Nullable="false" />
+          <Property Name="WrongNumber" Type="bit" Nullable="false" />
+          <Property Name="Nursing_CSRassessment" Type="bit" Nullable="false" />
+          <Property Name="AccountDeactivate" Type="bit" Nullable="false" />
+          <Property Name="ComplaintOutcome" Type="varchar(max)" />
+          <Property Name="TrackingNumber" Type="varchar(max)" />
+          <Property Name="WorkOrder" Type="varchar(max)" />
+          <Property Name="Damaged" Type="bit" Nullable="false" />
+          <Property Name="Driver" Type="bit" Nullable="false" />
+          <Property Name="WrongProductShipped" Type="bit" Nullable="false" />
+          <Property Name="QualityOfProdut" Type="bit" Nullable="false" />
+          <Property Name="WrongArea" Type="bit" Nullable="false" />
+          <Property Name="OtherIssue_MissingProduct" Type="bit" Nullable="false" />
+          <Property Name="FedExTxt" Type="varchar(max)" />
+          <Property Name="ProductIncrease" Type="bit" Nullable="false" />
+          <Property Name="ProductMispick" Type="bit" Nullable="false" />
+          <Property Name="ProductDefective" Type="bit" Nullable="false" />
+          <Property Name="ProductTxt" Type="varchar(max)" />
+          <Property Name="ImpoliteORoffensive" Type="bit" Nullable="false" />
+          <Property Name="HoldTimes" Type="bit" Nullable="false" />
+          <Property Name="customerServiceTxt" Type="varchar(max)" />
+          <Property Name="OtherTxt" Type="varchar(max)" />
+          <Property Name="FedExOrUSPSTrackingNumber" Type="varchar" MaxLength="50" />
+          <Property Name="SampleChoice" Type="bit" Nullable="false" />
+          <Property Name="SampleTask" Type="bit" Nullable="false" />
+          <Property Name="Other_CallHandling" Type="bit" Nullable="false" />
+          <Property Name="LMN" Type="bit" Nullable="false" />
+          <Property Name="Call" Type="bit" Nullable="false" />
+          <Property Name="Task" Type="bit" Nullable="false" />
+          <Property Name="Web" Type="bit" Nullable="false" />
+          <Property Name="Fax" Type="bit" Nullable="false" />
+          <Property Name="Email" Type="bit" Nullable="false" />
+          <Property Name="LogTypeOther" Type="bit" Nullable="false" />
+          <Property Name="Product" Type="varchar" MaxLength="100" />
+          <Property Name="DeliveryCompany" Type="varchar" MaxLength="100" />
+          <Property Name="BCNProvider" Type="varchar" MaxLength="100" />
+          <Property Name="Other" Type="bit" Nullable="false" />
+          <Property Name="BCNProviderIssue" Type="bit" Nullable="false" />
+          <Property Name="InsLimitGuidelines" Type="bit" Nullable="false" />
+          <Property Name="PhysicianIssue" Type="bit" Nullable="false" />
+          <Property Name="NeverRecivedSupplies" Type="bit" Nullable="false" />
+          <Property Name="NoFollowUpWithMem" Type="bit" Nullable="false" />
+          <Property Name="ReturnedFromVM" Type="bit" Nullable="false" />
+          <Property Name="NoFollowUp" Type="bit" Nullable="false" />
+          <Property Name="Website" Type="bit" Nullable="false" />
+          <Property Name="VirtualCallBack" Type="bit" Nullable="false" />
+          <Property Name="SAJamesSelfService" Type="bit" Nullable="false" />
+          <Property Name="SAJamesPhonePromts" Type="bit" Nullable="false" />
+          <Property Name="VPaymentCalles" Type="bit" Nullable="false" />
+          <Property Name="VConfirmationCalls" Type="bit" Nullable="false" />
+          <Property Name="DidntFollowDelIns" Type="bit" Nullable="false" />
+          <Property Name="CivilRight" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_CSRComplaintLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="PayerType" Type="varchar(max)" />
+          <Property Name="TrackingNumber" Type="varchar(max)" />
+          <Property Name="Damaged" Type="bit" />
+          <Property Name="Driver" Type="bit" />
+          <Property Name="WrongProductShipped" Type="bit" />
+          <Property Name="QualityOfProdut" Type="bit" />
+          <Property Name="WrongArea" Type="bit" />
+          <Property Name="MissingProduct" Type="bit" />
+          <Property Name="FedExTxt" Type="varchar(max)" />
+          <Property Name="ProductIncrease" Type="bit" />
+          <Property Name="ProductMispick" Type="bit" />
+          <Property Name="ProductDefective" Type="bit" />
+          <Property Name="ProductTxt" Type="varchar(max)" />
+          <Property Name="ImpoliteORoffensive" Type="bit" />
+          <Property Name="HoldTimes" Type="bit" />
+          <Property Name="customerServiceTxt" Type="varchar(max)" />
+          <Property Name="OtherTxt" Type="varchar(max)" />
+          <Property Name="ComplaintHasBeen" Type="varchar(max)" />
+          <Property Name="Product" Type="varchar" MaxLength="100" />
+          <Property Name="DeliveryCompany" Type="varchar" MaxLength="100" />
+          <Property Name="BCNProvider" Type="varchar" MaxLength="100" />
+          <Property Name="Other" Type="bit" Nullable="false" />
+          <Property Name="BCNProviderIssue" Type="bit" Nullable="false" />
+          <Property Name="InsLimitGuidelines" Type="bit" Nullable="false" />
+          <Property Name="PhysicianIssue" Type="bit" Nullable="false" />
+          <Property Name="NeverRecivedSupplies" Type="bit" Nullable="false" />
+          <Property Name="NoFollowUpWithMem" Type="bit" Nullable="false" />
+          <Property Name="ReturnedFromVM" Type="bit" Nullable="false" />
+          <Property Name="NoFollowUp" Type="bit" Nullable="false" />
+          <Property Name="Website" Type="bit" Nullable="false" />
+          <Property Name="VirtualCallBack" Type="bit" Nullable="false" />
+          <Property Name="SAJamesSelfService" Type="bit" Nullable="false" />
+          <Property Name="SAJamesPhonePromts" Type="bit" Nullable="false" />
+          <Property Name="VPaymentCalles" Type="bit" Nullable="false" />
+          <Property Name="VConfirmationCalls" Type="bit" Nullable="false" />
+          <Property Name="DidntFollowDelIns" Type="bit" Nullable="false" />
+          <Property Name="ComplaintDate" Type="datetime" />
+          <Property Name="ResolutionDate" Type="datetime" />
+          <Property Name="InitialRespDate" Type="datetime" />
+          <Property Name="WrittenRespDate" Type="datetime" />
+          <Property Name="IssueDate" Type="datetime" />
+          <Property Name="Call" Type="bit" />
+          <Property Name="Email" Type="bit" />
+          <Property Name="Fax" Type="bit" />
+          <Property Name="Mail" Type="bit" />
+          <Property Name="CallRcvdWebsite" Type="bit" />
+          <Property Name="SocialMedia" Type="bit" />
+          <Property Name="InsCompany" Type="bit" />
+          <Property Name="CallRcvdOther" Type="bit" />
+          <Property Name="ComplaintProduct" Type="bit" />
+          <Property Name="ComplaintShipping" Type="bit" />
+          <Property Name="ComplaintService" Type="bit" />
+          <Property Name="ComplaintSmartAction" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbl_CSRInsDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="430" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="State" Type="varchar" MaxLength="100" />
+          <Property Name="VerifiedThrough" Type="varchar(max)" />
+          <Property Name="NameMatched" Type="bit" Nullable="false" />
+          <Property Name="NameNotMatched" Type="bit" Nullable="false" />
+          <Property Name="EffectiveDate" Type="datetime" />
+          <Property Name="TermDate" Type="datetime" />
+          <Property Name="BenefitPlan" Type="varchar(max)" />
+          <Property Name="LevelOfCare" Type="varchar(max)" />
+          <Property Name="COBnOtherIns" Type="varchar(max)" />
+          <Property Name="InNetwork" Type="bit" Nullable="false" />
+          <Property Name="OutofNetwork" Type="bit" Nullable="false" />
+          <Property Name="Deductible" Type="money" />
+          <Property Name="OutofPocketMax" Type="money" />
+          <Property Name="CopayCoins" Type="varchar(max)" />
+          <Property Name="CopayCoinsWaived" Type="bit" Nullable="false" />
+          <Property Name="CopayCoinsNotWaived" Type="bit" Nullable="false" />
+          <Property Name="DME" Type="bit" Nullable="false" />
+          <Property Name="Medical" Type="bit" Nullable="false" />
+          <Property Name="Pharmacy" Type="bit" Nullable="false" />
+          <Property Name="Medicaid" Type="bit" Nullable="false" />
+          <Property Name="Medicare" Type="bit" Nullable="false" />
+          <Property Name="Other" Type="bit" Nullable="false" />
+          <Property Name="HCPCnQtyLimitations" Type="varchar(max)" />
+          <Property Name="HHE" Type="bit" Nullable="false" />
+          <Property Name="Hospice" Type="bit" Nullable="false" />
+          <Property Name="Hospital" Type="bit" Nullable="false" />
+          <Property Name="NursingHome" Type="bit" Nullable="false" />
+          <Property Name="MemEnrollNone" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="IntranetModelStoreContainer">
+          <EntitySet Name="AOB_track" EntityType="Self.AOB_track" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="assessment_log" EntityType="Self.assessment_log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BCBS_ProviderList" EntityType="Self.BCBS_ProviderList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHAMPS_Adj_Codes" EntityType="Self.CHAMPS_Adj_Codes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHAMPS_Error_Codes" EntityType="Self.CHAMPS_Error_Codes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHAMPS_Remit_Codes" EntityType="Self.CHAMPS_Remit_Codes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Eligibility_Orders" EntityType="Self.Eligibility_Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RWO_Product_Substitutions" EntityType="Self.RWO_Product_Substitutions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_BCNCallLog" EntityType="Self.tbl_BCNCallLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_CSRCallLog" EntityType="Self.tbl_CSRCallLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_CSRComplaintLog" EntityType="Self.tbl_CSRComplaintLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_CSRInsDetail" EntityType="Self.tbl_CSRInsDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHAMPS_Ignore_Errors" EntityType="Self.CHAMPS_Ignore_Errors" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CHAMPS_Ignore_Errors].[cieID] AS [cieID], 
+    [CHAMPS_Ignore_Errors].[cieCode] AS [cieCode], 
+    [CHAMPS_Ignore_Errors].[cieAdded] AS [cieAdded], 
+    [CHAMPS_Ignore_Errors].[cieAddedBy] AS [cieAddedBy], 
+    [CHAMPS_Ignore_Errors].[cieDeleted] AS [cieDeleted], 
+    [CHAMPS_Ignore_Errors].[cieDeletedBy] AS [cieDeletedBy]
+    FROM [dbo].[CHAMPS_Ignore_Errors] AS [CHAMPS_Ignore_Errors]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Employees_New" EntityType="Self.Employees_New" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Employees_New].[empID] AS [empID], 
+    [Employees_New].[empLogin] AS [empLogin], 
+    [Employees_New].[empEmail] AS [empEmail], 
+    [Employees_New].[empFullName] AS [empFullName], 
+    [Employees_New].[empManager] AS [empManager], 
+    [Employees_New].[empTeamLeader] AS [empTeamLeader], 
+    [Employees_New].[empCanEnterTicket] AS [empCanEnterTicket], 
+    [Employees_New].[empDepartment] AS [empDepartment], 
+    [Employees_New].[empTeam] AS [empTeam], 
+    [Employees_New].[empAdded] AS [empAdded], 
+    [Employees_New].[empRemoved] AS [empRemoved], 
+    [Employees_New].[empAutoUpdate] AS [empAutoUpdate], 
+    [Employees_New].[empSort] AS [empSort], 
+    [Employees_New].[empPhone] AS [empPhone], 
+    [Employees_New].[empPOSid] AS [empPOSid]
+    FROM [dbo].[Employees_New] AS [Employees_New]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="IndianaMedicaidSurvey" EntityType="Self.IndianaMedicaidSurvey" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [IndianaMedicaidSurvey].[imsID] AS [imsID], 
+    [IndianaMedicaidSurvey].[imsQ1] AS [imsQ1], 
+    [IndianaMedicaidSurvey].[imsQ2] AS [imsQ2], 
+    [IndianaMedicaidSurvey].[imsQ3] AS [imsQ3], 
+    [IndianaMedicaidSurvey].[imsQ4] AS [imsQ4], 
+    [IndianaMedicaidSurvey].[imsQ5] AS [imsQ5], 
+    [IndianaMedicaidSurvey].[imsQ6] AS [imsQ6], 
+    [IndianaMedicaidSurvey].[imsName] AS [imsName], 
+    [IndianaMedicaidSurvey].[imsAddress] AS [imsAddress], 
+    [IndianaMedicaidSurvey].[imsComment] AS [imsComment], 
+    [IndianaMedicaidSurvey].[imsEnteredDate] AS [imsEnteredDate], 
+    [IndianaMedicaidSurvey].[imsEnteredBy] AS [imsEnteredBy]
+    FROM [dbo].[IndianaMedicaidSurvey] AS [IndianaMedicaidSurvey]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IntranetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="assessment_log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_Number" Type="Int32" />
+          <Property Name="Initial_Assessment" Type="Byte" />
+          <Property Name="Update_Assessment" Type="Byte" />
+          <Property Name="Update_PCU" Type="Byte" />
+          <Property Name="OneTime_PA" Type="Byte" />
+          <Property Name="Initial_PA_Process" Type="Byte" />
+          <Property Name="POS_RWO_Created" Type="Byte" />
+          <Property Name="Faxes_to_State" Type="Byte" />
+          <Property Name="LM_Letter" Type="Byte" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="User_ID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="IntranetEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="assessment_log" EntityType="Self.assessment_log" />
+          <EntitySet Name="Employees_New" EntityType="IntranetModel.Employees_New" />
+          <EntitySet Name="CHAMPS_Adj_Codes" EntityType="IntranetModel.CHAMPS_Adj_Codes" />
+          <EntitySet Name="CHAMPS_Error_Codes" EntityType="IntranetModel.CHAMPS_Error_Codes" />
+          <EntitySet Name="CHAMPS_Remit_Codes" EntityType="IntranetModel.CHAMPS_Remit_Codes" />
+          <EntitySet Name="CHAMPS_Ignore_Errors" EntityType="IntranetModel.CHAMPS_Ignore_Errors" />
+          <EntitySet Name="RWO_Product_Substitutions" EntityType="IntranetModel.RWO_Product_Substitutions" />
+          <EntitySet Name="IndianaMedicaidSurveys" EntityType="IntranetModel.IndianaMedicaidSurvey" />
+          <EntitySet Name="Eligibility_Orders" EntityType="IntranetModel.Eligibility_Orders" />
+          <EntitySet Name="tbl_CSRComplaintLog" EntityType="IntranetModel.tbl_CSRComplaintLog" />
+          <EntitySet Name="AOB_track" EntityType="IntranetModel.AOB_track" />
+          <EntitySet Name="tbl_CSRInsDetail" EntityType="IntranetModel.tbl_CSRInsDetail" />
+          <EntitySet Name="BCBS_ProviderList" EntityType="IntranetModel.BCBS_ProviderList" />
+          <EntitySet Name="tbl_BCNCallLog" EntityType="IntranetModel.tbl_BCNCallLog" />
+          <EntitySet Name="tbl_CSRCallLog" EntityType="IntranetModel.tbl_CSRCallLog" />
+        </EntityContainer>
+        <EntityType Name="Employees_New">
+          <Key>
+            <PropertyRef Name="empID" />
+          </Key>
+          <Property Name="empID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="empLogin" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="empEmail" Type="String" MaxLength="40" FixedLength="true" Unicode="true" />
+          <Property Name="empFullName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="empManager" Type="Byte" />
+          <Property Name="empTeamLeader" Type="Byte" />
+          <Property Name="empCanEnterTicket" Type="Byte" />
+          <Property Name="empDepartment" Type="Int32" />
+          <Property Name="empTeam" Type="Int32" />
+          <Property Name="empAdded" Type="DateTime" Precision="3" />
+          <Property Name="empRemoved" Type="DateTime" Precision="3" />
+          <Property Name="empAutoUpdate" Type="DateTime" Precision="3" />
+          <Property Name="empSort" Type="Byte" />
+          <Property Name="empPhone" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="empPOSid" Type="Double" />
+        </EntityType>
+        <EntityType Name="CHAMPS_Adj_Codes">
+          <Key>
+            <PropertyRef Name="adjCode" />
+          </Key>
+          <Property Name="adjCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="adjDescription" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CHAMPS_Error_Codes">
+          <Key>
+            <PropertyRef Name="errCode" />
+          </Key>
+          <Property Name="errCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="errShortDesc" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="errRemitCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="errAdjCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="errHighlight" Type="Byte" />
+        </EntityType>
+        <EntityType Name="CHAMPS_Remit_Codes">
+          <Key>
+            <PropertyRef Name="remCode" />
+          </Key>
+          <Property Name="remCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="remDescription" Type="String" MaxLength="300" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CHAMPS_Ignore_Errors">
+          <Key>
+            <PropertyRef Name="cieID" />
+          </Key>
+          <Property Name="cieID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cieCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cieAdded" Type="DateTime" Precision="3" />
+          <Property Name="cieAddedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="cieDeleted" Type="DateTime" Precision="3" />
+          <Property Name="cieDeletedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RWO_Product_Substitutions">
+          <Key>
+            <PropertyRef Name="subID" />
+          </Key>
+          <Property Name="subID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subOldProd" Type="Int32" />
+          <Property Name="subNewProd" Type="Int32" />
+          <Property Name="subDL" Type="Int32" />
+          <Property Name="subAddComment" Type="Byte" />
+          <Property Name="subRWOcount" Type="Int32" />
+          <Property Name="subAdded" Type="DateTime" Precision="3" />
+          <Property Name="subAddedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="subApproved" Type="DateTime" Precision="3" />
+          <Property Name="subApprovedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="subDenied" Type="DateTime" Precision="3" />
+          <Property Name="subDeniedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="subDeleted" Type="DateTime" Precision="3" />
+          <Property Name="subDeletedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="subOldProdQty" Type="Int32" />
+          <Property Name="subNewProdQty" Type="Int32" />
+          <Property Name="QtyOldProd" Type="Int32" />
+          <Property Name="QtyNewProd" Type="Int32" />
+          <Property Name="allProds" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IndianaMedicaidSurvey">
+          <Key>
+            <PropertyRef Name="imsID" />
+          </Key>
+          <Property Name="imsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imsQ1" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="imsQ2" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="imsQ3" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="imsQ4" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="imsQ5" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="imsQ6" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="imsName" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="imsAddress" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="imsComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="imsEnteredDate" Type="DateTime" Precision="3" />
+          <Property Name="imsEnteredBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Eligibility_Orders">
+          <Key>
+            <PropertyRef Name="ordID" />
+          </Key>
+          <Property Name="ordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ordELRid" Type="Int32" />
+          <Property Name="ordWOId" Type="Int32" />
+          <Property Name="ordAdded" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_CSRComplaintLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="PayerType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TrackingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Damaged" Type="Boolean" />
+          <Property Name="Driver" Type="Boolean" />
+          <Property Name="WrongProductShipped" Type="Boolean" />
+          <Property Name="QualityOfProdut" Type="Boolean" />
+          <Property Name="WrongArea" Type="Boolean" />
+          <Property Name="MissingProduct" Type="Boolean" />
+          <Property Name="FedExTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProductIncrease" Type="Boolean" />
+          <Property Name="ProductMispick" Type="Boolean" />
+          <Property Name="ProductDefective" Type="Boolean" />
+          <Property Name="ProductTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ImpoliteORoffensive" Type="Boolean" />
+          <Property Name="HoldTimes" Type="Boolean" />
+          <Property Name="customerServiceTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OtherTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ComplaintHasBeen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Product" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryCompany" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BCNProvider" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Other" Type="Boolean" Nullable="false" />
+          <Property Name="BCNProviderIssue" Type="Boolean" Nullable="false" />
+          <Property Name="InsLimitGuidelines" Type="Boolean" Nullable="false" />
+          <Property Name="PhysicianIssue" Type="Boolean" Nullable="false" />
+          <Property Name="NeverRecivedSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="NoFollowUpWithMem" Type="Boolean" Nullable="false" />
+          <Property Name="ReturnedFromVM" Type="Boolean" Nullable="false" />
+          <Property Name="NoFollowUp" Type="Boolean" Nullable="false" />
+          <Property Name="Website" Type="Boolean" Nullable="false" />
+          <Property Name="VirtualCallBack" Type="Boolean" Nullable="false" />
+          <Property Name="SAJamesSelfService" Type="Boolean" Nullable="false" />
+          <Property Name="SAJamesPhonePromts" Type="Boolean" Nullable="false" />
+          <Property Name="VPaymentCalles" Type="Boolean" Nullable="false" />
+          <Property Name="VConfirmationCalls" Type="Boolean" Nullable="false" />
+          <Property Name="DidntFollowDelIns" Type="Boolean" Nullable="false" />
+          <Property Name="ComplaintDate" Type="DateTime" Precision="3" />
+          <Property Name="ResolutionDate" Type="DateTime" Precision="3" />
+          <Property Name="InitialRespDate" Type="DateTime" Precision="3" />
+          <Property Name="WrittenRespDate" Type="DateTime" Precision="3" />
+          <Property Name="IssueDate" Type="DateTime" Precision="3" />
+          <Property Name="Call" Type="Boolean" />
+          <Property Name="Email" Type="Boolean" />
+          <Property Name="Fax" Type="Boolean" />
+          <Property Name="Mail" Type="Boolean" />
+          <Property Name="CallRcvdWebsite" Type="Boolean" />
+          <Property Name="SocialMedia" Type="Boolean" />
+          <Property Name="InsCompany" Type="Boolean" />
+          <Property Name="CallRcvdOther" Type="Boolean" />
+          <Property Name="ComplaintProduct" Type="Boolean" />
+          <Property Name="ComplaintShipping" Type="Boolean" />
+          <Property Name="ComplaintService" Type="Boolean" />
+          <Property Name="ComplaintSmartAction" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="AOB_track">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Uploaded" Type="Boolean" Nullable="false" />
+          <Property Name="Account" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_CSRInsDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="430" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="VerifiedThrough" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NameMatched" Type="Boolean" Nullable="false" />
+          <Property Name="NameNotMatched" Type="Boolean" Nullable="false" />
+          <Property Name="EffectiveDate" Type="DateTime" Precision="3" />
+          <Property Name="TermDate" Type="DateTime" Precision="3" />
+          <Property Name="BenefitPlan" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LevelOfCare" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="COBnOtherIns" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InNetwork" Type="Boolean" Nullable="false" />
+          <Property Name="OutofNetwork" Type="Boolean" Nullable="false" />
+          <Property Name="Deductible" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OutofPocketMax" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CopayCoins" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CopayCoinsWaived" Type="Boolean" Nullable="false" />
+          <Property Name="CopayCoinsNotWaived" Type="Boolean" Nullable="false" />
+          <Property Name="DME" Type="Boolean" Nullable="false" />
+          <Property Name="Medical" Type="Boolean" Nullable="false" />
+          <Property Name="Pharmacy" Type="Boolean" Nullable="false" />
+          <Property Name="Medicaid" Type="Boolean" Nullable="false" />
+          <Property Name="Medicare" Type="Boolean" Nullable="false" />
+          <Property Name="Other" Type="Boolean" Nullable="false" />
+          <Property Name="HCPCnQtyLimitations" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="HHE" Type="Boolean" Nullable="false" />
+          <Property Name="Hospice" Type="Boolean" Nullable="false" />
+          <Property Name="Hospital" Type="Boolean" Nullable="false" />
+          <Property Name="NursingHome" Type="Boolean" Nullable="false" />
+          <Property Name="MemEnrollNone" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BCBS_ProviderList">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="HDMSID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_BCNCallLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="CallDuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Mem_FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mem_LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mem_Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Mem_Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mem_DOB" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Mem_City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mem_State" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Mem_ZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Primary_Physician" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Provider" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Mem_County" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Mem_Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="WebAccountCreated" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Manufacturer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Relation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OtherRelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BillingTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentationTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DemographicChangesTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TypeSupplies_1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TypeSupplies_2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TypeSuppliesOther" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShippingOthersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InsuranceChangeTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NewAccountTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OrderConfirmationTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OrderStatusTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RWOChangeTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SampleTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShippingIssueTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TransferredCall" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TransferredCallTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OtherHandlingTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VerifiedPHI" Type="Boolean" Nullable="false" />
+          <Property Name="VoiceForHealth" Type="Boolean" Nullable="false" />
+          <Property Name="Copay" Type="Boolean" Nullable="false" />
+          <Property Name="Billing" Type="Boolean" Nullable="false" />
+          <Property Name="Address" Type="Boolean" Nullable="false" />
+          <Property Name="Physician" Type="Boolean" Nullable="false" />
+          <Property Name="assmnt_Diab" Type="Boolean" Nullable="false" />
+          <Property Name="assmnt_Insulin" Type="Boolean" Nullable="false" />
+          <Property Name="Phone" Type="Boolean" Nullable="false" />
+          <Property Name="AOB" Type="Boolean" Nullable="false" />
+          <Property Name="RxForm" Type="Boolean" Nullable="false" />
+          <Property Name="Prescription" Type="Boolean" Nullable="false" />
+          <Property Name="PriorAuthorization" Type="Boolean" Nullable="false" />
+          <Property Name="SupportingDoc" Type="Boolean" Nullable="false" />
+          <Property Name="AOBReceived" Type="Boolean" Nullable="false" />
+          <Property Name="RXReceived" Type="Boolean" Nullable="false" />
+          <Property Name="PASent" Type="Boolean" Nullable="false" />
+          <Property Name="PAReceived" Type="Boolean" Nullable="false" />
+          <Property Name="ClinicalDocsReq" Type="Boolean" Nullable="false" />
+          <Property Name="ClinicalDocsReceived" Type="Boolean" Nullable="false" />
+          <Property Name="InsuarnceChanges_" Type="Boolean" Nullable="false" />
+          <Property Name="NewAcconunt" Type="Boolean" Nullable="false" />
+          <Property Name="Restart" Type="Boolean" Nullable="false" />
+          <Property Name="OrderConfirmation" Type="Boolean" Nullable="false" />
+          <Property Name="FedExOrUSPSTracking" Type="Boolean" Nullable="false" />
+          <Property Name="OrderShipped" Type="Boolean" Nullable="false" />
+          <Property Name="OrderETA" Type="Boolean" Nullable="false" />
+          <Property Name="OrderHolding" Type="Boolean" Nullable="false" />
+          <Property Name="RWOCreated" Type="Boolean" Nullable="false" />
+          <Property Name="PC_IncreaseOrDecrease" Type="Boolean" Nullable="false" />
+          <Property Name="PC_Hold" Type="Boolean" Nullable="false" />
+          <Property Name="PC_RemoveOrAdd" Type="Boolean" Nullable="false" />
+          <Property Name="ProductChange" Type="Boolean" Nullable="false" />
+          <Property Name="DefectiveProductOrNotUsable" Type="Boolean" Nullable="false" />
+          <Property Name="WrongOrExtraProductShipped" Type="Boolean" Nullable="false" />
+          <Property Name="MissingProduct" Type="Boolean" Nullable="false" />
+          <Property Name="ShippingOther" Type="Boolean" Nullable="false" />
+          <Property Name="ReturnedCall_LeftVoicemail" Type="Boolean" Nullable="false" />
+          <Property Name="WrongNumber" Type="Boolean" Nullable="false" />
+          <Property Name="SentReqPurchasing" Type="Boolean" Nullable="false" />
+          <Property Name="AccountDeactivate" Type="Boolean" Nullable="false" />
+          <Property Name="ComplaintOutcome" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TrackingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="WorkOrder" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Damaged" Type="Boolean" Nullable="false" />
+          <Property Name="Driver" Type="Boolean" Nullable="false" />
+          <Property Name="WrongProductShipped" Type="Boolean" Nullable="false" />
+          <Property Name="QualityOfProdut" Type="Boolean" Nullable="false" />
+          <Property Name="WrongArea" Type="Boolean" Nullable="false" />
+          <Property Name="Incorrect" Type="Boolean" Nullable="false" />
+          <Property Name="MisPick" Type="Boolean" Nullable="false" />
+          <Property Name="Complain_MissingProduct" Type="Boolean" Nullable="false" />
+          <Property Name="ProductDefective" Type="Boolean" Nullable="false" />
+          <Property Name="ImpoliteORoffensive" Type="Boolean" Nullable="false" />
+          <Property Name="HoldTimes" Type="Boolean" Nullable="false" />
+          <Property Name="FedExOrUSPSTrackingNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ComplaintsOthers" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SampleChoice" Type="Boolean" Nullable="false" />
+          <Property Name="SampleOrderSent" Type="Boolean" Nullable="false" />
+          <Property Name="SampleTask" Type="Boolean" Nullable="false" />
+          <Property Name="Other_CallHandling" Type="Boolean" Nullable="false" />
+          <Property Name="Call" Type="Boolean" Nullable="false" />
+          <Property Name="Task" Type="Boolean" Nullable="false" />
+          <Property Name="Web" Type="Boolean" Nullable="false" />
+          <Property Name="Fax" Type="Boolean" Nullable="false" />
+          <Property Name="Email" Type="Boolean" Nullable="false" />
+          <Property Name="LogTypeOther" Type="Boolean" Nullable="false" />
+          <Property Name="Other" Type="Boolean" Nullable="false" />
+          <Property Name="NoPresORCMN" Type="Boolean" Nullable="false" />
+          <Property Name="NoFollowUp" Type="Boolean" Nullable="false" />
+          <Property Name="PhonePrompts_SelfService" Type="Boolean" Nullable="false" />
+          <Property Name="Julie_VictorCalls" Type="Boolean" Nullable="false" />
+          <Property Name="EligMedicare" Type="Boolean" />
+          <Property Name="EligMedicaid" Type="Boolean" />
+          <Property Name="EligOther" Type="Boolean" />
+          <Property Name="InsIdMedicare" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InsIdMedicaid" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InsIdOther" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MadePayment" Type="Boolean" />
+          <Property Name="Assmnt_completedtxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_reltomember" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_edudoneby" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_memtrained" Type="Boolean" />
+          <Property Name="Assmnt_physicianforsupp" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_currsuppfrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_lastorderrecieveddt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_supporderfrom" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_Ord30or90" Type="Int32" />
+          <Property Name="Assmnt_remsupplies" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_neworexistdiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_Testingtimesdiab" Type="Int32" />
+          <Property Name="Assmnt_InsulinTreateddiab" Type="Boolean" />
+          <Property Name="Assmnt_nameofinsulindiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_pregduedatediab" Type="DateTime" Precision="3" />
+          <Property Name="Assmnt_pregexistingdiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_currmeterdiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_meterservicediab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_diffmeterdiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_talkingmeterdiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_lancetsservicediab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_injsuppliesdiab" Type="Boolean" />
+          <Property Name="Assmnt_injfromothersuppdiab" Type="Boolean" />
+          <Property Name="Assmnt_injothersupptxtdiab" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_syrwtneedlediab" Type="Boolean" />
+          <Property Name="Assmnt_syrwtneedle_gaugediab" Type="Int32" />
+          <Property Name="Assmnt_syrwtneedle_lendiab" Type="Int32" />
+          <Property Name="Assmnt_syrwtneedle_unitsdiab" Type="Int32" />
+          <Property Name="Assmnt_syrwtneedle_qtydiab" Type="Int32" />
+          <Property Name="Assmnt_needleonly_diab" Type="Boolean" />
+          <Property Name="Assmnt_needleonly_gauge" Type="Int32" />
+          <Property Name="Assmnt_needleonly_len" Type="Int32" />
+          <Property Name="Assmnt_needleonly_qty" Type="Int32" />
+          <Property Name="Assmnt_alcoholwipes" Type="Boolean" />
+          <Property Name="assmnt_ketonediab" Type="Boolean" />
+          <Property Name="Assmnt_alcoholwp_othersuppdiab" Type="Boolean" />
+          <Property Name="Assmnt_UrineKetonediab" Type="Boolean" />
+          <Property Name="Assmnt_UrineKetone_Freqtestingdiab" Type="Int32" />
+          <Property Name="Assmnt_BloodKetone_Freqtestingdiab" Type="Int32" />
+          <Property Name="Assmnt_BloodKetonediab" Type="Boolean" />
+          <Property Name="Assmnt_diagnosedCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_InsTreatedCGM" Type="Boolean" />
+          <Property Name="Assmnt_InsTreatedTypeCGM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_reqpumpCGM" Type="Boolean" />
+          <Property Name="Assmnt_reqpumpsuppCGM" Type="Boolean" />
+          <Property Name="Assmnt_pumpothersuppCGM" Type="Boolean" />
+          <Property Name="Assmnt_pumpothersupptxtCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_neworreplacementCGM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_manufacturerCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_currpumpnmCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_serialnumCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_outofwarrantydtCGM" Type="DateTime" Precision="3" />
+          <Property Name="Assmnt_InsurancepaidforCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_NewPumpNameCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_NewPumpColorCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_PumpReplacereasonCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_meterusedCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_InfusionsetCGM" Type="Boolean" />
+          <Property Name="Assmnt_InfusionsettxtCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_catridgesCGM" Type="Boolean" />
+          <Property Name="Assmnt_catridgestxtCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_catridgesoftnchngtxtCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_BarrierWipesCGM" Type="Boolean" />
+          <Property Name="Assmnt_RemoverWipesCGM" Type="Boolean" />
+          <Property Name="Assmnt_AlcoholWipesCGM" Type="Boolean" />
+          <Property Name="Assmnt_TransparentdressingCGM" Type="Boolean" />
+          <Property Name="Assmnt_BatteriesCGM" Type="Boolean" />
+          <Property Name="Assmnt_memownedorusedCGM" Type="Boolean" />
+          <Property Name="Assmnt_memcurronCGM" Type="Boolean" />
+          <Property Name="Assmnt_transmitter_dtreceivedCGM" Type="DateTime" Precision="3" />
+          <Property Name="Assmnt_transmitter_outofwarrantydtCGM" Type="DateTime" Precision="3" />
+          <Property Name="Assmnt_transmitter_serialnoCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_receiver_dtreceivedCGM" Type="DateTime" Precision="3" />
+          <Property Name="Assmnt_receiver_outofwarrantydtCGM" Type="DateTime" Precision="3" />
+          <Property Name="Assmnt_receiver_serialnoCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_memneedtransmitterCGM" Type="Boolean" />
+          <Property Name="Assmnt_memneedreceiverCGM" Type="Boolean" />
+          <Property Name="Assmnt_memneedsensorsCGM" Type="Boolean" />
+          <Property Name="Assmnt_othersupplierCGM" Type="Boolean" />
+          <Property Name="Assmnt_othersuppliertxtCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_transmittertypeCGM" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_receivertypeCGM" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_transmitorreceiver_replacementreasonCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_sensorsforprodcodeCGM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_memawareofsignCGM" Type="Boolean" />
+          <Property Name="Assmnt_nameofinsulindiab_Other" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OrderStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OrderDropShipped" Type="Boolean" />
+          <Property Name="Assmnt_receiver_ProductCode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Assmnt_transmitter_ProductCode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_CSRCallLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Account" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="CallDuration" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Relation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OtherRelName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BillingTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentationTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DemographicChangesTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TypeSupplies_1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TypeSupplies_2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TypeSuppliesOther" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShippingOthersName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InsuranceChangeTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NewAccountTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OrderConfirmationTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OrderStatusTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RWOChangeTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SampleTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShippingIssueTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TransferredCall" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TransferredCallTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OtherHandlingTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VerifiedPHI" Type="Boolean" Nullable="false" />
+          <Property Name="VoiceForHealth" Type="Boolean" Nullable="false" />
+          <Property Name="Eligibility" Type="Boolean" Nullable="false" />
+          <Property Name="Copay" Type="Boolean" Nullable="false" />
+          <Property Name="Billing" Type="Boolean" Nullable="false" />
+          <Property Name="Address" Type="Boolean" Nullable="false" />
+          <Property Name="Physician" Type="Boolean" Nullable="false" />
+          <Property Name="Phone" Type="Boolean" Nullable="false" />
+          <Property Name="AOB" Type="Boolean" Nullable="false" />
+          <Property Name="Prescription" Type="Boolean" Nullable="false" />
+          <Property Name="CMN" Type="Boolean" Nullable="false" />
+          <Property Name="PriorAuthorization" Type="Boolean" Nullable="false" />
+          <Property Name="SupportingDoc" Type="Boolean" Nullable="false" />
+          <Property Name="TeacherLetter" Type="Boolean" Nullable="false" />
+          <Property Name="ABN" Type="Boolean" Nullable="false" />
+          <Property Name="Logs" Type="Boolean" Nullable="false" />
+          <Property Name="InsuarnceChanges_" Type="Boolean" Nullable="false" />
+          <Property Name="NewAcconunt" Type="Boolean" Nullable="false" />
+          <Property Name="Restart" Type="Boolean" Nullable="false" />
+          <Property Name="OrderConfirmation" Type="Boolean" Nullable="false" />
+          <Property Name="FedExOrUSPSTracking" Type="Boolean" Nullable="false" />
+          <Property Name="OrderShipped" Type="Boolean" Nullable="false" />
+          <Property Name="OrderETA" Type="Boolean" Nullable="false" />
+          <Property Name="OrderHolding" Type="Boolean" Nullable="false" />
+          <Property Name="RWOCreated" Type="Boolean" Nullable="false" />
+          <Property Name="PC_IncreaseOrDecrease" Type="Boolean" Nullable="false" />
+          <Property Name="PC_Hold" Type="Boolean" Nullable="false" />
+          <Property Name="PC_RemoveOrAdd" Type="Boolean" Nullable="false" />
+          <Property Name="ProductChange" Type="Boolean" Nullable="false" />
+          <Property Name="DefectiveProductOrNotUsable" Type="Boolean" Nullable="false" />
+          <Property Name="WrongOrExtraProductShipped" Type="Boolean" Nullable="false" />
+          <Property Name="MissingProduct" Type="Boolean" Nullable="false" />
+          <Property Name="ShippingOther" Type="Boolean" Nullable="false" />
+          <Property Name="ReturnedCall_LeftVoicemail" Type="Boolean" Nullable="false" />
+          <Property Name="WrongNumber" Type="Boolean" Nullable="false" />
+          <Property Name="Nursing_CSRassessment" Type="Boolean" Nullable="false" />
+          <Property Name="AccountDeactivate" Type="Boolean" Nullable="false" />
+          <Property Name="ComplaintOutcome" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TrackingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="WorkOrder" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Damaged" Type="Boolean" Nullable="false" />
+          <Property Name="Driver" Type="Boolean" Nullable="false" />
+          <Property Name="WrongProductShipped" Type="Boolean" Nullable="false" />
+          <Property Name="QualityOfProdut" Type="Boolean" Nullable="false" />
+          <Property Name="WrongArea" Type="Boolean" Nullable="false" />
+          <Property Name="OtherIssue_MissingProduct" Type="Boolean" Nullable="false" />
+          <Property Name="FedExTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProductIncrease" Type="Boolean" Nullable="false" />
+          <Property Name="ProductMispick" Type="Boolean" Nullable="false" />
+          <Property Name="ProductDefective" Type="Boolean" Nullable="false" />
+          <Property Name="ProductTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ImpoliteORoffensive" Type="Boolean" Nullable="false" />
+          <Property Name="HoldTimes" Type="Boolean" Nullable="false" />
+          <Property Name="customerServiceTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OtherTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FedExOrUSPSTrackingNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SampleChoice" Type="Boolean" Nullable="false" />
+          <Property Name="SampleTask" Type="Boolean" Nullable="false" />
+          <Property Name="Other_CallHandling" Type="Boolean" Nullable="false" />
+          <Property Name="LMN" Type="Boolean" Nullable="false" />
+          <Property Name="Call" Type="Boolean" Nullable="false" />
+          <Property Name="Task" Type="Boolean" Nullable="false" />
+          <Property Name="Web" Type="Boolean" Nullable="false" />
+          <Property Name="Fax" Type="Boolean" Nullable="false" />
+          <Property Name="Email" Type="Boolean" Nullable="false" />
+          <Property Name="LogTypeOther" Type="Boolean" Nullable="false" />
+          <Property Name="Product" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryCompany" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BCNProvider" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Other" Type="Boolean" Nullable="false" />
+          <Property Name="BCNProviderIssue" Type="Boolean" Nullable="false" />
+          <Property Name="InsLimitGuidelines" Type="Boolean" Nullable="false" />
+          <Property Name="PhysicianIssue" Type="Boolean" Nullable="false" />
+          <Property Name="NeverRecivedSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="NoFollowUpWithMem" Type="Boolean" Nullable="false" />
+          <Property Name="ReturnedFromVM" Type="Boolean" Nullable="false" />
+          <Property Name="NoFollowUp" Type="Boolean" Nullable="false" />
+          <Property Name="Website" Type="Boolean" Nullable="false" />
+          <Property Name="VirtualCallBack" Type="Boolean" Nullable="false" />
+          <Property Name="SAJamesSelfService" Type="Boolean" Nullable="false" />
+          <Property Name="SAJamesPhonePromts" Type="Boolean" Nullable="false" />
+          <Property Name="VPaymentCalles" Type="Boolean" Nullable="false" />
+          <Property Name="VConfirmationCalls" Type="Boolean" Nullable="false" />
+          <Property Name="DidntFollowDelIns" Type="Boolean" Nullable="false" />
+          <Property Name="CivilRight" Type="Boolean" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IntranetModelStoreContainer" CdmEntityContainer="IntranetEntities">
+          <EntitySetMapping Name="assessment_log">
+            <EntityTypeMapping TypeName="IntranetModel.assessment_log">
+              <MappingFragment StoreEntitySet="assessment_log">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Account_Number" ColumnName="Account_Number" />
+                <ScalarProperty Name="Initial_Assessment" ColumnName="Initial_Assessment" />
+                <ScalarProperty Name="Update_Assessment" ColumnName="Update_Assessment" />
+                <ScalarProperty Name="Update_PCU" ColumnName="Update_PCU" />
+                <ScalarProperty Name="OneTime_PA" ColumnName="OneTime_PA" />
+                <ScalarProperty Name="Initial_PA_Process" ColumnName="Initial_PA_Process" />
+                <ScalarProperty Name="POS_RWO_Created" ColumnName="POS_RWO_Created" />
+                <ScalarProperty Name="Faxes_to_State" ColumnName="Faxes_to_State" />
+                <ScalarProperty Name="LM_Letter" ColumnName="LM_Letter" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees_New">
+            <EntityTypeMapping TypeName="IntranetModel.Employees_New">
+              <MappingFragment StoreEntitySet="Employees_New">
+                <ScalarProperty Name="empPOSid" ColumnName="empPOSid" />
+                <ScalarProperty Name="empPhone" ColumnName="empPhone" />
+                <ScalarProperty Name="empSort" ColumnName="empSort" />
+                <ScalarProperty Name="empAutoUpdate" ColumnName="empAutoUpdate" />
+                <ScalarProperty Name="empRemoved" ColumnName="empRemoved" />
+                <ScalarProperty Name="empAdded" ColumnName="empAdded" />
+                <ScalarProperty Name="empTeam" ColumnName="empTeam" />
+                <ScalarProperty Name="empDepartment" ColumnName="empDepartment" />
+                <ScalarProperty Name="empCanEnterTicket" ColumnName="empCanEnterTicket" />
+                <ScalarProperty Name="empTeamLeader" ColumnName="empTeamLeader" />
+                <ScalarProperty Name="empManager" ColumnName="empManager" />
+                <ScalarProperty Name="empFullName" ColumnName="empFullName" />
+                <ScalarProperty Name="empEmail" ColumnName="empEmail" />
+                <ScalarProperty Name="empLogin" ColumnName="empLogin" />
+                <ScalarProperty Name="empID" ColumnName="empID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHAMPS_Adj_Codes">
+            <EntityTypeMapping TypeName="IntranetModel.CHAMPS_Adj_Codes">
+              <MappingFragment StoreEntitySet="CHAMPS_Adj_Codes">
+                <ScalarProperty Name="adjDescription" ColumnName="adjDescription" />
+                <ScalarProperty Name="adjCode" ColumnName="adjCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHAMPS_Error_Codes">
+            <EntityTypeMapping TypeName="IntranetModel.CHAMPS_Error_Codes">
+              <MappingFragment StoreEntitySet="CHAMPS_Error_Codes">
+                <ScalarProperty Name="errHighlight" ColumnName="errHighlight" />
+                <ScalarProperty Name="errAdjCode" ColumnName="errAdjCode" />
+                <ScalarProperty Name="errRemitCode" ColumnName="errRemitCode" />
+                <ScalarProperty Name="errShortDesc" ColumnName="errShortDesc" />
+                <ScalarProperty Name="errCode" ColumnName="errCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHAMPS_Remit_Codes">
+            <EntityTypeMapping TypeName="IntranetModel.CHAMPS_Remit_Codes">
+              <MappingFragment StoreEntitySet="CHAMPS_Remit_Codes">
+                <ScalarProperty Name="remDescription" ColumnName="remDescription" />
+                <ScalarProperty Name="remCode" ColumnName="remCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHAMPS_Ignore_Errors">
+            <EntityTypeMapping TypeName="IntranetModel.CHAMPS_Ignore_Errors">
+              <MappingFragment StoreEntitySet="CHAMPS_Ignore_Errors">
+                <ScalarProperty Name="cieDeletedBy" ColumnName="cieDeletedBy" />
+                <ScalarProperty Name="cieDeleted" ColumnName="cieDeleted" />
+                <ScalarProperty Name="cieAddedBy" ColumnName="cieAddedBy" />
+                <ScalarProperty Name="cieAdded" ColumnName="cieAdded" />
+                <ScalarProperty Name="cieCode" ColumnName="cieCode" />
+                <ScalarProperty Name="cieID" ColumnName="cieID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RWO_Product_Substitutions">
+            <EntityTypeMapping TypeName="IntranetModel.RWO_Product_Substitutions">
+              <MappingFragment StoreEntitySet="RWO_Product_Substitutions">
+                <ScalarProperty Name="allProds" ColumnName="allProds" />
+                <ScalarProperty Name="QtyNewProd" ColumnName="QtyNewProd" />
+                <ScalarProperty Name="QtyOldProd" ColumnName="QtyOldProd" />
+                <ScalarProperty Name="subNewProdQty" ColumnName="subNewProdQty" />
+                <ScalarProperty Name="subOldProdQty" ColumnName="subOldProdQty" />
+                <ScalarProperty Name="subDeletedBy" ColumnName="subDeletedBy" />
+                <ScalarProperty Name="subDeleted" ColumnName="subDeleted" />
+                <ScalarProperty Name="subDeniedBy" ColumnName="subDeniedBy" />
+                <ScalarProperty Name="subDenied" ColumnName="subDenied" />
+                <ScalarProperty Name="subApprovedBy" ColumnName="subApprovedBy" />
+                <ScalarProperty Name="subApproved" ColumnName="subApproved" />
+                <ScalarProperty Name="subAddedBy" ColumnName="subAddedBy" />
+                <ScalarProperty Name="subAdded" ColumnName="subAdded" />
+                <ScalarProperty Name="subRWOcount" ColumnName="subRWOcount" />
+                <ScalarProperty Name="subAddComment" ColumnName="subAddComment" />
+                <ScalarProperty Name="subDL" ColumnName="subDL" />
+                <ScalarProperty Name="subNewProd" ColumnName="subNewProd" />
+                <ScalarProperty Name="subOldProd" ColumnName="subOldProd" />
+                <ScalarProperty Name="subID" ColumnName="subID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndianaMedicaidSurveys">
+            <EntityTypeMapping TypeName="IntranetModel.IndianaMedicaidSurvey">
+              <MappingFragment StoreEntitySet="IndianaMedicaidSurvey">
+                <ScalarProperty Name="imsEnteredBy" ColumnName="imsEnteredBy" />
+                <ScalarProperty Name="imsEnteredDate" ColumnName="imsEnteredDate" />
+                <ScalarProperty Name="imsComment" ColumnName="imsComment" />
+                <ScalarProperty Name="imsAddress" ColumnName="imsAddress" />
+                <ScalarProperty Name="imsName" ColumnName="imsName" />
+                <ScalarProperty Name="imsQ6" ColumnName="imsQ6" />
+                <ScalarProperty Name="imsQ5" ColumnName="imsQ5" />
+                <ScalarProperty Name="imsQ4" ColumnName="imsQ4" />
+                <ScalarProperty Name="imsQ3" ColumnName="imsQ3" />
+                <ScalarProperty Name="imsQ2" ColumnName="imsQ2" />
+                <ScalarProperty Name="imsQ1" ColumnName="imsQ1" />
+                <ScalarProperty Name="imsID" ColumnName="imsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Eligibility_Orders">
+            <EntityTypeMapping TypeName="IntranetModel.Eligibility_Orders">
+              <MappingFragment StoreEntitySet="Eligibility_Orders">
+                <ScalarProperty Name="ordAdded" ColumnName="ordAdded" />
+                <ScalarProperty Name="ordWOId" ColumnName="ordWOId" />
+                <ScalarProperty Name="ordELRid" ColumnName="ordELRid" />
+                <ScalarProperty Name="ordID" ColumnName="ordID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_CSRComplaintLog">
+            <EntityTypeMapping TypeName="IntranetModel.tbl_CSRComplaintLog">
+              <MappingFragment StoreEntitySet="tbl_CSRComplaintLog">
+                <ScalarProperty Name="ComplaintSmartAction" ColumnName="ComplaintSmartAction" />
+                <ScalarProperty Name="ComplaintService" ColumnName="ComplaintService" />
+                <ScalarProperty Name="ComplaintShipping" ColumnName="ComplaintShipping" />
+                <ScalarProperty Name="ComplaintProduct" ColumnName="ComplaintProduct" />
+                <ScalarProperty Name="CallRcvdOther" ColumnName="CallRcvdOther" />
+                <ScalarProperty Name="InsCompany" ColumnName="InsCompany" />
+                <ScalarProperty Name="SocialMedia" ColumnName="SocialMedia" />
+                <ScalarProperty Name="CallRcvdWebsite" ColumnName="CallRcvdWebsite" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Call" ColumnName="Call" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="WrittenRespDate" ColumnName="WrittenRespDate" />
+                <ScalarProperty Name="InitialRespDate" ColumnName="InitialRespDate" />
+                <ScalarProperty Name="ResolutionDate" ColumnName="ResolutionDate" />
+                <ScalarProperty Name="ComplaintDate" ColumnName="ComplaintDate" />
+                <ScalarProperty Name="DidntFollowDelIns" ColumnName="DidntFollowDelIns" />
+                <ScalarProperty Name="VConfirmationCalls" ColumnName="VConfirmationCalls" />
+                <ScalarProperty Name="VPaymentCalles" ColumnName="VPaymentCalles" />
+                <ScalarProperty Name="SAJamesPhonePromts" ColumnName="SAJamesPhonePromts" />
+                <ScalarProperty Name="SAJamesSelfService" ColumnName="SAJamesSelfService" />
+                <ScalarProperty Name="VirtualCallBack" ColumnName="VirtualCallBack" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="NoFollowUp" ColumnName="NoFollowUp" />
+                <ScalarProperty Name="ReturnedFromVM" ColumnName="ReturnedFromVM" />
+                <ScalarProperty Name="NoFollowUpWithMem" ColumnName="NoFollowUpWithMem" />
+                <ScalarProperty Name="NeverRecivedSupplies" ColumnName="NeverRecivedSupplies" />
+                <ScalarProperty Name="PhysicianIssue" ColumnName="PhysicianIssue" />
+                <ScalarProperty Name="InsLimitGuidelines" ColumnName="InsLimitGuidelines" />
+                <ScalarProperty Name="BCNProviderIssue" ColumnName="BCNProviderIssue" />
+                <ScalarProperty Name="Other" ColumnName="Other" />
+                <ScalarProperty Name="BCNProvider" ColumnName="BCNProvider" />
+                <ScalarProperty Name="DeliveryCompany" ColumnName="DeliveryCompany" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="ComplaintHasBeen" ColumnName="ComplaintHasBeen" />
+                <ScalarProperty Name="OtherTxt" ColumnName="OtherTxt" />
+                <ScalarProperty Name="customerServiceTxt" ColumnName="customerServiceTxt" />
+                <ScalarProperty Name="HoldTimes" ColumnName="HoldTimes" />
+                <ScalarProperty Name="ImpoliteORoffensive" ColumnName="ImpoliteORoffensive" />
+                <ScalarProperty Name="ProductTxt" ColumnName="ProductTxt" />
+                <ScalarProperty Name="ProductDefective" ColumnName="ProductDefective" />
+                <ScalarProperty Name="ProductMispick" ColumnName="ProductMispick" />
+                <ScalarProperty Name="ProductIncrease" ColumnName="ProductIncrease" />
+                <ScalarProperty Name="FedExTxt" ColumnName="FedExTxt" />
+                <ScalarProperty Name="MissingProduct" ColumnName="MissingProduct" />
+                <ScalarProperty Name="WrongArea" ColumnName="WrongArea" />
+                <ScalarProperty Name="QualityOfProdut" ColumnName="QualityOfProdut" />
+                <ScalarProperty Name="WrongProductShipped" ColumnName="WrongProductShipped" />
+                <ScalarProperty Name="Driver" ColumnName="Driver" />
+                <ScalarProperty Name="Damaged" ColumnName="Damaged" />
+                <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
+                <ScalarProperty Name="PayerType" ColumnName="PayerType" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AOB_track">
+            <EntityTypeMapping TypeName="IntranetModel.AOB_track">
+              <MappingFragment StoreEntitySet="AOB_track">
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Uploaded" ColumnName="Uploaded" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_CSRInsDetail">
+            <EntityTypeMapping TypeName="IntranetModel.tbl_CSRInsDetail">
+              <MappingFragment StoreEntitySet="tbl_CSRInsDetail">
+                <ScalarProperty Name="MemEnrollNone" ColumnName="MemEnrollNone" />
+                <ScalarProperty Name="NursingHome" ColumnName="NursingHome" />
+                <ScalarProperty Name="Hospital" ColumnName="Hospital" />
+                <ScalarProperty Name="Hospice" ColumnName="Hospice" />
+                <ScalarProperty Name="HHE" ColumnName="HHE" />
+                <ScalarProperty Name="HCPCnQtyLimitations" ColumnName="HCPCnQtyLimitations" />
+                <ScalarProperty Name="Other" ColumnName="Other" />
+                <ScalarProperty Name="Medicare" ColumnName="Medicare" />
+                <ScalarProperty Name="Medicaid" ColumnName="Medicaid" />
+                <ScalarProperty Name="Pharmacy" ColumnName="Pharmacy" />
+                <ScalarProperty Name="Medical" ColumnName="Medical" />
+                <ScalarProperty Name="DME" ColumnName="DME" />
+                <ScalarProperty Name="CopayCoinsNotWaived" ColumnName="CopayCoinsNotWaived" />
+                <ScalarProperty Name="CopayCoinsWaived" ColumnName="CopayCoinsWaived" />
+                <ScalarProperty Name="CopayCoins" ColumnName="CopayCoins" />
+                <ScalarProperty Name="OutofPocketMax" ColumnName="OutofPocketMax" />
+                <ScalarProperty Name="Deductible" ColumnName="Deductible" />
+                <ScalarProperty Name="OutofNetwork" ColumnName="OutofNetwork" />
+                <ScalarProperty Name="InNetwork" ColumnName="InNetwork" />
+                <ScalarProperty Name="COBnOtherIns" ColumnName="COBnOtherIns" />
+                <ScalarProperty Name="LevelOfCare" ColumnName="LevelOfCare" />
+                <ScalarProperty Name="BenefitPlan" ColumnName="BenefitPlan" />
+                <ScalarProperty Name="TermDate" ColumnName="TermDate" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="NameNotMatched" ColumnName="NameNotMatched" />
+                <ScalarProperty Name="NameMatched" ColumnName="NameMatched" />
+                <ScalarProperty Name="VerifiedThrough" ColumnName="VerifiedThrough" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BCBS_ProviderList">
+            <EntityTypeMapping TypeName="IntranetModel.BCBS_ProviderList">
+              <MappingFragment StoreEntitySet="BCBS_ProviderList">
+                <ScalarProperty Name="HDMSID" ColumnName="HDMSID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_BCNCallLog">
+            <EntityTypeMapping TypeName="IntranetModel.tbl_BCNCallLog">
+              <MappingFragment StoreEntitySet="tbl_BCNCallLog">
+                <ScalarProperty Name="Assmnt_transmitter_ProductCode" ColumnName="Assmnt_transmitter_ProductCode" />
+                <ScalarProperty Name="Assmnt_receiver_ProductCode" ColumnName="Assmnt_receiver_ProductCode" />
+                <ScalarProperty Name="OrderDropShipped" ColumnName="OrderDropShipped" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="Assmnt_nameofinsulindiab_Other" ColumnName="Assmnt_nameofinsulindiab_Other" />
+                <ScalarProperty Name="Assmnt_memawareofsignCGM" ColumnName="Assmnt_memawareofsignCGM" />
+                <ScalarProperty Name="Assmnt_sensorsforprodcodeCGM" ColumnName="Assmnt_sensorsforprodcodeCGM" />
+                <ScalarProperty Name="Assmnt_transmitorreceiver_replacementreasonCGM" ColumnName="Assmnt_transmitorreceiver_replacementreasonCGM" />
+                <ScalarProperty Name="Assmnt_receivertypeCGM" ColumnName="Assmnt_receivertypeCGM" />
+                <ScalarProperty Name="Assmnt_transmittertypeCGM" ColumnName="Assmnt_transmittertypeCGM" />
+                <ScalarProperty Name="Assmnt_othersuppliertxtCGM" ColumnName="Assmnt_othersuppliertxtCGM" />
+                <ScalarProperty Name="Assmnt_othersupplierCGM" ColumnName="Assmnt_othersupplierCGM" />
+                <ScalarProperty Name="Assmnt_memneedsensorsCGM" ColumnName="Assmnt_memneedsensorsCGM" />
+                <ScalarProperty Name="Assmnt_memneedreceiverCGM" ColumnName="Assmnt_memneedreceiverCGM" />
+                <ScalarProperty Name="Assmnt_memneedtransmitterCGM" ColumnName="Assmnt_memneedtransmitterCGM" />
+                <ScalarProperty Name="Assmnt_receiver_serialnoCGM" ColumnName="Assmnt_receiver_serialnoCGM" />
+                <ScalarProperty Name="Assmnt_receiver_outofwarrantydtCGM" ColumnName="Assmnt_receiver_outofwarrantydtCGM" />
+                <ScalarProperty Name="Assmnt_receiver_dtreceivedCGM" ColumnName="Assmnt_receiver_dtreceivedCGM" />
+                <ScalarProperty Name="Assmnt_transmitter_serialnoCGM" ColumnName="Assmnt_transmitter_serialnoCGM" />
+                <ScalarProperty Name="Assmnt_transmitter_outofwarrantydtCGM" ColumnName="Assmnt_transmitter_outofwarrantydtCGM" />
+                <ScalarProperty Name="Assmnt_transmitter_dtreceivedCGM" ColumnName="Assmnt_transmitter_dtreceivedCGM" />
+                <ScalarProperty Name="Assmnt_memcurronCGM" ColumnName="Assmnt_memcurronCGM" />
+                <ScalarProperty Name="Assmnt_memownedorusedCGM" ColumnName="Assmnt_memownedorusedCGM" />
+                <ScalarProperty Name="Assmnt_BatteriesCGM" ColumnName="Assmnt_BatteriesCGM" />
+                <ScalarProperty Name="Assmnt_TransparentdressingCGM" ColumnName="Assmnt_TransparentdressingCGM" />
+                <ScalarProperty Name="Assmnt_AlcoholWipesCGM" ColumnName="Assmnt_AlcoholWipesCGM" />
+                <ScalarProperty Name="Assmnt_RemoverWipesCGM" ColumnName="Assmnt_RemoverWipesCGM" />
+                <ScalarProperty Name="Assmnt_BarrierWipesCGM" ColumnName="Assmnt_BarrierWipesCGM" />
+                <ScalarProperty Name="Assmnt_catridgesoftnchngtxtCGM" ColumnName="Assmnt_catridgesoftnchngtxtCGM" />
+                <ScalarProperty Name="Assmnt_catridgestxtCGM" ColumnName="Assmnt_catridgestxtCGM" />
+                <ScalarProperty Name="Assmnt_catridgesCGM" ColumnName="Assmnt_catridgesCGM" />
+                <ScalarProperty Name="Assmnt_InfusionsettxtCGM" ColumnName="Assmnt_InfusionsettxtCGM" />
+                <ScalarProperty Name="Assmnt_InfusionsetCGM" ColumnName="Assmnt_InfusionsetCGM" />
+                <ScalarProperty Name="Assmnt_meterusedCGM" ColumnName="Assmnt_meterusedCGM" />
+                <ScalarProperty Name="Assmnt_PumpReplacereasonCGM" ColumnName="Assmnt_PumpReplacereasonCGM" />
+                <ScalarProperty Name="Assmnt_NewPumpColorCGM" ColumnName="Assmnt_NewPumpColorCGM" />
+                <ScalarProperty Name="Assmnt_NewPumpNameCGM" ColumnName="Assmnt_NewPumpNameCGM" />
+                <ScalarProperty Name="Assmnt_InsurancepaidforCGM" ColumnName="Assmnt_InsurancepaidforCGM" />
+                <ScalarProperty Name="Assmnt_outofwarrantydtCGM" ColumnName="Assmnt_outofwarrantydtCGM" />
+                <ScalarProperty Name="Assmnt_serialnumCGM" ColumnName="Assmnt_serialnumCGM" />
+                <ScalarProperty Name="Assmnt_currpumpnmCGM" ColumnName="Assmnt_currpumpnmCGM" />
+                <ScalarProperty Name="Assmnt_manufacturerCGM" ColumnName="Assmnt_manufacturerCGM" />
+                <ScalarProperty Name="Assmnt_neworreplacementCGM" ColumnName="Assmnt_neworreplacementCGM" />
+                <ScalarProperty Name="Assmnt_pumpothersupptxtCGM" ColumnName="Assmnt_pumpothersupptxtCGM" />
+                <ScalarProperty Name="Assmnt_pumpothersuppCGM" ColumnName="Assmnt_pumpothersuppCGM" />
+                <ScalarProperty Name="Assmnt_reqpumpsuppCGM" ColumnName="Assmnt_reqpumpsuppCGM" />
+                <ScalarProperty Name="Assmnt_reqpumpCGM" ColumnName="Assmnt_reqpumpCGM" />
+                <ScalarProperty Name="Assmnt_InsTreatedTypeCGM" ColumnName="Assmnt_InsTreatedTypeCGM" />
+                <ScalarProperty Name="Assmnt_InsTreatedCGM" ColumnName="Assmnt_InsTreatedCGM" />
+                <ScalarProperty Name="Assmnt_diagnosedCGM" ColumnName="Assmnt_diagnosedCGM" />
+                <ScalarProperty Name="Assmnt_BloodKetonediab" ColumnName="Assmnt_BloodKetonediab" />
+                <ScalarProperty Name="Assmnt_BloodKetone_Freqtestingdiab" ColumnName="Assmnt_BloodKetone_Freqtestingdiab" />
+                <ScalarProperty Name="Assmnt_UrineKetone_Freqtestingdiab" ColumnName="Assmnt_UrineKetone_Freqtestingdiab" />
+                <ScalarProperty Name="Assmnt_UrineKetonediab" ColumnName="Assmnt_UrineKetonediab" />
+                <ScalarProperty Name="Assmnt_alcoholwp_othersuppdiab" ColumnName="Assmnt_alcoholwp_othersuppdiab" />
+                <ScalarProperty Name="assmnt_ketonediab" ColumnName="assmnt_ketonediab" />
+                <ScalarProperty Name="Assmnt_alcoholwipes" ColumnName="Assmnt_alcoholwipes" />
+                <ScalarProperty Name="Assmnt_needleonly_qty" ColumnName="Assmnt_needleonly_qty" />
+                <ScalarProperty Name="Assmnt_needleonly_len" ColumnName="Assmnt_needleonly_len" />
+                <ScalarProperty Name="Assmnt_needleonly_gauge" ColumnName="Assmnt_needleonly_gauge" />
+                <ScalarProperty Name="Assmnt_needleonly_diab" ColumnName="Assmnt_needleonly_diab" />
+                <ScalarProperty Name="Assmnt_syrwtneedle_qtydiab" ColumnName="Assmnt_syrwtneedle_qtydiab" />
+                <ScalarProperty Name="Assmnt_syrwtneedle_unitsdiab" ColumnName="Assmnt_syrwtneedle_unitsdiab" />
+                <ScalarProperty Name="Assmnt_syrwtneedle_lendiab" ColumnName="Assmnt_syrwtneedle_lendiab" />
+                <ScalarProperty Name="Assmnt_syrwtneedle_gaugediab" ColumnName="Assmnt_syrwtneedle_gaugediab" />
+                <ScalarProperty Name="Assmnt_syrwtneedlediab" ColumnName="Assmnt_syrwtneedlediab" />
+                <ScalarProperty Name="Assmnt_injothersupptxtdiab" ColumnName="Assmnt_injothersupptxtdiab" />
+                <ScalarProperty Name="Assmnt_injfromothersuppdiab" ColumnName="Assmnt_injfromothersuppdiab" />
+                <ScalarProperty Name="Assmnt_injsuppliesdiab" ColumnName="Assmnt_injsuppliesdiab" />
+                <ScalarProperty Name="Assmnt_lancetsservicediab" ColumnName="Assmnt_lancetsservicediab" />
+                <ScalarProperty Name="Assmnt_talkingmeterdiab" ColumnName="Assmnt_talkingmeterdiab" />
+                <ScalarProperty Name="Assmnt_diffmeterdiab" ColumnName="Assmnt_diffmeterdiab" />
+                <ScalarProperty Name="Assmnt_meterservicediab" ColumnName="Assmnt_meterservicediab" />
+                <ScalarProperty Name="Assmnt_currmeterdiab" ColumnName="Assmnt_currmeterdiab" />
+                <ScalarProperty Name="Assmnt_pregexistingdiab" ColumnName="Assmnt_pregexistingdiab" />
+                <ScalarProperty Name="Assmnt_pregduedatediab" ColumnName="Assmnt_pregduedatediab" />
+                <ScalarProperty Name="Assmnt_nameofinsulindiab" ColumnName="Assmnt_nameofinsulindiab" />
+                <ScalarProperty Name="Assmnt_InsulinTreateddiab" ColumnName="Assmnt_InsulinTreateddiab" />
+                <ScalarProperty Name="Assmnt_Testingtimesdiab" ColumnName="Assmnt_Testingtimesdiab" />
+                <ScalarProperty Name="Assmnt_neworexistdiab" ColumnName="Assmnt_neworexistdiab" />
+                <ScalarProperty Name="Assmnt_remsupplies" ColumnName="Assmnt_remsupplies" />
+                <ScalarProperty Name="Assmnt_Ord30or90" ColumnName="Assmnt_Ord30or90" />
+                <ScalarProperty Name="Assmnt_supporderfrom" ColumnName="Assmnt_supporderfrom" />
+                <ScalarProperty Name="Assmnt_lastorderrecieveddt" ColumnName="Assmnt_lastorderrecieveddt" />
+                <ScalarProperty Name="Assmnt_currsuppfrom" ColumnName="Assmnt_currsuppfrom" />
+                <ScalarProperty Name="Assmnt_physicianforsupp" ColumnName="Assmnt_physicianforsupp" />
+                <ScalarProperty Name="Assmnt_memtrained" ColumnName="Assmnt_memtrained" />
+                <ScalarProperty Name="Assmnt_edudoneby" ColumnName="Assmnt_edudoneby" />
+                <ScalarProperty Name="Assmnt_reltomember" ColumnName="Assmnt_reltomember" />
+                <ScalarProperty Name="Assmnt_completedtxt" ColumnName="Assmnt_completedtxt" />
+                <ScalarProperty Name="MadePayment" ColumnName="MadePayment" />
+                <ScalarProperty Name="InsIdOther" ColumnName="InsIdOther" />
+                <ScalarProperty Name="InsIdMedicaid" ColumnName="InsIdMedicaid" />
+                <ScalarProperty Name="InsIdMedicare" ColumnName="InsIdMedicare" />
+                <ScalarProperty Name="EligOther" ColumnName="EligOther" />
+                <ScalarProperty Name="EligMedicaid" ColumnName="EligMedicaid" />
+                <ScalarProperty Name="EligMedicare" ColumnName="EligMedicare" />
+                <ScalarProperty Name="Julie_VictorCalls" ColumnName="Julie_VictorCalls" />
+                <ScalarProperty Name="PhonePrompts_SelfService" ColumnName="PhonePrompts_SelfService" />
+                <ScalarProperty Name="NoFollowUp" ColumnName="NoFollowUp" />
+                <ScalarProperty Name="NoPresORCMN" ColumnName="NoPresORCMN" />
+                <ScalarProperty Name="Other" ColumnName="Other" />
+                <ScalarProperty Name="LogTypeOther" ColumnName="LogTypeOther" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Web" ColumnName="Web" />
+                <ScalarProperty Name="Task" ColumnName="Task" />
+                <ScalarProperty Name="Call" ColumnName="Call" />
+                <ScalarProperty Name="Other_CallHandling" ColumnName="Other_CallHandling" />
+                <ScalarProperty Name="SampleTask" ColumnName="SampleTask" />
+                <ScalarProperty Name="SampleOrderSent" ColumnName="SampleOrderSent" />
+                <ScalarProperty Name="SampleChoice" ColumnName="SampleChoice" />
+                <ScalarProperty Name="ComplaintsOthers" ColumnName="ComplaintsOthers" />
+                <ScalarProperty Name="FedExOrUSPSTrackingNumber" ColumnName="FedExOrUSPSTrackingNumber" />
+                <ScalarProperty Name="HoldTimes" ColumnName="HoldTimes" />
+                <ScalarProperty Name="ImpoliteORoffensive" ColumnName="ImpoliteORoffensive" />
+                <ScalarProperty Name="ProductDefective" ColumnName="ProductDefective" />
+                <ScalarProperty Name="Complain_MissingProduct" ColumnName="Complain_MissingProduct" />
+                <ScalarProperty Name="MisPick" ColumnName="MisPick" />
+                <ScalarProperty Name="Incorrect" ColumnName="Incorrect" />
+                <ScalarProperty Name="WrongArea" ColumnName="WrongArea" />
+                <ScalarProperty Name="QualityOfProdut" ColumnName="QualityOfProdut" />
+                <ScalarProperty Name="WrongProductShipped" ColumnName="WrongProductShipped" />
+                <ScalarProperty Name="Driver" ColumnName="Driver" />
+                <ScalarProperty Name="Damaged" ColumnName="Damaged" />
+                <ScalarProperty Name="WorkOrder" ColumnName="WorkOrder" />
+                <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
+                <ScalarProperty Name="ComplaintOutcome" ColumnName="ComplaintOutcome" />
+                <ScalarProperty Name="AccountDeactivate" ColumnName="AccountDeactivate" />
+                <ScalarProperty Name="SentReqPurchasing" ColumnName="SentReqPurchasing" />
+                <ScalarProperty Name="WrongNumber" ColumnName="WrongNumber" />
+                <ScalarProperty Name="ReturnedCall_LeftVoicemail" ColumnName="ReturnedCall_LeftVoicemail" />
+                <ScalarProperty Name="ShippingOther" ColumnName="ShippingOther" />
+                <ScalarProperty Name="MissingProduct" ColumnName="MissingProduct" />
+                <ScalarProperty Name="WrongOrExtraProductShipped" ColumnName="WrongOrExtraProductShipped" />
+                <ScalarProperty Name="DefectiveProductOrNotUsable" ColumnName="DefectiveProductOrNotUsable" />
+                <ScalarProperty Name="ProductChange" ColumnName="ProductChange" />
+                <ScalarProperty Name="PC_RemoveOrAdd" ColumnName="PC_RemoveOrAdd" />
+                <ScalarProperty Name="PC_Hold" ColumnName="PC_Hold" />
+                <ScalarProperty Name="PC_IncreaseOrDecrease" ColumnName="PC_IncreaseOrDecrease" />
+                <ScalarProperty Name="RWOCreated" ColumnName="RWOCreated" />
+                <ScalarProperty Name="OrderHolding" ColumnName="OrderHolding" />
+                <ScalarProperty Name="OrderETA" ColumnName="OrderETA" />
+                <ScalarProperty Name="OrderShipped" ColumnName="OrderShipped" />
+                <ScalarProperty Name="FedExOrUSPSTracking" ColumnName="FedExOrUSPSTracking" />
+                <ScalarProperty Name="OrderConfirmation" ColumnName="OrderConfirmation" />
+                <ScalarProperty Name="Restart" ColumnName="Restart" />
+                <ScalarProperty Name="NewAcconunt" ColumnName="NewAcconunt" />
+                <ScalarProperty Name="InsuarnceChanges_" ColumnName="InsuarnceChanges " />
+                <ScalarProperty Name="ClinicalDocsReceived" ColumnName="ClinicalDocsReceived" />
+                <ScalarProperty Name="ClinicalDocsReq" ColumnName="ClinicalDocsReq" />
+                <ScalarProperty Name="PAReceived" ColumnName="PAReceived" />
+                <ScalarProperty Name="PASent" ColumnName="PASent" />
+                <ScalarProperty Name="RXReceived" ColumnName="RXReceived" />
+                <ScalarProperty Name="AOBReceived" ColumnName="AOBReceived" />
+                <ScalarProperty Name="SupportingDoc" ColumnName="SupportingDoc" />
+                <ScalarProperty Name="PriorAuthorization" ColumnName="PriorAuthorization" />
+                <ScalarProperty Name="Prescription" ColumnName="Prescription" />
+                <ScalarProperty Name="RxForm" ColumnName="RxForm" />
+                <ScalarProperty Name="AOB" ColumnName="AOB" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="assmnt_Insulin" ColumnName="assmnt_Insulin" />
+                <ScalarProperty Name="assmnt_Diab" ColumnName="assmnt_Diab" />
+                <ScalarProperty Name="Physician" ColumnName="Physician" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Billing" ColumnName="Billing" />
+                <ScalarProperty Name="Copay" ColumnName="Copay" />
+                <ScalarProperty Name="VoiceForHealth" ColumnName="VoiceForHealth" />
+                <ScalarProperty Name="VerifiedPHI" ColumnName="VerifiedPHI" />
+                <ScalarProperty Name="OtherHandlingTxt" ColumnName="OtherHandlingTxt" />
+                <ScalarProperty Name="TransferredCallTxt" ColumnName="TransferredCallTxt" />
+                <ScalarProperty Name="TransferredCall" ColumnName="TransferredCall" />
+                <ScalarProperty Name="ShippingIssueTxt" ColumnName="ShippingIssueTxt" />
+                <ScalarProperty Name="SampleTxt" ColumnName="SampleTxt" />
+                <ScalarProperty Name="RWOChangeTxt" ColumnName="RWOChangeTxt" />
+                <ScalarProperty Name="OrderStatusTxt" ColumnName="OrderStatusTxt" />
+                <ScalarProperty Name="OrderConfirmationTxt" ColumnName="OrderConfirmationTxt" />
+                <ScalarProperty Name="NewAccountTxt" ColumnName="NewAccountTxt" />
+                <ScalarProperty Name="InsuranceChangeTxt" ColumnName="InsuranceChangeTxt" />
+                <ScalarProperty Name="ShippingOthersName" ColumnName="ShippingOthersName" />
+                <ScalarProperty Name="TypeSuppliesOther" ColumnName="TypeSuppliesOther" />
+                <ScalarProperty Name="TypeSupplies_2" ColumnName="TypeSupplies_2" />
+                <ScalarProperty Name="TypeSupplies_1" ColumnName="TypeSupplies_1" />
+                <ScalarProperty Name="DemographicChangesTxt" ColumnName="DemographicChangesTxt" />
+                <ScalarProperty Name="DocumentationTxt" ColumnName="DocumentationTxt" />
+                <ScalarProperty Name="BillingTxt" ColumnName="BillingTxt" />
+                <ScalarProperty Name="OtherRelName" ColumnName="OtherRelName" />
+                <ScalarProperty Name="Relation" ColumnName="Relation" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="WebAccountCreated" ColumnName="WebAccountCreated" />
+                <ScalarProperty Name="Mem_Gender" ColumnName="Mem_Gender" />
+                <ScalarProperty Name="Mem_County" ColumnName="Mem_County" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+                <ScalarProperty Name="Primary_Physician" ColumnName="Primary_Physician" />
+                <ScalarProperty Name="Mem_ZipCode" ColumnName="Mem_ZipCode" />
+                <ScalarProperty Name="Mem_State" ColumnName="Mem_State" />
+                <ScalarProperty Name="Mem_City" ColumnName="Mem_City" />
+                <ScalarProperty Name="Mem_DOB" ColumnName="Mem_DOB" />
+                <ScalarProperty Name="Mem_Address2" ColumnName="Mem_Address2" />
+                <ScalarProperty Name="Mem_Address1" ColumnName="Mem_Address1" />
+                <ScalarProperty Name="Mem_LastName" ColumnName="Mem_LastName" />
+                <ScalarProperty Name="Mem_FirstName" ColumnName="Mem_FirstName" />
+                <ScalarProperty Name="CallDuration" ColumnName="CallDuration" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_CSRCallLog">
+            <EntityTypeMapping TypeName="IntranetModel.tbl_CSRCallLog">
+              <MappingFragment StoreEntitySet="tbl_CSRCallLog">
+                <ScalarProperty Name="CivilRight" ColumnName="CivilRight" />
+                <ScalarProperty Name="DidntFollowDelIns" ColumnName="DidntFollowDelIns" />
+                <ScalarProperty Name="VConfirmationCalls" ColumnName="VConfirmationCalls" />
+                <ScalarProperty Name="VPaymentCalles" ColumnName="VPaymentCalles" />
+                <ScalarProperty Name="SAJamesPhonePromts" ColumnName="SAJamesPhonePromts" />
+                <ScalarProperty Name="SAJamesSelfService" ColumnName="SAJamesSelfService" />
+                <ScalarProperty Name="VirtualCallBack" ColumnName="VirtualCallBack" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="NoFollowUp" ColumnName="NoFollowUp" />
+                <ScalarProperty Name="ReturnedFromVM" ColumnName="ReturnedFromVM" />
+                <ScalarProperty Name="NoFollowUpWithMem" ColumnName="NoFollowUpWithMem" />
+                <ScalarProperty Name="NeverRecivedSupplies" ColumnName="NeverRecivedSupplies" />
+                <ScalarProperty Name="PhysicianIssue" ColumnName="PhysicianIssue" />
+                <ScalarProperty Name="InsLimitGuidelines" ColumnName="InsLimitGuidelines" />
+                <ScalarProperty Name="BCNProviderIssue" ColumnName="BCNProviderIssue" />
+                <ScalarProperty Name="Other" ColumnName="Other" />
+                <ScalarProperty Name="BCNProvider" ColumnName="BCNProvider" />
+                <ScalarProperty Name="DeliveryCompany" ColumnName="DeliveryCompany" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="LogTypeOther" ColumnName="LogTypeOther" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Web" ColumnName="Web" />
+                <ScalarProperty Name="Task" ColumnName="Task" />
+                <ScalarProperty Name="Call" ColumnName="Call" />
+                <ScalarProperty Name="LMN" ColumnName="LMN" />
+                <ScalarProperty Name="Other_CallHandling" ColumnName="Other_CallHandling" />
+                <ScalarProperty Name="SampleTask" ColumnName="SampleTask" />
+                <ScalarProperty Name="SampleChoice" ColumnName="SampleChoice" />
+                <ScalarProperty Name="FedExOrUSPSTrackingNumber" ColumnName="FedExOrUSPSTrackingNumber" />
+                <ScalarProperty Name="OtherTxt" ColumnName="OtherTxt" />
+                <ScalarProperty Name="customerServiceTxt" ColumnName="customerServiceTxt" />
+                <ScalarProperty Name="HoldTimes" ColumnName="HoldTimes" />
+                <ScalarProperty Name="ImpoliteORoffensive" ColumnName="ImpoliteORoffensive" />
+                <ScalarProperty Name="ProductTxt" ColumnName="ProductTxt" />
+                <ScalarProperty Name="ProductDefective" ColumnName="ProductDefective" />
+                <ScalarProperty Name="ProductMispick" ColumnName="ProductMispick" />
+                <ScalarProperty Name="ProductIncrease" ColumnName="ProductIncrease" />
+                <ScalarProperty Name="FedExTxt" ColumnName="FedExTxt" />
+                <ScalarProperty Name="OtherIssue_MissingProduct" ColumnName="OtherIssue_MissingProduct" />
+                <ScalarProperty Name="WrongArea" ColumnName="WrongArea" />
+                <ScalarProperty Name="QualityOfProdut" ColumnName="QualityOfProdut" />
+                <ScalarProperty Name="WrongProductShipped" ColumnName="WrongProductShipped" />
+                <ScalarProperty Name="Driver" ColumnName="Driver" />
+                <ScalarProperty Name="Damaged" ColumnName="Damaged" />
+                <ScalarProperty Name="WorkOrder" ColumnName="WorkOrder" />
+                <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
+                <ScalarProperty Name="ComplaintOutcome" ColumnName="ComplaintOutcome" />
+                <ScalarProperty Name="AccountDeactivate" ColumnName="AccountDeactivate" />
+                <ScalarProperty Name="Nursing_CSRassessment" ColumnName="Nursing_CSRassessment" />
+                <ScalarProperty Name="WrongNumber" ColumnName="WrongNumber" />
+                <ScalarProperty Name="ReturnedCall_LeftVoicemail" ColumnName="ReturnedCall_LeftVoicemail" />
+                <ScalarProperty Name="ShippingOther" ColumnName="ShippingOther" />
+                <ScalarProperty Name="MissingProduct" ColumnName="MissingProduct" />
+                <ScalarProperty Name="WrongOrExtraProductShipped" ColumnName="WrongOrExtraProductShipped" />
+                <ScalarProperty Name="DefectiveProductOrNotUsable" ColumnName="DefectiveProductOrNotUsable" />
+                <ScalarProperty Name="ProductChange" ColumnName="ProductChange" />
+                <ScalarProperty Name="PC_RemoveOrAdd" ColumnName="PC_RemoveOrAdd" />
+                <ScalarProperty Name="PC_Hold" ColumnName="PC_Hold" />
+                <ScalarProperty Name="PC_IncreaseOrDecrease" ColumnName="PC_IncreaseOrDecrease" />
+                <ScalarProperty Name="RWOCreated" ColumnName="RWOCreated" />
+                <ScalarProperty Name="OrderHolding" ColumnName="OrderHolding" />
+                <ScalarProperty Name="OrderETA" ColumnName="OrderETA" />
+                <ScalarProperty Name="OrderShipped" ColumnName="OrderShipped" />
+                <ScalarProperty Name="FedExOrUSPSTracking" ColumnName="FedExOrUSPSTracking" />
+                <ScalarProperty Name="OrderConfirmation" ColumnName="OrderConfirmation" />
+                <ScalarProperty Name="Restart" ColumnName="Restart" />
+                <ScalarProperty Name="NewAcconunt" ColumnName="NewAcconunt" />
+                <ScalarProperty Name="InsuarnceChanges_" ColumnName="InsuarnceChanges " />
+                <ScalarProperty Name="Logs" ColumnName="Logs" />
+                <ScalarProperty Name="ABN" ColumnName="ABN" />
+                <ScalarProperty Name="TeacherLetter" ColumnName="TeacherLetter" />
+                <ScalarProperty Name="SupportingDoc" ColumnName="SupportingDoc" />
+                <ScalarProperty Name="PriorAuthorization" ColumnName="PriorAuthorization" />
+                <ScalarProperty Name="CMN" ColumnName="CMN" />
+                <ScalarProperty Name="Prescription" ColumnName="Prescription" />
+                <ScalarProperty Name="AOB" ColumnName="AOB" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Physician" ColumnName="Physician" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Billing" ColumnName="Billing" />
+                <ScalarProperty Name="Copay" ColumnName="Copay" />
+                <ScalarProperty Name="Eligibility" ColumnName="Eligibility" />
+                <ScalarProperty Name="VoiceForHealth" ColumnName="VoiceForHealth" />
+                <ScalarProperty Name="VerifiedPHI" ColumnName="VerifiedPHI" />
+                <ScalarProperty Name="OtherHandlingTxt" ColumnName="OtherHandlingTxt" />
+                <ScalarProperty Name="TransferredCallTxt" ColumnName="TransferredCallTxt" />
+                <ScalarProperty Name="TransferredCall" ColumnName="TransferredCall" />
+                <ScalarProperty Name="ShippingIssueTxt" ColumnName="ShippingIssueTxt" />
+                <ScalarProperty Name="SampleTxt" ColumnName="SampleTxt" />
+                <ScalarProperty Name="RWOChangeTxt" ColumnName="RWOChangeTxt" />
+                <ScalarProperty Name="OrderStatusTxt" ColumnName="OrderStatusTxt" />
+                <ScalarProperty Name="OrderConfirmationTxt" ColumnName="OrderConfirmationTxt" />
+                <ScalarProperty Name="NewAccountTxt" ColumnName="NewAccountTxt" />
+                <ScalarProperty Name="InsuranceChangeTxt" ColumnName="InsuranceChangeTxt" />
+                <ScalarProperty Name="ShippingOthersName" ColumnName="ShippingOthersName" />
+                <ScalarProperty Name="TypeSuppliesOther" ColumnName="TypeSuppliesOther" />
+                <ScalarProperty Name="TypeSupplies_2" ColumnName="TypeSupplies_2" />
+                <ScalarProperty Name="TypeSupplies_1" ColumnName="TypeSupplies_1" />
+                <ScalarProperty Name="DemographicChangesTxt" ColumnName="DemographicChangesTxt" />
+                <ScalarProperty Name="DocumentationTxt" ColumnName="DocumentationTxt" />
+                <ScalarProperty Name="BillingTxt" ColumnName="BillingTxt" />
+                <ScalarProperty Name="OtherRelName" ColumnName="OtherRelName" />
+                <ScalarProperty Name="Relation" ColumnName="Relation" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CallDuration" ColumnName="CallDuration" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

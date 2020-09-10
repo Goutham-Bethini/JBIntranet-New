@@ -1,0 +1,199 @@
+﻿@model USPS_Report.Areas.Reports.Models.CallLogVM
+
+
+<br />
+    @*<div class=" row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            @Html.DropDownListFor(t => t.NewAccount, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "New Account" , Value = "NewAccount"},
+                    new SelectListItem { Text = "Restart " , Value = "Restart"},
+                  
+               }, "Select Option")
+        </div>
+       
+    </div>*@
+
+    <div class=" row">
+        <div class=" col-md-1"></div>
+        <div class=" col-md-2"> @Html.CheckBoxFor(m => m.NewAccount)<label> New Account</label> </div>
+
+    </div>
+
+    <div class=" row">
+        <div class=" col-md-1"></div>
+        <div class=" col-md-2"> @Html.CheckBoxFor(m => m.Restart)<label> Restart</label> </div>
+
+    </div>
+    
+    <hr />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><strong>Types of Supplies</strong></div>
+        <div class="col-md-2">
+            @Html.DropDownListFor(t => t.TypeSupplies1, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Diabetic Testing" , Value = "DiabeticTesting"},
+                    new SelectListItem { Text = "Enteral" , Value = "Enteral"},
+                    new SelectListItem { Text = "Insulin Pump" , Value = "InsulinPump"},
+                    new SelectListItem { Text = "CGM" , Value = "CGM"},
+                     new SelectListItem { Text = "Incontinence" , Value = "Incontinence"},
+                      new SelectListItem { Text = "Ostomy" , Value = "Ostomy"},
+                        new SelectListItem { Text = "TENS unit/supplies" , Value = "TENSUnitOrSupplies"},
+                         new SelectListItem { Text = "Urological" , Value = "Urological"},
+                           new SelectListItem { Text = "Wound Care" , Value = "WoundCare"},
+                           new SelectListItem { Text = "Supplies not available through insurance" , Value = "SuppliesNotAvailableThroughInsurance"},
+                           new SelectListItem { Text = "Supplies not available through J&B" , Value = "SuppliesNotAvailableThroughJ&B"},
+                        
+
+               }, "Select Option")
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><strong>Types of Supplies</strong></div>
+    <div class="col-md-2">
+        @Html.DropDownListFor(t => t.TypeSupplies2, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Diabetic Testing" , Value = "DiabeticTesting"},
+                    new SelectListItem { Text = "Enteral" , Value = "Enteral"},
+                    new SelectListItem { Text = "Insulin Pump" , Value = "InsulinPump"},
+                    new SelectListItem { Text = "CGM" , Value = "CGM"},
+                     new SelectListItem { Text = "Incontinence" , Value = "Incontinence"},
+                      new SelectListItem { Text = "Ostomy" , Value = "Ostomy"},
+                        new SelectListItem { Text = "TENS unit/supplies" , Value = "TENSUnitOrSupplies"},
+                         new SelectListItem { Text = "Urological" , Value = "Urological"},
+                           new SelectListItem { Text = "Wound Care" , Value = "WoundCare"},
+                           new SelectListItem { Text = "Supplies not available through insurance" , Value = "SuppliesNotAvailableThroughInsurance"},
+                           new SelectListItem { Text = "Supplies not available through J&B" , Value = "SuppliesNotAvailableThroughJ&B"},
+
+
+               }, "Select Option")
+    </div>
+</div>
+
+    <br />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><strong>Other:</strong></div>
+        <div class="col-md-2">
+           @Html.TextBoxFor(m=>m.TypeSuppliesOther)
+        </div>
+    </div>
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.TextAreaFor(m => m.NewAccountTxtArea, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+</div>
+
+
+    @*<hr />
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><strong>Transferred Call</strong></div>
+        <div class="col-md-2">
+            @Html.DropDownListFor(t => t.TransferredCall, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "New Accounts Team" , Value = "NewAccountsTeam"},
+                    new SelectListItem { Text = "Supplies not available through insurance" , Value = "SuppliesNotAvailableThroughInsurance"},
+                    new SelectListItem { Text = " Supplies not available through J&B" , Value = " SuppliesNotAvailableThroughJ&B"},
+                   
+                         new SelectListItem { Text = "Other" , Value = "Other"},
+
+               }, "Select Option")
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.TransferredCallOtherTxt, new { disabled = "disabled" })
+        </div>
+    </div>*@
+
+
+@*<script>
+
+    $('#TransferedcallOther').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#TransferedcallTxt').removeAttr("disabled");
+        } else {
+            $('#TransferedcallTxt').attr("disabled", "disabled")
+        }
+    });
+</script>*@
+
+@*<script>
+
+    $('#NA_Other').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#NA_OtherTxt').removeAttr("disabled");
+        } else {
+            $('#NA_OtherTxt').attr("disabled", "disabled")
+        }
+    });
+</script>*@
+
+@*<script>
+
+    $('#TypeSupplies').click(function () {
+        var $this = $(this);
+
+        if ($this.val()=='Other') {
+            $('#TypeSuppliesOthertxt').removeAttr("disabled");
+        } else {
+            $('#TypeSuppliesOthertxt').attr("disabled", "disabled")
+        }
+    });
+
+
+
+    $('#TransferredCall').click(function () {
+        var $this = $(this);
+
+        if ($this.val() == 'Other') {
+            $('#TransferredCallOtherTxt').removeAttr("disabled");
+        } else {
+            $('#TransferredCallOtherTxt').attr("disabled", "disabled")
+        }
+    });
+
+
+
+</script>*@
+
+<script>
+    $('#NewAccount').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#NewAccountTxtArea').removeAttr("disabled");
+        } else {
+            $('#NewAccountTxtArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Restart').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#NewAccountTxtArea').removeAttr("disabled");
+        } else {
+            $('#NewAccountTxtArea').attr("disabled", "disabled")
+        }
+    });
+</script>

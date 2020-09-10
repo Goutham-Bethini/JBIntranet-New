@@ -1,0 +1,78 @@
+﻿@model USPS_Report.Areas.Reports.Models.QOHSearchDataDetails
+
+@using Kendo.Mvc.UI;
+
+@{
+    ViewBag.Title = "QOHReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    @using (Ajax.BeginForm("QOHReport", "QOH", new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "viewQOHData", InsertionMode = InsertionMode.Replace }))
+    {
+        <div class="well">
+            <div class="form-inline">
+                <form id="QOHForm" data-role="validator" novalidate="novalidate">
+                    <label>HDMS Product Code: </label>
+                    @Html.TextBoxFor(m => m.ProductCode, new { @class = "form-control" })
+                    <button id="savebtn" class="btn btn-primary btn-sm" type="submit"><i class="glyphicon glyphicon-search"> Search</i></button>
+                </form>
+            </div>
+        </div>
+        if (Model.ProductCode != null)
+        {
+            <hr />
+            <div id="viewQOHData" class="well col-md-12">
+                <div class="col-md-12">
+                    @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.QOHDetails>()
+                        .Name("QOHDetails")
+                        .Scrollable()
+                        .Columns(columns =>
+                        {
+                            columns.Bound(c => c.ProductCode).Title("Account").Width(100);
+                            columns.Bound(c => c.ProductDescription).Title("Description").Width(400);
+                            columns.Bound(c => c.Discontinued).Title("Discontinued").Width(100);
+                            columns.Bound(c => c.Qty_Available2).Title("Qty Available in Orc").Width(100);
+                            columns.Bound(c => c.QtyBOToInt).Title("BO'd in HDMS").Width(100);
+                        })
+                             //.ToolBar(tools => tools.Excel())
+                             //.Sortable()
+                             .Pageable()
+                           //.Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                           //.Excel(excel => excel
+                           //     .FileName("QOHReport.xlsx")
+                           //     .AllPages(true)
+                           //     .Filterable(true)
+                           //     .ProxyURL(Url.Action("Excel_Export_Save", "QOH"))
+                           // )
+                           .HtmlAttributes(new { style = "width:470px;" })
+                                .Reorderable(r => r.Columns(true))
+                                .Resizable(r => r.Columns(true))
+                                .ColumnMenu()
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(200)
+                            .ServerOperation(false)
+                            .Read(read => read.Action("ReadQOHDetails", "QOH", Model))
+                        )
+                        .HtmlAttributes(new { style = "height: 200px;" })
+                    )
+                </div>
+                @*@Html.Partial("GetExpiringCMNDetails", Model.ExpiringCMNDetails)*@
+            </div>
+        }
+    }
+</div>
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+</style>
+

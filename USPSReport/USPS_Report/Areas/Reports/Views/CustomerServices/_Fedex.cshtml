@@ -1,0 +1,387 @@
+﻿@model USPS_Report.Areas.Reports.Models.CSRComplaintVM
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <label>  Tracking Number </label>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.TrackingNumber)
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <label>  WorkOrder# </label>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.WorkOrder)
+    </div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <label>  Product# </label>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.Product)
+    </div>
+</div>
+
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <label>  Delivery Company </label>
+    </div>
+    <div class="col-md-2">
+        @Html.DropDownListFor(t => t.DeliveryCompany, new List<SelectListItem>
+
+               {
+                   new SelectListItem { Text = "FedEx" , Value = "FedEx"},
+                   new SelectListItem { Text = "USPS" , Value = "USPS"},
+                      new SelectListItem { Text = "SmartPost", Value = "SmartPost" },
+                    new SelectListItem { Text = "Company Vehicle", Value = "Company Vehicle" },
+
+               }, "Select Option")
+
+
+        @*@Html.TextBoxFor(m => m.DeliveryCompany)*@
+    </div>
+
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <label>  BCN Provider </label>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.BCNProvider)
+    </div>
+</div>
+
+
+
+<hr />
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.Damaged) <label> Damaged Product </label></div>
+
+</div>*@
+<div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">@Html.CheckBoxFor(m => m.ComplaintProduct, new { id = "ComplaintProduct" }) <label> Product </label></div>
+
+    </div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.ComplaintShipping, new { id = "ComplaintShipping" }) <label> Shipping </label></div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.ComplaintService, new { id = "ComplaintService" }) <label> Service </label></div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.ComplaintSmartAction, new { id = "ComplaintSmartAction" }) <label> Smart Action </label></div>
+
+</div>
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.WrongProductShipped) <label> Wrong Product  </label></div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.QualityOfProduct) <label> Quality Of Product </label></div>
+</div>*@
+
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.ProductDefective) <label> Defective Product  </label></div>
+</div>*@
+
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.MissingProduct) <label> Missing Product </label></div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.Driver) <label> Driver Issue </label></div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.DidntFollowDelIns) <label> Did not follow delivery instructions  </label></div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.WrongArea) <label> Delivered to wrong address </label></div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">
+        @Html.CheckBoxFor(m => m.ImpoliteORoffensive) <label>
+            Impolite/Offensive CSR
+        </label>
+    </div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.VConfirmationCalls) <label> Victor Confirmation Calls   </label></div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.VPaymentCalles) <label> Victor Payment Calls    </label></div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.SAJamesPhonePromts) <label> Smart Action/James Phone Prompts     </label></div>
+</div>*@
+
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.SAJamesSelfService) <label>Smart Action/James self service     </label></div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.VirtualCallBack) <label>Virtual Callback feature  </label></div>
+</div>*@
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.Website, new { id = "Website" }) <label>Website </label></div>
+</div>
+
+ 
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.TextAreaFor(m => m.FedExTextArea, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">
+        @Html.CheckBoxFor(m => m.HoldTimes) <label>
+            Hold Times
+        </label>
+    </div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.NoFollowUp) <label>No follow up on account/on documentation</label></div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.ReturnedFromVM) <label>Call not returned from VM</label></div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.NoFollowUpWithMem) <label>No follow up with member </label></div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.CheckBoxFor(m => m.NeverRecivedSupplies) <label>Never received supplies</label></div>
+</div>*@
+
+@*<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-3">@Html.CheckBoxFor(m => m.PhysicianIssue) <label>Physician Issue</label></div>
+</div>*@
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.InsLimitGuidelines, new { id = "InsLimitGuidelines" }) <label>Insurance Related</label></div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.BCNProviderIssue, new { id = "BCNProviderIssue" }) <label>BCN Provider Issue </label></div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">@Html.CheckBoxFor(m => m.Other, new { id = "COther" }) <label>Other </label></div>
+</div>
+  
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-2">@Html.TextAreaFor(m => m.Others,  new { id = "COthers", rows = "6", cols = "40" })</div>
+
+</div>        
+
+
+<script>
+   
+    $('#ComplaintProduct').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#ComplaintShipping').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#ComplaintService').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+    $('#ComplaintSmartAction').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+    
+    $('#Website').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+  
+ 
+    $('#InsLimitGuidelines').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+
+    $('#BCNProviderIssue').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+    $('#Other').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#Others').removeAttr("disabled");
+        } else {
+            $('#Others').attr("disabled", "disabled")
+        }
+    });
+</script>
+@*<script>
+    $('#Damaged').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#FedExTextArea').removeAttr("disabled");
+        } else {
+            $('#FedExTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Driver').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#FedExTextArea').removeAttr("disabled");
+        } else {
+            $('#FedExTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#WrongProductShipped').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#FedExTextArea').removeAttr("disabled");
+        } else {
+            $('#FedExTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#QualityOfProduct').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#FedExTextArea').removeAttr("disabled");
+        } else {
+            $('#FedExTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#WrongArea').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#FedExTextArea').removeAttr("disabled");
+        } else {
+            $('#FedExTextArea').attr("disabled", "disabled")
+        }
+    });
+
+    $('#MissingProduct').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#FedExTextArea').removeAttr("disabled");
+        } else {
+            $('#FedExTextArea').attr("disabled", "disabled")
+        }
+    });
+</script>*@

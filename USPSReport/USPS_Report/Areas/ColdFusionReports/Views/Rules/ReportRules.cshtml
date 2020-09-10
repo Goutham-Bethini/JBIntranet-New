@@ -1,0 +1,346 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.ExpiringCMNs.ReportRulesDataVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "ReportRules";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3 class="middle" style="text-align:center;">CMN Rules</h3>
+<center>
+    <table>
+        <tr>
+            <td style="text-decoration:underline;">@Html.ActionLink("Reports", "ExpiringCMNs", "ExpiringCMNs", null, null) </td>
+            <td>|</td>
+            <td style="text-decoration:underline;">@Html.ActionLink("Special Doctors", "SpecialDoctors", "SpecialDoctors", null, null) </td>
+            <td>|</td>
+            <td style="text-decoration:underline;">@Html.ActionLink("Rules Home", "Rules", "Rules", null, null) </td>
+            <td>|</td>
+            <td style="text-decoration:underline;">@Html.ActionLink("Documentation", "Documentation", "Rules", null, null) </td>
+        </tr>
+    </table>
+    <br />
+    <font style="background-color:#FFFF66">
+        Please read the documentation before changing any of the rules-some of these rules affect how eligibility runs.<br />
+        If you do not feel comfortable updating the rules for your team, please <a href='mailto:it@jandbmedical.com?subject=CMN Rules Help' style="text-decoration:underline;">Contact IT</a> for help.
+    </font>
+    <br />
+    <br />
+    <span style="color:red;font-size:small;">@Model.Message</span>
+    <br />
+    <h4 class="middle" style="text-align:center;">Current Rules for @Model.Report Team</h4>
+    @if (Model != null && Model.Details != null && Model.Details.Count > 0)
+    {
+        <div class="table-responsive middle">
+            <table data-sortable class="table table-hover table-striped" style="width:60%;">
+                <thead>
+                    <tr>
+                        <th>Data Type</th>
+                        <th>Value</th>
+                        <th>Excluded/Included</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rec in Model.Details)
+                    {
+                        <tr>
+                            <td>@rec.DataType </td>
+                            <td>@rec.value </td>
+                            <td>@rec.ExcInc </td>
+                            <td style="text-decoration:underline;">@Html.ActionLink("Delete", "DeleteReportRule", "Rules", new { cmrId = @rec.cmrId, reportId = @Model.ReportId, report = @Model.Report }, null)</td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+    else
+    {
+        <div width="60%" style="text-align:center;font-size:medium;">
+            <span class="middle" style="color:red;">No Data Found</span>
+        </div>
+
+    }
+
+    <h4 class="middle" style="text-align:center;">Add Rules for @Model.Report Team</h4>
+    @using (Html.BeginForm("AddRules", "Rules", FormMethod.Post))
+    {
+        @Html.HiddenFor(t => t.ReportId)
+        @Html.HiddenFor(t => t.Report)
+    <table style="width:60%;text-align:center;">
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <strong style="color:blue">Payers</strong>
+                        </td>
+                    </tr>
+                    <tr>                        
+                        <td>
+                            @Html.DropDownListFor(t => t.SelPayer, @Model.Payers, "")
+                            @Html.DropDownListFor(t => t.SelIncExc, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(t => t.SelPayer2, @Model.Payers, "")
+                            @Html.DropDownListFor(t => t.SelIncExc2, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(t => t.SelPayer3, @Model.Payers, "")
+                            @Html.DropDownListFor(t => t.SelIncExc3, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <strong style="color:blue">Payer Types</strong>
+                        </td>
+                    </tr>
+                    <tr>                        
+                        <td>
+                            @Html.DropDownListFor(t => t.SelPayerType, @Model.PayerTypes, "")
+                            @Html.DropDownListFor(t => t.SelPTIncExc, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(t => t.SelPayerType2, @Model.PayerTypes, "")
+                            @Html.DropDownListFor(t => t.SelPTIncExc2, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(t => t.SelPayerType3, @Model.PayerTypes, "")
+                            @Html.DropDownListFor(t => t.SelPTIncExc3, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <strong style="color:blue">Doc Types</strong>
+                        </td>
+                    </tr>
+                    <tr>                        
+                        <td>
+                            @Html.DropDownListFor(t => t.SelDocType, @Model.DocTypes, "")
+                            @Html.DropDownListFor(t => t.SelDTIncExc, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(t => t.SelDocType2, @Model.DocTypes, "")
+                            @Html.DropDownListFor(t => t.SelDTIncExc2, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(t => t.SelDocType3, @Model.DocTypes, "")
+                            @Html.DropDownListFor(t => t.SelDTIncExc3, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <strong style="color:blue">Providers</strong>
+                        </td>
+                    </tr>
+                    <tr>                        
+                        <td>
+                            @Html.DropDownListFor(t => t.SelProvider, @Model.Providers, "")
+                            @Html.DropDownListFor(t => t.SelPIncExc, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(t => t.SelProvider2, @Model.Providers, "")
+                            @Html.DropDownListFor(t => t.SelPIncExc2, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(t => t.SelProvider3, @Model.Providers, "")
+                            @Html.DropDownListFor(t => t.SelPIncExc3, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <strong style="color:blue">Status Codes</strong>
+                        </td>
+                    </tr>
+                    <tr>                        
+                        <td>
+                            @Html.DropDownListFor(t => t.SelStatusCode, @Model.StatusCodes, "")
+                            @Html.DropDownListFor(t => t.SelSCIncExc, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(t => t.SelStatusCode2, @Model.StatusCodes, "")
+                            @Html.DropDownListFor(t => t.SelSCIncExc2, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(t => t.SelStatusCode3, @Model.StatusCodes, "")
+                            @Html.DropDownListFor(t => t.SelSCIncExc3, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <strong style="color:blue">Billing Code Categories</strong>
+                        </td>
+                    </tr>
+                    <tr>                        
+                        <td>
+                            @Html.DropDownListFor(t => t.SelCategory, @Model.Categories, "")
+                            @Html.DropDownListFor(t => t.SelCIncExc, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(t => t.SelCategory2, @Model.Categories, "")
+                            @Html.DropDownListFor(t => t.SelCIncExc2, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(t => t.SelCategory3, @Model.Categories, "")
+                            @Html.DropDownListFor(t => t.SelCIncExc3, new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "Include" , Value = "Include"},
+                                new SelectListItem { Text = "Exclude" , Value = "Exclude"}
+
+                            })
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+        <br />
+        <button class="btn btn-primary btn-large" type="submit" onclick="return clearSelection();">Clear</button>
+        <button class="btn btn-primary btn-large" type="submit">Submit</button>
+    }
+</center>
+
+<script>
+    window.onload = function () {        
+        clearSelection();        
+    };
+    function clearSelection() {        
+        $("select").each(function () { this.selectedIndex = 0 });
+        return false;
+    }
+</script>
+

@@ -1,0 +1,68 @@
+﻿@model USPS_Report.Areas.Reports.Models.SuveryInformation
+  @using Kendo.Mvc.UI
+
+@{
+    ViewBag.Title = "SurverOptionInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+ 
+
+ <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-8">
+        @Html.ActionLink("Enter Survey", "Indiana_Survey", "Indiana") &nbsp; &nbsp;
+
+        @Html.ActionLink("Survey Results", "SurverResult", "Indiana") &nbsp; &nbsp;
+
+        @Html.ActionLink("Surveys with optional information", "SurverOptionInfo", "Indiana")
+    </div>
+
+
+</div>
+<center><h3 style="font-family:'Times New Roman'">Indiana Medicaid Patient Survey Results ( @Model.TotalCount)</h3></center>
+ 
+ 
+@if (Model != null && Model.info != null)
+{
+<div class="table-responsive">
+    <table data-sortable class="table table-hover table-striped table-bordered" style="width:1000px;margin:auto">
+        <thead>
+            <tr>
+                <th style="background-color:skyblue; width:10px"> Sr.No</th>
+                <th style="background-color:skyblue"> Comment</th>
+                <th style="background-color:skyblue"> Name</th>
+                <th style="background-color:skyblue">Address</th>
+                <th style="background-color:skyblue">Details</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var rec in Model.info)
+            {
+                <tr>
+                    <td style="width:10px">@rec.Id</td>
+                    <td>@rec.Commnet</td>
+                    <td>@rec.Name</td>
+                    <td>@rec.Address</td>
+                    <td>@Html.ActionLink("View", "GetSurveyrecord", "Indiana", new { ID = rec.Id }, new { @class = "modal-link btn btn-success" })
+</td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+</div>
+}
+
+
+
+          
+
+ 
+
+
+ 
+

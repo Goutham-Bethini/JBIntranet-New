@@ -1,0 +1,57 @@
+﻿@model USPS_Report.Areas.Reports.Models.CSRComplaintVM
+
+@using Kendo.Mvc.UI
+
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><label> Issue Date </label></div>
+    <div class="col-md-2">@Html.Kendo().DatePicker().Name("IssueDate").Value(Model.IssueDate).Format("MM/dd/yyyy")</div>
+
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><label> Complaint Date </label></div>
+    <div class="col-md-2">@Html.Kendo().DatePicker().Name("ComplaintDate").Value(Model.ComplaintDate).Format("MM/dd/yyyy")</div>
+
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><label> Resolution Date</label></div>
+    <div class="col-md-2">@Html.Kendo().DatePicker().Name("ResolutionDate").Value(Model.ResolutionDate).Format("MM/dd/yyyy")</div>
+
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><label> J&B's Initial Response Date </label></div>
+    <div class="col-md-2">@Html.Kendo().DatePicker().Name("InitialRespDate").Value(Model.InitialRespDate).Format("MM/dd/yyyy")</div>
+
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2"><label> Written Response Date </label></div>
+    <div class="col-md-2">@Html.Kendo().DatePicker().Name("WrittenRespDate").Value(Model.WrittenRespDate).Format("MM/dd/yyyy")</div>
+
+</div>
+<br />
+
+
+ 
+
+ 
+
+
+ 
+
+
+
+

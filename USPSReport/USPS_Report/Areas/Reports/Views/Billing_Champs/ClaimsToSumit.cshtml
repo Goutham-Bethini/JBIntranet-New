@@ -1,0 +1,183 @@
+﻿@model USPS_Report.Areas.Reports.Models.ChampsVM
+
+@{
+    ViewBag.Title = "ClaimsToSumit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div>
+    
+            @using (Html.BeginForm("ClaimsToSumit", "Billing_Champs", FormMethod.Post))
+            {
+
+                <div class="row">
+        <div class="col-md-12 text-center">
+            
+                @if (Model.batchVM.csbBillingDate != null && Model.batchVM.csbDateRun != null)
+                {
+              <h3><label>Claims with Billing Date of @Html.DisplayFor(t=>t.batchVM.csbBillingDate)</label></h3>
+              <h4><label>As Of @Html.DisplayFor(t => t.batchVM.csbDateRun)</label></h4> 
+            }
+            
+            </div>
+        </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <label> Will Transmit: </label>
+
+                        @Html.DropDownListFor(t => t.WillTransmit, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "All" , Value = "all"},
+                    new SelectListItem { Text = "Yes" , Value = "yes"},
+                    new SelectListItem { Text = "No" , Value = "no"},
+
+
+               })
+                    </div>
+               
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <label>Show :</label>
+
+
+                        @Html.DropDownListFor(t => t.Show, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "-All" , Value = ""},
+                    new SelectListItem { Text = "-All with Issues" , Value = "1"},
+                    new SelectListItem { Text = "-All with Issues except Eligibility" , Value = "xelig"},
+                    new SelectListItem { Text = "-All without Issues" , Value = "0"},
+                     new SelectListItem { Text = "Already Transmitted" , Value = "trans"},
+                       //new SelectListItem { Text = "Cross Overs" , Value = "cross"},
+                       new SelectListItem { Text = "Duplicates" , Value = "dup"},
+                         new SelectListItem { Text = "Held" , Value = "held"},
+                           new SelectListItem { Text = "No Auto Eligibility" , Value = "elg"},
+                           new SelectListItem { Text = "Previous Payment" , Value = "pay"},
+                           new SelectListItem { Text = "UnBilled" , Value = "ub"},
+
+
+               })
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button class="btn btn-primary btn-large" type="submit">View</button>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+<hr />
+
+
+
+
+@if (Model != null && Model.champs != null)
+{
+  
+
+    <p style="color:blue; text-align:center">@Model.champs.Count() Records</p>
+    <div class="table-responsive">
+        <table data-sortable class="table table-hover table-striped table-bordered ">
+            <thead>
+                <tr>
+                    <th>ctsClaim</th>
+                    <th>ctsAccount</th>
+                    <th>Unbilled Reason</th>
+                    <th>Work Order Manually Created</th>
+                    <th>Work Order Released</th>
+                    <th>Auto Eligibility</th>
+                    <th>Hold Reason</th>
+                    <th>Other Claims Qty</th>
+                    <th>Other Claims</th>
+                    <th>Payments Received - Posted By</th>
+                    <th>Times Transmitted - Resubmitted By</th>
+                    <th>Will Transmit</th>
+                    <th>Issues</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rec in Model.champs)
+                {
+                    var str = "";
+                    <tr>
+                        <td>@rec.ctsClaim </td>
+                        <td>@rec.ctsAccount </td>
+                        <td>@rec.ctsUBReason </td>
+                        <td>@rec.ctsManuallyCreatedBy </td>
+                        <td>@rec.ctsRealsedBy</td>
+                        <td>@rec.ctsEligibilityDate</td>
+                        <td>@rec.ctsHoldReason</td>
+                        <td>@rec.ctsOtherClaimsQyt</td>
+                        <td>@rec.ctsOtherClaims</td>
+                      @if (@rec.ctsPaymentPostedBy != null)
+                       {
+                        <td style="width:inherit">@rec.ctsPaymentReceived 
+                      
+                        - @rec.ctsPaymentPostedBy</td>}
+                       else
+                       { <td>@rec.ctsPaymentReceived </td>}
+                        @if (@rec.ctsResubmittedBy != null)
+                        {
+                           
+                        <td>
+                            @rec.ctsTimesSubmitted -  @rec.ctsResubmittedBy
+                            <br />
+                         @rec.ctsNotes
+                        </td>}
+                        else
+                        {<td>@rec.ctsTimesSubmitted</td> }
+
+                        @if (@rec.ctsWillTransmit == 1)
+                        {
+                        <td> X</td> }
+
+                        else
+                        {
+                        <td> </td> }
+
+                        @if (@rec.ctsIssue == 1)
+                        {
+                            if (@rec.ctsUBReason != null)
+                            { <td>*Unbilled Reason</td>}
+                            else if (@rec.ctsHoldReason != null)
+                            {<td> *Claim Holding</td>}
+                            else if (@rec.ctsOtherClaimsQyt != 0)
+                            { <td>*Duplicate</td>}
+                            else if (@rec.ctsPaymentReceived != 0)
+                            { <td>*Payments Already Posted</td>}
+                            else if (@rec.ctsTimesSubmitted != 0)
+                            { <td>*Already Transmitted</td>}
+                            else if (@rec.ctsEligibilityDate == null) { <td>*No Auto Eligibility</td>}
+                        }
+                        else
+                        { <td> </td>}
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+
+}
+
+
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+</style>
+
+       

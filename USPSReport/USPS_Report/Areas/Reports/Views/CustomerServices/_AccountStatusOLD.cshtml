@@ -1,0 +1,67 @@
+﻿@model USPS_Report.Areas.Reports.Models.CallLogVM
+<div>
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2"> BCN Team</div>
+        <div class=" col-md-1">
+            @Html.CheckBoxFor(m => m.Eligibility)
+        </div>
+    </div>
+
+   
+        <div class=" row">
+            <div class="col-md-1"></div>
+                <div class=" col-md-2">New Accounts Team</div>
+                <div class=" col-md-1">
+                    @Html.CheckBoxFor(m => m.NNA)
+                </div>
+            </div>
+
+
+        <div class=" row">
+            <div class="col-md-1"></div>
+                <div class=" col-md-2">Nurses, Billing Department</div>
+                <div class=" col-md-1">
+                    @Html.CheckBoxFor(m => m.Copay)
+                </div>
+            </div>
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">Diabetic Assessment Team, </div>
+        <div class=" col-md-1">
+            @Html.CheckBoxFor(m => m.Copay)
+        </div>
+    </div>
+
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">Medical Documents</div>
+        <div class=" col-md-1">
+            @Html.CheckBoxFor(m => m.Copay)
+        </div>
+    </div>
+
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">Pharmacy</div>
+        <div class=" col-md-1">
+            @Html.CheckBoxFor(m => m.Copay)
+        </div>
+    </div>
+
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">Qualtiy Assurance</div>
+        <div class=" col-md-1">
+            @Html.CheckBoxFor(m => m.Copay)
+        </div>
+    </div>
+
+        
+</div>
+

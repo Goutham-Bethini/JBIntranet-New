@@ -1,0 +1,71 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.Qoh.QohVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "Qoh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="middle" style="text-align:center;">Quantity On Hand</h3>
+<hr />
+<div>
+    @using (Html.BeginForm("QohData", "Qoh", FormMethod.Post))
+    {
+        <center>
+            <table>
+                <tr>
+                    <td>@Html.ValidationMessageFor(t => t.ProductCode, "", new { @class = "redText" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>
+                            Enter a product code to get QOH information for that product.
+                        </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td>                        
+                        HDMS Product Code: @Html.TextBoxFor(t => t.ProductCode)
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <button class="btn btn-primary btn-large" type="submit">Submit</button>
+        </center>
+    }
+</div>
+@if (Model != null && Model.Details != null)
+{
+    <div class="table-responsive middle">
+        <table data-sortable class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Product Code</th>
+                    <th>Description</th>
+                    <th>Discontinued</th>
+                    <th>Qty Available in Orc</th>
+                    <th>BO'd in HDMS</th>                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rec in Model.Details)
+                {
+                    <tr>
+                        <td>@rec.ProductCode </td>
+                        <td>@rec.Description </td>
+                        <td>@rec.Discontinued </td>
+                        <td>@rec.QtyAvailableInOrc </td>
+                        <td>@rec.BOdInHDMS</td>                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<style>
+    .redText {
+        color: Red;
+    }
+</style>
+
+

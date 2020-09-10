@@ -1,0 +1,61 @@
+﻿@model USPS_Report.Areas.Reports.Models.CMNReportsVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="middle">
+    <h1>  CMN's with Duration = 99  </h1>
+
+</div>
+
+@if (Model != null && Model.cmnWithDuration != null)
+{
+    <div class="row" style="width:65%;margin:auto">
+        <h3 style="color:blue">
+            Total Count =  @Model.cmnWithDuration.Count()
+        </h3>
+        <div class="table-responsive">
+            <table data-sortable class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Account</th>
+                        <th>Doc Type</th>
+                        <th>Effective Date</th>
+                        <th>Duration</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rec in Model.cmnWithDuration)
+                {
+                        <tr>
+                            <td>@rec.Account</td>
+                            <td>@rec.DocTypeDescription</td>
+                            <td>@rec.EffectiveDate</td>
+                            <td>@rec.Duration</td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+}
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 500px;
+    }
+</style>
+

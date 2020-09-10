@@ -1,0 +1,133 @@
+﻿@model USPS_Report.Areas.Reports.Controllers.BCNCallLogVM
+
+<br />
+<div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.FedExOrUSPSTracking) <label>FedEx/USPS Tracking</label> </div>
+        <div class="col-md-2">@Html.TextAreaFor(m => m.FedExOrUSPSTrackingNumber, new { disabled = "disabled", rows = "1", cols = "40" })</div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"> @Html.CheckBoxFor(m => m.OrderShipped) <label>Order Shipped</label>  </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"> @Html.CheckBoxFor(m => m.OrderDropShipped) <label>Order Drop Shipped</label>  </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.OrderETA) <label>Order ETA</label>  </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.OrderHolding)<label> Order Holding</label> </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.RWOCreated) <label>RWO Created</label>  </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.SentReqPurchasing) <label>Sent request to purchasing</label></div>
+
+    </div>
+
+
+
+
+
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.TextAreaFor(m => m.OrderStatusTxt, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+    $('#FedExOrUSPSTracking').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#FedExOrUSPSTrackingNumber').removeAttr("disabled");
+        } else {
+            $('#FedExOrUSPSTrackingNumber').attr("disabled", "disabled")
+        }
+    });
+
+
+    $('#FedExOrUSPSTracking').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#OrderStatusTxt').removeAttr("disabled");
+        } else {
+            $('#OrderStatusTxt').attr("disabled", "disabled")
+        }
+    });
+
+
+    $('#OrderShipped').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#OrderStatusTxt').removeAttr("disabled");
+        } else {
+            $('#OrderStatusTxt').attr("disabled", "disabled")
+        }
+    });
+
+
+    $('#OrderETA').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#OrderStatusTxt').removeAttr("disabled");
+        } else {
+            $('#OrderStatusTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#OrderHolding').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#OrderStatusTxt').removeAttr("disabled");
+        } else {
+            $('#OrderStatusTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#RWOCreated').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#OrderStatusTxt').removeAttr("disabled");
+        } else {
+            $('#OrderStatusTxt').attr("disabled", "disabled")
+        }
+    });
+</script>
+
+

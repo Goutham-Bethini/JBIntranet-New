@@ -1,0 +1,877 @@
+﻿@model USPS_Report.Areas.Reports.Controllers.BCNCallLogVM
+@using Kendo.Mvc.UI
+
+<br />
+<div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">@Html.CheckBoxFor(m => m.InsuarnceChanges) <label> Insurance Changes  </label>
+            &nbsp;&nbsp;&nbsp;&nbsp; <strong>  <a href="https://provider.bcbsm.com/denis/servlet/DenisServlet " target="_blank">Click here for Webdenis</a>  </strong></div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.EligMedicare) <label> Eligibility-Medicare </label></div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.CheckBoxFor(m => m.EligMedicaid) <label> Eligibility-Medicaid </label></div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2 ">@Html.CheckBoxFor(m => m.EligOther) <label> Eligibility-Other </label></div>
+
+    </div>
+
+    <div id="detail">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-4"><h2> <label><u>Insurance Details for Others </u></label></h2></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><label>Name</label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.Name)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-2"> <label> State </label></div>
+            <div class=" col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.State)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-2"> <label> Verified Through </label></div>
+            <div class=" col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.VerifiedThrough)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><label> Name & DOB match </label></div>
+            <div class="col-md-4">
+                @Html.CheckBoxFor(m => m.InsDetail.NameMatched, new { @class = "name", @checked = false }) <label>Yes</label>
+
+                @Html.CheckBoxFor(m => m.InsDetail.NameNotMatched, new { @class = "name", @checked = false }) <label>No</label>
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Effective Date </label></div>
+            <div class="col-md-2">          
+              @*modified pradeep*@     
+            @*@(Html.Kendo().DatePicker()
+          .Name("EffectiveDate")
+          .Events(e =>
+          {
+              e.Change("effdate");
+          }).Value(Model.InsDetail.EffectiveDate)
+         .HtmlAttributes(new { style = "width: 100%" }))
+
+                <input type = "date" name = "EffectiveDate_ot" value = "@Model.InsDetail.EffectiveDate" id = "EffectiveDate_ot" />*@
+                
+                @*modified end*@
+                @*@Html.Kendo().DatePicker().Name("EffectiveDate").Value(Model.InsDetail.EffectiveDate).Format("MM/dd/yyyy")*@
+                @Html.TextBoxFor(m => m.InsDetail.EffectiveDate)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Term Date </label></div>
+            <div class="col-md-2">          
+                @*@Html.Kendo().DatePicker().Name("TermDate").Value(Model.InsDetail.TermDate).Format("MM/dd/yyyy")*@
+
+                @Html.TextBoxFor(m => m.InsDetail.TermDate, new {@id = "instermdt" })
+
+                @*@(Html.Kendo().DatePicker()
+          .Name("TermDate")
+          .Events(e =>
+          {
+              e.Change("termdate");
+          }).Value(Model.InsDetail.EffectiveDate)
+         .HtmlAttributes(new { style = "width: 100%" }))*@
+
+         @*<input type="date" name="TermDate_ot" value="@Model.InsDetail.EffectiveDate" id="TermDate_ot" hidden/>*@
+               
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Benefit Plan </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.BenefitPlan)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label>Level of Care </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.LevelOfCare)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> COB/Other Insurance </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.COBnOtherIns)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> </label></div>
+            <div class="col-md-6 ">
+                @Html.CheckBoxFor(m => m.InsDetail.InNetwork, new { @class = "network", @checked = false }) <label>In Network</label>
+
+                @Html.CheckBoxFor(m => m.InsDetail.OutofNetwork, new { @class = "network", @checked = false }) <label>Out of network</label>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Deductible </label></div>
+            <div class="col-md-3 input-group">
+                <span class="input-group-addon">$</span>
+                @Html.TextBoxFor(m => m.InsDetail.Deductible)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Out of Pocket Max </label></div>
+            <div class="col-md-3 input-group
+                 ">
+                <span class="input-group-addon">$</span>
+                @Html.TextBoxFor(m => m.InsDetail.OutofPocketMax)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Copay/Coinsurance  </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.CopayCoins)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><label>  Is copay/coinsurance waived</label></div>
+            <div class="col-md-5">
+                @Html.CheckBoxFor(m => m.InsDetail.CopayCoinsWaived, new { @class = "copay", @checked = false }) <label>Yes</label>
+
+                @Html.CheckBoxFor(m => m.InsDetail.CopayCoinsNotWaived, new { @class = "copay", @checked = false }) <label>No</label>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+
+            <div class="col-md-2">
+                <label>Benefits: </label>   
+            </div>
+            <div class="col-md-1">
+                <label>DME</label>  @Html.CheckBoxFor(m => m.InsDetail.DME)
+            </div>
+            <div class="col-md-1">
+                <label>Medical</label>   @Html.CheckBoxFor(m => m.InsDetail.Medical)
+            </div>
+            <div class="col-md-1">
+                <label>Pharmacy</label>   @Html.CheckBoxFor(m => m.InsDetail.Pharmacy)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label>Guidelines: </label>
+            </div>
+            <div class="col-md-1">
+                <label>Medicare</label>  @Html.CheckBoxFor(m => m.InsDetail.Medicare)
+            </div>
+            <div class="col-md-1">
+                <label>Medicaid</label>   @Html.CheckBoxFor(m => m.InsDetail.Medicaid)
+            </div>
+            <div class="col-md-1">
+                <label>Other</label>   @Html.CheckBoxFor(m => m.InsDetail.Other)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label>Is member enrolled in:</label>
+            </div>
+            <div class="col-md-1">
+                <label>HHE</label>  @Html.CheckBoxFor(m => m.InsDetail.HHE)
+            </div>
+            <div class="col-md-1">
+                <label>Hospice</label>   @Html.CheckBoxFor(m => m.InsDetail.Hospice)
+            </div>
+            <div class="col-md-1">
+                <label>Hospital</label>   @Html.CheckBoxFor(m => m.InsDetail.Hospital)
+            </div>
+            <div class="col-md-1">
+                <label>Nursing Home</label>   @Html.CheckBoxFor(m => m.InsDetail.Nursing_Home)
+            </div>
+            <div class="col-md-1">
+                <label>None</label>   @Html.CheckBoxFor(m => m.InsDetail.None)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><lable><strong>HCPC/Qty Limitations</strong></lable></div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">@Html.TextAreaFor(m => m.InsDetail.HCPCnQtyLimitations, new { rows = "6", cols = "40" })</div>
+
+        </div>
+
+
+    </div>
+
+    <div id="detailMedicare">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-4"><h2> <label><u>Insurance Details for Medicare </u></label></h2></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><label>Name</label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.NameMedicare)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> State </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.StateMedicare)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Verified Through </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.VerifiedThroughMedicare)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><label> Name & DOB match </label></div>
+            <div class="col-md-4">
+                @Html.CheckBoxFor(m => m.InsDetail.NameMatchedMedicare, new { @class = "name", @checked = false }) <label>Yes</label>
+
+                @Html.CheckBoxFor(m => m.InsDetail.NameNotMatchedMedicare, new { @class = "name", @checked = false }) <label>No</label>
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Effective Date </label></div>
+            <div class="col-md-2">
+                @*@Html.Kendo().DatePicker().Name("EffectiveDateMedicare").Value(Model.InsDetail.EffectiveDateMedicare).Format("MM/dd/yyyy")*@
+                @Html.TextBoxFor(m => m.InsDetail.EffectiveDateMedicare, new {@id="inseffdt_medicare" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Term Date </label></div>
+            <div class="col-md-2">
+                @*@Html.Kendo().DatePicker().Name("TermDateMedicare").Value(Model.InsDetail.TermDateMedicare).Format("MM/dd/yyyy")*@
+                @Html.TextBoxFor(m => m.InsDetail.TermDateMedicare, new { @id = "instermdt_medicare" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Benefit Plan </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.BenefitPlanMedicare)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label>Level of Care </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.LevelOfCareMedicare)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> COB/Other Insurance </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.COBnOtherInsMedicare)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> </label></div>
+            <div class="col-md-6 ">
+                @Html.CheckBoxFor(m => m.InsDetail.InNetworkMedicare, new { @class = "network", @checked = false }) <label>In Network</label>
+
+                @Html.CheckBoxFor(m => m.InsDetail.OutofNetworkMedicare, new { @class = "network", @checked = false }) <label>Out of network</label>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Deductible </label></div>
+            <div class="col-md-3 input-group">
+                <span class="input-group-addon">$</span>
+                @Html.TextBoxFor(m => m.InsDetail.DeductibleMedicare)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Out of Pocket Max </label></div>
+            <div class="col-md-3 input-group
+                 ">
+                <span class="input-group-addon">$</span>
+                @Html.TextBoxFor(m => m.InsDetail.OutofPocketMaxMedicare)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Copay/Coinsurance  </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.CopayCoinsMedicare)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><label>  Is copay/coinsurance waived</label></div>
+            <div class="col-md-5">
+                @Html.CheckBoxFor(m => m.InsDetail.CopayCoinsWaivedMedicare, new { @class = "copay", @checked = false }) <label>Yes</label>
+
+                @Html.CheckBoxFor(m => m.InsDetail.CopayCoinsNotWaivedMedicare, new { @class = "copay", @checked = false }) <label>No</label>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label>Benefits:</label> 
+            </div>
+            <div class="col-md-1">
+                <label>DME</label>  @Html.CheckBoxFor(m => m.InsDetail.DMEMedicare)
+            </div>
+            <div class="col-md-1">
+                <label>Medical</label>   @Html.CheckBoxFor(m => m.InsDetail.MedicalMedicare)
+            </div>
+            <div class="col-md-1">
+                <label>Pharmacy</label>   @Html.CheckBoxFor(m => m.InsDetail.PharmacyMedicare)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label>Guidelines:</label> 
+            </div>
+            <div class="col-md-1">
+                <label>Medicare</label>  @Html.CheckBoxFor(m => m.InsDetail.MedicareMedicare)
+            </div>
+            <div class="col-md-1">
+                <label>Medicaid</label>   @Html.CheckBoxFor(m => m.InsDetail.MedicalMedicare)
+            </div>
+            <div class="col-md-1">
+                <label>Other</label>   @Html.CheckBoxFor(m => m.InsDetail.OtherMedicare)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label>Is member enrolled in:</label>
+            </div>
+            <div class="col-md-1">
+                <label>HHE</label>  @Html.CheckBoxFor(m => m.InsDetail.HHEMedicare)
+            </div>
+            <div class="col-md-1">
+                <label>Hospice</label>   @Html.CheckBoxFor(m => m.InsDetail.HospiceMedicare)
+            </div>
+            <div class="col-md-1">
+                <label>Hospital</label>   @Html.CheckBoxFor(m => m.InsDetail.HospitalMedicare)
+            </div>
+            <div class="col-md-1">
+                <label>Nursing Home</label>   @Html.CheckBoxFor(m => m.InsDetail.Nursing_HomeMedicare)
+            </div>
+            <div class="col-md-1">
+                <label>None</label>   @Html.CheckBoxFor(m => m.InsDetail.NoneMedicare)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><lable><strong>HCPC/Qty Limitations</strong></lable></div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">@Html.TextAreaFor(m => m.InsDetail.HCPCnQtyLimitationsMedicare, new { rows = "6", cols = "40" })</div>
+
+        </div>
+
+
+    </div>
+
+    <div id="detailMedicaid">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-4"><h2> <label><u>Insurance Details for Medicaid </u></label></h2></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><label>Name</label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.NameMedicaid)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> State </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.StateMedicaid)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Verified Through </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.VerifiedThroughMedicaid)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><label> Name & DOB match </label></div>
+            <div class="col-md-4">
+                @Html.CheckBoxFor(m => m.InsDetail.NameMatchedMedicaid, new { @class = "name", @checked = false }) <label>Yes</label>
+
+                @Html.CheckBoxFor(m => m.InsDetail.NameNotMatchedMedicaid, new { @class = "name", @checked = false }) <label>No</label>
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Effective Date </label></div>
+            <div class="col-md-2">
+                @*@Html.Kendo().DatePicker().Name("EffectiveDateMedicaid").Value(Model.InsDetail.EffectiveDateMedicaid).Format("MM/dd/yyyy")*@
+
+                @Html.TextBoxFor(m => m.InsDetail.EffectiveDateMedicaid, new { @id = "inseffdt_medicaid" })
+              
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Term Date </label></div>
+            <div class="col-md-2">
+                @*@Html.Kendo().DatePicker().Name("TermDateMedicaid").Value(Model.InsDetail.TermDateMedicaid).Format("MM/dd/yyyy")*@
+                @Html.TextBoxFor(m => m.InsDetail.TermDateMedicaid, new { @id = "instermdt_medicaid" })
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Benefit Plan </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.BenefitPlanMedicaid)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label>Level of Care </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.LevelOfCareMedicaid)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> COB/Other Insurance </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.COBnOtherInsMedicaid)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> </label></div>
+            <div class="col-md-6 ">
+                @Html.CheckBoxFor(m => m.InsDetail.InNetworkMedicaid, new { @class = "network", @checked = false }) <label>In Network</label>
+
+                @Html.CheckBoxFor(m => m.InsDetail.OutofNetworkMedicaid, new { @class = "network", @checked = false }) <label>Out of network</label>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Deductible </label></div>
+            <div class="col-md-3 input-group">
+                <span class="input-group-addon">$</span>
+                @Html.TextBoxFor(m => m.InsDetail.DeductibleMedicaid)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Out of Pocket Max </label></div>
+            <div class="col-md-3 input-group
+                 ">
+                <span class="input-group-addon">$</span>
+                @Html.TextBoxFor(m => m.InsDetail.OutofPocketMaxMedicaid)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"> <label> Copay/Coinsurance  </label></div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.InsDetail.CopayCoinsMedicaid)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2"><label>  Is copay/coinsurance waived</label></div>
+            <div class="col-md-5">
+                @Html.CheckBoxFor(m => m.InsDetail.CopayCoinsWaivedMedicaid, new { @class = "copay", @checked = false }) <label>Yes</label>
+
+                @Html.CheckBoxFor(m => m.InsDetail.CopayCoinsNotWaivedMedicaid, new { @class = "copay", @checked = false }) <label>No</label>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label>Benefits: </label>
+            </div>
+            <div class="col-md-1">
+                <label>DME</label>  @Html.CheckBoxFor(m => m.InsDetail.DMEMedicaid)
+            </div>
+            <div class="col-md-1">
+                <label>Medical</label>   @Html.CheckBoxFor(m => m.InsDetail.MedicaidMedicaid)
+            </div>
+            <div class="col-md-1">
+                <label>Pharmacy</label>   @Html.CheckBoxFor(m => m.InsDetail.PharmacyMedicaid)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label>Guidelines: </label>  
+            </div>
+            <div class="col-md-1">
+                <label>Medicare</label>  @Html.CheckBoxFor(m => m.InsDetail.MedicaidMedicaid)
+            </div>
+            <div class="col-md-1">
+                <label>Medicaid</label>   @Html.CheckBoxFor(m => m.InsDetail.MedicaidMedicaid)
+            </div>
+            <div class="col-md-1">
+                <label>Other</label>   @Html.CheckBoxFor(m => m.InsDetail.OtherMedicaid)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label>Is member enrolled in:</label>
+            </div>
+            <div class="col-md-1">
+                <label>HHE</label>  @Html.CheckBoxFor(m => m.InsDetail.HHEMedicaid)
+            </div>
+            <div class="col-md-1">
+                <label>Hospice</label>   @Html.CheckBoxFor(m => m.InsDetail.HospiceMedicaid)
+            </div>
+            <div class="col-md-1">
+                <label>Hospital</label>   @Html.CheckBoxFor(m => m.InsDetail.HospitalMedicaid)
+            </div>
+            <div class="col-md-1">
+                <label>Nursing Home</label>   @Html.CheckBoxFor(m => m.InsDetail.Nursing_HomeMedicaid)
+            </div>
+            <div class="col-md-1">
+                <label>None</label>   @Html.CheckBoxFor(m => m.InsDetail.NoneMedicaid)
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-2"><lable><strong>HCPC/Qty Limitations</strong></lable></div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">@Html.TextAreaFor(m => m.InsDetail.HCPCnQtyLimitationsMedicaid, new { rows = "6", cols = "40" })</div>
+
+        </div>
+
+
+    </div>
+
+
+
+    @*<div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-2">@Html.TextAreaFor(m => m.InsuranceChangeTxt, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+        </div>*@
+    <br />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2"><lable><strong>Additional Notes</strong></lable></div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">@Html.TextAreaFor(m => m.InsuranceChangeTxt, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <lable><strong> Message: Complete Insurance change task</strong></lable>
+        </div>
+    </div>
+
+</div>
+
+ 
+@*pradeep added*@
+@*<script>
+    function effdate() {
+        //  alert(kendo.toString(this.value(), 'd'));
+        var datePicker = $("#EffectiveDate").data("kendoDatePicker");
+        $("#EffectiveDate").data("kendoDatePicker").value(kendo.toString(this.value(), 'd'));
+       // datePicker.trigger("change");
+    }
+    function termdate() {
+     //   alert(kendo.toString(this.value(), 'd'));
+        $("#TermDate").data("kendoDatePicker").value(kendo.toString(this.value(), 'd'));
+    }
+</script>*@
+        @*//added end*@
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>  
+  
+    $(document).ready(function () {
+
+        //added pradeep
+        $("#InsDetail_EffectiveDate").datepicker(
+     {
+         changeMonth: true,
+         changeYear: true
+     }
+     );
+        $("#instermdt").datepicker(
+        {
+            changeMonth: true,
+            changeYear: true
+        }
+        );
+          $("#inseffdt_medicare").datepicker(
+        {
+            changeMonth: true,
+            changeYear: true
+        }
+        );
+          $("#instermdt_medicare").datepicker(
+        {
+            changeMonth: true,
+            changeYear: true
+        }
+        );
+          $("#inseffdt_medicaid").datepicker(
+        {
+            changeMonth: true,
+            changeYear: true
+        }
+        );
+          $("#instermdt_medicaid").datepicker(
+        {
+            changeMonth: true,
+            changeYear: true
+        }
+        );
+        //end
+       
+        //--------------Other Eligibility
+        $("#EligOther").click(function () {
+            var $this = $(this);
+            if ($this.is(':checked')) {
+                $("#detail").slideDown("slow");
+            } else {
+                $("#detail").slideUp("slow");
+            }
+        });
+
+        //--------------Medicaid Eligibility
+        $("#EligMedicaid").click(function () {
+            var $this = $(this);
+            if ($this.is(':checked')) {
+                $("#detailMedicaid").slideDown("slow");
+            } else {
+                $("#detailMedicaid").slideUp("slow");
+            }
+        });
+
+        //--------------Medicare Eligibility
+        $("#EligMedicare").click(function () {
+            var $this = $(this);
+            if ($this.is(':checked')) {
+                $("#detailMedicare").slideDown("slow");
+            } else {
+                $("#detailMedicare").slideUp("slow");
+            }
+        });
+
+    });
+    //    $(".ins").click(function () {
+    //        if ($('#EligMedicaid').is(':checked') || $('#EligMedicare').is(':checked') || $('#EligOther').is(':checked')) {
+    //            $("#detail").slideDown("slow");
+    //        }
+
+    //        else if ( !$('#EligMedicaid').is(':checked') && !$('#EligMedicare').is(':checked') && !$('#EligOther').is(':checked'))
+    //        { $("#detail").slideUp("slow"); }
+    //    });
+    //});
+
+
+
+
+    //----------------------------------------------------------
+
+    $('#InsuarnceChanges').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#InsuranceChangeTxt').removeAttr("disabled");
+        } else {
+            $('#InsuranceChangeTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#EligMedicare').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#InsuranceChangeTxt').removeAttr("disabled");
+        } else {
+            $('#InsuranceChangeTxt').attr("disabled", "disabled")
+        }
+    });
+    $('#EligMedicaid').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#InsuranceChangeTxt').removeAttr("disabled");
+        } else {
+            $('#InsuranceChangeTxt').attr("disabled", "disabled")
+        }
+    });
+    $('#EligOther').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#InsuranceChangeTxt').removeAttr("disabled");
+        } else {
+            $('#InsuranceChangeTxt').attr("disabled", "disabled")
+        }
+    });
+
+    //$('#Eligibility').click(function () {
+    //    var $this = $(this);
+
+    //    if ($this.is(':checked')) {
+    //        $('#InsuranceChangeTxt').removeAttr("disabled");
+    //    } else {
+    //        $('#InsuranceChangeTxt').attr("disabled", "disabled")
+    //    }
+    //});
+
+    $(".network").click(function () {
+        if (this.checked) {
+          $(this).siblings(':checkbox').attr('checked', false);
+        }
+ });
+
+
+    $(".name").click(function () {
+        if (this.checked) {
+          $(this).siblings(':checkbox').attr('checked', false);
+        }
+ });
+
+    $(".copay").click(function () {
+        if (this.checked) {
+            $(this).siblings(':checkbox').attr('checked', false);
+        }
+    });
+
+   
+</script>
+
+<style>
+    #detail {
+        padding: 5px;
+        background-color: #e5eecc;
+        border: solid 1px #c3c3c3;
+        padding: 50px;
+        display: none;
+    }
+
+    #detailMedicare {
+        padding: 5px;
+        background-color: #A9F5F2;
+        border: solid 1px #c3c3c3;
+        padding: 50px;
+        display: none;
+    }
+
+    #detailMedicaid {
+        padding: 5px;
+        background-color: #F5A9D0;
+        border: solid 1px #c3c3c3;
+        padding: 50px;
+        display: none;
+    }
+</style>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">

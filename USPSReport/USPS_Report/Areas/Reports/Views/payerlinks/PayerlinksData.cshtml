@@ -1,0 +1,107 @@
+﻿@model USPS_Report.Areas.Reports.Models.PayerLinkSearchModel
+
+@using Kendo.Mvc.UI;
+
+@{
+    ViewBag.Title = "PayerlinksData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    @using (Ajax.BeginForm("PayerlinksData", new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "viewData", InsertionMode = InsertionMode.Replace }))
+    {
+        <div class="well col-md-12">
+            <div class="form-inline">
+                <form id="PayerlinksForm" data-role="validator" novalidate="novalidate">
+
+                    <div class="form-group col-md-4">
+                        <label>Records for Payer #: </label>
+                        @Html.DropDownListFor(m => m.RecordsForPayer, ViewBag.RecordsForPayerList as SelectList, new { @style = "width:350px;", @class = "form-control" })
+                    </div>
+                    <div class="form-group  col-md-4 col-md-offset-1">
+                        <label>Which Records? </label>
+                        @Html.DropDownListFor(m => m.WhichRecords, ViewBag.WhichRecordsList as SelectList, new { @style = "width:350px;", @class = "form-control" })
+                    </div>
+                    <button class="btn btn-primary btn-large" type="submit"><i class="glyphicon glyphicon-search"> View</i></button>
+                </form>
+            </div>
+        </div>
+        <div id="viewData" class="well col-md-12">
+            <p style="text-align:center" class="col-md-12">Add multiple payer ids by separating them by a comma. Ignored payers will not be checked for when Emdeon Eligibility is run - <i style="color:red">DNB insurances should not be marked as ignore.</i></p>
+            <div class="col-md-12">
+                @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.PayerLinkViewModel>()
+                    .Name("PayerlinksDetails")
+                    .Scrollable()
+                    .Columns(columns =>
+                    {
+                        columns.Bound(c => c.eopID).Title("Id").Hidden(true);
+                        columns.Bound(c => c.eopType).Title("Ins Type").Width(100);
+                        columns.Bound(c => c.eopEntityName).Title("Ins Name").Width(450);
+                        columns.Bound(c => c.eopPlanCoverage).Title("Plan Coverage").Width(200);
+                        columns.Bound(c => c.eopPlanCode).Title("Plan Code").Width(150);
+                        columns.Bound(c => c.eopAddedWithPayer).Title("Used for Elig Check for Payer #").Width(200);
+                        columns.Bound(e => e.eopIgnoreTorF).Title("Ignore").Width(100);
+                        columns.Bound(c => c.eopIgnore).Title("Ignore").Hidden(true);
+                        columns.Bound(c => c.eopHDMSids).Title("HDMS PayerID").Width(200);
+                        columns.Bound(c => c.FoundResult).Title("Possible Matches").Width(200);
+                        columns.Command(command => { command.Edit().Text("Update"); }).Title("Action").Width(200);
+                    })
+                        .ToolBar(tools => tools.Excel())
+                        .Editable(editable => editable.Mode(GridEditMode.InLine).ConfirmDelete("test").DisplayDeleteConfirmation("Test"))
+                        .Sortable()
+                         .Pageable()
+                             .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                       .Excel(excel => excel
+                            .FileName("Payerlinks.xlsx")
+                            .AllPages(true)
+                            .Filterable(true)
+                            .ProxyURL(Url.Action("Excel_Export_Save", "payerlinks"))
+                        )
+                       .HtmlAttributes(new { style = "width:900px;" })
+                            .Reorderable(r => r.Columns(true))
+                            .Resizable(r => r.Columns(true))
+                            .ColumnMenu()
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .PageSize(200)
+                        .Model(model =>
+                        {
+                            model.Field(p => p.eopType).Editable(false);
+                            model.Field(p => p.eopEntityName).Editable(false);
+                            model.Field(p => p.eopPlanCoverage).Editable(false);
+                            model.Field(p => p.eopPlanCode).Editable(false);
+                            model.Field(p => p.eopAddedWithPayer).Editable(false);
+                            model.Field(p => p.FoundResult).Editable(false);
+                            model.Field(p => p.eopIgnoreTorF).Editable(true);
+                            model.Id(p => p.eopID);
+                        })
+                        .ServerOperation(false)
+                        .Read(read => read.Action("ReadpayerlinksData", "payerlinks", Model))
+                        .Update(update => update.Action("EditpayerlinksData_Update", "payerlinks"))
+                    )
+        .HtmlAttributes(new { style = "height: 800px;" })
+                )
+            </div>
+            @*@Html.Partial("GetExpiringCMNDetails", Model.ExpiringCMNDetails)*@
+        </div>
+    }
+</div>
+
+
+
+
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+</style>
+
+
+

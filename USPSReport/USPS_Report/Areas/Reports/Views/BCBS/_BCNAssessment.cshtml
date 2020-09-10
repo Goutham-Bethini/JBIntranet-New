@@ -1,0 +1,1056 @@
+﻿
+@model USPS_Report.Areas.Reports.Controllers.BCNCallLogVM
+@using Kendo.Mvc.UI
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>*@
+<br/>
+<div class="row">
+    <div class="col-md-1"></div>
+  <div class="col-md-2">
+      <strong>Assessment Completed with:</strong>
+  </div>
+  <div class="col-md-2">
+      @Html.TextBoxFor(m => m.Assmnt_completedtxt)
+  </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <strong>Relationship to member:</strong>
+    </div>
+    <div class="col-md-2">
+    @Html.TextBoxFor(m => m.Assmnt_reltomember)
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <strong>Education Done By:</strong>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.Assmnt_edudoneby)
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <strong>Does the member feel adequately trained on products :</strong>
+    </div> 
+    <div class="col-md-1">
+        @Html.RadioButtonFor(m => m.Assmnt_memtrained, true) <label>Yes</label> &nbsp;&nbsp;&nbsp;&nbsp;
+        @Html.RadioButtonFor(m => m.Assmnt_memtrained, false) <label>No</label>     
+    </div>  
+    </div>
+<br />
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <strong>Physician for supplies:</strong>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.Assmnt_physicianforsupp)
+        @Html.HiddenFor(m => m.IsDiab)
+        @Html.HiddenFor(m => m.IsInsulin)
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <strong>Who are they currently getting supplies from?</strong>
+    </div>
+    <div class="col-md-2">
+        @Html.TextBoxFor(m => m.Assmnt_currsuppfrom)
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <input type="button" class="btn btn-primary" value="Diabetic" id="diabbutton"/>      
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <input type="button" class="btn btn-primary" value="Insulin Pump/CGM" id="inspumpbutton"/>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+        <strong>
+            "TO ENSURE YOUR INSURANCE MAKES PAYMENT AND THAT YOU ARE NOT BILLED
+            FOR SUPPLIES YOU MUST ADVISE J&B IF YOU RECEIVE ANY OF THESE SUPPLIES FROM ANOTHER SUPPLIER BEFORE EACH ORDER SHIPS"
+        </strong>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <strong>Date last order received:</strong>
+    </div>
+    <div class="col-md-2">
+        @*@Html.TextBoxFor(m => m.Assmnt_lastorderrecieveddt)*@
+
+        @*<input type="date" value = @Model.Assmnt_lastorderrecieveddt id="lastorderdt"/>*@    
+        @*@Html.TextBoxFor( m => m.Assmnt_lastorderrecieveddt, new {@type="date", @Value = Model.Assmnt_lastorderrecieveddt})*@   
+   
+        @Html.TextBoxFor(m => m.Assmnt_lastorderrecieveddt)
+                          
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <strong>What supplier was the order from:</strong>
+    </div>
+    <div class="col-md-2">
+    @Html.TextBoxFor(m => m.Assmnt_supporderfrom)
+    </div>
+</div>
+<br/>
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-2">
+    <strong>Was it a 30 or 90 day order :</strong>
+</div>
+    <div class="col-md-2">
+        @*@Html.CheckBoxFor(m => m.Assmnt_memtrained) <label>Yes</label>*@
+        @Html.RadioButtonFor(m => m.Assmnt_Ord30or90, 30) <label>30</label> &nbsp;&nbsp;&nbsp;&nbsp;
+        @Html.RadioButtonFor(m => m.Assmnt_Ord30or90, 90) <label>90</label>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <strong>List all Remaining Supplies:</strong>
+    </div>
+    <div class="col-md-2">
+        @Html.TextAreaFor(m => m.Assmnt_remsupplies, new {rows= "6", cols ="40"})
+      
+    </div>
+    <div style="display:none">  @Html.CheckBoxFor(m => m.assmnt_Diab)</div>
+    <div style="display:none">  @Html.CheckBoxFor(m => m.assmnt_Insulin)</div>
+</div>
+<br />
+
+@* create  a modal for Diabetic fields*@
+<div id="diabadd" class="modal_style" style="display:none">
+    <div id="diabadd_submodal" class="modal_content" style="width:94%;height:94%">
+        <div class="modal-header">
+            <span class="close" id="diabadd_close">&times;</span>
+            <h3>Add Diabetic Information</h3>
+        </div>
+        <br/>
+        <div class="modal-body" id="diabbody"> 
+            <center> 
+                <table class="table table-condensed table-responsive" id="diabaddtbl" style="width :800px">
+                  <tr>
+                      <td><label>New or Existing Diabetic</label></td>
+                      <td>
+                          @Html.RadioButtonFor(m => m.Assmnt_neworexistdiab, "New") <label>New</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          @Html.RadioButtonFor(m => m.Assmnt_neworexistdiab, "Existing") <label>Existing</label>
+                      </td>
+                  </tr>
+                    <tr>
+                        <td><label>Testing Times</label></td>
+                        <td>
+                            @Html.TextBoxFor(m => m.Assmnt_Testingtimesdiab)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><label>Insulin Treated</label></td>
+                        <td>
+                            @Html.RadioButtonFor(m => m.Assmnt_InsulinTreateddiab, true) <label>Yes</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButtonFor(m => m.Assmnt_InsulinTreateddiab, false) <label>No</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Name of Insulin</label></td>
+                        <td>
+                            @*@Html.TextBoxFor(m => m.Assmnt_nameofinsulindiab)*@
+                            @Html.DropDownListFor(m => m.Assmnt_nameofinsulindiab, new List<SelectListItem>
+                            {
+                          new SelectListItem {Text ="Lantus", Value ="Lantus" },
+                          new SelectListItem {Text="Apidra",Value = "Apidra" },
+                          new SelectListItem {Text ="Humalog",Value= "Humalog" },
+                          new SelectListItem {Text ="Novalog",Value = "Novalog" },
+                          new SelectListItem { Text = "Other" , Value = "Other"},
+                        }, "Select Insulin")  
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.TextBoxFor(m => m.Assmnt_nameofinsulindiab_Other, new { disabled = "disabled" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>If Pregnant, due date</label></td>
+                        <td>@*@Html.TextBoxFor(m => m.Assmnt_pregduedatediab, new { @type = "date", @Value = Model.Assmnt_pregduedatediab })*@
+                        @Html.TextBoxFor(m => m.Assmnt_pregduedatediab)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>If Pregnant, existing diabetic</label></td>
+                        <td>
+                        @*@Html.TextBoxFor(m => m.Assmnt_pregexistingdiab)*@
+                            @Html.RadioButtonFor(m => m.Assmnt_pregexistingdiab, true) <label>Yes</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButtonFor(m => m.Assmnt_pregexistingdiab, false) <label>No</label>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Current Meter</label></td>
+                        <td>@Html.TextBoxFor(m => m.Assmnt_currmeterdiab)</td>
+                    </tr>
+                    <tr>
+                        <td><label>Meter we will service</label></td>
+                        <td>@Html.TextBoxFor(m => m.Assmnt_meterservicediab)</td>
+                    </tr>
+                    <tr>
+                        <td><label>If different, why</label></td>
+                        <td>@Html.TextBoxFor(m => m.Assmnt_diffmeterdiab)</td>
+                    </tr>
+                    <tr>
+                        <td><label>&nbsp;&nbsp;&nbsp;&nbsp;If talking meter,why</label></td>
+                        <td>@Html.TextBoxFor(m => m.Assmnt_talkingmeterdiab)</td>
+                    </tr>
+                    <tr>
+                        <td><label>Lancets we will service</label></td>
+                        <td>@Html.TextBoxFor(m => m.Assmnt_lancetsservicediab)</td>
+                    </tr>
+                    <tr>
+                        <td><label>Does the member require injection supplies?</label></td>
+                        <td>
+                            @Html.RadioButtonFor(m => m.Assmnt_injsuppliesdiab, true) <label>Yes</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButtonFor(m => m.Assmnt_injsuppliesdiab, false) <label>No</label> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Obtaining from another supplier?</label></td>
+                        <td>
+                            @Html.RadioButtonFor(m => m.Assmnt_injfromothersuppdiab, true) <label>Yes</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButtonFor(m => m.Assmnt_injfromothersuppdiab, false) <label>No</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <label>If yes who?</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.TextBoxFor(m => m.Assmnt_injothersupptxtdiab, new {disabled= "disabled" })
+                        </td>
+                        </tr>
+                    <tr>
+                        <td>
+                            @Html.CheckBoxFor(m => m.Assmnt_syrwtneedlediab)
+                             <label>Syring w/needle</label>
+                        </td>                     
+                    </tr>
+                    <tr>
+                        <td><label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gauge</label></td>
+                        <td>@Html.TextBoxFor(m => m.Assmnt_syrwtneedle_gaugediab, new { disabled = "disabled" })</td>
+                    </tr>
+                    <tr>
+                        <td><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Length</label></td>
+                        <td>@Html.TextBoxFor(m => m.Assmnt_syrwtneedle_lendiab, new { disabled = "disabled" })</td>
+                    </tr>
+                    <tr>
+                        <td><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CC/Units</label></td>
+                        <td>@Html.TextBoxFor(m => m.Assmnt_syrwtneedle_unitsdiab, new { disabled = "disabled" })</td>
+                    </tr>
+                    <tr>
+                        <td><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Qty/Injections per day</label></td>
+                        <td>@Html.TextBoxFor(m => m.Assmnt_syrwtneedle_qtydiab, new { disabled = "disabled" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.CheckBoxFor(m => m.Assmnt_needleonly_diab) <label>Needle Only</label></td>
+                    </tr>
+                    <tr>
+                        <td><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gauge</label></td>
+                        <td>
+                            @Html.TextBoxFor(m => m.Assmnt_needleonly_gauge, new { disabled = "disabled" })
+                        </td>
+                    </tr>
+               <tr>
+                   <td><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Length</label></td>
+                   <td>@Html.TextBoxFor(m => m.Assmnt_needleonly_len, new { disabled = "disabled" })</td>
+               </tr>
+                    <tr>
+                        <td><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Qty/Injections per day</label></td>
+                        <td>@Html.TextBoxFor(m => m.Assmnt_needleonly_qty, new { disabled = "disabled" })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.CheckBoxFor(m => m.Assmnt_alcoholwipes) 
+                        <label>Alcohol Wipes (Only for Injection Supplies)</label></td>                    
+                    </tr>
+                    <tr>
+                        <td><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Does the member require ketone supplies?</label></td>
+                        <td>
+                            @Html.RadioButtonFor(m => m.assmnt_ketonediab, true) <label>Yes</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButtonFor(m => m.assmnt_ketonediab, false) <label>No</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Obtaining from another supplier?</label></td>
+                        <td>
+                            @Html.RadioButtonFor(m => m.Assmnt_alcoholwp_othersuppdiab, true) <label>Yes</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButtonFor(m => m.Assmnt_alcoholwp_othersuppdiab, false) <label>No</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.CheckBoxFor(m => m.Assmnt_UrineKetonediab) <label>Urine Ketone Strips</label>
+                        </td>                       
+                    </tr>
+                    <tr>
+                        <td><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Frequencey of testing</label></td>
+                        <td>@Html.TextBoxFor(m => m.Assmnt_UrineKetone_Freqtestingdiab, new { disabled = "disabled" })</td>
+                    </tr>
+                    <tr>
+                       
+                        <td>
+                            @Html.CheckBoxFor(m => m.Assmnt_BloodKetonediab) <label>Blood Ketone strips</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Frequencey of testing</label></td>
+                        <td>@Html.TextBoxFor(m => m.Assmnt_BloodKetone_Freqtestingdiab, new { disabled = "disabled" })</td>
+                    </tr>               
+
+                 </table>
+                   <br/>
+                    @*<input type="button" class="btn btn-primary" value="SAVE" id="diabsave" style="text-align:center" /> &nbsp;&nbsp;*@
+                    <input type="button" class="btn btn-primary" id="diabbtn_close" value="CLOSE" style="width:100%" />
+    <br/>
+    </center>        
+        </div> @*modal body*@   
+        </div>      
+    </div>
+@* create  a modal for Insulin fields*@
+<div id="insadd" class="modal_style" style="display:none">
+    <div id="insadd_submodal" class="modal_content" style="width:94%;height:94%">
+        <div class="modal-header">
+            <span class="close" id="insadd_close">&times;</span>
+            <h3>Add Insulin Information</h3>
+        </div>
+        
+            <br />
+            <div class="modal-body" id="insbody">
+                <center>
+                    <table class="table table-condensed table-responsive" id="insaddtbl" style="width:700px">
+                        <tr>
+                            <td><label>Diagnosed</label></td>
+                            <td>@Html.TextBoxFor(m => m.Assmnt_diagnosedCGM) &nbsp;(Year or Month/Year)</td>
+                        </tr>
+                        <tr>
+
+                            <td><label>Insulin Treated?</label></td>
+                            <td>
+                                @Html.RadioButtonFor(m => m.Assmnt_InsTreatedCGM, true) <label>Yes</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_InsTreatedCGM, false)<label>No</label>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td></td>
+                            <td>
+                                @Html.RadioButtonFor(m => m.Assmnt_InsTreatedTypeCGM, "Type1") <label>Type1</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_InsTreatedTypeCGM, "Type2") <label>Type2</label>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td><label>Does the member require pump?</label></td>
+                            <td>
+                                @Html.RadioButtonFor(m => m.Assmnt_reqpumpCGM, true) <label>Yes</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_reqpumpCGM, false) <label>No</label>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td><label>Does the member require pump supplies?</label></td>
+                            <td>
+                                @Html.RadioButtonFor(m => m.Assmnt_reqpumpsuppCGM, true) <label>Yes</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_reqpumpsuppCGM, false) <label>No</label>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td><label>Obtaining from another supplier?</label></td>
+                            <td>
+                                @Html.RadioButtonFor(m => m.Assmnt_pumpothersuppCGM, true) <label>Yes</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_pumpothersuppCGM, false) <label>No</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;
+                              
+                                <br/><br/>
+                                <label>If yes, who ? &nbsp;&nbsp;&nbsp;@Html.TextBoxFor(m => m.Assmnt_pumpothersupptxtCGM, new { disabled = "disabled" })</label>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td><label>New or replacement?</label></td>
+                            <td>
+                                @Html.TextBoxFor(m => m.Assmnt_neworreplacementCGM) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <br/><br/>
+                                <label>Manufacturer</label> &nbsp;&nbsp;
+                                @Html.DropDownListFor(m => m.Assmnt_manufacturerCGM, new List<SelectListItem>
+                            {
+                          new SelectListItem {Text ="Abbott", Value ="Abbott" },
+                          new SelectListItem {Text="Dexcom",Value = "Dexcom" },
+                          new SelectListItem {Text ="Insulet",Value= "Insulet" },
+                          new SelectListItem {Text ="Medtronic",Value = "Medtronic" },
+                           new SelectListItem {Text ="Tandem",Value = "Tandem" }
+                           }, "Select Manufacturer")
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td><label>Current Pump Name</label></td>
+                            <td>@Html.TextBoxFor(m => m.Assmnt_currpumpnmCGM)</td>
+                        </tr>
+                        <tr>
+
+                            <td><label>Serial Number</label></td>
+                            <td>@Html.TextBoxFor(m => m.Assmnt_serialnumCGM)</td>
+                        </tr>
+                        <tr>
+
+                            <td><label>Out of Warranty Date</label></td>
+                            <td>
+                                @*<input type="date" id="ofwarrantydt" value="@Model.Assmnt_outofwarrantydtCGM" />*@
+                                @*@Html.TextBoxFor(m => m.Assmnt_outofwarrantydtCGM, new { @type = "date", @Value = Model.Assmnt_outofwarrantydtCGM })*@
+                                @Html.TextBoxFor(m => m.Assmnt_outofwarrantydtCGM)
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td><label>Insurance that paid for pump?</label></td>
+                            <td>@Html.TextBoxFor(m => m.Assmnt_InsurancepaidforCGM)</td>
+                        </tr>
+                        <tr>
+
+                            <td><label>New/Replacement pump name/product code:</label></td>
+                            <td>@Html.TextBoxFor(m => m.Assmnt_NewPumpNameCGM)</td>
+                        </tr>
+                        <tr>
+
+                            <td><label>New/Replacement pump color/size</label></td>
+                            <td>@Html.TextBoxFor(m => m.Assmnt_NewPumpColorCGM)</td>
+                        </tr>
+                        <tr>
+
+                            <td><label>Replacement, reason for replacement</label></td>
+                            <td>@Html.TextBoxFor(m => m.Assmnt_PumpReplacereasonCGM)</td>
+                        </tr>
+                        <tr>
+
+                            <td><label>Type of meter/strips used with pump</label></td>
+                            <td>@Html.TextBoxFor(m => m.Assmnt_meterusedCGM)</td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                @Html.CheckBoxFor(m => m.Assmnt_InfusionsetCGM)
+                                <label>Infusion set/pod</label>
+                            </td>
+                            <td>@*@Html.TextBoxFor(m => m.Assmnt_InfusionsettxtCGM, new { disabled = "disabled" })*@
+                            @*@Html.DropDownListFor(m => m.Assmnt_InfusionsettxtCGMID, Model.Assmnt_InfusionsettxtCGMDW, "Select Product Code", new { @style = "width:350px;"  })*@
+                                @(Html.Kendo().ComboBox()
+                        .Name("InfusionSetComboBox")
+                        .DataTextField("Assmnt_InfusionsettxtCGM")
+                        .DataValueField("Assmnt_InfusionsettxtCGMID")
+                         .BindTo(Model.Assmnt_InfusionsettxtCGMDW)
+                         .SelectedIndex(0)
+                          .Suggest(true)
+                                )
+
+                                @Html.HiddenFor(m => m.Assmnt_InfusionsettxtCGMID)
+
+
+
+                            
+                             </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                @Html.CheckBoxFor(m => m.Assmnt_catridgesCGM) 
+                                <label>Cartridges/reservoirs</label>
+                            </td>
+                            <td>@*@Html.TextBoxFor(m => m.Assmnt_catridgestxtCGM, new { disabled = "disabled" })*@
+                                @*@Html.DropDownListFor(m => m.Assmnt_catridgestxtCGMID, Model.Assmnt_catridgestxtCGMDW, "Select Product Code", new { @style = "width:350px;" })*@
+                                @(Html.Kendo().ComboBox()
+                        .Name("CartridgeComboBox")
+                        .DataTextField("Assmnt_catridgestxtCGM")
+                        .DataValueField("Assmnt_catridgestxtCGMID")
+                         .BindTo(Model.Assmnt_catridgestxtCGMDW)
+                         .SelectedIndex(0)
+                          .Suggest(true)
+                                )
+
+                            @Html.HiddenFor(m => m.Assmnt_catridgestxtCGMID)
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; How often are they changed ?</label>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.Assmnt_catridgesoftnchngtxtCGM )
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.CheckBoxFor(m => m.Assmnt_BarrierWipesCGM) 
+                                <label>Barrier Wipes</label>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                @Html.CheckBoxFor(m => m.Assmnt_RemoverWipesCGM) 
+                                <label>Remover Wipes</label>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                @Html.CheckBoxFor(m => m.Assmnt_AlcoholWipesCGM) 
+                                <label>Alcohol wipes</label>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                @Html.CheckBoxFor(m => m.Assmnt_TransparentdressingCGM) 
+                                <label>Transparent Dressing</label>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                @Html.CheckBoxFor(m => m.Assmnt_BatteriesCGM) 
+                                <label>Batteries</label>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <label> Has the member ever owned or used a CGM? </label>
+                            </td>
+                            <td style="width:15%">
+                                @Html.RadioButtonFor(m => m.Assmnt_memownedorusedCGM, true)  <label>Yes </label>
+                                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_memownedorusedCGM, false) <label>No</label>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <label> Is the member currently on a CGM? </label>
+                            </td>
+                            <td>
+                                @Html.RadioButtonFor(m => m.Assmnt_memcurronCGM, true)  <label>Yes </label>
+                                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_memcurronCGM, false) <label>No</label>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <label>Transmitter:</label> 
+                            </td>
+                            <td>@Html.TextBoxFor(m => m.Assmnt_transmitter_ProductCode)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label> &nbsp;&nbsp;Date Received</label>
+                            </td>
+                            @*<input type="date" id="instransmit_dt" value="@Model.Assmnt_transmitter_dtreceivedCGM" />*@
+                            <td>
+                                @Html.TextBoxFor(m => m.Assmnt_transmitter_dtreceivedCGM)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label> &nbsp;&nbsp; out of warranty date</label> </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.Assmnt_transmitter_outofwarrantydtCGM)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label> &nbsp;&nbsp; Serial #</label></td>
+                            <td>
+                                @Html.TextBoxFor(m => m.Assmnt_transmitter_serialnoCGM)
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Receiver:</label>  
+                            </td>
+                            <td>@Html.TextBoxFor(m => m.Assmnt_receiver_ProductCode)</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label> &nbsp;&nbsp;Date Received</label>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.Assmnt_receiver_dtreceivedCGM)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>  &nbsp;&nbsp;out of warranty date</label> </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.Assmnt_receiver_outofwarrantydtCGM)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>  &nbsp;&nbsp;Serial #</label>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.Assmnt_receiver_serialnoCGM)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label> Does the member require a Transmitter? </label>
+                            </td>
+                            <td>
+                                @Html.RadioButtonFor(m => m.Assmnt_memneedtransmitterCGM, true) <label>Yes </label>
+                                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_memneedtransmitterCGM, false) <label>No</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label> Does the member require a Receiver? </label>
+                            </td>
+                            <td>
+                                @Html.RadioButtonFor(m => m.Assmnt_memneedreceiverCGM, true) <label>Yes </label>
+                                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_memneedreceiverCGM, false) <label>No</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label> Does the member require Sensors? </label>
+                            </td>
+                            <td>
+                                @Html.RadioButtonFor(m => m.Assmnt_memneedsensorsCGM, true) <label>Yes </label>
+                                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_memneedsensorsCGM, false) <label>No</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Obtaining from another supplier?</label></td>
+                            <td>
+                                @Html.RadioButtonFor(m => m.Assmnt_othersupplierCGM, true)<label>Yes</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_othersupplierCGM, false)<label>No</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <br/><br/>
+                                <label>If yes, who ? &nbsp;&nbsp;&nbsp;@Html.TextBoxFor(m => m.Assmnt_othersuppliertxtCGM, new { disabled = "disabled" })</label>
+                            </td>
+                        </tr>
+                        <tr style="border-spacing:0">
+                            <td>
+                                <label> Transmitter </label>
+                            </td>
+                            <td style="width:50%">
+                                @Html.RadioButtonFor(m => m.Assmnt_transmittertypeCGM, "New")  <label>New </label>
+                                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_transmittertypeCGM, "Replacement") <label>Replacement</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:50%">
+                                <label> Receiver </label>
+                            </td>
+                            <td>
+                                @Html.RadioButtonFor(m => m.Assmnt_receivertypeCGM, "New")  <label>New </label>
+                                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_receivertypeCGM, "Replacement") <label>Replacement</label>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <label>Reason for Replacement</label>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.Assmnt_transmitorreceiver_replacementreasonCGM)
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <label>Sensors product code</label>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(m => m.Assmnt_sensorsforprodcodeCGM)
+                            </td>
+                        <tr>
+
+                            <td>
+                                <label>
+                                    Is member aware that signature is required for full CGM systems and all insulin pumps?
+                                </label>
+                            </td>
+                            <td>
+                                @Html.RadioButtonFor(m => m.Assmnt_memawareofsignCGM, true) <label>Yes </label>
+                                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.Assmnt_memawareofsignCGM, false) <label>No</label>
+                            </td>
+                        </tr>                       
+                    </table>
+                </center>
+            <br />
+            @*<input type="button" class="btn btn-primary" value="SAVE" id="inssave" style="text-align:center" /> &nbsp;&nbsp;*@
+            <input type="button" class="btn btn-primary" id="insbtn_close" value="CLOSE" style="width:100%" />
+            <br />
+</div>
+       
+    </div>
+</div>
+<style>
+
+    /*for testing*/
+   
+    tr{
+        width : 50px;
+    }
+ a:link{
+        text-decoration:none;
+    }
+    a{
+        color:white;
+    }
+    /*#diabadd { 
+     background-color: #fefefe;
+        margin: auto;
+        padding: 20px;       
+        border: 1px solid #888;           
+         width:100%;
+        height:100%; 
+        text-align: center;
+       overflow:auto;      
+}*/
+     .modal-header {
+    padding: 6px 6px;
+    background-color: #5cb85c;
+    color: white;
+     width:100%;
+}
+    .modal-body {padding: 2px 16px;}
+  .modal_style {
+       display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+       z-index: 1; /* Sit on top */
+        padding-top: 60px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+    /* Modal Content */
+    .modal_content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 5px;
+        border: 1px solid #888;
+        width: 40%;
+        height: 1000px;
+        text-align: center;
+        overflow:auto;
+       box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.6s;
+    animation-name: animatetop;
+    animation-duration: 0.6s
+    }  
+      #container .modal.fade {
+        left: -25%;
+        -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+ -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+ transition: opacity 0.3s linear, left 0.3s ease-out;
+    }
+        #container .modal.fade.in {
+            left: 50%;
+        }
+        #container .modal-body {
+        max-height: 50px;
+        max-width:200px;
+    }
+     .close {
+         color: #000;
+   float: right;
+    font-size: 28px;
+    font-weight: bold;  
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+@@-webkit-keyframes animatetop {
+    from {top: -300px; opacity: 0} 
+    to {top: 0; opacity: 1}
+}
+@@keyframes animatetop {
+    from {top:-300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+#diabaddtbl th, #diabaddtbl td, #diabaddtbl tr, #insaddtbl th, #insaddtbl td,#insaddtbl tr
+{
+    border-top : none !important;
+}
+</style>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+
+    $('#Assmnt_nameofinsulindiab').click(function () {
+        var $this = $(this);
+
+        if ($this.val() == 'Other') {
+            $('#Assmnt_nameofinsulindiab_Other ').removeAttr("disabled");
+        } else {
+            $('#Assmnt_nameofinsulindiab_Other ').attr("disabled", "disabled")
+        }
+    });
+
+
+    //$("#Assmnt_lastorderrecieveddt").datepicker(
+    //    {
+    //        changeMonth: true,
+    //        changeYear:true           
+    //    }
+    //    );
+    $('#Assmnt_pregduedatediab').datepicker(
+        {
+            changeMonth: true,
+            changeYear: true
+        }
+        );
+    $('#Assmnt_outofwarrantydtCGM').datepicker(
+          {
+              changeMonth: true,
+              changeYear: true
+          }
+        );
+    $('#Assmnt_transmitter_dtreceivedCGM').datepicker(
+          {
+              changeMonth: true,
+              changeYear: true
+          }
+        );
+    $('#Assmnt_transmitter_outofwarrantydtCGM').datepicker(
+          {
+              changeMonth: true,
+              changeYear: true
+          }
+        );
+    $('#Assmnt_receiver_dtreceivedCGM').datepicker(
+          {
+              changeMonth: true,
+              changeYear: true
+          }
+        );
+    $('#Assmnt_receiver_outofwarrantydtCGM').datepicker(
+          {
+                changeMonth: true,
+            changeYear:true 
+          }
+        );
+    //$(document).ready(function () {
+    //    jQuery.noConflict();
+    //});
+    //$(document).ready(function () {
+    //    var fabric = $("#CartridgeComboBox").data("kendoComboBox");
+     
+
+    //    $("#get").click(function () {
+    //        alert('Thank you! Your Choice is:\n\nFabric ID: ' + fabric.value() + ' and Size: ' + size.value());
+    //    });
+    //});
+
+    $(document).on('click', '#diabbutton', function () {
+         
+        $('#assmnt_Diab').prop('checked', true);
+        $('#IsDiab').val('TRUE');
+        $('#diabadd').show();
+    });
+    $(document).on('click', '#diabbtn_close,#diabadd_close', function () {
+        $('#diabadd').hide();
+    });
+
+    $(document).on('click', '#inspumpbutton', function () {
+        
+        $('#assmnt_Insulin').prop('checked', true);
+        $('#IsInsulin').val('TRUE');
+     
+        $('#insadd').show();
+    });
+    $(document).on('click', '#insbtn_close,#insadd_close', function () {
+        var CartridgeCB = $("#CartridgeComboBox").data("kendoComboBox"); 
+        $("#Assmnt_catridgestxtCGMID").val(CartridgeCB.value());
+
+        var InfusionSet = $("#InfusionSetComboBox").data("kendoComboBox");
+        $("#Assmnt_InfusionsettxtCGMID").val(InfusionSet.value());
+      //  alert('Thank you! Your Choice is:\n\nFabric ID: ' + fabric.value() + " Id:" + $("#Assmnt_catridgestxtCGMID").val());
+        $('#insadd').hide();
+       
+
+    });
+    //when checked on insulin information  
+    $(document).on('change', '#Assmnt_pumpothersuppCGM', function () {
+        if($(this).is(':checked'))
+        {
+            if($(this).val() == "True")
+            {               
+                $("#Assmnt_pumpothersupptxtCGM").prop("disabled", false);
+            }
+            else
+            {              
+                $("#Assmnt_pumpothersupptxtCGM").prop("disabled", true);
+             //   $("#Assmnt_pumpothersupptxtCGM").val("");
+            }
+        }
+        else
+        {
+            $("#Assmnt_pumpothersupptxtCGM").prop("disabled", true);
+           // $("#Assmnt_pumpothersupptxtCGM").val("");
+        }
+    });
+
+    $(document).on('change', '#Assmnt_InfusionsetCGM', function () {
+        if ($(this).is(':checked')) {
+            $('#Assmnt_InfusionsettxtCGM').prop('disabled', false);
+        }
+        else {
+            $('#Assmnt_InfusionsettxtCGM').prop('disabled', true);
+          //  $('#Assmnt_InfusionsettxtCGM').val("");
+        }
+    });
+
+    $(document).on('change', '#Assmnt_catridgesCGM', function () {
+        if ($(this).is(':checked')) {
+            $('#Assmnt_catridgestxtCGM').prop('disabled', false);  //Assmnt_catridgesoftnchngtxtCGM
+           
+        }
+        else {
+            $('#Assmnt_catridgestxtCGM').prop('disabled', true);
+            
+          //  $('#Assmnt_catridgesoftnchngtxtCGM').val("");
+        }
+    });
+
+    $(document).on('change', '#Assmnt_othersupplierCGM', function () {
+        if ($(this).is(':checked')) {
+            if ($(this).val() == "True") {
+                $("#Assmnt_othersuppliertxtCGM").prop("disabled", false);
+            }
+            else {
+                $("#Assmnt_othersuppliertxtCGM").prop("disabled", true);
+             //   $("#Assmnt_othersuppliertxtCGM").val("");
+            }
+        }
+        else {
+            $("#Assmnt_othersuppliertxtCGM").prop("disabled", true);
+         //   $("#Assmnt_othersuppliertxtCGM").val("");
+        }
+    });
+
+    //diab
+    $(document).on('change', '#Assmnt_injfromothersuppdiab', function () {
+        if ($(this).is(':checked')) {
+            if ($(this).val() == "True") {
+                $("#Assmnt_injothersupptxtdiab").prop("disabled", false);
+            }
+            else {
+                $("#Assmnt_injothersupptxtdiab").prop("disabled", true);
+             //   $("#Assmnt_injothersupptxtdiab").val("");
+            }
+        }
+        else {
+            $("#Assmnt_injothersupptxtdiab").prop("disabled", true);
+         //   $("#Assmnt_injothersupptxtdiab").val("");
+        }
+    });
+    //Assmnt_syrwtneedlediab
+    $(document).on('change', '#Assmnt_syrwtneedlediab', function () {
+        if($(this).is(':checked'))
+        {
+            $("#Assmnt_syrwtneedle_gaugediab").prop("disabled", false);
+            $("#Assmnt_syrwtneedle_lendiab").prop("disabled", false);
+            $("#Assmnt_syrwtneedle_unitsdiab").prop("disabled", false);
+            $("#Assmnt_syrwtneedle_qtydiab").prop("disabled", false);
+        }
+        else
+        {
+            $("#Assmnt_syrwtneedle_gaugediab").prop("disabled", true);
+            $("#Assmnt_syrwtneedle_lendiab").prop("disabled", true);
+            $("#Assmnt_syrwtneedle_unitsdiab").prop("disabled", true);
+            $("#Assmnt_syrwtneedle_qtydiab").prop("disabled", true);
+        }
+    });
+    //needle only
+    $(document).on('change', '#Assmnt_needleonly_diab', function () {
+        if ($(this).is(':checked')) {
+            $("#Assmnt_needleonly_gauge").prop("disabled", false);
+            $("#Assmnt_needleonly_len").prop("disabled", false);
+            $("#Assmnt_needleonly_qty").prop("disabled", false);          
+        }
+        else {
+            $("#Assmnt_needleonly_gauge").prop("disabled",true);
+            $("#Assmnt_needleonly_len").prop("disabled", true);
+            $("#Assmnt_needleonly_qty").prop("disabled", true);
+        }
+    });
+
+    //urine ketone
+    $(document).on('change', '#Assmnt_UrineKetonediab', function () {
+        if($(this).is(':checked'))
+        {
+            $("#Assmnt_UrineKetone_Freqtestingdiab").prop("disabled", false);
+        }
+        else
+        {
+            $("#Assmnt_UrineKetone_Freqtestingdiab").prop("disabled", true);
+        }
+    });
+    //Blood Ketone
+    $(document).on('change', '#Assmnt_BloodKetonediab', function () {
+        if ($(this).is(':checked')) {
+            $("#Assmnt_BloodKetone_Freqtestingdiab").prop("disabled", false);
+        }
+        else {
+            $("#Assmnt_BloodKetone_Freqtestingdiab").prop("disabled", true);
+        }
+    });
+</script>

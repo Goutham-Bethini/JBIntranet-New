@@ -1,0 +1,38 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.USSoperatorLookup.USSoperatorLookupVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "USSoperatorLookup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3 class="middle" style="text-align:center;">USS Operator Lookup</h3>
+<div>
+    <center>
+        @(Html.Kendo().Grid<USPS_Report.Areas.ColdFusionReports.Models.DataModels.USSoperatorLookup.USSoperatorLookupData>()
+                                                                                            .Name("USSoperatorLookup")
+                                                                                            .Columns(columns =>
+                                                                                            {
+                                                                                                columns.Bound(t => t.Id).Title("Id");
+                                                                                                columns.Bound(t => t.Name).Title("Name");
+                                                                                                columns.Bound(t => t.Department).Title("Department");
+                                                                                                columns.Bound(t => t.Active).Title("Active");
+
+                                                                                            })
+                                                                                                 .Sortable()
+                                                                 .Pageable()
+                                                                     .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                                                                                           .HtmlAttributes(new { style = "width:80%;" })
+                                                                                                .Reorderable(r => r.Columns(true))
+                                                                                                .Resizable(r => r.Columns(true))
+                                                                                                .ColumnMenu()
+                                                                                            .DataSource(dataSource => dataSource
+                                                                                                .Ajax()
+                                                                                                 .PageSize(25)
+                                                                                                 .ServerOperation(false)
+                                                                                                .Model(model => model.Id(p => p.Id))
+                                                                                                .Read(read => read.Action("USSoperatorLookupData", "USSoperatorLookup", null))
+                                                                                            )
+        )
+    </center>
+</div>
+
+

@@ -1,0 +1,631 @@
+﻿
+@{
+    ViewBag.Title = "Indiana_Survey";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-8">
+        @Html.ActionLink("Enter Survey", "Indiana_Survey", "Indiana") &nbsp; &nbsp;
+
+        @Html.ActionLink("Survey Results", "SurverResult", "Indiana") &nbsp; &nbsp;
+
+        @Html.ActionLink("Surveys with optional information", "SurverOptionInfo", "Indiana")
+    </div>
+
+
+</div>
+
+ 
+<h2 align="center" style="font-size:xx-large  " class="label-info"><strong>Indiana Medicaid Patient Survey Entry</strong></h2>
+<br />
+@if (HttpContext.Current.Request.HttpMethod == "POST")
+{
+    
+    <center>
+        <p style="font-size:x-large; width:900px" class="label-success"><strong>@ViewBag.message</strong></p>
+    </center>
+}
+<div class="row">
+    <form name="indiana_survey" action="" method="post">
+        <div>
+            <table style="font-size:medium ; font-family:'Times New Roman'" align="center">
+                <tr>
+                    <th colspan="5">
+                        <p align="left" style="background-color:powderblue ; font-size:large" ><strong> 1. The quality of the product I am getting from my supplier meets my needs.</strong></p>
+                    </th>
+                </tr>
+
+                @*<tr style="height:10px">
+                     <td colspan="5"></td>
+                    </tr>*@
+                <tr>
+                    <td style="width:5px ;font-size:large "><input type="checkbox" name="q1a" value="StronglyAgree" id="q1a" />&nbsp;&nbsp;Strongly Agree</td>
+                    <td style="width:5px ;font-size:large"><input type="checkbox" name="q1b" value="NoOpinion" id="q1b" />&nbsp;&nbsp;No Opinion</td>
+                    <td style="width:5px ;font-size:large"><input type="checkbox" name="q1c" value="StronglyDisAgree" id="q1c" />&nbsp;&nbsp;Strongly DisAgree</td>
+                    <td style="width:5px ;font-size:large"><input type="checkbox" name="q1d" value="Agree" id="q1d" />&nbsp;&nbsp;Agree</td>
+                    <td style="width:5px;font-size:large"><input type="checkbox" name="q1e" value="DisAgree" id="q1e" />&nbsp;&nbsp;Disagree</td>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <th colspan="5">
+                        <p align="left" style="background-color:powderblue ; font-size:large">  <strong>2. The staff are responsive,courteous, and knowledgable in answering my questions.</strong> </p>
+</th>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td style="font-size:large"><input type="checkbox" name="q2a" value="StronglyAgree" id="q2a" />&nbsp;&nbsp;Strongly Agree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q2b" value="NoOpinion" id="q2b" />&nbsp;&nbsp;No Opinion</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q2c" value="StronglyDisAgree" id="q2c" />&nbsp;&nbsp;Strongly DisAgree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q2d" value="Agree" id="q2d" />&nbsp;&nbsp;Agree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q2e" value="DisAgree" id="q2e" />&nbsp;&nbsp;Disagree</td>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <th colspan="5">
+                        <p align="left" style="background-color:powderblue ; font-size:large">   <strong> 3. The phone system and/or interactive website is convenient and easy to use.</strong> </p>
+</th>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td  style="font-size:large"><input type="checkbox" name="q3a" value="StronglyAgree" id="q3a" />&nbsp;&nbsp;Strongly Agree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q3b" value="NoOpinion" id="q3b" />&nbsp;&nbsp;No Opinion</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q3c" value="StronglyDisAgree" id="q3c" />&nbsp;&nbsp;Strongly DisAgree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q3d" value="Agree" id="q3d" />&nbsp;&nbsp;Agree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q3e" value="DisAgree" id="q3e" />&nbsp;&nbsp;Disagree</td>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <th colspan="5">
+                        <p align="left" style="background-color:powderblue ; font-size:large">   <strong>4. I recieve my orders as expected.</strong> </p>
+</th>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td  style="font-size:large"><input type="checkbox" name="q4a" value="StronglyAgree" id="q4a" />&nbsp;&nbsp;Strongly Agree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q4b" value="NoOpinion" id="q4b" />&nbsp;&nbsp;No Opinion</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q4c" value="StronglyDisAgree" id="q4c" />&nbsp;&nbsp;Strongly DisAgree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q4d" value="Agree" id="q4d" />&nbsp;&nbsp;Agree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q4e" value="DisAgree" id="q4e" />&nbsp;&nbsp;Disagree</td>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <th colspan="5">
+                        <p align="left" style="background-color:powderblue ; font-size:large">    <strong> 5. Any issues I may have are/were resolved to my satisfaction.</strong> </p>
+
+</th>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td  style="font-size:large"><input type="checkbox" name="q5a" value="StronglyAgree" id="q5a" />&nbsp;&nbsp;Strongly Agree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q5b" value="NoOpinion" id="q5b" />&nbsp;&nbsp;No Opinion</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q5c" value="StronglyDisAgree" id="q5c" />&nbsp;&nbsp;Strongly DisAgree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q5d" value="Agree" id="q5d" />&nbsp;&nbsp;Agree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q5e" value="DisAgree" id="q5e" />&nbsp;&nbsp;Disagree</td>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <th colspan="5">
+                        <p align="left" style="background-color:powderblue ; font-size:large">
+                            <strong>
+                                6. Overall, I am satisfied with the services I am recieving and would recommend them
+                                to a friend, neighbor, or relative.
+                            </strong> </p>
+</th>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr>
+                    <td  style="font-size:large"><input type="checkbox" name="q6a" value="StronglyAgree" id="q6a" />&nbsp;&nbsp;Strongly Agree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q6b" value="NoOpinion" id="q6b" />&nbsp;&nbsp;No Opinion</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q6c" value="StronglyDisAgree" id="q6c" />&nbsp;&nbsp;Strongly DisAgree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q6d" value="Agree" id="q6d" />&nbsp;&nbsp;Agree</td>
+                    <td  style="font-size:large"><input type="checkbox" name="q6e" value="DisAgree" id="q6e" />&nbsp;&nbsp;Disagree</td>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="5"></td>
+                </tr>
+            </table>
+            @*<p>
+                    <strong>
+                        6. Overall, I am satisfied with the services I am recieving and would recommend them
+                        to a friend, neighbor, or relative.
+                    </strong>
+                </p>
+                <ul>
+                    <li><input type="checkbox" name="q6a" value="StronglyAgree" id="q6a" />&nbsp;&nbsp;Strongly Agree</li>
+                      <li><input type="checkbox" name="q6b" value="NoOpinion" id="q6b" />&nbsp;&nbsp;No Opinion</li>
+                    <li><input type="checkbox" name="q6c" value="StronglyDisAgree" id="q6c" />&nbsp;&nbsp;Strongly DisAgree</li>
+                    <li><input type="checkbox" name="q6d" value="Agree" id="q6d" />&nbsp;&nbsp;Agree</li>
+                    <li><input type="checkbox" name="q6e" value="DisAgree" id="q6e" />&nbsp;&nbsp;Disagree</li>
+                </ul>*@
+            <br />
+            <h4 align="center" style="font-size:large">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Optional Information</strong></h4>
+            <table align="center" style="font-size:medium">
+                <tr>
+                    <th  style="font-size:large">
+                        Name:
+                    </th>
+                    <td   >
+                        <input type="text" name="u_name" style="width:250px;height:30px" />
+                    </td>
+                </tr>
+
+                <tr style="height:10px">
+                    <td colspan="2"></td>
+                </tr>
+
+                <tr>
+                    <th  style="font-size:large">Address:</th>
+                    <td>
+                        <textarea name="u_addr" rows="7" cols="80" style="width:300px;height:120px"></textarea>
+                    </td>
+                </tr>
+                <tr style="height:10px">
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <th  style="font-size:large">Comments:</th>
+                    <td>
+                        <textarea name="u_comm" rows="7" cols="80" style="width:300px;height:120px"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <br />
+          <div style="text-align:center">
+              <input type="submit" class="btn btn-primary" value="Submit" style="width:130px"  />
+          </div>
+          
+
+        </div>
+    </form>
+</div>
+
+
+
+<script>
+    //q1 1,option 1
+$(
+function ()
+{
+    $("#q1a").change(
+        function ()
+        {
+            $("#q1b").prop('checked', false);
+            $("#q1c").prop('checked', false);
+            $('#q1d').prop('checked', false);
+            $("#q1e").prop('checked', false);
+        }
+    )
+}
+)
+    //q1 option 2
+$(
+    function()
+    {
+        $("#q1b").change(
+            function()
+            {
+                $("#q1a").prop("checked", false);
+                $("#q1c").prop("checked", false);
+                $("#q1d").prop("checked", false);
+                $("#q1e").prop("checked", false);
+            }
+            )
+    }
+ )
+    //q1 option 3
+$(
+    function()
+    {
+        $("#q1c").change(
+
+            function()
+            {
+                $("#q1a").prop("checked", false);
+                $("#q1b").prop("checked", false);
+                $("#q1d").prop("checked", false);
+                $("#q1e").prop("checked", false);
+            }
+           )
+    }
+ )
+    //option 4
+$(
+function () {
+    $("#q1d").change(
+
+        function () {
+            $("#q1a").prop("checked", false);
+            $("#q1b").prop("checked", false);
+            $("#q1c").prop("checked", false);
+            $("#q1e").prop("checked", false);
+        }
+       )
+}
+)
+
+//option 5
+$(
+function () {
+    $("#q1e").change(
+
+        function () {
+            $("#q1a").prop("checked", false);
+            $("#q1b").prop("checked", false);
+            $("#q1c").prop("checked", false);
+            $("#q1d").prop("checked", false);
+        }
+       )
+}
+)
+//q2 1,option 1
+$(
+function () {
+    $("#q2a").change(
+        function () {
+            $("#q2b").prop('checked', false);
+            $("#q2c").prop('checked', false);
+            $('#q2d').prop('checked', false);
+            $("#q2e").prop('checked', false);
+        }
+    )
+}
+)
+//q2 option 2
+$(
+function () {
+    $("#q2b").change(
+        function () {
+            $("#q2a").prop('checked', false);
+            $("#q2c").prop('checked', false);
+            $('#q2d').prop('checked', false);
+            $("#q2e").prop('checked', false);
+        }
+    )
+}
+)
+//q2 option 3
+$(
+function () {
+    $("#q2c").change(
+        function () {
+            $("#q2b").prop('checked', false);
+            $("#q2a").prop('checked', false);
+            $('#q2d').prop('checked', false);
+            $("#q2e").prop('checked', false);
+        }
+    )
+}
+)
+//option 4
+$(
+function () {
+    $("#q2d").change(
+
+        function () {
+            $("#q2b").prop('checked', false);
+            $("#q2a").prop('checked', false);
+            $('#q2c').prop('checked', false);
+            $("#q2e").prop('checked', false);
+        }
+       )
+}
+)
+
+//option 5
+$(
+function () {
+    $("#q2e").change(
+
+        function () {
+            $("#q2b").prop('checked', false);
+            $("#q2a").prop('checked', false);
+            $('#q2d').prop('checked', false);
+            $("#q2c").prop('checked', false);
+        }
+       )
+}
+)
+
+    //q3 option 1
+$(
+function () {
+    $("#q3a").change(
+        function () {
+            $("#q3b").prop('checked', false);
+            $("#q3c").prop('checked', false);
+            $('#q3d').prop('checked', false);
+            $("#q3e").prop('checked', false);
+        }
+    )
+}
+)
+//q3 option 2
+$(
+function () {
+    $("#q3b").change(
+        function () {
+            $("#q3a").prop('checked', false);
+            $("#q3c").prop('checked', false);
+            $('#q3d').prop('checked', false);
+            $("#q3e").prop('checked', false);
+        }
+    )
+}
+)
+//q3 option 3
+$(
+function () {
+    $("#q3c").change(
+        function () {
+            $("#q3b").prop('checked', false);
+            $("#q3a").prop('checked', false);
+            $('#q3d').prop('checked', false);
+            $("#q3e").prop('checked', false);
+        }
+    )
+}
+)
+//q3 option 4
+$(
+function () {
+    $("#q3d").change(
+        function () {
+            $("#q3b").prop('checked', false);
+            $("#q3c").prop('checked', false);
+            $('#q3a').prop('checked', false);
+            $("#q3e").prop('checked', false);
+        }
+    )
+}
+)
+//q3 option 5
+$(
+function () {
+    $("#q3e").change(
+        function () {
+            $("#q3b").prop('checked', false);
+            $("#q3c").prop('checked', false);
+            $('#q3d').prop('checked', false);
+            $("#q3a").prop('checked', false);
+        }
+    )
+}
+)
+//q4 option 1
+$(
+function () {
+    $("#q4a").change(
+        function () {
+            $("#q4b").prop('checked', false);
+            $("#q4c").prop('checked', false);
+            $('#q4d').prop('checked', false);
+            $("#q4e").prop('checked', false);
+        }
+    )
+}
+)
+//q4 option 2
+$(
+function () {
+    $("#q4b").change(
+        function () {
+            $("#q4a").prop('checked', false);
+            $("#q4c").prop('checked', false);
+            $('#q4d').prop('checked', false);
+            $("#q4e").prop('checked', false);
+        }
+    )
+}
+)
+//q4 option 3
+$(
+function () {
+    $("#q4c").change(
+        function () {
+            $("#q4b").prop('checked', false);
+            $("#q4a").prop('checked', false);
+            $('#q4d').prop('checked', false);
+            $("#q4e").prop('checked', false);
+        }
+    )
+}
+)
+//q4 option 4
+$(
+function () {
+    $("#q4d").change(
+        function () {
+            $("#q4b").prop('checked', false);
+            $("#q4c").prop('checked', false);
+            $('#q4a').prop('checked', false);
+            $("#q4e").prop('checked', false);
+        }
+    )
+}
+)
+//q4 option 5
+$(
+function () {
+    $("#q4e").change(
+        function () {
+            $("#q4b").prop('checked', false);
+            $("#q4c").prop('checked', false);
+            $('#q4d').prop('checked', false);
+            $("#q4a").prop('checked', false);
+        }
+    )
+}
+)
+//q5 option 1
+$(
+function () {
+    $("#q5a").change(
+        function () {
+            $("#q5b").prop('checked', false);
+            $("#q5c").prop('checked', false);
+            $('#q5d').prop('checked', false);
+            $("#q5e").prop('checked', false);
+        }
+    )
+}
+)
+//q5 option 2
+$(
+function () {
+    $("#q5b").change(
+        function () {
+            $("#q5a").prop('checked', false);
+            $("#q5c").prop('checked', false);
+            $('#q5d').prop('checked', false);
+            $("#q5e").prop('checked', false);
+        }
+    )
+}
+)
+//q5 option 3
+$(
+function () {
+    $("#q5c").change(
+        function () {
+            $("#q5b").prop('checked', false);
+            $("#q5a").prop('checked', false);
+            $('#q5d').prop('checked', false);
+            $("#q5e").prop('checked', false);
+        }
+    )
+}
+)
+//q5 option 4
+$(
+function () {
+    $("#q5d").change(
+        function () {
+            $("#q5b").prop('checked', false);
+            $("#q5c").prop('checked', false);
+            $('#q5a').prop('checked', false);
+            $("#q5e").prop('checked', false);
+        }
+    )
+}
+)
+//q5 option 5
+$(
+function () {
+    $("#q5e").change(
+        function () {
+            $("#q5b").prop('checked', false);
+            $("#q5c").prop('checked', false);
+            $('#q5d').prop('checked', false);
+            $("#q5a").prop('checked', false);
+        }
+    )
+}
+)
+//q6 option 1
+$(
+function () {
+    $("#q6a").change(
+        function () {
+            $("#q6b").prop('checked', false);
+            $("#q6c").prop('checked', false);
+            $('#q6d').prop('checked', false);
+            $("#q6e").prop('checked', false);
+        }
+    )
+}
+)
+//q6 option 2
+$(
+function () {
+    $("#q6b").change(
+        function () {
+            $("#q6a").prop('checked', false);
+            $("#q6c").prop('checked', false);
+            $('#q6d').prop('checked', false);
+            $("#q6e").prop('checked', false);
+        }
+    )
+}
+)
+//q6 option 3
+$(
+function () {
+    $("#q6c").change(
+        function () {
+            $("#q6b").prop('checked', false);
+            $("#q6a").prop('checked', false);
+            $('#q6d').prop('checked', false);
+            $("#q6e").prop('checked', false);
+        }
+    )
+}
+)
+//q6 option 4
+$(
+function () {
+    $("#q6d").change(
+        function () {
+            $("#q6b").prop('checked', false);
+            $("#q6c").prop('checked', false);
+            $('#q6a').prop('checked', false);
+            $("#q6e").prop('checked', false);
+        }
+    )
+}
+)
+//q6 option 5
+$(
+function () {
+    $("#q6e").change(
+        function () {
+            $("#q6b").prop('checked', false);
+            $("#q6c").prop('checked', false);
+            $('#q6d').prop('checked', false);
+            $("#q6a").prop('checked', false);
+        }
+    )
+}
+)
+</script>
+

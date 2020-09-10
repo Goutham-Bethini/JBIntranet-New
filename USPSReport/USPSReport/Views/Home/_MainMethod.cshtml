@@ -1,0 +1,46 @@
+﻿@model USPSReport.Models.DetailReport
+<div class="modal-body">
+
+
+    <div id="signupbox" class="container" style="padding:0px;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <i class="fa fa-user"></i> USPS Info
+                   
+                </div>
+            </div>
+            <div class="panel-body" style="padding:15px;">
+
+
+                <div class="clear-fix"></div>
+                <div class="profile-panel">
+
+                    <div class="col-md-6"><strong>Account :</strong> <small>(Account)</small> <span class="profile-val">@Html.DisplayFor(m => m.Acccount) </span></div>
+                    <div class="col-md-6"><strong>Address :</strong> <span class="profile-val"> @Html.DisplayFor(m => m.Address1)&nbsp;</span></div>
+
+                 </div>
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+                <script type="text/javascript">
+                    $(function () {
+                        $('#approve-btn').click(function () {
+                            $('#modal-container').modal('hide');
+                        });
+                    });
+                </script>

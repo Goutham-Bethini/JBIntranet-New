@@ -1,0 +1,63 @@
+﻿@model IEnumerable<USPS_Report.Areas.Reports.Models.ROnotPurchaseViewModel>
+@using Kendo.Mvc.UI;
+
+
+@{
+    ViewBag.Title = "ROnotPurchaseDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="well col-md-12">
+        <h2 class="center">Reocurring work orders not setup as purchase</h2>
+    </div>
+    <div id="viewData" class="well col-md-12">
+        <p class="col-md-12"><b>@Model.Count() Reocurring work orders not setup as purchase</b></p>
+        <div class="col-md-12">
+            @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.ROnotPurchaseViewModel>()
+                        .Name("ROnotPurchase")
+                        .Scrollable(s => s.Height("auto"))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(c => c.Account).Title("Account").Width(200);
+                        })
+                            //  .ToolBar(tools => tools.Excel())
+                            .Sortable()
+                             .Pageable()
+                                 .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                           //.Excel(excel => excel
+                           //     .FileName("CMNWithDuration99.xlsx")
+                           //     .AllPages(true)
+                           //     .Filterable(true)
+                           //     .ProxyURL(Url.Action("Excel_Export_Save", "InactiveAccounts"))
+                           // )
+                           .HtmlAttributes(new { style = "width:470px;" })
+                                .Reorderable(r => r.Columns(true))
+                                .Resizable(r => r.Columns(true))
+                                .ColumnMenu()
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(200)
+                            .ServerOperation(false)
+                            .Read(read => read.Action("ReadROnotPurchaseData", "ROnotPurchase", Model))
+                        )
+            //.HtmlAttributes(new { style = "height: 350px;" })
+            )
+        </div>
+        @*@Html.Partial("GetExpiringCMNDetails", Model.ExpiringCMNDetails)*@
+    </div>
+</div>
+
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+</style>
+

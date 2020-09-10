@@ -1,0 +1,113 @@
+﻿@model USPS_Report.Areas.Reports.Models.RwoRushOrders
+
+@{
+    ViewBag.Title = "RWO_RushOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="middle">
+    <h1>RWO's set with "FedEx - Rush Order" as delivery method</h1>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+        <div class=" row">
+            <h3 style="color:blue">
+               Total Records =  @Model.rwo_RushOrdersVM.Count() 
+            </h3>
+        </div>
+        <hr />
+        <div class="row">
+
+            <div class="table-responsive">
+                <table data-sortable class="table table-hover table-striped" style="width:1300px">
+                    <thead>
+                        <tr>
+                            <th>
+                                Account
+                            </th>
+
+                            <th>
+                                Product Code
+                            </th>
+                            <th>
+                                NextRepeat Date
+                            </th>
+
+                            <th>
+                                Created Date
+                            </th>
+                            <th>
+                                Created By
+                            </th>
+
+                            <th>
+                                Updated Date
+                            </th>
+                            <th>
+                                Updated By
+                            </th>
+
+                            <th>
+                                Alert Sent
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.rwo_RushOrdersVM)
+            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Account)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NextRepeatDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreateDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LastChange)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChangedBy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.altSent)
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .middle {
+        margin: auto;
+        width: 1300px;
+    }
+
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+</style>
+
+
+
+

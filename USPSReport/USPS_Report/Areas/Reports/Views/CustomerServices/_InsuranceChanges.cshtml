@@ -1,0 +1,57 @@
+﻿@model USPS_Report.Areas.Reports.Models.CallLogVM
+@using Kendo.Mvc.UI
+
+<br />
+<div>
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.CheckBoxFor(m => m.InsuarnceChanges) <label> Insurance Changes  </label></div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.CheckBoxFor(m => m.Eligibility) <label> Eligibility </label></div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.TextAreaFor(m => m.InsuranceChangeTxt, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+        
+    </div>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-3">
+            <lable><strong> Message: Complete Insurance change task</strong></lable>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+
+    $('#InsuarnceChanges').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#InsuranceChangeTxt').removeAttr("disabled");
+        } else {
+            $('#InsuranceChangeTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Eligibility').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#InsuranceChangeTxt').removeAttr("disabled");
+        } else {
+            $('#InsuranceChangeTxt').attr("disabled", "disabled")
+        }
+    });
+</script>

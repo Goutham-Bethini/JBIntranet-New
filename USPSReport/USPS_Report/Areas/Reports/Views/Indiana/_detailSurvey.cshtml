@@ -1,0 +1,200 @@
+﻿@model USPS_Report.Areas.Reports.Models.survey
+@{
+    ViewBag.Title = "Indiana_Survey";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ 
+
+
+
+
+@using (Html.BeginForm("CancelOrder", "WorkOrder", FormMethod.Post))
+{
+
+    <div class="modal-body body-content" id="div1">
+
+
+        <div id="signupbox" class="container" style="padding:20px;">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <i class="fa fa-user"></i> 
+                        <button type="button" class="btn btn-success col-md-offset-10" data-dismiss="modal">Go back to list</button>
+                    </div>
+                </div>
+
+             <div class="row">
+                 <div class="col-md-3"></div>
+                 <div class="col-md-8"> @Html.ActionLink("Enter Survey", "Indiana_Survey", "Indiana"  ) &nbsp; &nbsp;
+                 
+                  @Html.ActionLink("Survey Results", "SurverResult", "Indiana") &nbsp; &nbsp;
+                  
+                  @Html.ActionLink("Surveys with optional information", "SurverOptionInfo", "Indiana")</div>
+
+
+             </div>
+                <div id="mainDisplayDIV" class="panel-body" style="padding:5px;">
+                    <div style="height:10px"></div>
+
+                    <div class="clear-fix"></div>
+                    <div class="profile-panel">
+
+                        <div class="row">
+                            <div style="height:30px"></div>
+                            @foreach (var rec in Model.surveyList)
+                            {
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-8"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color:Highlight"><strong> 1. The quality of the product I am getting from my supplier meets my needs.</strong></p> </div>
+                                     
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-8"><p align="center" style="font-size:large; font-family:'Times New Roman'; background-color: bisque"><strong>  @rec.imsQ1</strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-8"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color:Highlight"><strong>2. The staff are responsive,courteous, and knowledgable in answering my questions.</strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-8"><p align="center" style="font-size:large; font-family:'Times New Roman'; background-color: bisque"><strong>  @rec.imsQ2</strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-8"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color:Highlight"><strong> 3. The phone system and/or interactive website is convenient and easy to use.</strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-8"><p align="center" style="font-size:large; font-family:'Times New Roman'; background-color: bisque"><strong>  @rec.imsQ3</strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-8"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color:Highlight"><strong>4. I recieve my orders as expected. </strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-8"><p align="center" style="font-size:large; font-family:'Times New Roman'; background-color: bisque"><strong>  @rec.imsQ4</strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-8"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color:Highlight"><strong>5. Any issues I may have are/were resolved to my satisfaction. </strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-8"><p align="center" style="font-size:large; font-family:'Times New Roman'; background-color: bisque"><strong>  @rec.imsQ5</strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-8"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color:Highlight"><strong>  6. Overall, I am satisfied with the services I am recieving and would recommend them to a friend, neighbor, or relative.</strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-8"><p align="center" style="font-size:large; font-family:'Times New Roman'; background-color: bisque"><strong>  @rec.imsQ6</strong></p> </div>
+
+                                </div>
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-4"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color:Highlight"><strong>  Name</strong></p> </div>
+                                    <div class="col-md-4"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color: bisque"><strong>  @rec.imsName</strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-4"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color:Highlight"><strong>  Comment</strong></p> </div>
+                                    <div class="col-md-4"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color: bisque"><strong>  @rec.imsComment</strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-4"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color:Highlight"><strong>  Address</strong></p> </div>
+                                    <div class="col-md-4"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color: bisque"><strong>  @rec.imsAddress</strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-4"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color:Highlight"><strong>  Entered By</strong></p> </div>
+                                    <div class="col-md-4"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color: bisque"><strong>  @rec.imsEnterBy</strong></p> </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-4"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color:Highlight"><strong>  Enetered Date</strong></p> </div>
+                                    <div class="col-md-4"><p align="left" style="font-size:large; font-family:'Times New Roman'; background-color: bisque"><strong>  @rec.imsEnteredDate</strong></p> </div>
+
+                                </div>
+
+
+
+                            }
+
+                          
+                        </div>
+
+                        <br />
+
+                        
+
+
+                    </div>
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+}
+
+
+<script>
+    $(document).ready(function () {
+        $("#btn").click(function () {
+
+            if (
+                (($('#Reason').val() != "OTHER") && $('#Reason').val() != null && $('#Reason').val() != "") ||
+                (($('#Reason').val() == "OTHER") && $('#OtherReason').val() != null && $('#OtherReason').val() != "")
+                ) {
+                $("#div1").hide()
+
+
+            }
+
+        });
+    });
+
+
+
+    $('#Reason').click(function () {
+        var $this = $(this);
+
+        if ($this.val()=='OTHER') {
+            $('#OtherReason').removeAttr("disabled");
+        } else {
+            $('#OtherReason').attr("disabled", "disabled")
+        }
+        });
+
+
+
+</script>

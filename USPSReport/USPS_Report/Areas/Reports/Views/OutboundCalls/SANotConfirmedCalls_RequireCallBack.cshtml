@@ -1,0 +1,136 @@
+﻿@model USPS_Report.Areas.Reports.Models.SAcallCount
+@{
+    ViewBag.Title = "ReorderSupplies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using Kendo.Mvc.UI
+
+<br />
+<div class="middle">
+    @using (Html.BeginForm("SANotConfirmedCalls_RequireCallBack", "OutboundCalls", FormMethod.Post))
+    {
+        <div class="form-inline">
+            <label>Start Date </label>
+
+
+            @Html.Kendo().DatePicker().Name("OrderDate").Value(Model.OrderDate).Format("MM/dd/yyyy")
+          
+            <button class="btn btn-primary btn-large" type="submit">View</button>
+        </div>
+
+    }
+</div>
+<hr>
+<br />
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+
+        <div class="card-panel z-depth-4">
+
+            <h3 style="font-family:'Times New Roman';font-size:large" class="label  label-primary">Smart Action-Require CallBack: Total Account @Model.count</h3>
+            <br />
+            <br />
+
+            @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.SACallBackVM>()
+    .Name("SARequiredCallbackGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(t => t.id).Title("id").Hidden(true);
+        columns.Bound(t => t.AccountNumber).Title("Account");
+        columns.Bound(t => t.OrderDate).Title("OrderDate").Format("{0:MM/dd/yyyy}");
+        columns.Bound(t => t.CallStatus).Title("CallStatus");
+        columns.Bound(t => t.CallTime).Title("CallTime").Format("{0:MM/dd/yyyy hh:mm:ss tt}");
+        columns.Bound(t => t.SpokeWith).Title("SpokeWith");
+
+
+        columns.Bound(t => t.ISOrderConfirmed).Title("IsOrderConfirmed");
+        columns.Bound(t => t.Reason).Title("Reason");
+
+    })
+
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable()
+    .Sortable()
+
+    .ClientDetailTemplateId("templateReorder")
+    //.ClientDetailTemplateId("template3")
+    .HtmlAttributes(new { style = "width:1350px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(model =>
+        {
+            model.Id(p => p.id);
+        })
+      .PageSize(200)
+        .Read(read => read.Action("RequiredCallBackList", "OutboundCalls", new { OrderDate = Model.OrderDate }).Type(HttpVerbs.Post))
+    // .Destroy(update => update.Action("CustomerReorderAccountList_Destroy", "Inbound"))
+    //  .Update(update => update.Action("CustomerAddresslist_Update", "Inbound"))
+    //   .Update("CustomerReorderList_Update", "Inbound")
+
+    )
+            )
+        </div>
+
+    </div>
+</div>
+
+<script id="templateReorder" type="text/kendo-tmpl">
+
+    @(Html.Kendo().Grid<USPS_Report.Models.ProdReq>()
+            .Name("SARequiredCallbackGrid_#=id#")
+            .Columns(columns =>
+            {
+            //columns.Bound(o => o.Account).Title("Account");
+            columns.Bound(o => o.CallId).Hidden(true).Title("Id").Width(100);
+
+            columns.Bound(o => o.CategoryDescription).Title("ProdDescription").Width(300).Encoded(false);
+
+            columns.Bound(o => o.NeedsProduct).Title("IsNeeded").Width(200);
+                @*columns.Bound(o => o.ProdNeeded).Title("ProdNeeded").Template(@<text>
+                    @if (item.ProdNeeded == false)
+                    {
+                        <div style="background-color: Red;">
+                            @item.ProdNeeded
+                        </div>
+                    }
+                    else
+                    {
+                        <div >
+                            @item.ProdNeeded
+                        </div>
+                    }
+                            </text>).Width(200);*@
+
+
+              //  columns.Bound(o => o.Qty).Title("Qty").Width(200);
+
+
+            })
+
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                         .Model(model => model.Id(p => p.CallId))
+                        .Read(read => read.Action("ProductListByCallID", "OutboundCalls", new { IDNum = "#=id#" }))
+            )
+
+            .ToClientTemplate()
+    )
+</script>
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+</style>
+
+

@@ -1,0 +1,70 @@
+﻿@model USPS_Report.Areas.Reports.Models.ReviewDoctorsViewModel
+
+@using Kendo.Mvc.UI;
+
+@{
+    ViewBag.Title = "ReviewDoctorReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="viewQOHData" class="well col-md-12">
+    <div class="col-md-12">
+        @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.DoctorsInfoViewModel>()
+                        .Name("DoctorDetails")
+                        .Scrollable()
+                        .Columns(columns =>
+                        {
+                            columns.Bound(c => c.ID).Hidden();
+                            columns.Bound(c => c.LastChecked).Title("Last Checked").Width(400);
+                            columns.Bound(c => c.DocInfo).Title("Doctor Info").Width(400);
+                        })
+                            //.ToolBar(tools => tools.Excel())
+                            .Sortable()
+                             .Pageable()
+                                 .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                           //.Excel(excel => excel
+                           //     .FileName("QOHReport.xlsx")
+                           //     .AllPages(true)
+                           //     .Filterable(true)
+                           //     .ProxyURL(Url.Action("Excel_Export_Save", "ReviewDoctors"))
+                           // )
+                           .ClientDetailTemplateId("template")
+                           .HtmlAttributes(new { style = "width:470px;" })
+                                .Reorderable(r => r.Columns(true))
+                                .Resizable(r => r.Columns(true))
+                                .ColumnMenu()
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(200)
+                            .ServerOperation(true)
+                            .Read(read => read.Action("ReadreviewDoctorDetails", "ReviewDoctors", Model))
+                        )
+                        .HtmlAttributes(new { style = "height: 800px;" })
+        )
+    </div>
+    @*@Html.Partial("GetExpiringCMNDetails", Model.ExpiringCMNDetails)*@
+</div>
+
+
+<script id="template" type="text/kendo-tmpl">
+    @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.ReviewDoctorsViewModel>()
+            .Name("DoctorDetails_#=ID#") // template expression, to be evaluated in the master context
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.Account).Title("Patient Account").Width(100);
+                columns.Bound(c => c.First_Name).Title("Patient First").Width(400);
+                columns.Bound(c => c.Last_Name).Title("Patient Last").Width(100);
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(40)
+                .Read(read => read.Action("HierarchyBinding_Patients", "ReviewDoctors", new { dID = "#=ID#" }))
+            ).ToClientTemplate()
+    )
+</script>
+<script>
+    function dataBound() {
+        this.expandRow(this.tbody.find("tr.k-master-row").first());
+    }
+</script>
+

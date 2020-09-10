@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ColdFusionIntranetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CMN_Rules">
+          <Key>
+            <PropertyRef Name="cmrID" />
+          </Key>
+          <Property Name="cmrID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cmrCreated" Type="datetime" />
+          <Property Name="cmrCreatedBy" Type="nchar" MaxLength="30" />
+          <Property Name="cmrDeleted" Type="datetime" />
+          <Property Name="cmrDeletedBy" Type="nchar" MaxLength="30" />
+          <Property Name="cmrReportType" Type="int" />
+          <Property Name="cmrPayerID" Type="int" />
+          <Property Name="cmrPayerTypeID" Type="int" />
+          <Property Name="cmrDocTypeID" Type="int" />
+          <Property Name="cmrProviderID" Type="int" />
+          <Property Name="cmrStatusCodeID" Type="int" />
+          <Property Name="cmrCategoryID" Type="int" />
+          <Property Name="cmrInclude" Type="tinyint" />
+          <Property Name="cmrExclude" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Employees_AlphaSplit">
+          <Key>
+            <PropertyRef Name="alpID" />
+          </Key>
+          <Property Name="alpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="alpDeptID" Type="int" />
+          <Property Name="alpEmpID" Type="int" />
+          <Property Name="alpAlphaStart" Type="nchar" MaxLength="1" />
+          <Property Name="alpAlphaEnd" Type="nchar" MaxLength="1" />
+          <Property Name="alpComment" Type="nchar" MaxLength="255" />
+          <Property Name="alpEdited" Type="datetime" />
+          <Property Name="alpEditedBy" Type="nchar" MaxLength="30" />
+          <Property Name="alpAdded" Type="datetime" />
+          <Property Name="alpAddedBy" Type="nchar" MaxLength="30" />
+          <Property Name="alpDeleted" Type="datetime" />
+          <Property Name="alpDeletedBy" Type="nchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="FedEx_Password">
+          <Key>
+            <PropertyRef Name="pwdId" />
+          </Key>
+          <Property Name="pwdId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="logInId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="pwd" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="lastModDt" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="ColdFusionIntranetModelStoreContainer">
+          <EntitySet Name="CMN_Rules" EntityType="Self.CMN_Rules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees_AlphaSplit" EntityType="Self.Employees_AlphaSplit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FedEx_Password" EntityType="Self.FedEx_Password" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ColdFusionIntranetModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ColdFusionIntranetEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FedEx_Password" EntityType="ColdFusionIntranetModel.FedEx_Password" />
+          <EntitySet Name="Employees_AlphaSplit" EntityType="ColdFusionIntranetModel.Employees_AlphaSplit" />
+          <EntitySet Name="CMN_Rules" EntityType="ColdFusionIntranetModel.CMN_Rules" />
+        </EntityContainer>
+        <EntityType Name="FedEx_Password">
+          <Key>
+            <PropertyRef Name="pwdId" />
+          </Key>
+          <Property Name="pwdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="logInId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="pwd" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="lastModDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Employees_AlphaSplit">
+          <Key>
+            <PropertyRef Name="alpID" />
+          </Key>
+          <Property Name="alpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="alpDeptID" Type="Int32" />
+          <Property Name="alpEmpID" Type="Int32" />
+          <Property Name="alpAlphaStart" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="alpAlphaEnd" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="alpComment" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="alpEdited" Type="DateTime" Precision="3" />
+          <Property Name="alpEditedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="alpAdded" Type="DateTime" Precision="3" />
+          <Property Name="alpAddedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="alpDeleted" Type="DateTime" Precision="3" />
+          <Property Name="alpDeletedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CMN_Rules">
+          <Key>
+            <PropertyRef Name="cmrID" />
+          </Key>
+          <Property Name="cmrID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cmrCreated" Type="DateTime" Precision="3" />
+          <Property Name="cmrCreatedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="cmrDeleted" Type="DateTime" Precision="3" />
+          <Property Name="cmrDeletedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="cmrReportType" Type="Int32" />
+          <Property Name="cmrPayerID" Type="Int32" />
+          <Property Name="cmrPayerTypeID" Type="Int32" />
+          <Property Name="cmrDocTypeID" Type="Int32" />
+          <Property Name="cmrProviderID" Type="Int32" />
+          <Property Name="cmrStatusCodeID" Type="Int32" />
+          <Property Name="cmrCategoryID" Type="Int32" />
+          <Property Name="cmrInclude" Type="Byte" />
+          <Property Name="cmrExclude" Type="Byte" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ColdFusionIntranetModelStoreContainer" CdmEntityContainer="ColdFusionIntranetEntities">
+          <EntitySetMapping Name="FedEx_Password">
+            <EntityTypeMapping TypeName="ColdFusionIntranetModel.FedEx_Password">
+              <MappingFragment StoreEntitySet="FedEx_Password">
+                <ScalarProperty Name="lastModDt" ColumnName="lastModDt" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+                <ScalarProperty Name="logInId" ColumnName="logInId" />
+                <ScalarProperty Name="pwdId" ColumnName="pwdId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees_AlphaSplit">
+            <EntityTypeMapping TypeName="ColdFusionIntranetModel.Employees_AlphaSplit">
+              <MappingFragment StoreEntitySet="Employees_AlphaSplit">
+                <ScalarProperty Name="alpDeletedBy" ColumnName="alpDeletedBy" />
+                <ScalarProperty Name="alpDeleted" ColumnName="alpDeleted" />
+                <ScalarProperty Name="alpAddedBy" ColumnName="alpAddedBy" />
+                <ScalarProperty Name="alpAdded" ColumnName="alpAdded" />
+                <ScalarProperty Name="alpEditedBy" ColumnName="alpEditedBy" />
+                <ScalarProperty Name="alpEdited" ColumnName="alpEdited" />
+                <ScalarProperty Name="alpComment" ColumnName="alpComment" />
+                <ScalarProperty Name="alpAlphaEnd" ColumnName="alpAlphaEnd" />
+                <ScalarProperty Name="alpAlphaStart" ColumnName="alpAlphaStart" />
+                <ScalarProperty Name="alpEmpID" ColumnName="alpEmpID" />
+                <ScalarProperty Name="alpDeptID" ColumnName="alpDeptID" />
+                <ScalarProperty Name="alpID" ColumnName="alpID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMN_Rules">
+            <EntityTypeMapping TypeName="ColdFusionIntranetModel.CMN_Rules">
+              <MappingFragment StoreEntitySet="CMN_Rules">
+                <ScalarProperty Name="cmrExclude" ColumnName="cmrExclude" />
+                <ScalarProperty Name="cmrInclude" ColumnName="cmrInclude" />
+                <ScalarProperty Name="cmrCategoryID" ColumnName="cmrCategoryID" />
+                <ScalarProperty Name="cmrStatusCodeID" ColumnName="cmrStatusCodeID" />
+                <ScalarProperty Name="cmrProviderID" ColumnName="cmrProviderID" />
+                <ScalarProperty Name="cmrDocTypeID" ColumnName="cmrDocTypeID" />
+                <ScalarProperty Name="cmrPayerTypeID" ColumnName="cmrPayerTypeID" />
+                <ScalarProperty Name="cmrPayerID" ColumnName="cmrPayerID" />
+                <ScalarProperty Name="cmrReportType" ColumnName="cmrReportType" />
+                <ScalarProperty Name="cmrDeletedBy" ColumnName="cmrDeletedBy" />
+                <ScalarProperty Name="cmrDeleted" ColumnName="cmrDeleted" />
+                <ScalarProperty Name="cmrCreatedBy" ColumnName="cmrCreatedBy" />
+                <ScalarProperty Name="cmrCreated" ColumnName="cmrCreated" />
+                <ScalarProperty Name="cmrID" ColumnName="cmrID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

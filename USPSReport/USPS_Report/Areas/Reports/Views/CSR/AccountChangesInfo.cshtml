@@ -1,0 +1,79 @@
+﻿@model USPS_Report.Areas.Reports.Models.RWOAccountChangesModel
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "AccountChangesInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<center>
+    <h3>Find last Insurance updated with in date range</h3>
+</center>
+<hr />
+<div>
+    @using (Html.BeginForm("AccountChangesInfo", "CSR", FormMethod.Post))
+    {
+        <div class="form-inline">
+            <center>
+                <label>Start Date </label>
+
+
+                @Html.Kendo().DatePicker().Name("startDt").Value(Model.startDt).Format("MM/dd/yyyy")
+                <label>End Date</label>
+                @Html.Kendo().DatePicker().Name("endDt").Value(Model.endDt).Format("MM/dd/yyyy")
+                <button class="btn btn-primary btn-large" type="submit">View</button>
+            </center>
+        </div>
+
+    }
+</div>
+
+
+<br />
+<div>
+    @if (Model != null && Model.Insuranceupdates != null)
+    {
+        <center>
+            <h3>  Total Count = @Model.Insuranceupdates.Count()</h3>
+        </center>
+            <div style="width:1000px;margin:auto">
+
+            </div>
+            <div class="table-responsive">
+                <table data-sortable class="table table-hover table-striped table-bordered" style="width:1200px;margin:auto">
+                    <thead>
+                        <tr>
+                            <th>Account</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Payer</th>
+                            <th>Updated By</th>
+                            <th>Updated On</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rec in Model.Insuranceupdates)
+                        {
+                            <tr>
+                                <td>@rec.Account</td>
+                                <td>@rec.First_Name</td>
+                                <td>@rec.Last_name</td>
+                                <td>@rec.Payer</td>
+                                <td>@rec.InsuranceUpdatedBy</td>
+                                <td>@String.Format("{0:MM/dd/yyyy}", rec.InsuranceUpdated)</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+            }
+</div>
+
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+</style>

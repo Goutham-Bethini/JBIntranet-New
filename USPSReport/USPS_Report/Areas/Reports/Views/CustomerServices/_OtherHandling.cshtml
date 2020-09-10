@@ -1,0 +1,104 @@
+﻿@model USPS_Report.Areas.Reports.Models.CallLogVM
+@using Kendo.Mvc.UI
+
+<br />
+<div>
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-3">@Html.CheckBoxFor(m => m.ReturnedCall_LeftVoicemail) <label>Returned Call & Left Voicemail</label></div>
+
+    </div>
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.CheckBoxFor(m => m.WrongNumber) <label>Wrong Number</label></div>
+
+    </div>
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.CheckBoxFor(m => m.AccountDeactivated) <label>Account Deactivated</label></div>
+
+    </div>
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.CheckBoxFor(m => m.Nursing_CSRassessment) <label>Nursing/ CSR assessment</label></div>
+
+    </div>
+
+
+    <div class=" row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.CheckBoxFor(m => m.Other_CallHandling) <label>Other</label></div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-2">@Html.TextAreaFor(m => m.OtherHandlingTxt, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+        
+    </div>
+
+    @*<hr />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class=" col-md-3">
+            <lable><strong> Message: Complete E-confirmation Tool </strong></lable>
+        </div>
+    </div>*@
+
+</div>
+
+
+<script>
+    $('#ReturnedCall_LeftVoicemail').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#OtherHandlingTxt').removeAttr("disabled");
+        } else {
+            $('#OtherHandlingTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#WrongNumber').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#OtherHandlingTxt').removeAttr("disabled");
+        } else {
+            $('#OtherHandlingTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#AccountDeactivated').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#OtherHandlingTxt').removeAttr("disabled");
+        } else {
+            $('#OtherHandlingTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Nursing_CSRassessment').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#OtherHandlingTxt').removeAttr("disabled");
+        } else {
+            $('#OtherHandlingTxt').attr("disabled", "disabled")
+        }
+    });
+
+    $('#Other_CallHandling').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#OtherHandlingTxt').removeAttr("disabled");
+        } else {
+            $('#OtherHandlingTxt').attr("disabled", "disabled")
+        }
+    });
+</script>

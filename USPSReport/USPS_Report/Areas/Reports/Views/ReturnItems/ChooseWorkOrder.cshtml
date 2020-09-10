@@ -1,0 +1,79 @@
+﻿@model USPS_Report.Areas.Reports.Models.ReturnItems.ChooseWorkOrderVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "ChooseWorkOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>ChooseWorkOrder</h2>*@
+
+@using (Html.BeginForm("ReturnInfo", "ReturnItems", FormMethod.Post))
+{
+
+
+<table align="center" style="border:1px black solid;">
+    @*style="border:1px black solid;"*@
+    <tr>
+        <td colspan="4" align="center" style="font-weight:bold;">
+            Choose the correct work order listed below
+        </td>
+    </tr>
+
+    @foreach (var rec in Model.WorkOrders)
+    {
+        
+        
+        <tr>
+            <td>
+                @*@Html.RadioButton()*@
+                @Html.RadioButton("selectedWO", rec.WorkOrder_Number+","+ rec.Account)
+
+            </td>
+            @*<td>@rec.Account</td>*@
+            <td style="font-weight:bold;">Work Order #: @rec.WorkOrder_Number</td>
+            <td style="font-weight:bold;">Request Date: @rec.Request_Date</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                @{ int rowNo = 0; }
+                <table width="100%">
+                    @foreach (var item in rec.WorkOrderProducts)
+                    {
+                        <tr>
+                            <td width="5%">@(rowNo += 1))</td>
+                            <td width="15%">@item.ProductCode</td>
+                            <td width="75%">@item.ProductDescription</td>
+                            <td width="5%">@item.QtyShipped</td>
+                        </tr>
+                    }
+                </table>
+            </td>
+
+        </tr>
+        @*<tr>
+                <td></td>
+                <td valign="top">@rec.Address1 &nbsp;&nbsp; @rec.Address2</td>
+                <td valign="top" align="center">@rec.City</td>
+                <td valign="top">@rec.State&nbsp;&nbsp;&nbsp;&nbsp;@rec.ZipCode</td>
+            </tr>*@
+    }
+</table>
+    <br />
+
+    <table align="center">
+        <tr>
+            <td>
+                @Html.ActionLink("Cancel", "ReturnItemsData", "ReturnItems", null, new { @class = "btn btn-primary btn-large" })
+            </td>
+            <td width="5px"></td>
+            <td>
+                <a class="btn btn-primary btn-large" href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+            </td>
+            <td width="5px"></td>
+            <td>
+                <button class="btn btn-primary btn-large" type="submit">Next</button>
+            </td>
+        </tr>
+    </table>
+}

@@ -1,0 +1,63 @@
+﻿@model USPS_Report.Areas.Reports.Models.ReturnItems.ChooseAccountVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "ChooseAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@if (Model != null && Model.AccountDetails != null)
+    {*@
+@using (Html.BeginForm("ChooseWorkOrder", "ReturnItems", FormMethod.Post))
+{
+
+
+    <table align="center" style="border:1px black solid;">
+        @*style="border:1px black solid;"*@
+        <tr>
+            <td colspan="4" align="center" style="font-weight:bold;">
+                Please select one of the follwing accounts
+            </td>
+        </tr>
+
+        @foreach (var rec in Model.AccountDetails)
+        {
+            <tr>
+                <td>
+                    @Html.RadioButton("selectedItem", rec.Account)
+
+                </td>
+                @*<td>@rec.Account</td>*@
+                <td>@rec.FirstName&nbsp;&nbsp;@rec.Middle&nbsp;&nbsp;@rec.LastName</td>
+                <td>@rec.Phone</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td valign="top">@rec.Address1 &nbsp;&nbsp; @rec.Address2</td>
+                <td valign="top" align="center">@rec.City</td>
+                <td valign="top">@rec.State&nbsp;&nbsp;&nbsp;&nbsp;@rec.ZipCode</td>
+            </tr>
+        }
+    </table>
+    <br />
+
+    <table align="center">
+        <tr>
+            <td>
+                @Html.ActionLink("Cancel", "ReturnItemsData", "ReturnItems", null, new { @class = "btn btn-primary btn-large" })
+            </td>
+            <td width="5px"></td>
+            <td>
+                <a class="btn btn-primary btn-large" href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+            </td>
+            <td width="5px"></td>
+            <td>
+                <button class="btn btn-primary btn-large" type="submit">Next</button>
+            </td>
+        </tr>
+    </table>
+}
+@*}*@
+@*<button class="btn btn-primary btn-large" click="fun()" type="submit">Next</button>*@
+@*@Html.ActionLink("Next", "ChooseWorkOrder", "ReturnItems", new { selectedItem = Model.SelectedAccount }, null)*@
+

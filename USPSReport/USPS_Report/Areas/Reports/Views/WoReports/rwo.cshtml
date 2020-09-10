@@ -1,0 +1,116 @@
+﻿@model USPS_Report.Areas.Reports.Models.RWOLookUPVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "rwo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="row rwoContainer">
+    @Html.TextBoxFor(m => m.StartDate, new { hidden = "true" })
+    @Html.TextBoxFor(m => m.EndDate, new { hidden = "true" })
+    @Html.TextBoxFor(m => m.HoldCode, new {  hidden = "true" })
+    @Html.TextBoxFor(m => m.ProductCode, new { hidden = "true" })
+    @Html.TextBoxFor(m => m.PayerId, new {  hidden = "true" })
+    @Html.TextBoxFor(m => m.locationId, new {  hidden = "true" })
+    @Html.TextBoxFor(m => m.methodId, new {  hidden = "true" })
+    @Html.TextBoxFor(m => m.InactiveORActive, new {  hidden = "true" })
+    @Html.TextBoxFor(m => m.delTimeId, new {  hidden = "true" })
+    @Html.TextBoxFor(m => m.FreqID, new {  hidden = "true" })
+    @Html.TextBoxFor(m => m.IsAssigned, new {  hidden = "true" })
+    @Html.TextBoxFor(m => m.makeRwoIncomplete, new { hidden = "true" })
+    @Html.TextBoxFor(m => m.ServiceType, new { hidden = "true" })
+    @Html.TextBoxFor(m => m.HCPC, new { hidden = "true" })
+
+</div>
+
+<div>
+    <div class=" row">
+        <div class="col-md-2"></div>
+
+
+        <hr />
+    </div>
+
+    <div>
+
+        <div style="width:95%;margin:0 auto;">
+            @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.RWOlookUpData>()
+        .Name("RWOLookupGrid")
+             .Columns(columns =>
+             {
+                 columns.Bound(t => t.Account).Width(50).Title("Account").Locked(true).Lockable(false);
+                 columns.Bound(t => t.Last_Name).Width(60).Title("Last Name").Locked(true);
+                 columns.Bound(t => t.First_Name).Width(60).Title("First Name");
+                 columns.Bound(t => t.PriIns).Width(60).Title("PrimaryIns");
+                 columns.Bound(t => t.ProductCode).Width(60).Title("Product Code");
+                 columns.Bound(t => t.UOM).Width(30).Title("UOM");
+                 //columns.Bound(t => t.PerUnitQty).Width(30).Title("PerUnitQty");
+                 columns.Bound(t => t.Qty).Width(20).Title("Qty");
+                 columns.Bound(t => t.Hold).Width(20).Title("Holds");
+                 columns.Bound(t => t.NextRepeatDate).Width(80).Title("NextRepeatDate").Format("{0:MM/dd/yyyy}");
+                 columns.Bound(t => t.DeliveryLocationName).Width(110).Title("Location");
+                 columns.Bound(t => t.DeliveryMethod).Width(90).Title("Method");
+                 columns.Bound(t => t.DeliveryTime).Width(80).Title("Time");
+                 //columns.Bound(t => t.Procedure_Code).Width(50).Title("HCPC");
+                 //columns.Bound(t => t.InActive).Width(20).Title("InActive");
+                 //columns.Bound(t => t.ServiceType).Width(40).Title("ServiceType");
+                 //columns.Bound(t => t.AcceptAssignment).Width(40).Title("assignment");
+                 //columns.Bound(t => t.MakeRwoIncomplete).Width(50).Title("Incomplete");
+
+             })
+        // .Scrollable()
+        .Reorderable(reorderable => reorderable.Columns(true))
+        //.Resizable(resizable => resizable.Columns(true))
+        //.Pageable()
+        //.Filterable()
+        //.Sortable()
+        .Groupable()
+        .ColumnMenu()
+       .ToolBar(tools => tools.Excel())
+
+        .Resizable(resize => resize.Columns(true))
+       //  .Scrollable()
+         .Sortable()
+
+          .Pageable()
+         .Filterable()
+         .ColumnMenu()
+        .DataSource(dataSource => dataSource
+        .Ajax()
+
+         .PageSize(100)
+         
+         .Read(read => read.Action("Rwo_LookUp", "WoReports", new { StartDate = Model.StartDate, EndDate = Model.EndDate, HoldCode = Model.HoldCode, ProductCode = Model.ProductCode, PayerId = Model.PayerId, locationId = Model.locationId, MethodId = Model.methodId, InactiveCode = Model.InactiveORActive, DelTimeId = Model.delTimeId, FreqId = Model.FreqID, IsAssigned = Model.IsAssigned, MakeRWOIncomplete = Model.makeRwoIncomplete, ServiceTypeId = Model.ServiceType, HCPC = Model.HCPC, all = Model.all }))
+        
+        
+            .ServerOperation(true)
+
+             .Model(model =>
+             {
+                 model.Id(p => p.Account);
+             }
+             )
+            )
+
+            )
+
+
+
+
+
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $("#RWOLookupGrid").kendoGrid({
+        toolbar: ["excel"],
+        excel: {
+            allPages: true
+        }});
+</script>

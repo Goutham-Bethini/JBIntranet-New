@@ -1,0 +1,55 @@
+﻿@model IEnumerable<USPS_Report.Areas.Reports.Models.WONotPrinted>
+
+
+@{
+    ViewBag.Title = "WoNotPrinted";
+    Layout = "~/Areas/Reports/Views/Shared/_ReportLayout.cshtml";
+}
+
+<h4>Up to the minute tracking for workorders that need to be printed.</h4>
+
+@Model.Count() Work orders to be printed
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Account)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkOrderID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Request_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusComments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastPrintDate)
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Account)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkOrderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Request_Date.Value.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusComments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastPrintDate)
+            </td>
+
+        </tr>
+    }
+
+</table>
+

@@ -1,0 +1,69 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.ExpiringCMNs.AlphaSplitUpdateVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "AlphaSplitDeptEmployees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="middle" style="text-align:center;">Alpha Split</h3>
+<div>
+    @using (Html.BeginForm("AlphaSplitUpdateDeptEmployees", "AlphaSplit", FormMethod.Post))
+    {
+    <center>
+        @Html.ActionLink("Back", "AlphaSplit", "AlphaSplit", null, new { style = "text-decoration:underline;" })
+        <br />
+        <span style="color:red;font-size:small;">@Model.Message</span>
+        <h4 class="middle" style="text-align:center;">@Model.DeptName</h4>
+        @Html.HiddenFor(m => m.DeptId)
+        @Html.HiddenFor(m => m.DeptName)
+        <table border="1" width="30%" align="center">
+            <thead>
+                <tr>
+                    <th style="text-align:center;">Employee</th>
+                    <th style="text-align:center;">Alpha Start</th>
+                    <th style="text-align:center;">Alpha End</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.EmployeeDetails != null && Model.EmployeeDetails.Count > 0)
+                {
+                    for (var i = 0; i < Model.EmployeeDetails.Count(); i++)
+                    {
+                        <tr>
+                            <td style="text-align:center;">@Html.DisplayFor(m => m.EmployeeDetails[i].EmpFullName) @Html.HiddenFor(m => m.EmployeeDetails[i].EmpId) @Html.HiddenFor(m => m.EmployeeDetails[i].EmpFullName)</td>
+                            <td style="text-align:center;"> @Html.TextBoxFor(m => m.EmployeeDetails[i].AlphaStart, new { style = "width:40px;", @maxlength = "1", onkeypress = "return onlyAlphabet(event,this);" })</td>
+                            <td style="text-align:center;">@Html.TextBoxFor(m => m.EmployeeDetails[i].AlphaEnd, new { style = "width:40px;", @maxlength = "1", onkeypress = "return onlyAlphabet(event,this);" }) @Html.HiddenFor(m => m.EmployeeDetails[i].AlpId)</td>
+                        </tr>
+                    }               
+                }
+            </tbody>
+        </table>
+        <br />
+        @if (Model != null && Model.EmployeeDetails != null && Model.EmployeeDetails.Count > 0)
+        {
+            <button class="btn btn-primary btn-large" type="submit">Submit</button>            
+        }
+    </center>
+    }
+</div>
+
+<script>
+    function onlyAlphabet(e, t) {
+        try {            
+            if (window.event) {
+                var charCode = window.event.keyCode;
+            }
+            else if (e) {
+                var charCode = e.which;
+            }
+            else { return true; }
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                return true;
+            else
+                return false;
+        }
+        catch (err) {
+            alert(err.Description);
+        }
+    }
+</script>

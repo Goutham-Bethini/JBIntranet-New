@@ -1,0 +1,37 @@
+﻿@model USPS_Report.Areas.Reports.Models.ReturnItems.CreateReturnVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "CreateReturn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table align="center" style="border:1px black solid;">
+    @if (Model.DoesReturnExist)
+    {
+        <tr>
+            <td style="font-weight:bold;text-align:center;color:red;">
+                This return for Work Order # @Model.WorkOrder_ID already exists.
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight:bold;color:red;text-align:center;">
+                Please @Html.ActionLink("click here", "ReturnItemsData", "ReturnItems", null, new { @style = "text-decoration-line:underline;" }) to select this return and edit it.
+            </td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td style="font-weight:bold;text-align:center;">
+                This return for Work Order # @Model.WorkOrder_ID  has been updated
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight:bold;">
+                Please @Html.ActionLink("click here", "ReturnItemsData", "ReturnItems", null, new { @style = "text-decoration-line:underline;" }) to select this return to the returns homepage.
+            </td>
+        </tr>
+    }
+
+</table>
+

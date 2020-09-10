@@ -1,0 +1,12 @@
+﻿@model USPS_Report.Areas.Reports.Models.POTA_Report_Model
+
+@{
+    ViewBag.Title = "POTAReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("POTAReport", "POTAReports", FormMethod.Post))
+{
+    <button class="btn btn-primary btn-large" type="submit">View</button>
+}
+

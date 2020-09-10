@@ -1,0 +1,82 @@
+﻿@model USPS_Report.Models.DashboardVM
+@using DotNet.Highcharts;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Reports/Views/Shared/_ReportLayout.cshtml";
+}
+
+<h2>Dashboard</h2>
+<h1>Total Holds:@Html.DisplayName(Model.holdPayer.GetHoldPayer.Sum(t => t.Count).ToString())</h1>
+
+
+     <div class=" row">
+        <div class="col-md-7">
+
+            @Model.holdReason.HoldReasonPieChart
+        </div>
+        <div class="col-md-5 table-responsive">
+            <table data-sortable class="table table-hover table-striped" style="border:groove;width:300px">
+                <tr>
+                    <th>
+                        Count
+                    </th>
+                    <th>
+                        HoldReason
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model.holdReason.GetHoldReason)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Count)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HoldReason)
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+        </div>
+
+    </div>
+
+    <hr />
+
+    <div class=" row">
+        <div class="col-md-7">
+
+            @Model.holdPayer.HoldPayerPieChart
+        </div>
+        <div class="col-md-5 table-responsive">
+            <table data-sortable class="table table-hover table-striped" style="border:groove;width:300px">
+                <tr>
+                    <th>
+                        Count
+                    </th>
+                    <th>
+                        PayerType
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model.holdPayer.GetHoldPayer)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Count)
+                        </td>
+                        <td>
+                          @Html.DisplayFor(modelItem => item.InsType)
+                        </td>
+
+                    </tr>
+              }
+
+            </table>
+        </div>
+
+    </div>

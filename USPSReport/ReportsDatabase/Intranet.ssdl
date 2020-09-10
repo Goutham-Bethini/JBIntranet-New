@@ -1,0 +1,600 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="IntranetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="assessment_log">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Account_Number" Type="int" />
+    <Property Name="Initial_Assessment" Type="tinyint" />
+    <Property Name="Update_Assessment" Type="tinyint" />
+    <Property Name="Update_PCU" Type="tinyint" />
+    <Property Name="OneTime_PA" Type="tinyint" />
+    <Property Name="Initial_PA_Process" Type="tinyint" />
+    <Property Name="POS_RWO_Created" Type="tinyint" />
+    <Property Name="Faxes_to_State" Type="tinyint" />
+    <Property Name="LM_Letter" Type="tinyint" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="User_ID" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="BCBS_ProviderList">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="HDMSID" Type="int" />
+  </EntityType>
+  <EntityType Name="CHAMPS_Adj_Codes">
+    <Key>
+      <PropertyRef Name="adjCode" />
+    </Key>
+    <Property Name="adjCode" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="adjDescription" Type="nchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="CHAMPS_Error_Codes">
+    <Key>
+      <PropertyRef Name="errCode" />
+    </Key>
+    <Property Name="errCode" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="errShortDesc" Type="nchar" MaxLength="255" />
+    <Property Name="errRemitCode" Type="nchar" MaxLength="10" />
+    <Property Name="errAdjCode" Type="nchar" MaxLength="10" />
+    <Property Name="errHighlight" Type="tinyint" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Intranet.dbo.CHAMPS_Ignore_Errors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="CHAMPS_Ignore_Errors">
+    <Key>
+      <PropertyRef Name="cieID" />
+    </Key>
+    <Property Name="cieID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cieCode" Type="varchar" MaxLength="20" />
+    <Property Name="cieAdded" Type="datetime" />
+    <Property Name="cieAddedBy" Type="varchar" MaxLength="30" />
+    <Property Name="cieDeleted" Type="datetime" />
+    <Property Name="cieDeletedBy" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="CHAMPS_Remit_Codes">
+    <Key>
+      <PropertyRef Name="remCode" />
+    </Key>
+    <Property Name="remCode" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="remDescription" Type="nchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="Eligibility_Orders">
+    <Key>
+      <PropertyRef Name="ordID" />
+    </Key>
+    <Property Name="ordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ordELRid" Type="int" />
+    <Property Name="ordWOId" Type="int" />
+    <Property Name="ordAdded" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Intranet.dbo.Employees_New' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Employees_New">
+    <Key>
+      <PropertyRef Name="empID" />
+    </Key>
+    <Property Name="empID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="empLogin" Type="nchar" MaxLength="30" />
+    <Property Name="empEmail" Type="nchar" MaxLength="40" />
+    <Property Name="empFullName" Type="nchar" MaxLength="50" />
+    <Property Name="empManager" Type="tinyint" />
+    <Property Name="empTeamLeader" Type="tinyint" />
+    <Property Name="empCanEnterTicket" Type="tinyint" />
+    <Property Name="empDepartment" Type="int" />
+    <Property Name="empTeam" Type="int" />
+    <Property Name="empAdded" Type="datetime" />
+    <Property Name="empRemoved" Type="datetime" />
+    <Property Name="empAutoUpdate" Type="datetime" />
+    <Property Name="empSort" Type="tinyint" />
+    <Property Name="empPhone" Type="nchar" MaxLength="30" />
+    <Property Name="empPOSid" Type="float" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="IndianaMedicaidSurvey">
+    <Key>
+      <PropertyRef Name="imsID" />
+    </Key>
+    <Property Name="imsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="imsQ1" Type="nchar" MaxLength="20" />
+    <Property Name="imsQ2" Type="nchar" MaxLength="20" />
+    <Property Name="imsQ3" Type="nchar" MaxLength="20" />
+    <Property Name="imsQ4" Type="nchar" MaxLength="20" />
+    <Property Name="imsQ5" Type="nchar" MaxLength="20" />
+    <Property Name="imsQ6" Type="nchar" MaxLength="20" />
+    <Property Name="imsName" Type="nchar" MaxLength="255" />
+    <Property Name="imsAddress" Type="nchar" MaxLength="255" />
+    <Property Name="imsComment" Type="text" />
+    <Property Name="imsEnteredDate" Type="datetime" />
+    <Property Name="imsEnteredBy" Type="nchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="RWO_Product_Substitutions">
+    <Key>
+      <PropertyRef Name="subID" />
+    </Key>
+    <Property Name="subID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="subOldProd" Type="int" />
+    <Property Name="subNewProd" Type="int" />
+    <Property Name="subDL" Type="int" />
+    <Property Name="subAddComment" Type="tinyint" />
+    <Property Name="subRWOcount" Type="int" />
+    <Property Name="subAdded" Type="datetime" />
+    <Property Name="subAddedBy" Type="nchar" MaxLength="30" />
+    <Property Name="subApproved" Type="datetime" />
+    <Property Name="subApprovedBy" Type="nchar" MaxLength="30" />
+    <Property Name="subDenied" Type="datetime" />
+    <Property Name="subDeniedBy" Type="nchar" MaxLength="30" />
+    <Property Name="subDeleted" Type="datetime" />
+    <Property Name="subDeletedBy" Type="nchar" MaxLength="30" />
+    <Property Name="subOldProdQty" Type="int" />
+    <Property Name="subNewProdQty" Type="int" />
+    <Property Name="QtyOldProd" Type="int" />
+    <Property Name="QtyNewProd" Type="int" />
+    <Property Name="allProds" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_BCNCallLog">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Account" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="35" Nullable="false" />
+    <Property Name="CallDuration" Type="varchar(max)" />
+    <Property Name="Mem_FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="Mem_LastName" Type="varchar" MaxLength="50" />
+    <Property Name="Mem_Address1" Type="varchar" MaxLength="100" />
+    <Property Name="Mem_Address2" Type="varchar" MaxLength="50" />
+    <Property Name="Mem_DOB" Type="datetime" Nullable="false" />
+    <Property Name="Mem_City" Type="varchar" MaxLength="50" />
+    <Property Name="Mem_State" Type="varchar" MaxLength="25" />
+    <Property Name="Mem_ZipCode" Type="varchar" MaxLength="10" />
+    <Property Name="Primary_Physician" Type="varchar(max)" />
+    <Property Name="Provider" Type="varchar(max)" />
+    <Property Name="Mem_County" Type="varchar(max)" />
+    <Property Name="Mem_Gender" Type="varchar(max)" />
+    <Property Name="WebAccountCreated" Type="varchar" MaxLength="30" />
+    <Property Name="Manufacturer" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="varchar(max)" />
+    <Property Name="Relation" Type="varchar(max)" />
+    <Property Name="OtherRelName" Type="varchar(max)" />
+    <Property Name="BillingTxt" Type="varchar(max)" />
+    <Property Name="DocumentationTxt" Type="varchar(max)" />
+    <Property Name="DemographicChangesTxt" Type="varchar(max)" />
+    <Property Name="TypeSupplies_1" Type="varchar(max)" />
+    <Property Name="TypeSupplies_2" Type="varchar(max)" />
+    <Property Name="TypeSuppliesOther" Type="varchar(max)" />
+    <Property Name="ShippingOthersName" Type="varchar(max)" />
+    <Property Name="InsuranceChangeTxt" Type="varchar(max)" />
+    <Property Name="NewAccountTxt" Type="varchar(max)" />
+    <Property Name="OrderConfirmationTxt" Type="varchar(max)" />
+    <Property Name="OrderStatusTxt" Type="varchar(max)" />
+    <Property Name="RWOChangeTxt" Type="varchar(max)" />
+    <Property Name="SampleTxt" Type="varchar(max)" />
+    <Property Name="ShippingIssueTxt" Type="varchar(max)" />
+    <Property Name="TransferredCall" Type="varchar(max)" />
+    <Property Name="TransferredCallTxt" Type="varchar(max)" />
+    <Property Name="OtherHandlingTxt" Type="varchar(max)" />
+    <Property Name="VerifiedPHI" Type="bit" Nullable="false" />
+    <Property Name="VoiceForHealth" Type="bit" Nullable="false" />
+    <Property Name="Copay" Type="bit" Nullable="false" />
+    <Property Name="Billing" Type="bit" Nullable="false" />
+    <Property Name="Address" Type="bit" Nullable="false" />
+    <Property Name="Physician" Type="bit" Nullable="false" />
+    <Property Name="assmnt_Diab" Type="bit" Nullable="false" />
+    <Property Name="assmnt_Insulin" Type="bit" Nullable="false" />
+    <Property Name="Phone" Type="bit" Nullable="false" />
+    <Property Name="AOB" Type="bit" Nullable="false" />
+    <Property Name="RxForm" Type="bit" Nullable="false" />
+    <Property Name="Prescription" Type="bit" Nullable="false" />
+    <Property Name="PriorAuthorization" Type="bit" Nullable="false" />
+    <Property Name="SupportingDoc" Type="bit" Nullable="false" />
+    <Property Name="AOBReceived" Type="bit" Nullable="false" />
+    <Property Name="RXReceived" Type="bit" Nullable="false" />
+    <Property Name="PASent" Type="bit" Nullable="false" />
+    <Property Name="PAReceived" Type="bit" Nullable="false" />
+    <Property Name="ClinicalDocsReq" Type="bit" Nullable="false" />
+    <Property Name="ClinicalDocsReceived" Type="bit" Nullable="false" />
+    <Property Name="InsuarnceChanges " Type="bit" Nullable="false" />
+    <Property Name="NewAcconunt" Type="bit" Nullable="false" />
+    <Property Name="Restart" Type="bit" Nullable="false" />
+    <Property Name="OrderConfirmation" Type="bit" Nullable="false" />
+    <Property Name="FedExOrUSPSTracking" Type="bit" Nullable="false" />
+    <Property Name="OrderShipped" Type="bit" Nullable="false" />
+    <Property Name="OrderETA" Type="bit" Nullable="false" />
+    <Property Name="OrderHolding" Type="bit" Nullable="false" />
+    <Property Name="RWOCreated" Type="bit" Nullable="false" />
+    <Property Name="PC_IncreaseOrDecrease" Type="bit" Nullable="false" />
+    <Property Name="PC_Hold" Type="bit" Nullable="false" />
+    <Property Name="PC_RemoveOrAdd" Type="bit" Nullable="false" />
+    <Property Name="ProductChange" Type="bit" Nullable="false" />
+    <Property Name="DefectiveProductOrNotUsable" Type="bit" Nullable="false" />
+    <Property Name="WrongOrExtraProductShipped" Type="bit" Nullable="false" />
+    <Property Name="MissingProduct" Type="bit" Nullable="false" />
+    <Property Name="ShippingOther" Type="bit" Nullable="false" />
+    <Property Name="ReturnedCall_LeftVoicemail" Type="bit" Nullable="false" />
+    <Property Name="WrongNumber" Type="bit" Nullable="false" />
+    <Property Name="SentReqPurchasing" Type="bit" Nullable="false" />
+    <Property Name="AccountDeactivate" Type="bit" Nullable="false" />
+    <Property Name="ComplaintOutcome" Type="varchar(max)" />
+    <Property Name="TrackingNumber" Type="varchar(max)" />
+    <Property Name="WorkOrder" Type="varchar(max)" />
+    <Property Name="Damaged" Type="bit" Nullable="false" />
+    <Property Name="Driver" Type="bit" Nullable="false" />
+    <Property Name="WrongProductShipped" Type="bit" Nullable="false" />
+    <Property Name="QualityOfProdut" Type="bit" Nullable="false" />
+    <Property Name="WrongArea" Type="bit" Nullable="false" />
+    <Property Name="Incorrect" Type="bit" Nullable="false" />
+    <Property Name="MisPick" Type="bit" Nullable="false" />
+    <Property Name="Complain_MissingProduct" Type="bit" Nullable="false" />
+    <Property Name="ProductDefective" Type="bit" Nullable="false" />
+    <Property Name="ImpoliteORoffensive" Type="bit" Nullable="false" />
+    <Property Name="HoldTimes" Type="bit" Nullable="false" />
+    <Property Name="FedExOrUSPSTrackingNumber" Type="varchar" MaxLength="50" />
+    <Property Name="ComplaintsOthers" Type="varchar" MaxLength="200" />
+    <Property Name="SampleChoice" Type="bit" Nullable="false" />
+    <Property Name="SampleOrderSent" Type="bit" Nullable="false" />
+    <Property Name="SampleTask" Type="bit" Nullable="false" />
+    <Property Name="Other_CallHandling" Type="bit" Nullable="false" />
+    <Property Name="Call" Type="bit" Nullable="false" />
+    <Property Name="Task" Type="bit" Nullable="false" />
+    <Property Name="Web" Type="bit" Nullable="false" />
+    <Property Name="Fax" Type="bit" Nullable="false" />
+    <Property Name="Email" Type="bit" Nullable="false" />
+    <Property Name="LogTypeOther" Type="bit" Nullable="false" />
+    <Property Name="Other" Type="bit" Nullable="false" />
+    <Property Name="NoPresORCMN" Type="bit" Nullable="false" />
+    <Property Name="NoFollowUp" Type="bit" Nullable="false" />
+    <Property Name="PhonePrompts_SelfService" Type="bit" Nullable="false" />
+    <Property Name="Julie_VictorCalls" Type="bit" Nullable="false" />
+    <Property Name="EligMedicare" Type="bit" />
+    <Property Name="EligMedicaid" Type="bit" />
+    <Property Name="EligOther" Type="bit" />
+    <Property Name="InsIdMedicare" Type="varchar(max)" />
+    <Property Name="InsIdMedicaid" Type="varchar(max)" />
+    <Property Name="InsIdOther" Type="varchar(max)" />
+    <Property Name="MadePayment" Type="bit" />
+    <Property Name="Assmnt_completedtxt" Type="varchar(max)" />
+    <Property Name="Assmnt_reltomember" Type="varchar(max)" />
+    <Property Name="Assmnt_edudoneby" Type="varchar(max)" />
+    <Property Name="Assmnt_memtrained" Type="bit" />
+    <Property Name="Assmnt_physicianforsupp" Type="varchar(max)" />
+    <Property Name="Assmnt_currsuppfrom" Type="varchar(max)" />
+    <Property Name="Assmnt_lastorderrecieveddt" Type="varchar(max)" />
+    <Property Name="Assmnt_supporderfrom" Type="varchar(max)" />
+    <Property Name="Assmnt_Ord30or90" Type="int" />
+    <Property Name="Assmnt_remsupplies" Type="varchar(max)" />
+    <Property Name="Assmnt_neworexistdiab" Type="varchar(max)" />
+    <Property Name="Assmnt_Testingtimesdiab" Type="int" />
+    <Property Name="Assmnt_InsulinTreateddiab" Type="bit" />
+    <Property Name="Assmnt_nameofinsulindiab" Type="varchar(max)" />
+    <Property Name="Assmnt_pregduedatediab" Type="datetime" />
+    <Property Name="Assmnt_pregexistingdiab" Type="varchar(max)" />
+    <Property Name="Assmnt_currmeterdiab" Type="varchar(max)" />
+    <Property Name="Assmnt_meterservicediab" Type="varchar(max)" />
+    <Property Name="Assmnt_diffmeterdiab" Type="varchar(max)" />
+    <Property Name="Assmnt_talkingmeterdiab" Type="varchar(max)" />
+    <Property Name="Assmnt_lancetsservicediab" Type="varchar(max)" />
+    <Property Name="Assmnt_injsuppliesdiab" Type="bit" />
+    <Property Name="Assmnt_injfromothersuppdiab" Type="bit" />
+    <Property Name="Assmnt_injothersupptxtdiab" Type="varchar(max)" />
+    <Property Name="Assmnt_syrwtneedlediab" Type="bit" />
+    <Property Name="Assmnt_syrwtneedle_gaugediab" Type="int" />
+    <Property Name="Assmnt_syrwtneedle_lendiab" Type="int" />
+    <Property Name="Assmnt_syrwtneedle_unitsdiab" Type="int" />
+    <Property Name="Assmnt_syrwtneedle_qtydiab" Type="int" />
+    <Property Name="Assmnt_needleonly_diab" Type="bit" />
+    <Property Name="Assmnt_needleonly_gauge" Type="int" />
+    <Property Name="Assmnt_needleonly_len" Type="int" />
+    <Property Name="Assmnt_needleonly_qty" Type="int" />
+    <Property Name="Assmnt_alcoholwipes" Type="bit" />
+    <Property Name="assmnt_ketonediab" Type="bit" />
+    <Property Name="Assmnt_alcoholwp_othersuppdiab" Type="bit" />
+    <Property Name="Assmnt_UrineKetonediab" Type="bit" />
+    <Property Name="Assmnt_UrineKetone_Freqtestingdiab" Type="int" />
+    <Property Name="Assmnt_BloodKetone_Freqtestingdiab" Type="int" />
+    <Property Name="Assmnt_BloodKetonediab" Type="bit" />
+    <Property Name="Assmnt_diagnosedCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_InsTreatedCGM" Type="bit" />
+    <Property Name="Assmnt_InsTreatedTypeCGM" Type="varchar" MaxLength="10" />
+    <Property Name="Assmnt_reqpumpCGM" Type="bit" />
+    <Property Name="Assmnt_reqpumpsuppCGM" Type="bit" />
+    <Property Name="Assmnt_pumpothersuppCGM" Type="bit" />
+    <Property Name="Assmnt_pumpothersupptxtCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_neworreplacementCGM" Type="varchar" MaxLength="10" />
+    <Property Name="Assmnt_manufacturerCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_currpumpnmCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_serialnumCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_outofwarrantydtCGM" Type="datetime" />
+    <Property Name="Assmnt_InsurancepaidforCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_NewPumpNameCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_NewPumpColorCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_PumpReplacereasonCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_meterusedCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_InfusionsetCGM" Type="bit" />
+    <Property Name="Assmnt_InfusionsettxtCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_catridgesCGM" Type="bit" />
+    <Property Name="Assmnt_catridgestxtCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_catridgesoftnchngtxtCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_BarrierWipesCGM" Type="bit" />
+    <Property Name="Assmnt_RemoverWipesCGM" Type="bit" />
+    <Property Name="Assmnt_AlcoholWipesCGM" Type="bit" />
+    <Property Name="Assmnt_TransparentdressingCGM" Type="bit" />
+    <Property Name="Assmnt_BatteriesCGM" Type="bit" />
+    <Property Name="Assmnt_memownedorusedCGM" Type="bit" />
+    <Property Name="Assmnt_memcurronCGM" Type="bit" />
+    <Property Name="Assmnt_transmitter_dtreceivedCGM" Type="datetime" />
+    <Property Name="Assmnt_transmitter_outofwarrantydtCGM" Type="datetime" />
+    <Property Name="Assmnt_transmitter_serialnoCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_receiver_dtreceivedCGM" Type="datetime" />
+    <Property Name="Assmnt_receiver_outofwarrantydtCGM" Type="datetime" />
+    <Property Name="Assmnt_receiver_serialnoCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_memneedtransmitterCGM" Type="bit" />
+    <Property Name="Assmnt_memneedreceiverCGM" Type="bit" />
+    <Property Name="Assmnt_memneedsensorsCGM" Type="bit" />
+    <Property Name="Assmnt_othersupplierCGM" Type="bit" />
+    <Property Name="Assmnt_othersuppliertxtCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_transmittertypeCGM" Type="varchar" MaxLength="30" />
+    <Property Name="Assmnt_receivertypeCGM" Type="varchar" MaxLength="30" />
+    <Property Name="Assmnt_transmitorreceiver_replacementreasonCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_sensorsforprodcodeCGM" Type="varchar(max)" />
+    <Property Name="Assmnt_memawareofsignCGM" Type="bit" />
+  </EntityType>
+  <EntityType Name="tbl_CSRCallLog">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RefNum" Type="varchar(max)" />
+    <Property Name="Account" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="35" Nullable="false" />
+    <Property Name="CallDuration" Type="varchar(max)" />
+    <Property Name="Name" Type="varchar(max)" />
+    <Property Name="Relation" Type="varchar(max)" />
+    <Property Name="OtherRelName" Type="varchar(max)" />
+    <Property Name="BillingTxt" Type="varchar(max)" />
+    <Property Name="DocumentationTxt" Type="varchar(max)" />
+    <Property Name="DemographicChangesTxt" Type="varchar(max)" />
+    <Property Name="TypeSupplies_1" Type="varchar(max)" />
+    <Property Name="TypeSupplies_2" Type="varchar(max)" />
+    <Property Name="TypeSuppliesOther" Type="varchar(max)" />
+    <Property Name="ShippingOthersName" Type="varchar(max)" />
+    <Property Name="InsuranceChangeTxt" Type="varchar(max)" />
+    <Property Name="NewAccountTxt" Type="varchar(max)" />
+    <Property Name="OrderConfirmationTxt" Type="varchar(max)" />
+    <Property Name="OrderStatusTxt" Type="varchar(max)" />
+    <Property Name="RWOChangeTxt" Type="varchar(max)" />
+    <Property Name="SampleTxt" Type="varchar(max)" />
+    <Property Name="ShippingIssueTxt" Type="varchar(max)" />
+    <Property Name="TransferredCall" Type="varchar(max)" />
+    <Property Name="TransferredCallTxt" Type="varchar(max)" />
+    <Property Name="OtherHandlingTxt" Type="varchar(max)" />
+    <Property Name="VerifiedPHI" Type="bit" Nullable="false" />
+    <Property Name="VoiceForHealth" Type="bit" Nullable="false" />
+    <Property Name="Eligibility" Type="bit" Nullable="false" />
+    <Property Name="Copay" Type="bit" Nullable="false" />
+    <Property Name="Billing" Type="bit" Nullable="false" />
+    <Property Name="Address" Type="bit" Nullable="false" />
+    <Property Name="Physician" Type="bit" Nullable="false" />
+    <Property Name="Phone" Type="bit" Nullable="false" />
+    <Property Name="AOB" Type="bit" Nullable="false" />
+    <Property Name="Prescription" Type="bit" Nullable="false" />
+    <Property Name="CMN" Type="bit" Nullable="false" />
+    <Property Name="PriorAuthorization" Type="bit" Nullable="false" />
+    <Property Name="SupportingDoc" Type="bit" Nullable="false" />
+    <Property Name="TeacherLetter" Type="bit" Nullable="false" />
+    <Property Name="ABN" Type="bit" Nullable="false" />
+    <Property Name="Logs" Type="bit" Nullable="false" />
+    <Property Name="InsuarnceChanges " Type="bit" Nullable="false" />
+    <Property Name="NewAcconunt" Type="bit" Nullable="false" />
+    <Property Name="Restart" Type="bit" Nullable="false" />
+    <Property Name="OrderConfirmation" Type="bit" Nullable="false" />
+    <Property Name="FedExOrUSPSTracking" Type="bit" Nullable="false" />
+    <Property Name="OrderShipped" Type="bit" Nullable="false" />
+    <Property Name="OrderETA" Type="bit" Nullable="false" />
+    <Property Name="OrderHolding" Type="bit" Nullable="false" />
+    <Property Name="RWOCreated" Type="bit" Nullable="false" />
+    <Property Name="PC_IncreaseOrDecrease" Type="bit" Nullable="false" />
+    <Property Name="PC_Hold" Type="bit" Nullable="false" />
+    <Property Name="PC_RemoveOrAdd" Type="bit" Nullable="false" />
+    <Property Name="ProductChange" Type="bit" Nullable="false" />
+    <Property Name="DefectiveProductOrNotUsable" Type="bit" Nullable="false" />
+    <Property Name="WrongOrExtraProductShipped" Type="bit" Nullable="false" />
+    <Property Name="MissingProduct" Type="bit" Nullable="false" />
+    <Property Name="ShippingOther" Type="bit" Nullable="false" />
+    <Property Name="ReturnedCall_LeftVoicemail" Type="bit" Nullable="false" />
+    <Property Name="WrongNumber" Type="bit" Nullable="false" />
+    <Property Name="Nursing_CSRassessment" Type="bit" Nullable="false" />
+    <Property Name="AccountDeactivate" Type="bit" Nullable="false" />
+    <Property Name="ComplaintOutcome" Type="varchar(max)" />
+    <Property Name="TrackingNumber" Type="varchar(max)" />
+    <Property Name="WorkOrder" Type="varchar(max)" />
+    <Property Name="Damaged" Type="bit" Nullable="false" />
+    <Property Name="Driver" Type="bit" Nullable="false" />
+    <Property Name="WrongProductShipped" Type="bit" Nullable="false" />
+    <Property Name="QualityOfProdut" Type="bit" Nullable="false" />
+    <Property Name="WrongArea" Type="bit" Nullable="false" />
+    <Property Name="OtherIssue_MissingProduct" Type="bit" Nullable="false" />
+    <Property Name="FedExTxt" Type="varchar(max)" />
+    <Property Name="ProductIncrease" Type="bit" Nullable="false" />
+    <Property Name="ProductMispick" Type="bit" Nullable="false" />
+    <Property Name="ProductDefective" Type="bit" Nullable="false" />
+    <Property Name="ProductTxt" Type="varchar(max)" />
+    <Property Name="ImpoliteORoffensive" Type="bit" Nullable="false" />
+    <Property Name="HoldTimes" Type="bit" Nullable="false" />
+    <Property Name="customerServiceTxt" Type="varchar(max)" />
+    <Property Name="OtherTxt" Type="varchar(max)" />
+    <Property Name="FedExOrUSPSTrackingNumber" Type="varchar" MaxLength="50" />
+    <Property Name="SampleChoice" Type="bit" Nullable="false" />
+    <Property Name="SampleTask" Type="bit" Nullable="false" />
+    <Property Name="Other_CallHandling" Type="bit" Nullable="false" />
+    <Property Name="LMN" Type="bit" Nullable="false" />
+    <Property Name="Call" Type="bit" Nullable="false" />
+    <Property Name="Task" Type="bit" Nullable="false" />
+    <Property Name="Web" Type="bit" Nullable="false" />
+    <Property Name="Fax" Type="bit" Nullable="false" />
+    <Property Name="Email" Type="bit" Nullable="false" />
+    <Property Name="LogTypeOther" Type="bit" Nullable="false" />
+    <Property Name="Product" Type="varchar" MaxLength="100" />
+    <Property Name="DeliveryCompany" Type="varchar" MaxLength="100" />
+    <Property Name="BCNProvider" Type="varchar" MaxLength="100" />
+    <Property Name="Other" Type="bit" Nullable="false" />
+    <Property Name="BCNProviderIssue" Type="bit" Nullable="false" />
+    <Property Name="InsLimitGuidelines" Type="bit" Nullable="false" />
+    <Property Name="PhysicianIssue" Type="bit" Nullable="false" />
+    <Property Name="NeverRecivedSupplies" Type="bit" Nullable="false" />
+    <Property Name="NoFollowUpWithMem" Type="bit" Nullable="false" />
+    <Property Name="ReturnedFromVM" Type="bit" Nullable="false" />
+    <Property Name="NoFollowUp" Type="bit" Nullable="false" />
+    <Property Name="Website" Type="bit" Nullable="false" />
+    <Property Name="VirtualCallBack" Type="bit" Nullable="false" />
+    <Property Name="SAJamesSelfService" Type="bit" Nullable="false" />
+    <Property Name="SAJamesPhonePromts" Type="bit" Nullable="false" />
+    <Property Name="VPaymentCalles" Type="bit" Nullable="false" />
+    <Property Name="VConfirmationCalls" Type="bit" Nullable="false" />
+    <Property Name="DidntFollowDelIns" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_CSRComplaintLog">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Account" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="35" Nullable="false" />
+    <Property Name="PayerType" Type="varchar(max)" />
+    <Property Name="TrackingNumber" Type="varchar(max)" />
+    <Property Name="Damaged" Type="bit" />
+    <Property Name="Driver" Type="bit" />
+    <Property Name="WrongProductShipped" Type="bit" />
+    <Property Name="QualityOfProdut" Type="bit" />
+    <Property Name="WrongArea" Type="bit" />
+    <Property Name="MissingProduct" Type="bit" />
+    <Property Name="FedExTxt" Type="varchar(max)" />
+    <Property Name="ProductIncrease" Type="bit" />
+    <Property Name="ProductMispick" Type="bit" />
+    <Property Name="ProductDefective" Type="bit" />
+    <Property Name="ProductTxt" Type="varchar(max)" />
+    <Property Name="ImpoliteORoffensive" Type="bit" />
+    <Property Name="HoldTimes" Type="bit" />
+    <Property Name="customerServiceTxt" Type="varchar(max)" />
+    <Property Name="OtherTxt" Type="varchar(max)" />
+    <Property Name="ComplaintHasBeen" Type="varchar(max)" />
+    <Property Name="Product" Type="varchar" MaxLength="100" />
+    <Property Name="DeliveryCompany" Type="varchar" MaxLength="100" />
+    <Property Name="BCNProvider" Type="varchar" MaxLength="100" />
+    <Property Name="Other" Type="bit" Nullable="false" />
+    <Property Name="BCNProviderIssue" Type="bit" Nullable="false" />
+    <Property Name="InsLimitGuidelines" Type="bit" Nullable="false" />
+    <Property Name="PhysicianIssue" Type="bit" Nullable="false" />
+    <Property Name="NeverRecivedSupplies" Type="bit" Nullable="false" />
+    <Property Name="NoFollowUpWithMem" Type="bit" Nullable="false" />
+    <Property Name="ReturnedFromVM" Type="bit" Nullable="false" />
+    <Property Name="NoFollowUp" Type="bit" Nullable="false" />
+    <Property Name="Website" Type="bit" Nullable="false" />
+    <Property Name="VirtualCallBack" Type="bit" Nullable="false" />
+    <Property Name="SAJamesSelfService" Type="bit" Nullable="false" />
+    <Property Name="SAJamesPhonePromts" Type="bit" Nullable="false" />
+    <Property Name="VPaymentCalles" Type="bit" Nullable="false" />
+    <Property Name="VConfirmationCalls" Type="bit" Nullable="false" />
+    <Property Name="DidntFollowDelIns" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_CSRInsDetail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" MaxLength="430" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" />
+    <Property Name="State" Type="varchar" MaxLength="100" />
+    <Property Name="VerifiedThrough" Type="varchar(max)" />
+    <Property Name="NameMatched" Type="bit" Nullable="false" />
+    <Property Name="NameNotMatched" Type="bit" Nullable="false" />
+    <Property Name="EffectiveDate" Type="datetime" />
+    <Property Name="TermDate" Type="datetime" />
+    <Property Name="BenefitPlan" Type="varchar(max)" />
+    <Property Name="LevelOfCare" Type="varchar(max)" />
+    <Property Name="COBnOtherIns" Type="varchar(max)" />
+    <Property Name="InNetwork" Type="bit" Nullable="false" />
+    <Property Name="OutofNetwork" Type="bit" Nullable="false" />
+    <Property Name="Deductible" Type="money" />
+    <Property Name="OutofPocketMax" Type="money" />
+    <Property Name="CopayCoins" Type="varchar(max)" />
+    <Property Name="CopayCoinsWaived" Type="bit" Nullable="false" />
+    <Property Name="CopayCoinsNotWaived" Type="bit" Nullable="false" />
+    <Property Name="DME" Type="bit" Nullable="false" />
+    <Property Name="Medical" Type="bit" Nullable="false" />
+    <Property Name="Pharmacy" Type="bit" Nullable="false" />
+    <Property Name="Medicaid" Type="bit" Nullable="false" />
+    <Property Name="Medicare" Type="bit" Nullable="false" />
+    <Property Name="Other" Type="bit" Nullable="false" />
+    <Property Name="HCPCnQtyLimitations" Type="varchar(max)" />
+    <Property Name="HHE" Type="bit" Nullable="false" />
+    <Property Name="Hospice" Type="bit" Nullable="false" />
+    <Property Name="Hospital" Type="bit" Nullable="false" />
+    <Property Name="NursingHome" Type="bit" Nullable="false" />
+    <Property Name="MemEnrollNone" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="IntranetModelStoreContainer">
+    <EntitySet Name="assessment_log" EntityType="Self.assessment_log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BCBS_ProviderList" EntityType="Self.BCBS_ProviderList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CHAMPS_Adj_Codes" EntityType="Self.CHAMPS_Adj_Codes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CHAMPS_Error_Codes" EntityType="Self.CHAMPS_Error_Codes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CHAMPS_Remit_Codes" EntityType="Self.CHAMPS_Remit_Codes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Eligibility_Orders" EntityType="Self.Eligibility_Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RWO_Product_Substitutions" EntityType="Self.RWO_Product_Substitutions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_BCNCallLog" EntityType="Self.tbl_BCNCallLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_CSRCallLog" EntityType="Self.tbl_CSRCallLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_CSRComplaintLog" EntityType="Self.tbl_CSRComplaintLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_CSRInsDetail" EntityType="Self.tbl_CSRInsDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CHAMPS_Ignore_Errors" EntityType="Self.CHAMPS_Ignore_Errors" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [CHAMPS_Ignore_Errors].[cieID] AS [cieID], 
+    [CHAMPS_Ignore_Errors].[cieCode] AS [cieCode], 
+    [CHAMPS_Ignore_Errors].[cieAdded] AS [cieAdded], 
+    [CHAMPS_Ignore_Errors].[cieAddedBy] AS [cieAddedBy], 
+    [CHAMPS_Ignore_Errors].[cieDeleted] AS [cieDeleted], 
+    [CHAMPS_Ignore_Errors].[cieDeletedBy] AS [cieDeletedBy]
+    FROM [dbo].[CHAMPS_Ignore_Errors] AS [CHAMPS_Ignore_Errors]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Employees_New" EntityType="Self.Employees_New" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Employees_New].[empID] AS [empID], 
+    [Employees_New].[empLogin] AS [empLogin], 
+    [Employees_New].[empEmail] AS [empEmail], 
+    [Employees_New].[empFullName] AS [empFullName], 
+    [Employees_New].[empManager] AS [empManager], 
+    [Employees_New].[empTeamLeader] AS [empTeamLeader], 
+    [Employees_New].[empCanEnterTicket] AS [empCanEnterTicket], 
+    [Employees_New].[empDepartment] AS [empDepartment], 
+    [Employees_New].[empTeam] AS [empTeam], 
+    [Employees_New].[empAdded] AS [empAdded], 
+    [Employees_New].[empRemoved] AS [empRemoved], 
+    [Employees_New].[empAutoUpdate] AS [empAutoUpdate], 
+    [Employees_New].[empSort] AS [empSort], 
+    [Employees_New].[empPhone] AS [empPhone], 
+    [Employees_New].[empPOSid] AS [empPOSid]
+    FROM [dbo].[Employees_New] AS [Employees_New]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="IndianaMedicaidSurvey" EntityType="Self.IndianaMedicaidSurvey" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [IndianaMedicaidSurvey].[imsID] AS [imsID], 
+    [IndianaMedicaidSurvey].[imsQ1] AS [imsQ1], 
+    [IndianaMedicaidSurvey].[imsQ2] AS [imsQ2], 
+    [IndianaMedicaidSurvey].[imsQ3] AS [imsQ3], 
+    [IndianaMedicaidSurvey].[imsQ4] AS [imsQ4], 
+    [IndianaMedicaidSurvey].[imsQ5] AS [imsQ5], 
+    [IndianaMedicaidSurvey].[imsQ6] AS [imsQ6], 
+    [IndianaMedicaidSurvey].[imsName] AS [imsName], 
+    [IndianaMedicaidSurvey].[imsAddress] AS [imsAddress], 
+    [IndianaMedicaidSurvey].[imsComment] AS [imsComment], 
+    [IndianaMedicaidSurvey].[imsEnteredDate] AS [imsEnteredDate], 
+    [IndianaMedicaidSurvey].[imsEnteredBy] AS [imsEnteredBy]
+    FROM [dbo].[IndianaMedicaidSurvey] AS [IndianaMedicaidSurvey]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

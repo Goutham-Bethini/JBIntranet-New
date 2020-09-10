@@ -1,0 +1,479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ColdFusionReportsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="sp_CallTagSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="searchType" Type="varchar" Mode="In" />
+          <Parameter Name="searchValue" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_CMNreportMonthsWise" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="selectedYear" Type="int" Mode="In" />
+          <Parameter Name="repName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_GetAcChanges" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AcNumber" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetAcRWOs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AcNumber" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetCMNreports" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetCMNs_ReportData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="selectedYear" Type="int" Mode="In" />
+          <Parameter Name="selectedMonth" Type="int" Mode="In" />
+          <Parameter Name="repName" Type="varchar" Mode="In" />
+          <Parameter Name="recert" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_GetDeptEmployees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="deptId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetDoctorInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="doctorID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetDocTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetNewExpiringCMNs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ExpMonth" Type="int" Mode="In" />
+          <Parameter Name="ExpYear" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetPayers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetPayerTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetProviders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetQOH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="productCode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_GetReportRules" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="reportId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetStatusCodes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ussOperatorLookup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="ColdFusionReportsModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ColdFusionReportsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ColdFusionReportsEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="sp_GetAcRWOs" ReturnType="Collection(ColdFusionReportsModel.sp_GetAcRWOs_Result)">
+          <Parameter Name="AcNumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetAcChanges" ReturnType="Collection(ColdFusionReportsModel.sp_GetAcChanges_Result)">
+          <Parameter Name="AcNumber" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetDoctorInfo" ReturnType="Collection(ColdFusionReportsModel.sp_GetDoctorInfo_Result)">
+          <Parameter Name="doctorID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CallTagSearch" ReturnType="Collection(ColdFusionReportsModel.sp_CallTagSearch_Result)">
+            <Parameter Name="searchType" Mode="In" Type="String" />
+            <Parameter Name="searchValue" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetNewExpiringCMNs" ReturnType="Collection(ColdFusionReportsModel.sp_GetNewExpiringCMNs_Result)">
+            <Parameter Name="ExpMonth" Mode="In" Type="Int32" />
+            <Parameter Name="ExpYear" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetQOH" ReturnType="Collection(ColdFusionReportsModel.sp_GetQOH_Result)">
+          <Parameter Name="productCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ussOperatorLookup" ReturnType="Collection(ColdFusionReportsModel.sp_ussOperatorLookup_Result)" />
+          <FunctionImport Name="sp_CMNreportMonthsWise" ReturnType="Collection(ColdFusionReportsModel.sp_CMNreportMonthsWise_Result)">
+            <Parameter Name="selectedYear" Mode="In" Type="Int32" />
+            <Parameter Name="repName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetCMNs_ReportData" ReturnType="Collection(ColdFusionReportsModel.sp_GetCMNs_ReportData_Result)">
+            <Parameter Name="selectedYear" Mode="In" Type="Int32" />
+            <Parameter Name="selectedMonth" Mode="In" Type="Int32" />
+            <Parameter Name="repName" Mode="In" Type="String" />
+            <Parameter Name="recert" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetDeptEmployees" ReturnType="Collection(ColdFusionReportsModel.sp_GetDeptEmployees_Result)">
+          <Parameter Name="deptId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetCMNreports" ReturnType="Collection(ColdFusionReportsModel.sp_GetCMNreports_Result)" />
+          <FunctionImport Name="sp_GetReportRules" ReturnType="Collection(ColdFusionReportsModel.sp_GetReportRules_Result)">
+          <Parameter Name="reportId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetPayers" ReturnType="Collection(ColdFusionReportsModel.sp_GetPayers_Result)" />
+          <FunctionImport Name="sp_GetPayerTypes" ReturnType="Collection(ColdFusionReportsModel.sp_GetPayerTypes_Result)" />
+          <FunctionImport Name="sp_GetDocTypes" ReturnType="Collection(ColdFusionReportsModel.sp_GetDocTypes_Result)" />
+          <FunctionImport Name="sp_GetProviders" ReturnType="Collection(ColdFusionReportsModel.sp_GetProviders_Result)" />
+          <FunctionImport Name="sp_GetCategories" ReturnType="Collection(ColdFusionReportsModel.sp_GetCategories_Result)" />
+          <FunctionImport Name="sp_GetStatusCodes" ReturnType="Collection(ColdFusionReportsModel.sp_GetStatusCodes_Result)" />
+        </EntityContainer>
+        <ComplexType Name="sp_GetAcRWOs_Result">
+          <Property Type="Int32" Name="Account" Nullable="false" />
+          <Property Type="String" Name="ProductCode" Nullable="true" MaxLength="16" />
+          <Property Type="String" Name="productdescription" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="LastChangedBy" Nullable="true" MaxLength="64" />
+          <Property Type="DateTime" Name="LastChange" Nullable="true" Precision="23" />
+          <Property Type="String" Name="LegalName" Nullable="true" MaxLength="64" />
+          <Property Type="DateTime" Name="CreatedBy" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="sp_GetAcChanges_Result">
+          <Property Type="Int32" Name="Account" Nullable="false" />
+          <Property Type="String" Name="First_Name" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="Middle" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="Last_name" Nullable="true" MaxLength="60" />
+          <Property Type="DateTime" Name="AccountUpdated" Nullable="true" Precision="23" />
+          <Property Type="String" Name="AccountUpdatedBy" Nullable="true" MaxLength="64" />
+          <Property Type="DateTime" Name="AccountInfUpdated" Nullable="true" Precision="23" />
+          <Property Type="String" Name="AccountInfUpdatedBy" Nullable="true" MaxLength="64" />
+          <Property Type="DateTime" Name="InsuranceUpdated" Nullable="true" Precision="23" />
+          <Property Type="String" Name="InsuranceUpdatedBy" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="Payer" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="sp_GetDoctorInfo_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Last_Name" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="First_Name" Nullable="true" MaxLength="35" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="LastChangedBy" Nullable="true" MaxLength="64" />
+          <Property Type="DateTime" Name="LastChange" Nullable="true" Precision="23" />
+          <Property Type="String" Name="LegalName" Nullable="true" MaxLength="64" />
+          <Property Type="DateTime" Name="DeletedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="sp_CallTagSearch_Result">
+          <Property Type="Int32" Name="RowId" Nullable="false" />
+          <Property Type="Int32" Name="Account" Nullable="true" />
+          <Property Type="Int32" Name="WorkOrder_ID" Nullable="true" />
+          <Property Type="DateTime" Name="completed_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Reshipped" Nullable="true" MaxLength="3" />
+          <Property Type="DateTime" Name="Date_Returned" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Tag_Type" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Return_Note" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="List_Option_Text" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Return_Other_Reason" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Tracking_Number" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Boxes_Returned" Nullable="true" />
+          <Property Type="Int32" Name="OracleRMA" Nullable="true" />
+          <Property Type="Int32" Name="Return_ID" Nullable="false" />
+          <Property Type="String" Name="ProductsQty" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetNewExpiringCMNs_Result">
+          <Property Type="Int32" Name="Account" Nullable="false" />
+          <Property Type="String" Name="Alpha_Split" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="Patient_Name" Nullable="true" MaxLength="97" />
+          <Property Type="String" Name="Product_Line" Nullable="true" MaxLength="64" />
+          <Property Type="DateTime" Name="Expiration_Date" Nullable="true" />
+          <Property Type="String" Name="Due_Date" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="C1st_Attempt" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="C2nd_Attempt" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="C3rd_Attempt" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Adv_Action_Letter_" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Unable_to_Svc_Letter_" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Completed_" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Not_Needed_" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Compliance_Check_" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="Date_CMN_Entered" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="sp_GetQOH_Result" >
+          <Property Type="Int32" Name="RowId" Nullable="false" />
+          <Property Type="String" Name="ProductCode" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" />
+          <Property Type="String" Name="Discontinued" Nullable="false" />
+          <Property Type="Int32" Name="QtyAvailableInOrc" Nullable="false" />
+          <Property Type="Int32" Name="BOdInHDMS" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_ussOperatorLookup_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="LegalName" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="DeptName" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="Active" Nullable="false" MaxLength="3" />
+        </ComplexType>
+        <ComplexType Name="sp_CMNreportMonthsWise_Result">
+          <Property Type="String" Name="Month" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Expiring" Nullable="true" />
+          <Property Type="Int32" Name="Recertified" Nullable="true" />
+          <Property Type="Int32" Name="NotRecertified" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetCMNs_ReportData_Result" >
+          <Property Type="Int32" Name="Account" Nullable="false" />
+          <Property Type="String" Name="Last_Name" Nullable="false" />
+          <Property Type="String" Name="First_Name" Nullable="false" />
+          <Property Type="DateTime" Name="EffectiveDate" Nullable="false" />
+          <Property Type="Int16" Name="Duration" Nullable="true" />
+          <Property Type="DateTime" Name="Expiration" Nullable="false" />
+          <Property Type="DateTime" Name="Recertified" Nullable="true" />
+          <Property Type="String" Name="DocTypeDescription" Nullable="false" />
+          <Property Type="String" Name="DoctorName" Nullable="false" />
+          <Property Type="String" Name="Office_Phone" Nullable="false" />
+          <Property Type="Int32" Name="SpecialDoctor" Nullable="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_GetDeptEmployees_Result">
+          <Property Type="Int32" Name="empID" Nullable="false" />
+          <Property Type="String" Name="empFullName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="alpID" Nullable="true" />
+          <Property Type="String" Name="alpAlphaStart" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="alpAlphaEnd" Nullable="true" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="sp_GetCMNreports_Result">
+          <Property Type="Int32" Name="repID" Nullable="false" />
+          <Property Type="String" Name="repName" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="sp_GetReportRules_Result">
+          <Property Type="Int32" Name="cmrId" Nullable="false" />
+          <Property Type="String" Name="DataType" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="value" Nullable="true" />
+          <Property Type="String" Name="ExcInc" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_GetPayers_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="sp_GetPayerTypes_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="32" />
+        </ComplexType>
+        <ComplexType Name="sp_GetDocTypes_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="DocTypeDescription" Nullable="true" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="sp_GetProviders_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="OrganizationName" Nullable="true" MaxLength="60" />
+        </ComplexType>
+        <ComplexType Name="sp_GetCategories_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="48" />
+        </ComplexType>
+        <ComplexType Name="sp_GetStatusCodes_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="StatusDescription" Nullable="true" MaxLength="32" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ColdFusionReportsModelStoreContainer" CdmEntityContainer="ColdFusionReportsEntities" >
+          <FunctionImportMapping FunctionImportName="sp_GetAcRWOs" FunctionName="ColdFusionReportsModel.Store.sp_GetAcRWOs">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetAcRWOs_Result">
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="productdescription" ColumnName="productdescription" />
+                <ScalarProperty Name="LastChangedBy" ColumnName="LastChangedBy" />
+                <ScalarProperty Name="LastChange" ColumnName="LastChange" />
+                <ScalarProperty Name="LegalName" ColumnName="LegalName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetAcChanges" FunctionName="ColdFusionReportsModel.Store.sp_GetAcChanges">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetAcChanges_Result">
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Middle" ColumnName="Middle" />
+                <ScalarProperty Name="Last_name" ColumnName="Last_name" />
+                <ScalarProperty Name="AccountUpdated" ColumnName="AccountUpdated" />
+                <ScalarProperty Name="AccountUpdatedBy" ColumnName="AccountUpdatedBy" />
+                <ScalarProperty Name="AccountInfUpdated" ColumnName="AccountInfUpdated" />
+                <ScalarProperty Name="AccountInfUpdatedBy" ColumnName="AccountInfUpdatedBy" />
+                <ScalarProperty Name="InsuranceUpdated" ColumnName="InsuranceUpdated" />
+                <ScalarProperty Name="InsuranceUpdatedBy" ColumnName="InsuranceUpdatedBy" />
+                <ScalarProperty Name="Payer" ColumnName="Payer" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetDoctorInfo" FunctionName="ColdFusionReportsModel.Store.sp_GetDoctorInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetDoctorInfo_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastChangedBy" ColumnName="LastChangedBy" />
+                <ScalarProperty Name="LastChange" ColumnName="LastChange" />
+                <ScalarProperty Name="LegalName" ColumnName="LegalName" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_CallTagSearch" FunctionName="ColdFusionReportsModel.Store.sp_CallTagSearch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_CallTagSearch_Result">
+                <ScalarProperty Name="RowId" ColumnName="RowId" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="WorkOrder_ID" ColumnName="WorkOrder_ID" />
+                <ScalarProperty Name="completed_date" ColumnName="completed_date" />
+                <ScalarProperty Name="Reshipped" ColumnName="Reshipped" />
+                <ScalarProperty Name="Date_Returned" ColumnName="Date_Returned" />
+                <ScalarProperty Name="Tag_Type" ColumnName="Tag_Type" />
+                <ScalarProperty Name="Return_Note" ColumnName="Return_Note" />
+                <ScalarProperty Name="List_Option_Text" ColumnName="List_Option_Text" />
+                <ScalarProperty Name="Return_Other_Reason" ColumnName="Return_Other_Reason" />
+                <ScalarProperty Name="Tracking_Number" ColumnName="Tracking_Number" />
+                <ScalarProperty Name="Boxes_Returned" ColumnName="Boxes_Returned" />
+                <ScalarProperty Name="OracleRMA" ColumnName="OracleRMA" />
+                <ScalarProperty Name="Return_ID" ColumnName="Return_ID" />
+                <ScalarProperty Name="ProductsQty" ColumnName="ProductsQty" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetNewExpiringCMNs" FunctionName="ColdFusionReportsModel.Store.sp_GetNewExpiringCMNs">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetNewExpiringCMNs_Result">
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Alpha_Split" ColumnName="Alpha_Split" />
+                <ScalarProperty Name="Patient_Name" ColumnName="Patient_Name" />
+                <ScalarProperty Name="Product_Line" ColumnName="Product_Line" />
+                <ScalarProperty Name="Expiration_Date" ColumnName="Expiration_Date" />
+                <ScalarProperty Name="Due_Date" ColumnName="Due Date" />
+                <ScalarProperty Name="C1st_Attempt" ColumnName="1st Attempt" />
+                <ScalarProperty Name="C2nd_Attempt" ColumnName="2nd Attempt" />
+                <ScalarProperty Name="C3rd_Attempt" ColumnName="3rd Attempt" />
+                <ScalarProperty Name="Adv_Action_Letter_" ColumnName="Adv Action Letter?" />
+                <ScalarProperty Name="Unable_to_Svc_Letter_" ColumnName="Unable to Svc Letter?" />
+                <ScalarProperty Name="Completed_" ColumnName="Completed?" />
+                <ScalarProperty Name="Not_Needed_" ColumnName="Not Needed?" />
+                <ScalarProperty Name="Compliance_Check_" ColumnName="Compliance Check?" />
+                <ScalarProperty Name="Date_CMN_Entered" ColumnName="Date CMN Entered" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetQOH" FunctionName="ColdFusionReportsModel.Store.sp_GetQOH" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetQOH_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ussOperatorLookup" FunctionName="ColdFusionReportsModel.Store.sp_ussOperatorLookup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_ussOperatorLookup_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="LegalName" ColumnName="LegalName" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_CMNreportMonthsWise" FunctionName="ColdFusionReportsModel.Store.sp_CMNreportMonthsWise">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_CMNreportMonthsWise_Result">
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Expiring" ColumnName="Expiring" />
+                <ScalarProperty Name="Recertified" ColumnName="Recertified" />
+                <ScalarProperty Name="NotRecertified" ColumnName="NotRecertified" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetCMNs_ReportData" FunctionName="ColdFusionReportsModel.Store.sp_GetCMNs_ReportData" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetCMNs_ReportData_Result">
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Expiration" ColumnName="Expiration" />
+                <ScalarProperty Name="Recertified" ColumnName="Recertified" />
+                <ScalarProperty Name="DocTypeDescription" ColumnName="DocTypeDescription" />
+                <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
+                <ScalarProperty Name="Office_Phone" ColumnName="Office_Phone" />
+                <ScalarProperty Name="SpecialDoctor" ColumnName="SpecialDoctor" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetDeptEmployees" FunctionName="ColdFusionReportsModel.Store.sp_GetDeptEmployees">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetDeptEmployees_Result">
+                <ScalarProperty Name="empID" ColumnName="empID" />
+                <ScalarProperty Name="empFullName" ColumnName="empFullName" />
+                <ScalarProperty Name="alpID" ColumnName="alpID" />
+                <ScalarProperty Name="alpAlphaStart" ColumnName="alpAlphaStart" />
+                <ScalarProperty Name="alpAlphaEnd" ColumnName="alpAlphaEnd" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetCMNreports" FunctionName="ColdFusionReportsModel.Store.sp_GetCMNreports">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetCMNreports_Result">
+                <ScalarProperty Name="repID" ColumnName="repID" />
+                <ScalarProperty Name="repName" ColumnName="repName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetReportRules" FunctionName="ColdFusionReportsModel.Store.sp_GetReportRules">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetReportRules_Result">
+                <ScalarProperty Name="cmrId" ColumnName="cmrId" />
+                <ScalarProperty Name="DataType" ColumnName="DataType" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="ExcInc" ColumnName="ExcInc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetPayers" FunctionName="ColdFusionReportsModel.Store.sp_GetPayers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetPayers_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetPayerTypes" FunctionName="ColdFusionReportsModel.Store.sp_GetPayerTypes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetPayerTypes_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetDocTypes" FunctionName="ColdFusionReportsModel.Store.sp_GetDocTypes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetDocTypes_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DocTypeDescription" ColumnName="DocTypeDescription" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetProviders" FunctionName="ColdFusionReportsModel.Store.sp_GetProviders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetProviders_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetCategories" FunctionName="ColdFusionReportsModel.Store.sp_GetCategories">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetCategories_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetStatusCodes" FunctionName="ColdFusionReportsModel.Store.sp_GetStatusCodes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ColdFusionReportsModel.sp_GetStatusCodes_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,230 @@
+﻿@using Kendo.Mvc.UI
+@model  USPS_Report.Areas.Reports.Models.BCNClaims
+@{
+    ViewBag.Title = "BCN Claims Report";
+    //Layout = "~/Areas/Reports/Views/Shared/_noSideBarLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  
+}
+
+
+
+<center>
+    <h3>BCN Claims Report</h3>
+</center>
+
+
+<div>
+    <center>
+        @using (Html.BeginForm("BCNClaimReport", "CSR", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label>check</label>
+                    @*@Html.TextBoxFor(t=>t.menu)*@
+                   @Html.DropDownListFor(t => t.chk, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Submit Date" , Value = "Submit"},
+                    new SelectListItem { Text = "Paid Date" , Value = "Paid"},
+                      new SelectListItem { Text = "Load Date" , Value = "Load"},
+
+
+               }, "Select Option")
+
+ 
+                    </div >
+                    <div class="col-md-3">
+                        <label>Start Date</label>
+                        @Html.Kendo().DatePicker().Name("_startDt").Value(Model._startDt).Format("MM/dd/yyyy")
+                    </div>
+
+
+
+                    <div class="col-md-3">
+                        <label>end Date</label>
+                        @Html.Kendo().DatePicker().Name("_endDt").Value(Model._endDt).Format("MM/dd/yyyy")
+                    </div>
+                </div>
+
+            //-------------
+            <br />
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-6">
+                    
+                    @Html.CheckBoxFor(t => t.others)
+                    <label style="color:red">Check the check box if you  would like to use below filters with the dates.</label>
+
+
+                </div>
+                <div class="col-md-4">
+                   
+                 
+                </div>
+
+
+
+               
+            </div>
+            <br />
+
+
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label>Serv Name: </label>
+              @Html.TextBoxFor(t => t.ServName)
+
+
+                </div>
+                <div class="col-md-3">
+                    <label>Prod Code: </label>
+                  @Html.TextBoxFor(t => t.prod)
+                </div>
+
+
+
+                <div class="col-md-3">
+                    <label>Conract : </label>
+                  @Html.TextBoxFor(t => t.contract ) 
+                </div>
+            </div>
+            //-----------------
+
+
+
+                    @*@Html.TextBoxFor(t=>t.menu)
+            @Html.TextBoxFor(t => t.chk)*@
+
+
+            <br />
+      
+          
+         
+            <div class="row" style="text-align:center">
+                <button class="btn btn-primary btn-large" type="submit" style="background-color:black">Create Report</button>
+            </div>
+
+        }
+    </center>
+</div>
+
+<div class="row">
+
+
+    <div style = "margin-left:50px" >
+
+        <hr />
+
+
+        <div >
+            @if(Model != null)
+        {
+                <div>
+                    @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.BCNVM>()
+             .Name("BCNGrid")
+             .Columns(columns =>
+             {
+                 columns.Bound(t => t.Id).Width(10).Title("ID").Hidden(true);
+
+                 columns.Bound(t => t.Contract).Width(90).Title("Contract");
+                 columns.Bound(t => t.PlanGroup).Width(50).Title("PlanGroup");
+                 columns.Bound(t => t.First_Name).Width(70).Title("First_Name");
+                 columns.Bound(t => t.Last_Name).Width(50).Title("Last_Name");
+                 columns.Bound(t => t.Middle).Width(20).Title("Middle");
+                 columns.Bound(t => t.Mbr_Suffix).Width(20).Title(" Mbr_Suffix");
+                 columns.Bound(t => t.Mbr_DOB).Width(20).Title(" Mbr_DOB");
+                 columns.Bound(t => t.Claim_Id).Width(90).Title("Claim_Id");
+                 columns.Bound(t => t.Claim_Payee).Width(90).Title("Claim_Payee");
+                 columns.Bound(t => t.Clm_suffix).Width(20).Title("Clm_suffix");
+                 columns.Bound(t => t.Serv_Prov).Width(90).Title("Serv_Prov");
+                 columns.Bound(t => t.Serv_Prov_NPI).Width(90).Title("Serv_Prov_NPI");
+                 columns.Bound(t => t.Serv_Prov_Name).Width(90).Title("Serv_Prov_Name");
+                 columns.Bound(t => t.Proc_Code).Width(90).Title("Proc_Code");
+                 columns.Bound(t => t.Payee_Prov_NPI).Width(90).Title("Payee_Prov_NPI");
+                 columns.Bound(t => t.Bcat).Width(90).Title("Bcat");
+                 columns.Bound(t => t.DOS).Width(70).Title("DOS").Format("{0:MM/dd/yyyy}");
+                 columns.Bound(t => t.Paid_Date).Width(70).Title("Paid_Date").Format("{0:MM/dd/yyyy}");
+                 columns.Bound(t => t.Submit_Date).Width(70).Title("Submit_Date").Format("{0:MM/dd/yyyy}");
+                 columns.Bound(t => t.LoadDate).Width(70).Title("LoadDate").Format("{0:MM/dd/yyyy}");
+                 columns.Bound(t => t.Paid).Width(20).Title("Paid ");
+                 columns.Bound(t => t.Copay).Width(20).Title("Copay");
+                 columns.Bound(t => t.COB).Width(20).Title("COB");
+                 columns.Bound(t => t.Allowed).Width(20).Title("Allowed");
+
+                 columns.Bound(t => t.Deductible).Width(20).Title("Deductible");
+                 columns.Bound(t => t.Coinsurance).Width(20).Title("Coinsurance");
+                 columns.Bound(t => t.Units).Width(20).Title("Units ");
+
+                 columns.Bound(t => t.Mod1).Width(20).Title("Mod1 ");
+                 columns.Bound(t => t.Mod2).Width(20).Title("Mod2 ");
+                 columns.Bound(t => t.Mod3).Width(20).Title("Mod3 ");
+                 columns.Bound(t => t.Mod4).Width(20).Title("Mod4 ");
+                 columns.Bound(t => t.On_Off_exchange).Width(20).Title("On_Off_exchange ");
+                 columns.Bound(t => t.EX_code).Width(30).Title("EX_code");
+                 columns.Bound(t => t.EX_Description).Width(50).Title("EX_Description");
+                 columns.Bound(t => t.Charge_Amt).Width(30).Title("Charge_Amt");
+
+
+
+             })
+                  .ToolBar(tools => tools.Excel())
+
+
+                .HtmlAttributes(new { style = "height:auto; width:3300px;" })
+            .Reorderable(r => r.Columns(true))
+                    .Pageable()
+                   .Scrollable(scrollable => scrollable.Height(600))
+                 .Sortable()
+                 .Groupable()
+                .ColumnMenu()
+                .Filterable()
+                 .Resizable(resizable => resizable.Columns(true))
+                   .Excel(excel => excel
+                        .FileName("BCNClaimReport.xlsx")
+                        .Filterable(true)
+                         .AllPages(true)
+                        .ProxyURL(Url.Action("Excel_Export_Save", "Report")))
+
+             //  .Events(events => events.DataBound("onDataBound"))
+             .DataSource(dataSource => dataSource
+             .Ajax()
+
+              .PageSize(1000)
+             .ServerOperation(true)
+
+
+                                    .Read(read => read.Action("GetClaimReport", "CSR", new { _startDt = Model._startDt, _endDt = Model._endDt, Col = Model.chk, others = Model.others, prod = Model.prod, memId = Model.contract, serv = Model.ServName }) 
+            // .Read(read => read.Action("wo_Search", "WorkOrder")
+            )
+
+              )
+    .Resizable(resize => resize.Columns(true))
+
+                    )
+
+
+
+
+                    @*<script type="text/javascript">
+
+                            function onDataBound(arg) {
+                                $('.k-grid-content').height(window.innerHeight - 110);
+                            }
+
+
+                        </script>*@
+
+
+
+
+                </div>
+        }
+        </div>
+    </div>
+
+</div>
+
+

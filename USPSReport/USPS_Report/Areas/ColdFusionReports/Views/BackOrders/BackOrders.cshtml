@@ -1,0 +1,146 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.BackOrders.BackOrdersVM
+    @using Kendo.Mvc.UI
+    @{
+        ViewBag.Title = "BackOrders";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+<h3 class="middle" style="text-align:center;">BackOrders</h3>
+<hr />
+<h4 class="middle" style="text-align:center;">@Model.OrdersCount Order(s) Affected</h4>  
+<br />
+<center>
+    <table border=1 bordercolor="##666666">
+        <tr>
+            <td colspan="3" style="text-align:center;">Key</td>
+        </tr>
+        <tr>
+            <td bgcolor="##66FFFF">Qty Now Available</td>
+            <td style="background-color:rgb(255,255,153)">Product Setup Issue</td>
+            <td><font color='red'>UOM Mismatch</font></td>
+        </tr>
+    </table>
+</center>
+
+<table>
+    <tr>
+        <td width="70%" style="text-align:center;"><strong>Products</strong></td>
+        <td width="30%" style="text-align:center;"><strong>Orders</strong></td>
+    </tr>
+    <tr>
+        <td style="vertical-align:top;">
+            @if (Model != null && Model.ProductsDetails != null)
+            {
+                <div>
+                    <table border=1 bordercolor="##666666">
+                        <thead>
+                            <tr>
+                                <th>HDMS Product Code</th>
+                                <th>Oracle Product Code</th>
+                                <th>ETA Date</th>
+                                <th>Orders</th>
+                                <th>Qty Requested</th>
+                                <th>HDMS UOM</th>
+                                <th>Qty Available</th>
+                                <th>Orac DFF UOM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var rec in Model.ProductsDetails)
+                            {
+                                if (@rec.QtyAvailable > @rec.QtyRequested)
+                                {
+                                    <tr bgcolor="##66FFFF">
+                                        <td>@rec.HDMSproductCode </td>
+                                        <td>@rec.OracleProductCode </td>
+                                        <td>@rec.ETAdate </td>
+                                        <td>@rec.Orders </td>
+                                        <td>@rec.QtyRequested </td>
+                                        <td>@rec.HDMSUOM </td>
+                                        <td>@rec.QtyAvailable </td>
+                                        <td>@rec.OracDFFUOM </td>
+                                    </tr>
+                                }
+                                else if (@rec.QtyAvailable == -1)
+                                {
+                                    <tr style="background-color:rgb(255,255,153)">
+                                        <td>@rec.HDMSproductCode </td>
+                                        <td>@rec.OracleProductCode </td>
+                                        <td>@rec.ETAdate </td>
+                                        <td>@rec.Orders </td>
+                                        <td>@rec.QtyRequested </td>
+                                        <td>@rec.HDMSUOM </td>
+                                        <td>Not Linked to Oracle Prod</td>
+                                        <td>@rec.OracDFFUOM </td>
+                                    </tr>
+                                }
+                                else if (@rec.HDMSUOM!= @rec.OracDFFUOM)
+                                {
+                                    <tr>
+                                        <td>@rec.HDMSproductCode </td>
+                                        <td>@rec.OracleProductCode </td>
+                                        <td>@rec.ETAdate </td>
+                                        <td>@rec.Orders </td>
+                                        <td>@rec.QtyRequested </td>
+                                        <td><font color='red'>@rec.HDMSUOM</font></td>
+                                        <td>@rec.QtyAvailable </td>
+                                        <td><font color='red'>@rec.OracDFFUOM</font></td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>@rec.HDMSproductCode </td>
+                                        <td>@rec.OracleProductCode </td>
+                                        <td>@rec.ETAdate </td>
+                                        <td>@rec.Orders </td>
+                                        <td>@rec.QtyRequested </td>
+                                        <td>@rec.HDMSUOM </td>
+                                        <td>@rec.QtyAvailable </td>
+                                        <td>@rec.OracDFFUOM </td>
+                                    </tr>
+
+                                }
+
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            }
+        </td>
+        <td style="vertical-align:top;">
+            @if (Model != null && Model.OrdersDetails != null)
+            {
+                <div>
+                    <table border=1 bordercolor="##666666">
+                        <thead>
+                            <tr>
+                                <th>Account #</th>
+                                <th>Order #</th>
+                                <th>Request Date</th>
+                                <th>Product</th>
+                                <th>Qty Ordered</th>                              
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var rec in Model.OrdersDetails)
+                            {
+                                <tr>
+                                    <td>@rec.Account </td>
+                                    <td>@rec.Order </td>
+                                    <td>@rec.RequestDate </td>
+                                    <td>@rec.Product </td>
+                                    <td>@rec.QtyOrdered </td>                                    
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            }
+        </td>
+    </tr>
+</table>
+
+

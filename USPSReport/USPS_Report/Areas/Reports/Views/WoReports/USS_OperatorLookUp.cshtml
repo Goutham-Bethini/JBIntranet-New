@@ -1,0 +1,72 @@
+﻿@model USPS_Report.Areas.Reports.Models.USSOperatorLookUpVM
+
+@{
+    ViewBag.Title = "USS_OperatorLookUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="middle">
+        <div class="row">
+            <h2>USS Operator LookUp</h2>
+        </div>
+    </div>
+      
+        <hr />
+
+        @if (Model != null && Model.uSSOperatorLookUp != null)
+        {
+            <div class="table-responsive middle">
+                <table data-sortable class="table table-bordered" style="width:1200px">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Active</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rec in Model.uSSOperatorLookUp)
+                {
+                    if (@rec.Active == "No")
+                    {
+                                <tr style="background-color:#FF4D94">
+                                    <td>@rec.ID</td>
+                                    <td>@rec.LegalName</td>
+                                    <td>@rec.DeptName</td>
+                                    <td>@rec.Active</td>
+
+                                </tr> }
+                    else
+                    {
+                                <tr>
+
+                                    <td>@rec.ID</td>
+                                    <td>@rec.LegalName</td>
+                                    <td>@rec.DeptName</td>
+                                    <td>@rec.Active</td>
+
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+    }
+
+
+    <style>
+        .middle {
+            margin: auto;
+            width: 900px;
+        }
+
+        th {
+            background-color: dodgerblue;
+            color: white;
+        }
+    </style>
+
+

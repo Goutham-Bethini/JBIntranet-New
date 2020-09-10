@@ -1,0 +1,64 @@
+﻿@model USPS_Report.Areas.Reports.Models.CSRLogComplaints
+
+<div>
+    <table>
+        <tr>
+            <td>
+                <label class="col-md-5 control-label">Account </label>
+                <div class="col-md-7">
+                    @Html.TextBoxFor(m => m.Account, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+               
+                <div class="col-md-7">
+                    @Html.DisplayFor(m => m.details.firstName) <br />
+                    @Html.DisplayFor(m => m.details.address1), @Html.DisplayFor(m => m.details.address2)<br />
+                    @Html.DisplayFor(m => m.details.city), @Html.DisplayFor(m => m.details.state),@Html.DisplayFor(m => m.details.zipcode)  
+                    <br />
+                    @Html.DisplayFor(m => m.details.phone)          
+                   </div>
+            </td>
+        </tr>
+       
+        <tr>
+            <td>
+                <label class="col-md-5 control-label">Call Duration  </label>
+                <div class="col-md-7">
+                    @Html.TextBoxFor(m => m.CallDuration, new { @class = "form-control" })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="col-md-5 control-label"> HandlingConcern</label>
+                <div class="col-md-7">
+                    @Html.CheckBoxFor(m => m.HandlingConcern)
+                    </div>
+</td>
+        </tr>
+        <tr>
+            <td>
+                <label class="col-md-5 control-label">  Complains </label>
+                <div class="col-md-7">
+                    @Html.DropDownListFor(t => t.Complaint, new List<SelectListItem>
+
+               {
+                    new SelectListItem { Text = "Damaged" , Value = "Damaged"},
+                    new SelectListItem { Text = "Driver" , Value = "Driver"},
+                    new SelectListItem { Text = "Wrong Product Shipped" , Value = "WrongProductShipped"},
+                    new SelectListItem { Text = "Quality of Product" , Value = "QualityofProduct"},
+                     new SelectListItem { Text = "Wrong Area" , Value = "WrongArea"},
+                      new SelectListItem { Text = "Missing Product" , Value = "MissingProduct"},
+                      new SelectListItem { Text = "Custimer Service Issue" , Value = "CustimerServiceIssue"},
+
+               }, "Customer Complaint:")
+                    </div>
+</td>
+        </tr>
+      
+    </table>
+</div>

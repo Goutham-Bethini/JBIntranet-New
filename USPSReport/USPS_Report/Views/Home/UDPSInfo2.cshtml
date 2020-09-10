@@ -1,0 +1,87 @@
+﻿
+
+@model USPS_Report.Models.MainVM
+
+@{
+    ViewBag.Title = "USPS POD";
+    Layout = "~/Areas/Reports/Views/Shared/_noSideBarLayout.cshtml";
+}
+
+<div>
+
+    @using (Html.BeginForm("UDPSInfo2", "Home", FormMethod.Post))
+    {
+        <div class="form-inline">
+            <label>Tracking#  </label>
+            @Html.TextBoxFor(m => m.trackNum, new { @class = "form-control" })
+            <button class="btn btn-primary btn-large" type="submit">Enter</button>
+        </div>
+    }
+
+
+
+
+    <div>
+        <div style="height:30px"> </div>
+
+        @if (Model.dataList != null)
+        {
+            if (Model.dataList.Count == 0)
+            {
+                <script type="text/javascript">
+                    alert("Please enter a valid Traking  Number.");
+                </script>
+            }
+
+
+            <div id="signupbox" class="container" style="padding:0px;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <i class="fa fa-user"></i> Tracking Info
+
+                        </div>
+                    </div>
+                    <div class="panel-body" style="padding:15px;">
+
+                        <div class="clear-fix"></div>
+                        <div class="profile-panel">
+
+                            @foreach (var item in Model.dataList)
+                            {
+                                <div class="row">
+
+                                    <div class="col-md-3"> <strong>WorkOrder</strong></div>
+                                    <div class="col-md-3"> <strong>Tracking#</strong></div>
+                                    <div class="col-md-3"> <strong>PostDate</strong></div>
+                                    <div class="col-md-3"> <strong>View Detail</strong></div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">@item.WoID</div>
+                                    <div class="col-md-3">@item.ConfirmationNum</div>
+                                    <div class="col-md-3">@String.Format("{0:MM/dd/yyyy}", @item.PostDate) </div>
+                                    <div class="col-md-3">@Html.ActionLink("Detail ", "GenPdfUSPS2", "Home", new { _pId = item.ConfirmationNum, _date = item.PostDate }, new { @class = "btn btn-success", target = "_blank" })</div>
+                                    @*<div class="col-md-3">@Html.ActionLink("Detail ", "MainMethod", "Home", new { _pId = item.uID }, new { @class = "modal-link btn btn-success" })</div>*@
+
+                                </div>
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+
+        @*else
+            {
+                <h3 style="color:red"><strong>Please Enter a Valid Tracking Numbere or WorkOrder Number.</strong></h3>
+            }*@
+    </div>
+
+</div>
+
