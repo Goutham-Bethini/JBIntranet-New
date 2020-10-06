@@ -31,5 +31,6 @@ namespace USPS_Report.Models
         public string first_name { get; set; }
         public string last_name { get; set; }
         public Nullable<System.DateTime> Request_Date { get; set; }
+        public Nullable<System.DateTime> PickUpDate { get; set; }
     }
 }

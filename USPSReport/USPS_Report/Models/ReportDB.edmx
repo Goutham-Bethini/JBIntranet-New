@@ -14,7 +14,6 @@
           <Property Name="Attempt" Type="int" Nullable="false" />
           <Property Name="AttemptSentDate" Type="datetime" Nullable="false" />
         </EntityType>
-
         <EntityType Name="BarCodeAttempts">
           <Key>
             <PropertyRef Name="ID" />
@@ -25,7 +24,6 @@
           <Property Name="DocumentType" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AttemptSentDate" Type="datetime" Nullable="false" />
         </EntityType>
-
         <EntityType Name="DetailedSP">
           <Key>
             <PropertyRef Name="id" />
@@ -123,67 +121,71 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="cancel_note" Type="varchar(max)" Mode="In" />
           <Parameter Name="OperatorName" Type="varchar" Mode="In" />
         </Function>
-      <Function Name="sp_DoesReturnExist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-        <Parameter Name="workOrder_ID" Type="int" Mode="In" />
-      </Function>
-      <Function Name="sp_DoesReturnLineExist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-        <Parameter Name="return_ID" Type="int" Mode="In" />
-        <Parameter Name="workOrder_Line_ID" Type="int" Mode="In" />
-      </Function>
-      <Function Name="sp_GetReturnItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-        <Parameter Name="returnId" Type="int" Mode="In" />
-      </Function>
-      <Function Name="sp_GetReturnItemsData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-      <Function Name="sp_GetReturnLineItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-        <Parameter Name="returnId" Type="int" Mode="In" />
-      </Function>
-      <Function Name="sp_GetReturnReasonList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-      <Function Name="sp_GetSearchAccounts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-        <Parameter Name="account" Type="int" Mode="In" />
-        <Parameter Name="firstName" Type="varchar" Mode="In" />
-        <Parameter Name="lastName" Type="varchar" Mode="In" />
-        <Parameter Name="address1" Type="varchar" Mode="In" />
-        <Parameter Name="address2" Type="varchar" Mode="In" />
-        <Parameter Name="city" Type="varchar" Mode="In" />
-        <Parameter Name="state" Type="varchar" Mode="In" />
-        <Parameter Name="zipCode" Type="varchar" Mode="In" />
-      </Function>
-      <Function Name="sp_GetWorkOrderInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-        <Parameter Name="account" Type="int" Mode="In" />
-        <Parameter Name="workOrder_ID" Type="int" Mode="In" />
-      </Function>
-      <Function Name="sp_GetWorkOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-        <Parameter Name="account" Type="int" Mode="In" />
-      </Function>
-      <Function Name="sp_InsertAccountNote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-        <Parameter Name="account" Type="int" Mode="In" />
-        <Parameter Name="userName" Type="varchar" Mode="In" />
-        <Parameter Name="workOrder_ID" Type="int" Mode="In" />
-        <Parameter Name="note" Type="varchar" Mode="In" />
-        <Parameter Name="reason__List_Option_ID" Type="int" Mode="In" />
-        <Parameter Name="return_Other_Reason" Type="nchar" Mode="In" />
-        <Parameter Name="tracking_Number" Type="varchar" Mode="In" />
-      </Function>
-      <Function Name="sp_InsertReturn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-        <Parameter Name="account" Type="int" Mode="In" />
-        <Parameter Name="workOrder_ID" Type="int" Mode="In" />
-        <Parameter Name="reshipped" Type="varchar" Mode="In" />
-        <Parameter Name="tracking_Number" Type="varchar" Mode="In" />
-        <Parameter Name="return_Note" Type="varchar" Mode="In" />
-        <Parameter Name="tag_Type" Type="varchar" Mode="In" />
-        <Parameter Name="reason__List_option_ID" Type="int" Mode="In" />
-        <Parameter Name="return_Other_Reason" Type="nchar" Mode="In" />
-        <Parameter Name="boxesReturned" Type="int" Mode="In" />
-        <Parameter Name="dateRtrn" Type="datetime" Mode="In" />
-        <Parameter Name="send_To_Billing" Type="smallint" Mode="In" />
-        <Parameter Name="dont_Display" Type="smallint" Mode="In" />
-        <Parameter Name="oracleRMA" Type="int" Mode="In" />
-      </Function>
-      <Function Name="sp_InsertReturn_Line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-        <Parameter Name="return_ID" Type="int" Mode="In" />
-        <Parameter Name="workOrder_Line_ID" Type="int" Mode="In" />
-        <Parameter Name="qty_Return" Type="int" Mode="In" />
-      </Function>
+        <Function Name="sp_DoesReturnExist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="workOrder_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DoesReturnLineExist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="return_ID" Type="int" Mode="In" />
+          <Parameter Name="workOrder_Line_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetHistoryReturnItemsData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetReturnItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="returnId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetReturnItemsData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetReturnLineItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="returnId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetReturnReasonList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetSearchAccounts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="account" Type="int" Mode="In" />
+          <Parameter Name="firstName" Type="varchar" Mode="In" />
+          <Parameter Name="lastName" Type="varchar" Mode="In" />
+          <Parameter Name="address1" Type="varchar" Mode="In" />
+          <Parameter Name="address2" Type="varchar" Mode="In" />
+          <Parameter Name="city" Type="varchar" Mode="In" />
+          <Parameter Name="state" Type="varchar" Mode="In" />
+          <Parameter Name="zipCode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_GetWorkOrderInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="account" Type="int" Mode="In" />
+          <Parameter Name="workOrder_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetWorkOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="account" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertAccountNote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="account" Type="int" Mode="In" />
+          <Parameter Name="userName" Type="varchar" Mode="In" />
+          <Parameter Name="workOrder_ID" Type="int" Mode="In" />
+          <Parameter Name="note" Type="varchar" Mode="In" />
+          <Parameter Name="reason__List_Option_ID" Type="int" Mode="In" />
+          <Parameter Name="return_Other_Reason" Type="nchar" Mode="In" />
+          <Parameter Name="tracking_Number" Type="varchar" Mode="In" />
+          <Parameter Name="OracleRMA" Type="varchar" Mode="In" />
+          <Parameter Name="NoteText" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertReturn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="account" Type="int" Mode="In" />
+          <Parameter Name="workOrder_ID" Type="int" Mode="In" />
+          <Parameter Name="reshipped" Type="varchar" Mode="In" />
+          <Parameter Name="tracking_Number" Type="varchar" Mode="In" />
+          <Parameter Name="return_Note" Type="varchar" Mode="In" />
+          <Parameter Name="tag_Type" Type="varchar" Mode="In" />
+          <Parameter Name="reason__List_option_ID" Type="int" Mode="In" />
+          <Parameter Name="return_Other_Reason" Type="nchar" Mode="In" />
+          <Parameter Name="boxesReturned" Type="int" Mode="In" />
+          <Parameter Name="dateRtrn" Type="datetime" Mode="In" />
+          <Parameter Name="send_To_Billing" Type="smallint" Mode="In" />
+          <Parameter Name="dont_Display" Type="smallint" Mode="In" />
+          <Parameter Name="oracleRMA" Type="int" Mode="In" />
+          <Parameter Name="PickUpDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertReturn_Line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="return_ID" Type="int" Mode="In" />
+          <Parameter Name="workOrder_Line_ID" Type="int" Mode="In" />
+          <Parameter Name="qty_Return" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_MassReleaseOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="WorkOrderIds" Type="varchar(max)" Mode="In" />
           <Parameter Name="OperatorName" Type="varchar" Mode="In" />
@@ -224,24 +226,25 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
         <Function Name="sp_UnCancelOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="list" Type="varchar(max)" Mode="In" />
         </Function>
-      <Function Name="sp_UpdateReturn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-        <Parameter Name="return_ID" Type="int" Mode="In" />
-        <Parameter Name="reshipped" Type="varchar" Mode="In" />
-        <Parameter Name="tracking_Number" Type="varchar" Mode="In" />
-        <Parameter Name="return_Note" Type="varchar" Mode="In" />
-        <Parameter Name="tag_Type" Type="varchar" Mode="In" />
-        <Parameter Name="reason__List_option_ID" Type="int" Mode="In" />
-        <Parameter Name="return_Other_Reason" Type="nchar" Mode="In" />
-        <Parameter Name="boxesReturned" Type="int" Mode="In" />
-        <Parameter Name="dateRtrn" Type="datetime" Mode="In" />
-        <Parameter Name="send_To_Billing" Type="smallint" Mode="In" />
-        <Parameter Name="dont_Display" Type="smallint" Mode="In" />
-        <Parameter Name="oracleRMA" Type="int" Mode="In" />
-      </Function>
-      <Function Name="sp_UpdateReturn_Line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-        <Parameter Name="return_Line_ID" Type="int" Mode="In" />
-        <Parameter Name="qty_Return" Type="int" Mode="In" />
-      </Function>
+        <Function Name="sp_UpdateReturn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="return_ID" Type="int" Mode="In" />
+          <Parameter Name="reshipped" Type="varchar" Mode="In" />
+          <Parameter Name="tracking_Number" Type="varchar" Mode="In" />
+          <Parameter Name="return_Note" Type="varchar" Mode="In" />
+          <Parameter Name="tag_Type" Type="varchar" Mode="In" />
+          <Parameter Name="reason__List_option_ID" Type="int" Mode="In" />
+          <Parameter Name="return_Other_Reason" Type="nchar" Mode="In" />
+          <Parameter Name="boxesReturned" Type="int" Mode="In" />
+          <Parameter Name="dateRtrn" Type="datetime" Mode="In" />
+          <Parameter Name="send_To_Billing" Type="smallint" Mode="In" />
+          <Parameter Name="dont_Display" Type="smallint" Mode="In" />
+          <Parameter Name="oracleRMA" Type="int" Mode="In" />
+          <Parameter Name="PickUpDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateReturn_Line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="return_Line_ID" Type="int" Mode="In" />
+          <Parameter Name="qty_Return" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="ReportsModelStoreContainer">
           <EntitySet Name="AOBAttempts" EntityType="Self.AOBAttempts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BarCodeAttempts" EntityType="Self.BarCodeAttempts" Schema="dbo" store:Type="Tables" />
@@ -387,6 +390,8 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
             <Parameter Name="reason__List_Option_ID" Mode="In" Type="Int32" />
             <Parameter Name="return_Other_Reason" Mode="In" Type="String" />
             <Parameter Name="tracking_Number" Mode="In" Type="String" />
+            <Parameter Name="OracleRMA" Mode="In" Type="String" />
+            <Parameter Name="NoteText" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_InsertReturn">
             <Parameter Name="account" Mode="In" Type="Int32" />
@@ -402,6 +407,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
             <Parameter Name="send_To_Billing" Mode="In" Type="Int16" />
             <Parameter Name="dont_Display" Mode="In" Type="Int16" />
             <Parameter Name="oracleRMA" Mode="In" Type="Int32" />
+            <Parameter Name="PickUpDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="sp_InsertReturn_Line">
             <Parameter Name="return_ID" Mode="In" Type="Int32" />
@@ -421,6 +427,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
             <Parameter Name="send_To_Billing" Mode="In" Type="Int16" />
             <Parameter Name="dont_Display" Mode="In" Type="Int16" />
             <Parameter Name="oracleRMA" Mode="In" Type="Int32" />
+            <Parameter Name="PickUpDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="sp_UpdateReturn_Line">
             <Parameter Name="return_Line_ID" Mode="In" Type="Int32" />
@@ -429,6 +436,12 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <EntitySet Name="AOBAttempts" EntityType="ReportsModel.AOBAttempt" />
 
           <EntitySet Name="BarCodeAttempts" EntityType="ReportsModel.BarCodeAttempt" />
+          <FunctionImport Name="sp_GetHistoryReturnItemsData" ReturnType="Collection(ReportsModel.sp_GetHistoryReturnItemsData_Result)" />
+          <FunctionImport Name="sp_GetReturnItemsData_Result" ReturnType="Collection(ReportsModel.sp_GetReturnItemsData_Result)" />
+          <FunctionImport Name="sp_GetReturnItemsData_Result1" ReturnType="Collection(ReportsModel.sp_GetReturnItemsData_Result)" />
+          <FunctionImport Name="sp_GetReturnItem_Result" ReturnType="Collection(ReportsModel.sp_GetReturnItem_Result)">
+            <Parameter Name="returnId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="FedEx_POD_tbl">
           <Key>
@@ -611,6 +624,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="String" Name="first_name" Nullable="true" MaxLength="35" />
           <Property Type="String" Name="last_name" Nullable="true" MaxLength="60" />
           <Property Type="DateTime" Name="Request_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PickUpDate" Nullable="true" Precision="23" />
         </ComplexType>
         <ComplexType Name="sp_GetReturnItemsData_Result">
           <Property Type="Int32" Name="Return_ID" Nullable="false" />
@@ -621,6 +635,8 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="String" Name="phone" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="Tag_Type" Nullable="true" MaxLength="10" />
           <Property Type="DateTime" Name="Request_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PickUpDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
         </ComplexType>
         <ComplexType Name="sp_GetReturnLineItems_Result">
           <Property Type="Int32" Name="Return_Line_ID" Nullable="false" />
@@ -687,6 +703,20 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Name="DocumentType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AttemptSentDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <ComplexType Name="sp_GetHistoryReturnItemsData_Result" >
+          <Property Type="Int32" Name="Return_ID" Nullable="false" />
+          <Property Type="Int32" Name="OracleRMA" Nullable="true" />
+          <Property Type="Int32" Name="Account" Nullable="true" />
+          <Property Type="String" Name="first_name" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="last_name" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Tag_Type" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Return_Note" Nullable="true" MaxLength="1000" />
+          <Property Type="DateTime" Name="Date_Returned" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Tracking_Number" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="Request_Date" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="WorkOrder_ID" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -966,6 +996,80 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetHistoryReturnItemsData" FunctionName="ReportsModel.Store.sp_GetHistoryReturnItemsData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.sp_GetHistoryReturnItemsData_Result" >
+                <ScalarProperty Name="Return_ID" ColumnName="Return_ID" />
+                <ScalarProperty Name="OracleRMA" ColumnName="OracleRMA" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Tag_Type" ColumnName="Tag_Type" />
+                <ScalarProperty Name="Return_Note" ColumnName="Return_Note" />
+                <ScalarProperty Name="Date_Returned" ColumnName="Date_Returned" />
+                <ScalarProperty Name="Tracking_Number" ColumnName="Tracking_Number" />
+                <ScalarProperty Name="Request_Date" ColumnName="Request_Date" />
+                <ScalarProperty Name="WorkOrder_ID" ColumnName="WorkOrder_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetReturnItemsData_Result" FunctionName="ReportsModel.Store.sp_GetReturnItemsData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.sp_GetReturnItemsData_Result">
+                <ScalarProperty Name="Return_ID" ColumnName="Return_ID" />
+                <ScalarProperty Name="OracleRMA" ColumnName="OracleRMA" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Tag_Type" ColumnName="Tag_Type" />
+                <ScalarProperty Name="Request_Date" ColumnName="Request_Date" />
+                <ScalarProperty Name="PickUpDate" ColumnName="PickUpDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetReturnItemsData_Result1" FunctionName="ReportsModel.Store.sp_GetReturnItemsData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.sp_GetReturnItemsData_Result">
+                <ScalarProperty Name="Return_ID" ColumnName="Return_ID" />
+                <ScalarProperty Name="OracleRMA" ColumnName="OracleRMA" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Tag_Type" ColumnName="Tag_Type" />
+                <ScalarProperty Name="Request_Date" ColumnName="Request_Date" />
+                <ScalarProperty Name="PickUpDate" ColumnName="PickUpDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetReturnItem_Result" FunctionName="ReportsModel.Store.sp_GetReturnItem">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.sp_GetReturnItem_Result">
+                <ScalarProperty Name="Return_ID" ColumnName="Return_ID" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Account_Member" ColumnName="Account_Member" />
+                <ScalarProperty Name="WorkOrder_ID" ColumnName="WorkOrder_ID" />
+                <ScalarProperty Name="Reshipped" ColumnName="Reshipped" />
+                <ScalarProperty Name="Date_Returned" ColumnName="Date_Returned" />
+                <ScalarProperty Name="Tag_Type" ColumnName="Tag_Type" />
+                <ScalarProperty Name="Return_Note" ColumnName="Return_Note" />
+                <ScalarProperty Name="Reason__List_Option_ID" ColumnName="Reason__List_Option_ID" />
+                <ScalarProperty Name="Return_Other_Reason" ColumnName="Return_Other_Reason" />
+                <ScalarProperty Name="Tracking_Number" ColumnName="Tracking_Number" />
+                <ScalarProperty Name="Send_To_Billing" ColumnName="Send_To_Billing" />
+                <ScalarProperty Name="Dont_Display" ColumnName="Dont_Display" />
+                <ScalarProperty Name="Boxes_Returned" ColumnName="Boxes_Returned" />
+                <ScalarProperty Name="OracleRMA" ColumnName="OracleRMA" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="Request_Date" ColumnName="Request_Date" />
+                <ScalarProperty Name="PickUpDate" ColumnName="PickUpDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -34,6 +34,13 @@ namespace USPS_Report.Areas.Reports.Controllers
             }
             
         }
+
+        public ActionResult HistoryReturns()
+        {
+            HistoryItemsVM _vm = new HistoryItemsVM();
+            _vm.Details = ReturnItems.GetReturnHistoryItemsData();
+            return View(_vm);
+        }
         public ActionResult ReturnInfo(string returnId,string selectedWO)
         {            
             WorkOrder SelWO = new WorkOrder();
@@ -48,6 +55,15 @@ namespace USPS_Report.Areas.Reports.Controllers
                     ReturnItem returnItem = ReturnItems.GetReturnItem(returnId);
                     if (returnItem != null)
                     {
+                        //_vm.Date_Returned = DateTime.Today.Date;
+                        if (returnItem.ScheduledFor == null)
+                        {
+                            _vm.ScheduledFor = DateTime.Today.Date;
+                        }
+                        else
+                        {
+                            _vm.ScheduledFor = returnItem.ScheduledFor;
+                        }
                         _vm.Account = returnItem.Account;
                         _vm.Account_Member = returnItem.Account_Member;
                         _vm.Boxes_Returned = returnItem.Boxes_Returned;
@@ -95,6 +111,11 @@ namespace USPS_Report.Areas.Reports.Controllers
                 {
                     var WoNo = selectedWO.Split(',')[0];
                     var WoAc = selectedWO.Split(',')[1];
+                    _vm.Date_Returned = DateTime.Today.Date;
+                    if (_vm.ScheduledFor == null)
+                    {
+                        _vm.ScheduledFor = DateTime.Today.Date;
+                    }
                     _vm.WorkOrder_ID = Convert.ToInt32(WoNo);
                     _vm.Account = Convert.ToInt32(WoAc);
                     //var list=(IList<WorkOrder>)TempData["WorkOrders"];
@@ -134,23 +155,33 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
                 IList<AccountData> _list = new List<AccountData>();
                 _list = ReturnItems.GetSearchAccounts(returnItemsVM);
-                _vm.AccountDetails = _list;                
+                _vm.AccountDetails = _list;
                 return View(_vm);
+                  
             }
             catch (Exception ex)
             {                
                 throw;
             }           
         }
-        public ActionResult ChooseWorkOrder(string selectedItem)
+        public ActionResult ChooseWorkOrder(ReturnItemsVM returnItemsVM)
         {            
             ChooseWorkOrderVM _vm = new ChooseWorkOrderVM();
             try
             {
                 IList<WorkOrder> _list = new List<WorkOrder>();
-                _list = ReturnItems.GetWorkOrders(selectedItem);
+                _list = ReturnItems.GetWorkOrders(returnItemsVM);
                 //TempData["WorkOrders"] = _list;
-                _vm.WorkOrders = _list;                
+                _vm.WorkOrders = _list.OrderByDescending(x=>x.Request_Date).ToList();
+                if (!string.IsNullOrEmpty(returnItemsVM.Account))
+                {
+                    return View(_vm);
+                }
+                else
+                {
+                    return RedirectToAction("ReturnInfo", "ReturnItems", new { @returnId = "", @selectedWO = _vm.WorkOrders.FirstOrDefault().WorkOrder_Number+","+ _vm.WorkOrders.FirstOrDefault().Account });
+                }
+                
                 return View(_vm);
             }
             catch (Exception ex)
@@ -168,7 +199,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                 _vm.WorkOrder_ID = returnItemsInfoVM.WorkOrder_ID.ToString();
                 if (returnItemsInfoVM.Return_ID != 0)
                 {
-                    ReturnItems.UpdateReturn(returnItemsInfoVM.Return_ID, returnItemsInfoVM.Reshipped, returnItemsInfoVM.Tag_Type, returnItemsInfoVM.OracleRMA, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Date_Returned, returnItemsInfoVM.Tracking_Number, Convert.ToInt16(returnItemsInfoVM.Send_To_Billing), Convert.ToInt16(returnItemsInfoVM.Dont_Display), returnItemsInfoVM.Boxes_Returned);
+                    ReturnItems.UpdateReturn(returnItemsInfoVM.Return_ID, returnItemsInfoVM.Reshipped, returnItemsInfoVM.Tag_Type, returnItemsInfoVM.OracleRMA, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Date_Returned, returnItemsInfoVM.Tracking_Number, Convert.ToInt16(returnItemsInfoVM.Send_To_Billing), Convert.ToInt16(returnItemsInfoVM.Dont_Display), returnItemsInfoVM.Boxes_Returned, returnItemsInfoVM.ScheduledFor);
                     foreach (WorkOrderItem item in returnItemsInfoVM.WorkOrderItems)
                     {
                         if (item.Need)
@@ -184,13 +215,20 @@ namespace USPS_Report.Areas.Reports.Controllers
                             }
                         }
                     }
-                    ReturnItems.InsertAccountNote(returnItemsInfoVM.Account.Value, userName, returnItemsInfoVM.WorkOrder_ID.Value, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID.Value, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Tracking_Number);
+                    if (returnItemsInfoVM.Date_Returned == null)
+                    {
+                        ReturnItems.InsertAccountNoteCallTag(returnItemsInfoVM.Account.Value, userName, returnItemsInfoVM.WorkOrder_ID.Value, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID.Value, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Tracking_Number, returnItemsInfoVM.OracleRMA, returnItemsInfoVM.ScheduledFor, returnItemsInfoVM.ProductCode);
+                    }
+                    if (returnItemsInfoVM.Date_Returned != null)
+                    {
+                        ReturnItems.InsertAccountNote(returnItemsInfoVM.Account.Value, userName, returnItemsInfoVM.WorkOrder_ID.Value, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID.Value, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Tracking_Number, returnItemsInfoVM.OracleRMA, returnItemsInfoVM.Date_Returned, returnItemsInfoVM.ProductCode);
+                    }
                 }
                 else
                 {
                     if (!ReturnItems.DoesReturnExist(returnItemsInfoVM.WorkOrder_ID.Value))
                     {
-                        ReturnItems.InsertReturn(returnItemsInfoVM.Account, returnItemsInfoVM.WorkOrder_ID, returnItemsInfoVM.Reshipped, returnItemsInfoVM.Tag_Type, returnItemsInfoVM.OracleRMA, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Date_Returned, returnItemsInfoVM.Tracking_Number, Convert.ToInt16(returnItemsInfoVM.Send_To_Billing), Convert.ToInt16(returnItemsInfoVM.Dont_Display), returnItemsInfoVM.Boxes_Returned);
+                        ReturnItems.InsertReturn(returnItemsInfoVM.Account, returnItemsInfoVM.WorkOrder_ID, returnItemsInfoVM.Reshipped, returnItemsInfoVM.Tag_Type, returnItemsInfoVM.OracleRMA, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Date_Returned, returnItemsInfoVM.Tracking_Number, Convert.ToInt16(returnItemsInfoVM.Send_To_Billing), Convert.ToInt16(returnItemsInfoVM.Dont_Display), returnItemsInfoVM.Boxes_Returned, returnItemsInfoVM.ScheduledFor);
                         var latestReturn_ID = ReturnItems.GetLatestReturnID(returnItemsInfoVM.WorkOrder_ID.Value);
                         if(latestReturn_ID!=null)
                         {
@@ -202,7 +240,14 @@ namespace USPS_Report.Areas.Reports.Controllers
                                 }
                             }
                         }
-                        ReturnItems.InsertAccountNote(returnItemsInfoVM.Account.Value, userName, returnItemsInfoVM.WorkOrder_ID.Value, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID.Value, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Tracking_Number);
+                        if (returnItemsInfoVM.Date_Returned == null)
+                        {
+                            ReturnItems.InsertAccountNoteCallTag(returnItemsInfoVM.Account.Value, userName, returnItemsInfoVM.WorkOrder_ID.Value, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID.Value, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Tracking_Number, returnItemsInfoVM.OracleRMA, returnItemsInfoVM.ScheduledFor, returnItemsInfoVM.ProductCode);
+                        }
+                        if (returnItemsInfoVM.Date_Returned != null)
+                        {
+                            ReturnItems.InsertAccountNote(returnItemsInfoVM.Account.Value, userName, returnItemsInfoVM.WorkOrder_ID.Value, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID.Value, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Tracking_Number, returnItemsInfoVM.OracleRMA, returnItemsInfoVM.Date_Returned, returnItemsInfoVM.ProductCode);
+                        }
                     }
                     else
                     {

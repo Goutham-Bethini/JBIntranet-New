@@ -19,25 +19,29 @@
             </td>
         </tr>
 
-        @foreach (var rec in Model.AccountDetails)
+        @if (Model.AccountDetails.Count > 0)
         {
-            <tr>
-                <td>
-                    @Html.RadioButton("selectedItem", rec.Account)
+            foreach (var rec in Model.AccountDetails)
+            {
+                <tr>
+                    <td>
+                        @Html.RadioButton("selectedItem", rec.Account)
 
-                </td>
-                @*<td>@rec.Account</td>*@
-                <td>@rec.FirstName&nbsp;&nbsp;@rec.Middle&nbsp;&nbsp;@rec.LastName</td>
-                <td>@rec.Phone</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td valign="top">@rec.Address1 &nbsp;&nbsp; @rec.Address2</td>
-                <td valign="top" align="center">@rec.City</td>
-                <td valign="top">@rec.State&nbsp;&nbsp;&nbsp;&nbsp;@rec.ZipCode</td>
-            </tr>
+                    </td>
+                    @*<td>@rec.Account</td>*@
+                    <td>@rec.FirstName&nbsp;&nbsp;@rec.Middle&nbsp;&nbsp;@rec.LastName</td>
+                    <td>@rec.Phone</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td valign="top">@rec.Address1 &nbsp;&nbsp; @rec.Address2</td>
+                    <td valign="top" align="center">@rec.City</td>
+                    <td valign="top">@rec.State&nbsp;&nbsp;&nbsp;&nbsp;@rec.ZipCode</td>
+                </tr>
+            }
         }
+        
     </table>
     <br />
 

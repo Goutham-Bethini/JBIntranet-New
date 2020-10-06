@@ -10,6 +10,8 @@
      @Styles.Render("~/Content/kendo/css")
    
      <link href="@Url.Content("~/Content/kendo/kendo.BlueOpal.min.css")" rel="stylesheet" type="text/css" id="sheet3" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Scripts/jquery.dataTables.min.css" rel="stylesheet" />
 
      @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -25,8 +27,12 @@
 
     <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
      @Scripts.Render("~/bundles/jqueryval")
-
-
+    @*<script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>*@
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/buttons.html5.min.js"></script>
   
 
     <style>
@@ -46,45 +52,36 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="navbar navbar-inverse navbar-fixed-top">
-
-            <div class="container">
+        <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#0E6EAC">
+            <div class="col-md-3 col-md-offset-2"> <img src="~/Image/Horizontal White-01.png" class="img-fluid" /></div>
+            <div class="col-md-3">
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><div> <img src="~/Image/logo_sm.gif" class="img-circle" width="75" height="50"  /></div></li>
+                        <li></li>
                         <li><div>&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
-                        <li>@Html.ActionLink("Reports", "Index", "Home", new { area = "" }, new { target = "_blank" })</li>
-                        @*<li>@Html.ActionLink("Logistics", "Index", "Logistics", new { area = "" }, null)</li>
-    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, null)</li>
-    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, null)</li>*@
-                        @*<li>
-                            <a href="#">Categories</a>
-                            <ul>
-                                <li><a href="#">@Html.ActionLink("Home", "Index", "Home")</a></li>
-                                <li><a href="#">@Html.ActionLink("About", "About", "Home")</a></li>
-                                <li><a href="#">@Html.ActionLink("Contact", "Contact", "Home")</a></li>
-                                <li><a href="#">Web design</a></li>
-                            </ul>
-                        </li>*@
-                       
-
+                        <li> @Html.ActionLink("Reports", "Index", "Home", new { area = "" }, new { target = "_blank" })</li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="navbar-text">@User.Identity.Name</li>
-                    </ul>
-                   
+                    @*<ul class="nav navbar-nav navbar-right">
+                            <li class="navbar-text">@User.Identity.Name</li>
+                        </ul>*@
                 </div>
-
-
+            </div>
+            <div class="col-md-2  col-md-offset-2">
+                <br />
+                <label style="color:white">@User.Identity.Name</label>
             </div>
         </div>
-
-                <div class="row-fluid "> 
-              
-                    @RenderBody()
-                </div>
-         
+        <br />
+        <div class="row-fluid ">
+            <br />
         </div>
+        <div class="row-fluid ">
+            @*<br /><br />*@
+            @RenderBody()
+        </div>
+    </div>
+
+
    
     @*@Scripts.Render("~/bundles/jqueryui") 
     @Scripts.Render("~/bundles/jquery")*@

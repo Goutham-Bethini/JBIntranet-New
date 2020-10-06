@@ -116,7 +116,7 @@ namespace USPS_Report.Areas.Reports.Models
         }
         public static CSRComplaintVM GetDetailsofAccountByRef(int? id)
         {
-            //  IList<AccountInfoVM> _vm = new List<AccountInfoVM>();
+            //  IList<AccountInfoVM> _vm = new List<AccountInfoVM>();IssueDate
             CSRComplaintVM tableRec = new CSRComplaintVM();
             // int? account;
             //  account = Convert.ToInt32(Account);
@@ -170,8 +170,8 @@ namespace USPS_Report.Areas.Reports.Models
 
                
                     }
-              
-            }
+
+                }
             using (HHSQLDBEntities _db = new HHSQLDBEntities())
             {
 
@@ -2106,9 +2106,9 @@ namespace USPS_Report.Areas.Reports.Models
             return returnStr;
         }
 
-        public static void AddComplaintLog(CSRComplaintVM _vm)
+        public static int AddComplaintLog(CSRComplaintVM _vm)
         {
-          
+            int id = 0;
             try
             {
                 using (IntranetEntities _db = new IntranetEntities())
@@ -2200,7 +2200,7 @@ namespace USPS_Report.Areas.Reports.Models
                     try { } catch (Exception ex) { var msg = ex.Message; }
                     _db.SaveChanges();
 
-                 
+                    id = _rec.id;
 
                 }
             }
@@ -2209,8 +2209,8 @@ namespace USPS_Report.Areas.Reports.Models
                 var msg = ex.Message;
             }
 
-         
-             }
+            return id;
+        }
 
         public static string AddNote_ComplaintLog(CSRComplaintVM _vm,int reference)
         {

@@ -34,7 +34,6 @@ namespace USPS_Report.Models
         public virtual DbSet<v_FutureOrderTypes2> v_FutureOrderTypes2 { get; set; }
         public virtual DbSet<DetailedSP> DetailedSPs { get; set; }
         public virtual DbSet<AOBAttempt> AOBAttempts { get; set; }
-
         public virtual DbSet<BarCodeAttempt> BarCodeAttempts { get; set; }
     
         public virtual ObjectResult<sp_RWO_Lookup_Result> sp_RWO_Lookup(string productCode, Nullable<int> holdCode, Nullable<System.DateTime> startDt, Nullable<System.DateTime> endDt, string payerID, Nullable<int> locationID, Nullable<int> methodID, Nullable<int> inactive, Nullable<int> delTimeID, string ferqID, Nullable<int> isAssigned, Nullable<int> makeRWOInComplete, Nullable<int> serviceTypeId, string hCPCCode)
@@ -402,7 +401,7 @@ namespace USPS_Report.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetWorkOrders_Result>("sp_GetWorkOrders", accountParameter);
         }
     
-        public virtual int sp_InsertAccountNote(Nullable<int> account, string userName, Nullable<int> workOrder_ID, string note, Nullable<int> reason__List_Option_ID, string return_Other_Reason, string tracking_Number)
+        public virtual int sp_InsertAccountNote(Nullable<int> account, string userName, Nullable<int> workOrder_ID, string note, Nullable<int> reason__List_Option_ID, string return_Other_Reason, string tracking_Number, string oracleRMA, string noteText)
         {
             var accountParameter = account.HasValue ?
                 new ObjectParameter("account", account) :
@@ -432,10 +431,18 @@ namespace USPS_Report.Models
                 new ObjectParameter("tracking_Number", tracking_Number) :
                 new ObjectParameter("tracking_Number", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertAccountNote", accountParameter, userNameParameter, workOrder_IDParameter, noteParameter, reason__List_Option_IDParameter, return_Other_ReasonParameter, tracking_NumberParameter);
+            var oracleRMAParameter = oracleRMA != null ?
+                new ObjectParameter("OracleRMA", oracleRMA) :
+                new ObjectParameter("OracleRMA", typeof(string));
+    
+            var noteTextParameter = noteText != null ?
+                new ObjectParameter("NoteText", noteText) :
+                new ObjectParameter("NoteText", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertAccountNote", accountParameter, userNameParameter, workOrder_IDParameter, noteParameter, reason__List_Option_IDParameter, return_Other_ReasonParameter, tracking_NumberParameter, oracleRMAParameter, noteTextParameter);
         }
     
-        public virtual int sp_InsertReturn(Nullable<int> account, Nullable<int> workOrder_ID, string reshipped, string tracking_Number, string return_Note, string tag_Type, Nullable<int> reason__List_option_ID, string return_Other_Reason, Nullable<int> boxesReturned, Nullable<System.DateTime> dateRtrn, Nullable<short> send_To_Billing, Nullable<short> dont_Display, Nullable<int> oracleRMA)
+        public virtual int sp_InsertReturn(Nullable<int> account, Nullable<int> workOrder_ID, string reshipped, string tracking_Number, string return_Note, string tag_Type, Nullable<int> reason__List_option_ID, string return_Other_Reason, Nullable<int> boxesReturned, Nullable<System.DateTime> dateRtrn, Nullable<short> send_To_Billing, Nullable<short> dont_Display, Nullable<int> oracleRMA, Nullable<System.DateTime> pickUpDate)
         {
             var accountParameter = account.HasValue ?
                 new ObjectParameter("account", account) :
@@ -489,7 +496,11 @@ namespace USPS_Report.Models
                 new ObjectParameter("oracleRMA", oracleRMA) :
                 new ObjectParameter("oracleRMA", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertReturn", accountParameter, workOrder_IDParameter, reshippedParameter, tracking_NumberParameter, return_NoteParameter, tag_TypeParameter, reason__List_option_IDParameter, return_Other_ReasonParameter, boxesReturnedParameter, dateRtrnParameter, send_To_BillingParameter, dont_DisplayParameter, oracleRMAParameter);
+            var pickUpDateParameter = pickUpDate.HasValue ?
+                new ObjectParameter("PickUpDate", pickUpDate) :
+                new ObjectParameter("PickUpDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertReturn", accountParameter, workOrder_IDParameter, reshippedParameter, tracking_NumberParameter, return_NoteParameter, tag_TypeParameter, reason__List_option_IDParameter, return_Other_ReasonParameter, boxesReturnedParameter, dateRtrnParameter, send_To_BillingParameter, dont_DisplayParameter, oracleRMAParameter, pickUpDateParameter);
         }
     
         public virtual int sp_InsertReturn_Line(Nullable<int> return_ID, Nullable<int> workOrder_Line_ID, Nullable<int> qty_Return)
@@ -509,7 +520,7 @@ namespace USPS_Report.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertReturn_Line", return_IDParameter, workOrder_Line_IDParameter, qty_ReturnParameter);
         }
     
-        public virtual int sp_UpdateReturn(Nullable<int> return_ID, string reshipped, string tracking_Number, string return_Note, string tag_Type, Nullable<int> reason__List_option_ID, string return_Other_Reason, Nullable<int> boxesReturned, Nullable<System.DateTime> dateRtrn, Nullable<short> send_To_Billing, Nullable<short> dont_Display, Nullable<int> oracleRMA)
+        public virtual int sp_UpdateReturn(Nullable<int> return_ID, string reshipped, string tracking_Number, string return_Note, string tag_Type, Nullable<int> reason__List_option_ID, string return_Other_Reason, Nullable<int> boxesReturned, Nullable<System.DateTime> dateRtrn, Nullable<short> send_To_Billing, Nullable<short> dont_Display, Nullable<int> oracleRMA, Nullable<System.DateTime> pickUpDate)
         {
             var return_IDParameter = return_ID.HasValue ?
                 new ObjectParameter("return_ID", return_ID) :
@@ -559,7 +570,11 @@ namespace USPS_Report.Models
                 new ObjectParameter("oracleRMA", oracleRMA) :
                 new ObjectParameter("oracleRMA", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateReturn", return_IDParameter, reshippedParameter, tracking_NumberParameter, return_NoteParameter, tag_TypeParameter, reason__List_option_IDParameter, return_Other_ReasonParameter, boxesReturnedParameter, dateRtrnParameter, send_To_BillingParameter, dont_DisplayParameter, oracleRMAParameter);
+            var pickUpDateParameter = pickUpDate.HasValue ?
+                new ObjectParameter("PickUpDate", pickUpDate) :
+                new ObjectParameter("PickUpDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateReturn", return_IDParameter, reshippedParameter, tracking_NumberParameter, return_NoteParameter, tag_TypeParameter, reason__List_option_IDParameter, return_Other_ReasonParameter, boxesReturnedParameter, dateRtrnParameter, send_To_BillingParameter, dont_DisplayParameter, oracleRMAParameter, pickUpDateParameter);
         }
     
         public virtual int sp_UpdateReturn_Line(Nullable<int> return_Line_ID, Nullable<int> qty_Return)
@@ -573,6 +588,30 @@ namespace USPS_Report.Models
                 new ObjectParameter("qty_Return", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateReturn_Line", return_Line_IDParameter, qty_ReturnParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetHistoryReturnItemsData_Result> sp_GetHistoryReturnItemsData()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetHistoryReturnItemsData_Result>("sp_GetHistoryReturnItemsData");
+        }
+    
+        public virtual ObjectResult<sp_GetReturnItemsData_Result> sp_GetReturnItemsData_Result()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItemsData_Result>("sp_GetReturnItemsData_Result");
+        }
+    
+        public virtual ObjectResult<sp_GetReturnItemsData_Result> sp_GetReturnItemsData_Result1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItemsData_Result>("sp_GetReturnItemsData_Result1");
+        }
+    
+        public virtual ObjectResult<sp_GetReturnItem_Result> sp_GetReturnItem_Result(Nullable<int> returnId)
+        {
+            var returnIdParameter = returnId.HasValue ?
+                new ObjectParameter("returnId", returnId) :
+                new ObjectParameter("returnId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItem_Result>("sp_GetReturnItem_Result", returnIdParameter);
         }
     }
 }

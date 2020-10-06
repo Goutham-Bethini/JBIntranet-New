@@ -6,6 +6,7 @@
 }
 @using (Html.BeginForm("CreateReturn", "ReturnItems", FormMethod.Post))
 {
+    
     <table align="center" style="border:1px black solid;">  
         <tr>
             <td colspan="2">
@@ -17,8 +18,14 @@
         <tr>
             <td></td>
             <td>
-                @Html.RadioButtonFor(m => m.Tag_Type, "RedTag")<label>Red Tag</label>
-                @Html.RadioButtonFor(m => m.Tag_Type, "CallTag")<label>Call Tag</label>                
+                @Html.RadioButtonFor(m => m.Tag_Type, "RedTag",new { @class= "RadioType" })<label>Red Tag</label>
+                @Html.RadioButtonFor(m => m.Tag_Type, "CallTag", new { @class = "RadioType" })<label>Call Tag</label>                
+            </td>
+        </tr>
+        <tr class="showhide">
+            <td>Scheduled For:</td>
+            <td>
+                @Html.TextBoxFor(m => m.ScheduledFor, "{0:MM/dd/yyyy}",new { @class = "date-picker",  @readonly = "readonly" })
             </td>
         </tr>
         <tr>
@@ -88,6 +95,7 @@
                                     @Html.HiddenFor(m => m.WorkOrderItems[i].WorkOrder_ID)
                                     @Html.HiddenFor(m => m.WorkOrderItems[i].WorkOrder_Line)
                                     @Html.HiddenFor(m => m.WorkOrderItems[i].QtyShipped)
+                                    @Html.HiddenFor(m => m.WorkOrderItems[i].ProductCode) 
                                 </td>
                             </tr>
                         }
@@ -99,7 +107,7 @@
         <tr>
             <td>Date Returned:</td>
             <td>
-                @Html.TextBoxFor(m => m.Date_Returned)
+                @Html.TextBoxFor(m => m.Date_Returned, "{0:MM/dd/yyyy}", new { @class = "date-picker", @readonly = "readonly" })
             </td>
         </tr>
         <tr>
@@ -165,12 +173,21 @@
         border: 1px solid #ff0000;
         background-color: #ffeeee;
     }
+    .showhide {  
+           display:none;
+        }
     /*.error {
         color: red;
         display: none;
     }*/
 </style>
+
+<script src="~/Scripts/jquery-1.9.1.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+
 <script>
+  
+    
     $(function () {
         $("#btnSubmit").click(function () {
             var checked_checkboxes = $("#tblReturnInfo input[type=checkbox]:checked");
@@ -182,4 +199,30 @@
             return true;
         });
     });
+
+    // listen for changes
+    $('input[type="radio"]').on('change', function () {
+
+        // get checked one            
+        var $target = $('input[type="radio"]:checked');
+        var selectedValue = $target.val();
+
+        if (selectedValue =='CallTag') {
+            $(".showhide").show();
+        }
+        else {
+            $(".showhide").hide();
+        }
+        // hide all divs with .showhide class
+        //$(".showhide").hide();
+        // show div that corresponds to selected radio.
+        //$($target.attr('data-section')).show();
+
+        // trigger the change on page load
+    }).trigger('change');
+
+    $(function () {
+        $('.date-picker').datepicker();
+    });
+
 </script>

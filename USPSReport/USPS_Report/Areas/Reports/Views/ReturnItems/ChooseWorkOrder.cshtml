@@ -9,14 +9,18 @@
 
 @using (Html.BeginForm("ReturnInfo", "ReturnItems", FormMethod.Post))
 {
-
-
-<table align="center" style="border:1px black solid;">
+    
+<table  width="1000" class="table-hover table-responsive table-striped" align="center" style="border:1px black solid;">
     @*style="border:1px black solid;"*@
     <tr>
         <td colspan="4" align="center" style="font-weight:bold;">
             Choose the correct work order listed below
         </td>
+        <td></td>
+    </tr>
+    <tr colspan="4" align="center" style="font-weight:bold;">
+        <td colspan="4" align="center"><br /></td>
+        <td></td>
     </tr>
 
     @foreach (var rec in Model.WorkOrders)
@@ -31,25 +35,28 @@
             </td>
             @*<td>@rec.Account</td>*@
             <td style="font-weight:bold;">Work Order #: @rec.WorkOrder_Number</td>
-            <td style="font-weight:bold;">Request Date: @rec.Request_Date</td>
+            <td  colspan="2"  style="font-weight:bold;">Request Date: @rec.Request_Date</td>
             <td></td>
         </tr>
         <tr>
             <td colspan="4">
                 @{ int rowNo = 0; }
-                <table width="100%">
+                <table width="800">
                     @foreach (var item in rec.WorkOrderProducts)
                     {
                         <tr>
-                            <td width="5%">@(rowNo += 1))</td>
-                            <td width="15%">@item.ProductCode</td>
-                            <td width="75%">@item.ProductDescription</td>
-                            <td width="5%">@item.QtyShipped</td>
+                            <td width="15%">@(rowNo += 1))</td>
+                            <td width="35%">@item.ProductCode</td>
+                            <td width="95%">@item.ProductDescription</td>
+                            <td width="15%">@item.QtyShipped</td>
                         </tr>
                     }
                 </table>
             </td>
-
+            <td></td>
+        </tr>
+        <tr>
+            <td  colspan="5"><br /></td>
         </tr>
         @*<tr>
                 <td></td>

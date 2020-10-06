@@ -21,5 +21,7 @@ namespace USPS_Report.Models
         public string phone { get; set; }
         public string Tag_Type { get; set; }
         public Nullable<System.DateTime> Request_Date { get; set; }
+        public Nullable<System.DateTime> PickUpDate { get; set; }
+        public int ID { get; set; }
     }
 }

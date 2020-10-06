@@ -6,23 +6,28 @@
 }
 
 @*<h2>ReturnItemsData</h2>*@
-
-    <table width="100%" align="center" border="1">
+    <table  width="100%" align="center" border="1">
         <tr>
             <td width="23%" valign="top">
-                @using (Html.BeginForm("ChooseAccount", "ReturnItems", FormMethod.Post))
+                @using (Html.BeginForm("ChooseWorkOrder", "ReturnItems", FormMethod.Post))
                 {
                 <table width="100%">
                     <tr>
-                        <td colspan="2" align="center" style="font-weight:bold;">Please enter account information</td>
+                        <td colspan="2" align="center" style="font-weight:bold;">Please enter Account# Or WO#</td>
                     </tr>
                     <tr>
                         <td>Account:</td>
                         <td>
-                            @Html.TextBoxFor(t => t.Account)
+                            @Html.TextBoxFor(t => t.Account,new { id = "Account" })
                         </td>
                     </tr>
                     <tr>
+                        <td>Workorder:</td>
+                        <td>
+                            @Html.TextBoxFor(t => t.WorkOrder, new { id = "WorkOrder" })
+                        </td>
+                    </tr>
+                    @*<tr>
                         <td>First Name:</td>
                         <td>@Html.TextBoxFor(t => t.FirstName)</td>
 
@@ -56,14 +61,15 @@
                         <td>Zip code:</td>
                         <td>@Html.TextBoxFor(t => t.ZipCode)</td>
 
-                    </tr>
+                    </tr>*@
                     <tr>
                         <td colspan="2" align="center">
-                            <button class="btn btn-primary btn-large" type="submit">Next</button>
+                            <button id="btnsubmit" class="btn btn-primary btn-large" type="submit">Next</button>
                         </td>
                     </tr>
                 </table>
                     @Html.ValidationMessageFor(t => t.Account, "", new { @class = "redText" })
+                    @Html.ValidationMessageFor(t => t.WorkOrder, "", new { @class = "redText" })
                 }
                 @*<br />
                 <br />
@@ -90,13 +96,16 @@
             <td width="77%" valign="top">
                 @if (Model != null && Model.Details != null)
                 {
-
+                <br />
                 <table width="100%">
+                    <tr>
+                        <td colspan="2" align="center" style="font-weight:bold;"> <input type="button" class="btn-link" value="Click here "  onclick="location.href='@Url.Action("HistoryReturns", "ReturnItems")'" />For Past Returns </td>
+                    </tr>
                     <tr>
                         <td colspan="2" align="center" style="font-weight:bold;">To edit a return please click on the return item</td>
                     </tr>
                 </table>
-                    <table width="100%">
+                    <table  id="ReturnItemsTable" width="100%">
                         <thead>
                             @*<tr>
 
@@ -105,10 +114,12 @@
                                 <th style="display:none;">Return Id</th>
                                 <th>RMA #</th>
                                 <th>Account #</th>
+                                <th>WO #</th>
                                 <th>Client Name</th>
                                 <th>Phone #</th>
                                 <th>Tag_type</th>
                                 <th>D.O.S</th>
+                                <th>Scheduled For</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -118,10 +129,12 @@
                                     <td style="display:none;">@rec.ReturnId</td>
                                     <td>@rec.RMAnum</td>
                                     <td>@Html.ActionLink(@rec.AccountNum.ToString(), "ReturnInfo", "ReturnItems", new { returnId = @rec.ReturnId.ToString() }, null) </td>
+                                    <td> @rec.woID </td>
                                     <td>@Html.ActionLink(@rec.First_Name + " " + @rec.Last_Name, "ReturnInfo", "ReturnItems", new { returnId = @rec.ReturnId.ToString() }, null) </td>
                                     <td> @rec.PhNum </td>
                                     <td>@rec.TagType </td>
                                     <td>@rec.RequestDate </td>
+                                    <td>@rec.ScheduledFor </td>
                                 </tr>
                             }
                         </tbody>
@@ -151,4 +164,38 @@
         color: Red;
     }
 </style>
-<script></script>
+<script>
+    $(document).ready(function () {
+
+        jQuery('#Account').on('input', function () {
+            if ($('#Account').val() != '') {
+                $('#WorkOrder').val(''); 
+            }
+        });
+
+        jQuery('#WorkOrder').on('input', function () {
+            if ($('#WorkOrder').val() != '') {
+                $('#Account').val('');
+            }
+        });
+
+        $('#btnsubmit').click(function (e) {
+            if ($('#Account').val() == '' && $('#WorkOrder').val() == '') {
+                alert('Please enter AccountNumber or Workorder');
+                e.preventDefault();
+                    }
+        });
+
+        $('#ReturnItemsTable').DataTable({
+            "autoWidth": false,
+            "lengthChange": false,
+            "pageLength": 25
+            //dom: 'Blfrtip',
+            //buttons: [
+            //     'excel'
+            //]
+        });
+    })
+   
+
+</script>

@@ -1,0 +1,141 @@
+﻿@model USPS_Report.Areas.Reports.Models.ReturnItems.HistoryItemsVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "HistoryReturnsData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <br />
+<div class="container">
+    <section class="content">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="pull-right">
+                            @Html.ActionLink("Home", "ReturnItemsData", "ReturnItems", null, new { @class = "btn btn-primary btn-large" })
+                        </div>
+                        <div class="card-header">
+                            <h3 class="card-title">Return Items History</h3>
+                        </div>
+                        <br />
+                        <!-- /.card-header -->
+                        <div class="card-body justify-content-center align-items-center">
+                            <table id="ReturnHistoryTable" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <b>Return Id</b>
+                                        </th>
+                                        <th>
+                                            <b>RMA #</b>
+                                        </th>
+                                        <th>
+                                            <b>Account #</b>
+                                        </th>
+                                        <th>
+                                            <b>WO #</b>
+                                        </th>
+                                        <th>
+                                            <b>Client Name</b>
+                                        </th>
+                                        @*<th>
+                                            <b>Phone #</b>
+                                        </th>*@
+                                        <th>
+                                            <b>Tag_type</b>
+                                        </th>
+                                        <th>
+                                            <b>ReturnNote</b>
+                                        </th>
+                                        <th>
+                                            <b>DateReturned</b>
+                                        </th>
+                                        <th>
+                                            <b>Tracking#</b>
+                                        </th>
+                                        <th>
+                                            <b>D.O.S</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Details)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ReturnId)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.RMAnum)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AccountNum)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.WorkOrder_ID)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FullNAme)
+                                            </td>
+                                            @*<td> @Html.DisplayFor(modelItem => item.PhNum)  </td>*@
+                                            <td> @Html.DisplayFor(modelItem => item.TagType) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Return_Note)  </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Date_Returned) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.Tracking_Number) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.RequestDate) </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+</div>
+    
+
+
+<!-- jQuery -->
+
+
+<script>
+    //$(document).ready(function () {
+
+
+    //    $(function () {
+    //        $('#ReturnHistoryTable').DataTable({
+    //            "paging": true,
+    //            "pageLength": 25,
+    //            "lengthMenu": [[25, 100, 250, -1], [25, 100, 250, "All"]],
+    //            "scrollY": '50vh',
+    //            "scrollCollapse": true,
+    //            "lengthChange": false,
+    //            "searching": true,
+    //            "ordering": true,
+    //            "info": true,
+    //            "autoWidth": false,
+    //            "responsive": false,
+    //        });
+    //    });
+    //})
+
+    $(document).ready(function () {
+        $('#ReturnHistoryTable').DataTable({
+            //dom: 'Blfrtip',
+            //buttons: [
+            //     'excel'
+            //]
+        });
+    });
+
+
+</script>

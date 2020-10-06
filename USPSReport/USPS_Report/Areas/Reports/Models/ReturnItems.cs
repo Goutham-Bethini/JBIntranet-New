@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using USPS_Report.Models;
+using USPS_Report.Areas.Reports.Models;
 
 namespace USPS_Report.Areas.Reports.Models
 {
@@ -14,9 +15,10 @@ namespace USPS_Report.Areas.Reports.Models
     {
         public class ReturnItemsVM
         {
-            [Required]
             [RegularExpression("^([0-9]+)$", ErrorMessage = "The Account field is only intergers.")]
             public string Account { get; set; }
+            [RegularExpression("^([0-9]+)$", ErrorMessage = "The Workorder field is only intergers.")]
+            public string WorkOrder { get; set; }
 
             public string FirstName { get; set; }
 
@@ -32,6 +34,17 @@ namespace USPS_Report.Areas.Reports.Models
             public IList<ReturnItemsData> Details { get; set; }
 
         }
+
+        public class HistoryItemsVM
+        {
+            [RegularExpression("^([0-9]+)$", ErrorMessage = "The Account field is only intergers.")]
+            public string SearchString { get; set; }
+            public string SearchType { get; set; }
+
+            public IList<HistoryItemsData> Details { get; set; }
+
+        }
+
         public class ChooseAccountVM
         {
             public string SelectedAccount { get; set; }
@@ -57,13 +70,52 @@ namespace USPS_Report.Areas.Reports.Models
         {
             public int ReturnId { get; set; }
             public int? RMAnum { get; set; }
+            public int? woID { get; set; }
             public int? AccountNum { get; set; }
             public string First_Name { get; set; }
             public string Last_Name { get; set; }
             public string PhNum { get; set; }
             public string TagType { get; set; }
             public DateTime? RequestDate { get; set; }
+            public DateTime? ScheduledFor { get; set; }
 
+        }
+        public class HistoryItemsData
+        {
+            public int ReturnId { get; set; }
+            public int? RMAnum { get; set; }
+            public int? AccountNum { get; set; }
+            public int? WorkOrder_ID { get; set; }
+            public string First_Name { get; set; }
+            public string Last_Name { get; set; }
+            public string FullNAme
+            {
+                get
+                {
+                    if (this.First_Name != null && this.Last_Name != null)
+                    {
+                        return this.First_Name + " " + this.Last_Name;
+                    }
+                    else if (this.First_Name != null && this.Last_Name == null)
+                    {
+                        return this.First_Name;
+                    }
+                    else if (this.First_Name == null && this.Last_Name != null)
+                    {
+                        return this.Last_Name;
+                    }
+                    else
+                    {
+                        return "";
+                    }
+                }
+            }
+            public string PhNum { get; set; }
+            public string TagType { get; set; }
+            public DateTime? RequestDate { get; set; }
+            public string Return_Note { get; set; }
+            public string Tracking_Number { get; set; }
+            public DateTime? Date_Returned { get; set; }
         }
         public class WorkOrderProduct
         {
@@ -139,6 +191,7 @@ namespace USPS_Report.Areas.Reports.Models
             public string FirstName { get; set; }
             public string LastName { get; set; }
             public DateTime? RequestDate { get; set; }
+            public DateTime? ScheduledFor { get; set; }
         }
         public class ReturnItemsInfoVM
         {
@@ -162,6 +215,22 @@ namespace USPS_Report.Areas.Reports.Models
             public string FirstName { get; set; }
             public string LastName { get; set; }
             public DateTime? RequestDate { get; set; }
+            public DateTime? ScheduledFor { get; set; }
+            public string ProductCode
+            {
+                get
+                {
+                    string result = "";
+                    if (this.WorkOrderItems.Count()>0)
+                    {
+                        foreach (var item in this.WorkOrderItems)
+                        {
+                            result += item.ProductCode + "   ";
+                        }
+                    }
+                    return result;
+                }
+            }
             public IList<WorkOrderItem> WorkOrderItems { get; set; }
         }
 
@@ -176,6 +245,41 @@ namespace USPS_Report.Areas.Reports.Models
         {
             public bool DoesReturnExist { get; set; }
             public string WorkOrder_ID { get; set; }
+        }
+        public static IList<HistoryItemsData> GetReturnHistoryItemsData()
+        {
+            List<HistoryItemsData> lstReturnItesData = new List<HistoryItemsData>();
+            try
+            {
+                using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
+                {
+                    lstReturnItesData = (from item in _db.Database.SqlQuery<sp_GetHistoryReturnItemsData_Result>("exec sp_GetHistoryReturnItemsData").ToList<sp_GetHistoryReturnItemsData_Result>()
+                                         select new HistoryItemsData
+                                         {
+                                             ReturnId = item.Return_ID,
+                                             RMAnum = item.OracleRMA,
+                                             AccountNum = item.Account,
+                                             First_Name = item.first_name,
+                                             Last_Name = item.last_name,
+                                             PhNum = item.phone,
+                                             TagType = item.Tag_Type,
+                                             Return_Note = item.Return_Note,
+                                             Date_Returned = item.Date_Returned,
+                                             Tracking_Number = item.Tracking_Number,
+                                             WorkOrder_ID = item.WorkOrder_ID,
+                                             RequestDate = item.Request_Date
+                                         }
+                               ).ToList();
+                }
+                DateTime dt = DateTime.Today.AddMonths(-12);
+                lstReturnItesData = lstReturnItesData.Where(x => x.Date_Returned > dt).ToList();
+                return lstReturnItesData;
+            }
+            catch (Exception ex)
+            {
+                throw;
+                //return new List<ReturnItemsData>();
+            }
         }
         public static IList<ReturnItemsData> GetReturnItemsData()
         {
@@ -194,7 +298,9 @@ namespace USPS_Report.Areas.Reports.Models
                                              Last_Name = item.last_name,
                                              PhNum = item.phone,
                                              TagType = item.Tag_Type,
-                                             RequestDate = item.Request_Date
+                                             RequestDate = item.Request_Date,
+                                             ScheduledFor = item.PickUpDate,
+                                             woID = item.ID
                                          }
                                ).ToList();
                 }
@@ -212,44 +318,78 @@ namespace USPS_Report.Areas.Reports.Models
             List<AccountData> lstAccounts = new List<AccountData>();
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
             {
-                lstAccounts = (from item in _db.Database.SqlQuery<sp_GetSearchAccounts_Result>("exec sp_GetSearchAccounts @account,@firstName,@lastName,@address1,@address2,@city,@state,@zipCode", new SqlParameter("account", Convert.ToInt32(returnItemsVM.Account)), new SqlParameter("firstName", returnItemsVM.FirstName.GetDBNullOrValue()), new SqlParameter("lastName", returnItemsVM.LastName.GetDBNullOrValue()), new SqlParameter("address1", returnItemsVM.Address1.GetDBNullOrValue()), new SqlParameter("address2", returnItemsVM.Address2.GetDBNullOrValue()), new SqlParameter("city", returnItemsVM.City.GetDBNullOrValue()), new SqlParameter("state", returnItemsVM.State.GetDBNullOrValue()), new SqlParameter("zipCode", returnItemsVM.ZipCode.GetDBNullOrValue())).ToList<sp_GetSearchAccounts_Result>()
-                                   //lstAccounts = (from item in _db.sp_GetSearchAccounts(Convert.ToInt32(returnItemsVM.Account), returnItemsVM.FirstName, returnItemsVM.LastName, returnItemsVM.Address1, returnItemsVM.Address2, returnItemsVM.City, returnItemsVM.State, returnItemsVM.ZipCode)
-                               select new AccountData
-                               {
-                                   Account = item.account.ToString(),
-                                   LastName = item.last_name,
-                                   FirstName = item.first_name,
-                                   Middle = item.middle,
-                                   Address1 = item.address_1,
-                                   Address2 = item.address_2,
-                                   City = item.city,
-                                   State = item.state,
-                                   ZipCode = item.zip,
-                                   Phone = item.phone
-                               }
+                if (!string.IsNullOrEmpty(returnItemsVM.Account))
+                {
+                    lstAccounts = (from item in _db.Database.SqlQuery<sp_GetSearchAccounts_Result>("exec sp_GetSearchAccounts @account,@firstName,@lastName,@address1,@address2,@city,@state,@zipCode", new SqlParameter("account", Convert.ToInt32(returnItemsVM.Account)), new SqlParameter("firstName", returnItemsVM.FirstName.GetDBNullOrValue()), new SqlParameter("lastName", returnItemsVM.LastName.GetDBNullOrValue()), new SqlParameter("address1", returnItemsVM.Address1.GetDBNullOrValue()), new SqlParameter("address2", returnItemsVM.Address2.GetDBNullOrValue()), new SqlParameter("city", returnItemsVM.City.GetDBNullOrValue()), new SqlParameter("state", returnItemsVM.State.GetDBNullOrValue()), new SqlParameter("zipCode", returnItemsVM.ZipCode.GetDBNullOrValue())).ToList<sp_GetSearchAccounts_Result>()
+                                       //lstAccounts = (from item in _db.sp_GetSearchAccounts(Convert.ToInt32(returnItemsVM.Account), returnItemsVM.FirstName, returnItemsVM.LastName, returnItemsVM.Address1, returnItemsVM.Address2, returnItemsVM.City, returnItemsVM.State, returnItemsVM.ZipCode)
+                                   select new AccountData
+                                   {
+                                       Account = item.account.ToString(),
+                                       LastName = item.last_name,
+                                       FirstName = item.first_name,
+                                       Middle = item.middle,
+                                       Address1 = item.address_1,
+                                       Address2 = item.address_2,
+                                       City = item.city,
+                                       State = item.state,
+                                       ZipCode = item.zip,
+                                       Phone = item.phone
+                                   }
                            ).ToList();
+                }
+                else if(!string.IsNullOrEmpty(returnItemsVM.WorkOrder))
+                {
+
+                }
+           }
+            using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
+            {
+                
             }
             return lstAccounts;
         }
-        public static IList<WorkOrder> GetWorkOrders(string selectedAccount)
+        public static IList<WorkOrder> GetWorkOrders(ReturnItemsVM returnItemsVM)
         {
             List<WorkOrderDB> lstWorkOrdersDB = new List<WorkOrderDB>();
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
             {
-                lstWorkOrdersDB = (from item in _db.Database.SqlQuery <sp_GetWorkOrders_Result>("exec sp_GetWorkOrders @account", new SqlParameter("account", Convert.ToInt32(selectedAccount))).ToList< sp_GetWorkOrders_Result >()
-                                       //lstWorkOrdersDB = (from item in _db.sp_GetWorkOrders(Convert.ToInt32(selectedAccount))
-                                   select new WorkOrderDB
-                                   {
-                                       WorkOrder_ID = item.WorkOrder_Number.Value,
-                                       Account = item.account,
-                                       RequestDate = item.Request_Date,
-                                       ProductCode = item.ProductCode,
-                                       ProductDescription = item.ProductDescription,
-                                       QtyShipped = item.qtyshipped,
-                                       ID_DeliveryLocation = item.ID_DeliveryLocation,
-                                       WorkOrder_Line=item.WorkOrder_Line
-                                   }
+                if (!string.IsNullOrEmpty(returnItemsVM.Account))
+                {
+                    lstWorkOrdersDB = (from item in _db.Database.SqlQuery<sp_GetWorkOrders_Result>("exec sp_GetWorkOrders @account", new SqlParameter("account", Convert.ToInt32(returnItemsVM.Account))).ToList<sp_GetWorkOrders_Result>()
+                                           //lstWorkOrdersDB = (from item in _db.sp_GetWorkOrders(Convert.ToInt32(selectedAccount))
+                                       select new WorkOrderDB
+                                       {
+                                           WorkOrder_ID = item.WorkOrder_Number.Value,
+                                           Account = item.account,
+                                           RequestDate = item.Request_Date,
+                                           ProductCode = item.ProductCode,
+                                           ProductDescription = item.ProductDescription,
+                                           QtyShipped = item.qtyshipped,
+                                           ID_DeliveryLocation = item.ID_DeliveryLocation,
+                                           WorkOrder_Line = item.WorkOrder_Line
+                                       }
                                    ).ToList();
+                    DateTime dt = DateTime.Today.AddMonths(-6);
+                    lstWorkOrdersDB = lstWorkOrdersDB.Where(x => x.RequestDate >= dt).ToList();
+                }
+                if (!string.IsNullOrEmpty(returnItemsVM.WorkOrder))
+                {
+                    lstWorkOrdersDB = (from item in _db.Database.SqlQuery<sp_GetWorkOrders_Result>("exec sp_GetWorkOrdersBByWo @WO", new SqlParameter("WO", Convert.ToInt32(returnItemsVM.WorkOrder))).ToList<sp_GetWorkOrders_Result>()
+                                           //lstWorkOrdersDB = (from item in _db.sp_GetWorkOrders(Convert.ToInt32(selectedAccount))
+                                       select new WorkOrderDB
+                                       {
+                                           WorkOrder_ID = item.WorkOrder_Number.Value,
+                                           Account = item.account,
+                                           RequestDate = item.Request_Date,
+                                           ProductCode = item.ProductCode,
+                                           ProductDescription = item.ProductDescription,
+                                           QtyShipped = item.qtyshipped,
+                                           ID_DeliveryLocation = item.ID_DeliveryLocation,
+                                           WorkOrder_Line = item.WorkOrder_Line
+                                       }
+                                   ).ToList();
+                }
+                
             }
             List<WorkOrder> lstWorkOrders = new List<WorkOrder>();            
             var distinctWOs = lstWorkOrdersDB.Select(m => new { m.WorkOrder_ID, m.RequestDate,m.Account }).Distinct().ToList();
@@ -355,7 +495,8 @@ namespace USPS_Report.Areas.Reports.Models
                                               OracleRMA = item.OracleRMA,
                                               FirstName = item.first_name,
                                               LastName = item.last_name,
-                                              RequestDate = item.Request_Date
+                                              RequestDate = item.Request_Date,
+                                              ScheduledFor = item.PickUpDate
                                           }
                                        ).FirstOrDefault();
                 }
@@ -414,27 +555,27 @@ namespace USPS_Report.Areas.Reports.Models
             }
             return lstWorkOrders.FirstOrDefault();
         }
-        public static void UpdateReturn(int return_ID,string reshipped,string tag_Type,int? oracleRMA,string return_Note,int? reason__List_Option_ID,string return_Other_Reason,DateTime? date_Returned,string tracking_Number,short? send_To_Billing,short? dont_Display,int? boxes_Returned)
+        public static void UpdateReturn(int return_ID,string reshipped,string tag_Type,int? oracleRMA,string return_Note,int? reason__List_Option_ID,string return_Other_Reason,DateTime? date_Returned,string tracking_Number,short? send_To_Billing,short? dont_Display,int? boxes_Returned, DateTime? ScheduledFor)
         {
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
             {
-                _db.Database.ExecuteSqlCommand("sp_UpdateReturn @return_ID,@reshipped,@tracking_Number,@return_Note,@tag_Type,@reason__List_option_ID,@return_Other_Reason,@boxesReturned,@dateRtrn,@send_To_Billing,@dont_Display,@oracleRMA",
+                _db.Database.ExecuteSqlCommand("sp_UpdateReturn @return_ID,@reshipped,@tracking_Number,@return_Note,@tag_Type,@reason__List_option_ID,@return_Other_Reason,@boxesReturned,@dateRtrn,@send_To_Billing,@dont_Display,@oracleRMA,@PickUpDate",
                     new SqlParameter("return_ID", return_ID), new SqlParameter("reshipped", reshipped.GetDBNullOrValue()) , new SqlParameter("tracking_Number", tracking_Number.GetDBNullOrValue()) , new SqlParameter("return_Note", return_Note.GetDBNullOrValue()) ,
                     new SqlParameter("tag_Type", tag_Type.GetDBNullOrValue()) , new SqlParameter("reason__List_option_ID", reason__List_Option_ID.GetDBNullOrValue()) , new SqlParameter("return_Other_Reason", return_Other_Reason.GetDBNullOrValue()) ,
                     new SqlParameter("boxesReturned", boxes_Returned.GetDBNullOrValue()) , new SqlParameter("dateRtrn", date_Returned.GetDBNullOrValue()) , new SqlParameter("send_To_Billing", send_To_Billing.GetDBNullOrValue()) ,
-                    new SqlParameter("dont_Display", dont_Display.GetDBNullOrValue()) , new SqlParameter("oracleRMA", oracleRMA.GetDBNullOrValue()) );
+                    new SqlParameter("dont_Display", dont_Display.GetDBNullOrValue()) , new SqlParameter("oracleRMA", oracleRMA.GetDBNullOrValue()), new SqlParameter("PickUpDate", ScheduledFor.GetDBNullOrValue()));
                 //_db.sp_UpdateReturn(return_ID, reshipped, tracking_Number, return_Note, tag_Type, reason__List_Option_ID, return_Other_Reason, boxes_Returned, date_Returned, send_To_Billing, dont_Display, oracleRMA);
             }
                
         }
-        public static void InsertReturn(int? account, int? workOrder_ID, string reshipped, string tag_Type, int? oracleRMA, string return_Note, int? reason__List_Option_ID, string return_Other_Reason, DateTime? date_Returned, string tracking_Number, short? send_To_Billing, short? dont_Display, int? boxes_Returned)
+        public static void InsertReturn(int? account, int? workOrder_ID, string reshipped, string tag_Type, int? oracleRMA, string return_Note, int? reason__List_Option_ID, string return_Other_Reason, DateTime? date_Returned, string tracking_Number, short? send_To_Billing, short? dont_Display, int? boxes_Returned, DateTime? ScheduledFor)
         {
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
             {
-                _db.Database.ExecuteSqlCommand("sp_InsertReturn @account,@workOrder_ID,@reshipped,@tracking_Number,@return_Note,@tag_Type,@reason__List_option_ID,@return_Other_Reason,@boxesReturned,@dateRtrn,@send_To_Billing,@dont_Display,@oracleRMA", 
+                _db.Database.ExecuteSqlCommand("sp_InsertReturn @account,@workOrder_ID,@reshipped,@tracking_Number,@return_Note,@tag_Type,@reason__List_option_ID,@return_Other_Reason,@boxesReturned,@dateRtrn,@send_To_Billing,@dont_Display,@oracleRMA,@PickUpDate", 
                     new SqlParameter("account", account.GetDBNullOrValue()) , new SqlParameter("workOrder_ID", workOrder_ID.GetDBNullOrValue()) , new SqlParameter("reshipped", reshipped.GetDBNullOrValue()) , new SqlParameter("tracking_Number", tracking_Number.GetDBNullOrValue()) , 
                     new SqlParameter("return_Note", return_Note.GetDBNullOrValue()) , new SqlParameter("tag_Type", tag_Type.GetDBNullOrValue()) , new SqlParameter("reason__List_option_ID", reason__List_Option_ID.GetDBNullOrValue()) , 
-                    new SqlParameter("return_Other_Reason", return_Other_Reason.GetDBNullOrValue()) , new SqlParameter("boxesReturned", boxes_Returned.GetDBNullOrValue()) , new SqlParameter("dateRtrn", date_Returned.GetDBNullOrValue()) , new SqlParameter("send_To_Billing", send_To_Billing.GetDBNullOrValue()) , new SqlParameter("dont_Display", dont_Display.GetDBNullOrValue()) , new SqlParameter("oracleRMA", oracleRMA.GetDBNullOrValue()) );
+                    new SqlParameter("return_Other_Reason", return_Other_Reason.GetDBNullOrValue()) , new SqlParameter("boxesReturned", boxes_Returned.GetDBNullOrValue()) , new SqlParameter("dateRtrn", date_Returned.GetDBNullOrValue()) , new SqlParameter("send_To_Billing", send_To_Billing.GetDBNullOrValue()) , new SqlParameter("dont_Display", dont_Display.GetDBNullOrValue()) , new SqlParameter("oracleRMA", oracleRMA.GetDBNullOrValue()), new SqlParameter("PickUpDate", ScheduledFor.GetDBNullOrValue()));
                 //_db.sp_InsertReturn(account,workOrder_ID,reshipped, tracking_Number, return_Note, tag_Type, reason__List_Option_ID, return_Other_Reason, boxes_Returned, date_Returned, send_To_Billing, dont_Display, oracleRMA);
             }
 
@@ -483,11 +624,39 @@ namespace USPS_Report.Areas.Reports.Models
             }
 
         }
-        public static void InsertAccountNote(int account, string userName, int workOrder_ID,string note,int reason__List_Option_ID,string return_Other_Reason,string tracking_Number)
+        public static void InsertAccountNote(int account, string userName, int workOrder_ID,string note,int reason__List_Option_ID,string return_Other_Reason,string tracking_Number,int? OracleRMA, DateTime? DateReturned,string ProductCode)
         {
+            string DateReturnedString = Convert.ToDateTime(DateReturned).ToShortDateString();
+            string OracleRMAString = OracleRMA.ToString();
+            string workOrder_IDstring = workOrder_ID.ToString();
+            string NoteText = "Return for workorder " + workOrder_IDstring + " modified by web user. ";
+            if (!string.IsNullOrEmpty(ProductCode))
+            {
+                NoteText += Environment.NewLine + "Returned Products: " + ProductCode.Trim() + ", ";
+            }
+            if (!string.IsNullOrEmpty(OracleRMAString))
+            {
+                NoteText += Environment.NewLine+ "Oracle RMA#: "+OracleRMAString.Trim()+", ";
+            }
+            if (!string.IsNullOrEmpty(note))
+            {
+                NoteText += Environment.NewLine + "Notes about Return: " + note + ", ";
+            }
+            if (!string.IsNullOrEmpty(return_Other_Reason))
+            {
+                NoteText += Environment.NewLine + "Other Reason: " + return_Other_Reason + ", ";
+            }
+            if (!string.IsNullOrEmpty(tracking_Number))
+            {
+                NoteText += Environment.NewLine + "Call Tag #s: " + tracking_Number + ", ";
+            }
+            if (!string.IsNullOrEmpty(DateReturnedString))
+            {
+                NoteText += Environment.NewLine + "Return Date: " + DateReturnedString + ""+ Environment.NewLine ;
+            }
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
             {
-                _db.Database.ExecuteSqlCommand("sp_InsertAccountNote @account,@userName,@workOrder_ID,@note,@reason__List_Option_ID,@return_Other_Reason,@tracking_Number", new SqlParameter("account", account.GetDBNullOrValue()), new SqlParameter("userName", userName.GetDBNullOrValue()), new SqlParameter("workOrder_ID", workOrder_ID.GetDBNullOrValue()), new SqlParameter("note", note.GetDBNullOrValue()), new SqlParameter("reason__List_Option_ID", reason__List_Option_ID.GetDBNullOrValue()), new SqlParameter("return_Other_Reason", return_Other_Reason.GetDBNullOrValue()), new SqlParameter("tracking_Number", tracking_Number.GetDBNullOrValue()));
+                _db.Database.ExecuteSqlCommand("sp_InsertAccountNote @account,@userName,@workOrder_ID,@note,@reason__List_Option_ID,@return_Other_Reason,@tracking_Number,@OracleRMA,@NoteText", new SqlParameter("account", account.GetDBNullOrValue()), new SqlParameter("userName", userName.GetDBNullOrValue()), new SqlParameter("workOrder_ID", workOrder_ID.GetDBNullOrValue()), new SqlParameter("note", note.GetDBNullOrValue()), new SqlParameter("reason__List_Option_ID", reason__List_Option_ID.GetDBNullOrValue()), new SqlParameter("return_Other_Reason", return_Other_Reason.GetDBNullOrValue()), new SqlParameter("tracking_Number", tracking_Number.GetDBNullOrValue()), new SqlParameter("OracleRMA", OracleRMAString.GetDBNullOrValue()), new SqlParameter("NoteText", NoteText.GetDBNullOrValue()));
 
                 //                _db.Database.ExecuteSqlCommand(
                 //@"if(@note is null)
@@ -527,6 +696,49 @@ namespace USPS_Report.Areas.Reports.Models
 
 
                 //_db.sp_InsertAccountNote(account, userName, workOrder_ID,note,reason__List_Option_ID,return_Other_Reason,tracking_Number);
+            }
+
+        }
+
+        public static void InsertAccountNoteCallTag(int account, string userName, int workOrder_ID, string note, int reason__List_Option_ID, string return_Other_Reason, string tracking_Number, int? OracleRMA,DateTime? ScheduledFor,string ProductCode)
+        {
+           
+            string ScheduledForString = "";
+            if (ScheduledFor != null)
+            {
+                ScheduledForString = Convert.ToDateTime(ScheduledFor).ToShortDateString();
+            }
+            string OracleRMAString = OracleRMA.ToString();
+            string workOrder_IDstring = workOrder_ID.ToString();
+            string NoteText = "Return for workorder " + workOrder_IDstring + " modified by web user. ";
+            if (!string.IsNullOrEmpty(ProductCode))
+            {
+                NoteText += Environment.NewLine + "Returned Products: " + ProductCode.Trim() + ", ";
+            }
+            if (!string.IsNullOrEmpty(OracleRMAString))
+            {
+                NoteText += Environment.NewLine + "Oracle RMA#: " + OracleRMAString.Trim() + ", ";
+            }
+            if (!string.IsNullOrEmpty(note))
+            {
+                NoteText += Environment.NewLine + "Notes about Return: " + note + ", ";
+            }
+            if (!string.IsNullOrEmpty(return_Other_Reason))
+            {
+                NoteText += Environment.NewLine + "Other Reason: " + return_Other_Reason + ", ";
+            }
+            if (!string.IsNullOrEmpty(tracking_Number))
+            {
+                NoteText += Environment.NewLine + "Call Tag #s: " + tracking_Number + ", ";
+            }
+            if (!string.IsNullOrEmpty(ScheduledForString))
+            {
+                NoteText += Environment.NewLine + "Scheduled For: " + ScheduledForString + "" + Environment.NewLine;
+            }
+            using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
+            {
+                _db.Database.ExecuteSqlCommand("sp_InsertAccountNoteCallTag @account,@userName,@workOrder_ID,@note,@reason__List_Option_ID,@return_Other_Reason,@tracking_Number,@OracleRMA,@ScheduledFor,@NoteText", new SqlParameter("account", account.GetDBNullOrValue()), new SqlParameter("userName", userName.GetDBNullOrValue()), new SqlParameter("workOrder_ID", workOrder_ID.GetDBNullOrValue()), new SqlParameter("note", note.GetDBNullOrValue()), new SqlParameter("reason__List_Option_ID", reason__List_Option_ID.GetDBNullOrValue()), new SqlParameter("return_Other_Reason", return_Other_Reason.GetDBNullOrValue()), new SqlParameter("tracking_Number", tracking_Number.GetDBNullOrValue()), new SqlParameter("OracleRMA", OracleRMAString.GetDBNullOrValue()), new SqlParameter("ScheduledFor", ScheduledForString.GetDBNullOrValue()), new SqlParameter("NoteText", NoteText.GetDBNullOrValue()));
+                
             }
 
         }

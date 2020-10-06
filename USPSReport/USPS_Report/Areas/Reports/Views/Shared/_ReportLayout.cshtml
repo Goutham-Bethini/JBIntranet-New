@@ -8,7 +8,7 @@
 
 <div class="span2">
     <div class="well sidebar-nav ">
-
+        
         <ul class="nav nav-pills nav-stacked">
             <li class="active ">@Html.ActionLink("  Dashboard", "Index", "Home", new { area = "" }, new { @class = "glyphicon glyphicon-dashboard" })</li>
 
@@ -147,8 +147,8 @@
                     <li class="divider"></li>
                     <li><a href="http://10.10.1.49/warehousereports/home/eod" target="_blank">End of Day Process</a></li>
                     <li class="divider"></li>
-                    <li>  @Html.ActionLink("Order Lookup", "WarehouseWOReport", "WorkOrder", new { area = "Reports" }, new { target = "_blank" }) </li>
-                    <li class="divider"></li>
+                    @*<li>  @Html.ActionLink("Order Lookup", "WarehouseWOReport", "WorkOrder", new { area = "Reports" }, new { target = "_blank" }) </li>
+                    <li class="divider"></li>*@
                     <li> <a href="http://10.10.1.49/LostWorkorder" target="_blank">Lost WorkOrder Report</a></li>
                     <li class="divider"></li>
 

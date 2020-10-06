@@ -157,8 +157,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
                 _vm.payerTypeList = AddCSRLog.HDMSPayerInfo(_vm.Account).ToList();
-                AddCSRLog.AddComplaintLog(_vm);
-
+                _vm.id = AddCSRLog.AddComplaintLog(_vm);
                 if (_vm.newAccount == true)
                 {
                     CallLogVM _callVM = new CallLogVM();
@@ -207,7 +206,8 @@ namespace USPS_Report.Areas.Reports.Controllers
 
                 if (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null)
                 {
-                    if (_vm.ComplaintHasBeen.Contains("Not Resolved Transferred to Management"))
+                   // if (_vm.ComplaintHasBeen.Contains("Not Resolved Transferred to Management"))
+                    if (true)
                     {
                         AddCSRLog.sendComplainLogEmail(_msg, _vm.Account, _vm.id);
                     }
