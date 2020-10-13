@@ -125,7 +125,8 @@ namespace USPS_Report.Areas.Reports.Controllers
         }
 
 
-        public ActionResult CancelWoOrder(int ID, int? Flag) {
+        public ActionResult CancelWoOrder(int ID, int? Flag)
+        {
 
             woVM _vm = new woVM();
             _vm.CancelFlag = Flag;
