@@ -803,14 +803,15 @@ namespace USPS_Report.Areas.Reports.Models
         }
 
 
-        public static void sendEmailtoShipping(int wo)
+        public static void sendEmailtoShipping(int wo, string reason, string otherreason)
         {
 
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
-          
+            string cancel_reason = string.Format("{0} {1}", reason, otherreason);
+
           //  mail.To.Add("medsurgcsreps@jandbmedical.com");
             mail.To.Add("ShippingTeam@jandbmedical.com");
             mail.To.Add("ekarrumi@jandbmedical.com");
@@ -826,6 +827,10 @@ namespace USPS_Report.Areas.Reports.Models
 
             mail.Body += "<tr>";
             mail.Body += "<td>  Work Order is:  </td> " + wo + "<td></td>";
+            mail.Body += "</tr>";
+
+            mail.Body += "<tr>";
+            mail.Body += "<td>  Reason is:  </td> " + cancel_reason + "<td></td>";
             mail.Body += "</tr>";
 
             mail.Body += "<tr>";

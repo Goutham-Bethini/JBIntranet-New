@@ -225,7 +225,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
                 if (_vm.CancelFlag == 2) //_vm.CancelFlag == 2
                 {
-                    ReportWorkOrder.sendEmailtoShipping(_vm.ID);
+                    ReportWorkOrder.sendEmailtoShipping(_vm.ID, _vm.Reason, _vm.OtherReason);
                 }
 
 
