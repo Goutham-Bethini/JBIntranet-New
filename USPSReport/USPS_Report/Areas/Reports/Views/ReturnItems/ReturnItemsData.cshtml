@@ -105,6 +105,20 @@
                         <td colspan="2" align="center" style="font-weight:bold;">To edit a return please click on the return item</td>
                     </tr>
                 </table>
+                <table border="0" cellspacing="5" cellpadding="5">
+                    <tbody>
+                        <tr>
+                            <td>From Date:</td>
+                            <td>@Html.TextBox("min", "", new { @class = "min", @readonly = "readonly" })</td>
+                        </tr>
+                        <tr>
+                            <td>To Date:</td>
+                            <td>@Html.TextBox("max", "", new { @class = "max", @readonly = "readonly" })</td>
+                            <td><button id="btnGo" type="button">Go</button></td>
+                            <td><button id="btnClearDates" type="button">Clear Dates</button></td>
+                        </tr>
+                    </tbody>
+                </table>
                     <table  id="ReturnItemsTable" width="100%">
                         <thead>
                             @*<tr>
@@ -119,7 +133,9 @@
                                 <th>Phone #</th>
                                 <th>Tag_type</th>
                                 <th>D.O.S</th>
+                                <th>Reason Returned</th>
                                 <th>Scheduled For</th>
+                                <th>Ship Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -130,11 +146,13 @@
                                     <td>@rec.RMAnum</td>
                                     <td>@Html.ActionLink(@rec.AccountNum.ToString(), "ReturnInfo", "ReturnItems", new { returnId = @rec.ReturnId.ToString() }, null) </td>
                                     <td> @rec.woID </td>
-                                    <td>@Html.ActionLink(@rec.First_Name + " " + @rec.Last_Name, "ReturnInfo", "ReturnItems", new { returnId = @rec.ReturnId.ToString() }, null) </td>
+                                    <td>@Html.ActionLink(@rec.First_Name + " " + @rec.Last_Name, "ReturnInfo", "ReturnItems", new { returnId = @rec.ReturnId.ToString() }, null) </td>                                   
                                     <td> @rec.PhNum </td>
                                     <td>@rec.TagType </td>
                                     <td>@rec.RequestDate </td>
+                                    <td> @rec.List_Option_text </td>
                                     <td>@rec.ScheduledFor </td>
+                                    <td>@rec.LastPrintDate </td>
                                 </tr>
                             }
                         </tbody>
@@ -164,12 +182,16 @@
         color: Red;
     }
 </style>
-<script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="~/Scripts/moment.js"></script>
+
+    <script>
     $(document).ready(function () {
 
         jQuery('#Account').on('input', function () {
             if ($('#Account').val() != '') {
-                $('#WorkOrder').val(''); 
+                $('#WorkOrder').val('');
             }
         });
 
@@ -186,16 +208,146 @@
                     }
         });
 
-        $('#ReturnItemsTable').DataTable({
-            "autoWidth": false,
-            "lengthChange": false,
-            "pageLength": 25
-            //dom: 'Blfrtip',
-            //buttons: [
-            //     'excel'
-            //]
-        });
-    })
-   
+      //  var table = $('#ReturnItemsTable').DataTable();
 
-</script>
+        // Event listener to the two range filtering inputs to redraw on input
+        var table = $('#ReturnItemsTable').DataTable({
+                "autoWidth": false,
+                "lengthChange": false,
+                "pageLength": 20,
+                dom: 'Blfrtip',
+                buttons: [
+                     'excel'
+                ],
+            "drawCallback": function (settings) {
+                console.log("DataTables has redrawn the table");
+                var selected = this.api().rows({ page: 'current', selected: true }).count();
+                var all = this.api().rows({ page: 'current' }).count();
+
+                if (selected > 0 && selected === all) {
+                    $('#ReturnItemsTable thead tr').addClass('checked');
+                }
+                else {
+                    $('#ReturnItemsTable thead tr').removeClass('checked');
+                }
+
+            },
+            order: [1],
+            columnDefs: [
+
+                 {
+                     "orderable": false,
+                     "targets": 0
+                 },
+              {
+                  targets: [7],
+                  type: 'date'
+              }
+            ],
+            select: {
+                select: true,
+                style: 'multi',
+                // Restricting Selection
+                selector: 'tr>td:nth-child(1)'
+            },
+
+
+        });
+
+        $('#ReturnItemsTable').on('click','td.checkbox-control', function () {
+            $(this).parent().toggleClass('checked');
+        });
+
+
+
+
+        $('#ReturnItemsTable').on('click','th.checkbox-control', function () {
+
+            $(this).parent().toggleClass('checked');
+
+            if ($(this).parent().is( ".checked" )) {
+                table.rows( {page: 'current'} ).select();
+            } else {
+                table.rows( {page: 'current'} ).deselect();
+            }
+
+            table.rows({selected:true}).every(function() {
+                $(this.node()).addClass('checked');
+            });
+
+            table.rows({selected:false}).every(function() {
+                $(this.node()).removeClass('checked');
+            });
+
+        });
+
+        $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+        var valid = true;
+        var min = moment($("#min").val());
+        if (!min.isValid()) { min = null; }
+        console.log(min);
+
+        var max = moment($("#max").val());
+        if (!max.isValid()) { max = null; }
+
+        if (min === null && max === null) {
+            // no filter applied or no date columns
+            valid = true;
+        }
+        else {
+
+            $.each(settings.aoColumns, function (i, col) {
+
+                if (col.type == "date" ) {
+                    if(col.sTitle =="D.O.S"){
+                        
+                        var cDate = moment(data[i], 'MM/DD/YYYY');
+                        console.log(cDate);
+
+                        if (cDate.isValid()) {
+                            if (max !== null && max.isBefore(cDate)) {
+                                valid = false;
+                            }
+                            if (min !== null && cDate.isBefore(min)) {
+                                valid = false;
+                            }
+                        }
+                        else {
+                            valid = false;
+                        }
+                    }
+                }
+            });
+        }
+        return valid;
+    });
+
+
+        //$('#ReturnItemsTable').DataTable({
+        //    "autoWidth": false,
+        //    "lengthChange": false,
+        //    "pageLength": 25
+        //    //dom: 'Blfrtip',
+        //    //buttons: [
+        //    //     'excel'
+        //    //]
+        //});
+    })
+
+    $("#btnGo").click(function () {
+        $('#ReturnItemsTable').DataTable().draw();
+    });
+   
+    $(function () {
+        $('.min').datepicker();
+        $('.max').datepicker();
+    });
+
+    $("#btnClearDates").click(function () {
+        $('#min').val('');
+        $('#max').val('');
+        $('#ReturnItemsTable').DataTable().draw();
+    });
+
+    </script>

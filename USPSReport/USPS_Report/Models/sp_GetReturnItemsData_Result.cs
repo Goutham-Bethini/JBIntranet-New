@@ -23,5 +23,7 @@ namespace USPS_Report.Models
         public Nullable<System.DateTime> Request_Date { get; set; }
         public Nullable<System.DateTime> PickUpDate { get; set; }
         public int ID { get; set; }
+        public string List_Option_text { get; set; }
+        public Nullable<System.DateTime> LastPrintDate { get; set; }
     }
 }

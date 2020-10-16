@@ -595,14 +595,9 @@ namespace USPS_Report.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetHistoryReturnItemsData_Result>("sp_GetHistoryReturnItemsData");
         }
     
-        public virtual ObjectResult<sp_GetReturnItemsData_Result> sp_GetReturnItemsData_Result()
+        public virtual int sp_GetReturnItemsData_Result1()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItemsData_Result>("sp_GetReturnItemsData_Result");
-        }
-    
-        public virtual ObjectResult<sp_GetReturnItemsData_Result> sp_GetReturnItemsData_Result1()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItemsData_Result>("sp_GetReturnItemsData_Result1");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_GetReturnItemsData_Result1");
         }
     
         public virtual ObjectResult<sp_GetReturnItem_Result> sp_GetReturnItem_Result(Nullable<int> returnId)
@@ -612,6 +607,16 @@ namespace USPS_Report.Models
                 new ObjectParameter("returnId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItem_Result>("sp_GetReturnItem_Result", returnIdParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetReturnItem_Result> sp_GetReturnItemsData_Result2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItem_Result>("sp_GetReturnItemsData_Result2");
+        }
+    
+        public virtual int sp_GetReturnItemsData_Result()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_GetReturnItemsData_Result");
         }
     }
 }

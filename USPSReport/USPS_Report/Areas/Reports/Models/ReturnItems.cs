@@ -78,6 +78,8 @@ namespace USPS_Report.Areas.Reports.Models
             public string TagType { get; set; }
             public DateTime? RequestDate { get; set; }
             public DateTime? ScheduledFor { get; set; }
+            public string List_Option_text { get; set; }
+            public DateTime? LastPrintDate { get; set; }
 
         }
         public class HistoryItemsData
@@ -300,7 +302,9 @@ namespace USPS_Report.Areas.Reports.Models
                                              TagType = item.Tag_Type,
                                              RequestDate = item.Request_Date,
                                              ScheduledFor = item.PickUpDate,
-                                             woID = item.ID
+                                             woID = item.ID,
+                                             LastPrintDate = item.LastPrintDate,
+                                             List_Option_text = item.List_Option_text
                                          }
                                ).ToList();
                 }

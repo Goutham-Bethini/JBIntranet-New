@@ -437,11 +437,12 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
 
           <EntitySet Name="BarCodeAttempts" EntityType="ReportsModel.BarCodeAttempt" />
           <FunctionImport Name="sp_GetHistoryReturnItemsData" ReturnType="Collection(ReportsModel.sp_GetHistoryReturnItemsData_Result)" />
-          <FunctionImport Name="sp_GetReturnItemsData_Result" ReturnType="Collection(ReportsModel.sp_GetReturnItemsData_Result)" />
-          <FunctionImport Name="sp_GetReturnItemsData_Result1" ReturnType="Collection(ReportsModel.sp_GetReturnItemsData_Result)" />
+          <FunctionImport Name="sp_GetReturnItemsData_Result1" />
           <FunctionImport Name="sp_GetReturnItem_Result" ReturnType="Collection(ReportsModel.sp_GetReturnItem_Result)">
-            <Parameter Name="returnId" Mode="In" Type="Int32" />
+          <Parameter Name="returnId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_GetReturnItemsData_Result2" ReturnType="Collection(ReportsModel.sp_GetReturnItem_Result)" />
+          <FunctionImport Name="sp_GetReturnItemsData_Result" />
         </EntityContainer>
         <EntityType Name="FedEx_POD_tbl">
           <Key>
@@ -626,18 +627,6 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="DateTime" Name="Request_Date" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="PickUpDate" Nullable="true" Precision="23" />
         </ComplexType>
-        <ComplexType Name="sp_GetReturnItemsData_Result">
-          <Property Type="Int32" Name="Return_ID" Nullable="false" />
-          <Property Type="Int32" Name="OracleRMA" Nullable="true" />
-          <Property Type="Int32" Name="Account" Nullable="true" />
-          <Property Type="String" Name="first_name" Nullable="true" MaxLength="35" />
-          <Property Type="String" Name="last_name" Nullable="true" MaxLength="60" />
-          <Property Type="String" Name="phone" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Tag_Type" Nullable="true" MaxLength="10" />
-          <Property Type="DateTime" Name="Request_Date" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="PickUpDate" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-        </ComplexType>
         <ComplexType Name="sp_GetReturnLineItems_Result">
           <Property Type="Int32" Name="Return_Line_ID" Nullable="false" />
           <Property Type="Int32" Name="Return_ID" Nullable="true" />
@@ -716,6 +705,20 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="String" Name="Tracking_Number" Nullable="true" MaxLength="500" />
           <Property Type="DateTime" Name="Request_Date" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="WorkOrder_ID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetReturnItemsData_Result">
+          <Property Type="Int32" Name="Return_ID" Nullable="false" />
+          <Property Type="Int32" Name="OracleRMA" Nullable="true" />
+          <Property Type="Int32" Name="Account" Nullable="true" />
+          <Property Type="String" Name="first_name" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="last_name" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="phone" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Tag_Type" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="Request_Date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="PickUpDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="List_Option_text" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="LastPrintDate" Nullable="true" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -901,6 +904,10 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="Tag_Type" ColumnName="Tag_Type" />
                 <ScalarProperty Name="Request_Date" ColumnName="Request_Date" />
+                <ScalarProperty Name="PickUpDate" ColumnName="PickUpDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="List_Option_text" ColumnName="List_Option_text" />
+                <ScalarProperty Name="LastPrintDate" ColumnName="LastPrintDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1014,36 +1021,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_GetReturnItemsData_Result" FunctionName="ReportsModel.Store.sp_GetReturnItemsData">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ReportsModel.sp_GetReturnItemsData_Result">
-                <ScalarProperty Name="Return_ID" ColumnName="Return_ID" />
-                <ScalarProperty Name="OracleRMA" ColumnName="OracleRMA" />
-                <ScalarProperty Name="Account" ColumnName="Account" />
-                <ScalarProperty Name="first_name" ColumnName="first_name" />
-                <ScalarProperty Name="last_name" ColumnName="last_name" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="Tag_Type" ColumnName="Tag_Type" />
-                <ScalarProperty Name="Request_Date" ColumnName="Request_Date" />
-                <ScalarProperty Name="PickUpDate" ColumnName="PickUpDate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_GetReturnItemsData_Result1" FunctionName="ReportsModel.Store.sp_GetReturnItemsData">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ReportsModel.sp_GetReturnItemsData_Result">
-                <ScalarProperty Name="Return_ID" ColumnName="Return_ID" />
-                <ScalarProperty Name="OracleRMA" ColumnName="OracleRMA" />
-                <ScalarProperty Name="Account" ColumnName="Account" />
-                <ScalarProperty Name="first_name" ColumnName="first_name" />
-                <ScalarProperty Name="last_name" ColumnName="last_name" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="Tag_Type" ColumnName="Tag_Type" />
-                <ScalarProperty Name="Request_Date" ColumnName="Request_Date" />
-                <ScalarProperty Name="PickUpDate" ColumnName="PickUpDate" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_GetReturnItem_Result" FunctionName="ReportsModel.Store.sp_GetReturnItem">
             <ResultMapping>
@@ -1069,6 +1047,33 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
                 <ScalarProperty Name="PickUpDate" ColumnName="PickUpDate" />
               </ComplexTypeMapping>
             </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetReturnItemsData_Result2" FunctionName="ReportsModel.Store.sp_GetHistoryReturnItemsData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.sp_GetReturnItem_Result">
+                <ScalarProperty Name="Return_ID" ColumnName="Return_ID" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Account_Member" ColumnName="Account_Member" />
+                <ScalarProperty Name="WorkOrder_ID" ColumnName="WorkOrder_ID" />
+                <ScalarProperty Name="Reshipped" ColumnName="Reshipped" />
+                <ScalarProperty Name="Date_Returned" ColumnName="Date_Returned" />
+                <ScalarProperty Name="Tag_Type" ColumnName="Tag_Type" />
+                <ScalarProperty Name="Return_Note" ColumnName="Return_Note" />
+                <ScalarProperty Name="Reason__List_Option_ID" ColumnName="Reason__List_Option_ID" />
+                <ScalarProperty Name="Return_Other_Reason" ColumnName="Return_Other_Reason" />
+                <ScalarProperty Name="Tracking_Number" ColumnName="Tracking_Number" />
+                <ScalarProperty Name="Send_To_Billing" ColumnName="Send_To_Billing" />
+                <ScalarProperty Name="Dont_Display" ColumnName="Dont_Display" />
+                <ScalarProperty Name="Boxes_Returned" ColumnName="Boxes_Returned" />
+                <ScalarProperty Name="OracleRMA" ColumnName="OracleRMA" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="Request_Date" ColumnName="Request_Date" />
+                <ScalarProperty Name="PickUpDate" ColumnName="PickUpDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetReturnItemsData_Result" FunctionName="ReportsModel.Store.sp_GetReturnItemsData">
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>

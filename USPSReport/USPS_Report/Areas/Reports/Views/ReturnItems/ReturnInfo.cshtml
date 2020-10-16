@@ -108,6 +108,7 @@
             <td>Date Returned:</td>
             <td>
                 @Html.TextBoxFor(m => m.Date_Returned, "{0:MM/dd/yyyy}", new { @class = "date-picker", @readonly = "readonly" })
+                @Html.TextBoxFor(m => m.Date_Returned, "{0:MM/dd/yyyy}", new { @id = "Date_ReturnedHidden", @class = "date-picker", @readonly = "readonly",@type = "hidden" })
             </td>
         </tr>
         <tr>
@@ -186,7 +187,6 @@
 <script src="~/Scripts/jquery-ui.js"></script>
 
 <script>
-  
     
     $(function () {
         $("#btnSubmit").click(function () {
@@ -223,6 +223,16 @@
 
     $(function () {
         $('.date-picker').datepicker();
+    });
+
+    $('input:radio[name="Tag_Type"]').change(
+    function () {
+        if ($(this).is(':checked') && $(this).val() == 'CallTag') {
+            $('#Date_Returned').val('');
+        }
+        if ($(this).is(':checked') && $(this).val() == 'RedTag') {
+            $('#Date_Returned').val($('#Date_ReturnedHidden').val());
+        }
     });
 
 </script>
