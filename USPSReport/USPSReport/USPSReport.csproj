@@ -18,7 +18,7 @@
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
@@ -171,21 +171,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JBDBContext.cs" />
     <Compile Include="Models\MainVM.cs" />
-    <Compile Include="Models\ReportDB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReportDB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ReportDB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReportDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ReportDB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReportDB.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\uspsDB.cs" />
     <Compile Include="Models\USPSPod.cs" />
     <Compile Include="Models\UspsReportVM.cs" />
@@ -201,24 +186,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-
-    <EntityDeploy Include="Models\ReportDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ReportDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ReportDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ReportDB.edmx</DependentUpon>
-      <LastGenOutput>ReportDB.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ReportDB.edmx.diagram">
-      <DependentUpon>ReportDB.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\ReportDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ReportDB.edmx</DependentUpon>
-      <LastGenOutput>ReportDB.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="Scripts\font-awesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="Scripts\font-awesome\fonts\fontawesome-webfont.woff" />

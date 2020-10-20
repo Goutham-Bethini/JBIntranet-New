@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using System.Data.Entity;
 using System.Net.Mail;
 using System.ComponentModel.DataAnnotations;
+using System.Data.OleDb;
+using System.Configuration;
 
 namespace USPS_Report.Areas.Reports.Models
 {
@@ -312,14 +314,17 @@ namespace USPS_Report.Areas.Reports.Models
                             {
                                 item.Length = t.ConfirmationNum.Length;
                                 item.TrackingNumbers = item.TrackingNumbers + t.ConfirmationNum + ", \n";
-
+                                item.ShippedBy = t.FullName;
                             }
 
                             item.Cancel = 0; //no cancel button, order is already shipped
                         }
                         else if (item.TrackingNumbers != "")
                         {
+                            item.ShippedBy = GetShippedByFromOracle(item.WorkOrderID);
+                            item.Weight = GetWeightFromOracle(item.WorkOrderID);
                             item.Cancel = 0; //no cancel button, order is already shipped
+                            //get the shipped by item
                             item.Release = 0;
                         }
                         else if (item.Status.Contains("Printed/Sent to oracle"))
@@ -353,6 +358,90 @@ namespace USPS_Report.Areas.Reports.Models
 
         }
 
+        public static decimal GetWeightFromOracle(int WorkOrderID)
+        {
+            try
+            {
+                string OraConnection = ConfigurationManager.ConnectionStrings["EntitiesOracle1"].ConnectionString;
+                string Query = @"select INTWEIGHT from tbl_ups_workorders where id_workorder ='" + WorkOrderID + "'";
+                decimal Weight = 0.0m;
+                //decimal weigh_dec = 0.0m;
+                using (OleDbConnection conn = new OleDbConnection(OraConnection))
+                {
+                    conn.Open();
+                    using (OleDbCommand cmd = new OleDbCommand(Query, conn))
+                    {
+                       Weight = cmd.ExecuteScalar() != null ? (decimal)cmd.ExecuteScalar() : 0.0m;
+                    }
+                }
+                return Weight;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+        public static string GetShippedByFromOracle(int WorkOrderID)
+        {
+            IList<TrackingShippedList> _trackingList = new List<TrackingShippedList>();
+            string ShippedBy = "";
+            try
+               {              
+                // web api - tracking info
+                HttpClient client = new HttpClient();
+
+                    client.BaseAddress = new Uri("http://10.10.1.49/TrackingShippedBy/");
+                    //  client.BaseAddress = new Uri("http://localhost:61027/");
+
+                    var result2 = client.GetAsync("api/Values/" +WorkOrderID).Result;
+
+                    //   var ser = JsonConvert.SerializeObject(typeof(CoInsDetail)); 
+                    string _value;
+                    using (var stm1 = result2.Content.ReadAsStreamAsync())
+                    {
+                        using (StreamReader reader = new StreamReader(stm1.Result))
+                        {
+                            TrackingShippedList trcking = new TrackingShippedList();
+                            _value = reader.ReadToEnd();
+
+                            _trackingList = JsonConvert.DeserializeObject<IList<TrackingShippedList>>(_value);
+
+                        }
+                    }
+
+
+
+                    //StringBuilder sb = new StringBuilder();
+
+                    //_trackingList = JsonConvert.DeserializeObject<TrackingList>(_value);
+                }
+                catch (Exception ex)
+                {
+                    string msg = ex.Message;
+                }
+
+           
+            //------------------------------------
+            if (_trackingList.Count == 0)
+            {
+                string query = "select * from Reports.dbo.FedEx_Tracking_Tbl where WorkOrder = " + WorkOrderID + "";
+                using(HHSQLDBEntities _db = new HHSQLDBEntities())
+                {
+                    _trackingList = _db.Database.SqlQuery<TrackingShippedList>(query).ToList();
+                }               
+            }
+            //----------------------------------------
+          
+            if (_trackingList.Count != 0)
+            {
+                foreach (var t in _trackingList)
+                {                    
+                    ShippedBy = t.FullName;
+                }        
+            }
+            return ShippedBy;
+        }
         public static IList<WorkOrder> GetWorkOrderByAccountByNumbers_Wh(Int32? account, Int32 numbers)
         {
 
@@ -987,6 +1076,8 @@ namespace USPS_Report.Areas.Reports.Models
   
 
         public IList<ProductDetails> productDetails { get; set; }
+
+        public decimal Weight { get; set; } 
     }
 
     public class woVM
@@ -1012,7 +1103,7 @@ namespace USPS_Report.Areas.Reports.Models
        
         public string ConfirmationNum { get; set; }
         
-
+        public string FullName { get; set; }
 
     }
 

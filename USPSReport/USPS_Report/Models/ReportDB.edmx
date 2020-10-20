@@ -705,6 +705,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="String" Name="Tracking_Number" Nullable="true" MaxLength="500" />
           <Property Type="DateTime" Name="Request_Date" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="WorkOrder_ID" Nullable="true" />
+          <Property Type="String" Name="List_Option_text" Nullable="true" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="sp_GetReturnItemsData_Result">
           <Property Type="Int32" Name="Return_ID" Nullable="false" />
@@ -1018,6 +1019,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
                 <ScalarProperty Name="Tracking_Number" ColumnName="Tracking_Number" />
                 <ScalarProperty Name="Request_Date" ColumnName="Request_Date" />
                 <ScalarProperty Name="WorkOrder_ID" ColumnName="WorkOrder_ID" />
+                <ScalarProperty Name="List_Option_text" ColumnName="List_Option_text" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

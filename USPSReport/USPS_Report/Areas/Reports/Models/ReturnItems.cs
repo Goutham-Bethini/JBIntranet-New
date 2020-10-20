@@ -90,6 +90,7 @@ namespace USPS_Report.Areas.Reports.Models
             public int? WorkOrder_ID { get; set; }
             public string First_Name { get; set; }
             public string Last_Name { get; set; }
+            public string List_Option_text { get; set; }
             public string FullNAme
             {
                 get
@@ -269,12 +270,13 @@ namespace USPS_Report.Areas.Reports.Models
                                              Date_Returned = item.Date_Returned,
                                              Tracking_Number = item.Tracking_Number,
                                              WorkOrder_ID = item.WorkOrder_ID,
-                                             RequestDate = item.Request_Date
+                                             RequestDate = item.Request_Date,
+                                             List_Option_text = item.List_Option_text
                                          }
                                ).ToList();
                 }
                 DateTime dt = DateTime.Today.AddMonths(-12);
-                lstReturnItesData = lstReturnItesData.Where(x => x.Date_Returned > dt).ToList();
+                lstReturnItesData = lstReturnItesData.Where(x => x.RequestDate > dt).ToList();
                 return lstReturnItesData;
             }
             catch (Exception ex)

@@ -64,7 +64,9 @@
                                     <th style="width:7%">Created By</th>
                                     <th style="width:8%">Released By</th>
                                     <th style="width:8%">Cancelled By</th>
-                                    <th style="width:22%">Status</th>
+                                    <th style="width:8%">Shipped By</th>
+                                    <th style="width:5%">Weight</th>
+                                    <th style="width:11%">Status</th>
                                     <th style="width:10%">Tracking #'s</th>
                                     <th style="width:21%">History</th>
                                     @if (Model.IsAccess == true)
@@ -75,7 +77,7 @@
                                     {
                                         <th style="width:4%"></th>
                                     }
-
+                                   
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,6 +89,8 @@
                                     <td>@rec.CreatedBy</td>
                                     <td>@rec.ReleasedBy</td>
                                     <td>@rec.CancelledBy</td>
+                                    <td>@rec.ShippedBy</td>
+                                    <td>@rec.Weight</td>
                                     @if (@rec.Status.Contains("Cancelled"))
                                     {
                                         <td style="background-color:#FF9966">@MvcHtmlString.Create(@rec.Status.Replace(Environment.NewLine, "<br />"))</td>
@@ -117,6 +121,7 @@
                                         }
                                     </td>
                                     <td>@MvcHtmlString.Create(@rec.History.Replace(Environment.NewLine, "<br />"))</td>
+                                  
                                     @if (Model.IsAccess == true)
                                     {
                                         <td>

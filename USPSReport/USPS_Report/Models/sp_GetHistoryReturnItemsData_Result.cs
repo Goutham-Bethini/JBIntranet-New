@@ -25,5 +25,6 @@ namespace USPS_Report.Models
         public string Tracking_Number { get; set; }
         public Nullable<System.DateTime> Request_Date { get; set; }
         public Nullable<int> WorkOrder_ID { get; set; }
+        public string List_Option_text { get; set; }
     }
 }

@@ -22,6 +22,21 @@
                         <br />
                         <!-- /.card-header -->
                         <div class="card-body justify-content-center align-items-center">
+                            <table border="0" cellspacing="5" cellpadding="5">
+                                <tbody>
+                                    <tr>
+                                        <td>From Date:</td>
+                                        <td>@Html.TextBox("min", "", new { @class = "min", @readonly = "readonly" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td>To Date:</td>
+                                        <td>@Html.TextBox("max", "", new { @class = "max", @readonly = "readonly" })</td>
+                                        <td><button id="btnGo" type="button">Go</button></td>
+                                        <td><button id="btnClearDates" type="button">Clear Dates</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br />
                             <table id="ReturnHistoryTable" class="table table-hover">
                                 <thead>
                                     <tr>
@@ -49,6 +64,7 @@
                                         <th>
                                             <b>ReturnNote</b>
                                         </th>
+                                        <th><b>D.O.S</b></th>
                                         <th>
                                             <b>DateReturned</b>
                                         </th>
@@ -56,7 +72,7 @@
                                             <b>Tracking#</b>
                                         </th>
                                         <th>
-                                            <b>D.O.S</b>
+                                            <b>Reason Returned</b>
                                         </th>
                                     </tr>
                                 </thead>
@@ -82,9 +98,10 @@
                                             @*<td> @Html.DisplayFor(modelItem => item.PhNum)  </td>*@
                                             <td> @Html.DisplayFor(modelItem => item.TagType) </td>
                                             <td> @Html.DisplayFor(modelItem => item.Return_Note)  </td>
+                                            <td> @Html.DisplayFor(modelItem => item.RequestDate) </td>
                                             <td> @Html.DisplayFor(modelItem => item.Date_Returned) </td>
                                             <td> @Html.DisplayFor(modelItem => item.Tracking_Number) </td>
-                                            <td> @Html.DisplayFor(modelItem => item.RequestDate) </td>
+                                            <td> @Html.DisplayFor(modelItem => item.List_Option_text) </td>
                                         </tr>
                                     }
                                 </tbody>
@@ -105,7 +122,8 @@
 
 
 <!-- jQuery -->
-
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="~/Scripts/moment.js"></script>
 
 <script>
     //$(document).ready(function () {
@@ -129,13 +147,132 @@
     //})
 
     $(document).ready(function () {
-        $('#ReturnHistoryTable').DataTable({
-            //dom: 'Blfrtip',
-            //buttons: [
-            //     'excel'
-            //]
+        var table = $('#ReturnHistoryTable').DataTable({
+            "autoWidth": false,
+            "lengthChange": false,
+            "pageLength": 20,
+            dom: 'Blfrtip',
+            buttons: [
+                 'excel'
+            ],
+            "drawCallback": function (settings) {
+                console.log("DataTables has redrawn the table");
+                var selected = this.api().rows({ page: 'current', selected: true }).count();
+                var all = this.api().rows({ page: 'current' }).count();
+
+                if (selected > 0 && selected === all) {
+                    $('#ReturnHistoryTable thead tr').addClass('checked');
+                }
+                else {
+                    $('#ReturnHistoryTable thead tr').removeClass('checked');
+                }
+
+            },
+            order: [1],
+            columnDefs: [
+
+                 {
+                     "orderable": false,
+                     "targets": 0
+                 },
+              {
+                  targets: [7],
+                  type: 'date'
+              }
+            ],
+            select: {
+                select: true,
+                style: 'multi',
+                // Restricting Selection
+                selector: 'tr>td:nth-child(1)'
+            },
+
+
         });
+
+        $('#ReturnHistoryTable').on('click', 'td.checkbox-control', function () {
+            $(this).parent().toggleClass('checked');
+        });
+
+
+
+
+        $('#ReturnHistoryTable').on('click', 'th.checkbox-control', function () {
+
+            $(this).parent().toggleClass('checked');
+
+            if ($(this).parent().is(".checked")) {
+                table.rows({ page: 'current' }).select();
+            } else {
+                table.rows({ page: 'current' }).deselect();
+            }
+
+            table.rows({ selected: true }).every(function () {
+                $(this.node()).addClass('checked');
+            });
+
+            table.rows({ selected: false }).every(function () {
+                $(this.node()).removeClass('checked');
+            });
+
+        });
+
+        $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+        var valid = true;
+        var min = moment($("#min").val());
+        if (!min.isValid()) { min = null; }
+        console.log(min);
+
+        var max = moment($("#max").val());
+        if (!max.isValid()) { max = null; }
+
+        if (min === null && max === null) {
+            // no filter applied or no date columns
+            valid = true;
+        }
+        else {
+
+            $.each(settings.aoColumns, function (i, col) {
+
+                if (col.type == "date") {
+                    if (col.sTitle == "<b>D.O.S</b>") {
+
+                        var cDate = moment(data[i], 'MM/DD/YYYY');
+                        console.log(cDate);
+
+                        if (cDate.isValid()) {
+                            if (max !== null && max.isBefore(cDate)) {
+                                valid = false;
+                            }
+                            if (min !== null && cDate.isBefore(min)) {
+                                valid = false;
+                            }
+                        }
+                        else {
+                            valid = false;
+                        }
+                    }
+                }
+            });
+        }
+        return valid;
+    });
     });
 
+    $("#btnGo").click(function () {
+        $('#ReturnHistoryTable').DataTable().draw();
+    });
+
+    $(function () {
+        $('.min').datepicker();
+        $('.max').datepicker();
+    });
+
+    $("#btnClearDates").click(function () {
+        $('#min').val('');
+        $('#max').val('');
+        $('#ReturnHistoryTable').DataTable().draw();
+    });
 
 </script>
