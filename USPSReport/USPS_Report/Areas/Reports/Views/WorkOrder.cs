@@ -371,7 +371,7 @@ namespace USPS_Report.Areas.Reports.Models
                     conn.Open();
                     using (OleDbCommand cmd = new OleDbCommand(Query, conn))
                     {
-                       Weight = cmd.ExecuteScalar() != null ? (decimal)cmd.ExecuteScalar() : 0.0m;
+                       Weight = cmd.ExecuteScalar() != null  ? string.IsNullOrEmpty(cmd.ExecuteScalar().ToString()) ? 0.0m : (decimal)cmd.ExecuteScalar() : 0.0m;
                     }
                 }
                 return Weight;

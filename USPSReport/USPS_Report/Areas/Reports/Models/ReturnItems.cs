@@ -91,6 +91,7 @@ namespace USPS_Report.Areas.Reports.Models
             public string First_Name { get; set; }
             public string Last_Name { get; set; }
             public string List_Option_text { get; set; }
+            public string ProductCode { get; set; }
             public string FullNAme
             {
                 get
@@ -228,7 +229,30 @@ namespace USPS_Report.Areas.Reports.Models
                     {
                         foreach (var item in this.WorkOrderItems)
                         {
-                            result += item.ProductCode + "   ";
+                            if (item.Need)
+                            {
+                                result += item.ProductCode + "   ";
+                            }  
+                        }
+                    }
+                    return result;
+                }
+            }
+            public string QtyReturned
+            {
+                get
+                {
+                    string result = "";
+                    if (this.WorkOrderItems.Count() > 0)
+                    {
+                        foreach (var item in this.WorkOrderItems)
+                        {
+                            if (item.Need)
+                            {
+                                int QtyReturned = item.QtyReturned ?? 0;
+                                result += QtyReturned.ToString() + "-" + item.ProductCode + "   ";
+                            }
+                                
                         }
                     }
                     return result;
@@ -271,7 +295,8 @@ namespace USPS_Report.Areas.Reports.Models
                                              Tracking_Number = item.Tracking_Number,
                                              WorkOrder_ID = item.WorkOrder_ID,
                                              RequestDate = item.Request_Date,
-                                             List_Option_text = item.List_Option_text
+                                             List_Option_text = item.List_Option_text,
+                                             ProductCode = item.ProductCode
                                          }
                                ).ToList();
                 }
@@ -345,7 +370,22 @@ namespace USPS_Report.Areas.Reports.Models
                 }
                 else if(!string.IsNullOrEmpty(returnItemsVM.WorkOrder))
                 {
-
+                    lstAccounts = (from item in _db.Database.SqlQuery<sp_GetSearchAccounts_Result>("exec sp_GetSearchAccountsByWO @WO,@firstName,@lastName,@address1,@address2,@city,@state,@zipCode", new SqlParameter("WO", Convert.ToInt32(returnItemsVM.WorkOrder)), new SqlParameter("firstName", returnItemsVM.FirstName.GetDBNullOrValue()), new SqlParameter("lastName", returnItemsVM.LastName.GetDBNullOrValue()), new SqlParameter("address1", returnItemsVM.Address1.GetDBNullOrValue()), new SqlParameter("address2", returnItemsVM.Address2.GetDBNullOrValue()), new SqlParameter("city", returnItemsVM.City.GetDBNullOrValue()), new SqlParameter("state", returnItemsVM.State.GetDBNullOrValue()), new SqlParameter("zipCode", returnItemsVM.ZipCode.GetDBNullOrValue())).ToList<sp_GetSearchAccounts_Result>()
+                                       //lstAccounts = (from item in _db.sp_GetSearchAccounts(Convert.ToInt32(returnItemsVM.Account), returnItemsVM.FirstName, returnItemsVM.LastName, returnItemsVM.Address1, returnItemsVM.Address2, returnItemsVM.City, returnItemsVM.State, returnItemsVM.ZipCode)
+                                   select new AccountData
+                                   {
+                                       Account = item.account.ToString(),
+                                       LastName = item.last_name,
+                                       FirstName = item.first_name,
+                                       Middle = item.middle,
+                                       Address1 = item.address_1,
+                                       Address2 = item.address_2,
+                                       City = item.city,
+                                       State = item.state,
+                                       ZipCode = item.zip,
+                                       Phone = item.phone
+                                   }
+                           ).ToList();
                 }
            }
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
@@ -354,14 +394,14 @@ namespace USPS_Report.Areas.Reports.Models
             }
             return lstAccounts;
         }
-        public static IList<WorkOrder> GetWorkOrders(ReturnItemsVM returnItemsVM)
+        public static IList<WorkOrder> GetWorkOrders(string selectedItem,string type)
         {
             List<WorkOrderDB> lstWorkOrdersDB = new List<WorkOrderDB>();
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
             {
-                if (!string.IsNullOrEmpty(returnItemsVM.Account))
+                if (type == "ACCOUNT")
                 {
-                    lstWorkOrdersDB = (from item in _db.Database.SqlQuery<sp_GetWorkOrders_Result>("exec sp_GetWorkOrders @account", new SqlParameter("account", Convert.ToInt32(returnItemsVM.Account))).ToList<sp_GetWorkOrders_Result>()
+                    lstWorkOrdersDB = (from item in _db.Database.SqlQuery<sp_GetWorkOrders_Result>("exec sp_GetWorkOrders @account", new SqlParameter("account", Convert.ToInt32(selectedItem))).ToList<sp_GetWorkOrders_Result>()
                                            //lstWorkOrdersDB = (from item in _db.sp_GetWorkOrders(Convert.ToInt32(selectedAccount))
                                        select new WorkOrderDB
                                        {
@@ -378,9 +418,9 @@ namespace USPS_Report.Areas.Reports.Models
                     DateTime dt = DateTime.Today.AddMonths(-6);
                     lstWorkOrdersDB = lstWorkOrdersDB.Where(x => x.RequestDate >= dt).ToList();
                 }
-                if (!string.IsNullOrEmpty(returnItemsVM.WorkOrder))
+                if (type == "WO")
                 {
-                    lstWorkOrdersDB = (from item in _db.Database.SqlQuery<sp_GetWorkOrders_Result>("exec sp_GetWorkOrdersBByWo @WO", new SqlParameter("WO", Convert.ToInt32(returnItemsVM.WorkOrder))).ToList<sp_GetWorkOrders_Result>()
+                    lstWorkOrdersDB = (from item in _db.Database.SqlQuery<sp_GetWorkOrders_Result>("exec sp_GetWorkOrdersBByWo @WO", new SqlParameter("WO", Convert.ToInt32(selectedItem))).ToList<sp_GetWorkOrders_Result>()
                                            //lstWorkOrdersDB = (from item in _db.sp_GetWorkOrders(Convert.ToInt32(selectedAccount))
                                        select new WorkOrderDB
                                        {
@@ -395,7 +435,7 @@ namespace USPS_Report.Areas.Reports.Models
                                        }
                                    ).ToList();
                 }
-                
+
             }
             List<WorkOrder> lstWorkOrders = new List<WorkOrder>();            
             var distinctWOs = lstWorkOrdersDB.Select(m => new { m.WorkOrder_ID, m.RequestDate,m.Account }).Distinct().ToList();
@@ -630,15 +670,19 @@ namespace USPS_Report.Areas.Reports.Models
             }
 
         }
-        public static void InsertAccountNote(int account, string userName, int workOrder_ID,string note,int reason__List_Option_ID,string return_Other_Reason,string tracking_Number,int? OracleRMA, DateTime? DateReturned,string ProductCode)
+        public static void InsertAccountNote(int account, string userName, int workOrder_ID,string note,int reason__List_Option_ID,string return_Other_Reason,string tracking_Number,int? OracleRMA, DateTime? DateReturned,string ProductCode, string QtyReturned)
         {
             string DateReturnedString = Convert.ToDateTime(DateReturned).ToShortDateString();
             string OracleRMAString = OracleRMA.ToString();
             string workOrder_IDstring = workOrder_ID.ToString();
-            string NoteText = "Return for workorder " + workOrder_IDstring + " modified by web user. ";
+            string NoteText = "Return for workorder " + workOrder_IDstring + ". ";
             if (!string.IsNullOrEmpty(ProductCode))
             {
                 NoteText += Environment.NewLine + "Returned Products: " + ProductCode.Trim() + ", ";
+            }
+            if (!string.IsNullOrEmpty(QtyReturned))
+            {
+                NoteText += Environment.NewLine + "Qty Returned: " + QtyReturned.Trim() + ", ";
             }
             if (!string.IsNullOrEmpty(OracleRMAString))
             {
@@ -706,7 +750,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         }
 
-        public static void InsertAccountNoteCallTag(int account, string userName, int workOrder_ID, string note, int reason__List_Option_ID, string return_Other_Reason, string tracking_Number, int? OracleRMA,DateTime? ScheduledFor,string ProductCode)
+        public static void InsertAccountNoteCallTag(int account, string userName, int workOrder_ID, string note, int reason__List_Option_ID, string return_Other_Reason, string tracking_Number, int? OracleRMA,DateTime? ScheduledFor,string ProductCode, string QtyReturned)
         {
            
             string ScheduledForString = "";
@@ -716,10 +760,14 @@ namespace USPS_Report.Areas.Reports.Models
             }
             string OracleRMAString = OracleRMA.ToString();
             string workOrder_IDstring = workOrder_ID.ToString();
-            string NoteText = "Return for workorder " + workOrder_IDstring + " modified by web user. ";
+            string NoteText = "Return for workorder " + workOrder_IDstring + ". ";
             if (!string.IsNullOrEmpty(ProductCode))
             {
                 NoteText += Environment.NewLine + "Returned Products: " + ProductCode.Trim() + ", ";
+            }
+            if (!string.IsNullOrEmpty(QtyReturned))
+            {
+                NoteText += Environment.NewLine + "Qty Returned: " + QtyReturned.Trim() + ", ";
             }
             if (!string.IsNullOrEmpty(OracleRMAString))
             {
