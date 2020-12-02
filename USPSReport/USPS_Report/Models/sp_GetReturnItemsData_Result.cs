@@ -25,5 +25,6 @@ namespace USPS_Report.Models
         public int ID { get; set; }
         public string List_Option_text { get; set; }
         public Nullable<System.DateTime> LastPrintDate { get; set; }
+        public string Tracking_Number { get; set; }
     }
 }

@@ -133,6 +133,7 @@
                                 <th>Phone #</th>
                                 <th>Tag_type</th>
                                 <th>D.O.S</th>
+                                <th>Tracking #</th>
                                 <th>Reason Returned</th>
                                 <th>Scheduled For</th>
                                 <th>Ship Date</th>
@@ -149,10 +150,11 @@
                                     <td>@Html.ActionLink(@rec.First_Name + " " + @rec.Last_Name, "ReturnInfo", "ReturnItems", new { returnId = @rec.ReturnId.ToString() }, null) </td>                                   
                                     <td> @rec.PhNum </td>
                                     <td>@rec.TagType </td>
-                                    <td>@rec.RequestDate </td>
+                                    <td>@Html.DisplayFor(m => @rec.RequestDate) </td>
+                                    <td>@rec.Tracking_Number</td>
                                     <td> @rec.List_Option_text </td>
-                                    <td>@rec.ScheduledFor </td>
-                                    <td>@rec.LastPrintDate </td>
+                                    <td>@Html.DisplayFor(m => @rec.ScheduledFor) </td>
+                                    <td>@Html.DisplayFor(m => @rec.LastPrintDate) </td>
                                 </tr>
                             }
                         </tbody>

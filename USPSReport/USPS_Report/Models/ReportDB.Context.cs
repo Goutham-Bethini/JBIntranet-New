@@ -614,9 +614,9 @@ namespace USPS_Report.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItem_Result>("sp_GetReturnItemsData_Result2");
         }
     
-        public virtual int sp_GetReturnItemsData_Result()
+        public virtual ObjectResult<sp_GetReturnItemsData_Result> sp_GetReturnItemsData_Result()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_GetReturnItemsData_Result");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItemsData_Result>("sp_GetReturnItemsData_Result");
         }
     }
 }

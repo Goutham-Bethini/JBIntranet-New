@@ -164,14 +164,15 @@ namespace USPS_Report.Areas.Reports.Controllers
             
 
                 bool cancel = false;
-
+                string Reason = _vm.Reason;
 
                 //Cancel the order in HDMS and send an email to Shipping Team if CancelFlag is 2 
-                if (_vm.Reason.Contains("OTHER"))
+            if (_vm.Reason.Contains("OTHER"))
                 {
-                    _vm.Reason = _vm.OtherReason;
+                Reason = _vm.OtherReason;
+                //_vm.Reason = _vm.OtherReason;
                 }
-                cancel = ReportWorkOrder.CancelOrderHTMS(_vm.ID, _vm.Reason);
+                cancel = ReportWorkOrder.CancelOrderHTMS(_vm.ID, Reason);
 
 
                 Int32 count = 0;
@@ -234,7 +235,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                 //  int? ID = _vm.ID;
                 _vm.Account = _vm.ID;
             
-            return RedirectToAction("woReports", new { ID = _vm.ID, reason = _vm.Reason });
+            return RedirectToAction("woReports", new { ID = _vm.ID, reason = Reason });
 
         
         }

@@ -76,10 +76,14 @@ namespace USPS_Report.Areas.Reports.Models
             public string Last_Name { get; set; }
             public string PhNum { get; set; }
             public string TagType { get; set; }
+            [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
             public DateTime? RequestDate { get; set; }
+            [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
             public DateTime? ScheduledFor { get; set; }
             public string List_Option_text { get; set; }
+            [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
             public DateTime? LastPrintDate { get; set; }
+            public string Tracking_Number { get; set; }
 
         }
         public class HistoryItemsData
@@ -116,9 +120,11 @@ namespace USPS_Report.Areas.Reports.Models
             }
             public string PhNum { get; set; }
             public string TagType { get; set; }
+            [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
             public DateTime? RequestDate { get; set; }
             public string Return_Note { get; set; }
             public string Tracking_Number { get; set; }
+            [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
             public DateTime? Date_Returned { get; set; }
         }
         public class WorkOrderProduct
@@ -331,7 +337,8 @@ namespace USPS_Report.Areas.Reports.Models
                                              ScheduledFor = item.PickUpDate,
                                              woID = item.ID,
                                              LastPrintDate = item.LastPrintDate,
-                                             List_Option_text = item.List_Option_text
+                                             List_Option_text = item.List_Option_text,
+                                             Tracking_Number = item.Tracking_Number
                                          }
                                ).ToList();
                 }

@@ -442,7 +442,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="returnId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetReturnItemsData_Result2" ReturnType="Collection(ReportsModel.sp_GetReturnItem_Result)" />
-          <FunctionImport Name="sp_GetReturnItemsData_Result" />
+          <FunctionImport Name="sp_GetReturnItemsData_Result" ReturnType="Collection(ReportsModel.sp_GetReturnItemsData_Result)" />
         </EntityContainer>
         <EntityType Name="FedEx_POD_tbl">
           <Key>
@@ -721,6 +721,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="List_Option_text" Nullable="true" MaxLength="100" />
           <Property Type="DateTime" Name="LastPrintDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Tracking_Number" Nullable="true" MaxLength="500" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1078,6 +1079,23 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_GetReturnItemsData_Result" FunctionName="ReportsModel.Store.sp_GetReturnItemsData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.sp_GetReturnItemsData_Result">
+                <ScalarProperty Name="Return_ID" ColumnName="Return_ID" />
+                <ScalarProperty Name="OracleRMA" ColumnName="OracleRMA" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Tag_Type" ColumnName="Tag_Type" />
+                <ScalarProperty Name="Request_Date" ColumnName="Request_Date" />
+                <ScalarProperty Name="PickUpDate" ColumnName="PickUpDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="List_Option_text" ColumnName="List_Option_text" />
+                <ScalarProperty Name="LastPrintDate" ColumnName="LastPrintDate" />
+                <ScalarProperty Name="Tracking_Number" ColumnName="Tracking_Number" />
+              </ComplexTypeMapping>
+            </ResultMapping>
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
