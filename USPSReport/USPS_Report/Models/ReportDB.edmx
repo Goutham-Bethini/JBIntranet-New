@@ -626,6 +626,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="String" Name="last_name" Nullable="true" MaxLength="60" />
           <Property Type="DateTime" Name="Request_Date" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="PickUpDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ReshippedAtCost" Nullable="true" MaxLength="3" />
         </ComplexType>
         <ComplexType Name="sp_GetReturnLineItems_Result">
           <Property Type="Int32" Name="Return_Line_ID" Nullable="false" />
@@ -1050,6 +1051,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="Request_Date" ColumnName="Request_Date" />
                 <ScalarProperty Name="PickUpDate" ColumnName="PickUpDate" />
+                <ScalarProperty Name="ReshippedAtCost" ColumnName="ReshippedAtCost" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -118,11 +118,26 @@
             </td>
         </tr>
         <tr>
-            <td>Reshipped?</td>
             <td>
+                @Html.Label("Reshipped?")
                 @Html.RadioButtonFor(m => m.Reshipped, "Yes")<label>Yes</label>
                 @Html.RadioButtonFor(m => m.Reshipped, "No")<label>No</label>
             </td>
+            <td>
+                @Html.Label("At Cost?")
+                @Html.RadioButtonFor(m => m.ReshippedAtCost, "Yes")<label>Yes</label>
+                @Html.RadioButtonFor(m => m.ReshippedAtCost, "No")<label>No</label>
+            </td>
+            @*<td>Reshipped?</td>
+    <td colspan="3">
+        @Html.RadioButtonFor(m => m.Reshipped, "Yes")<label>Yes</label>
+        @Html.RadioButtonFor(m => m.Reshipped, "No")<label>No</label>
+    </td>
+    <td>At Cost? </td>
+    <td>
+        @Html.RadioButtonFor(m => m.ReshippedAtCost, "Yes")<label>Yes</label>
+        @Html.RadioButtonFor(m => m.ReshippedAtCost, "No")<label>No</label>
+    </td>*@
         </tr>
         <tr>
             <td>

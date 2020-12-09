@@ -187,6 +187,7 @@ namespace USPS_Report.Areas.Reports.Models
             public int? Account { get; set; }
             public int? Account_Member { get; set; }
             public string Reshipped { get; set; }
+            public string ReshippedAtCost { get; set; }
             public string Tag_Type { get; set; }
             public int? OracleRMA { get; set; }
             public string Return_Note { get; set; }            
@@ -209,6 +210,7 @@ namespace USPS_Report.Areas.Reports.Models
             public int? Account { get; set; }
             public int? Account_Member { get; set; }
             public string Reshipped { get; set; }
+            public string ReshippedAtCost { get; set; }
             public string Tag_Type { get; set; }
             public int? OracleRMA { get; set; }
             public string Return_Note { get; set; }
@@ -549,7 +551,8 @@ namespace USPS_Report.Areas.Reports.Models
                                               FirstName = item.first_name,
                                               LastName = item.last_name,
                                               RequestDate = item.Request_Date,
-                                              ScheduledFor = item.PickUpDate
+                                              ScheduledFor = item.PickUpDate,
+                                              ReshippedAtCost = item.ReshippedAtCost
                                           }
                                        ).FirstOrDefault();
                 }
@@ -608,27 +611,27 @@ namespace USPS_Report.Areas.Reports.Models
             }
             return lstWorkOrders.FirstOrDefault();
         }
-        public static void UpdateReturn(int return_ID,string reshipped,string tag_Type,int? oracleRMA,string return_Note,int? reason__List_Option_ID,string return_Other_Reason,DateTime? date_Returned,string tracking_Number,short? send_To_Billing,short? dont_Display,int? boxes_Returned, DateTime? ScheduledFor)
+        public static void UpdateReturn(int return_ID,string reshipped,string tag_Type,int? oracleRMA,string return_Note,int? reason__List_Option_ID,string return_Other_Reason,DateTime? date_Returned,string tracking_Number,short? send_To_Billing,short? dont_Display,int? boxes_Returned, DateTime? ScheduledFor, string reshippedAtCost)
         {
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
             {
-                _db.Database.ExecuteSqlCommand("sp_UpdateReturn @return_ID,@reshipped,@tracking_Number,@return_Note,@tag_Type,@reason__List_option_ID,@return_Other_Reason,@boxesReturned,@dateRtrn,@send_To_Billing,@dont_Display,@oracleRMA,@PickUpDate",
+                _db.Database.ExecuteSqlCommand("sp_UpdateReturn @return_ID,@reshipped,@tracking_Number,@return_Note,@tag_Type,@reason__List_option_ID,@return_Other_Reason,@boxesReturned,@dateRtrn,@send_To_Billing,@dont_Display,@oracleRMA,@PickUpDate,@reshippedAtCost",
                     new SqlParameter("return_ID", return_ID), new SqlParameter("reshipped", reshipped.GetDBNullOrValue()) , new SqlParameter("tracking_Number", tracking_Number.GetDBNullOrValue()) , new SqlParameter("return_Note", return_Note.GetDBNullOrValue()) ,
                     new SqlParameter("tag_Type", tag_Type.GetDBNullOrValue()) , new SqlParameter("reason__List_option_ID", reason__List_Option_ID.GetDBNullOrValue()) , new SqlParameter("return_Other_Reason", return_Other_Reason.GetDBNullOrValue()) ,
                     new SqlParameter("boxesReturned", boxes_Returned.GetDBNullOrValue()) , new SqlParameter("dateRtrn", date_Returned.GetDBNullOrValue()) , new SqlParameter("send_To_Billing", send_To_Billing.GetDBNullOrValue()) ,
-                    new SqlParameter("dont_Display", dont_Display.GetDBNullOrValue()) , new SqlParameter("oracleRMA", oracleRMA.GetDBNullOrValue()), new SqlParameter("PickUpDate", ScheduledFor.GetDBNullOrValue()));
+                    new SqlParameter("dont_Display", dont_Display.GetDBNullOrValue()) , new SqlParameter("oracleRMA", oracleRMA.GetDBNullOrValue()), new SqlParameter("PickUpDate", ScheduledFor.GetDBNullOrValue()), new SqlParameter("reshippedAtCost", reshippedAtCost.GetDBNullOrValue()));
                 //_db.sp_UpdateReturn(return_ID, reshipped, tracking_Number, return_Note, tag_Type, reason__List_Option_ID, return_Other_Reason, boxes_Returned, date_Returned, send_To_Billing, dont_Display, oracleRMA);
             }
                
         }
-        public static void InsertReturn(int? account, int? workOrder_ID, string reshipped, string tag_Type, int? oracleRMA, string return_Note, int? reason__List_Option_ID, string return_Other_Reason, DateTime? date_Returned, string tracking_Number, short? send_To_Billing, short? dont_Display, int? boxes_Returned, DateTime? ScheduledFor)
+        public static void InsertReturn(int? account, int? workOrder_ID, string reshipped, string tag_Type, int? oracleRMA, string return_Note, int? reason__List_Option_ID, string return_Other_Reason, DateTime? date_Returned, string tracking_Number, short? send_To_Billing, short? dont_Display, int? boxes_Returned, DateTime? ScheduledFor,string reshippedAtCost)
         {
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
             {
-                _db.Database.ExecuteSqlCommand("sp_InsertReturn @account,@workOrder_ID,@reshipped,@tracking_Number,@return_Note,@tag_Type,@reason__List_option_ID,@return_Other_Reason,@boxesReturned,@dateRtrn,@send_To_Billing,@dont_Display,@oracleRMA,@PickUpDate", 
+                _db.Database.ExecuteSqlCommand("sp_InsertReturn @account,@workOrder_ID,@reshipped,@tracking_Number,@return_Note,@tag_Type,@reason__List_option_ID,@return_Other_Reason,@boxesReturned,@dateRtrn,@send_To_Billing,@dont_Display,@oracleRMA,@PickUpDate,@reshippedAtCost", 
                     new SqlParameter("account", account.GetDBNullOrValue()) , new SqlParameter("workOrder_ID", workOrder_ID.GetDBNullOrValue()) , new SqlParameter("reshipped", reshipped.GetDBNullOrValue()) , new SqlParameter("tracking_Number", tracking_Number.GetDBNullOrValue()) , 
                     new SqlParameter("return_Note", return_Note.GetDBNullOrValue()) , new SqlParameter("tag_Type", tag_Type.GetDBNullOrValue()) , new SqlParameter("reason__List_option_ID", reason__List_Option_ID.GetDBNullOrValue()) , 
-                    new SqlParameter("return_Other_Reason", return_Other_Reason.GetDBNullOrValue()) , new SqlParameter("boxesReturned", boxes_Returned.GetDBNullOrValue()) , new SqlParameter("dateRtrn", date_Returned.GetDBNullOrValue()) , new SqlParameter("send_To_Billing", send_To_Billing.GetDBNullOrValue()) , new SqlParameter("dont_Display", dont_Display.GetDBNullOrValue()) , new SqlParameter("oracleRMA", oracleRMA.GetDBNullOrValue()), new SqlParameter("PickUpDate", ScheduledFor.GetDBNullOrValue()));
+                    new SqlParameter("return_Other_Reason", return_Other_Reason.GetDBNullOrValue()) , new SqlParameter("boxesReturned", boxes_Returned.GetDBNullOrValue()) , new SqlParameter("dateRtrn", date_Returned.GetDBNullOrValue()) , new SqlParameter("send_To_Billing", send_To_Billing.GetDBNullOrValue()) , new SqlParameter("dont_Display", dont_Display.GetDBNullOrValue()) , new SqlParameter("oracleRMA", oracleRMA.GetDBNullOrValue()), new SqlParameter("PickUpDate", ScheduledFor.GetDBNullOrValue()), new SqlParameter("reshippedAtCost", reshippedAtCost.GetDBNullOrValue()));
                 //_db.sp_InsertReturn(account,workOrder_ID,reshipped, tracking_Number, return_Note, tag_Type, reason__List_Option_ID, return_Other_Reason, boxes_Returned, date_Returned, send_To_Billing, dont_Display, oracleRMA);
             }
 
@@ -677,7 +680,7 @@ namespace USPS_Report.Areas.Reports.Models
             }
 
         }
-        public static void InsertAccountNote(int account, string userName, int workOrder_ID,string note,int reason__List_Option_ID,string return_Other_Reason,string tracking_Number,int? OracleRMA, DateTime? DateReturned,string ProductCode, string QtyReturned)
+        public static void InsertAccountNote(int account, string userName, int workOrder_ID,string note,int reason__List_Option_ID,string return_Other_Reason,string tracking_Number,int? OracleRMA, DateTime? DateReturned,string ProductCode, string QtyReturned, string ReshippedAtCost)
         {
             string DateReturnedString = Convert.ToDateTime(DateReturned).ToShortDateString();
             string OracleRMAString = OracleRMA.ToString();
@@ -711,6 +714,11 @@ namespace USPS_Report.Areas.Reports.Models
             {
                 NoteText += Environment.NewLine + "Return Date: " + DateReturnedString + ""+ Environment.NewLine ;
             }
+            if (!string.IsNullOrEmpty(ReshippedAtCost))
+            {
+                NoteText += Environment.NewLine + "ReShipped at Cost: " + ReshippedAtCost + "" + Environment.NewLine;
+            }
+            
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
             {
                 _db.Database.ExecuteSqlCommand("sp_InsertAccountNote @account,@userName,@workOrder_ID,@note,@reason__List_Option_ID,@return_Other_Reason,@tracking_Number,@OracleRMA,@NoteText", new SqlParameter("account", account.GetDBNullOrValue()), new SqlParameter("userName", userName.GetDBNullOrValue()), new SqlParameter("workOrder_ID", workOrder_ID.GetDBNullOrValue()), new SqlParameter("note", note.GetDBNullOrValue()), new SqlParameter("reason__List_Option_ID", reason__List_Option_ID.GetDBNullOrValue()), new SqlParameter("return_Other_Reason", return_Other_Reason.GetDBNullOrValue()), new SqlParameter("tracking_Number", tracking_Number.GetDBNullOrValue()), new SqlParameter("OracleRMA", OracleRMAString.GetDBNullOrValue()), new SqlParameter("NoteText", NoteText.GetDBNullOrValue()));
@@ -757,7 +765,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         }
 
-        public static void InsertAccountNoteCallTag(int account, string userName, int workOrder_ID, string note, int reason__List_Option_ID, string return_Other_Reason, string tracking_Number, int? OracleRMA,DateTime? ScheduledFor,string ProductCode, string QtyReturned)
+        public static void InsertAccountNoteCallTag(int account, string userName, int workOrder_ID, string note, int reason__List_Option_ID, string return_Other_Reason, string tracking_Number, int? OracleRMA,DateTime? ScheduledFor,string ProductCode, string QtyReturned,string ReshippedAtCost)
         {
            
             string ScheduledForString = "";
@@ -795,6 +803,10 @@ namespace USPS_Report.Areas.Reports.Models
             if (!string.IsNullOrEmpty(ScheduledForString))
             {
                 NoteText += Environment.NewLine + "Scheduled For: " + ScheduledForString + "" + Environment.NewLine;
+            }
+            if (!string.IsNullOrEmpty(ReshippedAtCost))
+            {
+                NoteText += Environment.NewLine + "ReShipped at Cost: " + ReshippedAtCost + "" + Environment.NewLine;
             }
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
             {
