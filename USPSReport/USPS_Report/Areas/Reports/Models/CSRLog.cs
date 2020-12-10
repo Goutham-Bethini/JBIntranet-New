@@ -252,15 +252,8 @@ namespace USPS_Report.Areas.Reports.Models
                     //                                 // phoneno = pt.Phone_Number
 
                     //                             }).Distinct().OrderByDescending(t => t.payerType).ToList();
-                    string Sql = @"Select ID_Payer as payerid,PayerName as payerType,1 as insOrd from v__AccountMemberEffectiveInsurance_Ins1 where Account = 7802 and  ((Expiration_Date is null or Expiration_Date > GETDATE())
-                                                and (Effective_Date is null or Effective_Date < GETDATE()))
-                                        union 
-                                        Select ID_Payer as payerid,PayerName as payerType,2 as insOrd from v__AccountMemberEffectiveInsurance_Ins2 where Account = 7802 and  ((Expiration_Date is null or Expiration_Date > GETDATE())
-                                                and (Effective_Date is null or Effective_Date < GETDATE()))
-                                        union
-                                        Select ID_Payer as payerid,PayerName as payerType,3 as insOrd from v__AccountMemberEffectiveInsurance_Ins3 where Account = 7802 and  ((Expiration_Date is null or Expiration_Date > GETDATE())
-                                                and (Effective_Date is null or Effective_Date < GETDATE()))
-                                        order by insOrd";
+                    string Sql = @"Select ID_Payer as payerid,PayerName as payerType,1 as insOrd from v__AccountMemberEffectiveInsurance_Ins1 where Account = "+Account+" and  ((Expiration_Date is null or Expiration_Date > GETDATE())"+
+                                               " and (Effective_Date is null or Effective_Date < GETDATE()))  union  Select ID_Payer as payerid,PayerName as payerType,2 as insOrd from v__AccountMemberEffectiveInsurance_Ins2 where Account = " + Account + " and  ((Expiration_Date is null or Expiration_Date > GETDATE())  and (Effective_Date is null or Effective_Date < GETDATE())) union Select ID_Payer as payerid,PayerName as payerType,3 as insOrd from v__AccountMemberEffectiveInsurance_Ins3 where Account = " + Account + " and  ((Expiration_Date is null or Expiration_Date > GETDATE()) and (Effective_Date is null or Effective_Date < GETDATE())) order by insOrd ";
                     var _list = _db.Database.SqlQuery<HDMSPayer>(Sql).ToList();
 
                   //  _list.Insert(0, pn);
