@@ -12,6 +12,7 @@ using System.Net.Mail;
 using System.ComponentModel.DataAnnotations;
 using System.Data.OleDb;
 using System.Configuration;
+using USPS_Report.Areas.ColdFusionReports.Models;
 
 namespace USPS_Report.Areas.Reports.Models
 {
@@ -269,8 +270,8 @@ namespace USPS_Report.Areas.Reports.Models
                                 HttpClient client = new HttpClient();
 
 
-                                client.BaseAddress = new Uri("http://10.10.1.49/TrackingOracle/");
-
+                                client.BaseAddress = new Uri("http://10.10.1.49/TrackingShippedBy/");
+                              //  client.BaseAddress = new Uri("http://localhost:61027/");
 
                                 var result2 = client.GetAsync("api/Values/" + item.WorkOrderID).Result;
 
@@ -315,6 +316,18 @@ namespace USPS_Report.Areas.Reports.Models
                                 item.Length = t.ConfirmationNum.Length;
                                 item.TrackingNumbers = item.TrackingNumbers + t.ConfirmationNum + ", \n";
                                 item.ShippedBy = t.FullName;
+                                if (!string.IsNullOrEmpty(item.ShippedBy))
+                                {
+                                    using (HHSQLDBEntities _hhdb = new HHSQLDBEntities())
+                                    {
+                                        string ShippedBy = _hhdb.Database.SqlQuery<string>("Select top 1 felName from FedExLogins where felID = " + item.ShippedBy + "").FirstOrDefault();
+                                        if (!string.IsNullOrEmpty(ShippedBy))
+                                        {
+                                            item.ShippedBy = ShippedBy;
+                                        }
+                                    }
+                                }
+                               
                             }
 
                             item.Cancel = 0; //no cancel button, order is already shipped
@@ -392,7 +405,7 @@ namespace USPS_Report.Areas.Reports.Models
                 HttpClient client = new HttpClient();
 
                     client.BaseAddress = new Uri("http://10.10.1.49/TrackingShippedBy/");
-                    //  client.BaseAddress = new Uri("http://localhost:61027/");
+                   //  client.BaseAddress = new Uri("http://localhost:61027/");
 
                     var result2 = client.GetAsync("api/Values/" +WorkOrderID).Result;
 
@@ -410,7 +423,20 @@ namespace USPS_Report.Areas.Reports.Models
                         }
                     }
 
-
+                foreach (var item in _trackingList)
+                {
+                    if(!string.IsNullOrEmpty(item.FullName))
+                    {
+                        using (HHSQLDBEntities _hhdb = new HHSQLDBEntities())
+                        {
+                            string FullName = _hhdb.Database.SqlQuery<string>("Select top 1 felName from FedExLogins where felID = "+ item.FullName+"").FirstOrDefault();
+                            if (!string.IsNullOrEmpty(FullName))
+                            {
+                                item.FullName = FullName;
+                            }
+                        }
+                    }
+                }
 
                     //StringBuilder sb = new StringBuilder();
 

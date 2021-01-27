@@ -135,5 +135,9 @@ namespace ReportsDatabase
         public string DeliveryStopNumber { get; set; }
         public Nullable<System.DateTime> Staged_Date { get; set; }
         public Nullable<int> ID_Staged_By { get; set; }
+        public Nullable<System.DateTime> AssignedToWhse_Date { get; set; }
+        public Nullable<int> ID_AssignedToWhse_By { get; set; }
+        public Nullable<System.DateTime> DeliveryRouteAssigned_Date { get; set; }
+        public Nullable<int> ID_DeliveryRouteAssigned_By { get; set; }
     }
 }

@@ -149,6 +149,23 @@ warning 6002: The table/view 'HHSQLDB.dbo.ExpiredProduct' does not have a primar
           <Property Name="RemovedBy" Type="varchar" MaxLength="50" />
           <Property Name="ID_Product" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HHSQLDB.dbo.FedExLogins' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="FedExLogins">
+          <Key>
+            <PropertyRef Name="felID" />
+          </Key>
+          <Property Name="felID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="felName" Type="varchar" MaxLength="100" />
+          <Property Name="felUser" Type="varchar" MaxLength="30" />
+          <Property Name="felPass" Type="varchar" MaxLength="30" />
+          <Property Name="felUpdated" Type="datetime" />
+          <Property Name="felUpdatedBy" Type="varchar" MaxLength="30" />
+          <Property Name="felDeleted" Type="datetime" />
+          <Property Name="felDeletedBy" Type="varchar" MaxLength="30" />
+          <Property Name="felAdded" Type="datetime" />
+          <Property Name="felAddedBy" Type="varchar" MaxLength="30" />
+        </EntityType>
         <EntityType Name="JBCCServicePayers">
           <Key>
             <PropertyRef Name="PayerID" />
@@ -2019,6 +2036,10 @@ warning 6002: The table/view 'HHSQLDB.dbo.QuantityOnHand' does not have a primar
           <Property Name="DeliveryStopNumber" Type="varchar" MaxLength="12" />
           <Property Name="Staged_Date" Type="datetime" />
           <Property Name="ID_Staged_By" Type="int" />
+          <Property Name="AssignedToWhse_Date" Type="datetime" />
+          <Property Name="ID_AssignedToWhse_By" Type="int" />
+          <Property Name="DeliveryRouteAssigned_Date" Type="datetime" />
+          <Property Name="ID_DeliveryRouteAssigned_By" Type="int" />
         </EntityType>
         <EntityType Name="tbl_PS_WorkOrderLine">
           <Key>
@@ -2627,6 +2648,20 @@ warning 6002: The table/view 'HHSQLDB.dbo.v_Rejection_Report' does not have a pr
     [ExpiredProduct].[ID_Product] AS [ID_Product]
     FROM [dbo].[ExpiredProduct] AS [ExpiredProduct]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="FedExLogins" EntityType="Self.FedExLogins" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FedExLogins].[felID] AS [felID], 
+    [FedExLogins].[felName] AS [felName], 
+    [FedExLogins].[felUser] AS [felUser], 
+    [FedExLogins].[felPass] AS [felPass], 
+    [FedExLogins].[felUpdated] AS [felUpdated], 
+    [FedExLogins].[felUpdatedBy] AS [felUpdatedBy], 
+    [FedExLogins].[felDeleted] AS [felDeleted], 
+    [FedExLogins].[felDeletedBy] AS [felDeletedBy], 
+    [FedExLogins].[felAdded] AS [felAdded], 
+    [FedExLogins].[felAddedBy] AS [felAddedBy]
+    FROM [dbo].[FedExLogins] AS [FedExLogins]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="QuantityOnHand" EntityType="Self.QuantityOnHand" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [QuantityOnHand].[ID] AS [ID], 
@@ -2845,6 +2880,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.v_Rejection_Report' does not have a pr
           <EntitySet Name="tbl_Account_Member" EntityType="HHSQLDBModel.tbl_Account_Member" />
           <EntitySet Name="tbl_Account_Information" EntityType="HHSQLDBModel.tbl_Account_Information" />
           <EntitySet Name="tbl_Product_Table" EntityType="HHSQLDBModel.tbl_Product_Table" />
+          <EntitySet Name="FedExLogins" EntityType="HHSQLDBModel.FedExLogins" />
         </EntityContainer>
         <EntityType Name="JBCCServiceProductLine">
           <Key>
@@ -4471,6 +4507,10 @@ warning 6002: The table/view 'HHSQLDB.dbo.v_Rejection_Report' does not have a pr
           <Property Name="DeliveryStopNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="Staged_Date" Type="DateTime" Precision="3" />
           <Property Name="ID_Staged_By" Type="Int32" />
+          <Property Name="AssignedToWhse_Date" Type="DateTime" Precision="3" />
+          <Property Name="ID_AssignedToWhse_By" Type="Int32" />
+          <Property Name="DeliveryRouteAssigned_Date" Type="DateTime" Precision="3" />
+          <Property Name="ID_DeliveryRouteAssigned_By" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_Allowable_Amounts">
           <Key>
@@ -5274,6 +5314,21 @@ warning 6002: The table/view 'HHSQLDB.dbo.v_Rejection_Report' does not have a pr
           <Property Name="D_mMolPerML" Type="Double" />
           <Property Name="D_mgPerML" Type="Double" />
           <Property Name="NonbillableItem" Type="Int16" />
+        </EntityType>
+        <EntityType Name="FedExLogins">
+          <Key>
+            <PropertyRef Name="felID" />
+          </Key>
+          <Property Name="felID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="felName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="felUser" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="felPass" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="felUpdated" Type="DateTime" Precision="3" />
+          <Property Name="felUpdatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="felDeleted" Type="DateTime" Precision="3" />
+          <Property Name="felDeletedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="felAdded" Type="DateTime" Precision="3" />
+          <Property Name="felAddedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -6772,6 +6827,10 @@ warning 6002: The table/view 'HHSQLDB.dbo.v_Rejection_Report' does not have a pr
           <EntitySetMapping Name="tbl_PS_WorkOrder">
             <EntityTypeMapping TypeName="HHSQLDBModel.tbl_PS_WorkOrder">
               <MappingFragment StoreEntitySet="tbl_PS_WorkOrder">
+                <ScalarProperty Name="ID_DeliveryRouteAssigned_By" ColumnName="ID_DeliveryRouteAssigned_By" />
+                <ScalarProperty Name="DeliveryRouteAssigned_Date" ColumnName="DeliveryRouteAssigned_Date" />
+                <ScalarProperty Name="ID_AssignedToWhse_By" ColumnName="ID_AssignedToWhse_By" />
+                <ScalarProperty Name="AssignedToWhse_Date" ColumnName="AssignedToWhse_Date" />
                 <ScalarProperty Name="ID_Staged_By" ColumnName="ID_Staged_By" />
                 <ScalarProperty Name="Staged_Date" ColumnName="Staged_Date" />
                 <ScalarProperty Name="DeliveryStopNumber" ColumnName="DeliveryStopNumber" />
@@ -7699,6 +7758,22 @@ warning 6002: The table/view 'HHSQLDB.dbo.v_Rejection_Report' does not have a pr
                 <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
                 <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FedExLogins">
+            <EntityTypeMapping TypeName="HHSQLDBModel.FedExLogins">
+              <MappingFragment StoreEntitySet="FedExLogins">
+                <ScalarProperty Name="felAddedBy" ColumnName="felAddedBy" />
+                <ScalarProperty Name="felAdded" ColumnName="felAdded" />
+                <ScalarProperty Name="felDeletedBy" ColumnName="felDeletedBy" />
+                <ScalarProperty Name="felDeleted" ColumnName="felDeleted" />
+                <ScalarProperty Name="felUpdatedBy" ColumnName="felUpdatedBy" />
+                <ScalarProperty Name="felUpdated" ColumnName="felUpdated" />
+                <ScalarProperty Name="felPass" ColumnName="felPass" />
+                <ScalarProperty Name="felUser" ColumnName="felUser" />
+                <ScalarProperty Name="felName" ColumnName="felName" />
+                <ScalarProperty Name="felID" ColumnName="felID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
