@@ -244,8 +244,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                 {
                     if (!ReturnItems.DoesReturnExist(returnItemsInfoVM.WorkOrder_ID.Value))
                     {
-                        ReturnItems.InsertReturn(returnItemsInfoVM.Account, returnItemsInfoVM.WorkOrder_ID, returnItemsInfoVM.Reshipped, returnItemsInfoVM.Tag_Type, returnItemsInfoVM.OracleRMA, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Date_Returned, returnItemsInfoVM.Tracking_Number, Convert.ToInt16(returnItemsInfoVM.Send_To_Billing), Convert.ToInt16(returnItemsInfoVM.Dont_Display), returnItemsInfoVM.Boxes_Returned, returnItemsInfoVM.ScheduledFor, returnItemsInfoVM.ReshippedAtCost);
-                        var latestReturn_ID = ReturnItems.GetLatestReturnID(returnItemsInfoVM.WorkOrder_ID.Value);
+                        var latestReturn_ID = ReturnItems.InsertReturnAndGetID(returnItemsInfoVM.Account, returnItemsInfoVM.WorkOrder_ID, returnItemsInfoVM.Reshipped, returnItemsInfoVM.Tag_Type, returnItemsInfoVM.OracleRMA, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Date_Returned, returnItemsInfoVM.Tracking_Number, Convert.ToInt16(returnItemsInfoVM.Send_To_Billing), Convert.ToInt16(returnItemsInfoVM.Dont_Display), returnItemsInfoVM.Boxes_Returned, returnItemsInfoVM.ScheduledFor, returnItemsInfoVM.ReshippedAtCost);                        
                         if(latestReturn_ID!=null)
                         {
                             foreach (WorkOrderItem item in returnItemsInfoVM.WorkOrderItems)

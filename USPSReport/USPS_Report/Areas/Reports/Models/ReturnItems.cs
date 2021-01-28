@@ -634,8 +634,21 @@ namespace USPS_Report.Areas.Reports.Models
                     new SqlParameter("return_Other_Reason", return_Other_Reason.GetDBNullOrValue()) , new SqlParameter("boxesReturned", boxes_Returned.GetDBNullOrValue()) , new SqlParameter("dateRtrn", date_Returned.GetDBNullOrValue()) , new SqlParameter("send_To_Billing", send_To_Billing.GetDBNullOrValue()) , new SqlParameter("dont_Display", dont_Display.GetDBNullOrValue()) , new SqlParameter("oracleRMA", oracleRMA.GetDBNullOrValue()), new SqlParameter("PickUpDate", ScheduledFor.GetDBNullOrValue()), new SqlParameter("reshippedAtCost", reshippedAtCost.GetDBNullOrValue()));
                 //_db.sp_InsertReturn(account,workOrder_ID,reshipped, tracking_Number, return_Note, tag_Type, reason__List_Option_ID, return_Other_Reason, boxes_Returned, date_Returned, send_To_Billing, dont_Display, oracleRMA);
             }
-
         }
+
+        public static int? InsertReturnAndGetID(int? account, int? workOrder_ID, string reshipped, string tag_Type, int? oracleRMA, string return_Note, int? reason__List_Option_ID, string return_Other_Reason, DateTime? date_Returned, string tracking_Number, short? send_To_Billing, short? dont_Display, int? boxes_Returned, DateTime? ScheduledFor, string reshippedAtCost)
+        {
+            using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
+            {
+                var res = _db.Database.SqlQuery<Decimal>("sp_InsertReturnAndGetID @account,@workOrder_ID,@reshipped,@tracking_Number,@return_Note,@tag_Type,@reason__List_option_ID,@return_Other_Reason,@boxesReturned,@dateRtrn,@send_To_Billing,@dont_Display,@oracleRMA,@PickUpDate,@reshippedAtCost",
+                    new SqlParameter("account", account.GetDBNullOrValue()), new SqlParameter("workOrder_ID", workOrder_ID.GetDBNullOrValue()), new SqlParameter("reshipped", reshipped.GetDBNullOrValue()), new SqlParameter("tracking_Number", tracking_Number.GetDBNullOrValue()),
+                    new SqlParameter("return_Note", return_Note.GetDBNullOrValue()), new SqlParameter("tag_Type", tag_Type.GetDBNullOrValue()), new SqlParameter("reason__List_option_ID", reason__List_Option_ID.GetDBNullOrValue()),
+                    new SqlParameter("return_Other_Reason", return_Other_Reason.GetDBNullOrValue()), new SqlParameter("boxesReturned", boxes_Returned.GetDBNullOrValue()), new SqlParameter("dateRtrn", date_Returned.GetDBNullOrValue()), new SqlParameter("send_To_Billing", send_To_Billing.GetDBNullOrValue()), new SqlParameter("dont_Display", dont_Display.GetDBNullOrValue()), new SqlParameter("oracleRMA", oracleRMA.GetDBNullOrValue()), new SqlParameter("PickUpDate", ScheduledFor.GetDBNullOrValue()), new SqlParameter("reshippedAtCost", reshippedAtCost.GetDBNullOrValue())).ToList<Decimal>();
+                //_db.sp_InsertReturn(account,workOrder_ID,reshipped, tracking_Number, return_Note, tag_Type, reason__List_Option_ID, return_Other_Reason, boxes_Returned, date_Returned, send_To_Billing, dont_Display, oracleRMA);
+                return Convert.ToInt32( res.FirstOrDefault());
+            }
+        }
+
         public static bool DoesReturnExist(int workOrder_ID)
         {
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
