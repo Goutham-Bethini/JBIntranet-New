@@ -2019,6 +2019,10 @@ warning 6002: The table/view 'HHSQLDB.dbo.QuantityOnHand' does not have a primar
           <Property Name="DeliveryStopNumber" Type="varchar" MaxLength="12" />
           <Property Name="Staged_Date" Type="datetime" />
           <Property Name="ID_Staged_By" Type="int" />
+          <Property Name="AssignedToWhse_Date" Type="datetime" />
+          <Property Name="ID_AssignedToWhse_By" Type="int" />
+          <Property Name="DeliveryRouteAssigned_Date" Type="datetime" />
+          <Property Name="ID_DeliveryRouteAssigned_By" Type="int" />
         </EntityType>
         <EntityType Name="tbl_PS_WorkOrderLine">
           <Key>
@@ -4471,6 +4475,10 @@ warning 6002: The table/view 'HHSQLDB.dbo.v_Rejection_Report' does not have a pr
           <Property Name="DeliveryStopNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="Staged_Date" Type="DateTime" Precision="3" />
           <Property Name="ID_Staged_By" Type="Int32" />
+          <Property Name="AssignedToWhse_Date" Type="DateTime" Precision="3" />
+          <Property Name="ID_AssignedToWhse_By" Type="Int32" />
+          <Property Name="DeliveryRouteAssigned_Date" Type="DateTime" Precision="3" />
+          <Property Name="ID_DeliveryRouteAssigned_By" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_Allowable_Amounts">
           <Key>
@@ -6772,6 +6780,10 @@ warning 6002: The table/view 'HHSQLDB.dbo.v_Rejection_Report' does not have a pr
           <EntitySetMapping Name="tbl_PS_WorkOrder">
             <EntityTypeMapping TypeName="HHSQLDBModel.tbl_PS_WorkOrder">
               <MappingFragment StoreEntitySet="tbl_PS_WorkOrder">
+                <ScalarProperty Name="ID_DeliveryRouteAssigned_By" ColumnName="ID_DeliveryRouteAssigned_By" />
+                <ScalarProperty Name="DeliveryRouteAssigned_Date" ColumnName="DeliveryRouteAssigned_Date" />
+                <ScalarProperty Name="ID_AssignedToWhse_By" ColumnName="ID_AssignedToWhse_By" />
+                <ScalarProperty Name="AssignedToWhse_Date" ColumnName="AssignedToWhse_Date" />
                 <ScalarProperty Name="ID_Staged_By" ColumnName="ID_Staged_By" />
                 <ScalarProperty Name="Staged_Date" ColumnName="Staged_Date" />
                 <ScalarProperty Name="DeliveryStopNumber" ColumnName="DeliveryStopNumber" />
