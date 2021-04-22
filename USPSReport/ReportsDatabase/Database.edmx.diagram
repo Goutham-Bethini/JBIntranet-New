@@ -57,6 +57,7 @@
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Account_Member" Width="1.5" PointX="0.75" PointY="33.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Account_Information" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Product_Table" Width="1.5" PointX="28.375" PointY="9.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.FedExLogins" Width="1.5" PointX="28.375" PointY="30.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

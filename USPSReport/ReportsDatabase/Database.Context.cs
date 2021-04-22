@@ -75,5 +75,6 @@ namespace ReportsDatabase
         public virtual DbSet<tbl_Account_Member> tbl_Account_Member { get; set; }
         public virtual DbSet<tbl_Account_Information> tbl_Account_Information { get; set; }
         public virtual DbSet<tbl_Product_Table> tbl_Product_Table { get; set; }
+        public virtual DbSet<FedExLogins> FedExLogins { get; set; }
     }
 }

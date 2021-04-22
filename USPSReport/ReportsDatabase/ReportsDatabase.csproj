@@ -118,6 +118,9 @@
     <Compile Include="ExpiredProduct.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="FedExLogins.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="IndianaMedicaidSurvey.cs">
       <DependentUpon>Intranet.tt</DependentUpon>
     </Compile>
