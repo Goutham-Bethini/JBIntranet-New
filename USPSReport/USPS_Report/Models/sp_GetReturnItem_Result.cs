@@ -33,5 +33,7 @@ namespace USPS_Report.Models
         public Nullable<System.DateTime> Request_Date { get; set; }
         public Nullable<System.DateTime> PickUpDate { get; set; }
         public string ReshippedAtCost { get; set; }
+        public string ReturnForCredit { get; set; }
+        public string ReturnWreceipt { get; set; }
     }
 }

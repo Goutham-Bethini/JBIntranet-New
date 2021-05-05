@@ -78,6 +78,8 @@ namespace USPS_Report.Areas.Reports.Controllers
                         _vm.RequestDate = returnItem.RequestDate;
                         _vm.Reshipped = returnItem.Reshipped;
                         _vm.ReshippedAtCost = returnItem.ReshippedAtCost;
+                        _vm.ReturnForCredit = returnItem.ReturnForCredit;
+                        _vm.ReturnWreceipt = returnItem.ReturnWreceipt;
                         _vm.Return_ID = returnItem.Return_ID;
                         _vm.Return_Note = returnItem.Return_Note;
                         _vm.Return_Other_Reason = returnItem.Return_Other_Reason != null ? returnItem.Return_Other_Reason.Trim() : returnItem.Return_Other_Reason;
@@ -215,7 +217,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                 _vm.WorkOrder_ID = returnItemsInfoVM.WorkOrder_ID.ToString();
                 if (returnItemsInfoVM.Return_ID != 0)
                 {
-                    ReturnItems.UpdateReturn(returnItemsInfoVM.Return_ID, returnItemsInfoVM.Reshipped, returnItemsInfoVM.Tag_Type, returnItemsInfoVM.OracleRMA, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Date_Returned, returnItemsInfoVM.Tracking_Number, Convert.ToInt16(returnItemsInfoVM.Send_To_Billing), Convert.ToInt16(returnItemsInfoVM.Dont_Display), returnItemsInfoVM.Boxes_Returned, returnItemsInfoVM.ScheduledFor, returnItemsInfoVM.ReshippedAtCost);
+                    ReturnItems.UpdateReturn(returnItemsInfoVM.Return_ID, returnItemsInfoVM.Reshipped, returnItemsInfoVM.ReturnForCredit, returnItemsInfoVM.ReturnWreceipt, returnItemsInfoVM.Tag_Type, returnItemsInfoVM.OracleRMA, returnItemsInfoVM.Return_Note, returnItemsInfoVM.Reason__List_Option_ID, returnItemsInfoVM.Return_Other_Reason, returnItemsInfoVM.Date_Returned, returnItemsInfoVM.Tracking_Number, Convert.ToInt16(returnItemsInfoVM.Send_To_Billing), Convert.ToInt16(returnItemsInfoVM.Dont_Display), returnItemsInfoVM.Boxes_Returned, returnItemsInfoVM.ScheduledFor, returnItemsInfoVM.ReshippedAtCost);
                     foreach (WorkOrderItem item in returnItemsInfoVM.WorkOrderItems)
                     {
                         if (item.Need)

@@ -7,177 +7,193 @@
 @using (Html.BeginForm("CreateReturn", "ReturnItems", FormMethod.Post))
 {
     
-    <table align="center" style="border:1px black solid;">  
-        <tr>
-            <td colspan="2">
-                @Html.HiddenFor(m => m.Account)
-                @Html.HiddenFor(m => m.WorkOrder_ID)
-                @Html.HiddenFor(m => m.Return_ID)
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                @Html.RadioButtonFor(m => m.Tag_Type, "RedTag",new { @class= "RadioType" })<label>Red Tag</label>
-                @Html.RadioButtonFor(m => m.Tag_Type, "CallTag", new { @class = "RadioType" })<label>Call Tag</label>                
-            </td>
-        </tr>
-        <tr class="showhide">
-            <td>Scheduled For:</td>
-            <td>
-                @Html.TextBoxFor(m => m.ScheduledFor, "{0:MM/dd/yyyy}",new { @class = "date-picker",  @readonly = "readonly" })
-            </td>
-        </tr>
-        <tr>
-            <td>Oracle RMA #:</td>
-            <td>
-                @Html.TextBoxFor(m => m.OracleRMA)
-            </td>
-        </tr>
-        <tr>
-            <td>Notes about return:</td>
-            <td>
-                @Html.TextAreaFor(m => m.Return_Note)
-            </td>
-        </tr>
-        <tr>
-            <td>Reason Returned:</td>
-            <td>
-                <table>
+<table align="center" style="border:1px black solid;">
+    <tr>
+        <td colspan="2">
+            @Html.HiddenFor(m => m.Account)
+            @Html.HiddenFor(m => m.WorkOrder_ID)
+            @Html.HiddenFor(m => m.Return_ID)
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            @Html.RadioButtonFor(m => m.Tag_Type, "RedTag", new { @class = "RadioType" })<label>Red Tag</label>
+            @Html.RadioButtonFor(m => m.Tag_Type, "CallTag", new { @class = "RadioType" })<label>Call Tag</label>
+        </td>
+    </tr>
+    <tr class="showhide">
+        <td>Scheduled For:</td>
+        <td>
+            @Html.TextBoxFor(m => m.ScheduledFor, "{0:MM/dd/yyyy}", new { @class = "date-picker", @readonly = "readonly" })
+        </td>
+    </tr>
+    <tr>
+        <td>Oracle RMA #:</td>
+        <td>
+            @Html.TextBoxFor(m => m.OracleRMA)
+        </td>
+    </tr>
+    <tr>
+        <td>Notes about return:</td>
+        <td>
+            @Html.TextAreaFor(m => m.Return_Note)
+        </td>
+    </tr>
+    <tr>
+        <td>Reason Returned:</td>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        @Html.DropDownListFor(m => m.Reason__List_Option_ID, Model.ReturnReasonList, "--Select Option--")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.ValidationMessageFor(t => t.Reason__List_Option_ID, "", new { @class = "redText" })
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            @*@Html.TextBoxFor(m => m.Return_Other_Reason, new { @style = "text-align:left;" })*@
+            Other Reason: @Html.TextBoxFor(m => m.Return_Other_Reason)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.Label("Return for Credit?")
+            @Html.RadioButtonFor(m => m.ReturnForCredit, "Yes")<label>Yes</label>
+            @Html.RadioButtonFor(m => m.ReturnForCredit, "No")<label>No</label>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            @Html.Label("Return w/Receipt, No Credit?")
+            @Html.RadioButtonFor(m => m.ReturnWreceipt, "Yes")<label>Yes</label>
+            @Html.RadioButtonFor(m => m.ReturnWreceipt, "No")<label>No</label>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @if (Model != null && Model.WorkOrderItems != null)
+            {
+                <table id="tblReturnInfo">
                     <tr>
-                        <td>
-                            @Html.DropDownListFor(m => m.Reason__List_Option_ID, Model.ReturnReasonList, "--Select Option--")
-                        </td>                        
+                        <th></th>
+                        <th>Product Code</th>
+                        <th>Product Description</th>
+                        <th style="width:60px">Qty Shipped</th>
+                        <th>Qty Returned</th>
                     </tr>
-                    <tr>
-                        <td>
-                            @Html.ValidationMessageFor(t => t.Reason__List_Option_ID, "", new { @class = "redText" })
-                        </td>
-                    </tr>
-                </table>              
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                @*@Html.TextBoxFor(m => m.Return_Other_Reason, new { @style = "text-align:left;" })*@
-                Other Reason: @Html.TextBoxFor(m => m.Return_Other_Reason)
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                @if (Model != null && Model.WorkOrderItems != null)
-                {
-                    <table id="tblReturnInfo">
+                    @for (int i = 0; i < Model.WorkOrderItems.Count(); i++)
+                    {
                         <tr>
-                            <th></th>
-                            <th>Product Code</th>
-                            <th>Product Description</th>
-                            <th style="width:60px">Qty Shipped</th>
-                            <th>Qty Returned</th>
+                            <td> @Html.CheckBoxFor(m => m.WorkOrderItems[i].Need, new { @class = "ChBox", id = "chb" + i })</td>
+                            <td> @Html.DisplayFor(m => m.WorkOrderItems[i].ProductCode) </td>
+                            <td> @Html.DisplayFor(m => m.WorkOrderItems[i].ProductDescription) </td>
+                            <td style="text-align:center;width:60px"> @Html.DisplayFor(m => m.WorkOrderItems[i].QtyShipped) </td>
+                            <td>
+                                @*@Html.TextBoxFor(m => m.WorkOrderItems[i].perQty, new { @class = "quantity", id = "pq" + i, hidden = "true", style = "width:60px;" })
+                                    @Html.TextBoxFor(m => m.WorkOrderItems[i].Multiplier, new { @class = "quantity", id = "mul" + i, hidden = "true", style = "width:60px;" })*@
+                                @Html.TextBoxFor(m => m.WorkOrderItems[i].QtyReturned, new { @class = "quantityReturned", id = "qy" + i, style = "width:60px;" })
+                            </td>
                         </tr>
-                        @for (int i = 0; i < Model.WorkOrderItems.Count(); i++)
-                        {
-                            <tr>
-                                <td> @Html.CheckBoxFor(m => m.WorkOrderItems[i].Need, new { @class = "ChBox", id = "chb" + i })</td>
-                                <td> @Html.DisplayFor(m => m.WorkOrderItems[i].ProductCode) </td>
-                                <td> @Html.DisplayFor(m => m.WorkOrderItems[i].ProductDescription) </td>
-                                <td style="text-align:center;width:60px"> @Html.DisplayFor(m => m.WorkOrderItems[i].QtyShipped) </td>
-                                <td>
-                                    @*@Html.TextBoxFor(m => m.WorkOrderItems[i].perQty, new { @class = "quantity", id = "pq" + i, hidden = "true", style = "width:60px;" })
-                                        @Html.TextBoxFor(m => m.WorkOrderItems[i].Multiplier, new { @class = "quantity", id = "mul" + i, hidden = "true", style = "width:60px;" })*@
-                                    @Html.TextBoxFor(m => m.WorkOrderItems[i].QtyReturned, new { @class = "quantityReturned", id = "qy" + i, style = "width:60px;" })
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @Html.HiddenFor(m => m.WorkOrderItems[i].Account)
-                                    @Html.HiddenFor(m => m.WorkOrderItems[i].WorkOrder_ID)
-                                    @Html.HiddenFor(m => m.WorkOrderItems[i].WorkOrder_Line)
-                                    @Html.HiddenFor(m => m.WorkOrderItems[i].QtyShipped)
-                                    @Html.HiddenFor(m => m.WorkOrderItems[i].ProductCode) 
-                                </td>
-                            </tr>
-                        }
-                    </table>
+                        <tr>
+                            <td>
+                                @Html.HiddenFor(m => m.WorkOrderItems[i].Account)
+                                @Html.HiddenFor(m => m.WorkOrderItems[i].WorkOrder_ID)
+                                @Html.HiddenFor(m => m.WorkOrderItems[i].WorkOrder_Line)
+                                @Html.HiddenFor(m => m.WorkOrderItems[i].QtyShipped)
+                                @Html.HiddenFor(m => m.WorkOrderItems[i].ProductCode)
+                            </td>
+                        </tr>
+                    }
+                </table>
 
-                }
-            </td>
-        </tr>
-        <tr>
-            <td>Date Returned:</td>
-            <td>
-                @Html.TextBoxFor(m => m.Date_Returned, "{0:MM/dd/yyyy}", new { @class = "date-picker", @readonly = "readonly" })
-                @Html.TextBoxFor(m => m.Date_Returned, "{0:MM/dd/yyyy}", new { @id = "Date_ReturnedHidden", @class = "date-picker", @readonly = "readonly",@type = "hidden" })
-            </td>
-        </tr>
-        <tr>
-            <td># of Boxes Returned:</td>
-            <td>
-                @Html.TextBoxFor(m => m.Boxes_Returned)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.Label("Reshipped?")
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>Date Returned:</td>
+        <td>
+            @Html.TextBoxFor(m => m.Date_Returned, "{0:MM/dd/yyyy}", new { @class = "date-picker", @readonly = "readonly" })
+            @Html.TextBoxFor(m => m.Date_Returned, "{0:MM/dd/yyyy}", new { @id = "Date_ReturnedHidden", @class = "date-picker", @readonly = "readonly", @type = "hidden" })
+        </td>
+    </tr>
+    <tr>
+        <td># of Boxes Returned:</td>
+        <td>
+            @Html.TextBoxFor(m => m.Boxes_Returned)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.Label("Reshipped?")
+            @Html.RadioButtonFor(m => m.Reshipped, "Yes")<label>Yes</label>
+            @Html.RadioButtonFor(m => m.Reshipped, "No")<label>No</label>
+        </td>
+        <td>
+            @Html.Label("At Cost?")
+            @Html.RadioButtonFor(m => m.ReshippedAtCost, "Yes")<label>Yes</label>
+            @Html.RadioButtonFor(m => m.ReshippedAtCost, "No")<label>No</label>
+        </td>
+        @*<td>Reshipped?</td>
+            <td colspan="3">
                 @Html.RadioButtonFor(m => m.Reshipped, "Yes")<label>Yes</label>
                 @Html.RadioButtonFor(m => m.Reshipped, "No")<label>No</label>
             </td>
+            <td>At Cost? </td>
             <td>
-                @Html.Label("At Cost?")
                 @Html.RadioButtonFor(m => m.ReshippedAtCost, "Yes")<label>Yes</label>
                 @Html.RadioButtonFor(m => m.ReshippedAtCost, "No")<label>No</label>
-            </td>
-            @*<td>Reshipped?</td>
-    <td colspan="3">
-        @Html.RadioButtonFor(m => m.Reshipped, "Yes")<label>Yes</label>
-        @Html.RadioButtonFor(m => m.Reshipped, "No")<label>No</label>
-    </td>
-    <td>At Cost? </td>
-    <td>
-        @Html.RadioButtonFor(m => m.ReshippedAtCost, "Yes")<label>Yes</label>
-        @Html.RadioButtonFor(m => m.ReshippedAtCost, "No")<label>No</label>
-    </td>*@
-        </tr>
-        <tr>
-            <td>
-                Tracking Number(s):
-                <br />
-                (used for call tags only)
-            </td>
-            <td>
-                @Html.TextAreaFor(m => m.Tracking_Number)
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" align="left">
-                <br />
-                @Html.CheckBoxFor(m => m.Send_To_Billing)<label>Check here to complete warehouse return process</label>
-                <br />
-                @Html.CheckBoxFor(m => m.Dont_Display)<label>Check here to delete this return</label>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center">
-                <table>
-                    <tr>
-                        <td>
-                            @Html.ActionLink("Cancel", "ReturnItemsData", "ReturnItems", null, new { @class = "btn btn-primary btn-large" })
-                            @*<a class="btn btn-primary btn-large" href="javascript:void(0);" onclick="history.go(-1);">Cancel</a>*@
-                        </td>
-                        <td width="5px"></td>
-                        <td>
-                            <a class="btn btn-primary btn-large" href="javascript:void(0);" onclick="history.go(-1);">Back</a>
-                        </td>
-                        <td width="5px"></td>
-                        <td>
-                            <button class="btn btn-primary btn-large" id="btnSubmit" type="submit">Next</button>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+            </td>*@
+    </tr>
+    <tr>
+        <td>
+            Tracking Number(s):
+            <br />
+            (used for call tags only)
+        </td>
+        <td>
+            @Html.TextAreaFor(m => m.Tracking_Number)
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" align="left">
+            <br />
+            @Html.CheckBoxFor(m => m.Send_To_Billing)<label>Check here to complete warehouse return process</label>
+            <br />
+            @Html.CheckBoxFor(m => m.Dont_Display)<label>Check here to delete this return</label>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center">
+            <table>
+                <tr>
+                    <td>
+                        @Html.ActionLink("Cancel", "ReturnItemsData", "ReturnItems", null, new { @class = "btn btn-primary btn-large" })
+                        @*<a class="btn btn-primary btn-large" href="javascript:void(0);" onclick="history.go(-1);">Cancel</a>*@
+                    </td>
+                    <td width="5px"></td>
+                    <td>
+                        <a class="btn btn-primary btn-large" href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+                    </td>
+                    <td width="5px"></td>
+                    <td>
+                        <button class="btn btn-primary btn-large" id="btnSubmit" type="submit">Next</button>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
     @*<span  class="error">You must select at least 1 item to be returned.</span>*@
 }
 

@@ -442,7 +442,7 @@ namespace USPS_Report.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertAccountNote", accountParameter, userNameParameter, workOrder_IDParameter, noteParameter, reason__List_Option_IDParameter, return_Other_ReasonParameter, tracking_NumberParameter, oracleRMAParameter, noteTextParameter);
         }
     
-        public virtual int sp_InsertReturn(Nullable<int> account, Nullable<int> workOrder_ID, string reshipped, string tracking_Number, string return_Note, string tag_Type, Nullable<int> reason__List_option_ID, string return_Other_Reason, Nullable<int> boxesReturned, Nullable<System.DateTime> dateRtrn, Nullable<short> send_To_Billing, Nullable<short> dont_Display, Nullable<int> oracleRMA, Nullable<System.DateTime> pickUpDate)
+        public virtual int sp_InsertReturn(Nullable<int> account, Nullable<int> workOrder_ID, string reshipped, string tracking_Number, string return_Note, string tag_Type, Nullable<int> reason__List_option_ID, string return_Other_Reason, Nullable<int> boxesReturned, Nullable<System.DateTime> dateRtrn, Nullable<short> send_To_Billing, Nullable<short> dont_Display, Nullable<int> oracleRMA, Nullable<System.DateTime> pickUpDate, string reshippedAtCost)
         {
             var accountParameter = account.HasValue ?
                 new ObjectParameter("account", account) :
@@ -500,7 +500,11 @@ namespace USPS_Report.Models
                 new ObjectParameter("PickUpDate", pickUpDate) :
                 new ObjectParameter("PickUpDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertReturn", accountParameter, workOrder_IDParameter, reshippedParameter, tracking_NumberParameter, return_NoteParameter, tag_TypeParameter, reason__List_option_IDParameter, return_Other_ReasonParameter, boxesReturnedParameter, dateRtrnParameter, send_To_BillingParameter, dont_DisplayParameter, oracleRMAParameter, pickUpDateParameter);
+            var reshippedAtCostParameter = reshippedAtCost != null ?
+                new ObjectParameter("reshippedAtCost", reshippedAtCost) :
+                new ObjectParameter("reshippedAtCost", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertReturn", accountParameter, workOrder_IDParameter, reshippedParameter, tracking_NumberParameter, return_NoteParameter, tag_TypeParameter, reason__List_option_IDParameter, return_Other_ReasonParameter, boxesReturnedParameter, dateRtrnParameter, send_To_BillingParameter, dont_DisplayParameter, oracleRMAParameter, pickUpDateParameter, reshippedAtCostParameter);
         }
     
         public virtual int sp_InsertReturn_Line(Nullable<int> return_ID, Nullable<int> workOrder_Line_ID, Nullable<int> qty_Return)
@@ -520,7 +524,7 @@ namespace USPS_Report.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertReturn_Line", return_IDParameter, workOrder_Line_IDParameter, qty_ReturnParameter);
         }
     
-        public virtual int sp_UpdateReturn(Nullable<int> return_ID, string reshipped, string tracking_Number, string return_Note, string tag_Type, Nullable<int> reason__List_option_ID, string return_Other_Reason, Nullable<int> boxesReturned, Nullable<System.DateTime> dateRtrn, Nullable<short> send_To_Billing, Nullable<short> dont_Display, Nullable<int> oracleRMA, Nullable<System.DateTime> pickUpDate)
+        public virtual int sp_UpdateReturn(Nullable<int> return_ID, string reshipped, string tracking_Number, string return_Note, string tag_Type, Nullable<int> reason__List_option_ID, string return_Other_Reason, Nullable<int> boxesReturned, Nullable<System.DateTime> dateRtrn, Nullable<short> send_To_Billing, Nullable<short> dont_Display, Nullable<int> oracleRMA, Nullable<System.DateTime> pickUpDate, string reshippedAtCost)
         {
             var return_IDParameter = return_ID.HasValue ?
                 new ObjectParameter("return_ID", return_ID) :
@@ -574,7 +578,11 @@ namespace USPS_Report.Models
                 new ObjectParameter("PickUpDate", pickUpDate) :
                 new ObjectParameter("PickUpDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateReturn", return_IDParameter, reshippedParameter, tracking_NumberParameter, return_NoteParameter, tag_TypeParameter, reason__List_option_IDParameter, return_Other_ReasonParameter, boxesReturnedParameter, dateRtrnParameter, send_To_BillingParameter, dont_DisplayParameter, oracleRMAParameter, pickUpDateParameter);
+            var reshippedAtCostParameter = reshippedAtCost != null ?
+                new ObjectParameter("reshippedAtCost", reshippedAtCost) :
+                new ObjectParameter("reshippedAtCost", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateReturn", return_IDParameter, reshippedParameter, tracking_NumberParameter, return_NoteParameter, tag_TypeParameter, reason__List_option_IDParameter, return_Other_ReasonParameter, boxesReturnedParameter, dateRtrnParameter, send_To_BillingParameter, dont_DisplayParameter, oracleRMAParameter, pickUpDateParameter, reshippedAtCostParameter);
         }
     
         public virtual int sp_UpdateReturn_Line(Nullable<int> return_Line_ID, Nullable<int> qty_Return)

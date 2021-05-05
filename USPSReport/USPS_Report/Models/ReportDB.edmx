@@ -180,6 +180,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="dont_Display" Type="smallint" Mode="In" />
           <Parameter Name="oracleRMA" Type="int" Mode="In" />
           <Parameter Name="PickUpDate" Type="datetime" Mode="In" />
+          <Parameter Name="reshippedAtCost" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_InsertReturn_Line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="return_ID" Type="int" Mode="In" />
@@ -240,6 +241,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="dont_Display" Type="smallint" Mode="In" />
           <Parameter Name="oracleRMA" Type="int" Mode="In" />
           <Parameter Name="PickUpDate" Type="datetime" Mode="In" />
+          <Parameter Name="reshippedAtCost" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_UpdateReturn_Line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="return_Line_ID" Type="int" Mode="In" />
@@ -408,6 +410,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
             <Parameter Name="dont_Display" Mode="In" Type="Int16" />
             <Parameter Name="oracleRMA" Mode="In" Type="Int32" />
             <Parameter Name="PickUpDate" Mode="In" Type="DateTime" />
+            <Parameter Name="reshippedAtCost" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_InsertReturn_Line">
             <Parameter Name="return_ID" Mode="In" Type="Int32" />
@@ -428,6 +431,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
             <Parameter Name="dont_Display" Mode="In" Type="Int16" />
             <Parameter Name="oracleRMA" Mode="In" Type="Int32" />
             <Parameter Name="PickUpDate" Mode="In" Type="DateTime" />
+            <Parameter Name="reshippedAtCost" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_UpdateReturn_Line">
             <Parameter Name="return_Line_ID" Mode="In" Type="Int32" />
@@ -627,6 +631,8 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="DateTime" Name="Request_Date" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="PickUpDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="ReshippedAtCost" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="ReturnForCredit" Nullable="true" MaxLength="3" />
+          <Property Type="String" Name="ReturnWreceipt" Nullable="true" MaxLength="3" />
         </ComplexType>
         <ComplexType Name="sp_GetReturnLineItems_Result">
           <Property Type="Int32" Name="Return_Line_ID" Nullable="false" />
@@ -894,6 +900,10 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
                 <ScalarProperty Name="first_name" ColumnName="first_name" />
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="Request_Date" ColumnName="Request_Date" />
+                <ScalarProperty Name="PickUpDate" ColumnName="PickUpDate" />
+                <ScalarProperty Name="ReshippedAtCost" ColumnName="ReshippedAtCost" />
+                <ScalarProperty Name="ReturnForCredit" ColumnName="ReturnForCredit" />
+                <ScalarProperty Name="ReturnWreceipt" ColumnName="ReturnWreceipt" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

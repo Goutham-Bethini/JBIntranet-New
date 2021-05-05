@@ -71,10 +71,6 @@
     <Reference Include="RazorPDF">
       <HintPath>..\packages\RazorPDF.1.0.0\lib\net45\RazorPDF.dll</HintPath>
     </Reference>
-    <Reference Include="ReportsDatabase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Published Projects\JBIntranet\bin\ReportsDatabase.dll</HintPath>
-    </Reference>
     <Reference Include="Select.Pdf">
       <HintPath>..\packages\Select.Pdf.15.1.0.1\lib\net40\Select.Pdf.dll</HintPath>
     </Reference>
@@ -1979,6 +1975,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReportsDatabase\ReportsDatabase.csproj">
+      <Project>{1c711286-6b8b-4e99-8026-f59bfdb2fdb4}</Project>
+      <Name>ReportsDatabase</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
