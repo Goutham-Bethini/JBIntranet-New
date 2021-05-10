@@ -367,6 +367,7 @@
     <Compile Include="Areas\Reports\Controllers\ROnotPurchaseController.cs" />
     <Compile Include="Areas\Reports\Controllers\RWOController.cs" />
     <Compile Include="Areas\Reports\Controllers\RWOsOlderDatesController.cs" />
+    <Compile Include="Areas\Reports\Controllers\RWOsWith2099DatesController.cs" />
     <Compile Include="Areas\Reports\Controllers\SchedulerController.cs" />
     <Compile Include="Areas\Reports\Controllers\SmartActionController.cs" />
     <Compile Include="Areas\Reports\Controllers\CSRController.cs" />
@@ -419,6 +420,7 @@
     <Compile Include="Areas\Reports\Models\RWOMultipleLocations.cs" />
     <Compile Include="Areas\Reports\Models\RWOMultipleTimes.cs" />
     <Compile Include="Areas\Reports\Models\RwosReport.cs" />
+    <Compile Include="Areas\Reports\Models\RWOsWith2099Dates.cs" />
     <Compile Include="Areas\Reports\Models\RWOwithOlderDates.cs" />
     <Compile Include="Areas\Reports\Models\ShippingOrder.cs" />
     <Compile Include="Areas\Reports\Models\SmartAction.cs" />
@@ -568,6 +570,12 @@
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_GetReturnReasonList_Result.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_GetRWOs2099Audit_Result.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_GetRWOsWith2099Dates_Result.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_GetSearchAccounts_Result.cs">
@@ -1273,6 +1281,9 @@
     <Content Include="Scripts\Highcharts\js\themes\grid.js" />
     <Content Include="Scripts\Highcharts\js\themes\sand-signika.js" />
     <Content Include="Scripts\Highcharts\js\themes\skies.js" />
+    <Content Include="Areas\Reports\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Reports\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Reports\Views\RWOsWith2099Dates\RWOsWith2099Dates.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GBethini.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
