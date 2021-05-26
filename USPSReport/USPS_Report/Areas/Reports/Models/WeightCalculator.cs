@@ -9,7 +9,7 @@ namespace USPS_Report.Areas.Reports.Models
 {
     public class WeightCalculator
     {
-        public static IList<WorkOrderDetail> GetWODetailByAccount(Int32? account)
+        public static IList<WorkOrderDetail> GetWODetailByAccount(Int32? account, string operatorName)
         {
             DateTime _dt = DateTime.Today.AddDays(-180);
             using (HHSQLDBEntities _db = new HHSQLDBEntities())
@@ -45,6 +45,11 @@ namespace USPS_Report.Areas.Reports.Models
 
                                                      }).OrderBy(t=>t.Product).ToList()
                                }).OrderByDescending(t=>t.Request_Date).ToList();
+
+                    string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',20,GETDATE())";
+
+                    int rowsinsert = _db.Database.ExecuteSqlCommand(query);
+
                     return _woList;
 
                 }

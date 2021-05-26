@@ -81,7 +81,7 @@ namespace ReportsDatabase
         public Nullable<short> D_NumberOfLabels { get; set; }
         public Nullable<short> D_DosesPerDay { get; set; }
         public Nullable<short> D_TotalDaysSupply { get; set; }
-        public Nullable<short> D_Cmp_DosesPerBag { get; set; }
+        public Nullable<short> d_cmp_DosesPerBag_old { get; set; }
         public Nullable<short> D_Cmp_NumberOfBags { get; set; }
         public string ProcedureCodeOverride { get; set; }
         public Nullable<short> WasAutoCreatedFromOutReach { get; set; }
@@ -129,7 +129,7 @@ namespace ReportsDatabase
         public Nullable<short> D_TPN_Calc_KCal_Fat { get; set; }
         public string Compliance_DeviceCode { get; set; }
         public Nullable<short> D_DispensedPkgQty { get; set; }
-        public Nullable<int> QtyToBillOverride { get; set; }
+        public Nullable<double> QtyToBillOverride { get; set; }
         public Nullable<int> NWA_OrderLineID { get; set; }
         public Nullable<int> D_ID_Adjudicate_RespondReject { get; set; }
         public Nullable<decimal> D_DispensingFee { get; set; }

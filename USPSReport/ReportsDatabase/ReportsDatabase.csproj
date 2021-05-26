@@ -254,9 +254,6 @@
     <Compile Include="tbl_Inv_Vendor_Table.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="tbl_Items.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
     <Compile Include="tbl_MedDoc_History.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -307,9 +304,6 @@
     </Compile>
     <Compile Include="UserAccountRelation.cs">
       <DependentUpon>IntractiveWeb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="v_Rejection_Report.cs">
-      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="v__AccountMemberEffectiveInsurance_Ins1.cs">
       <DependentUpon>Database.tt</DependentUpon>

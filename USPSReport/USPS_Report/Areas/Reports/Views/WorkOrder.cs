@@ -46,7 +46,7 @@ namespace USPS_Report.Areas.Reports.Models
                                   }).ToList();
         }
         }
-        public static IList<WorkOrder> GetWorkOrderByAccountByNumbers(Int32? account, Int32 numbers)
+        public static IList<WorkOrder> GetWorkOrderByAccountByNumbers(Int32? account, Int32 numbers, string operatorName)
         {
 
             try
@@ -358,7 +358,11 @@ namespace USPS_Report.Areas.Reports.Models
                         }
 
                         item.CancelReason = "Reason";
-                    }   
+                    }
+
+                    string query2 = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',19,GETDATE())";
+
+                    int rowsinsert = _db.Database.ExecuteSqlCommand(query2);
                     return _list;
                 }
             }

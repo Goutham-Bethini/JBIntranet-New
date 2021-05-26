@@ -5,12 +5,13 @@ using System.Web;
 using ReportsDatabase;
 using System.Data.Entity.SqlServer;
 using USPS_Report.Models;
+using System.Data.SqlClient;
 
 namespace USPS_Report.Areas.Reports.Models
 {
     public class CSRReport
     {
-        public static IList<BCNVM> GetClaimList(DateTime? _startDt, DateTime? _endDt, string option, bool others, string prod, double? contract, string serv)
+        public static IList<BCNVM> GetClaimList(DateTime? _startDt, DateTime? _endDt, string option, bool others, string prod, double? contract, string serv, string operatorName)
         {
             IList<BCNVM> _list = new List<BCNVM>();
 
@@ -213,9 +214,11 @@ namespace USPS_Report.Areas.Reports.Models
                                  }).ToList();
                     }
                 }
-            }
 
-                return _list;
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',26,GETDATE())";
+                int rowsinsert = _db.Database.ExecuteSqlCommand(query);
+            }            
+            return _list;
          }
 
         public static IList<Servlist> GetServName()
@@ -325,7 +328,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         }
 
-        public static IList<CSRAssessment> GetCSRAssessment()
+        public static IList<CSRAssessment> GetCSRAssessment(string operatorName)
         {
             int?[] _IDs = 
                 { 685 ,959 ,287, 713, 686, 548, 773, 616, 891, 863};
@@ -347,8 +350,10 @@ namespace USPS_Report.Areas.Reports.Models
                                      CreateDate = cli.CreateDate
 
                                  }).OrderBy(t=>t.AssessmentDate).ToList();
-                              
-                                
+
+                    string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('"+operatorName+"',13,GETDATE())";
+
+                    int rowsinsert = _db.Database.ExecuteSqlCommand(query);
 
                     return _list;
 
@@ -620,7 +625,30 @@ namespace USPS_Report.Areas.Reports.Models
             //   return _rec;
         }
 
-        public static IList<pumpsHoldvm> GetSuperiorHoldReports()
+        public static IList<pumpsHoldvm> GetHoldReports_CSR(string operatorName)
+        {
+
+            IList<pumpsHoldvm> list = new List<pumpsHoldvm>();
+            using (HHSQLDBEntities _db = new HHSQLDBEntities())
+            {
+                string query = "Select DISTINCT t1.ID, t1.Account,t1.Request_Date, HoldFromShippingReason,t3.ID_Payer,t3.PayerName from HHSQLDB.dbo.tbl_PS_WorkOrder t1 " +
+ " inner join HHSQLDB.dbo.tbl_PS_WorkOrderLine t2 on t1.ID = t2.ID_PS_WorkOrder " +
+  " inner join HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins1 t3 on t1.Account = t3.Account " +
+"  where t1.HoldFromShipping = 1 and t1.LastPrintDate is null and t1.Cancel_Date is null AND t2.ID_Product in   " +
+"  ( " +
+ " Select pro1.ID from HHSQLDB.dbo.tbl_Product_Table pro1 " +
+ " join HHSQLDB.dbo.tbl_ProductCategory_Table cat  on cat.id = pro1.ID_ProductCategory " +
+ " where cat.id in (55,68, 69,72,88,91,92, 94) )and t1.ID > 5000418 " +
+ "insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',11,GETDATE())";
+                _db.Database.CommandTimeout = 0;
+                list = _db.Database.SqlQuery<pumpsHoldvm>(query).ToList<pumpsHoldvm>();
+
+                return list;
+            }
+            //   return _rec;
+        }
+
+        public static IList<pumpsHoldvm> GetSuperiorHoldReports(string operatorName)
         {
 
             IList<pumpsHoldvm> list = new List<pumpsHoldvm>();
@@ -632,7 +660,8 @@ namespace USPS_Report.Areas.Reports.Models
  " and ins.ID_Payer = 4490 "+
  " and(ins.Effective_Date is null or ins.Effective_Date <= wos.Request_Date) "+
  " and(ins.Expiration_Date is null or ins.Expiration_Date >= wos.Request_Date) "+
- " and wos.HoldFromShipping = 1";
+ " and wos.HoldFromShipping = 1 " +
+ "insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',12,GETDATE())";
                 _db.Database.CommandTimeout = 0;
                 list = _db.Database.SqlQuery<pumpsHoldvm>(query).ToList<pumpsHoldvm>();
 
@@ -642,14 +671,23 @@ namespace USPS_Report.Areas.Reports.Models
         }
 
 
-        public static IList<HeldOrdersVM> GetDiabOsUroHeldOrders()
+        public static IList<HeldOrdersVM> GetDiabOsUroHeldOrders(string operatorName)
         {
 
             IList<HeldOrdersVM> _list = new List<HeldOrdersVM>();
             using (ReportsEntities _db = new ReportsEntities())
             {
-                              
-               _list  = _db.Database.SqlQuery<HeldOrdersVM>("exec sp_DiabOsUroHolds").ToList<HeldOrdersVM>();
+                var ParamOperator = new SqlParameter
+                {
+                    ParameterName = "operatorName ",
+                };
+
+                if (operatorName != null)
+                    ParamOperator.Value = operatorName;
+                else
+                    ParamOperator.Value = DBNull.Value;
+
+                _list  = _db.Database.SqlQuery<HeldOrdersVM>("exec sp_DiabOsUroHolds @operatorName", ParamOperator).ToList<HeldOrdersVM>();
 
 
 

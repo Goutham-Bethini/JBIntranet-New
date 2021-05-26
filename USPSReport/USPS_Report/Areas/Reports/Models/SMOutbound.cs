@@ -47,7 +47,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         }
 
-        public static IList<SACallsVM> getSAVictorCalls()
+        public static IList<SACallsVM> getSAVictorCalls(string operatorName)
         {
             IList<SACallsVM> _list = new List<SACallsVM>();
             using (CallAgentDBEntitiesnew _callDb = new CallAgentDBEntitiesnew())
@@ -86,7 +86,8 @@ namespace USPS_Report.Areas.Reports.Models
       " AND t1.OrderDate >= '01/01/2018' " +
        " group by t1.AccountNumber, t1.OrderDate, t2.ID ,  t2.Request_Date,  t2.HoldFromShippingReason ,  t3.ProvidedCreditCard ,v1.PayerName " +
 
-    "ORDER BY  t1.AccountNumber";
+    "ORDER BY  t1.AccountNumber "+
+    "insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',15,GETDATE())";
 
 
                 _list = _callDb.Database.SqlQuery<SACallsVM>(query).ToList<SACallsVM>();
@@ -94,7 +95,7 @@ namespace USPS_Report.Areas.Reports.Models
             return _list;
         }
 
-        public static IList<SACallsVM> getSAVictorNotConfirmedCalls()
+        public static IList<SACallsVM> getSAVictorNotConfirmedCalls(string operatorName)
         {
             IList<SACallsVM> _list = new List<SACallsVM>();
             using (CallAgentDBEntitiesnew _callDb = new CallAgentDBEntitiesnew())
@@ -130,7 +131,8 @@ namespace USPS_Report.Areas.Reports.Models
     "  where OrderDate = t1.OrderDate and IsOrderConfirmed = 1 AND OrderDate >= getdate()-14 )" +
      " group by t1.AccountNumber, t1.OrderDate, t2.ID ,   t2.Request_Date,  t2.HoldFromShippingReason,  t3.ProvidedCreditCard ,v1.PayerName" +
 	" ORDER BY "+
-     " t1.AccountNumber";
+     " t1.AccountNumber "+
+     "insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',14,GETDATE())";
 
 
                 _list = _callDb.Database.SqlQuery<SACallsVM>(query).ToList<SACallsVM>();

@@ -16,5 +16,6 @@ namespace ReportsDatabase
     {
         public int ID { get; set; }
         public string UOMName { get; set; }
+        public string UOMCode { get; set; }
     }
 }

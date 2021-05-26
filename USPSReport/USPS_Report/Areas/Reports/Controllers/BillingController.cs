@@ -72,7 +72,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         }
         public ActionResult ClaimNeeded(int PayerID, DateTime StartDt, DateTime EndDt, string NPcode, bool allNPcode, [DataSourceRequest] DataSourceRequest request)
         {
-            return Json(ChampsTools.GetClaimsByPayer(PayerID, StartDt, EndDt, NPcode, allNPcode).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return Json(ChampsTools.GetClaimsByPayer(PayerID, StartDt, EndDt, NPcode, allNPcode, User.Identity.Name.Split('\\').Last().ToLower()).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -97,7 +97,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
         public ActionResult CollectionNeeded(int OpID, DateTime StartDt, DateTime EndDt,   [DataSourceRequest] DataSourceRequest request)
         {
-            return Json(ChampsTools.GetCollectionByOp(OpID, StartDt, EndDt ).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return Json(ChampsTools.GetCollectionByOp(OpID, StartDt, EndDt, User.Identity.Name.Split('\\').Last().ToLower()).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

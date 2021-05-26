@@ -27,7 +27,7 @@ namespace USPS_Report.Areas.Reports.Models
         //       }
         //       }
 
-        public static IList<ClaimVM> GetClaimsByPayer(int? payerId, DateTime startDt, DateTime endDt, string NPCode1, bool allNpCodes)
+        public static IList<ClaimVM> GetClaimsByPayer(int? payerId, DateTime startDt, DateTime endDt, string NPCode1, bool allNpCodes, string operatorName)
         {
            using (HHSQLDBEntities _db = new HHSQLDBEntities())
             {
@@ -72,20 +72,23 @@ namespace USPS_Report.Areas.Reports.Models
 
                 _db.Database.CommandTimeout = 0;
                 var _list = _db.Database.SqlQuery<ClaimVM>(query).ToList();
-            
 
-                 return _list;
+                string query2 = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',23,GETDATE())";
+
+                int rowsinsert = _db.Database.ExecuteSqlCommand(query2);
+
+                return _list;
             }
         }
 
 
-        public static IList<CollectionVM> GetCollectionByOp(int Op, DateTime startDt, DateTime endDt)
+        public static IList<CollectionVM> GetCollectionByOp(int Op, DateTime startDt, DateTime endDt, string operatorName)
         {
             using (HHSQLDBEntities _db = new HHSQLDBEntities())
             {
                 string query = " select distinct ID_Claim, TemplateName, cast(ActivityDate as Date) as ActivityDate from [dbo].[tbl_Claim_Worksheet_Activity] activity join " +
  " tbl_Claims_CollectionsTemplate template on activity.ID_ClaimsWorkSheet = template.ID  where ID_Operator = "+ Op + " "+
- " and ActivityDate >= '"+ startDt + "' and ActivityDate < '" + endDt + "'";
+ " and ActivityDate >= '"+ startDt + "' and ActivityDate < '" + endDt + "'" + " insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',24,GETDATE())";
 
 
 

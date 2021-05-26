@@ -142,7 +142,7 @@ namespace USPS_Report.Areas.Reports.Models
 
        
 
-        public static ProductSubModel displayProdSubsList(ProductSubModel _vm)
+        public static ProductSubModel displayProdSubsList(ProductSubModel _vm, string operatorName)
         {
             int year = DateTime.Now.AddYears(-2).Year;
             DateTime firstDay = new DateTime(year, 1, 1);
@@ -194,7 +194,8 @@ namespace USPS_Report.Areas.Reports.Models
              "   WHEN sub.subDeleted IS NOT NULL THEN 3 " +
              "   ELSE 0 " +
          "   END, " +
-          "  sub.subAdded DESC").ToList<RwoProSub>();
+          "  sub.subAdded DESC " +
+          "insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',21,GETDATE())").ToList<RwoProSub>();
 
                 }
 

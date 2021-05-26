@@ -323,9 +323,13 @@ namespace USPS_Report.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItem_Result>("sp_GetReturnItem", returnIdParameter);
         }
     
-        public virtual ObjectResult<sp_GetReturnItemsData_Result> sp_GetReturnItemsData()
+        public virtual ObjectResult<sp_GetReturnItemsData_Result> sp_GetReturnItemsData(string operatorName)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItemsData_Result>("sp_GetReturnItemsData");
+            var operatorNameParameter = operatorName != null ?
+                new ObjectParameter("operatorName", operatorName) :
+                new ObjectParameter("operatorName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItemsData_Result>("sp_GetReturnItemsData", operatorNameParameter);
         }
     
         public virtual ObjectResult<sp_GetReturnLineItems_Result> sp_GetReturnLineItems(Nullable<int> returnId)
@@ -611,9 +615,13 @@ namespace USPS_Report.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetHistoryReturnItemsData_Result>("sp_GetHistoryReturnItemsData");
         }
     
-        public virtual int sp_GetReturnItemsData_Result1()
+        public virtual int sp_GetReturnItemsData_Result1(string operatorName)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_GetReturnItemsData_Result1");
+            var operatorNameParameter = operatorName != null ?
+                new ObjectParameter("operatorName", operatorName) :
+                new ObjectParameter("operatorName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_GetReturnItemsData_Result1", operatorNameParameter);
         }
     
         public virtual ObjectResult<sp_GetReturnItem_Result> sp_GetReturnItem_Result(Nullable<int> returnId)
@@ -630,14 +638,27 @@ namespace USPS_Report.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItem_Result>("sp_GetReturnItemsData_Result2");
         }
     
-        public virtual ObjectResult<sp_GetReturnItemsData_Result> sp_GetReturnItemsData_Result()
+        public virtual ObjectResult<sp_GetReturnItemsData_Result> sp_GetReturnItemsData_Result(string operatorName)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItemsData_Result>("sp_GetReturnItemsData_Result");
+            var operatorNameParameter = operatorName != null ?
+                new ObjectParameter("operatorName", operatorName) :
+                new ObjectParameter("operatorName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReturnItemsData_Result>("sp_GetReturnItemsData_Result", operatorNameParameter);
         }
     
         public virtual ObjectResult<sp_GetRWOs2099Audit_Result> sp_GetRWOs2099Audit()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetRWOs2099Audit_Result>("sp_GetRWOs2099Audit");
+        }
+    
+        public virtual ObjectResult<sp_GetReportAuditInfo_Result> sp_GetReportAuditInfo(Nullable<int> reportId)
+        {
+            var reportIdParameter = reportId.HasValue ?
+                new ObjectParameter("reportId", reportId) :
+                new ObjectParameter("reportId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReportAuditInfo_Result>("sp_GetReportAuditInfo", reportIdParameter);
         }
     
         public virtual ObjectResult<sp_GetRWOsWith2099Dates_Result> sp_GetRWOsWith2099Dates(string operatorName, string team)

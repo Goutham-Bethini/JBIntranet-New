@@ -37,7 +37,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                          }).Take(1).SingleOrDefault();
             }
 
-            
+
             CallLogVM _vm = new CallLogVM();
             if (id_op == null) { _vm.OpPermission = true; }
             _vm.errormsg = str;
@@ -53,7 +53,14 @@ namespace USPS_Report.Areas.Reports.Controllers
             _vm.details = AddCSRLog.GetDetails(_vm.Account);
         
             _vm.TimerTxt = "0:0:0";
-          
+
+            using (HHSQLDBEntities _db = new HHSQLDBEntities())
+            {
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',28,GETDATE())";
+
+                int rowsinsert = _db.Database.ExecuteSqlCommand(query);
+            }
+
             return View(_vm);
 
 
@@ -138,6 +145,13 @@ namespace USPS_Report.Areas.Reports.Controllers
               _vm.payerid = 0;
             _vm.payerType = new SelectList(AddCSRLog.HDMSPayerInfo(_vm.Account), "payerid", "payerType");
             _vm.payerTypeList = AddCSRLog.HDMSPayerInfo(_vm.Account).ToList();
+
+            using (HHSQLDBEntities _db = new HHSQLDBEntities())
+            {
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',27,GETDATE())";
+
+                int rowsinsert = _db.Database.ExecuteSqlCommand(query);
+            }
 
             return View(_vm);
 

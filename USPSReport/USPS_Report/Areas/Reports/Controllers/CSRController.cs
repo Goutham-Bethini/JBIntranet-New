@@ -120,7 +120,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             _vm.contract = memId;
             _vm.ServName = serv;
            
-            return Json(CSRReport.GetClaimList(_vm._startDt, _vm._endDt, _vm.chk , _vm.others, _vm.prod, _vm.contract, serv  ).ToDataSourceResult(request));
+            return Json(CSRReport.GetClaimList(_vm._startDt, _vm._endDt, _vm.chk , _vm.others, _vm.prod, _vm.contract, serv, User.Identity.Name.Split('\\').Last().ToLower()).ToDataSourceResult(request));
         }
 
 

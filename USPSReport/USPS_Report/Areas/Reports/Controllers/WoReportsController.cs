@@ -27,7 +27,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         {
             // Int32? account=0;
             //   Int32 num=0;
-            return Json(CSRReport.GetDiabOsUroHeldOrders().ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return Json(CSRReport.GetDiabOsUroHeldOrders(User.Identity.Name.Split('\\').Last().ToLower()).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
 

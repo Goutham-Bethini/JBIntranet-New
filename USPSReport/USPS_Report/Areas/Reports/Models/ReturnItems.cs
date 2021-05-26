@@ -322,14 +322,24 @@ namespace USPS_Report.Areas.Reports.Models
                 //return new List<ReturnItemsData>();
             }
         }
-        public static IList<ReturnItemsData> GetReturnItemsData()
+        public static IList<ReturnItemsData> GetReturnItemsData(string operatorName)
         {
             List<ReturnItemsData> lstReturnItesData = new List<ReturnItemsData>();
             try
             {
                 using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
                 {
-                    lstReturnItesData = (from item in _db.Database.SqlQuery<sp_GetReturnItemsData_Result>("exec sp_GetReturnItemsData").ToList<sp_GetReturnItemsData_Result>()
+                    var ParamOperator = new SqlParameter
+                    {
+                        ParameterName = "operatorName ",
+                    };
+
+                    if (operatorName != null)
+                        ParamOperator.Value = operatorName;
+                    else
+                        ParamOperator.Value = DBNull.Value;
+
+                    lstReturnItesData = (from item in _db.Database.SqlQuery<sp_GetReturnItemsData_Result>("exec sp_GetReturnItemsData @operatorName", ParamOperator).ToList<sp_GetReturnItemsData_Result>()
                                          select new ReturnItemsData
                                          {
                                              ReturnId = item.Return_ID,

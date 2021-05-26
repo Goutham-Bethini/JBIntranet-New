@@ -111,5 +111,16 @@ namespace ReportsDatabase
         public Nullable<double> D_mMolPerML { get; set; }
         public Nullable<double> D_mgPerML { get; set; }
         public Nullable<short> NonbillableItem { get; set; }
+        public Nullable<short> RecStatusIndicator { get; set; }
+        public Nullable<short> D_CompoundStableDaysFrozen { get; set; }
+        public Nullable<short> D_CompoundStableDaysRefrigerated { get; set; }
+        public Nullable<short> D_ExcludeFromCompounder { get; set; }
+        public Nullable<short> D_ExcludeFromDIcheck { get; set; }
+        public string D_WarningLabel_1 { get; set; }
+        public string D_WarningLabel_2 { get; set; }
+        public string D_WarningLabel_3 { get; set; }
+        public string D_WarningLabel_4 { get; set; }
+        public string D_WarningLabel_5 { get; set; }
+        public string D_WarningLabel_6 { get; set; }
     }
 }

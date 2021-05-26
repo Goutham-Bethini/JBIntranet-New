@@ -129,10 +129,15 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="workOrder_Line_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_GetHistoryReturnItemsData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetReportAuditInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="reportId" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_GetReturnItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="returnId" Type="int" Mode="In" />
         </Function>
-        <Function Name="sp_GetReturnItemsData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetReturnItemsData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="operatorName" Type="varchar(max)" Mode="In" />
+        </Function>
         <Function Name="sp_GetReturnLineItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="returnId" Type="int" Mode="In" />
         </Function>
@@ -369,7 +374,9 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <FunctionImport Name="sp_GetReturnItem" ReturnType="Collection(ReportsModel.sp_GetReturnItem_Result)">
           <Parameter Name="returnId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_GetReturnItemsData" ReturnType="Collection(ReportsModel.sp_GetReturnItemsData_Result)" />
+          <FunctionImport Name="sp_GetReturnItemsData" ReturnType="Collection(ReportsModel.sp_GetReturnItemsData_Result)" >
+          <Parameter Name="operatorName" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_GetReturnLineItems" ReturnType="Collection(ReportsModel.sp_GetReturnLineItems_Result)">
           <Parameter Name="returnId" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -450,13 +457,20 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
 
           <EntitySet Name="BarCodeAttempts" EntityType="ReportsModel.BarCodeAttempt" />
           <FunctionImport Name="sp_GetHistoryReturnItemsData" ReturnType="Collection(ReportsModel.sp_GetHistoryReturnItemsData_Result)" />
-          <FunctionImport Name="sp_GetReturnItemsData_Result1" />
+          <FunctionImport Name="sp_GetReturnItemsData_Result1" >
+          <Parameter Name="operatorName" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_GetReturnItem_Result" ReturnType="Collection(ReportsModel.sp_GetReturnItem_Result)">
           <Parameter Name="returnId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetReturnItemsData_Result2" ReturnType="Collection(ReportsModel.sp_GetReturnItem_Result)" />
-          <FunctionImport Name="sp_GetReturnItemsData_Result" ReturnType="Collection(ReportsModel.sp_GetReturnItemsData_Result)" />
+          <FunctionImport Name="sp_GetReturnItemsData_Result" ReturnType="Collection(ReportsModel.sp_GetReturnItemsData_Result)" >
+          <Parameter Name="operatorName" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_GetRWOs2099Audit" ReturnType="Collection(ReportsModel.sp_GetRWOs2099Audit_Result)" />
+          <FunctionImport Name="sp_GetReportAuditInfo" ReturnType="Collection(ReportsModel.sp_GetReportAuditInfo_Result)">
+          <Parameter Name="reportId" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_GetRWOsWith2099Dates" ReturnType="Collection(ReportsModel.sp_GetRWOsWith2099Dates_Result)">
             <Parameter Name="operatorName" Mode="In" Type="String" />
             <Parameter Name="team" Mode="In" Type="String" />
@@ -750,11 +764,17 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="String" Name="TeamReport" Nullable="true" />
           <Property Type="DateTime" Name="ReportDatetime" Nullable="true" Precision="23" />
         </ComplexType>
+        <ComplexType Name="sp_GetReportAuditInfo_Result">
+          <Property Type="String" Name="Report" Nullable="true" />
+          <Property Type="String" Name="OperatorName" Nullable="true" />
+          <Property Type="DateTime" Name="ReportAccessDate" Nullable="true" Precision="23" />
+        </ComplexType>
         <ComplexType Name="sp_GetRWOsWith2099Dates_Result">
           <Property Type="Int32" Name="Account" Nullable="false" />
           <Property Type="String" Name="Last_Name" Nullable="true" MaxLength="60" />
           <Property Type="String" Name="First_Name" Nullable="true" MaxLength="35" />
           <Property Type="DateTime" Name="NextRepeatDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Product_Category" Nullable="true" MaxLength="48" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1145,6 +1165,15 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetReportAuditInfo" FunctionName="ReportsModel.Store.sp_GetReportAuditInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.sp_GetReportAuditInfo_Result">
+                <ScalarProperty Name="Report" ColumnName="Report" />
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+                <ScalarProperty Name="ReportAccessDate" ColumnName="ReportAccessDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_GetRWOsWith2099Dates" FunctionName="ReportsModel.Store.sp_GetRWOsWith2099Dates">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ReportsModel.sp_GetRWOsWith2099Dates_Result">
@@ -1152,6 +1181,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
                 <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
                 <ScalarProperty Name="First_Name" ColumnName="First_Name" />
                 <ScalarProperty Name="NextRepeatDate" ColumnName="NextRepeatDate" />
+                <ScalarProperty Name="Product_Category" ColumnName="Product_Category" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -11,7 +11,7 @@ namespace USPS_Report.Models
 {
     public class uspsDB
     {
-        public static IList<UspsReportVM> GetReport(string _tracNum)
+        public static IList<UspsReportVM> GetReport(string _tracNum, string operatorName)
         {
             IList<UspsReportVM> _vm = new List<UspsReportVM>();
         
@@ -46,9 +46,10 @@ namespace USPS_Report.Models
                     }
 
                 }
-             
-                  
 
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',18,GETDATE())";
+
+                int rowsinsert = _db.Database.ExecuteSqlCommand(query);
 
             }
             return _vm;

@@ -172,12 +172,12 @@ namespace USPS_Report.Areas.Reports.Controllers
                     }
             };
 
-            var _data = getFutureOrder();
+            var _data = getFutureOrder(User.Identity.Name.Split('\\').Last().ToLower());
             return Json(_data.ToDataSourceResult(request));
         }
 
 
-        private IList<ShippedOrderVM> getFutureOrder()
+        private IList<ShippedOrderVM> getFutureOrder(string operatorName)
         {
 
 
@@ -202,7 +202,9 @@ namespace USPS_Report.Areas.Reports.Controllers
                                  Title = g.Count().ToString()
 
                              }).ToList<ShippedOrderVM>();
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',25,GETDATE())";
 
+                int rowsinsert = _db.Database.ExecuteSqlCommand(query);
 
                 return _list.Select(t => new ShippedOrderVM
                 {

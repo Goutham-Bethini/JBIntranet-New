@@ -26,7 +26,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             try
             {                
                 IList<ReturnItemsData> _list = new List<ReturnItemsData>();
-                _list = ReturnItems.GetReturnItemsData();
+                _list = ReturnItems.GetReturnItemsData(User.Identity.Name.Split('\\').Last().ToLower());
                 _vm.Details = _list;              
                 return View(_vm);
             }

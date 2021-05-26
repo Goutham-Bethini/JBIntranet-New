@@ -63,7 +63,7 @@ namespace USPS_Report.Controllers
         public ActionResult USPSInfo(MainVM vm)
         {
              
-            vm.dataList = uspsDB.GetReport(vm.trackNum);
+            vm.dataList = uspsDB.GetReport(vm.trackNum, User.Identity.Name.Split('\\').Last().ToLower());
 
         //  if (vm.dataList.Count == 0)
              //  vm.dataList = null;

@@ -22,6 +22,7 @@ namespace USPS_Report.Areas.Reports.Models
             public string LastName { get; set; }
             public string FirstName { get; set; }            
             public DateTime? NextRepeatDate { get; set; }
+            public string ProductCategory { get; set; }
         }
 
         public class RWOsWith2099DatesAudit
@@ -45,7 +46,8 @@ namespace USPS_Report.Areas.Reports.Models
                                               Account = item.Account,
                                               LastName = item.Last_Name,
                                               FirstName = item.First_Name,
-                                              NextRepeatDate = item.NextRepeatDate
+                                              NextRepeatDate = item.NextRepeatDate,
+                                              ProductCategory = item.Product_Category
                                           }
                                ).ToList();
                 }

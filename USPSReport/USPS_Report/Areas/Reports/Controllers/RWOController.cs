@@ -19,7 +19,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         {
             ProductSubModel _vm = new ProductSubModel();
             IList<RwoProSub> proSublist = new List<RwoProSub>();
-            _vm = ProdSubstitution.displayProdSubsList(_vm);
+            _vm = ProdSubstitution.displayProdSubsList(_vm, User.Identity.Name.Split('\\').Last().ToLower());
           
             _vm.ValidOldProd = true;
             _vm.ValidNewProd = true;
@@ -32,7 +32,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             _vm = ProdSubstitution.checkProdCode(_vm);
          
             IList<RwoProSub> proSublist = new List<RwoProSub>();
-            _vm = ProdSubstitution.displayProdSubsList(_vm);
+            _vm = ProdSubstitution.displayProdSubsList(_vm, User.Identity.Name.Split('\\').Last().ToLower());
             return View(_vm);
         }
 

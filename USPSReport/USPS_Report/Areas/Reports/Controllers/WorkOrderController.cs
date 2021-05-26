@@ -41,7 +41,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (ID != null)
             {
                 
-                _vm.workOrder = ReportWorkOrder.GetWorkOrderByAccountByNumbers(ID, _vm.Numbers);
+                _vm.workOrder = ReportWorkOrder.GetWorkOrderByAccountByNumbers(ID, _vm.Numbers, User.Identity.Name.Split('\\').Last().ToLower());
               
                 _vm.CancelFlag = 0;
             }
@@ -87,7 +87,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         {
            // Int32? account=0;
             //   Int32 num=0;
-            return Json(ReportWorkOrder.GetWorkOrderByAccountByNumbers(account, Convert.ToInt32(num)).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return Json(ReportWorkOrder.GetWorkOrderByAccountByNumbers(account, Convert.ToInt32(num), User.Identity.Name.Split('\\').Last().ToLower()).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -104,7 +104,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
             _vm.ReleaseToolAccess = IsInGroup(userName, "ReleaseOrders");
 
-            _vm.workOrder = ReportWorkOrder.GetWorkOrderByAccountByNumbers(_vm.Account, _vm.Numbers);
+            _vm.workOrder = ReportWorkOrder.GetWorkOrderByAccountByNumbers(_vm.Account, _vm.Numbers, User.Identity.Name.Split('\\').Last().ToLower());
             return View(_vm);
 
 

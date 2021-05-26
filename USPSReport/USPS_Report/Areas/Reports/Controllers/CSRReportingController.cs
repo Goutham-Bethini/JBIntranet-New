@@ -28,7 +28,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         public ActionResult CSRAssessment()
         {
             CSRAssessmentVM _vm = new CSRAssessmentVM();
-            _vm.csrAssessment = CSRReport.GetCSRAssessment();
+            _vm.csrAssessment = CSRReport.GetCSRAssessment(User.Identity.Name.Split('\\').Last().ToLower());
             return View(_vm);
         }
 
@@ -50,14 +50,14 @@ namespace USPS_Report.Areas.Reports.Controllers
         public ActionResult HoldOrders()
         {
             SpecialHoldsVM _vm = new SpecialHoldsVM();
-            _vm.holdlist = CSRReport.GetHoldReports();
+            _vm.holdlist = CSRReport.GetHoldReports_CSR(User.Identity.Name.Split('\\').Last().ToLower());
             return View(_vm);
         }
 
         public ActionResult SuperiorHeldOrders()
         {
             SpecialHoldsVM _vm = new SpecialHoldsVM();
-            _vm.holdlist = CSRReport.GetSuperiorHoldReports();
+            _vm.holdlist = CSRReport.GetSuperiorHoldReports(User.Identity.Name.Split('\\').Last().ToLower());
             return View(_vm);
         }
 

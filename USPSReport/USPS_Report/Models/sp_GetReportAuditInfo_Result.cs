@@ -7,18 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ReportsDatabase
+namespace USPS_Report.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tbl_Name_Frequency
+    public partial class sp_GetReportAuditInfo_Result
     {
-        public int ID { get; set; }
-        public string Title { get; set; }
-        public string Comment { get; set; }
-        public Nullable<short> DisplayOrder { get; set; }
-        public Nullable<System.DateTime> DeletedDate { get; set; }
-        public Nullable<int> ID_DeletedBy { get; set; }
+        public string Report { get; set; }
+        public string OperatorName { get; set; }
+        public Nullable<System.DateTime> ReportAccessDate { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             _vm.totalWt = 0.0;
             _vm.details = AddCSRLog.GetDetails(_vm.Account);
 
-            _vm.workOrderDetail = WeightCalculator.GetWODetailByAccount(Convert.ToInt32(_vm.Account));
+            _vm.workOrderDetail = WeightCalculator.GetWODetailByAccount(Convert.ToInt32(_vm.Account), User.Identity.Name.Split('\\').Last().ToLower());
 
             foreach (var rec in _vm.workOrderDetail)
             {

@@ -79,5 +79,9 @@ namespace ReportsDatabase
         public string EDIISA07 { get; set; }
         public string EDIPO106 { get; set; }
         public Nullable<short> EDIDontSendEmail { get; set; }
+        public Nullable<short> EDI810Confirmation { get; set; }
+        public string EDIBEG02_Stock { get; set; }
+        public string EDIBEG02_DropShip { get; set; }
+        public Nullable<short> EDIBEG_PER { get; set; }
     }
 }

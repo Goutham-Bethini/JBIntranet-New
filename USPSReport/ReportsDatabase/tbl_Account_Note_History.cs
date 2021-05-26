@@ -22,5 +22,8 @@ namespace ReportsDatabase
         public Nullable<int> Tag { get; set; }
         public Nullable<int> PSR_ID { get; set; }
         public string ExternalReference { get; set; }
+        public Nullable<int> ID_Therapy { get; set; }
+        public Nullable<System.DateTime> DeletedDate { get; set; }
+        public Nullable<int> ID_DeletedBy { get; set; }
     }
 }

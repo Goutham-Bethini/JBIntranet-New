@@ -1,0 +1,94 @@
+﻿@model USPS_Report.Areas.Reports.Models.ReportAudit.ReportsAuditVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "ReportsAudit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="middle" style="text-align:center;">Reports Audit</h3>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>
+
+@using (Html.BeginForm("ReportsAudit", "ReportsAudit", FormMethod.Post))
+{
+    <div class="row">
+        <div class="center">
+            @Html.ValidationMessageFor(model => model.ReportId, "", new { @class = "redText" })
+
+            <h4>
+                Team : @Html.DropDownListFor(t => t.ReportId, new List<SelectListItem>
+{
+new SelectListItem { Text = "RWO's with Multiple Locations" , Value = "1"},
+new SelectListItem { Text = "RWO's with Multiple Methods" , Value = "2"},
+new SelectListItem { Text = "RWO's with Multiple Times" , Value = "3"},
+new SelectListItem { Text = "USS Operator Lookup" , Value = "4"},
+new SelectListItem { Text = "Old 'Waiting to Interface' Orders" , Value = "5"},
+new SelectListItem { Text = "RO Orders Not Purchase" , Value = "6"},
+new SelectListItem { Text = "RWO's Older Than Today" , Value = "7"},
+new SelectListItem { Text = "RWO's set with 'FedEx - Rush Order'" , Value = "8"},
+new SelectListItem { Text = "Back Orders" , Value = "9"},
+new SelectListItem { Text = "Priority holds" , Value = "10"},
+new SelectListItem { Text = "Pumps Hold Report" , Value = "11"},
+new SelectListItem { Text = "Superior Hold Report" , Value = "12"},
+new SelectListItem { Text = "CSR Assessment Tracking" , Value = "13"},
+new SelectListItem { Text = "Victor Not Confirmed Calls" , Value = "14"},
+new SelectListItem { Text = "Victor Confirmed Calls" , Value = "15"},
+new SelectListItem { Text = "Shipped Orders" , Value = "16"},
+new SelectListItem { Text = "Accounts With Multiple Ship Dates" , Value = "17"},
+new SelectListItem { Text = "USPS" , Value = "18"},
+new SelectListItem { Text = "Patient Order Lookup" , Value = "19"},
+new SelectListItem { Text = "Weight Calculator" , Value = "20"},
+}, "Select Option")
+            </h4>
+            <br />
+            <button class="btn btn-primary btn-large" type="submit">Submit</button>
+        </div>
+    </div>
+
+    <br />
+
+    if (Model != null && Model.ReportId != null)
+    {
+        <div class="center">
+            @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.ReportAudit.ReportAuditData>()
+                                                                                    .Name("AuditReport")
+                                                                                    .Columns(columns =>
+                                                                                    {
+                                                                                        columns.Bound(t => t.Report).Title("Report");
+                                                                                        columns.Bound(t => t.UserName).Title("User Name");
+                                                                                        columns.Bound(t => t.AccessDate).Title("Access Date").Format("{0:MM/dd/yyyy}");
+                                                                                    })
+                                                                                            .ToolBar(tools => tools.Excel())
+                                                                                    .Sortable()
+                                                                                        .Pageable()
+                                                                                            .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                                                                                        .Excel(excel => excel
+                                                                                            .FileName("ReportAudit.xlsx")
+                                                                                            .AllPages(true)
+                                                                                            .Filterable(true)
+                                                                                            .ProxyURL(Url.Action("Excel_Export_Save", "ReportsAudit"))
+                                                                                        )
+                                                                                        //.HtmlAttributes(new { style = "width:3000px;" })
+                                                                                        .Reorderable(r => r.Columns(true))
+                                                                                        .Resizable(r => r.Columns(true))
+                                                                                        .ColumnMenu()
+                                                                                    .DataSource(dataSource => dataSource
+                                                                                        .Ajax()
+                                                                                            .PageSize(25)
+                                                                                            .ServerOperation(false)
+                                                                                        .Read(read => read.Action("ReportAuditData", "ReportsAudit", new { reportId=Model.ReportId}))
+                                                                                    )
+            )
+        </div>
+    }
+}
+
+        <style>
+            .center {
+                text-align: center;
+            }
+
+            .redText {
+                color: Red;
+            }
+        </style>

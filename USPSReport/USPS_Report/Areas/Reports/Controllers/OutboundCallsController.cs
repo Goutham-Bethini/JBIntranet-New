@@ -48,7 +48,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         {
             SAVictorCalls _list = new SAVictorCalls();
             IList<SACallsVM> _vm = new List<SACallsVM>();
-            _vm = SMOutbound.getSAVictorCalls();
+            _vm = SMOutbound.getSAVictorCalls(User.Identity.Name.Split('\\').Last().ToLower());
             _list.victorCalls = _vm;
             return View(_list);
         }
@@ -148,7 +148,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         {
             SAVictorCalls _list = new SAVictorCalls();
             IList<SACallsVM> _vm = new List<SACallsVM>();
-            _vm = SMOutbound.getSAVictorNotConfirmedCalls();
+            _vm = SMOutbound.getSAVictorNotConfirmedCalls(User.Identity.Name.Split('\\').Last().ToLower());
             _list.victorCalls = _vm;
             return View(_list);
         }
