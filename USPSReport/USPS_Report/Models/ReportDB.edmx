@@ -137,6 +137,11 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="returnId" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_GetReturnReasonList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetRWOs2099Audit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetRWOsWith2099Dates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="operatorName" Type="varchar(max)" Mode="In" />
+          <Parameter Name="team" Type="varchar(max)" Mode="In" />
+        </Function>
         <Function Name="sp_GetSearchAccounts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="account" Type="int" Mode="In" />
           <Parameter Name="firstName" Type="varchar" Mode="In" />
@@ -180,6 +185,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="dont_Display" Type="smallint" Mode="In" />
           <Parameter Name="oracleRMA" Type="int" Mode="In" />
           <Parameter Name="PickUpDate" Type="datetime" Mode="In" />
+          <Parameter Name="reshippedAtCost" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_InsertReturn_Line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="return_ID" Type="int" Mode="In" />
@@ -240,6 +246,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="dont_Display" Type="smallint" Mode="In" />
           <Parameter Name="oracleRMA" Type="int" Mode="In" />
           <Parameter Name="PickUpDate" Type="datetime" Mode="In" />
+          <Parameter Name="reshippedAtCost" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_UpdateReturn_Line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="return_Line_ID" Type="int" Mode="In" />
@@ -408,6 +415,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
             <Parameter Name="dont_Display" Mode="In" Type="Int16" />
             <Parameter Name="oracleRMA" Mode="In" Type="Int32" />
             <Parameter Name="PickUpDate" Mode="In" Type="DateTime" />
+            <Parameter Name="reshippedAtCost" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_InsertReturn_Line">
             <Parameter Name="return_ID" Mode="In" Type="Int32" />
@@ -428,6 +436,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
             <Parameter Name="dont_Display" Mode="In" Type="Int16" />
             <Parameter Name="oracleRMA" Mode="In" Type="Int32" />
             <Parameter Name="PickUpDate" Mode="In" Type="DateTime" />
+            <Parameter Name="reshippedAtCost" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_UpdateReturn_Line">
             <Parameter Name="return_Line_ID" Mode="In" Type="Int32" />
@@ -443,6 +452,11 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           </FunctionImport>
           <FunctionImport Name="sp_GetReturnItemsData_Result2" ReturnType="Collection(ReportsModel.sp_GetReturnItem_Result)" />
           <FunctionImport Name="sp_GetReturnItemsData_Result" ReturnType="Collection(ReportsModel.sp_GetReturnItemsData_Result)" />
+          <FunctionImport Name="sp_GetRWOs2099Audit" ReturnType="Collection(ReportsModel.sp_GetRWOs2099Audit_Result)" />
+          <FunctionImport Name="sp_GetRWOsWith2099Dates" ReturnType="Collection(ReportsModel.sp_GetRWOsWith2099Dates_Result)">
+            <Parameter Name="operatorName" Mode="In" Type="String" />
+            <Parameter Name="team" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="FedEx_POD_tbl">
           <Key>
@@ -723,6 +737,19 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="String" Name="List_Option_text" Nullable="true" MaxLength="100" />
           <Property Type="DateTime" Name="LastPrintDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="Tracking_Number" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_GetRWOs2099Audit_Result">
+          <Property Type="Int32" Name="RowId" Nullable="false" />
+          <Property Type="String" Name="OperatorName" Nullable="true" />
+          <Property Type="String" Name="TeamReport" Nullable="true" />
+          <Property Type="DateTime" Name="ReportDatetime" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="sp_GetRWOsWith2099Dates_Result">
+          <Property Type="Int32" Name="Account" Nullable="false" />
+          <Property Type="String" Name="Last_Name" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="First_Name" Nullable="true" MaxLength="35" />
+          <Property Type="DateTime" Name="NextRepeatDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Product_Category" Nullable="true" MaxLength="48" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1096,6 +1123,27 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
                 <ScalarProperty Name="List_Option_text" ColumnName="List_Option_text" />
                 <ScalarProperty Name="LastPrintDate" ColumnName="LastPrintDate" />
                 <ScalarProperty Name="Tracking_Number" ColumnName="Tracking_Number" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetRWOs2099Audit" FunctionName="ReportsModel.Store.sp_GetRWOs2099Audit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.sp_GetRWOs2099Audit_Result">
+                <ScalarProperty Name="RowId" ColumnName="RowId" />
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+                <ScalarProperty Name="TeamReport" ColumnName="TeamReport" />
+                <ScalarProperty Name="ReportDatetime" ColumnName="ReportDatetime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetRWOsWith2099Dates" FunctionName="ReportsModel.Store.sp_GetRWOsWith2099Dates">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.sp_GetRWOsWith2099Dates_Result">
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="NextRepeatDate" ColumnName="NextRepeatDate" />
+                <ScalarProperty Name="Product_Category" ColumnName="Product_Category" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

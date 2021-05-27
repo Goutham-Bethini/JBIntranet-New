@@ -1,0 +1,144 @@
+﻿@model USPS_Report.Areas.Reports.Models.RWOsWith2099Dates.RWOsWith2099DatesVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "RWOsWith2099Dates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="middle" style="text-align:center;">RWO's With 2099 Dates</h3>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>
+
+@using (Html.BeginForm("RWOsWith2099Dates", "RWOsWith2099Dates", FormMethod.Post))
+{
+    <div class="row">
+        <div class="center">
+            @Html.ValidationMessageFor(model => model.Team, "", new { @class = "redText" })
+
+            <h4>
+                Team : @Html.DropDownListFor(t => t.Team, new List<SelectListItem>
+{
+new SelectListItem { Text = "AOB" , Value = "AOB"},
+new SelectListItem { Text = "Nursing" , Value = "Nursing"},
+new SelectListItem { Text = "BCN" , Value = "BCN"},
+new SelectListItem { Text = "CSR Product Assessment" , Value = "CSR Product Assessment"},
+new SelectListItem { Text = "Shipping Team" , Value = "Shipping Team"},
+new SelectListItem { Text = "Call Center" , Value = "Call Center"},
+new SelectListItem { Text = "Billing" , Value = "Billing"},
+new SelectListItem { Text = "MedDocs Team" , Value = "MedDocs Team"},
+new SelectListItem { Text = "Verification Team" , Value = "Verification Team"},
+new SelectListItem { Text = "QA Team" , Value = "QA Team"},
+new SelectListItem { Text = "Physician enrollment/OPR tasks" , Value = "Physician enrollment/OPR tasks"},
+new SelectListItem { Text = "Special Projects" , Value = "Special Projects"},
+new SelectListItem { Text = "Specialty Items Team (BP monitors, Breast pumps, Enteral and Ostomy)" , Value = "Specialty Items Team (BP monitors, Breast pumps, Enteral and Ostomy)"},
+new SelectListItem { Text = "CMN Department" , Value = "CMN Department"},
+new SelectListItem { Text = "Pump/CGM Team" , Value = "Pump/CGM Team"},
+}, "Select Option")
+            </h4>
+            <br />
+            <button class="btn btn-primary btn-large" type="submit">Submit</button>
+        </div>
+
+    </div>
+    
+    <br />
+
+    if (Model != null && Model.Team != null)
+    {
+        <div class="center">
+            @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.RWOsWith2099Dates.RWOsWith2099DatesData>()
+                                                    .Name("RWOs")
+                                                    .Columns(columns =>
+                                                    {
+                                                        columns.Bound(t => t.Account).Title("Account");
+                                                        columns.Bound(t => t.LastName).Title("Last Name");
+                                                        columns.Bound(t => t.FirstName).Title("First Name");
+                                                        columns.Bound(t => t.NextRepeatDate).Title("Next Repeat Date").Format("{0:MM/dd/yyyy}");
+                                                        columns.Bound(t => t.ProductCategory).Title("Product Category");
+                                                    })
+                                                            .ToolBar(tools => tools.Excel())
+                                                    .Sortable()
+                                                        .Pageable()
+                                                            .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                                                        .Excel(excel => excel
+                                                            .FileName("RWOs2099.xlsx")
+                                                            .AllPages(true)
+                                                            .Filterable(true)
+                                                            .ProxyURL(Url.Action("Excel_Export_Save", "RWOsWith2099Dates"))
+                                                        )
+                                                        //.HtmlAttributes(new { style = "width:3000px;" })
+                                                        .Reorderable(r => r.Columns(true))
+                                                        .Resizable(r => r.Columns(true))
+                                                        .ColumnMenu()
+                                                    .DataSource(dataSource => dataSource
+                                                        .Ajax()
+                                                            .PageSize(25)
+                                                            .ServerOperation(false)
+                                                        .Model(model => model.Id(p => p.Account))
+                                                        .Read(read => read.Action("RWOsWith2099DatesData", "RWOsWith2099Dates", new { operatorName = HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower(), team = Model.Team }).Type(HttpVerbs.Get))
+                                                    )
+            )
+        </div>
+    }
+}
+
+<br />
+<br />
+<center>
+    @if (HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "maheshkattamuribpl" 
+        || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "mott"
+        || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "bserra"
+        || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "sissa"
+        || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "tdecoster")
+    {
+    <div>
+        <center>
+            @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.RWOsWith2099Dates.RWOsWith2099DatesAudit>()
+                                                    .Name("RWOsAudit")
+                                                    .Columns(columns =>
+                                                    {
+                                                        //columns.Bound(t => t.RowId).Title("RowId");
+                                                        columns.Bound(t => t.OperatorName).Title("OperatorName");
+                                                        columns.Bound(t => t.TeamReport).Title("TeamReport");
+                                                        columns.Bound(t => t.ReportDatetime).Title("ReportDatetime").Format("{0:MM/dd/yyyy}");
+
+                                                    })
+                                                    .ToolBar(tools => tools.Excel())
+                                                    .Sortable()
+                                                        .Pageable()
+                                                            .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                                                        .Excel(excel => excel
+                                                            .FileName("AuditReport.xlsx")
+                                                            .AllPages(true)
+                                                            .Filterable(true)
+                                                            .ProxyURL(Url.Action("Excel_Export_Save", "RWOsWith2099Dates"))
+                                                        )
+                                                            .Sortable()
+                            .Pageable()
+                                .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                                                        //.HtmlAttributes(new { style = "width:80%;" })
+                                                        .Reorderable(r => r.Columns(true))
+                                                        .Resizable(r => r.Columns(true))
+                                                        .ColumnMenu()
+                                                    .DataSource(dataSource => dataSource
+                                                        .Ajax()
+                                                            .PageSize(25)
+                                                            .ServerOperation(false)
+                                                        .Model(model => model.Id(p => p.RowId))
+                                                        .Read(read => read.Action("RWOsAuditData", "RWOsWith2099Dates", null))
+                                                    )
+            )
+        </center>
+    </div>
+    }
+</center>
+
+<style>
+    .center {
+        text-align: center;
+    }
+
+    .redText {
+        color: Red;
+    }
+</style>

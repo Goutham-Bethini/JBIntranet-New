@@ -71,10 +71,6 @@
     <Reference Include="RazorPDF">
       <HintPath>..\packages\RazorPDF.1.0.0\lib\net45\RazorPDF.dll</HintPath>
     </Reference>
-    <Reference Include="ReportsDatabase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Published Projects\JBIntranet\bin\ReportsDatabase.dll</HintPath>
-    </Reference>
     <Reference Include="Select.Pdf">
       <HintPath>..\packages\Select.Pdf.15.1.0.1\lib\net40\Select.Pdf.dll</HintPath>
     </Reference>
@@ -371,6 +367,7 @@
     <Compile Include="Areas\Reports\Controllers\ROnotPurchaseController.cs" />
     <Compile Include="Areas\Reports\Controllers\RWOController.cs" />
     <Compile Include="Areas\Reports\Controllers\RWOsOlderDatesController.cs" />
+    <Compile Include="Areas\Reports\Controllers\RWOsWith2099DatesController.cs" />
     <Compile Include="Areas\Reports\Controllers\SchedulerController.cs" />
     <Compile Include="Areas\Reports\Controllers\SmartActionController.cs" />
     <Compile Include="Areas\Reports\Controllers\CSRController.cs" />
@@ -423,6 +420,7 @@
     <Compile Include="Areas\Reports\Models\RWOMultipleLocations.cs" />
     <Compile Include="Areas\Reports\Models\RWOMultipleTimes.cs" />
     <Compile Include="Areas\Reports\Models\RwosReport.cs" />
+    <Compile Include="Areas\Reports\Models\RWOsWith2099Dates.cs" />
     <Compile Include="Areas\Reports\Models\RWOwithOlderDates.cs" />
     <Compile Include="Areas\Reports\Models\ShippingOrder.cs" />
     <Compile Include="Areas\Reports\Models\SmartAction.cs" />
@@ -572,6 +570,12 @@
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_GetReturnReasonList_Result.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_GetRWOs2099Audit_Result.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_GetRWOsWith2099Dates_Result.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_GetSearchAccounts_Result.cs">
@@ -1277,6 +1281,7 @@
     <Content Include="Scripts\Highcharts\js\themes\grid.js" />
     <Content Include="Scripts\Highcharts\js\themes\sand-signika.js" />
     <Content Include="Scripts\Highcharts\js\themes\skies.js" />
+    <Content Include="Areas\Reports\Views\RWOsWith2099Dates\RWOsWith2099Dates.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GBethini.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
@@ -1979,6 +1984,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ReportsDatabase\ReportsDatabase.csproj">
+      <Project>{1c711286-6b8b-4e99-8026-f59bfdb2fdb4}</Project>
+      <Name>ReportsDatabase</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
