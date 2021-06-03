@@ -17,8 +17,6 @@ namespace ReportsDatabase
         public int ID { get; set; }
         public string Title { get; set; }
         public string Comment { get; set; }
-        public Nullable<short> DisplayOrder { get; set; }
-        public Nullable<System.DateTime> DeletedDate { get; set; }
-        public Nullable<int> ID_DeletedBy { get; set; }
+        public Nullable<int> DisplayOrder { get; set; }
     }
 }

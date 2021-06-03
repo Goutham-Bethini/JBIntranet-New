@@ -58,6 +58,5 @@ namespace ReportsDatabase
         public Nullable<System.DateTime> D_AdminEndDate { get; set; }
         public Nullable<int> ID_Rendering_Doctor { get; set; }
         public Nullable<short> D_ReplacementRxOrder { get; set; }
-        public Nullable<int> ID_SupportingDocument { get; set; }
     }
 }

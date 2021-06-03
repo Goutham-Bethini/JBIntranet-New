@@ -4,21 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b07a7b83e90f4608816cb515fd27c0b9" Name="Diagram1" ZoomLevel="17">
+      <Diagram DiagramId="b07a7b83e90f4608816cb515fd27c0b9" Name="Diagram1" ZoomLevel="10">
         <EntityTypeShape EntityType="HHSQLDBModel.JBCCServiceProductLine" Width="1.5" PointX="0.75" PointY="3.125" />
         <EntityTypeShape EntityType="HHSQLDBModel.JBCCServiceProductLine_ProductCategory" Width="1.5" PointX="3" PointY="1.125" />
         <EntityTypeShape EntityType="HHSQLDBModel.JBCCServiceSmartActionProductsToConfirm" Width="1.5" PointX="3" PointY="4.875" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Account_Note" Width="1.5" PointX="9.75" PointY="0.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Account_Note_History" Width="1.5" PointX="9.75" PointY="4.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Billing_Code_Table" Width="1.5" PointX="9.75" PointY="8.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Claims" Width="1.5" PointX="11.75" PointY="0.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Clinical_Assessments" Width="1.5" PointX="2.75" PointY="11.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_DeliveryLocation_Table" Width="1.5" PointX="4.75" PointY="11.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_DeliveryMethod_Table" Width="1.5" PointX="11.75" PointY="8.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_DeliveryTimes_Table" Width="1.5" PointX="11.75" PointY="12.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Encounters" Width="1.5" PointX="13.75" PointY="0.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Inv_UOM_Table" Width="1.5" PointX="6.75" PointY="13.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Inv_Vendor_Table" Width="1.5" PointX="13.75" PointY="11.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Inv_VendorProduct_Table" Width="1.5" PointX="8.75" PointY="14.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.ClaimsToSubmit" Width="1.5" PointX="15.75" PointY="0.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.ClaimsToSubmit_Fixed" Width="1.5" PointX="15.75" PointY="7.75" />
@@ -31,31 +26,36 @@
         <EntityTypeShape EntityType="HHSQLDBModel.JBCCServicePayers" Width="1.5" PointX="16.375" PointY="17.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.JBCCServiceTypes" Width="1.5" PointX="18.375" PointY="3.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_MedDoc_Type_Table" Width="1.5" PointX="9.375" PointY="19.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Name_Frequency" Width="1.5" PointX="20.375" PointY="0.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Procedure_Groups_Table" Width="1.5" PointX="22.375" PointY="0.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_ProductCategory_Table" Width="1.5" PointX="16.375" PointY="22.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_PS_RepeatingOrders" Width="1.5" PointX="32.375" PointY="27.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Referral_Source_Table" Width="1.5" PointX="11.375" PointY="25.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Transaction_File" Width="1.5" PointX="13.375" PointY="25.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_UPS_WorkOrders" Width="1.5" PointX="26.375" PointY="0.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.WorkOrdersReleased" Width="1.5" PointX="26.375" PointY="5.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.Eligibility_EOD_Process" Width="1.5" PointX="26.375" PointY="8.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.v__AccountMemberEffectiveInsurance_Ins1" Width="1.5" PointX="26.375" PointY="11.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Pricing_Table" Width="1.5" PointX="26.375" PointY="19.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.BCN_Claims_FTP" Width="1.5" PointX="28.375" PointY="0.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_MedDoc_History" Width="1.5" PointX="20.375" PointY="13.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Allowable_Amounts" Width="1.5" PointX="13.375" PointY="30.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Operator_Table" Width="1.5" PointX="15.375" PointY="30.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Account_Insurance" Width="1.5" PointX="17.375" PointY="30.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Payer_Table" Width="1.5" PointX="22.375" PointY="10.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Name_PayerTypes" Width="1.5" PointX="3.375" PointY="33.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Account_Member" Width="1.5" PointX="0.75" PointY="33.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Account_Information" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Product_Table" Width="1.5" PointX="28.375" PointY="9.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.FedExLogins" Width="1.5" PointX="28.375" PointY="30.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_PS_WorkOrder" Width="1.5" PointX="5.375" PointY="23.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Account_Note_History" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Claims" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Encounters" Width="1.5" PointX="7.375" PointY="25.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Inv_UOM_Table" Width="1.5" PointX="9.375" PointY="4.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Inv_Vendor_Table" Width="1.5" PointX="30.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Name_Frequency" Width="1.5" PointX="13.375" PointY="17.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_PS_RepeatingOrders" Width="1.5" PointX="9.375" PointY="25.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Referral_Source_Table" Width="1.5" PointX="30.375" PointY="15.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.v__AccountMemberEffectiveInsurance_Ins1" Width="1.5" PointX="30.375" PointY="26.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Allowable_Amounts" Width="1.5" PointX="18.375" PointY="10.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_MedDoc_History" Width="1.5" PointX="19.375" PointY="17.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Operator_Table" Width="1.5" PointX="11.375" PointY="30.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Name_PayerTypes" Width="1.5" PointX="21.375" PointY="10.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Payer_Table" Width="1.5" PointX="21.375" PointY="27.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_Product_Table" Width="1.5" PointX="13.375" PointY="30.75" />
         <EntityTypeShape EntityType="HHSQLDBModel.tbl_Account_Member_Insurance" Width="1.5" PointX="18.375" PointY="7.75" />
-        <EntityTypeShape EntityType="HHSQLDBModel.tbl_PS_WorkOrderLine" Width="1.5" PointX="24.375" PointY="24.75" />
+        <EntityTypeShape EntityType="HHSQLDBModel.tbl_PS_WorkOrderLine" Width="1.5" PointX="23.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

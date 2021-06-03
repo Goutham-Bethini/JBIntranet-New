@@ -111,7 +111,7 @@ namespace ReportsDatabase
         public string DeliveredComment { get; set; }
         public Nullable<short> DeliveredSignatureRel { get; set; }
         public string DeliveredSignatureReason { get; set; }
-        public short DeliveredMobileDriver { get; set; }
+        public bool DeliveredMobileDriver { get; set; }
         public Nullable<System.DateTime> EDIGatherDateTime { get; set; }
         public string EDIGatherControlNumber { get; set; }
         public Nullable<System.DateTime> ConfirmationDateTime { get; set; }

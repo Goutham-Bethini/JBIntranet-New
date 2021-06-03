@@ -38,7 +38,5 @@ namespace ReportsDatabase
         public Nullable<short> PurchaseRateToUse { get; set; }
         public Nullable<double> AWPAdjPercent { get; set; }
         public Nullable<double> ASPAdjPercent { get; set; }
-        public Nullable<decimal> Purchase_Rural { get; set; }
-        public Nullable<decimal> Rental_Rural { get; set; }
     }
 }

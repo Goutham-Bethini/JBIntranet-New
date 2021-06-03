@@ -61,6 +61,5 @@ namespace ReportsDatabase
         public string Middle_Name { get; set; }
         public Nullable<System.DateTime> Middle_Initial { get; set; }
         public Nullable<short> MidLevelPhyType { get; set; }
-        public Nullable<int> ID_DoctorSpecialty { get; set; }
     }
 }

@@ -25,6 +25,7 @@ namespace ReportsDatabase
         public string PayerCity { get; set; }
         public string PayerState { get; set; }
         public string PayerZip { get; set; }
+        public string PayerPhone { get; set; }
         public Nullable<int> ID_PayerType { get; set; }
         public Nullable<int> ID_Procedure_Group { get; set; }
         public Nullable<int> ID_Allowable { get; set; }
@@ -44,9 +45,7 @@ namespace ReportsDatabase
         public string SubscriberLastName { get; set; }
         public Nullable<System.DateTime> SubscriberBirthDate { get; set; }
         public short DeductibleMet { get; set; }
-        public string PayerPhone { get; set; }
         public Nullable<short> SubscriberRelationship { get; set; }
         public string ExternalReference { get; set; }
-        public short BenefitPlan { get; set; }
     }
 }

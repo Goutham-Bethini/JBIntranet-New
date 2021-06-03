@@ -227,18 +227,18 @@ namespace ReportsDatabase
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<System.DateTime> LastChange { get; set; }
         public Nullable<int> ID_ChangedBy { get; set; }
-        public Nullable<short> EqCost1Qty { get; set; }
-        public Nullable<short> EqCost2Qty { get; set; }
-        public Nullable<short> EqCost3Qty { get; set; }
-        public Nullable<short> EqCost4Qty { get; set; }
-        public Nullable<short> EqCost5Qty { get; set; }
-        public Nullable<short> EqCost6Qty { get; set; }
-        public Nullable<short> EqCost7Qty { get; set; }
-        public Nullable<short> EqCost8Qty { get; set; }
-        public Nullable<short> EqCost9Qty { get; set; }
-        public Nullable<short> EqCost10Qty { get; set; }
-        public Nullable<short> EqCost11Qty { get; set; }
-        public Nullable<short> EqCost12Qty { get; set; }
+        public Nullable<int> EqCost1Qty { get; set; }
+        public Nullable<int> EqCost2Qty { get; set; }
+        public Nullable<int> EqCost3Qty { get; set; }
+        public Nullable<int> EqCost4Qty { get; set; }
+        public Nullable<int> EqCost5Qty { get; set; }
+        public Nullable<int> EqCost6Qty { get; set; }
+        public Nullable<int> EqCost7Qty { get; set; }
+        public Nullable<int> EqCost8Qty { get; set; }
+        public Nullable<int> EqCost9Qty { get; set; }
+        public Nullable<int> EqCost10Qty { get; set; }
+        public Nullable<int> EqCost11Qty { get; set; }
+        public Nullable<int> EqCost12Qty { get; set; }
         public Nullable<int> Tag { get; set; }
         public Nullable<int> PSR_ID { get; set; }
         public string DRUG_IN_DrDirections { get; set; }
@@ -332,6 +332,5 @@ namespace ReportsDatabase
         public string DX11 { get; set; }
         public string DX12 { get; set; }
         public string Comments { get; set; }
-        public Nullable<long> ID_WorkFlowItem { get; set; }
     }
 }

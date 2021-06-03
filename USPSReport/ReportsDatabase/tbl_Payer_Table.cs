@@ -173,10 +173,5 @@ namespace ReportsDatabase
         public Nullable<short> Pharmacy_TPN_BillingMethod { get; set; }
         public Nullable<short> NCPDP_WE_DxMaxCount { get; set; }
         public Nullable<double> AllowablePercentOfCharge { get; set; }
-        public Nullable<short> EMC_AutoPostPaysBeforePrimary { get; set; }
-        public Nullable<int> ID_ContractualCopayAllowable { get; set; }
-        public Nullable<short> EMC_EligSendN3N4 { get; set; }
-        public Nullable<short> AdvanceShippingThreshold { get; set; }
-        public Nullable<short> DoNotAutoconfirmWorkOrders { get; set; }
     }
 }
