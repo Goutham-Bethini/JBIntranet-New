@@ -54,30 +54,30 @@
                     <li class="divider"></li>
                     <li><a href="http://10.10.1.49/HRApplication/Import/JB_OIG_SAM_Check_Report" target="_blank">OIG SAM Search Tool</a></li>
                     <li class="divider"></li>
-                    <li><a href="http://10.10.1.49/Test_ColdFusionReports/ColdFusionReports/ShippedOrders/ShippedOrders" target="_blank">Shipped Orders</a></li>
+                    <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/ShippedOrders/ShippedOrders" target="_blank">Shipped Orders</a></li>
                     <li class="divider"></li>
-                    <li> <a href="http://10.10.1.49/Test_ColdFusionReports/ColdFusionReports/USSoperatorLookup/USSoperatorLookup" target="_blank">USS Operator Lookup</a> </li>
+                    <li> <a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/USSoperatorLookup/USSoperatorLookup" target="_blank">USS Operator Lookup</a> </li>
                     <li class="divider"></li>
-                    <li><a href="http://10.10.1.49/Test_ColdFusionReports/ColdFusionReports/OldWaitingToInterface/OldWaitingToInterface" target="_blank">Old 'Waiting to Interface' Orders</a></li>
+                    <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/OldWaitingToInterface/OldWaitingToInterface" target="_blank">Old 'Waiting to Interface' Orders</a></li>
                     <li class="divider"></li>
-                    <li><a href="http://10.10.1.49/Test_ColdFusionReports/ColdFusionReports/ROordersNotPurchase/ROordersNotPurchase" target="_blank">RO Orders Not Purchase</a></li>
+                    <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/ROordersNotPurchase/ROordersNotPurchase" target="_blank">RO Orders Not Purchase</a></li>
                     <li class="divider"></li>
                     <li> <a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/AccountsMultipleShipDates/AccountsMultipleShipDates?selected=@DateTime.Now" target="_blank">Accounts With Multiple Ship Dates</a> </li>
                     
                     <li class="divider"></li>
                     <li>@Html.ActionLink("RWO's With 2099 Dates", "RWOsWith2099Dates", "RWOsWith2099Dates", new { area = "Reports" }, new { target = "_blank" })</li>
                     <li class="divider"></li>
-                    <li><a href="http://10.10.1.49/Test_ColdFusionReports/ColdFusionReports/RWOsOlderThanToday/RWOsOlderThanToday" target="_blank">RWO's Older Than Today</a></li>
+                    <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/RWOsOlderThanToday/RWOsOlderThanToday" target="_blank">RWO's Older Than Today</a></li>
                     <li class="divider"></li>
-                    <li><a href="http://10.10.1.49/Test_ColdFusionReports/ColdFusionReports/RWOsMultipleLocations/RWOsMultipleLocations" target="_blank">RWO's with Multiple Locations</a></li>
+                    <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/RWOsMultipleLocations/RWOsMultipleLocations" target="_blank">RWO's with Multiple Locations</a></li>
                     <li class="divider"></li>
-                    <li><a href="http://10.10.1.49/Test_ColdFusionReports/ColdFusionReports/RWOsMultipleMethods/RWOsMultipleMethods" target="_blank">RWO's with Multiple Methods</a></li>
+                    <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/RWOsMultipleMethods/RWOsMultipleMethods" target="_blank">RWO's with Multiple Methods</a></li>
                     <li class="divider"></li>
-                    <li><a href="http://10.10.1.49/Test_ColdFusionReports/ColdFusionReports/RWOsMultipleTimes/RWOsMultipleTimes" target="_blank">RWO's with Multiple Times</a></li>
+                    <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/RWOsMultipleTimes/RWOsMultipleTimes" target="_blank">RWO's with Multiple Times</a></li>
                     <li class="divider"></li>
                     <li><a href="http://10.10.1.49/RWO_ImproperFreq" target="_blank">RWO's with Improper Frequency</a></li>
                     <li class="divider"></li>
-                    <li><a href="http://10.10.1.49/Test_ColdFusionReports/ColdFusionReports/RWOsSetAsRush/RWOsSetAsRush" target="_blank">RWO's set with 'FedEx - Rush Order'</a></li>
+                    <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/RWOsSetAsRush/RWOsSetAsRush" target="_blank">RWO's set with 'FedEx - Rush Order'</a></li>
                     <li class="divider"></li>
                     @if (manageOrdersAccess)
                     {
@@ -404,9 +404,18 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li> @Html.ActionLink("Reports Audit", "ReportsAudit", "ReportsAudit", new { area = "Reports" }, new { target = "_blank" })</li>
-                    <li class="divider"></li>
-                    <li><a href="http://10.10.1.49/Test_ColdFusionReports/ColdFusionReports/BackOrders/BackOrders" target="_blank">Back Orders</a></li>
+                    @if (HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "maheshkattamuribpl"
+|| HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "mott"
+|| HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "bserra"
+|| HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "sissa"
+|| HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "tdecoster"
+|| HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "tkemp"
+|| HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "KPlacencia")
+                    {
+                        <li> @Html.ActionLink("Reports Audit", "ReportsAudit", "ReportsAudit", new { area = "Reports" }, new { target = "_blank" })</li>
+                        <li class="divider"></li>
+                    }
+                    <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/BackOrders/BackOrders" target="_blank">Back Orders</a></li>
                     <li class="divider"></li>
                     <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/ExpiringCMNs/ExpiringCMNs" target="_blank">Expiring CMNs</a></li>
                     <li class="divider"></li>
