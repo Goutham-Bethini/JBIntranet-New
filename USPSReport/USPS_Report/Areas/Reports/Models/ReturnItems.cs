@@ -709,7 +709,7 @@ namespace USPS_Report.Areas.Reports.Models
             }
 
         }
-        public static void InsertAccountNote(int account, string userName, int workOrder_ID,string note,int reason__List_Option_ID,string return_Other_Reason,string tracking_Number,int? OracleRMA, DateTime? DateReturned,string ProductCode, string QtyReturned, string ReshippedAtCost)
+        public static void InsertAccountNote(int account, string userName, int workOrder_ID,string note,int reason__List_Option_ID,string return_Other_Reason,string tracking_Number,int? OracleRMA, DateTime? DateReturned,string ProductCode, string QtyReturned, string Reshipped, string ReshippedAtCost, string ReturnForCredit, string ReturnWreceipt)
         {
             string DateReturnedString = Convert.ToDateTime(DateReturned).ToShortDateString();
             string OracleRMAString = OracleRMA.ToString();
@@ -742,6 +742,18 @@ namespace USPS_Report.Areas.Reports.Models
             if (!string.IsNullOrEmpty(DateReturnedString))
             {
                 NoteText += Environment.NewLine + "Return Date: " + DateReturnedString + ""+ Environment.NewLine ;
+            }
+            if (!string.IsNullOrEmpty(ReturnForCredit))
+            {
+                NoteText += Environment.NewLine + "Return for Credit: " + ReturnForCredit + "" + Environment.NewLine;
+            }
+            if (!string.IsNullOrEmpty(ReturnWreceipt))
+            {
+                NoteText += Environment.NewLine + "Return w/Receipt, No Credit: " + ReturnWreceipt + "" + Environment.NewLine;
+            }
+            if (!string.IsNullOrEmpty(Reshipped))
+            {
+                NoteText += Environment.NewLine + "ReShipped: " + Reshipped + "" + Environment.NewLine;
             }
             if (!string.IsNullOrEmpty(ReshippedAtCost))
             {
@@ -794,7 +806,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         }
 
-        public static void InsertAccountNoteCallTag(int account, string userName, int workOrder_ID, string note, int reason__List_Option_ID, string return_Other_Reason, string tracking_Number, int? OracleRMA,DateTime? ScheduledFor,string ProductCode, string QtyReturned,string ReshippedAtCost)
+        public static void InsertAccountNoteCallTag(int account, string userName, int workOrder_ID, string note, int reason__List_Option_ID, string return_Other_Reason, string tracking_Number, int? OracleRMA,DateTime? ScheduledFor,string ProductCode, string QtyReturned, string Reshipped, string ReshippedAtCost, string ReturnForCredit, string ReturnWreceipt)
         {
            
             string ScheduledForString = "";
@@ -832,6 +844,18 @@ namespace USPS_Report.Areas.Reports.Models
             if (!string.IsNullOrEmpty(ScheduledForString))
             {
                 NoteText += Environment.NewLine + "Scheduled For: " + ScheduledForString + "" + Environment.NewLine;
+            }
+            if (!string.IsNullOrEmpty(ReturnForCredit))
+            {
+                NoteText += Environment.NewLine + "Return for Credit: " + ReturnForCredit + "" + Environment.NewLine;
+            }
+            if (!string.IsNullOrEmpty(ReturnWreceipt))
+            {
+                NoteText += Environment.NewLine + "Return w/Receipt, No Credit: " + ReturnWreceipt + "" + Environment.NewLine;
+            }
+            if (!string.IsNullOrEmpty(Reshipped))
+            {
+                NoteText += Environment.NewLine + "ReShipped: " + Reshipped + "" + Environment.NewLine;
             }
             if (!string.IsNullOrEmpty(ReshippedAtCost))
             {
