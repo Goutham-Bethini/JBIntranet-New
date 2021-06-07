@@ -109,7 +109,7 @@
             {
                 <hr />
                 <h3>Pending Requests:</h3>
-                if (Model != null && Model.pendingList != null)
+                if (Model != null && Model.pendingList != null && Model.pendingList.Count>0)
                 {
 
                     using (Html.BeginForm("ProceedRWO", "RWO", FormMethod.Post))
