@@ -205,8 +205,13 @@
                             </table>
 
                             <center>
-@if (HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "ekeller" || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "nkjellin"
-                                                    || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "sissa" || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "grani" || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "jbmdxg1")
+@if (HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "ekeller" 
+    || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "nkjellin"
+                                                    || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "sissa" 
+                                                    || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "grani" 
+                                                    || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "jbmdxg1"
+                                                    || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "mott"
+                                                    || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "maheshkattamuribpl")
 {
                                 <button class="btn btn-primary btn-large" type="submit">submit</button>
 }
