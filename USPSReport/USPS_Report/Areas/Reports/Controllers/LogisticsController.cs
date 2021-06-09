@@ -85,7 +85,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         [HttpPost]
         public ActionResult ProductWithoutUW(ProductWith_No_UW _vm)
         {
-            _vm.productDetails = WeightCalculator.GetProduct_With_No_UW(_vm._start, _vm._end); 
+            _vm.productDetails = WeightCalculator.GetProduct_With_No_UW(_vm._start, _vm._end, User.Identity.Name.Split('\\').Last().ToLower()); 
             return View(_vm);
         }
 

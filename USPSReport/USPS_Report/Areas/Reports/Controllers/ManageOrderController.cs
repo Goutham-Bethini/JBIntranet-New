@@ -88,6 +88,8 @@ namespace USPS_Report.Areas.Reports.Controllers
                             {
 
                                 _db.sp_CancelOrders(string.Join(",", list.Select(n => n.ToString()).ToArray()), Note, userName);
+                                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',29,GETDATE())";
+                                int rowsinsert = _db.Database.ExecuteSqlCommand(query);
                                 return Json(new { Success = true, Message = "Successfully completed cancel orders" }, JsonRequestBehavior.AllowGet);
                             }
 
@@ -182,7 +184,10 @@ namespace USPS_Report.Areas.Reports.Controllers
                             using (var _db = new USPS_Report.Models.ReportsEntities())
                             {
                                 _db.sp_MassReleaseOrders(string.Join(",", list.Select(n => n.ToString()).ToArray()), userName);
-                                 return Json(new { Success = true, Message = "Successfully released orders" }, JsonRequestBehavior.AllowGet);
+
+                                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',30,GETDATE())";
+                                int rowsinsert = _db.Database.ExecuteSqlCommand(query);
+                                return Json(new { Success = true, Message = "Successfully released orders" }, JsonRequestBehavior.AllowGet);
                             }
 
 
@@ -279,6 +284,8 @@ namespace USPS_Report.Areas.Reports.Controllers
                             {
                              
                                  _db.sp_UnCancelOrders(string.Join(",", list.Select(n => n.ToString()).ToArray()));
+                                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',31,GETDATE())";
+                                int rowsinsert = _db.Database.ExecuteSqlCommand(query);
                                 return Json(new { Success = true, Message = "Successfully uncanceled orders" }, JsonRequestBehavior.AllowGet);
                             }
 

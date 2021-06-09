@@ -253,7 +253,7 @@ namespace USPS_Report.Areas.Reports.Models
                 return new List<Servlist>();
             }
         }
-        public static IList<CallPerPerson> GetTotalCallPerPerson( DateTime _dt)
+        public static IList<CallPerPerson> GetTotalCallPerPerson( DateTime _dt, string operatorName)
         {
             DateTime _nxtdt = _dt.AddDays(1);
             try
@@ -271,7 +271,8 @@ namespace USPS_Report.Areas.Reports.Models
                                     Count = t.Count()
                                  }
                                  ).OrderBy (t=>t.Name).ToList();
-
+                    string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',39,GETDATE())";
+                    int rowsinsert = _db.Database.ExecuteSqlCommand(query);
                     return _list;
 
                 }
@@ -509,7 +510,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         }
 
-        public static IList<callLogReport> GetCalllogReport(DateTime _startDt, DateTime _endDt)
+        public static IList<callLogReport> GetCalllogReport(DateTime _startDt, DateTime _endDt, string operatorName)
         {
 
 
@@ -598,6 +599,8 @@ namespace USPS_Report.Areas.Reports.Models
                     Rec.ComplaintRecieved = item.ComplaintRecieved;
                     _rec.Add(Rec);
                 }
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',40,GETDATE())";
+                int rowsinsert = _db.Database.ExecuteSqlCommand(query);
                 return _rec;
             }
             //   return _rec;

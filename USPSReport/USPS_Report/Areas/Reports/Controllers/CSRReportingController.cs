@@ -20,7 +20,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         [HttpPost]
         public ActionResult Index(CSRReportModel _vm)
         {
-            _vm.callPerPeroson = CSRReport.GetTotalCallPerPerson(_vm.date);
+            _vm.callPerPeroson = CSRReport.GetTotalCallPerPerson(_vm.date, User.Identity.Name.Split('\\').Last().ToLower());
             return View(_vm);
         }
 
@@ -43,7 +43,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         [HttpPost]
         public ActionResult CSRCallLogReport(callLogReportVM _vm)
         {
-            _vm.records = CSRReport.GetCalllogReport(_vm.startDt, _vm.endDt);
+            _vm.records = CSRReport.GetCalllogReport(_vm.startDt, _vm.endDt, User.Identity.Name.Split('\\').Last().ToLower());
             return View(_vm);
         }
 

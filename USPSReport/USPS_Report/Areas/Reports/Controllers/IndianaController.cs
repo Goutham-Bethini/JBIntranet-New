@@ -170,6 +170,9 @@ namespace USPS_Report.Areas.Reports.Controllers
                 
 
                 int rowsinsert = ie.Database.ExecuteSqlCommand(query);
+                string query2 = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',41,GETDATE())";
+                int rowsinsert2 = ie.Database.ExecuteSqlCommand(query2);
+
                 ViewBag.message = "Your Survey is Submitted. Thank you";
             }
 
@@ -264,7 +267,9 @@ namespace USPS_Report.Areas.Reports.Controllers
 
             }
 
-
+            IntranetEntities ie2 = new IntranetEntities();
+            string query2 = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',42,GETDATE())";
+            int rowsinsert = ie2.Database.ExecuteSqlCommand(query2);
 
             return View(surveyAnalysis);
         }
@@ -286,6 +291,8 @@ namespace USPS_Report.Areas.Reports.Controllers
 
             serveyInformation.info = surveyInfo;
             serveyInformation.TotalCount = ie.IndianaMedicaidSurveys.Count();
+            string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',43,GETDATE())";
+            int rowsinsert = ie.Database.ExecuteSqlCommand(query);
             return View(serveyInformation);
         }
 

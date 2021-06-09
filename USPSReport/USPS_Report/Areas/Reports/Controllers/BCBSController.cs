@@ -74,6 +74,12 @@ namespace USPS_Report.Areas.Reports.Controllers
 
             _vm.TimerTxt = "0:0:0";
             _vm.InsDetail = insDetail;
+            using (HHSQLDBEntities _db = new HHSQLDBEntities())
+            {
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',34,GETDATE())";
+
+                int rowsinsert = _db.Database.ExecuteSqlCommand(query);
+            }
             return View(_vm);
 
 

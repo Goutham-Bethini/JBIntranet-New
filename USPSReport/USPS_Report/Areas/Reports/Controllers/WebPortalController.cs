@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ReportsDatabase;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -73,6 +74,12 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.details != null && (_vm.details.Email == null || _vm.details.Email == "" || !_vm.details.Email.Contains("@")))
             {
                 _vm.IsEmail = true;
+            }
+            using (HHSQLDBEntities _db = new HHSQLDBEntities())
+            {
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',33,GETDATE())";
+
+                int rowsinsert = _db.Database.ExecuteSqlCommand(query);
             }
 
             return View(_vm);

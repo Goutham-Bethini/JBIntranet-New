@@ -62,7 +62,7 @@ namespace USPS_Report.Areas.Reports.Models
             }
         }
 
-        public static IList<ProductDetails> GetProduct_With_No_UW(DateTime? _start, DateTime? _end)
+        public static IList<ProductDetails> GetProduct_With_No_UW(DateTime? _start, DateTime? _end, string operatorName)
         {
             DateTime _dt = DateTime.Today.AddDays(-90);
             using (HHSQLDBEntities _db = new HHSQLDBEntities())
@@ -88,7 +88,10 @@ namespace USPS_Report.Areas.Reports.Models
                                         CreateDate = pro.CreateDate
 
                                     }).OrderBy(t => t.CreateDate).ToList();
-                                  
+                    string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',32,GETDATE())";
+
+                    int rowsinsert = _db.Database.ExecuteSqlCommand(query);
+
                     return _proList;
 
                 }

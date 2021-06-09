@@ -226,6 +226,7 @@ namespace USPS_Report.Areas.Reports.Controllers
   "  group by mem.Account, mem.First_Name, mem.Last_Name, mem.Middle, mem.BirthDate, mem.EmailAddress, inb.UpdateStatus "+
   "  order by UpdateTime asc").ToList<AddressChangeVM>();
 
+
             }
             return _AccList;
         }
@@ -461,6 +462,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
         public ActionResult CustomerAccountReorderList([DataSourceRequest] DataSourceRequest request)
         {
+
             return Json(GetCustomerReorderAccList().ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
@@ -493,7 +495,9 @@ namespace USPS_Report.Areas.Reports.Controllers
  " where calls.UpdateStatus = 0  and calls.IsDeleted = 0"+
  " group by mem.Account, mem.First_Name, mem.Last_Name, mem.Middle, mem.BirthDate, mem.EmailAddress, calls.UpdateTime ,calls.ISConfirmed, calls.IsDeleted, calls.OrderDate " +
   "  order by UpdateTime asc").ToList<ReorderSuppliesVM>();
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',44,GETDATE())";
 
+                int rowsinsert = _callDB.Database.ExecuteSqlCommand(query);
             }
             return _AccList;
         }
@@ -525,6 +529,9 @@ namespace USPS_Report.Areas.Reports.Controllers
 
                 _AccList = _AccListPhar.Concat(_AccListMeridian).ToList();
 
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',45,GETDATE())";
+
+                int rowsinsert = _callDB.Database.ExecuteSqlCommand(query);
             }
             return _AccList;
         }
