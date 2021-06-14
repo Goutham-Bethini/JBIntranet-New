@@ -27,7 +27,12 @@ namespace USPS_Report.Areas.Reports.Controllers
             MIStateAuditVM _vm = new MIStateAuditVM();
             IList<MIStateAuditData> _list = new List<MIStateAuditData>();
             _list = MIStateAudit.GetMIStateAuditData();
-            _vm.Details = _list;            
+            _vm.Details = _list;
+            using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
+            {
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',55,GETDATE())";
+                int rowsinsert = _db.Database.ExecuteSqlCommand(query);
+            }
             return View(_vm);
         }
         public ActionResult MIStateAuditGenerateNewReport(MIStateAuditVM objMIStateAuditVM)

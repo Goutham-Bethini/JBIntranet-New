@@ -194,7 +194,6 @@ namespace USPS_Report.Areas.Reports.Models
                 _list.Add(_acct);
             }
 
-
             return _list;
 
 

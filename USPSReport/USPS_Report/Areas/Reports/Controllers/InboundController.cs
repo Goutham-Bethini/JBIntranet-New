@@ -226,7 +226,9 @@ namespace USPS_Report.Areas.Reports.Controllers
   "  group by mem.Account, mem.First_Name, mem.Last_Name, mem.Middle, mem.BirthDate, mem.EmailAddress, inb.UpdateStatus "+
   "  order by UpdateTime asc").ToList<AddressChangeVM>();
 
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',46,GETDATE())";
 
+                int rowsinsert = _callDB.Database.ExecuteSqlCommand(query);
             }
             return _AccList;
         }
@@ -250,7 +252,8 @@ namespace USPS_Report.Areas.Reports.Controllers
                                 UpdateStatus = t.UpdateStatus,
                                 UpdateTime = t.UpdateTime
                          }).ToList();
-
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',50,GETDATE())";
+                int rowsinsert = _callDB.Database.ExecuteSqlCommand(query);
             }
             return _AccList;
         }
@@ -274,7 +277,8 @@ namespace USPS_Report.Areas.Reports.Controllers
                                 UpdateStatus = t.UpdateStatus,
                                 UpdateTime = t.UpdateTime
                             }).ToList();
-
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',49,GETDATE())";
+                int rowsinsert = _callDB.Database.ExecuteSqlCommand(query);
             }
             return _AccList;
         }
@@ -1072,7 +1076,9 @@ namespace USPS_Report.Areas.Reports.Controllers
                 _vm.updatePhone = _callDB.Database.SqlQuery<UpdatePhoneVm>(" with table1 as ( select account, max(ID) as id from InboundChangePhone where UpdateStatus != 1 "+
                              " group by account ) select phn.*from table1 t join InboundChangePhone phn on t.id = phn.id "+
             " order by phn.id ").ToList<UpdatePhoneVm>();
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',47,GETDATE())";
 
+                int rowsinsert = _callDB.Database.ExecuteSqlCommand(query);
             }
 
                 return View(_vm);
@@ -1105,6 +1111,12 @@ namespace USPS_Report.Areas.Reports.Controllers
           
             _list = SMOutbound.getNewAccountDetails(id);
             _details.details = _list;
+            using (CallAgentDBEntitiesnew _db = new CallAgentDBEntitiesnew())
+            {
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',48,GETDATE())";
+
+                int rowsinsert = _db.Database.ExecuteSqlCommand(query);
+            }
             return View(_details);
         }
 
@@ -1145,7 +1157,9 @@ namespace USPS_Report.Areas.Reports.Controllers
                 "   c.IsDiapering, c.HasSeizureDisorder, c.CanWalk, c.UseWalkAssist, c.HasAllergy, c.AllergyMaterials, c.HasSoreOrRash, c.Weight, c.EatByMouth, c.IsTubeFed, c.IsVerbal, c.HasProductOverstock, "+
                  "  c.AdditionalSupplies,c.IncontinentType, c.IsReassessmentComplete, c.UploadTime, c.Uploaded from InboundReassessment c " +
                 " where c.Uploaded = 0 order by c.UploadTime asc ").ToList<InboundReassessmentVM>();
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',51,GETDATE())";
 
+                int rowsinsert = _callDB.Database.ExecuteSqlCommand(query);
             }
             return _AccList;
         }

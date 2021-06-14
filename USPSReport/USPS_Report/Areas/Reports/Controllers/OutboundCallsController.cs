@@ -29,6 +29,12 @@ namespace USPS_Report.Areas.Reports.Controllers
             _vm.EndDate = DateTime.Today.AddDays(1);
             _list = SMOutbound.getOutboundReassessmentCalls(_vm.StartDate, _vm.EndDate);
             _vm.details = _list;
+            using (CallAgentDBEntitiesnew _callDb = new CallAgentDBEntitiesnew())
+            {
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',52,GETDATE())";
+
+                int rowsinsert = _callDb.Database.ExecuteSqlCommand(query);
+            }
             return View(_vm);
         }
 
@@ -76,6 +82,12 @@ namespace USPS_Report.Areas.Reports.Controllers
         [HttpPost]
         public ActionResult OnlyLancetsControlSol(DateTime OrderDate, [DataSourceRequest] DataSourceRequest request)
         {
+            using (CallAgentDBEntitiesnew _callDb = new CallAgentDBEntitiesnew())
+            {
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',54,GETDATE())";
+                int rowsinsert = _callDb.Database.ExecuteSqlCommand(query);
+            }
+
             return Json(GetOnlyLancetsControlSolList(OrderDate).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
@@ -196,6 +208,12 @@ namespace USPS_Report.Areas.Reports.Controllers
         [HttpPost]
         public ActionResult RequiredCallBackList(DateTime OrderDate, [DataSourceRequest] DataSourceRequest request)
         {
+            using (CallAgentDBEntitiesnew _callDb = new CallAgentDBEntitiesnew())
+            {
+                string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',53,GETDATE())";
+                int rowsinsert = _callDb.Database.ExecuteSqlCommand(query);
+            }
+
             return Json(GetRequiredCallBackList(OrderDate).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
@@ -213,7 +231,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                             || c.IsInFacility == true || c.ReceivesHomeCare == true || c.ReceivesHospiceCare == true
                             || c.HasUpdatedAddress == true  )
                             select c.AccountNumber).Distinct().ToList();
-
+                
                 foreach (var acc in list)
                 {
                     var _accounts = (from c in _callDb.Calls
