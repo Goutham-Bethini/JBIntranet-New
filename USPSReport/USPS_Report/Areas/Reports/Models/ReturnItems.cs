@@ -743,13 +743,13 @@ namespace USPS_Report.Areas.Reports.Models
             {
                 NoteText += Environment.NewLine + "Return Date: " + DateReturnedString + ""+ Environment.NewLine ;
             }
-            if (!string.IsNullOrEmpty(ReturnForCredit))
+            if (!string.IsNullOrEmpty(ReturnForCredit) && ReturnForCredit == "Yes")
             {
-                NoteText += Environment.NewLine + "Return for Credit: " + ReturnForCredit + "" + Environment.NewLine;
+                NoteText += Environment.NewLine + "Return Receipt w/Credit " + "" + Environment.NewLine;
             }
-            if (!string.IsNullOrEmpty(ReturnWreceipt))
+            else if (!string.IsNullOrEmpty(ReturnWreceipt) && ReturnWreceipt == "Yes")
             {
-                NoteText += Environment.NewLine + "Return w/Receipt, No Credit: " + ReturnWreceipt + "" + Environment.NewLine;
+                NoteText += Environment.NewLine + "Return w/Receipt, No Credit " + "" + Environment.NewLine;
             }
             if (!string.IsNullOrEmpty(Reshipped))
             {
@@ -845,13 +845,13 @@ namespace USPS_Report.Areas.Reports.Models
             {
                 NoteText += Environment.NewLine + "Scheduled For: " + ScheduledForString + "" + Environment.NewLine;
             }
-            if (!string.IsNullOrEmpty(ReturnForCredit))
+            if (!string.IsNullOrEmpty(ReturnForCredit) && ReturnForCredit == "Yes")
             {
-                NoteText += Environment.NewLine + "Return for Credit: " + ReturnForCredit + "" + Environment.NewLine;
+                NoteText += Environment.NewLine + "Return Receipt w/Credit " + "" + Environment.NewLine;
             }
-            if (!string.IsNullOrEmpty(ReturnWreceipt))
+            else if (!string.IsNullOrEmpty(ReturnWreceipt) && ReturnWreceipt == "Yes")
             {
-                NoteText += Environment.NewLine + "Return w/Receipt, No Credit: " + ReturnWreceipt + "" + Environment.NewLine;
+                NoteText += Environment.NewLine + "Return w/Receipt, No Credit " + "" + Environment.NewLine;
             }
             if (!string.IsNullOrEmpty(Reshipped))
             {
