@@ -136,7 +136,7 @@ namespace USPS_Report.Areas.Reports.Models
 
                         ReleasedBy = string.Join("\n", _db.WorkOrdersReleased.Where(u => u.worID_WorkOrder == t.ID).Select(u => u.worReleasedBy).ToArray()),
 
-                        TrackingNumbers = string.Join(", \n", _db.tbl_UPS_WorkOrders.Where(u => u.ID_WorkOrder == t.ID &&  u.CancelDate == null).Select(u => u.ConfirmationNumber).ToArray()),
+                        TrackingNumbers = string.Join(", \n", _db.tbl_UPS_WorkOrders.Where(u => u.ID_WorkOrder == t.ID && u.CancelDate == null).Select(u => u.ConfirmationNumber).ToArray()),
 
                         Length = _db.tbl_UPS_WorkOrders.Where(u => u.ID_WorkOrder == t.ID).Select(u => u.ConfirmationNumber.Length).Take(1).SingleOrDefault(),
 
@@ -148,8 +148,8 @@ namespace USPS_Report.Areas.Reports.Models
                                           join uom in _db.tbl_Inv_UOM_Table
                                           on pro.ID_UOM equals uom.ID
                                           from wo in _db.ERP_OrdersSent.Where(w => w.woWorkOrder == wol.ID_PS_WorkOrder).DefaultIfEmpty()
-                                        //  from lin in _db.ERP_OrderLines.Where(w => w.linWOid == wo.woID && w.linProductCode == pro.ProductCode && w.linQty == wol.QtyOrdered).DefaultIfEmpty()
-                                          
+                                              //  from lin in _db.ERP_OrderLines.Where(w => w.linWOid == wo.woID && w.linProductCode == pro.ProductCode && w.linQty == wol.QtyOrdered).DefaultIfEmpty()
+
                                           where wol.ID_PS_WorkOrder == t.ID
                                           select new ProductDetails
                                           {
@@ -165,6 +165,49 @@ namespace USPS_Report.Areas.Reports.Models
 
                                           }).Distinct().ToList(),
 
+                        ActiveInsurance = _db.Database.SqlQuery<string>(@"declare @AcOrWorkOrder int
+                                            set @AcOrWorkOrder=" +account +
+                                            @" if(@AcOrWorkOrder>900000)
+                                            begin
+                                            Select top 1  ins.PayerName       
+                                                 from HHSQLDB.dbo.tbl_PS_WOrkOrder t1      
+      
+                                                inner join HHSQLDB.dbo.v_AR_MemberInsuranceCoverage ins      
+      
+                                                on t1.Account = ins.Account      
+      
+                                                where       
+                                                 ((ins.Expiration_Date IS NULL OR ins.Expiration_Date >= t1.Completed_Date)      
+      
+                                                 AND (ins.Effective_Date IS NULL OR ins.Effective_Date <=  t1.Completed_Date))      
+      
+                                                 AND  id_payer not in(3622,3626,3623,3624,3625, 4738)       
+                                                  and
+                                                (t1.ID = @AcOrWorkOrder)
+	                                            order by Sequence_Number  
+	                                            --print 'workorder'
+                                            end
+                                            else
+                                            begin
+                                            Select top 1  ins.PayerName       
+                                                 from HHSQLDB.dbo.tbl_PS_WOrkOrder t1      
+      
+                                                inner join HHSQLDB.dbo.v_AR_MemberInsuranceCoverage ins      
+      
+                                                on t1.Account = ins.Account      
+      
+                                                where       
+                                                 ((ins.Expiration_Date IS NULL OR ins.Expiration_Date >= t1.Completed_Date)      
+      
+                                                 AND (ins.Effective_Date IS NULL OR ins.Effective_Date <=  t1.Completed_Date))      
+      
+                                                 AND  id_payer not in(3622,3626,3623,3624,3625, 4738)       
+                                                  and
+                                                (t1.Account = @AcOrWorkOrder)
+	                                            order by Sequence_Number  
+	                                            --print 'ac'
+                                            end
+                                            ").FirstOrDefault(),
                         historylist = _db.Database.SqlQuery<HistoryList>("SELECT " +
                                   "  DateMovedToUser AS Date, " +
                                  "   'Created' AS Process, " +
@@ -239,7 +282,7 @@ namespace USPS_Report.Areas.Reports.Models
                                " WHERE wos.ID =  " + t.ID.ToString() +
                                    " AND woSent IS NOT NULL " +
 
-                                      "  ORDER BY Date, Sort").ToList<HistoryList>(),
+                                      "  ORDER BY Date, Sort").ToList<HistoryList>()
 
 
 
@@ -1107,7 +1150,8 @@ namespace USPS_Report.Areas.Reports.Models
 
         public IList<ProductDetails> productDetails { get; set; }
 
-        public decimal Weight { get; set; } 
+        public decimal Weight { get; set; }
+        public string ActiveInsurance { get; set; }
     }
 
     public class woVM

@@ -132,7 +132,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                 if (returnMsg.Contains("Success"))
                 {
                     Created = true;
-                    Portal.WelcomeEmailforInteractiveWebSite(_vm.details.Email, Model.Username);
+                    Portal.WelcomeEmailforInteractiveWebSite(_vm.details.Email, Model.Username, _vm.details.firstName);
                     Portal.AddNoteforNewWebAcct(_vm.Account, Model.Username);
                 }
             }

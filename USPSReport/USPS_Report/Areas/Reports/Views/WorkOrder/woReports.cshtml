@@ -66,6 +66,7 @@
                                     <th style="width:8%">Cancelled By</th>
                                     <th style="width:8%">Shipped By</th>
                                     <th style="width:5%">Weight</th>
+                                    <th style="width:10%;display:none;">Active Insurance</th>
                                     <th style="width:11%">Status</th>
                                     <th style="width:10%">Tracking #'s</th>
                                     <th style="width:21%">History</th>
@@ -77,7 +78,7 @@
                                     {
                                         <th style="width:4%"></th>
                                     }
-                                   
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,6 +92,7 @@
                                     <td>@rec.CancelledBy</td>
                                     <td>@rec.ShippedBy</td>
                                     <td>@rec.Weight</td>
+                                    <td style="display:none;">@rec.ActiveInsurance</td>
                                     @if (@rec.Status.Contains("Cancelled"))
                                     {
                                         <td style="background-color:#FF9966">@MvcHtmlString.Create(@rec.Status.Replace(Environment.NewLine, "<br />"))</td>
@@ -111,17 +113,17 @@
                                             <a href='https://tools.usps.com/go/TrackConfirmAction.action?tRef=fullpage&tLc=1&text28777=&tLabels=@rec.TrackingNumbers' target='_blank'>@rec.TrackingNumbers</a>
                                         }
                                         @*else if (rec.Length != null && rec.Length == 20)
-                                            {
+            {
 
-                                             <a href='https://tools.usps.com/go/TrackConfirmAction.action?tRef=fullpage&tLc=1&text28777=&tLabels= "92"+@rec.TrackingNumbers' target='_blank'>@rec.TrackingNumbers</a>
-                                             }*@
+             <a href='https://tools.usps.com/go/TrackConfirmAction.action?tRef=fullpage&tLc=1&text28777=&tLabels= "92"+@rec.TrackingNumbers' target='_blank'>@rec.TrackingNumbers</a>
+             }*@
                                         else
                                         {
                                             <a href='http://www.fedex.com/Tracking?cntry_code=us&tracknumber_list=@rec.TrackingNumbers&language=english' target='_blank'>@rec.TrackingNumbers</a>
                                         }
                                     </td>
                                     <td>@MvcHtmlString.Create(@rec.History.Replace(Environment.NewLine, "<br />"))</td>
-                                  
+
                                     @if (Model.IsAccess == true)
                                     {
                                         <td>
@@ -148,7 +150,7 @@
                                                 <button class="btn btn-primary" type="submit" style="width: 70px; margin: 0 auto" disabled="disabled">Release</button>
 
                                             }
-                                            else if (rec.Release == 1 )
+                                            else if (rec.Release == 1)
                                             {
 
 
