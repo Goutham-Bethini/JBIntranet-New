@@ -1,0 +1,132 @@
+﻿@model USPS_Report.Areas.ColdFusionReports.Models.DataModels.RwoLookUpSearchViewModel
+@using Kendo.Mvc.UI;
+
+@{
+    ViewBag.Title = "RWOLookUpData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    @using (Html.BeginForm("SearchForResults", "RWOLookUp", FormMethod.Post))
+    {
+        <div class="col-md-12">
+            <div class="form col-md-12">
+                <form id="QOHForm">
+                    <br />
+                    <table class="col-md-12">
+                        <tr class="row">
+                            <td class="col-md-2">
+                                <strong><label>Product Code: </label></strong>
+                                @Html.DropDownListFor(m => m.ProductCodeSelected, new SelectList(Model.ProductCodeList, "productID", "productCode"), "--Select--", new { @class = "form-control" })
+                            </td>
+                            <td class="col-md-2">
+                                <strong><label>RWO Holding: </label></strong>
+                                @Html.DropDownListFor(m => m.HoldingSelected, new SelectList(Model.RWOHolding, "ID", "Name"), "--Select--", new { @class = "form-control" })
+                            </td>
+                            <td class="col-md-1">
+                                <strong><label>RWO Month: </label></strong>
+                                @Html.DropDownListFor(m => m.RWOMonthSelected, new SelectList(Model.RWOMonth), "--Select--", new { @class = "form-control" })
+                            </td>
+                            <td class="col-md-1">
+                                <strong><label>RWO Day: </label></strong>
+                                @Html.DropDownListFor(m => m.RWODaySelected, new SelectList(Model.RWODay), "--Select--", new { @class = "form-control" })
+                            </td>
+                            <td class="col-md-1">
+                                <strong><label>RWO Year: </label></strong>
+                                @Html.DropDownListFor(m => m.RWOYearSelected, new SelectList(Model.RWOYear), "--Select--", new { @class = "form-control" })
+                            </td>
+                            <td class="col-md-2">
+                                <strong><label>Location: </label></strong>
+                                @Html.DropDownListFor(m => m.LocationListSelected, new SelectList(Model.LocationList, "locationID", "deliveryLocationName"), "--Select--", new { @class = "form-control" })
+                            </td>
+                            <td class="col-md-2">
+                                <strong><label>Payer: </label></strong>
+                                @Html.DropDownListFor(m => m.PayerListSelected, new SelectList(Model.PayerList), "--Select--", new { @class = "form-control" })
+                            </td>
+                            <td class="col-md-1">
+                                <strong><label>Method: </label></strong>
+                                @Html.DropDownListFor(m => m.MethodListSelected, new SelectList(Model.MethodList, "MethodID", "MethodName"), "--Select--", new { @class = "form-control" })
+                            </td>
+                        </tr>
+                        @*<tr>
+                                <th><label>RWO Year </label></th>
+                                <td>@Html.DropDownListFor(m => m.RWOYearSelected, new SelectList(Model.RWOYear), "--Select--", new { @class = "form-control" })</td>
+                                <td> </td>
+                                <th><label>Location: </label></th>
+                                <td>@Html.DropDownListFor(m => m.LocationListSelected, new SelectList(Model.LocationList, "locationID", "deliveryLocationName"), "--Select--", new { @class = "form-control" })</td>
+                                <td> </td>
+                                <th><label>Payer:  </label></th>
+                                <td>@Html.DropDownListFor(m => m.PayerListSelected, new SelectList(Model.PayerList), "--Select--", new { @class = "form-control" })</td>
+                                <td> </td>
+                                <th><label>Method:  </label></th>
+                                <td>@Html.DropDownListFor(m => m.MethodListSelected, new SelectList(Model.MethodList, "MethodID", "MethodName"), "--Select--", new { @class = "form-control" })</td>
+                            </tr>*@
+                    </table>
+                    <br />
+                    <button class="btn btn-primary btn-large pull-right" type="submit"><i class="glyphicon glyphicon-search"> Search</i></button>
+
+
+                </form>
+            </div>
+        </div>
+        <hr />
+        <strong style="text-align:center"><label> Accounts Count : @Model.AccountsCount</label></strong>
+        <hr />
+        if (Model.AccountsCount != 0)
+        {
+            <div id="viewHData" class="well col-md-12">
+                <div class="col-md-12">
+                    @(Html.Kendo().Grid<USPS_Report.Areas.ColdFusionReports.Models.DataModels.RwoLookUpResultVM>()
+                        .Name("KendoviewHData")
+                        .Scrollable()
+                        .Columns(columns =>
+                        {
+                            columns.Bound(c => c.Hold).Title("On Hold").Width(100);
+                            columns.Bound(c => c.ProductCode).Title("Product").Width(200);
+                            columns.Bound(c => c.Qty).Title("Qty").Width(100);
+                            columns.Bound(c => c.NextRepeatDate).Title("Next Repeat Date").Width(200);
+                            columns.Bound(c => c.Account).Title("Account").Width(100);
+                            columns.Bound(c => c.First_Name).Title("First Name").Width(200);
+                            columns.Bound(c => c.Last_Name).Title("Last Name").Width(200);
+                        })
+                             //.ToolBar(tools => tools.Excel())
+                             .Sortable()
+                             .Pageable()
+                           .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                           //.Excel(excel => excel
+                           //     .FileName("QOHReport.xlsx")
+                           //     .AllPages(true)
+                           //     .Filterable(true)
+                           //     .ProxyURL(Url.Action("Excel_Export_Save", "QOH"))
+                           // )
+                           .HtmlAttributes(new { style = "width:470px;" })
+                                .Reorderable(r => r.Columns(true))
+                                .Resizable(r => r.Columns(true))
+                                .ColumnMenu()
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(200)
+                            .ServerOperation(false)
+                            .Read(read => read.Action("ReadRWOLookUpData", "RWOLookUp", Model))
+                        )
+                        .HtmlAttributes(new { style = "height: 900px;" })
+                    )
+                </div>
+                @*@Html.Partial("GetExpiringCMNDetails", Model.ExpiringCMNDetails)*@
+            </div>
+        }
+    }
+</div>
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+</style>
+
