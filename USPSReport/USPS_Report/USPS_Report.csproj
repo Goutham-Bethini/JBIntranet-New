@@ -1802,8 +1802,6 @@
     <Content Include="Scripts\wizard\jquery.snippet.js" />
     <Content Include="Scripts\wizard\scripts.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Test.html" />
-    <Content Include="Test2.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
