@@ -166,48 +166,39 @@ namespace USPS_Report.Areas.Reports.Models
                                           }).Distinct().ToList(),
 
                         ActiveInsurance = _db.Database.SqlQuery<string>(@"declare @AcOrWorkOrder int
-                                            set @AcOrWorkOrder=" +account +
-                                            @" if(@AcOrWorkOrder>900000)
-                                            begin
-                                            Select top 1  ins.PayerName       
-                                                 from HHSQLDB.dbo.tbl_PS_WOrkOrder t1      
+                                                        set @AcOrWorkOrder=" + t.Account +
+                                                        @" if (@AcOrWorkOrder>900000)
+                                                        begin
+
+                                                        Select top 1  ins.PayerName       
+                                                             from HHSQLDB.dbo.tbl_PS_WOrkOrder t1      
       
-                                                inner join HHSQLDB.dbo.v_AR_MemberInsuranceCoverage ins      
-      
-                                                on t1.Account = ins.Account      
-      
-                                                where       
-                                                 ((ins.Expiration_Date IS NULL OR ins.Expiration_Date >= t1.Completed_Date)      
-      
-                                                 AND (ins.Effective_Date IS NULL OR ins.Effective_Date <=  t1.Completed_Date))      
-      
-                                                 AND  id_payer not in(3622,3626,3623,3624,3625, 4738)       
-                                                  and
-                                                (t1.ID = @AcOrWorkOrder)
-	                                            order by Sequence_Number  
-	                                            --print 'workorder'
-                                            end
-                                            else
-                                            begin
-                                            Select top 1  ins.PayerName       
-                                                 from HHSQLDB.dbo.tbl_PS_WOrkOrder t1      
-      
-                                                inner join HHSQLDB.dbo.v_AR_MemberInsuranceCoverage ins      
-      
-                                                on t1.Account = ins.Account      
-      
-                                                where       
-                                                 ((ins.Expiration_Date IS NULL OR ins.Expiration_Date >= t1.Completed_Date)      
-      
-                                                 AND (ins.Effective_Date IS NULL OR ins.Effective_Date <=  t1.Completed_Date))      
-      
-                                                 AND  id_payer not in(3622,3626,3623,3624,3625, 4738)       
-                                                  and
-                                                (t1.Account = @AcOrWorkOrder)
-	                                            order by Sequence_Number  
-	                                            --print 'ac'
-                                            end
-                                            ").FirstOrDefault(),
+                                                            inner join HHSQLDB.dbo.v_AR_MemberInsuranceCoverage ins           
+                                                            on t1.Account = ins.Account            
+                                                            where  	
+                                                             ((ins.Expiration_Date IS NULL OR ins.Expiration_Date >= ISNULL(t1.Completed_Date,t1.LastPrintDate))       
+                                                             AND (ins.Effective_Date IS NULL OR ins.Effective_Date <=  ISNULL(t1.Completed_Date,t1.LastPrintDate)))        
+                                                             AND  id_payer not in(3622,3626,3623,3624,3625, 4738)       
+                                                              and
+                                                            (t1.ID = @AcOrWorkOrder)
+	                                                        order by Sequence_Number  
+	                                                        --print 'workorder'
+                                                        end
+                                                        else
+                                                        begin
+                                                        Select top 1  ins.PayerName       
+                                                             from HHSQLDB.dbo.tbl_PS_WOrkOrder t1            
+                                                            inner join HHSQLDB.dbo.v_AR_MemberInsuranceCoverage ins        
+                                                            on t1.Account = ins.Account            
+                                                            where       
+                                                             ((ins.Expiration_Date IS NULL OR ins.Expiration_Date >= ISNULL(t1.Completed_Date,t1.LastPrintDate))         
+                                                             AND (ins.Effective_Date IS NULL OR ins.Effective_Date <=  ISNULL(t1.Completed_Date,t1.LastPrintDate)))           
+                                                             AND  id_payer not in(3622,3626,3623,3624,3625, 4738)       
+                                                              and
+                                                            (t1.Account = @AcOrWorkOrder)
+	                                                        order by Sequence_Number  
+	                                                        --print 'ac'
+                                                        end").FirstOrDefault(),
                         historylist = _db.Database.SqlQuery<HistoryList>("SELECT " +
                                   "  DateMovedToUser AS Date, " +
                                  "   'Created' AS Process, " +
@@ -282,10 +273,16 @@ namespace USPS_Report.Areas.Reports.Models
                                " WHERE wos.ID =  " + t.ID.ToString() +
                                    " AND woSent IS NOT NULL " +
 
-                                      "  ORDER BY Date, Sort").ToList<HistoryList>()
-
-
-
+                                      "  ORDER BY Date, Sort").ToList<HistoryList>(),
+                        AccountNotes = _db.Database.SqlQuery<AccountNote>(@"select an.ID 'NoteId',anh.ID 'NoteHistoryId',an.NoteHeading,anh.NoteDate,anh.NoteText,
+                                        ope.LegalName 'NoteCreatedBy'
+                                        from HHSQLDB.dbo.tbl_Account_Note an 
+                                        join HHSQLDB.dbo.tbl_Account_Note_History anh 
+                                        on an.ID=anh.ID_Note
+                                        join HHSQLDB.dbo.tbl_Operator_Table ope on anh.ID_Operator=ope.ID
+                                        where an.Account="+ t.Account+@"
+                                        and anh.NoteDate>=(select dateadd(day, -30, getdate()))
+                                        order by anh.NoteDate desc").ToList<AccountNote>()
                     }).ToList();
 
                     foreach (var item in _list)
@@ -1146,7 +1143,8 @@ namespace USPS_Report.Areas.Reports.Models
 
         public IList<HistoryList> historylist { get; set; }
 
-  
+        public IList<AccountNote> AccountNotes { get; set; }
+
 
         public IList<ProductDetails> productDetails { get; set; }
 
@@ -1196,6 +1194,17 @@ namespace USPS_Report.Areas.Reports.Models
         public string Process { get; set; }
         public int Sort { get; set; }
     }
+
+    public class AccountNote
+    {
+        public int NoteId { get; set; }
+        public int NoteHistoryId { get; set; }
+        public string NoteHeading { get; set; }
+        public DateTime? NoteDate { get; set; }
+        public string NoteText { get; set; }
+        public string NoteCreatedBy { get; set; }        
+    }
+
     public class ProductDetails
     {
         public int lineId { get; set; }

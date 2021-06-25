@@ -28,21 +28,13 @@
                 <label>    No. of Orders </label>
                 @Html.TextBoxFor(m => m.Numbers, new { @class = "form-control" })
                 <button class="btn btn-primary btn-sm" type="submit">View</button>
-
             </div>
         }
     </div>
-
-
 </div>
-
-
-
 <hr />
 @if (Model.workOrder != null)
 {
-
-
     <div class="row">
         <div>
             <div class="table-responsive">
@@ -54,19 +46,17 @@
                     <div style="color:green" class="Flip">Account = @rec.Account</div>
                     <div class="Panel">
                         <table data-sortable class="table table-hover table-striped table-bordered" style="width:90% " align="center">
-
                             <thead>
                                 <tr>
                                     <th style="width:10%">Member's Name</th>
                                     <th style="width:6%">Order#</th>
-
                                     <th style="width:8%">Request Date</th>
                                     <th style="width:7%">Created By</th>
                                     <th style="width:8%">Released By</th>
                                     <th style="width:8%">Cancelled By</th>
                                     <th style="width:8%">Shipped By</th>
                                     <th style="width:5%">Weight</th>
-                                    <th style="width:10%;display:none;">Active Insurance</th>
+                                    <th style="width:10%;">Active Insurance</th>  @*display:none;*@
                                     <th style="width:11%">Status</th>
                                     <th style="width:10%">Tracking #'s</th>
                                     <th style="width:21%">History</th>
@@ -92,7 +82,7 @@
                                     <td>@rec.CancelledBy</td>
                                     <td>@rec.ShippedBy</td>
                                     <td>@rec.Weight</td>
-                                    <td style="display:none;">@rec.ActiveInsurance</td>
+                                    <td>@rec.ActiveInsurance</td>  @*style="display:none;"*@
                                     @if (@rec.Status.Contains("Cancelled"))
                                     {
                                         <td style="background-color:#FF9966">@MvcHtmlString.Create(@rec.Status.Replace(Environment.NewLine, "<br />"))</td>
@@ -185,7 +175,7 @@
                                 </tr>
                             </thead>
                             @foreach (var pro in @rec.productDetails)
-                    {
+                            {
                                 <tbody>
                                     @if (@pro.LineOrderQty == 0)
                                     {
@@ -217,10 +207,32 @@
                     <hr />
 
                 }
+
+                <div style="color:green" class="Flip">Account = @Model.workOrder.First().Account</div>
+                <div class="Panel">
+                    <table data-sortable class="table table-hover table-striped table-bordered" style="width:95%" align="center">
+                        <thead>
+                            <tr>
+                                <th style="text-align:center">Note Heading</th>
+                                <th style="text-align:center">Note Text</th>
+                                <th style="text-align:center">Note Date</th>
+                                <th style="text-align:center;width:15%">Note CreatedBy</th>
+                            </tr>
+                        </thead>
+                        @foreach (var ac in Model.workOrder.First().AccountNotes)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>@ac.NoteHeading</td>
+                                    <td>@ac.NoteText</td>
+                                    <td>@ac.NoteDate</td>
+                                    <td>@ac.NoteCreatedBy</td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
             </div>
-
-
-
         </div>
     </div>
 }
@@ -298,18 +310,18 @@
 //}
 
 
-    //$(document).ready(function(){
-    //    $(".ChkFlip").click(function () {
+        //$(document).ready(function(){
+        //    $(".ChkFlip").click(function () {
 
-    //        var _chkId = this.id;
-    //        alert(_chkId);
-    //        var _panelName = _chkId.replace("flip", "panel");
-    //        var _panelID = '#' + _panelName;
-    //        alert(_panelID);
-    //        $("panel 1").slideToggle("slow");
+        //        var _chkId = this.id;
+        //        alert(_chkId);
+        //        var _panelName = _chkId.replace("flip", "panel");
+        //        var _panelID = '#' + _panelName;
+        //        alert(_panelID);
+        //        $("panel 1").slideToggle("slow");
 
-    //    })
-    //});
+        //    })
+        //});
 
 //$(document).ready(function(){
 //    $(".ChkFlip").click(function () {
