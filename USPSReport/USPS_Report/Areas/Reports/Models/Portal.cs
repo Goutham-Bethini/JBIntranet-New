@@ -78,12 +78,13 @@ namespace USPS_Report.Areas.Reports.Models
         {
             SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
 
-            string str = @"<table width=""80%"" align=""center"" style=""font-family:Arial,sans-serif;"">
+            string str = @"<table width=""80%"" align=""center"" style=""font-family:Arial,sans-serif;color:#54616B;"">
         <tr>
             <td style=""text-align:center"">
                 <img src=""cid:444555"" />
             </td>
         </tr>
+        <br/>
         <tr>
             <td>
                 <h1 style='text-align:center'>
@@ -93,14 +94,16 @@ namespace USPS_Report.Areas.Reports.Models
                 </h1>
             </td>
         </tr>
+        <br/>
         <tr>
             <td style='padding:.75pt .75pt .75pt 24.0pt;'>
-                "+ firstName +
+                " + firstName +
             @"</td>
         </tr>
+        <br/>
         <tr>
             <td style='padding:.75pt .75pt .75pt 24.0pt;'>
-                Your J&B Medical Portal account has been verified and approved.  To access your web portal account go to <a href="" http://www.jandbportal.com""> www.jandbportal.com. </a>
+                Your J&B Medical Portal account has been verified and approved.  To access your web portal account go to <a href="" http://www.jandbportal.com"" style=""color: #54616B;""> www.jandbportal.com. </a>
             </td>
         </tr>
         <br />
@@ -111,7 +114,7 @@ namespace USPS_Report.Areas.Reports.Models
         </tr>        
         <tr>
             <td style='padding:.75pt .75pt .75pt 24.0pt;'>
-                <strong>"+username+ @"</strong>
+                <strong>" + username+ @"</strong>
             </td>
         </tr>
         <br />
@@ -122,7 +125,7 @@ namespace USPS_Report.Areas.Reports.Models
         </tr>
         <tr>
             <td style='padding:.75pt .75pt .75pt 24.0pt;'>
-                Log on to your <a href=""http://www.jandbportal.com"">Portal</a> account, select ""My Account"", then select ""CHANGE PASSWORD"" to change update your password.
+                Log on to your <a href=""http://www.jandbportal.com"" style=""color: #54616B;"">Portal</a> account, select ""My Account"", then select ""CHANGE PASSWORD"" to change update your password.
             </td>
         </tr>
         <br />
@@ -140,19 +143,19 @@ namespace USPS_Report.Areas.Reports.Models
         <tr>
             <td style='padding:.75pt .75pt .75pt 24.0pt;'>
 
-                Go to <a href=""http://www.jandbportal.com"">My Account</a> to update your contact information and other preferences.
+                Go to <a href=""http://www.jandbportal.com"" style=""color: #54616B;"">My Account</a> to update your contact information and other preferences.
             </td>
         </tr>
         <tr>
             <td style='padding:.75pt .75pt .75pt 24.0pt;'>
 
-                You have received this email at <a href=mailto:" + _email + ">"+_email+@"</a> because you have a J&B Medical account.
+                You have received this email at <a href=mailto:" + _email + " style='color: #54616B;'>" + _email+ @"</a> because you have a J&B Medical account.
             </td>
         </tr>
         <br />
         <tr>
             <td style='padding:.75pt .75pt .75pt 24.0pt;'>
-                If you have technical questions or need additional assistance with your Web Portal account contact our Web Team at <a href=""mailto:websupport@jandbmedical.com"">
+                If you have technical questions or need additional assistance with your Web Portal account contact our Web Team at <a href=""mailto:websupport@jandbmedical.com"" style=""color: #54616B;"">
                     <span style='mso-bookmark:_MailOriginal'>
                         <span>websupport@jandbmedical.com.</span>
                     </span><span style='mso-bookmark:_MailOriginal'></span>
@@ -162,33 +165,26 @@ namespace USPS_Report.Areas.Reports.Models
         <br />
         <tr>
             <td style='padding:.75pt .75pt .75pt 24.0pt;'>
-                To ensure your information is protected, do not include protected health or payment information such as Social Security Number, credit/debit card number, or any medical/health information in an email. Log in to your <a href=""http://www.jandbportal.com"">Portal</a> account to discuss specific account information.
+                To ensure your information is protected, do not include protected health or payment information such as Social Security Number, credit/debit card number, or any medical/health information in an email. Log in to your <a href=""http://www.jandbportal.com"" style=""color: #54616B;"">Portal</a> account to discuss specific account information.
             </td>
         </tr>
         <br />
         <tr style=""mso-yfti-irow:27;mso-yfti-lastrow:yes"">
             <td style=""border:none;border-top:solid #CFD550 6.0pt;"">
-                <p class=""MsoNormal"">
-                    <span style=""mso-bookmark:_MailOriginal"">
+                <p class=""MsoNormal"">                    
                         <span style=""font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#54616B"">
                             The
                             information contained in this e-mail is intended solely for its authorized
                             recipient(s), and is protected by federal law (HIPAA).If you are not an
                             intended recipient, please contact us immediately by telephone (800) 737-0045
                             or by e-mail at
-                        </span>
-                    </span><a href=""mailto:info@jandbmedical.com"">
-                        <span style=""mso-bookmark:_MailOriginal"">
-                            <span style=""font-size:9.0pt;font-family:
-  &quot;Arial&quot;,sans-serif"">info@jandbmedical.com</span>
-                        </span><span style=""mso-bookmark:_MailOriginal""></span>
-                    </a><span style=""mso-bookmark:_MailOriginal"">
-                        <span style=""font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#54616B"">
-                            and
+                        </span><span style=""font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#54616B"">
+                    <a href=""mailto:info@jandbmedical.com"" style=""color: #54616B;"">
+                        info@jandbmedical.com<span style=""mso-bookmark:_MailOriginal""></span>
+                    </a>     and
                             delete the original and all copies of this transmission (including any
                             attachments). <o:p></o:p>
                         </span>
-                    </span>
                 </p>
             </td>
         </tr>
@@ -198,7 +194,7 @@ namespace USPS_Report.Areas.Reports.Models
             AlternateView view = AlternateView.CreateAlternateViewFromString(str, null, MediaTypeNames.Text.Html);
 
 
-            string Userguide = System.Web.HttpContext.Current.Server.MapPath("~/Image/Userguide.pdf");
+            //string Userguide = System.Web.HttpContext.Current.Server.MapPath("~/Image/Userguide.pdf");
             string JandB = System.Web.HttpContext.Current.Server.MapPath("~/Image/JandB.jpg");          
 
             LinkedResource pic = new LinkedResource(JandB, MediaTypeNames.Image.Jpeg);
@@ -213,8 +209,8 @@ namespace USPS_Report.Areas.Reports.Models
             //mail.To.Add("maheshkattamuribpl@jandbmedical.com");
             mail.To.Add(_email);
 
-            Attachment data = new Attachment(Userguide, MediaTypeNames.Application.Octet);
-            mail.Attachments.Add(data);
+            //Attachment data = new Attachment(Userguide, MediaTypeNames.Application.Octet);
+            //mail.Attachments.Add(data);
             mail.AlternateViews.Add(view);
             SmtpServer.Send(mail);
 
