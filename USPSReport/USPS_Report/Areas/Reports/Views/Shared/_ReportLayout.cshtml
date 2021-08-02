@@ -63,7 +63,7 @@
                     <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/ROordersNotPurchase/ROordersNotPurchase" target="_blank">RO Orders Not Purchase</a></li>
                     <li class="divider"></li>
                     <li> <a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/AccountsMultipleShipDates/AccountsMultipleShipDates?selected=@DateTime.Now" target="_blank">Accounts With Multiple Ship Dates</a> </li>
-                    
+
                     <li class="divider"></li>
                     <li>@Html.ActionLink("RWO's With 2099 Dates", "RWOsWith2099Dates", "RWOsWith2099Dates", new { area = "Reports" }, new { target = "_blank" })</li>
                     <li class="divider"></li>
@@ -87,6 +87,8 @@
                         <li class="divider"></li>
                         <li>@Html.ActionLink("UnCancel Orders", "UnCancelOrders", "ManageOrder", new { area = "Reports" }, new { target = "_blank" })</li>
                     }
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("InactiveAccount with RO's", "InactiveAccountsData", "InactiveAccounts", new { area = "Reports" }, null)</li>
 
                     @*<li>@Html.ActionLink("RWO Loop up", "RwoLookUp", "WoReports", new { area = "Reports" }, new { target = "_blank" })</li>
         <li class="divider"></li>*@
