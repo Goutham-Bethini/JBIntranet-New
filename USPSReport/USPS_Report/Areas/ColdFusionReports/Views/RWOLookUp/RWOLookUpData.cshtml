@@ -75,7 +75,7 @@
         if (Model.AccountsCount != 0)
         {
             <div id="viewHData" class="well col-md-12">
-                <div class="col-md-12">
+                <div class="center">
                     @(Html.Kendo().Grid<USPS_Report.Areas.ColdFusionReports.Models.DataModels.RwoLookUpResultVM>()
                         .Name("KendoviewHData")
                         .Scrollable()
@@ -89,16 +89,16 @@
                             columns.Bound(c => c.First_Name).Title("First Name").Width(200);
                             columns.Bound(c => c.Last_Name).Title("Last Name").Width(200);
                         })
-                             //.ToolBar(tools => tools.Excel())
+                             .ToolBar(tools => tools.Excel())
                              .Sortable()
                              .Pageable()
                            .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
-                           //.Excel(excel => excel
-                           //     .FileName("QOHReport.xlsx")
-                           //     .AllPages(true)
-                           //     .Filterable(true)
-                           //     .ProxyURL(Url.Action("Excel_Export_Save", "QOH"))
-                           // )
+                           .Excel(excel => excel
+                                .FileName("RWOLookUpData.xlsx")
+                                .AllPages(true)
+                                .Filterable(true)
+                                .ProxyURL(Url.Action("Excel_Export_Save", "RWOLookUp"))
+                            )
                            .HtmlAttributes(new { style = "width:470px;" })
                                 .Reorderable(r => r.Columns(true))
                                 .Resizable(r => r.Columns(true))
@@ -118,7 +118,12 @@
     }
 </div>
 
+<script src="~/Scripts/kendo/jszip.min_2.4.0.js"></script>
+
 <style>
+     .center {
+        text-align: center;
+    }
     th {
         background-color: dodgerblue;
         color: white;

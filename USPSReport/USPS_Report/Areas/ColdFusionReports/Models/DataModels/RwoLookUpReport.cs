@@ -280,7 +280,7 @@ namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
 					mem.Last_Name,
 					rwo.Qty,
 					rwo.NextRepeatDate";
-            if (vm.ProductCodeSelected != 0 && vm.ProductCodeSelected.HasValue == true)
+            if (!string.IsNullOrEmpty(vm.PayerListSelected))
             {
                 sql += ",pay.Name ";
             }
@@ -290,7 +290,7 @@ namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
 					JOIN		tbl_account_member		mem	ON mem.account=rwo.account
 																AND mem.member=rwo.member";
 
-            if (vm.ProductCodeSelected != 0 && vm.ProductCodeSelected.HasValue == true)
+            if (!string.IsNullOrEmpty(vm.PayerListSelected))
             {
                 sql += @"  LEFT JOIN	tbl_account_insurance	ins	ON ins.account=rwo.account
 																	AND (ins.expiration_date IS NULL OR ins.expiration_date > GetDate())

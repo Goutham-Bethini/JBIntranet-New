@@ -1315,6 +1315,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jszip.js" />
     <Content Include="Scripts\jszip.min.js" />
     <Content Include="Scripts\kendo.modernizr.custom.js" />
     <Content Include="Scripts\kendo\angular.min.js" />
@@ -1675,6 +1676,7 @@
     <Content Include="Scripts\kendo\jquery.min.js" />
     <Content Include="Scripts\kendo\jszip.min.js" />
     <None Include="Scripts\kendo\kendo.all.min.intellisense.js" />
+    <Content Include="Scripts\kendo\jszip.min_2.4.0.js" />
     <Content Include="Scripts\kendo\kendo.all.min.js" />
     <Content Include="Scripts\kendo\kendo.angular.min.js" />
     <Content Include="Scripts\kendo\kendo.aspnetmvc.min.js" />
