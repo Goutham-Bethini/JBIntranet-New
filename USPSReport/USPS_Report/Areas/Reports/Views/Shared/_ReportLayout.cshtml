@@ -91,7 +91,7 @@
                     }
                     <li class="divider"></li>
                     <li>@Html.ActionLink("InactiveAccount with RO's", "InactiveAccountsData", "InactiveAccounts", new { area = "Reports" }, null)</li>
-
+                    
                     @*<li>@Html.ActionLink("RWO Loop up", "RwoLookUp", "WoReports", new { area = "Reports" }, new { target = "_blank" })</li>
         <li class="divider"></li>*@
                     @* start
@@ -220,10 +220,10 @@
                     <li class="divider"></li>
                     <li><a href="http://10.10.1.49/HDMSPayment/HDMS/HDMSCoPay" target="_blank">CoPay Calculator</a></li>
                     <li class="divider"></li>
-                    <li><a href="http://10.10.1.49/JBPortal/CSRTools/CSRTool" target="_blank">CSR Tool</a></li>
+                    <li><a href="http://10.10.1.49/JBPortal/CSRTools/CSRTool" target="_blank">CSR eConfirm Tool</a></li>
                     <li class="divider"></li>
                     @*  <li><a href="http://10.10.1.49/HDMSPayment/HDMS/HDMSPayment" target="_blank">Old CoPay Calculator</a></li>
-                <li class="divider"></li>  *@
+        <li class="divider"></li>  *@
 
                     <li>@Html.ActionLink("BCBS CallLog", "BCNCallLog", "BCBS", new { area = "Reports" }, new { target = "_blank" })</li>
                     <li class="divider"></li>
@@ -238,21 +238,23 @@
                     <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/Doctor/Doctor" target="_blank">Doctor</a></li>
                     <li class="divider"></li>
                     <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/CallTagSearch/CallTagSearch" target="_blank">Call Tag Search</a></li>
+                    <li class="divider"></li>
+                    <li><a href="http://10.10.1.49/ColdFusionReports/ColdFusionReports/PossibleDuplicateAccounts/PossibleDuplicateAccounts" target="_blank">Duplicate Active Accounts</a></li>
                     @*
-                     <li class="divider"></li>
-                <li class="dropdown-submenu">
-                    <a tabindex="-1" href="#">Call Log</a>
-                    <ul class="dropdown-menu">
-                        <li tabindex="-1">
+             <li class="divider"></li>
+        <li class="dropdown-submenu">
+            <a tabindex="-1" href="#">Call Log</a>
+            <ul class="dropdown-menu">
+                <li tabindex="-1">
 
-                        <li>@Html.ActionLink("ComplaintsCall", "Call", "CustomerServices", new { area = "Reports" },null)</li>
-                        <li class="divider"></li>
+                <li>@Html.ActionLink("ComplaintsCall", "Call", "CustomerServices", new { area = "Reports" },null)</li>
+                <li class="divider"></li>
 
-                        <li>@Html.ActionLink("ReasonFor Call", "ReasonForCall", "CustomerServices", new { area = "Reports" }, null)</li>
+                <li>@Html.ActionLink("ReasonFor Call", "ReasonForCall", "CustomerServices", new { area = "Reports" }, null)</li>
 
 
-                    </ul>
-                </li>
+            </ul>
+        </li>
                     *@
 
                 </ul>
