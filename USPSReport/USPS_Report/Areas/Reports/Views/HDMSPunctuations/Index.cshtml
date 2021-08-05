@@ -1,0 +1,100 @@
+﻿
+
+@using Kendo.Mvc.UI
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/Scripts/kendo/jszip.min_2.4.0.js"></script>
+
+
+<div class="col-md-12">
+    <div class="panel panel-warning">
+        <div class="panel panel-heading">
+            Accounts With Punctuations Issues
+        </div>
+        <div class="panel panel-body">
+            @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.HDMSPunctuationsVM>()
+                        .Name("PunctuationDetails")
+                        .Scrollable()
+                        .Columns(columns =>
+                        {
+                            columns.Bound(c => c.Account).Title("Account").Width(75);
+                            columns.Bound(c => c.InsuranceID).Title("InsuranceID").Width(120);
+                            columns.Bound(c => c.FirstName).Title("FirstName").Width(200);
+                            columns.Bound(c => c.LastName).Title("LastName").Width(200);
+                            columns.Bound(c => c.Gender).Title("Gender").Width(75);
+                            columns.Bound(c => c.BirthDate).Title("BirthDate").Width(150);
+                            columns.Bound(c => c.Billable_Party_Member).Title("Billable_Party_Member").Width(200);
+                            columns.Bound(c => c.Is_IssueWith_InsuranceID).Title("Is_IssueWith_InsuranceID").Width(200);
+                            columns.Bound(c => c.Is_IssueWith_FirstName).Title("Is_IssueWith_FirstName").Width(200);
+                            columns.Bound(c => c.Is_IssueWith_LastName).Title("Is_IssueWith_LastName").Width(200);
+                            columns.Bound(c => c.Is_IssueWith_Gender).Title("Is_IssueWith_Gender").Width(200);
+                            columns.Bound(c => c.AgeUnder18_ButNoBillableParty).Title("AgeUnder18_ButNoBillableParty").Width(200);
+                        })
+                         .ToolBar(tools => tools.Excel())
+                            .Sortable()
+                             .Pageable()
+                                 .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                               .Excel(excel => excel
+                                    .FileName("PunctuationDetails.xlsx")
+                                    .AllPages(true)
+                                    .Filterable(true)
+                                    .ProxyURL(Url.Action("Excel_Export_Save", "HDMSPunctuations"))
+                                )
+                           .HtmlAttributes(new { style = "width:470px;" })
+                                .Reorderable(r => r.Columns(true))
+                                .Resizable(r => r.Columns(true))
+                                .ColumnMenu()
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(200)
+                            .ServerOperation(false)
+                            .Read(read => read.Action("ReadPunctuationsDetails", "HDMSPunctuations"))
+                        )
+                        .HtmlAttributes(new { style = "height: 800px;" })
+            )
+
+
+            @*<table id="PuncuationReport" class="display nowrap" cellspacing="0" width="100%">
+                <caption id="HeadersRow" style="background-color:black;color:white"><strong>@ViewBag.ReportType</strong><br /></caption>
+
+                <thead>
+                    <tr>
+                        @foreach (var property in Model.GetType().GetGenericArguments()[0].GetProperties())
+                        {
+                                <th style="width:250px">@property.Name</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="width:250px">@item.Account</td>
+                            <td style="width:250px" id="Account">@item.InsuranceID</td>
+                            <td style="width:250px" id="DocType">@item.FirstName</td>
+                            <td style="width:250px">@item.LastName</td>
+                            <td style="width:250px">@item.Gender</td>
+                            <td style="width:250px">@item.BirthDate</td>
+                            <td style="width:250px">@item.Billable_Party_Member</td>
+                            <td style="width:250px">@item.Is_IssueWith_FirstName</td>
+                            <td style="width:250px">@item.Is_IssueWith_LastName</td>
+                            <td style="width:250px">@item.Is_IssueWith_Gender</td>
+                            <td style="width:250px">@item.AgeUnder18_ButNoBillableParty</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>*@
+        </div>
+    </div> 
+    <hr />
+
+</div>
+
+
+
