@@ -3,7 +3,7 @@
 @using Kendo.Mvc.UI
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Punctuations_Issues";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,7 +14,7 @@
 <div class="col-md-12">
     <div class="panel panel-warning">
         <div class="panel panel-heading">
-            Accounts With Punctuations Issues
+            <strong>  Accounts With Punctuations Issues </strong>
         </div>
         <div class="panel panel-body">
             @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.HDMSPunctuationsVM>()
