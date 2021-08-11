@@ -1,0 +1,69 @@
+﻿@model USPS_Report.Areas.Reports.Models.IllegalPuncuationVM
+@using Kendo.Mvc.UI;
+
+@{
+    ViewBag.Title = "IllegalpunctuationData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="well col-md-12">
+    </div>
+    <div id="viewData" class="well col-md-12">
+        <div class="col-md-12">
+            @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.IllegalPuncuationVM>()
+                        .Name("Illegalpunctuation")
+                        .Scrollable(s => s.Height("auto"))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(c => c.Account).Title("Account").Width(100);
+                            columns.Bound(c => c.Last_Name).Title("Last Name").Width(200);
+                            columns.Bound(c => c.First_Name).Title("First Name").Width(200);
+                            columns.Bound(c => c.Address_1).Title("Address_1").Width(250);
+                            columns.Bound(c => c.Address_2).Title("Address_2").Width(250);
+                            columns.Bound(c => c.City).Title("City").Width(100);
+                            columns.Bound(c => c.State).Title("State").Width(50);
+                            columns.Bound(c => c.ShipToAddress_1).Title("ShipToAddress_1").Width(325);
+                            columns.Bound(c => c.ShipToAddress_2).Title("ShipToAddress_2").Width(325);
+                            columns.Bound(c => c.ShipToCity).Title("ShipToCity").Width(200);
+                            columns.Bound(c => c.ShipToState).Title("ShipToState").Width(200);
+                        })
+                            .ToolBar(tools => tools.Excel())
+                            .Sortable()
+                             .Pageable()
+                                 .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                           .Excel(excel => excel
+                                .FileName("IllegalPuncuationReport.xlsx")
+                                .AllPages(true)
+                                .Filterable(true)
+                                .ProxyURL(Url.Action("Excel_Export_Save", "Illegalpunctuation"))
+                            )
+                           .HtmlAttributes(new { style = "width:470px;" })
+                                .Reorderable(r => r.Columns(true))
+                                .Resizable(r => r.Columns(true))
+                                .ColumnMenu()
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(200)
+                            .ServerOperation(false)
+                            .Read(read => read.Action("ReadIllegalpunctuationData", "Illegalpunctuation", Model))
+                        )
+            .HtmlAttributes(new { style = "height: 750px;" })
+            )
+        </div>
+        @*@Html.Partial("GetExpiringCMNDetails", Model.ExpiringCMNDetails)*@
+    </div>
+</div>
+
+
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+</style>

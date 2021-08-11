@@ -353,6 +353,7 @@
     <Compile Include="Areas\Reports\Controllers\DropShipReportsController.cs" />
     <Compile Include="Areas\Reports\Controllers\GeneratorController.cs" />
     <Compile Include="Areas\Reports\Controllers\HDMSPunctuationsController.cs" />
+    <Compile Include="Areas\Reports\Controllers\IllegalpunctuationController.cs" />
     <Compile Include="Areas\Reports\Controllers\InactiveAccountsController.cs" />
     <Compile Include="Areas\Reports\Controllers\InboundController.cs" />
     <Compile Include="Areas\Reports\Controllers\IndianaController.cs" />
@@ -402,6 +403,7 @@
     <Compile Include="Areas\Reports\Models\GeneratorModel.cs" />
     <Compile Include="Areas\Reports\Models\HDMSPunctuationsService.cs" />
     <Compile Include="Areas\Reports\Models\HoldReasonVM.cs" />
+    <Compile Include="Areas\Reports\Models\IllegalPuncuationReport.cs" />
     <Compile Include="Areas\Reports\Models\InactiveAccountsReport.cs" />
     <Compile Include="Areas\Reports\Models\Logistics.cs" />
     <Compile Include="Areas\Reports\Models\MergePdfs.cs" />
@@ -1342,6 +1344,7 @@
     <Content Include="Areas\Reports\Views\ReportsAudit\ReportsAudit.cshtml" />
     <Content Include="Areas\ColdFusionReports\Views\RWOLookUp\RWOLookUpData.cshtml" />
     <Content Include="Areas\Reports\Views\HDMSPunctuations\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\Illegalpunctuation\IllegalpunctuationData.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GBethini.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
