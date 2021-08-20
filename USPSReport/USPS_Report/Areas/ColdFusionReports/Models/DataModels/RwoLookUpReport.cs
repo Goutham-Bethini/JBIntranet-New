@@ -267,7 +267,8 @@ namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
             {
                 _list = _db.Database.SqlQuery<RwoLookUpResultVM>(sql).ToList<RwoLookUpResultVM>();
             }
-            _vm.AccountsCount = _list.Count();
+            _vm.ReportsCount = _list.Count();
+            _vm.AccountsCount = _list.Select(x=>x.Account).Distinct().Count();
         }
 
         private string GetDataQuery(RwoLookUpSearchViewModel vm)
@@ -401,6 +402,7 @@ namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
         public int? ProductCodeSelected { get; set; }
         public int? HoldingSelected { get; set; }
         public int AccountsCount { get; set; }
+        public int ReportsCount { get; set; }
         public IList<HoldingViewModel> RWOHolding { get; set; }
         public IList<int?> RWOMonth { get; set; }
         public IList<int?> RWODay { get; set; }
