@@ -577,6 +577,10 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="NursingHome" Type="bit" Nullable="false" />
           <Property Name="MemEnrollNone" Type="bit" Nullable="false" />
         </EntityType>
+        <Function Name="usp_GetCallLogReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+        </Function>
         <EntityContainer Name="IntranetModelStoreContainer">
           <EntitySet Name="AOB_track" EntityType="Self.AOB_track" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="assessment_log" EntityType="Self.assessment_log" Schema="dbo" store:Type="Tables" />
@@ -673,6 +677,10 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <EntitySet Name="BCBS_ProviderList" EntityType="IntranetModel.BCBS_ProviderList" />
           <EntitySet Name="tbl_BCNCallLog" EntityType="IntranetModel.tbl_BCNCallLog" />
           <EntitySet Name="tbl_CSRCallLog" EntityType="IntranetModel.tbl_CSRCallLog" />
+          <FunctionImport Name="usp_GetCallLogReport" ReturnType="Collection(IntranetModel.usp_GetCallLogReport_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Employees_New">
           <Key>
@@ -1223,6 +1231,16 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="DidntFollowDelIns" Type="Boolean" Nullable="false" />
           <Property Name="CivilRight" Type="Boolean" Nullable="false" />
         </EntityType>
+        <ComplexType Name="usp_GetCallLogReport_Result">
+          <Property Type="String" Name="CreatedBy" Nullable="false" MaxLength="35" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="ReferenceNumber" Nullable="false" />
+          <Property Type="Int32" Name="Account" Nullable="true" />
+          <Property Type="String" Name="Note" Nullable="true" />
+          <Property Type="String" Name="Issue" Nullable="false" MaxLength="23" />
+          <Property Type="String" Name="Resolution" Nullable="true" />
+          <Property Type="String" Name="ComplaintReceived" Nullable="false" MaxLength="1" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1810,6 +1828,20 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetCallLogReport" FunctionName="IntranetModel.Store.usp_GetCallLogReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IntranetModel.usp_GetCallLogReport_Result">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="ReferenceNumber" ColumnName="ReferenceNumber" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Issue" ColumnName="Issue" />
+                <ScalarProperty Name="Resolution" ColumnName="Resolution" />
+                <ScalarProperty Name="ComplaintReceived" ColumnName="ComplaintReceived" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

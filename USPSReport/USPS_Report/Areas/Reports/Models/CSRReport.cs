@@ -5,6 +5,7 @@ using System.Web;
 using ReportsDatabase;
 using System.Data.Entity.SqlServer;
 using USPS_Report.Models;
+using System.Data.SqlClient;
 
 namespace USPS_Report.Areas.Reports.Models
 {
@@ -506,96 +507,19 @@ namespace USPS_Report.Areas.Reports.Models
 
         public static IList<callLogReport> GetCalllogReport(DateTime _startDt, DateTime _endDt)
         {
-
-
+            var callLogResults = new List<callLogReport>();
+            SqlParameter[] sqlParams = new SqlParameter[]
+            {
+                new SqlParameter("@StartDate", _startDt),
+                new SqlParameter("@EndDate", _endDt)
+            };
             using (IntranetEntities _db = new IntranetEntities())
             {
-                IList<callLogReport> _rec = new List<callLogReport>();
-                var list = (from t in _db.tbl_CSRCallLog
-                            where t.CreatedOn >= _startDt && t.CreatedOn <= _endDt && t.ComplaintOutcome.Contains("Not Resolved Transferred to Team Lead")
-
-                            select new callLogReport
-                            {
-                                CreatedBy = t.CreatedBy,
-                                CreatedOn = t.CreatedOn,
-                                ReferenceNumber = t.id,
-                                account = t.Account,
-                                Note = t.OtherTxt,
-                                Issue = (t.Billing == true || t.Copay == true) ? "Billing/Payments" : (t.Address == true || t.Physician == true || t.Phone == true) ? "Demographic" :
-                                         (t.AOB == true || t.Prescription == true || t.CMN == true || t.PriorAuthorization == true || t.SupportingDoc ==true || t.TeacherLetter == true || t.Logs == true || t.ABN == true || t.LMN == true ) ? "Documentation" :
-                                         (t.InsuarnceChanges_ == true || t.Eligibility == true ) ? "Insurance" :
-                                         (t.NewAcconunt == true || t.Restart == true) ? "New Account/Restart" :
-                                         (t.OrderConfirmation == true ) ? "Order Confirmation" :
-                                         (t.FedExOrUSPSTracking == true || t.OrderShipped == true || t.OrderETA ==true || t.OrderHolding == true || t.RWOCreated == true) ? "Order Status" :
-                                         (t.PC_IncreaseOrDecrease == true || t.PC_Hold == true || t.PC_RemoveOrAdd == true || t.ProductChange == true) ? "RWO Changes" :
-                                         (t.SampleChoice == true || t.SampleTask == true) ? "Sample" :
-                                         (t.DefectiveProductOrNotUsable == true || t.WrongOrExtraProductShipped == true || t.MissingProduct == true || t.Other == true  ) ? "Shipping" :
-                                         (t.Damaged == true || t.WrongProductShipped == true || t.QualityOfProdut == true || t.DefectiveProductOrNotUsable == true ) ? "Product Issues" :
-                                         (t.Driver == true || t.DidntFollowDelIns == true || t.WrongArea == true   ) ? "Delivery" :
-                                         (t.ImpoliteORoffensive == true ) ?"Impolite CSR" :
-                                         (t.VConfirmationCalls == true || t.VPaymentCalles == true || t.SAJamesPhonePromts == true || t.SAJamesSelfService == true ) ? "Victor complaint" :
-                                         (t.VirtualCallBack == true ) ? "virtual CallBack" :
-                                         (t.Web ==true || t.Website == true) ? "WebSite" :
-                                         (t.HoldTimes == true ) ? "Hold Time " :
-                                         (t.NoFollowUp == true || t.NoFollowUpWithMem == true || t.ReturnedCall_LeftVoicemail == true ) ? "No Follow UP" :
-                                         (t.PhysicianIssue == true || t.Physician == true) ? "Physician Issue" :
-                                         (t.NeverRecivedSupplies == true) ? "Never Received Supplies" :
-                                         (t.BCNProviderIssue == true ) ? "BCN Provider Issue" :
-                                         (t.Other == true) ? "Others" : "No Issue selected",
-                                Resolution = t.ComplaintOutcome,
-                                ComplaintRecieved = "",
-
-                            }
-                        ).ToList();
-
-                var list1 = (from t in _db.tbl_CSRComplaintLog
-                             where t.CreatedOn >= _startDt && t.CreatedOn <= _endDt
-
-                             select new callLogReport
-                             {
-                                 CreatedBy = t.CreatedBy,
-                                 CreatedOn = t.CreatedOn,
-                                 ReferenceNumber = _db.tbl_CSRCallLog.Where(x => x.Account == t.Account && x.CreatedBy == t.CreatedBy).Count() > 0 ? _db.tbl_CSRCallLog.Where(x => x.Account == t.Account && x.CreatedBy == t.CreatedBy).OrderByDescending(x => x.CreatedOn).FirstOrDefault().id : _db.tbl_CSRCallLog.Where(x => x.Account == t.Account).OrderByDescending(x => x.CreatedOn).FirstOrDefault().id,
-                                 account = t.Account,
-                                 Note = t.OtherTxt,
-                                 Payer = t.PayerType,
-                                 Issue = (t.Damaged == true) ? "Damaged" : (t.Driver == true) ? "Driver" :
-                                         (t.WrongProductShipped == true) ? "Wrong Product Shipped" :
-                                         (t.QualityOfProdut == true) ? "Quanlity of Product" : (t.WrongArea == true) ? "Wrong Area" :
-                                         (t.MissingProduct == true) ? "Missing Product" : (t.ProductIncrease == true) ? "Product Increase" :
-                                         (t.ProductMispick == true) ? "Product Mispick" : (t.ProductDefective == true) ? "Product Defective" :
-                                         (t.ImpoliteORoffensive == true) ? "Impolite or Offensive" : (t.HoldTimes == true) ? "HoldTime" :
-                                         (t.Other == true) ? "Other" : (t.BCNProviderIssue == true) ? "BCN Provider Issue" :
-                                          (t.InsLimitGuidelines == true) ? "Ins Limit Guidelines" : (t.PhysicianIssue == true) ? "Physician Issue" :
-                                          (t.NeverRecivedSupplies == true) ? "Supplies Never Recived" : (t.NoFollowUpWithMem == true) ? "No FollowUp With Mem" :
-                                            (t.ReturnedFromVM == true) ? "Returned From VM" : (t.NoFollowUp == true) ? "No Follow Up" :
-                                             (t.Website == true) ? "Website" : (t.VirtualCallBack == true) ? "Virtual Call Back" :
-                                           (t.SAJamesPhonePromts == true) ? "SA James PhonePromts" : (t.SAJamesSelfService == true) ? "SA James SelfService" :
-                                       (t.VPaymentCalles == true) ? "Victor Payment Call" : (t.VConfirmationCalls == true) ? "Victor Confirmation Call" :
-                                       (t.DidntFollowDelIns == true) ? "Not follow delivery instruction" : "Issue not listed",
-                                 Resolution = t.ComplaintHasBeen,
-                                 ComplaintRecieved = (t.SocialMedia == true) ? "Social Medial" : t.Call == true ? "Call" : t.Email == true ? "Email" : t.Fax == true ? "Fax" : t.Website == true ? "WebSite" : t.InsCompany == true ? "Insurance Complany" : t.Other == true ? t.OtherTxt : "No Issue selected"
-
-                             }
-                            ).ToList();
-                _rec = list;
-                foreach (var item in list1)
-                {
-                    callLogReport Rec = new callLogReport();
-                    Rec.CreatedBy = item.CreatedBy;
-                    Rec.ReferenceNumber = item.ReferenceNumber;
-                    Rec.CreatedOn = item.CreatedOn;
-                    Rec.account = item.account;
-                    Rec.Note = item.Note;
-                    Rec.Payer = item.Payer;
-                    Rec.Resolution = item.Resolution;
-                    Rec.Issue = item.Issue;
-                    Rec.ComplaintRecieved = item.ComplaintRecieved;
-                    _rec.Add(Rec);
-                }
-                return _rec;
+                callLogResults = _db.Database
+                    .SqlQuery<callLogReport>("usp_GetCallLogReport @StartDate, @EndDate", sqlParams).ToList();
             }
-            //   return _rec;
+            
+            return callLogResults;
         }
 
         public static IList<pumpsHoldvm> GetHoldReports()
@@ -785,63 +709,10 @@ namespace USPS_Report.Areas.Reports.Models
 
         public string Issue { get; set; }
         public string Payer { get; set; }
-        public string PrimaryPayer
-        {
-            get
-            {
-                string output = "";
-                if (this.Payer != null)
-                {
-                    if (this.Payer.Trim().Split(',').Count() > 0)
-                    {
-                        output = this.Payer.Trim().Split(',')[0];
-                    }
-                    else
-                    {
-                        output = this.Payer;
-                    }
-                    
-                }
-                return output;
-            }
-                
-        }
-        public string SecondaryPayer
-        {
-            get
-            {
-                string output = "";
-                if (this.Payer != null)
-                {
-                    if (this.Payer.Trim().Split(',').Count() > 1)
-                    {
-                        output = this.Payer.Trim().Split(',')[1];
-                    }
-
-                }
-                return output;
-            }
-
-        }
-        public string TeritiaryPayer
-        {
-            get
-            {
-                string output = "";
-                if (this.Payer != null)
-                {
-                    if (this.Payer.Trim().Split(',').Count() >2)
-                    {
-                        output = this.Payer.Trim().Split(',')[2];
-                    }
-
-                }
-                return output;
-            }
-
-        }
+        public int? PrimaryPayer { get; set; }
+        public int? SecondaryPayer { get; set; }
+        public int? TertiaryPayer { get; set; }
         public string Resolution { get; set; }
-
         public string ComplaintOutcome { get; set; }
         public string Note { get; set; }
         public string ComplaintRecieved { get; set; }

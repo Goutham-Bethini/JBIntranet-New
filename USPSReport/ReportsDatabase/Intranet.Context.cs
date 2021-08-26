@@ -12,6 +12,8 @@ namespace ReportsDatabase
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class IntranetEntities : DbContext
     {
@@ -40,5 +42,18 @@ namespace ReportsDatabase
         public virtual DbSet<BCBS_ProviderList> BCBS_ProviderList { get; set; }
         public virtual DbSet<tbl_BCNCallLog> tbl_BCNCallLog { get; set; }
         public virtual DbSet<tbl_CSRCallLog> tbl_CSRCallLog { get; set; }
+    
+        public virtual ObjectResult<usp_GetCallLogReport_Result> usp_GetCallLogReport(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCallLogReport_Result>("usp_GetCallLogReport", startDateParameter, endDateParameter);
+        }
     }
 }
