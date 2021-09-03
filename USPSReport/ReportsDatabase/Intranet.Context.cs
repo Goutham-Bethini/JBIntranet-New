@@ -34,11 +34,12 @@ namespace ReportsDatabase
         public virtual DbSet<RWO_Product_Substitutions> RWO_Product_Substitutions { get; set; }
         public virtual DbSet<IndianaMedicaidSurvey> IndianaMedicaidSurveys { get; set; }
         public virtual DbSet<Eligibility_Orders> Eligibility_Orders { get; set; }
-        public virtual DbSet<tbl_CSRComplaintLog> tbl_CSRComplaintLog { get; set; }
         public virtual DbSet<AOB_track> AOB_track { get; set; }
         public virtual DbSet<tbl_CSRInsDetail> tbl_CSRInsDetail { get; set; }
         public virtual DbSet<BCBS_ProviderList> BCBS_ProviderList { get; set; }
         public virtual DbSet<tbl_BCNCallLog> tbl_BCNCallLog { get; set; }
         public virtual DbSet<tbl_CSRCallLog> tbl_CSRCallLog { get; set; }
+        public virtual DbSet<tbl_CSRComplaintLog> tbl_CSRComplaintLog { get; set; }
+        public virtual DbSet<tbl_CSRComplaintLog_Attachments> tbl_CSRComplaintLog_Attachments { get; set; }
     }
 }

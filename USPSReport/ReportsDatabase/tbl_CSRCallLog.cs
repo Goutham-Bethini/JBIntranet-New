@@ -125,5 +125,15 @@ namespace ReportsDatabase
         public bool VConfirmationCalls { get; set; }
         public bool DidntFollowDelIns { get; set; }
         public bool CivilRight { get; set; }
+        public bool Compliance { get; set; }
+        public bool CustomerService { get; set; }
+        public bool Discrimination { get; set; }
+        public bool HealthPlan { get; set; }
+        public bool ProductDefectiveQuality { get; set; }
+        public bool ShippingUSPS { get; set; }
+        public bool ShippingWarehouse { get; set; }
+        public bool SmartAction { get; set; }
+        public bool TextMessaging { get; set; }
+        public bool WebsitePortal { get; set; }
     }
 }

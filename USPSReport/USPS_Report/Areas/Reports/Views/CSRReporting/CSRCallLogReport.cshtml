@@ -17,14 +17,14 @@
             <label>End Date </label>
             @Html.Kendo().DatePicker().Name("endDt").Value(Model.endDt).Format("MM/dd/yyyy")
             @*<label>OutCome </label>
-            @Html.DropDownListFor(t => t.ComplaintOutcome, new List<SelectListItem>
+                @Html.DropDownListFor(t => t.ComplaintOutcome, new List<SelectListItem>
 
-               {
-                    new SelectListItem { Text = "All" , Value = "0"},
-                    new SelectListItem { Text = "Handled Concern" , Value = "1"},
-                     new SelectListItem { Text = "Not Resolved Transferred to Team Lead" , Value = "2"},
+                   {
+                        new SelectListItem { Text = "All" , Value = "0"},
+                        new SelectListItem { Text = "Handled Concern" , Value = "1"},
+                         new SelectListItem { Text = "Not Resolved Transferred to Team Lead" , Value = "2"},
 
-               })*@
+                   })*@
 
             <button class="btn btn-primary btn-large" type="submit" style="background-color:black">Create Report</button>
         </div>
@@ -37,7 +37,7 @@
     @if (Model != null && Model.records != null)
     {
         <div class="row">
-          
+
             <div>
                 <div class=" row">
                     <h3 style="color:blue">
@@ -47,8 +47,8 @@
                 <hr />
 
 
-                <div class="table-responsive">
-                    <table data-sortable class="table table-hover table-striped table-bordered" style="width:97%; align-content:center">
+                <div class="table-responsive" style="width:95%; align-content:center">
+                    <table data-sortable class="table table-hover table-striped table-bordered" style="width:95%; align-content:center">
                         <thead>
                             <tr>
                                 <th>Account</th>
@@ -61,30 +61,40 @@
                                 <th>Teritiary Payer</th>
                                 <th>Complaint Received</th>
                                 <th>Issue</th>
-                                 <th>Resolution</th>
+                                <th>Resolution</th>
+                                <th>Resolution Note</th>
+                                <th>Issue Date</th>
+                                <th>Complaint Date</th>
+                                <th>Resolution Date</th>
+                                <th>Complaint Attachment</th>
                                 <th>Note</th>
 
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var rec in Model.records)
-                {
+                            {
                                 <tr>
                                     <td>@rec.account</td>
                                     <td>@rec.ReferenceNumber</td>
                                     <td>@rec.CreatedBy</td>
                                     <td>@rec.CreatedOn</td>
-                                    
+
                                     @*<td>@rec.Payer</td>*@
                                     <td>@rec.PrimaryPayer</td>
                                     <td>@rec.SecondaryPayer</td>
                                     <td>@rec.TeritiaryPayer</td>
                                     <td>@rec.ComplaintRecieved</td>
                                     <td>@rec.Issue</td>
-                                  
                                     <td>@rec.Resolution</td>
+                                    <td>@rec.ResolutionNote</td>
+                                    <td>@rec.IssueDate</td>
+                                    <td>@rec.ComplaintDate</td>
+                                    <td>@rec.ResolutionDate</td>
+                                    <td><a href="#" class="filedownload">@rec.ComplaintAttachment</a></td>
+                                    @*<td>@rec.ComplaintAttachment</td>*@
                                     <td>@rec.Note</td>
-                                    
+
 
                                 </tr>
                             }
@@ -97,17 +107,31 @@
         </div>
     }
 </center>
-    <style>
-        th {
-            background-color: dodgerblue;
-            color: white;
-        }
+<style>
+    th {
+        background-color: dodgerblue;
+        color: white;
+    }
 
-        .middle {
-            margin: auto;
-            width: 900px;
-        }
-    </style>
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+</style>
+
+
+<script>
+      
+
+       $(".filedownload").on('click', function () {
+              //console.log("text :"+$(this).text());
+               var FileName = $(this).text();
+               //console.log("File Name " + FileName);
+                var urllink = '@Url.Action("Download", "CSRReporting", new {FileName = "-1"})';
+                 urllink = urllink.replace("-1", FileName);
+                 window.location.href = urllink;
+              });
+</script>
 
 
 

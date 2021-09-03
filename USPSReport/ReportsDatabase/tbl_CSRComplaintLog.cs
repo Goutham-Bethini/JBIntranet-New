@@ -71,5 +71,17 @@ namespace ReportsDatabase
         public Nullable<bool> ComplaintShipping { get; set; }
         public Nullable<bool> ComplaintService { get; set; }
         public Nullable<bool> ComplaintSmartAction { get; set; }
+        public Nullable<bool> Survey { get; set; }
+        public string Resolution { get; set; }
+        public bool Compliance { get; set; }
+        public bool CustomerService { get; set; }
+        public bool Discrimination { get; set; }
+        public bool HealthPlan { get; set; }
+        public bool ProductDefectiveQuality { get; set; }
+        public bool ShippingUSPS { get; set; }
+        public bool ShippingWarehouse { get; set; }
+        public bool SmartAction { get; set; }
+        public bool TextMessaging { get; set; }
+        public bool WebsitePortal { get; set; }
     }
 }

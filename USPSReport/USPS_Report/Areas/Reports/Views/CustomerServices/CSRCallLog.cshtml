@@ -270,6 +270,58 @@ if (Model != null && Model.firstTime == true && Model.details != null)
         second = second - 60 * minute + '';
         return minute + ':' + second + ':' + decisec;
     }
+    //addEventListener("keyup", myScript);
+    $('#Others').keyup(function () {
+        //alert("key");
+        document.getElementById("Others").removeAttribute("style");             
+    });
+    $('#ddout').change(function () {
+        //alert("key");
+        document.getElementById("ddout").removeAttribute("style");
+    });
+
+    $('#startandstopbutton').click(function () {
+        //var $this = $(this);
+
+        if ($('#Compliance').is(':checked') || $('#CustomerService').is(':checked') || $('#Discrimination').is(':checked') || $('#HealthPlan').is(':checked') || $('#ProductDefectiveQuality').is(':checked')
+            || $('#ShippingUSPS').is(':checked') || $('#ShippingWarehouse').is(':checked') || $('#SmartAction').is(':checked') || $('#TextMessaging').is(':checked') || $('#WebsitePortal').is(':checked')) {
+            //alert("test test");
+            var oth = document.getElementById('Others');
+            var out = document.getElementById('ddout');
+            if (!$('#Others').val()) {
+                oth.style.backgroundColor = "#ffeeee";
+                oth.style.border = "1px solid #ff0000";
+                return false;
+            }
+            else {
+                //debugger;
+                   //alert("pass");
+                document.getElementById("Others").removeAttribute("style");             
+                //document.getElementById('Others').style.backgroundColor = "transparent";
+                ////oth.style.backgroundColor = "";
+                //oth.style.border = "";
+            }
+            //debugger;
+            //alert($('#ddout').val());
+            if (document.getElementById('ddout').value=="") {
+                out.style.backgroundColor = "#ffeeee";
+                out.style.border = "1px solid #ff0000";
+                return false;
+            }
+            else {
+                //debugger;
+                //alert("pass");
+                document.getElementById("ddout").removeAttribute("style");
+                //document.getElementById('Others').style.backgroundColor = "transparent";
+                ////oth.style.backgroundColor = "";
+                //oth.style.border = "";
+            }
+            
+        }
+        //debugger;
+        //alert("wow");
+        //alert(document.getElementById('myid').value);
+    });
 </script>
 
 <style>

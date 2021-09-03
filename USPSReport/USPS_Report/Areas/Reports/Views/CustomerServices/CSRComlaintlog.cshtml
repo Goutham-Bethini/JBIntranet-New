@@ -57,71 +57,78 @@ if (Model != null && Model.details != null)
 
 
 
-    <div>
-        @using (Html.BeginForm("AddCSRComlaintlog", "CustomerServices", FormMethod.Post, new { onsubmit = "return SubmitConfirm()" }))
-        {
-        @Html.HiddenFor(m => m.Account)
-            @Html.HiddenFor(m => m.id)
-            @Html.HiddenFor(m => m.newAccount)
+            <div>
+                @using (Html.BeginForm("AddCSRComlaintlog", "CustomerServices", FormMethod.Post, new { onsubmit = "return SubmitConfirm()", enctype = "multipart/form-data", @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(m => m.Account)
+                    @Html.HiddenFor(m => m.id)
+                    @Html.HiddenFor(m => m.newAccount)
 
 
-            @(Html.Kendo().PanelBar()
-                                            .Name("newComplaintlog")
-                                                 .ExpandMode(PanelBarExpandMode.Multiple)
-                                            .Items(items =>
-                                            {
-                                            items.Add()
-                        .Text("AccountInfo")
-                        .Content( @<div> @Html.Partial("_AccountDetailsComplaint", Model) </div>)
-                                                             .Expanded(true);
-
-
-
-
-                                            items.Add()
-                         .Text("Call Handling")
-                        .Content( @<div> @Html.Partial("_CallHandling", Model) </div>)
-                                                             .Expanded(true);
+                    @(Html.Kendo().PanelBar()
+                                                                    .Name("newComplaintlog")
+                                                                         .ExpandMode(PanelBarExpandMode.Multiple)
+                                                                    .Items(items =>
+                                                                    {
+                                                                        items.Add()
+                                .Text("AccountInfo")
+                                .Content( @<div> @Html.Partial("_AccountDetailsComplaint", Model) </div>)
+                                                                             .Expanded(true);
 
 
 
 
-                                            items.Add()
-
-                      .Text("Complaint Received")
-                        .Content( @<div> @Html.Partial("_CallReceived", Model) </div>)
-                                                             .Expanded(true);
-
+                                                                                items.Add()
+                                         .Text("Call Handling")
+                                        .Content( @<div> @Html.Partial("_CallHandling", Model) </div>)
+                                                                                     .Expanded(true);
 
 
 
-                                            items.Add()
 
-           .Text("Complaint")
-           .Content( @<div> @Html.Partial("_Fedex", Model) </div>);
+                                                                                        items.Add()
 
-                                            @*items.Add()
-       .Text("Product")
-       .Content( @<div> @Html.Partial("_Product", Model) </div>);
-
-                                            items.Add()
-  .Text("Customer Service")
-  .Content( @<div> @Html.Partial("_CustomerService", Model) </div>);
-
-                                            items.Add()
-.Text("Other")
-.Content( @<div> @Html.Partial("_Other", Model) </div>);*@
-
-                                            items.Add()
-     .Text("Compliant Has Been")
-     .Content( @<div> @Html.Partial("_ComplainsHasBeen", Model) </div>);
-                                            })
+                                              .Text("Complaint Received")
+                                                .Content( @<div> @Html.Partial("_CallReceived", Model) </div>)
+                                                                                             .Expanded(true);
 
 
-)
-            <button class="btn btn-primary btn-large" id="startandstopbutton" type="submit">Submit </button>
-        }
-    </div>
+
+
+                                                                                                items.Add()
+
+                                           .Text("Complaint")
+                                           .Content( @<div> @Html.Partial("_Fedex", Model) </div>);
+                                                                                                     items.Add()
+
+                                                .Text("Complaint Attachment")
+                                                .Content( @<div> @Html.Partial("_ComplaintAttachment", Model) </div>);
+
+                                                        @*items.Add()
+                                                       .Text("Product")
+                                                       .Content( @<div> @Html.Partial("_Product", Model) </div>);
+
+                                                                                            items.Add()
+                                                  .Text("Customer Service")
+                                                  .Content( @<div> @Html.Partial("_CustomerService", Model) </div>);
+
+                                                                                            items.Add()
+                                                .Text("Other")
+                                                .Content( @<div> @Html.Partial("_Other", Model) </div>);*@
+                                                                    items.Add()
+                                         .Text("Resolution")
+                                         .Content( @<div> @Html.Partial("_Resolution", Model) </div>);
+
+                                                                               items.Add()
+        .Text("Compliant Has Been")
+        .Content( @<div> @Html.Partial("_ComplainsHasBeen", Model) </div>).Expanded(true);
+                                                })
+
+
+                    )
+                    <button class="btn btn-primary btn-large" id="startandstopbutton" type="submit">Submit </button>
+                }
+            </div>
     }
 }
 
@@ -132,13 +139,33 @@ if (Model != null && Model.details != null)
 
 
     function SubmitConfirm() {
+        //debugger;
         var i = $('#ComplaintHasBeen').val();
-        if ($('#Call').prop("checked") == false && $('#Email').prop("checked") == false && $('#Fax').prop("checked") == false && $('#CallRcvdWebsite').prop("checked") == false && $('#SocialMedia').prop("checked") == false && $('#InsCompany').prop("checked") == false && $('#CallRcvdOther').prop("checked") == false)
+        //alert("ComplaintCompliance "+ $('#ComplaintCompliance').prop("checked"));
+        //alert("ComplaintCustomerService " + $('#ComplaintCustomerService').prop("checked"));
+        //alert("ComplaintDiscrimination " + $('#ComplaintDiscrimination').prop("checked"));
+        //alert("ComplaintHealthPlan " + $('#ComplaintHealthPlan').prop("checked"));
+        //alert("ComplaintProdDefQty " + $('#ComplaintProdDefQty').prop("checked"));
+        //alert("ComplaintShipingUSPS " + $('#ComplaintShipingUSPS').prop("checked"));
+        //alert("ComplaintShipingWarehouse " + $('#ComplaintShipingWarehouse').prop("checked"));
+        //alert("ComplaintSmartAction " + $('#ComplaintSmartAction').prop("checked"));
+        //alert("ComplaintTextMessaging " + $('#ComplaintTextMessaging').prop("checked"));
+        //alert("ComplaintWebsite " + $('#ComplaintWebsite').prop("checked"));
+        if ($('#Call').prop("checked") == false && $('#Email').prop("checked") == false && $('#Fax').prop("checked") == false && $('#CallRcvdWebsite').prop("checked") == false && $('#SocialMedia').prop("checked") == false && $('#InsCompany').prop("checked") == false && $('#Survey').prop("checked") == false && $('#CallRcvdOther').prop("checked") == false)
         {
             alert("No Opition is selected under Complaint Recieved Section");
             return false;
         }
-        else if ($('#ComplaintProduct').prop("checked") == false && $('#ComplaintShipping').prop("checked") == false && $('#ComplaintService').prop("checked") == false && $('#ComplaintSmartAction').prop("checked") == false && $('#Website').prop("checked") == false && $('#InsLimitGuidelines').prop("checked") == false && $('#BCNProviderIssue').prop("checked") == false && $('#COther').prop("checked") == false) {
+        else if ($('#ComplaintCompliance').prop("checked") == false
+            && $('#ComplaintCustomerService').prop("checked") == false
+            && $('#ComplaintDiscrimination').prop("checked") == false
+            && $('#ComplaintHealthPlan').prop("checked") == false
+            && $('#ComplaintProdDefQty').prop("checked") == false
+            && $('#ComplaintShipingUSPS').prop("checked") == false
+            && $('#ComplaintShipingWarehouse').prop("checked") == false
+            && $('#ComplaintSmartAction').prop("checked") == false
+            && $('#ComplaintTextMessaging').prop("checked") == false
+            && $('#ComplaintWebsite').prop("checked") == false) {
             alert("No Opition is selected under Complaint Section");
             return false;
         }
@@ -155,6 +182,28 @@ if (Model != null && Model.details != null)
     else
         return false;
     }
+
+    $("#startandstopbutton").click(function () {
+        var ddComplaint = document.getElementById('ComplaintHasBeen');
+        if (ddComplaint.value == "") {
+            ddComplaint.style.backgroundColor = "#ffeeee";
+            ddComplaint.style.border = "1px solid #ff0000";
+            return false;
+        }
+        else {
+            //debugger;
+            //alert("pass");
+            ddComplaint.removeAttribute("style");
+            //document.getElementById('Others').style.backgroundColor = "transparent";
+            ////oth.style.backgroundColor = "";
+            //oth.style.border = "";
+        }
+    });
+
+    $('#ComplaintHasBeen').change(function () {
+        //alert("key");
+        document.getElementById("ComplaintHasBeen").removeAttribute("style");
+    });
 
 
     //$("#startandstopbutton").click(function(){

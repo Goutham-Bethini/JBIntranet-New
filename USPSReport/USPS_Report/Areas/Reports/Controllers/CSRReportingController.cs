@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -45,6 +46,22 @@ namespace USPS_Report.Areas.Reports.Controllers
         {
             _vm.records = CSRReport.GetCalllogReport(_vm.startDt, _vm.endDt, User.Identity.Name.Split('\\').Last().ToLower());
             return View(_vm);
+        }
+
+        [HttpGet]
+        public ActionResult Download(string FileName)
+        {
+            try
+            {
+                var fullPath = Path.Combine(@"\\JBMMIWEB001\StateAudit$\Files\Complaint log files", FileName);
+                string mimeType = System.Web.MimeMapping.GetMimeMapping(FileName);
+                // return File(fullPath, "application/vnd.ms-excel", FileName);
+                return File(fullPath, mimeType, FileName);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public ActionResult HoldOrders()

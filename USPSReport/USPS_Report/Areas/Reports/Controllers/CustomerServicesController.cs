@@ -7,17 +7,18 @@ using USPS_Report.Areas.Reports.Models;
 using ReportsDatabase;
 using System.Diagnostics;
 using System.Threading;
+using System.IO;
 
 namespace USPS_Report.Areas.Reports.Controllers
 {
     public class CustomerServicesController : Controller
     {
-         public ActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
 
-   
+
         public ActionResult CSRCallLog(string str)
         {
             var components = User.Identity.Name.Split('\\');
@@ -48,11 +49,12 @@ namespace USPS_Report.Areas.Reports.Controllers
         [HttpPost]
         public ActionResult CSRCallLog(CallLogVM _vm)
         {
-           // Guid fileid = Guid.NewGuid();
+            // Guid fileid = Guid.NewGuid();
             _vm.firstTime = true;
             _vm.details = AddCSRLog.GetDetails(_vm.Account);
-        
+
             _vm.TimerTxt = "0:0:0";
+            _vm.payerTypeList = AddCSRLog.HDMSPayerInfo(_vm.Account).ToList();
 
             using (HHSQLDBEntities _db = new HHSQLDBEntities())
             {
@@ -70,15 +72,15 @@ namespace USPS_Report.Areas.Reports.Controllers
         public ActionResult AddCSRCallLog(CallLogVM _vm)
         {
 
-           String _msg = String.Empty;
+            String _msg = String.Empty;
             int id;
-       
+
             if (_vm != null)
             {
 
-               
-             id=   AddCSRLog.AddCallLog(_vm);
-             _msg=   AddCSRLog.AddNote_CallLog(_vm , id);
+
+                id = AddCSRLog.AddCallLog(_vm);
+                _msg = AddCSRLog.AddNote_CallLog(_vm, id);
                 if (_vm.ComplainOutCome != "" && _vm.ComplainOutCome != null)
                 {
                     if (_vm.ComplainOutCome.Contains("Not Resolved Transferred to Team Leaders"))
@@ -87,7 +89,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     }
                 }
             }
-          
+
             return RedirectToAction("CSRCallLog");
         }
 
@@ -99,7 +101,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
             var userName = components.Last();
 
-           
+
 
             ID_VM id_op = new ID_VM();
             using (HHSQLDBEntities _db = new HHSQLDBEntities())
@@ -116,10 +118,10 @@ namespace USPS_Report.Areas.Reports.Controllers
 
             CSRComplaintVM _vm = new CSRComplaintVM();
             if (id_op == null) { _vm.OpPermission = true; }
-          
-           
 
-          //  _vm.firstTime = false;
+
+
+            //  _vm.firstTime = false;
             return View(_vm);
         }
         [HttpPost]
@@ -128,21 +130,21 @@ namespace USPS_Report.Areas.Reports.Controllers
             // Guid fileid = Guid.NewGuid();
             // _vm.firstTime = true;
 
-           if (_vm.newAccount != true)
+            if (_vm.newAccount != true)
             {
                 _vm = AddCSRLog.GetDetailsofAccountByRef(_vm.id);
-           }
+            }
 
             if (_vm.newAccount == true)
             {
                 AccountInfoVM acc = new AccountInfoVM();
                 acc = AddCSRLog.GetDetails(_vm.id);
 
-              //  acc.firstName = "New Memeber";
+                //  acc.firstName = "New Memeber";
                 _vm.details = acc;
                 _vm.Account = _vm.id;
             }
-              _vm.payerid = 0;
+            _vm.payerid = 0;
             _vm.payerType = new SelectList(AddCSRLog.HDMSPayerInfo(_vm.Account), "payerid", "payerType");
             _vm.payerTypeList = AddCSRLog.HDMSPayerInfo(_vm.Account).ToList();
 
@@ -161,17 +163,43 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
         [HttpPost]
-        public ActionResult AddCSRComlaintlog(CSRComplaintVM _vm)
+        public ActionResult AddCSRComlaintlog(CSRComplaintVM _vm, HttpPostedFileBase file, FormCollection form)
         {
             String _msg = String.Empty;
-          
-            int id=0; 
+            int id = 0;
             if (_vm != null)
             {
-
-
                 _vm.payerTypeList = AddCSRLog.HDMSPayerInfo(_vm.Account).ToList();
                 _vm.id = AddCSRLog.AddComplaintLog(_vm);
+                
+                string dir = @"\\JBMMIWEB001\StateAudit$\Files\Complaint log files";
+                string path = string.Empty;
+                if (file != null && file.ContentLength > 0)
+                {
+                    path = Path.Combine(dir, Path.GetFileName(file.FileName));
+                    if (!string.IsNullOrEmpty(path) && System.IO.File.Exists(path))
+                    {
+                        // if(System.IO.File.di)
+                        // If file found, delete it    
+                        System.IO.File.Delete(path);
+                    }
+                    //Saving the file  
+                    file.SaveAs(path);
+                    var components = System.Web.HttpContext.Current.User.Identity.Name.Split('\\');
+                    var userName = components.Last();
+                    using (IntranetEntities _db = new IntranetEntities())
+                    {
+                        tbl_CSRComplaintLog_Attachments att = new tbl_CSRComplaintLog_Attachments();
+                        att.Account = _vm.Account;
+                        att.ComplaintId = _vm.id;
+                        att.FileName = file.FileName;
+                        att.UploadedBy = userName;
+                        att.UploadedDate = DateTime.Now;
+                        _db.tbl_CSRComplaintLog_Attachments.Add(att);
+                        _db.SaveChanges();
+                    }
+                }                
+
                 if (_vm.newAccount == true)
                 {
                     CallLogVM _callVM = new CallLogVM();
@@ -182,30 +210,40 @@ namespace USPS_Report.Areas.Reports.Controllers
                     _callVM.DeliveryCompany = _vm.DeliveryCompany;
                     _callVM.BCNProvider = _vm.BCNProvider;
 
-                    _callVM.Damaged = _vm.Damaged;
-                    _callVM.WrongProductShipped = _vm.WrongProductShipped;
-                    _callVM.QualityOfProduct = _vm.QualityOfProduct;
-                    _callVM.Defective = _vm.ProductDefective;
+                    //_callVM.Damaged = _vm.Damaged;
+                    _callVM.Compliance = _vm.Compliance;
+                    _callVM.CustomerService = _vm.CustomerService;
+                    _callVM.Discrimination = _vm.Discrimination;
+                    _callVM.HealthPlan = _vm.HealthPlan;
+                    _callVM.ProductDefectiveQuality = _vm.ProductDefectiveQuality;
+                    _callVM.ShippingUSPS = _vm.ShippingUSPS;
+                    _callVM.ShippingWarehouse = _vm.ShippingWarehouse;
+                    _callVM.SmartAction = _vm.SmartAction;
+                    _callVM.TextMessaging = _vm.TextMessaging;
+                    _callVM.WebsitePortal = _vm.WebsitePortal;
+                    //_callVM.WrongProductShipped = _vm.WrongProductShipped;
+                    //_callVM.QualityOfProduct = _vm.QualityOfProduct;
+                    //_callVM.Defective = _vm.ProductDefective;
                     _callVM.MissingProduct = _vm.MissingProduct;
-                    _callVM.Driver = _vm.Driver;
-                    _callVM.DidntFollowDelIns = _vm.DidntFollowDelIns;
-                    _callVM.WrongArea = _vm.WrongArea;
-                    _callVM.Impolite_Offensive = _vm.ImpoliteORoffensive;
-                    _callVM.VConfirmationCalls = _vm.VConfirmationCalls;
-                    _callVM.VPaymentCalles = _vm.VPaymentCalles;
-                    _callVM.SAJamesPhonePromts = _vm.SAJamesPhonePromts;
-                    _callVM.SAJamesSelfService = _vm.SAJamesSelfService;
-                    _callVM.VirtualCallBack = _vm.VirtualCallBack;
-                    _callVM.Website = _vm.Website;
-                    _callVM.HoldTimes = _vm.HoldTimes;
-                    _callVM.NoFollowUp = _vm.NoFollowUp;
-                    _callVM.NoFollowUpWithMem = _vm.NoFollowUpWithMem;
-                    _callVM.ReturnedFromVM = _vm.ReturnedFromVM;
-                    _callVM.NeverRecivedSupplies = _vm.NeverRecivedSupplies;
-                    _callVM.PhysicianIssue = _vm.PhysicianIssue;
-                    _callVM.InsLimitGuidelines = _vm.InsLimitGuidelines;
-                    _callVM.BCNProviderIssue = _vm.BCNProviderIssue;
-                    _callVM.Other = _vm.Other;
+                    //_callVM.Driver = _vm.Driver;
+                    //_callVM.DidntFollowDelIns = _vm.DidntFollowDelIns;
+                    //_callVM.WrongArea = _vm.WrongArea;
+                    //_callVM.Impolite_Offensive = _vm.ImpoliteORoffensive;
+                    //_callVM.VConfirmationCalls = _vm.VConfirmationCalls;
+                    //_callVM.VPaymentCalles = _vm.VPaymentCalles;
+                    //_callVM.SAJamesPhonePromts = _vm.SAJamesPhonePromts;
+                    //_callVM.SAJamesSelfService = _vm.SAJamesSelfService;
+                    //_callVM.VirtualCallBack = _vm.VirtualCallBack;
+                    //_callVM.Website = _vm.Website;
+                    //_callVM.HoldTimes = _vm.HoldTimes;
+                    //_callVM.NoFollowUp = _vm.NoFollowUp;
+                    //_callVM.NoFollowUpWithMem = _vm.NoFollowUpWithMem;
+                    //_callVM.ReturnedFromVM = _vm.ReturnedFromVM;
+                    //_callVM.NeverRecivedSupplies = _vm.NeverRecivedSupplies;
+                    //_callVM.PhysicianIssue = _vm.PhysicianIssue;
+                    //_callVM.InsLimitGuidelines = _vm.InsLimitGuidelines;
+                    //_callVM.BCNProviderIssue = _vm.BCNProviderIssue;
+                    //_callVM.Other = _vm.Other;
                     _callVM.Others = _vm.Others;
 
 
@@ -214,16 +252,21 @@ namespace USPS_Report.Areas.Reports.Controllers
                     _vm.id = id;
                 }
 
-
-                
-                _msg = AddCSRLog.AddNote_ComplaintLog(_vm, id);
+                _msg = AddCSRLog.AddNote_ComplaintLog(_vm, id);                
 
                 if (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null)
                 {
-                   // if (_vm.ComplaintHasBeen.Contains("Not Resolved Transferred to Management"))
+                    // if (_vm.ComplaintHasBeen.Contains("Not Resolved Transferred to Management"))
                     if (true)
                     {
-                        AddCSRLog.sendComplainLogEmail(_msg, _vm.Account, _vm.id);
+                        //AddCSRLog.sendComplainLogEmail(_msg, _vm.Account, _vm.id);
+                    }
+                }
+                if (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null)
+                {
+                    if (_vm.ComplaintHasBeen.Contains("Pending Resolution–Management"))
+                    {
+                        AddCSRLog.sendComplainLogEmailToManagers(_msg, _vm.Account, id,_vm);
                     }
                 }
             }
@@ -231,12 +274,19 @@ namespace USPS_Report.Areas.Reports.Controllers
             return RedirectToAction("CSRComlaintlog");
         }
 
+        //[Authorize]
+        //[HttpPost]
+        //public ActionResult UploadFile(HttpPostedFileBase file, FormCollection form)
+        //{
+
+        //}
+
         public ActionResult SubmitForm()
         {
             return View();
         }
 
-      
+
 
     }
 }

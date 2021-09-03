@@ -1345,6 +1345,8 @@
     <Content Include="Areas\ColdFusionReports\Views\RWOLookUp\RWOLookUpData.cshtml" />
     <Content Include="Areas\Reports\Views\HDMSPunctuations\Index.cshtml" />
     <Content Include="Areas\Reports\Views\Illegalpunctuation\IllegalpunctuationData.cshtml" />
+    <Content Include="Areas\Reports\Views\CustomerServices\_Resolution.cshtml" />
+    <Content Include="Areas\Reports\Views\CustomerServices\_ComplaintAttachment.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GBethini.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />

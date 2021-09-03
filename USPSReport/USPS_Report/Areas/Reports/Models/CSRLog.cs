@@ -130,7 +130,16 @@ namespace USPS_Report.Areas.Reports.Models
                     tableRec.Account = _list.Account;
                     tableRec.TrackingNumber = _list.TrackingNumber;
                     tableRec.WorkOrder = _list.WorkOrder;
-                    tableRec.Damaged = _list.Damaged;
+                    tableRec.Compliance = _list.Compliance;
+                    tableRec.CustomerService = _list.CustomerService;
+                    tableRec.Discrimination = _list.Discrimination;
+                    tableRec.SmartAction = _list.SmartAction;
+                    tableRec.WebsitePortal = _list.WebsitePortal;
+                    tableRec.HealthPlan = _list.HealthPlan;
+                    tableRec.ProductDefectiveQuality = _list.ProductDefectiveQuality;
+                    tableRec.ShippingUSPS = _list.ShippingUSPS;
+                    tableRec.ShippingWarehouse = _list.ShippingWarehouse;
+                    tableRec.TextMessaging = _list.TextMessaging;
                     tableRec.Driver = _list.Driver;
                     tableRec.WrongProductShipped = _list.WrongProductShipped;
                     tableRec.WrongArea = _list.WrongArea;
@@ -154,19 +163,20 @@ namespace USPS_Report.Areas.Reports.Models
                     tableRec.SAJamesPhonePromts = _list.SAJamesPhonePromts;
                     tableRec.SAJamesSelfService = _list.SAJamesSelfService;
                     tableRec.VirtualCallBack = _list.VirtualCallBack;
-                    tableRec.Website = _list.Website;
+                    //tableRec.Website = _list.Website;
+                    
                     tableRec.NoFollowUp = _list.NoFollowUp;
                     tableRec.ReturnedFromVM = _list.ReturnedFromVM;
                     tableRec.NoFollowUpWithMem = _list.NoFollowUpWithMem;
                     tableRec.NeverRecivedSupplies = _list.NeverRecivedSupplies;
                     tableRec.PhysicianIssue = _list.PhysicianIssue;
-                    tableRec.InsLimitGuidelines = _list.InsLimitGuidelines;
-                    tableRec.BCNProviderIssue = _list.BCNProviderIssue;
-                    tableRec.Other = _list.Other;
+                    //tableRec.InsLimitGuidelines = _list.InsLimitGuidelines;
+                    //tableRec.BCNProviderIssue = _list.BCNProviderIssue;
+                    //tableRec.Other = _list.Other;
                     tableRec.ComplaintProduct = (_list.Damaged == true  || _list.QualityOfProdut == true || _list.ProductDefective == true ) ? true : false;
-                    tableRec.ComplaintShipping = (_list.OtherIssue_MissingProduct == true || _list.Driver == true || _list.DidntFollowDelIns == true || _list.WrongArea == true || _list.WrongProductShipped == true ) ? true : false;
-                    tableRec.ComplaintService = (_list.ImpoliteORoffensive == true || _list.VirtualCallBack == true || _list.HoldTimes == true || _list.NoFollowUp == true || _list.ReturnedFromVM == true || _list.NoFollowUpWithMem == true || _list.NeverRecivedSupplies == true || _list.PhysicianIssue == true) ? true : false;
-                    tableRec.ComplaintSmartAction = (_list.VConfirmationCalls == true || _list.VPaymentCalles == true ||  _list.SAJamesPhonePromts ==true || _list.SAJamesSelfService == true) ? true : false;
+                    //tableRec.ComplaintShipping = (_list.OtherIssue_MissingProduct == true || _list.Driver == true || _list.DidntFollowDelIns == true || _list.WrongArea == true || _list.WrongProductShipped == true ) ? true : false;
+                    //tableRec.ComplaintService = (_list.ImpoliteORoffensive == true || _list.VirtualCallBack == true || _list.HoldTimes == true || _list.NoFollowUp == true || _list.ReturnedFromVM == true || _list.NoFollowUpWithMem == true || _list.NeverRecivedSupplies == true || _list.PhysicianIssue == true) ? true : false;
+                    //tableRec.ComplaintSmartAction = (_list.VConfirmationCalls == true || _list.VPaymentCalles == true ||  _list.SAJamesPhonePromts ==true || _list.SAJamesSelfService == true) ? true : false;
 
                
                     }
@@ -374,7 +384,7 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.Account = Convert.ToInt32(_vm.Account);
                     _rec.CreatedOn = DateTime.Now;
                     _rec.CreatedBy = userName;
-                    _rec.CivilRight = _vm.CivilRights;
+                    //_rec.CivilRight = false;
                     _rec.CallDuration = _vm.TimerTxt;
                     _rec.Name = _vm.Name;
                     _rec.Relation = _vm.Relation;
@@ -438,19 +448,29 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.TransferredCallTxt = _vm.TransferredCallTxtArea;
                     _rec.TrackingNumber = _vm.TrackingNumber;
                     _rec.WorkOrder = _vm.WorkOrder;
-                    _rec.Damaged = _vm.Damaged;
-                    _rec.Driver = _vm.Driver;
-                    _rec.WrongProductShipped = _vm.WrongProductShipped;
-                    _rec.QualityOfProdut = _vm.QualityOfProduct;
-                    _rec.WrongArea = _vm.WrongArea;
-                    _rec.OtherIssue_MissingProduct = _vm.other_MissingProduct;
+                    //_rec.Damaged = _vm.Damaged;
+                    _rec.Compliance = _vm.Compliance;
+                    _rec.CustomerService = _vm.CustomerService;
+                    _rec.Discrimination = _vm.Discrimination;
+                    _rec.HealthPlan = _vm.HealthPlan;
+                    _rec.ProductDefectiveQuality = _vm.ProductDefectiveQuality;
+                    _rec.ShippingUSPS = _vm.ShippingUSPS;
+                    _rec.ShippingWarehouse = _vm.ShippingWarehouse;
+                    _rec.SmartAction = _vm.SmartAction;
+                    _rec.TextMessaging = _vm.TextMessaging;
+                    _rec.WebsitePortal = _vm.WebsitePortal;
+                    //_rec.Driver = _vm.Driver;
+                    //_rec.WrongProductShipped = _vm.WrongProductShipped;
+                    //_rec.QualityOfProdut = _vm.QualityOfProduct;
+                    //_rec.WrongArea = _vm.WrongArea;
+                    //_rec.OtherIssue_MissingProduct = _vm.other_MissingProduct;
                     _rec.FedExTxt = _vm.FedExTextArea;
                     _rec.ProductIncrease = _vm.Incorrect; // change to product incorrect
                     _rec.ProductMispick = _vm.Mispick;
-                    _rec.ProductDefective = _vm.Defective;
+                    //_rec.ProductDefective = _vm.Defective;
                     _rec.ProductTxt = _vm.ProductTextArea;
-                    _rec.ImpoliteORoffensive = _vm.Impolite_Offensive;
-                    _rec.HoldTimes = _vm.HoldTimes;
+                    //_rec.ImpoliteORoffensive = _vm.Impolite_Offensive;
+                    //_rec.HoldTimes = _vm.HoldTimes;
                     _rec.customerServiceTxt = _vm.CustomerServiceTextArea;
                     _rec.OtherTxt = _vm.Others;
                     _rec.FedExOrUSPSTrackingNumber = _vm.FedExOrUSPSTrackingNumber;
@@ -469,21 +489,21 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.Product = _vm.Product;
                     _rec.DeliveryCompany = _vm.DeliveryCompany;
                     _rec.BCNProvider = _vm.BCNProvider;
-                    _rec.DidntFollowDelIns = _vm.DidntFollowDelIns;
-                    _rec.VConfirmationCalls = _vm.VConfirmationCalls;
-                    _rec.VPaymentCalles = _vm.VPaymentCalles;
-                    _rec.SAJamesPhonePromts = _vm.SAJamesPhonePromts;
-                    _rec.SAJamesSelfService = _vm.SAJamesSelfService;
-                    _rec.VirtualCallBack = _vm.VirtualCallBack;
-                    _rec.Website = _vm.Website;
-                    _rec.NoFollowUp = _vm.NoFollowUp;
-                    _rec.ReturnedFromVM = _vm.ReturnedFromVM;
-                    _rec.NoFollowUpWithMem = _vm.NoFollowUpWithMem;
-                    _rec.NeverRecivedSupplies = _vm.NeverRecivedSupplies;
-                    _rec.PhysicianIssue = _vm.PhysicianIssue;
-                    _rec.InsLimitGuidelines = _vm.InsLimitGuidelines;
-                    _rec.BCNProviderIssue = _vm.BCNProviderIssue;
-                    _rec.Other = _vm.Other;
+                    //_rec.DidntFollowDelIns = _vm.DidntFollowDelIns;
+                    //_rec.VConfirmationCalls = _vm.VConfirmationCalls;
+                    //_rec.VPaymentCalles = _vm.VPaymentCalles;
+                    //_rec.SAJamesPhonePromts = _vm.SAJamesPhonePromts;
+                    //_rec.SAJamesSelfService = _vm.SAJamesSelfService;
+                    //_rec.VirtualCallBack = _vm.VirtualCallBack;
+                    //_rec.Website = _vm.Website;
+                    //_rec.NoFollowUp = _vm.NoFollowUp;
+                    //_rec.ReturnedFromVM = _vm.ReturnedFromVM;
+                    //_rec.NoFollowUpWithMem = _vm.NoFollowUpWithMem;
+                    //_rec.NeverRecivedSupplies = _vm.NeverRecivedSupplies;
+                    //_rec.PhysicianIssue = _vm.PhysicianIssue;
+                    //_rec.InsLimitGuidelines = _vm.InsLimitGuidelines;
+                    //_rec.BCNProviderIssue = _vm.BCNProviderIssue;
+                    //_rec.Other = _vm.Other;
                     //-----------------------------------------------------------------
 
                      _db.tbl_CSRCallLog.Add(_rec);
@@ -740,18 +760,43 @@ namespace USPS_Report.Areas.Reports.Models
                         }
                     }
 
-                        //Other Issues- Communication
-
+                    //Other Issues- Communication
+                    //_vm.Damaged == true
+                    //_vm.Driver == true || 
+                    //    _vm.WrongProductShipped == true || 
+                    //    _vm.QualityOfProduct == true                            || 
+                    //    _vm.WrongArea == true || _
+                    //        vm.other_MissingProduct == true ||
+                    //_vm.Defective ||
+                    //|| _vm.Impolite_Offensive == true || 
+                    //_vm.HoldTimes == true
+                    //|| _vm.DidntFollowDelIns == true || 
+                    //_vm.VConfirmationCalls == true || 
+                    //_vm.VPaymentCalles == true ||
+                    //_vm.SAJamesPhonePromts == true
+                    //|| _vm.SAJamesSelfService == true || 
+                    //_vm.VirtualCallBack == true || 
+                    //_vm.Website == true || 
+                    //_vm.NoFollowUp == true || 
+                    //_vm.ReturnedFromVM == true || 
+                    //_vm.NoFollowUpWithMem == true ||
+                    //_vm.NeverRecivedSupplies == true || 
+                    //    _vm.PhysicianIssue == true || 
+                    //    _vm.InsLimitGuidelines == true || 
+                    //    _vm.BCNProviderIssue == true || 
+                    //    _vm.Other == true ||
                         // COMMMUNICATION
-                        if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
-                            || _vm.Damaged == true || _vm.Driver == true || _vm.WrongProductShipped == true || _vm.QualityOfProduct == true
-                            || _vm.WrongArea ==  true || _vm.other_MissingProduct == true || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
-                            ||_vm.Incorrect == true || _vm.Mispick == true || _vm.Defective || (_vm.ProductTextArea != "" && _vm.ProductTextArea != null)
-                            ||_vm.Impolite_Offensive == true || _vm.HoldTimes == true || (_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null)
-                            || (_vm.Others != "" && _vm.Others != null) || _vm.DidntFollowDelIns == true || _vm.VConfirmationCalls == true || _vm.VPaymentCalles == true || _vm.SAJamesPhonePromts == true
-                                || _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.Website == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
-                                _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.InsLimitGuidelines == true || _vm.BCNProviderIssue == true || _vm.Other == true ||
-                            (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) || (_vm.BCNProvider != "" && _vm.BCNProvider != null))
+                    if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
+                            || _vm.Compliance == true || _vm.CustomerService == true
+                            || _vm.Discrimination == true || _vm.HealthPlan == true
+                            || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true
+                            || _vm.ShippingWarehouse == true || _vm.SmartAction == true
+                            || _vm.TextMessaging == true || _vm.WebsitePortal == true
+                            ||  (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
+                            ||_vm.Incorrect == true || _vm.Mispick == true ||  (_vm.ProductTextArea != "" && _vm.ProductTextArea != null)
+                            || (_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null)
+                            || (_vm.Others != "" && _vm.Others != null)                                 
+                            || (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) || (_vm.BCNProvider != "" && _vm.BCNProvider != null))
                         {
 
                         if (_vm.ComplainOutCome != null &&_vm.ComplainOutCome.Contains("Not Resolved Transferred to Team Leaders"))
@@ -807,16 +852,21 @@ namespace USPS_Report.Areas.Reports.Models
                                 tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
                                 _tHist.ID_Note = _note.ID;
                                 _tHist.NoteDate = DateTime.Now;
-                              
 
-                       
 
+
+                            //_vm.Damaged == true
+                            //|| _vm.Driver == true || _vm.WrongProductShipped == true || _vm.QualityOfProduct == true
+                            //|| _vm.WrongArea == true || _vm.CivilRights == true || _vm.other_MissingProduct == true || _vm.DidntFollowDelIns == true || _vm.VConfirmationCalls == true || _vm.VPaymentCalles == true || _vm.SAJamesPhonePromts == true
+                            //|| _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.Website == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
+                            //_vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.InsLimitGuidelines == true || _vm.BCNProviderIssue == true || _vm.Other == true ||
                             if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
-                                || _vm.Damaged == true || _vm.Driver == true || _vm.WrongProductShipped == true || _vm.QualityOfProduct == true
-                                || _vm.WrongArea == true || _vm.CivilRights == true || _vm.other_MissingProduct == true ||  _vm.DidntFollowDelIns == true || _vm.VConfirmationCalls ==true || _vm.VPaymentCalles == true || _vm.SAJamesPhonePromts == true
-                                || _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.Website == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
-                                _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.InsLimitGuidelines == true || _vm.BCNProviderIssue == true || _vm.Other == true ||
-                                (_vm.FedExTextArea != "" && _vm.FedExTextArea != null) || (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) || (_vm.BCNProvider != "" && _vm.BCNProvider != null))
+                                || _vm.Compliance == true || _vm.CustomerService == true
+                                || _vm.Discrimination == true || _vm.HealthPlan == true
+                                || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true
+                                || _vm.ShippingWarehouse == true || _vm.SmartAction == true
+                                || _vm.TextMessaging == true || _vm.WebsitePortal == true
+                                || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null) || (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) || (_vm.BCNProvider != "" && _vm.BCNProvider != null))
                                 {
                                     if (_vm.TrackingNumber != "" && _vm.TrackingNumber != null)
                                              otherStr.Append("Tracking Number = " + _vm.TrackingNumber + Environment.NewLine);
@@ -836,88 +886,120 @@ namespace USPS_Report.Areas.Reports.Models
                                 if (_vm.BCNProvider != "" && _vm.BCNProvider != null)
                                     otherStr.Append("BCN Provider = " + _vm.BCNProvider + Environment.NewLine);
 
-                                if (_vm.Damaged == true)
-                                        otherStr.Append("Damaged"+ Environment.NewLine);
-                                        //otherStr = otherStr + "Damaged_";
+                                //if (_vm.Damaged == true)
+                                //        otherStr.Append("Damaged"+ Environment.NewLine);
+                                //otherStr = otherStr + "Damaged_";
 
-                                    if (_vm.Driver == true)
-                                       otherStr.Append("Driver" + Environment.NewLine);
+                                if (_vm.Compliance == true)
+                                    otherStr.Append("Compliance" + Environment.NewLine);
+
+                                if (_vm.CustomerService == true)
+                                    otherStr.Append("Customer Service (CSR Issue, Hold Times, Follow Up, etc)" + Environment.NewLine);
+
+                                if (_vm.Discrimination == true)
+                                    otherStr.Append("Discrimination / Civil Rights" + Environment.NewLine);
+
+                                if (_vm.HealthPlan == true)
+                                    otherStr.Append("Health Plan (insurance limits, guidelines, etc)" + Environment.NewLine);
+
+                                if (_vm.ProductDefectiveQuality == true)
+                                    otherStr.Append("Product (Defective, Quality, etc)" + Environment.NewLine);
+
+                                if (_vm.ShippingUSPS == true)
+                                    otherStr.Append("Shipping (USPS / FedEx)" + Environment.NewLine);
+
+                                if (_vm.ShippingWarehouse == true)
+                                    otherStr.Append("Shipping (Warehouse: Mispicks, Missing, etc)" + Environment.NewLine);
+
+                                if (_vm.SmartAction == true)
+                                    otherStr.Append("SmartAction (Victor / Julie)" + Environment.NewLine);
+
+                                if (_vm.TextMessaging == true)
+                                    otherStr.Append("Text Messaging" + Environment.NewLine);
+
+                                if (_vm.WebsitePortal == true)
+                                    otherStr.Append("Website / Portal" + Environment.NewLine);
+
+                                //if (_vm.Driver == true)
+                                //       otherStr.Append("Driver" + Environment.NewLine);
                                 // otherStr = otherStr + "Driver_";
 
 
 
-                                if (_vm.DidntFollowDelIns == true)
-                                    otherStr.Append("Did not follow delivery instructions" + Environment.NewLine);
+                                //if (_vm.DidntFollowDelIns == true)
+                                //    otherStr.Append("Did not follow delivery instructions" + Environment.NewLine);
 
-                                if (_vm.VConfirmationCalls == true)
-                                    otherStr.Append("Victor Confirmation Calls " + Environment.NewLine);
+                                //if (_vm.VConfirmationCalls == true)
+                                //    otherStr.Append("Victor Confirmation Calls " + Environment.NewLine);
 
-                                if (_vm.VPaymentCalles == true)
-                                    otherStr.Append("Victor Payment Calls " + Environment.NewLine);
+                                //if (_vm.VPaymentCalles == true)
+                                //    otherStr.Append("Victor Payment Calls " + Environment.NewLine);
 
-                                if (_vm.SAJamesPhonePromts == true)
-                                    otherStr.Append("Smart Action/James Phone Prompts " + Environment.NewLine);
+                                //if (_vm.SAJamesPhonePromts == true)
+                                //    otherStr.Append("Smart Action/James Phone Prompts " + Environment.NewLine);
 
-                                if (_vm.SAJamesSelfService == true)
-                                    otherStr.Append("Smart Action/James self service " + Environment.NewLine);
+                                //if (_vm.SAJamesSelfService == true)
+                                //    otherStr.Append("Smart Action/James self service " + Environment.NewLine);
 
-                                if (_vm.VirtualCallBack == true)
-                                    otherStr.Append("Virtual Callback feature " + Environment.NewLine);
+                                //if (_vm.VirtualCallBack == true)
+                                //    otherStr.Append("Virtual Callback feature " + Environment.NewLine);
 
-                                if (_vm.NoFollowUp == true)
-                                    otherStr.Append("No follow up on account/on documentation" + Environment.NewLine);
+                                //if (_vm.NoFollowUp == true)
+                                //    otherStr.Append("No follow up on account/on documentation" + Environment.NewLine);
 
-                                if (_vm.ReturnedFromVM == true)
-                                    otherStr.Append("Call not returned from VM" + Environment.NewLine);
+                                //if (_vm.ReturnedFromVM == true)
+                                //    otherStr.Append("Call not returned from VM" + Environment.NewLine);
 
-                                if (_vm.WrongProductShipped == true)
-                                             otherStr.Append("Wrong Product Shipped" + Environment.NewLine);
+                                //if (_vm.WrongProductShipped == true)
+                                //             otherStr.Append("Wrong Product Shipped" + Environment.NewLine);
                                 //otherStr = otherStr + "WrongProductShipped_";
 
-                                if (_vm.NoFollowUpWithMem == true)
-                                    otherStr.Append("No follow up with member " + Environment.NewLine);
+                                //if (_vm.NoFollowUpWithMem == true)
+                                //    otherStr.Append("No follow up with member " + Environment.NewLine);
 
-                                if (_vm.NeverRecivedSupplies == true)
-                                    otherStr.Append("Never received supplies" + Environment.NewLine);
+                                //if (_vm.NeverRecivedSupplies == true)
+                                //    otherStr.Append("Never received supplies" + Environment.NewLine);
 
-                                if (_vm.PhysicianIssue == true)
-                                    otherStr.Append("Physician Issue" + Environment.NewLine);
+                                //if (_vm.PhysicianIssue == true)
+                                //    otherStr.Append("Physician Issue" + Environment.NewLine);
 
-                                if (_vm.InsLimitGuidelines == true)
-                                    otherStr.Append("Insurance Limitations/Guidelines" + Environment.NewLine);
+                                //if (_vm.InsLimitGuidelines == true)
+                                //    otherStr.Append("Insurance Limitations/Guidelines" + Environment.NewLine);
 
-                                if (_vm.BCNProviderIssue == true)
-                                    otherStr.Append("BCN Provider Issue " + Environment.NewLine);
+                                //if (_vm.BCNProviderIssue == true)
+                                //    otherStr.Append("BCN Provider Issue " + Environment.NewLine);
 
-                                if (_vm.QualityOfProduct == true)
-                                             otherStr.Append("Quality Of Product" + Environment.NewLine);
+                                //if (_vm.QualityOfProduct == true)
+                                //             otherStr.Append("Quality Of Product" + Environment.NewLine);
 
-                                if (_vm.CivilRights == true)
-                                    otherStr.Append("Civil Rights" + Environment.NewLine);
-
-
-                                if (_vm.Other == true)
-                                    otherStr.Append("Other" + Environment.NewLine);
+                                //if (_vm.CivilRights == true)
+                                //    otherStr.Append("Civil Rights" + Environment.NewLine);
 
 
-                                if (_vm.Website == true)
-                                    otherStr.Append("Website" + Environment.NewLine);
+                                //if (_vm.Other == true)
+                                //    otherStr.Append("Other" + Environment.NewLine);
 
-                                if (_vm.WrongArea == true)
-                                             otherStr.Append("Wrong Area" + Environment.NewLine);
-                                          //otherStr = otherStr + "WrongArea_";
 
-                                    if (_vm.other_MissingProduct == true)
-                                         otherStr.Append("Missing Product" + Environment.NewLine);
-                                        // otherStr = otherStr + "MissingProduct_";
+                                //if (_vm.Website == true)
+                                //    otherStr.Append("Website" + Environment.NewLine);
 
-                                    if (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
+                                //if (_vm.WrongArea == true)
+                                //             otherStr.Append("Wrong Area" + Environment.NewLine);
+                                //          //otherStr = otherStr + "WrongArea_";
+
+                                //    if (_vm.other_MissingProduct == true)
+                                //         otherStr.Append("Missing Product" + Environment.NewLine);
+                                //        // otherStr = otherStr + "MissingProduct_";
+
+                                if (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
                                          otherStr.Append(" Note =" + _vm.FedExTextArea + Environment.NewLine);
                                         // otherStr = otherStr + " FedExNote =" + _vm.FedExTextArea + "_";
 
                                 }
 
-                                if (_vm.Incorrect == true || _vm.Mispick == true || _vm.Defective || (_vm.ProductTextArea != "" && _vm.ProductTextArea != null))
+                            //_vm.Defective ||
+
+                                if (_vm.Incorrect == true || _vm.Mispick == true ||  (_vm.ProductTextArea != "" && _vm.ProductTextArea != null))
                                 {
                                  
                                     if (_vm.Incorrect == true)
@@ -928,9 +1010,9 @@ namespace USPS_Report.Areas.Reports.Models
                                      otherStr.Append("Mispick Product" + Environment.NewLine);
                                         //otherStr = otherStr + "Mispick_";
 
-                                    if (_vm.Defective == true)
-                                        otherStr.Append("Defective Product" + Environment.NewLine);
-                                         //otherStr = otherStr + "Defective_";
+                                    //if (_vm.Defective == true)
+                                    //    otherStr.Append("Defective Product" + Environment.NewLine);
+                                    //     //otherStr = otherStr + "Defective_";
 
 
 
@@ -939,17 +1021,17 @@ namespace USPS_Report.Areas.Reports.Models
                                         //otherStr = otherStr + " Product Note =" + _vm.ProductTextArea + "_";
 
                                 }
-
-                                if (_vm.Impolite_Offensive == true || _vm.HoldTimes == true || (_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null))
+                            //_vm.Impolite_Offensive == true || _vm.HoldTimes == true ||
+                                if ((_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null))
                                 {
 
-                                    if (_vm.Impolite_Offensive == true)
-                                            otherStr.Append("Impolite or Offensive" + Environment.NewLine);
-                                        //otherStr = otherStr + "Impolite/Offensive_";
+                                    //if (_vm.Impolite_Offensive == true)
+                                    //        otherStr.Append("Impolite or Offensive" + Environment.NewLine);
+                                    //    //otherStr = otherStr + "Impolite/Offensive_";
 
-                                    if (_vm.HoldTimes == true)
-                                        otherStr.Append("Hold Times" + Environment.NewLine);
-                                            // otherStr = otherStr + "HoldTimes_";
+                                    //if (_vm.HoldTimes == true)
+                                    //    otherStr.Append("Hold Times" + Environment.NewLine);
+                                    //        // otherStr = otherStr + "HoldTimes_";
 
 
                                     if (_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null)
@@ -2116,7 +2198,17 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.CreatedOn = DateTime.Now;
                     _rec.CreatedBy = userName;
                     _rec.TrackingNumber = _vm.TrackingNumber;
-                    _rec.Damaged = _vm.Damaged;
+                    //_rec.Damaged = _vm.Damaged;
+                    _rec.Compliance = _vm.Compliance;
+                    _rec.CustomerService = _vm.CustomerService;
+                    _rec.Discrimination = _vm.Discrimination;
+                    _rec.SmartAction = _vm.SmartAction;
+                    _rec.WebsitePortal = _vm.WebsitePortal;
+                    _rec.HealthPlan = _vm.HealthPlan;
+                    _rec.ProductDefectiveQuality = _vm.ProductDefectiveQuality;
+                    _rec.ShippingUSPS = _vm.ShippingUSPS;
+                    _rec.ShippingWarehouse = _vm.ShippingWarehouse;
+                    _rec.TextMessaging = _vm.TextMessaging;
                     _rec.Driver = _vm.Driver;
                     _rec.WrongProductShipped = _vm.WrongProductShipped;
                     _rec.WrongArea = _vm.WrongArea;
@@ -2132,6 +2224,7 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.customerServiceTxt = _vm.CustomerServiceTextArea;
                     _rec.OtherTxt = _vm.Others;
                     _rec.ComplaintHasBeen = _vm.ComplaintHasBeen;
+                    _rec.Resolution = _vm.Resolution;
                     string payerids = "";
                     for (int i= 0; i < _vm.payerTypeList.Count(); i++)
                     {
@@ -2157,15 +2250,15 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.SAJamesPhonePromts = _vm.SAJamesPhonePromts;
                     _rec.SAJamesSelfService = _vm.SAJamesSelfService;
                     _rec.VirtualCallBack = _vm.VirtualCallBack;
-                    _rec.Website = _vm.Website;
+                    //_rec.Website = _vm.Website;
                     _rec.NoFollowUp = _vm.NoFollowUp;
                     _rec.ReturnedFromVM = _vm.ReturnedFromVM;
                     _rec.NoFollowUpWithMem = _vm.NoFollowUpWithMem;
                     _rec.NoFollowUp = _vm.NoFollowUp;
                     _rec.NeverRecivedSupplies = _vm.NeverRecivedSupplies;
                     _rec.PhysicianIssue = _vm.PhysicianIssue;
-                    _rec.BCNProviderIssue = _vm.BCNProviderIssue;
-                    _rec.Other = _vm.Other;
+                    //_rec.BCNProviderIssue = _vm.BCNProviderIssue;
+                    //_rec.Other = _vm.Other;
                     //-- added 6/14/2018 ---
                     _rec.IssueDate = _vm.IssueDate;
                     _rec.ComplaintDate = _vm.ComplaintDate;
@@ -2179,11 +2272,12 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.CallRcvdWebsite = _vm.CallRcvdWebsite;
                     _rec.SocialMedia = _vm.SocialMedia;
                     _rec.InsCompany = _vm.InsCompany;
+                    _rec.Survey = _vm.Survey;
                     _rec.CallRcvdOther = _vm.CallRcvdOther;
                     _rec.ComplaintProduct = _vm.ComplaintProduct;
-                    _rec.ComplaintShipping = _vm.ComplaintShipping;
-                    _rec.ComplaintService = _vm.ComplaintService;
-                    _rec.ComplaintSmartAction = _vm.ComplaintSmartAction;
+                    //_rec.ComplaintShipping = _vm.ComplaintShipping;
+                    //_rec.ComplaintService = _vm.ComplaintService;
+                    //_rec.ComplaintSmartAction = _vm.ComplaintSmartAction;
                     
 
 
@@ -2255,17 +2349,24 @@ namespace USPS_Report.Areas.Reports.Models
                     tbl_Account_Note _note = new tbl_Account_Note();
 
 
-
+                    //_vm.Damaged == true
+                    //_vm.ComplaintShipping == true
+                    //_vm.ComplaintService == true
+                    //_vm.ComplaintSmartAction == true
+                    //_vm.Website == true
+                    //_vm.InsLimitGuidelines == true 
+                    //_vm.BCNProviderIssue == true 
+                    //_vm.Other == true
                     // COMPLAINTS
                     if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
-                             || _vm.Damaged == true || _vm.Driver == true || _vm.WrongProductShipped == true || _vm.QualityOfProduct == true
+                             || _vm.Compliance == true || _vm.Driver == true || _vm.WrongProductShipped == true || _vm.QualityOfProduct == true
                              || _vm.WrongArea == true || _vm.MissingProduct == true || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
-                             || _vm.ProductIncorrect == true ||_vm.Call == true || _vm.Email == true || _vm.Fax == true || _vm.Website == true || _vm.SocialMedia == true || _vm.InsCompany == true  ||  _vm.CallRcvdOther == true || _vm.ProductMispick == true || _vm.ProductDefective || (_vm.ProductTextArea != "" && _vm.ProductTextArea != null)
+                             || _vm.ProductIncorrect == true ||_vm.Call == true || _vm.Email == true || _vm.Fax == true || _vm.WebsitePortal == true || _vm.SocialMedia == true || _vm.InsCompany == true || _vm.Survey == true ||  _vm.CallRcvdOther == true || _vm.ProductMispick == true || _vm.ProductDefective || (_vm.ProductTextArea != "" && _vm.ProductTextArea != null)
                              || _vm.ImpoliteORoffensive == true || _vm.HoldTimes == true || (_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null)
                              || (_vm.Others != "" && _vm.Others != null)|| (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null)
-                             || _vm.DidntFollowDelIns == true || _vm.VConfirmationCalls == true || _vm.ComplaintProduct == true || _vm.ComplaintShipping == true || _vm.ComplaintService == true || _vm.ComplaintSmartAction == true || _vm.VPaymentCalles == true || _vm.SAJamesPhonePromts == true
-                                || _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.Website == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
-                                _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.InsLimitGuidelines == true || _vm.BCNProviderIssue == true || _vm.Other == true ||
+                             || _vm.DidntFollowDelIns == true || _vm.VConfirmationCalls == true || _vm.ComplaintProduct == true || _vm.CustomerService == true || _vm.Discrimination == true || _vm.SmartAction == true || _vm.VPaymentCalles == true || _vm.SAJamesPhonePromts == true
+                                || _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.WebsitePortal == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
+                                _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.HealthPlan == true || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true || _vm.ShippingWarehouse == true || _vm.TextMessaging == true || 
                                (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) || (_vm.BCNProvider != "" && _vm.BCNProvider != null)
                                || _vm.IssueDate != null || _vm.ComplaintDate != null || _vm.ResolutionDate != null || _vm.InitialRespDate != null || _vm.WrittenRespDate != null
                                )
@@ -2297,18 +2398,25 @@ namespace USPS_Report.Areas.Reports.Models
                             _tHist.ID_Note = _note.ID;
                             _tHist.NoteDate = DateTime.Now;
 
-
+                            //_vm.Damaged == true
+                            //_vm.ComplaintShipping == true
+                            //_vm.ComplaintService == true
+                            //_vm.ComplaintSmartAction == true
+                            //_vm.Website == true
+                            //_vm.InsLimitGuidelines == true
+                            //_vm.BCNProviderIssue == true
+                            //_vm.Other == true
                             if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
-                                || _vm.Damaged == true  
-                                || _vm.Call == true || _vm.Email == true || _vm.Fax == true || _vm.Website == true || _vm.SocialMedia == true || _vm.InsCompany == true || _vm.CallRcvdOther == true ||
+                                || _vm.Compliance == true  
+                                || _vm.Call == true || _vm.Email == true || _vm.Fax == true || _vm.WebsitePortal == true || _vm.SocialMedia == true || _vm.InsCompany == true || _vm.Survey == true || _vm.CallRcvdOther == true ||
                                 _vm.Driver == true || _vm.WrongProductShipped == true || _vm.QualityOfProduct == true
                                 || _vm.WrongArea == true || _vm.MissingProduct == true || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
                                   || _vm.DidntFollowDelIns == true || _vm.VConfirmationCalls == true || _vm.VPaymentCalles == true || _vm.SAJamesPhonePromts == true
-                                || _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.Website == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
-                                _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.InsLimitGuidelines == true || _vm.BCNProviderIssue == true || _vm.Other == true ||
+                                || _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.WebsitePortal == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
+                                _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.HealthPlan == true || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true || _vm.ShippingWarehouse == true || _vm.TextMessaging == true ||
                                (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) || (_vm.BCNProvider != "" && _vm.BCNProvider != null)
                                || _vm.IssueDate != null || _vm.ComplaintDate != null || _vm.ResolutionDate != null || _vm.InitialRespDate !=null || _vm.WrittenRespDate != null ||
-                                _vm.ComplaintProduct == true || _vm.ComplaintShipping == true || _vm.ComplaintService == true || _vm.ComplaintSmartAction == true 
+                                _vm.ComplaintProduct == true || _vm.CustomerService == true || _vm.Discrimination == true || _vm.SmartAction == true 
                                )
                             {
                                 otherStr.Append("Complaint Received By = " );
@@ -2318,12 +2426,16 @@ namespace USPS_Report.Areas.Reports.Models
                                     otherStr.Append(" Email " + Environment.NewLine);
                                 if (_vm.Fax == true)
                                     otherStr.Append(" Fax " + Environment.NewLine);
-                                if (_vm.Website == true)
-                                    otherStr.Append(" Website " + Environment.NewLine);
+                                //if (_vm.Website == true)
+                                //    otherStr.Append(" Website " + Environment.NewLine);
+                                if (_vm.WebsitePortal == true)
+                                    otherStr.Append(" Website / Portal " + Environment.NewLine);
                                 if (_vm.SocialMedia == true)
                                     otherStr.Append(" Social Media " + Environment.NewLine);
                                 if (_vm.InsCompany == true)
                                     otherStr.Append(" Insurance Company " + Environment.NewLine);
+                                if (_vm.Survey == true)
+                                    otherStr.Append(" Survey " + Environment.NewLine);
                                 if (_vm.CallRcvdOther == true)
                                     otherStr.Append(" Other  " + Environment.NewLine);
 
@@ -2356,21 +2468,47 @@ namespace USPS_Report.Areas.Reports.Models
                                 if (_vm.BCNProvider != "" && _vm.BCNProvider != null)
                                     otherStr.Append("BCN Provider = " + _vm.BCNProvider + Environment.NewLine);
 
-                                if (_vm.Damaged == true)
-                                    otherStr.Append("Damaged" + Environment.NewLine);
+                                //if (_vm.Damaged == true)
+                                //    otherStr.Append("Damaged" + Environment.NewLine);
+                                if (_vm.Compliance == true)
+                                    otherStr.Append("Compliance" + Environment.NewLine);
 
                                 if (_vm.ComplaintProduct == true)
                                     otherStr.Append("Product" + Environment.NewLine);
 
-                                if (_vm.ComplaintShipping == true)
-                                    otherStr.Append("Shipping" + Environment.NewLine);
+                                if (_vm.CustomerService == true)
+                                    otherStr.Append("Customer Service (CSR Issue, Hold Times, Follow Up, etc)" + Environment.NewLine);
 
-                                if (_vm.ComplaintService == true)
-                                    otherStr.Append("Service" + Environment.NewLine);
+                                //if (_vm.ComplaintShipping == true)
+                                //    otherStr.Append("Shipping" + Environment.NewLine);
 
-                                if (_vm.ComplaintSmartAction == true)
-                                    otherStr.Append("Smart Action" + Environment.NewLine);
+                                //if (_vm.ComplaintService == true)
+                                //    otherStr.Append("Service" + Environment.NewLine);
+
+                                if (_vm.Discrimination == true)
+                                    otherStr.Append("Discrimination / Civil Rights" + Environment.NewLine);
+
+                                //if (_vm.ComplaintSmartAction == true)
+                                //    otherStr.Append("Smart Action" + Environment.NewLine);
                                 //otherStr = otherStr + "Damaged_";
+
+                                if (_vm.SmartAction == true)
+                                    otherStr.Append("Smart Action" + Environment.NewLine);
+
+                                if (_vm.HealthPlan == true)
+                                    otherStr.Append("Health Plan (insurance limits, guidelines, etc)" + Environment.NewLine);
+
+                                if (_vm.ProductDefectiveQuality == true)
+                                    otherStr.Append("Product (Defective, Quality, etc)" + Environment.NewLine);
+
+                                if (_vm.ShippingUSPS == true)
+                                    otherStr.Append("Shipping (USPS / FedEx)" + Environment.NewLine);
+
+                                if (_vm.ShippingWarehouse == true)
+                                    otherStr.Append("Shipping (Warehouse: Mispicks, Missing, etc)" + Environment.NewLine);
+
+                                if (_vm.TextMessaging == true)
+                                    otherStr.Append("Text Messaging" + Environment.NewLine);
 
                                 if (_vm.Driver == true)
                                     otherStr.Append("Driver" + Environment.NewLine);
@@ -2414,11 +2552,11 @@ namespace USPS_Report.Areas.Reports.Models
                                 if (_vm.PhysicianIssue == true)
                                     otherStr.Append("Physician Issue" + Environment.NewLine);
 
-                                if (_vm.InsLimitGuidelines == true)
-                                    otherStr.Append("Insurance Limitations/Guidelines" + Environment.NewLine);
+                                //if (_vm.InsLimitGuidelines == true)
+                                //    otherStr.Append("Insurance Limitations/Guidelines" + Environment.NewLine);
 
-                                if (_vm.BCNProviderIssue == true)
-                                    otherStr.Append("BCN Provider Issue " + Environment.NewLine);
+                                //if (_vm.BCNProviderIssue == true)
+                                //    otherStr.Append("BCN Provider Issue " + Environment.NewLine);
 
 
                                 if (_vm.QualityOfProduct == true)
@@ -2433,12 +2571,14 @@ namespace USPS_Report.Areas.Reports.Models
                                     otherStr.Append("Missing Product" + Environment.NewLine);
                                 // otherStr = otherStr + "MissingProduct_";
 
-                                if (_vm.Other == true)
-                                    otherStr.Append("Other" + Environment.NewLine);
+                                //if (_vm.Other == true)
+                                //    otherStr.Append("Other" + Environment.NewLine);
 
 
-                                if (_vm.Website == true)
-                                    otherStr.Append("Website" + Environment.NewLine);
+                                //if (_vm.Website == true)
+                                //    otherStr.Append("Website" + Environment.NewLine);
+                                if (_vm.WebsitePortal == true)
+                                    otherStr.Append("Website / Portal" + Environment.NewLine);
 
                                 if (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
                                     otherStr.Append("Note =" + _vm.FedExTextArea + Environment.NewLine);
@@ -2491,6 +2631,13 @@ namespace USPS_Report.Areas.Reports.Models
                             {
                                 otherStr.Append("Others Note =" + _vm.Others + Environment.NewLine);
                                // otherStr = otherStr + " Others Note =" + _vm.Others + "_";
+
+                            }
+
+                            if (_vm.Resolution != "" && _vm.Resolution != null)
+                            {
+                                otherStr.Append("Resolution =" + _vm.Resolution + Environment.NewLine);
+                                // otherStr = otherStr + " Others Note =" + _vm.Others + "_";
 
                             }
 
@@ -2653,6 +2800,106 @@ namespace USPS_Report.Areas.Reports.Models
             //  SmtpServer.EnableSsl = true;
             SmtpServer.Send(mail);
         }
+
+        public static void sendComplainLogEmailToManagers(string message, Int64? acc, int? reference, CSRComplaintVM _vm)
+        {
+            //  DateTime todaydate = DateTime.Today.Date;
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            mail.From = new MailAddress("noreply@jandbmedical.com");
+
+            //mail.To.Add("mott@jandbmedical.com");
+            //mail.To.Add("bserra@jandbmedical.com");
+            //mail.To.Add("tkemp@jandbmedical.com");
+            //mail.To.Add("sissa@jandbmedical.com");
+            //mail.To.Add("tsymanski@jandbmedical.com");
+            //mail.To.Add("tmoore@jandbmedical.com");
+            //mail.To.Add("KPlacencia@jandbmedical.com");
+            //mail.To.Add("jmudge@jandbmedical.com");
+            //mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
+
+            mail.To.Add("maheshkattamuribpl@jandbmedical.com");
+
+            mail.Subject = "CSR Call Complaint Log To Managers";
+
+            StringBuilder complaintReceived = new StringBuilder();
+            //body.Append("Complaint Received By = " + "<br />");
+            if (_vm.Call == true)
+                complaintReceived.Append(" Call " + "<br />");
+            if (_vm.Email == true)
+                complaintReceived.Append(" Email " + "<br />");
+            if (_vm.Fax == true)
+                complaintReceived.Append(" Fax " + "<br />");         
+            if (_vm.CallRcvdWebsite == true)
+                complaintReceived.Append(" Website " + "<br />");
+            if (_vm.SocialMedia == true)
+                complaintReceived.Append(" Social Media " + "<br />");
+            if (_vm.InsCompany == true)
+                complaintReceived.Append(" Insurance Company " + "<br />");
+            if (_vm.Survey == true)
+                complaintReceived.Append(" Survey " + "<br />");
+            if (_vm.CallRcvdOther == true)
+                complaintReceived.Append(" Other " + "<br />");
+
+            StringBuilder complaintType = new StringBuilder();
+            //body.Append("Complaint Received By = " + "<br />");
+            if (_vm.Compliance == true)
+                complaintType.Append(" Compliance " + "<br />");
+            if (_vm.CustomerService == true)
+                complaintType.Append(" Customer Service (CSR Issue, Hold Times, Follow Up, etc) " + "<br />");
+            if (_vm.Discrimination == true)
+                complaintType.Append(" Discrimination / Civil Rights " + "<br />");
+            if (_vm.HealthPlan == true)
+                complaintType.Append(" Health Plan (insurance limits, guidelines, etc) " + "<br />");
+            if (_vm.ProductDefectiveQuality == true)
+                complaintType.Append(" Product (Defective, Quality, etc) " + "<br />");
+            if (_vm.ShippingUSPS == true)
+                complaintType.Append(" Shipping (USPS / FedEx) " + "<br />");
+            if (_vm.ShippingWarehouse == true)
+                complaintType.Append(" Shipping (Warehouse: Mispicks, Missing, etc) " + "<br />");
+            if (_vm.SmartAction == true)
+                complaintType.Append(" SmartAction (Victor / Julie) " + "<br />");
+            if (_vm.TextMessaging == true)
+                complaintType.Append(" Text Messaging " + "<br />");
+            if (_vm.WebsitePortal == true)
+                complaintType.Append(" Website / Portal " + "<br />");
+
+            mail.Body += " <html>";
+            mail.Body += " <head><style>table, th, td {border: 1px solid black;border - collapse: collapse;}</style></head> ";
+            mail.Body += "<body>";
+            mail.Body += "<table>";
+            mail.Body += "<tr>";
+            mail.Body += "<td>Account: </td><td>" + _vm.Account + "</td>";
+            mail.Body += "</tr>";
+            mail.Body += "<tr>";
+            mail.Body += "<td>Reference Number: </td><td>" + _vm.id + "</td>";
+            mail.Body += "</tr>";
+            mail.Body += "<tr>";
+            mail.Body += "<td>Complaint Received: </td><td>"+ complaintReceived.ToString()+"</td>";
+            mail.Body += "</tr>";
+            mail.Body += "<tr>";
+            mail.Body += "<td>Complaint Type: </td><td>" + complaintType.ToString() + "</td>";
+            mail.Body += "</tr>";
+            mail.Body += "<tr>";
+            mail.Body += "<td>Comments: </td><td>" + _vm.Others + "</td>";
+            mail.Body += "</tr>";     
+            mail.Body += "<tr>";
+            mail.Body += "<td> Link to Complaint Log: </td><td>http://10.10.1.49/JBIntranet/Reports/CustomerServices/CSRComlaintlog</td>";
+            mail.Body += "</tr>";
+            //mail.Body += "<tr>";
+            //mail.Body += "<td>Thank You!</td><td></td>";
+            //mail.Body += "</tr>";
+            mail.Body += "</table>";
+            mail.Body += "<br />";
+            mail.Body += "<span>Thank You!</span>";
+            mail.Body += "</body>";
+            mail.Body += "</html>";
+            mail.IsBodyHtml = true;
+            // SmtpServer.Port = 25;
+            //  SmtpServer.Credentials = new System.Net.NetworkCredential("geeta.arora2006@gmail.com", "GEETUgeet1");
+            //  SmtpServer.EnableSsl = true;
+            SmtpServer.Send(mail);
+        }
     }
     //    public class CSRLogComplaints
     //{
@@ -2758,36 +3005,37 @@ namespace USPS_Report.Areas.Reports.Models
     }
     public class CallLogVM
     {
+
         //-----------------update ---------------------------//
         public string Product { get; set; }
         public string DeliveryCompany { get; set; }
 
         public string BCNProvider { get; set; }
 
-        public bool DidntFollowDelIns { get; set; }
-        public bool VConfirmationCalls { get; set; }
-        public bool VPaymentCalles { get; set; }
+        //public bool DidntFollowDelIns { get; set; }
+        //public bool VConfirmationCalls { get; set; }
+        //public bool VPaymentCalles { get; set; }
 
-        public bool SAJamesPhonePromts { get; set; }
-        public bool SAJamesSelfService{ get; set; }
+        //public bool SAJamesPhonePromts { get; set; }
+        //public bool SAJamesSelfService{ get; set; }
 
-        public bool VirtualCallBack { get; set; }
+        //public bool VirtualCallBack { get; set; }
 
-        public bool Website { get; set; }
+        //public bool Website { get; set; }
 
-        public bool NoFollowUp { get; set; }
+        //public bool NoFollowUp { get; set; }
 
-        public bool CivilRights { get; set; }
-        public bool ReturnedFromVM { get; set; }
-        public bool NoFollowUpWithMem { get; set; }
-        public bool NeverRecivedSupplies { get; set; }
+        //public bool CivilRights { get; set; }
+        //public bool ReturnedFromVM { get; set; }
+        //public bool NoFollowUpWithMem { get; set; }
+        //public bool NeverRecivedSupplies { get; set; }
 
-        public bool PhysicianIssue { get; set; }
-        public bool InsLimitGuidelines { get; set; }
+        //public bool PhysicianIssue { get; set; }
+        //public bool InsLimitGuidelines { get; set; }
 
-        public bool BCNProviderIssue { get; set; }
+        //public bool BCNProviderIssue { get; set; }
 
-        public bool Other { get; set; }
+        //public bool Other { get; set; }
 
         //--------------------------------------------------
 
@@ -2897,17 +3145,28 @@ namespace USPS_Report.Areas.Reports.Models
         public string SampleTxt { get; set; }
         public string DocumentationTxt { get; set; }
         public AccountInfoVM details { get; set; }
+        public List<HDMSPayer> payerTypeList { get; set; }
         //Complaint log
         public string _refnum { get; set; }
         public int? _Account { get; set; }
-        public bool Damaged { get; set; }
+        //public bool Damaged { get; set; }
+        public bool Compliance { get; set; }
+        public bool CustomerService { get; set; }
+        public bool Discrimination { get; set; }
+        public bool HealthPlan { get; set; }
+        public bool ProductDefectiveQuality { get; set; }
+        public bool ShippingUSPS { get; set; }
+        public bool ShippingWarehouse { get; set; }
+        public bool SmartAction { get; set; }
+        public bool TextMessaging { get; set; }
+        public bool WebsitePortal { get; set; }
 
-        public bool Driver { get; set; }
-        public bool WrongProductShipped { get; set; }
-        public bool QualityOfProduct { get; set; }
+        //public bool Driver { get; set; }
+        //public bool WrongProductShipped { get; set; }
+        //public bool QualityOfProduct { get; set; }
 
-        public bool WrongArea { get; set; }
-        public bool other_MissingProduct { get; set; }
+        //public bool WrongArea { get; set; }
+        //public bool other_MissingProduct { get; set; }
 
         public string TrackingNumber { get; set; }
         public string WorkOrder { get; set; }
@@ -2915,11 +3174,11 @@ namespace USPS_Report.Areas.Reports.Models
 
         public bool Incorrect { get; set; }
         public bool Mispick { get; set; }
-        public bool Defective { get; set; }
+        //public bool Defective { get; set; }
         public string ProductTextArea { get; set; }
 
-        public bool Impolite_Offensive { get; set; }
-        public bool HoldTimes { get; set; }
+        //public bool Impolite_Offensive { get; set; }
+        //public bool HoldTimes { get; set; }
         public string CustomerServiceTextArea { get; set; }
 
         public string Others { get; set; }
@@ -2958,7 +3217,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         public bool VirtualCallBack { get; set; }
 
-        public bool Website { get; set; }
+        //public bool Website { get; set; }
 
         public bool NoFollowUp { get; set; }
 
@@ -2967,11 +3226,11 @@ namespace USPS_Report.Areas.Reports.Models
         public bool NeverRecivedSupplies { get; set; }
 
         public bool PhysicianIssue { get; set; }
-        public bool InsLimitGuidelines { get; set; }
+        //public bool InsLimitGuidelines { get; set; }
 
-        public bool BCNProviderIssue { get; set; }
+        //public bool BCNProviderIssue { get; set; }
 
-        public bool Other { get; set; }
+        //public bool Other { get; set; }
 
         //--------------------------------------------------
 
@@ -2990,7 +3249,18 @@ namespace USPS_Report.Areas.Reports.Models
         public bool ImpoliteORoffensive { get; set; }
         public string refnum { get; set; }
         public int? Account { get; set; }
-        public bool Damaged { get; set; }
+        //public bool Damaged { get; set; }
+        public bool Compliance { get; set; }
+        public bool CustomerService { get; set; }
+        public bool Discrimination { get; set; }
+        public bool HealthPlan { get; set; }
+        public bool ProductDefectiveQuality { get; set; }
+        public bool ShippingUSPS { get; set; }
+        public bool ShippingWarehouse { get; set; }
+        public bool SmartAction { get; set; }
+        public bool TextMessaging { get; set; }
+        public bool WebsitePortal { get; set; }
+
 
         public bool Driver { get; set; }
         public bool WrongProductShipped { get; set; }
@@ -3011,11 +3281,12 @@ namespace USPS_Report.Areas.Reports.Models
 
         public string Others { get; set; }
 
-      //  public bool HandledConcerns { get; set; }
-      //  public bool Resolved { get; set; }
-      //  public bool NotResolved { get; set; }
-      //  public bool TransferredTeamLeader { get; set; }
+        //  public bool HandledConcerns { get; set; }
+        //  public bool Resolved { get; set; }
+        //  public bool NotResolved { get; set; }
+        //  public bool TransferredTeamLeader { get; set; }
 
+        public string Resolution { get; set; }
         public string ComplaintHasBeen { get; set; }
         public AccountInfoVM details { get; set; }
 
@@ -3033,11 +3304,12 @@ namespace USPS_Report.Areas.Reports.Models
         public bool CallRcvdWebsite { get; set; }
         public bool SocialMedia { get; set; }
         public bool InsCompany { get; set; }
+        public bool Survey { get; set; }
         public bool CallRcvdOther { get; set; }
         public bool ComplaintProduct { get; set; }
-        public bool ComplaintShipping { get; set; }
-        public bool ComplaintService { get; set; }
-        public bool ComplaintSmartAction { get; set; }
+        //public bool ComplaintShipping { get; set; }
+        //public bool ComplaintService { get; set; }
+        //public bool ComplaintSmartAction { get; set; }
     }
 
     public class HDMSPayer
