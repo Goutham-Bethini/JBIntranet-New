@@ -156,7 +156,7 @@ namespace USPS_Report.Areas.Reports.Models
                     tableRec.QualityOfProduct = _list.QualityOfProdut;
                     tableRec.Product = _list.Product;
                     tableRec.DeliveryCompany = _list.DeliveryCompany;
-                    tableRec.BCNProvider = _list.BCNProvider;
+                    //tableRec.BCNProvider = _list.BCNProvider;
                     tableRec.DidntFollowDelIns = _list.DidntFollowDelIns;
                     tableRec.VConfirmationCalls = _list.VConfirmationCalls;
                     tableRec.VPaymentCalles = _list.VPaymentCalles;
@@ -488,7 +488,7 @@ namespace USPS_Report.Areas.Reports.Models
                     //---------------------------new update---------------------------
                     _rec.Product = _vm.Product;
                     _rec.DeliveryCompany = _vm.DeliveryCompany;
-                    _rec.BCNProvider = _vm.BCNProvider;
+                    //_rec.BCNProvider = _vm.BCNProvider;
                     //_rec.DidntFollowDelIns = _vm.DidntFollowDelIns;
                     //_rec.VConfirmationCalls = _vm.VConfirmationCalls;
                     //_rec.VPaymentCalles = _vm.VPaymentCalles;
@@ -785,6 +785,7 @@ namespace USPS_Report.Areas.Reports.Models
                     //    _vm.InsLimitGuidelines == true || 
                     //    _vm.BCNProviderIssue == true || 
                     //    _vm.Other == true ||
+                    //|| (_vm.BCNProvider != "" && _vm.BCNProvider != null)
                         // COMMMUNICATION
                     if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
                             || _vm.Compliance == true || _vm.CustomerService == true
@@ -796,7 +797,7 @@ namespace USPS_Report.Areas.Reports.Models
                             ||_vm.Incorrect == true || _vm.Mispick == true ||  (_vm.ProductTextArea != "" && _vm.ProductTextArea != null)
                             || (_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null)
                             || (_vm.Others != "" && _vm.Others != null)                                 
-                            || (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) || (_vm.BCNProvider != "" && _vm.BCNProvider != null))
+                            || (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null))
                         {
 
                         if (_vm.ComplainOutCome != null &&_vm.ComplainOutCome.Contains("Not Resolved Transferred to Team Leaders"))
@@ -860,13 +861,14 @@ namespace USPS_Report.Areas.Reports.Models
                             //|| _vm.WrongArea == true || _vm.CivilRights == true || _vm.other_MissingProduct == true || _vm.DidntFollowDelIns == true || _vm.VConfirmationCalls == true || _vm.VPaymentCalles == true || _vm.SAJamesPhonePromts == true
                             //|| _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.Website == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
                             //_vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.InsLimitGuidelines == true || _vm.BCNProviderIssue == true || _vm.Other == true ||
+                            //|| (_vm.BCNProvider != "" && _vm.BCNProvider != null)
                             if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
                                 || _vm.Compliance == true || _vm.CustomerService == true
                                 || _vm.Discrimination == true || _vm.HealthPlan == true
                                 || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true
                                 || _vm.ShippingWarehouse == true || _vm.SmartAction == true
                                 || _vm.TextMessaging == true || _vm.WebsitePortal == true
-                                || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null) || (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) || (_vm.BCNProvider != "" && _vm.BCNProvider != null))
+                                || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null) || (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null))
                                 {
                                     if (_vm.TrackingNumber != "" && _vm.TrackingNumber != null)
                                              otherStr.Append("Tracking Number = " + _vm.TrackingNumber + Environment.NewLine);
@@ -883,8 +885,8 @@ namespace USPS_Report.Areas.Reports.Models
                                 if (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null)
                                     otherStr.Append("Delivery Company = " + _vm.DeliveryCompany + Environment.NewLine);
 
-                                if (_vm.BCNProvider != "" && _vm.BCNProvider != null)
-                                    otherStr.Append("BCN Provider = " + _vm.BCNProvider + Environment.NewLine);
+                                //if (_vm.BCNProvider != "" && _vm.BCNProvider != null)
+                                //    otherStr.Append("BCN Provider = " + _vm.BCNProvider + Environment.NewLine);
 
                                 //if (_vm.Damaged == true)
                                 //        otherStr.Append("Damaged"+ Environment.NewLine);
@@ -2243,7 +2245,7 @@ namespace USPS_Report.Areas.Reports.Models
 
                     _rec.Product = _vm.Product;
                     _rec.DeliveryCompany = _vm.DeliveryCompany;
-                    _rec.BCNProvider = _vm.BCNProvider;
+                    //_rec.BCNProvider = _vm.BCNProvider;
                     _rec.DidntFollowDelIns = _vm.DidntFollowDelIns;
                     _rec.VConfirmationCalls = _vm.VConfirmationCalls;
                     _rec.VPaymentCalles = _vm.VPaymentCalles;
@@ -2357,6 +2359,7 @@ namespace USPS_Report.Areas.Reports.Models
                     //_vm.InsLimitGuidelines == true 
                     //_vm.BCNProviderIssue == true 
                     //_vm.Other == true
+                    //|| (_vm.BCNProvider != "" && _vm.BCNProvider != null)
                     // COMPLAINTS
                     if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
                              || _vm.Compliance == true || _vm.Driver == true || _vm.WrongProductShipped == true || _vm.QualityOfProduct == true
@@ -2367,7 +2370,7 @@ namespace USPS_Report.Areas.Reports.Models
                              || _vm.DidntFollowDelIns == true || _vm.VConfirmationCalls == true || _vm.ComplaintProduct == true || _vm.CustomerService == true || _vm.Discrimination == true || _vm.SmartAction == true || _vm.VPaymentCalles == true || _vm.SAJamesPhonePromts == true
                                 || _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.WebsitePortal == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
                                 _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.HealthPlan == true || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true || _vm.ShippingWarehouse == true || _vm.TextMessaging == true || 
-                               (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) || (_vm.BCNProvider != "" && _vm.BCNProvider != null)
+                               (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) 
                                || _vm.IssueDate != null || _vm.ComplaintDate != null || _vm.ResolutionDate != null || _vm.InitialRespDate != null || _vm.WrittenRespDate != null
                                )
                     {
@@ -2406,6 +2409,7 @@ namespace USPS_Report.Areas.Reports.Models
                             //_vm.InsLimitGuidelines == true
                             //_vm.BCNProviderIssue == true
                             //_vm.Other == true
+                            //|| (_vm.BCNProvider != "" && _vm.BCNProvider != null)
                             if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
                                 || _vm.Compliance == true  
                                 || _vm.Call == true || _vm.Email == true || _vm.Fax == true || _vm.WebsitePortal == true || _vm.SocialMedia == true || _vm.InsCompany == true || _vm.Survey == true || _vm.CallRcvdOther == true ||
@@ -2414,7 +2418,7 @@ namespace USPS_Report.Areas.Reports.Models
                                   || _vm.DidntFollowDelIns == true || _vm.VConfirmationCalls == true || _vm.VPaymentCalles == true || _vm.SAJamesPhonePromts == true
                                 || _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.WebsitePortal == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
                                 _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.HealthPlan == true || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true || _vm.ShippingWarehouse == true || _vm.TextMessaging == true ||
-                               (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) || (_vm.BCNProvider != "" && _vm.BCNProvider != null)
+                               (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) 
                                || _vm.IssueDate != null || _vm.ComplaintDate != null || _vm.ResolutionDate != null || _vm.InitialRespDate !=null || _vm.WrittenRespDate != null ||
                                 _vm.ComplaintProduct == true || _vm.CustomerService == true || _vm.Discrimination == true || _vm.SmartAction == true 
                                )
@@ -2465,8 +2469,8 @@ namespace USPS_Report.Areas.Reports.Models
                                 if (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null)
                                     otherStr.Append("Delivery Company = " + _vm.DeliveryCompany + Environment.NewLine);
 
-                                if (_vm.BCNProvider != "" && _vm.BCNProvider != null)
-                                    otherStr.Append("BCN Provider = " + _vm.BCNProvider + Environment.NewLine);
+                                //if (_vm.BCNProvider != "" && _vm.BCNProvider != null)
+                                //    otherStr.Append("BCN Provider = " + _vm.BCNProvider + Environment.NewLine);
 
                                 //if (_vm.Damaged == true)
                                 //    otherStr.Append("Damaged" + Environment.NewLine);
@@ -2808,17 +2812,17 @@ namespace USPS_Report.Areas.Reports.Models
             SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
-            //mail.To.Add("mott@jandbmedical.com");
-            //mail.To.Add("bserra@jandbmedical.com");
-            //mail.To.Add("tkemp@jandbmedical.com");
-            //mail.To.Add("sissa@jandbmedical.com");
-            //mail.To.Add("tsymanski@jandbmedical.com");
-            //mail.To.Add("tmoore@jandbmedical.com");
-            //mail.To.Add("KPlacencia@jandbmedical.com");
-            //mail.To.Add("jmudge@jandbmedical.com");
-            //mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
+            mail.To.Add("mott@jandbmedical.com");
+            mail.To.Add("bserra@jandbmedical.com");
+            mail.To.Add("tkemp@jandbmedical.com");
+            mail.To.Add("sissa@jandbmedical.com");
+            mail.To.Add("tsymanski@jandbmedical.com");
+            mail.To.Add("tmoore@jandbmedical.com");
+            mail.To.Add("KPlacencia@jandbmedical.com");
+            mail.To.Add("jmudge@jandbmedical.com");
+            mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
 
-            mail.To.Add("maheshkattamuribpl@jandbmedical.com");
+            //mail.To.Add("maheshkattamuribpl@jandbmedical.com");
 
             mail.Subject = "CSR Call Complaint Log To Managers";
 
@@ -3010,7 +3014,7 @@ namespace USPS_Report.Areas.Reports.Models
         public string Product { get; set; }
         public string DeliveryCompany { get; set; }
 
-        public string BCNProvider { get; set; }
+        //public string BCNProvider { get; set; }
 
         //public bool DidntFollowDelIns { get; set; }
         //public bool VConfirmationCalls { get; set; }
@@ -3206,7 +3210,7 @@ namespace USPS_Report.Areas.Reports.Models
         public string Product { get; set; }
         public string DeliveryCompany { get; set; }
 
-        public string BCNProvider { get; set; }
+        //public string BCNProvider { get; set; }
 
         public bool DidntFollowDelIns { get; set; }
         public bool VConfirmationCalls { get; set; }

@@ -512,6 +512,8 @@ namespace USPS_Report.Areas.Reports.Models
 
         public static IList<callLogReport> GetCalllogReport(DateTime _startDt, DateTime _endDt, string operatorName)
         {
+            TimeSpan ts = new TimeSpan(23, 59, 59);
+            _endDt = _endDt.Date + ts;
             using (IntranetEntities _db = new IntranetEntities())
             {
                 IList<callLogReport> _rec = new List<callLogReport>();

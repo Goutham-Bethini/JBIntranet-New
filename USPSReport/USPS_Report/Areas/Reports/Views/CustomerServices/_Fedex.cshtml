@@ -55,7 +55,7 @@
 
 </div>
 
-<br />
+@*<br />
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-2">
@@ -64,7 +64,7 @@
     <div class="col-md-2">
         @Html.TextBoxFor(m => m.BCNProvider)
     </div>
-</div>
+</div>*@
 
 
 
@@ -289,12 +289,103 @@
 
 <div class="row">
     <div class="col-md-1"></div>
-    <div class=" col-md-2">@Html.TextAreaFor(m => m.Others, new { id = "COthers", rows = "6", cols = "40" })</div>
+    <div class=" col-md-2">@Html.TextAreaFor(m => m.Others, new { id = "COthers", rows = "6", cols = "40", disabled = "disabled" })</div>
 
 </div>
 
 
 <script>
+
+    $('#ComplaintCompliance').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#COthers').removeAttr("disabled");
+        } else {
+            $('#COthers').attr("disabled", "disabled")
+        }
+    });
+    $('#ComplaintCustomerService').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#COthers').removeAttr("disabled");
+        } else {
+            $('#COthers').attr("disabled", "disabled")
+        }
+    });
+    $('#ComplaintDiscrimination').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#COthers').removeAttr("disabled");
+        } else {
+            $('#COthers').attr("disabled", "disabled")
+        }
+    });
+    $('#ComplaintHealthPlan').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#COthers').removeAttr("disabled");
+        } else {
+            $('#COthers').attr("disabled", "disabled")
+        }
+    });
+    $('#ComplaintProdDefQty').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#COthers').removeAttr("disabled");
+        } else {
+            $('#COthers').attr("disabled", "disabled")
+        }
+    });
+    $('#ComplaintShipingUSPS').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#COthers').removeAttr("disabled");
+        } else {
+            $('#COthers').attr("disabled", "disabled")
+        }
+    });
+    $('#ComplaintShipingWarehouse').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#COthers').removeAttr("disabled");
+        } else {
+            $('#COthers').attr("disabled", "disabled")
+        }
+    });
+    $('#ComplaintSmartAction').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#COthers').removeAttr("disabled");
+        } else {
+            $('#COthers').attr("disabled", "disabled")
+        }
+    });
+    $('#ComplaintTextMessaging').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#COthers').removeAttr("disabled");
+        } else {
+            $('#COthers').attr("disabled", "disabled")
+        }
+    });
+    $('#ComplaintWebsite').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#COthers').removeAttr("disabled");
+        } else {
+            $('#COthers').attr("disabled", "disabled")
+        }
+    });
 
     $('#ComplaintProduct').click(function () {
         var $this = $(this);

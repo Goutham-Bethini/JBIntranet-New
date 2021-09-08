@@ -208,7 +208,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     _callVM.WorkOrder = _vm.WorkOrder;
                     _callVM.Product = _vm.Product;
                     _callVM.DeliveryCompany = _vm.DeliveryCompany;
-                    _callVM.BCNProvider = _vm.BCNProvider;
+                    //_callVM.BCNProvider = _vm.BCNProvider;
 
                     //_callVM.Damaged = _vm.Damaged;
                     _callVM.Compliance = _vm.Compliance;
@@ -259,7 +259,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     // if (_vm.ComplaintHasBeen.Contains("Not Resolved Transferred to Management"))
                     if (true)
                     {
-                        //AddCSRLog.sendComplainLogEmail(_msg, _vm.Account, _vm.id);
+                        AddCSRLog.sendComplainLogEmail(_msg, _vm.Account, _vm.id);
                     }
                 }
                 if (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null)
