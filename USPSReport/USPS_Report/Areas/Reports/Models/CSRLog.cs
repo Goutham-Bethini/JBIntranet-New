@@ -2765,9 +2765,10 @@ namespace USPS_Report.Areas.Reports.Models
             SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
-          mail.To.Add("CustomerServiceManager@jandbmedical.com");
-          //  mail.Bcc.Add("grani@jandbmedical.com");
-         //   mail.To.Add("gbethini@jandbmedical.com");
+            mail.To.Add("CustomerServiceManager@jandbmedical.com");
+            mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
+            //  mail.Bcc.Add("grani@jandbmedical.com");
+            //   mail.To.Add("gbethini@jandbmedical.com");
             //   mail.To.Add("grani@jandbmedical.com");
 
             mail.Subject = "CSR Call Complaint Log";
@@ -2811,14 +2812,14 @@ namespace USPS_Report.Areas.Reports.Models
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
-
-            mail.To.Add("mott@jandbmedical.com");
             mail.To.Add("bserra@jandbmedical.com");
             mail.To.Add("tkemp@jandbmedical.com");
-            mail.To.Add("sissa@jandbmedical.com");
-            mail.To.Add("tsymanski@jandbmedical.com");
             mail.To.Add("tmoore@jandbmedical.com");
-            mail.To.Add("KPlacencia@jandbmedical.com");
+            mail.To.Add("tsymanski@jandbmedical.com");
+            mail.To.Add("rpetrashko@jandbmedical.com");
+            mail.To.Add("kdick@jandbmedical.com");
+            mail.To.Add("jujones@jandbmedical.com");
+            mail.To.Add("gbarragan@jandbmedical.com");
             mail.To.Add("jmudge@jandbmedical.com");
             mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
 

@@ -15,7 +15,7 @@
     <div class="row">
         <div class=" col-md-1"></div>
         <div class="col-md-2"><label></label></div>
-        <div class="col-md-2">
+        <div class="col-md-6">
             @Html.DisplayFor(m => m.details.address1),
             @Html.DisplayFor(m => m.details.address2)
             <br />
@@ -33,7 +33,7 @@
             {
                 Html.Display(item.payerType);
                 <ul>
-                    <li>@item.payerType</li>
+                    <li>@item.payerid-@item.payerType</li>
                 </ul>
                 @*@Html.DropDownListFor(m => m.payerid, Model.payerType, new { @style = "width:200px;" })*@
             }
