@@ -67,16 +67,16 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="CHAMPS_Adj_Codes.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Intranet.tt</DependentUpon>
     </Compile>
     <Compile Include="CHAMPS_Error_Codes.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Intranet.tt</DependentUpon>
     </Compile>
     <Compile Include="CHAMPS_Ignore_Errors.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Intranet.tt</DependentUpon>
     </Compile>
     <Compile Include="CHAMPS_Remit_Codes.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Intranet.tt</DependentUpon>
     </Compile>
     <Compile Include="ClaimsToSubmit.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -107,7 +107,7 @@
       <DependentUpon>Intranet.tt</DependentUpon>
     </Compile>
     <Compile Include="Employees_New.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>Intranet.tt</DependentUpon>
     </Compile>
     <Compile Include="ERP_OrderLines.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -228,6 +228,9 @@
       <DependentUpon>Intranet.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_CSRComplaintLog.cs">
+      <DependentUpon>Intranet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_CSRComplaintLog_Attachments.cs">
       <DependentUpon>Intranet.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_CSRInsDetail.cs">

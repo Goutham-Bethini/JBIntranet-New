@@ -512,8 +512,8 @@ namespace USPS_Report.Areas.Reports.Models
 
         public static IList<callLogReport> GetCalllogReport(DateTime _startDt, DateTime _endDt, string operatorName)
         {
-
-
+            TimeSpan ts = new TimeSpan(23, 59, 59);
+            _endDt = _endDt.Date + ts;
             using (IntranetEntities _db = new IntranetEntities())
             {
                 IList<callLogReport> _rec = new List<callLogReport>();
@@ -547,15 +547,30 @@ namespace USPS_Report.Areas.Reports.Models
                                          (t.PhysicianIssue == true || t.Physician == true) ? "Physician Issue" :
                                          (t.NeverRecivedSupplies == true) ? "Never Received Supplies" :
                                          (t.BCNProviderIssue == true ) ? "BCN Provider Issue" :
-                                         (t.Other == true) ? "Others" : "No Issue selected",
-                                Resolution = t.ComplaintOutcome,
+                                         (t.Other == true) ? "Others" :
+                                         (t.Compliance == true) ? "Compliance" :
+                                        (t.CustomerService == true) ? "Customer Service (CSR Issue, Hold Times, Follow Up, etc)" :
+                                        (t.Discrimination == true) ? " Discrimination / Civil Rights" :
+                                        (t.HealthPlan == true) ? "Health Plan (insurance limits, guidelines, etc)" :
+                                        (t.ProductDefectiveQuality == true) ? "Product (Defective, Quality, etc)" :
+                                        (t.ShippingUSPS == true) ? "Shipping (USPS / FedEx)" :
+                                        (t.ShippingWarehouse == true) ? "Shipping (Warehouse: Mispicks, Missing, etc)" :
+                                        (t.SmartAction == true) ? "SmartAction (Victor / Julie)" :
+                                        (t.TextMessaging == true) ? "Text Messaging" :
+                                        (t.WebsitePortal == true) ? "Website / Portal" :
+                                         "No Issue selected",
+                                Resolution = t.ComplaintOutcome,                                
                                 ComplaintRecieved = "",
 
                             }
                         ).ToList();
 
                 var list1 = (from t in _db.tbl_CSRComplaintLog
-                             where t.CreatedOn >= _startDt && t.CreatedOn <= _endDt
+                             join a in _db.tbl_CSRComplaintLog_Attachments on t.id equals a.ComplaintId into ta
+                             from a in ta.DefaultIfEmpty()
+                             //select new { Category = c, ProductName = p == null ? "(No products)" : p.ProductName };
+
+                where t.CreatedOn >= _startDt && t.CreatedOn <= _endDt
 
                              select new callLogReport
                              {
@@ -578,8 +593,24 @@ namespace USPS_Report.Areas.Reports.Models
                                              (t.Website == true) ? "Website" : (t.VirtualCallBack == true) ? "Virtual Call Back" :
                                            (t.SAJamesPhonePromts == true) ? "SA James PhonePromts" : (t.SAJamesSelfService == true) ? "SA James SelfService" :
                                        (t.VPaymentCalles == true) ? "Victor Payment Call" : (t.VConfirmationCalls == true) ? "Victor Confirmation Call" :
-                                       (t.DidntFollowDelIns == true) ? "Not follow delivery instruction" : "Issue not listed",
+                                       (t.DidntFollowDelIns == true) ? "Not follow delivery instruction" :
+                                       (t.Compliance==true)? "Compliance" :
+                                       (t.CustomerService == true) ? "Customer Service (CSR Issue, Hold Times, Follow Up, etc)" :
+                                       (t.Discrimination == true) ? " Discrimination / Civil Rights" :
+                                       (t.HealthPlan == true) ? "Health Plan (insurance limits, guidelines, etc)" :
+                                       (t.ProductDefectiveQuality == true) ? "Product (Defective, Quality, etc)" :
+                                       (t.ShippingUSPS == true) ? "Shipping (USPS / FedEx)" :
+                                       (t.ShippingWarehouse == true) ? "Shipping (Warehouse: Mispicks, Missing, etc)" :
+                                       (t.SmartAction == true) ? "SmartAction (Victor / Julie)" :
+                                       (t.TextMessaging == true) ? "Text Messaging" :
+                                       (t.WebsitePortal == true) ? "Website / Portal" :
+                                       "Issue not listed",
                                  Resolution = t.ComplaintHasBeen,
+                                 ResolutionNote = t.Resolution,
+                                 IssueDate=t.IssueDate,
+                                 ComplaintDate = t.ComplaintDate,
+                                 ResolutionDate = t.ResolutionDate,  
+                                 ComplaintAttachment=a.FileName,
                                  ComplaintRecieved = (t.SocialMedia == true) ? "Social Medial" : t.Call == true ? "Call" : t.Email == true ? "Email" : t.Fax == true ? "Fax" : t.Website == true ? "WebSite" : t.InsCompany == true ? "Insurance Complany" : t.Other == true ? t.OtherTxt : "No Issue selected"
 
                              }
@@ -595,10 +626,35 @@ namespace USPS_Report.Areas.Reports.Models
                     Rec.Note = item.Note;
                     Rec.Payer = item.Payer;
                     Rec.Resolution = item.Resolution;
+                    Rec.ResolutionNote = item.ResolutionNote;
+                    Rec.IssueDate = item.IssueDate;
+                    Rec.ComplaintDate = item.ComplaintDate;
+                    Rec.ResolutionDate = item.ResolutionDate;
+                    Rec.ComplaintAttachment = item.ComplaintAttachment;
                     Rec.Issue = item.Issue;
                     Rec.ComplaintRecieved = item.ComplaintRecieved;
                     _rec.Add(Rec);
                 }
+                _rec= _rec.OrderBy(x => x.account).ThenByDescending(x => x.CreatedOn).ToList();
+
+                _rec = _rec.GroupBy(item => item.account)
+                 .Select(grouping => grouping.FirstOrDefault())
+                 .OrderByDescending(item => item.CreatedOn)
+                 .ToList();
+
+                //var result2 = _rec.GroupBy(item => item.account)
+                // .SelectMany(grouping => grouping.Take(1))
+                // .OrderByDescending(item => item.CreatedOn)
+                // .ToList();
+
+                //var lastValues = (from a in _rec
+                //                  group a by new { a.account } into g
+                //                  select new
+                //                  {
+                //                      g.Key.account,                                                                          
+                //                      CreatedOn = g.Max(t => t.CreatedOn)                                     
+                //                  });
+
                 string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',40,GETDATE())";
                 int rowsinsert = _db.Database.ExecuteSqlCommand(query);
                 return _rec;
@@ -882,7 +938,11 @@ namespace USPS_Report.Areas.Reports.Models
 
         }
         public string Resolution { get; set; }
-
+        public string ResolutionNote { get; set; }
+        public DateTime? IssueDate { get; set; }
+        public DateTime? ComplaintDate { get; set; }
+        public DateTime? ResolutionDate { get; set; }
+        public string ComplaintAttachment { get; set; }
         public string ComplaintOutcome { get; set; }
         public string Note { get; set; }
         public string ComplaintRecieved { get; set; }
