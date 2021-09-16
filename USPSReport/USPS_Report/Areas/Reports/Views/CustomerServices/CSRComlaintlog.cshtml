@@ -156,6 +156,47 @@ if (Model != null && Model.details != null)
             alert("No Opition is selected under Complaint Recieved Section");
             return false;
         }
+        else if ($('#BloodPressureMonitors').prop("checked") == false
+            && $('#BreastPumps').prop("checked") == false
+            && $('#ContGlucoseMonitoring').prop("checked") == false
+            && $('#DiabeticTestSup').prop("checked") == false
+            && $('#EnteralNutrition').prop("checked") == false
+            && $('#ExternalDefibrillator').prop("checked") == false
+            && $('#IncontinenceSupplies').prop("checked") == false
+            && $('#InsulinPumpsSupplies').prop("checked") == false
+            && $('#InsSyrPenNeed').prop("checked") == false
+            && $('#OstomySupplies').prop("checked") == false
+            && $('#PleurXDrainSys').prop("checked") == false
+            && $('#PTINRTesting').prop("checked") == false
+            && $('#TENSUnitSup').prop("checked") == false
+            && $('#UrologicalSupplies').prop("checked") == false
+            && $('#WoundCareSupplies').prop("checked") == false
+            && $('#OtherUnsureSupplies').prop("checked") == false) {
+            alert("No Opition is selected under Product Line Complaint Section");
+            return false;
+        }
+        else if ($('#BDI').prop("checked") == false
+            && $('#BPnBPM').prop("checked") == false
+            && $('#CallCenter').prop("checked") == false
+            && $('#CSRAssessment').prop("checked") == false
+            && $('#DynamicSynergy').prop("checked") == false
+            && $('#Enteral').prop("checked") == false
+            && $('#HGS').prop("checked") == false
+            && $('#InsulinPumpCGM').prop("checked") == false
+            && $('#MedicalDocuments').prop("checked") == false
+            && $('#NewAccountTeam').prop("checked") == false
+            && $('#Nurses').prop("checked") == false
+            && $('#QualityAssurance').prop("checked") == false
+            && $('#Shipping').prop("checked") == false
+            && $('#THC').prop("checked") == false
+            && $('#Troy').prop("checked") == false
+            && $('#Verification').prop("checked") == false
+            && $('#WebSupport').prop("checked") == false
+            && $('#WoundCareOstomyTENS').prop("checked") == false
+            && $('#OtherUnsureTeam').prop("checked") == false) {
+            alert("No Opition is selected under Team Complaint Section");
+            return false;
+        }            
         else if ($('#ComplaintCompliance').prop("checked") == false
             && $('#ComplaintCustomerService').prop("checked") == false
             && $('#ComplaintDiscrimination').prop("checked") == false
@@ -166,11 +207,11 @@ if (Model != null && Model.details != null)
             && $('#ComplaintSmartAction').prop("checked") == false
             && $('#ComplaintTextMessaging').prop("checked") == false
             && $('#ComplaintWebsite').prop("checked") == false) {
-            alert("No Opition is selected under Complaint Section");
+            alert("No Opition is selected under Complaint Type Complaint Section");
             return false;
         }
         else if ($('#COthers').val() == '') {
-            alert("No Text is added to the Comment Box under Complaint Section");
+            alert("No Text is added to the Comment Box under Complaint Type Complaint Section");
             return false;
         }
         else if ($('#ComplaintHasBeen').val() =='') {

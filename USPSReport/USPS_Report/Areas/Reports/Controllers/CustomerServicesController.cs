@@ -171,7 +171,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
                 _vm.payerTypeList = AddCSRLog.HDMSPayerInfo(_vm.Account).ToList();
                 _vm.id = AddCSRLog.AddComplaintLog(_vm);
-                
+
                 string dir = @"\\JBMMIWEB001\StateAudit$\Files\Complaint log files";
                 string path = string.Empty;
                 if (file != null && file.ContentLength > 0)
@@ -198,7 +198,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                         _db.tbl_CSRComplaintLog_Attachments.Add(att);
                         _db.SaveChanges();
                     }
-                }                
+                }
 
                 if (_vm.newAccount == true)
                 {
@@ -209,6 +209,43 @@ namespace USPS_Report.Areas.Reports.Controllers
                     _callVM.Product = _vm.Product;
                     _callVM.DeliveryCompany = _vm.DeliveryCompany;
                     //_callVM.BCNProvider = _vm.BCNProvider;
+
+                    _callVM.BloodPressureMonitors = _vm.BloodPressureMonitors;
+                    _callVM.BreastPumps = _vm.BreastPumps;
+                    _callVM.ContGlucoseMonitoring = _vm.ContGlucoseMonitoring;
+                    _callVM.DiabeticTestSup = _vm.DiabeticTestSup;
+                    _callVM.EnteralNutrition = _vm.EnteralNutrition;
+                    _callVM.ExternalDefibrillator = _vm.ExternalDefibrillator;
+                    _callVM.IncontinenceSupplies = _vm.IncontinenceSupplies;
+                    _callVM.InsulinPumpsSupplies = _vm.InsulinPumpsSupplies;
+                    _callVM.InsSyrPenNeed = _vm.InsSyrPenNeed;
+                    _callVM.OstomySupplies = _vm.OstomySupplies;
+                    _callVM.PleurXDrainSys = _vm.PleurXDrainSys;
+                    _callVM.PTINRTesting = _vm.PTINRTesting;
+                    _callVM.TENSUnitSup = _vm.TENSUnitSup;
+                    _callVM.UrologicalSupplies = _vm.UrologicalSupplies;
+                    _callVM.WoundCareSupplies = _vm.WoundCareSupplies;
+                    _callVM.OtherUnsureSupplies = _vm.OtherUnsureSupplies;
+
+                    _callVM.BDI = _vm.BDI;
+                    _callVM.BPnBPM = _vm.BPnBPM;
+                    _callVM.CallCenter = _vm.CallCenter;
+                    _callVM.CSRAssessment = _vm.CSRAssessment;
+                    _callVM.DynamicSynergy = _vm.DynamicSynergy;
+                    _callVM.Enteral = _vm.Enteral;
+                    _callVM.HGS = _vm.HGS;
+                    _callVM.InsulinPumpCGM = _vm.InsulinPumpCGM;
+                    _callVM.MedicalDocuments = _vm.MedicalDocuments;
+                    _callVM.NewAccountTeam = _vm.NewAccountTeam;
+                    _callVM.Nurses = _vm.Nurses;
+                    _callVM.QualityAssurance = _vm.QualityAssurance;
+                    _callVM.Shipping = _vm.Shipping;
+                    _callVM.THC = _vm.THC;
+                    _callVM.Troy = _vm.Troy;
+                    _callVM.Verification = _vm.Verification;
+                    _callVM.WebSupport = _vm.WebSupport;
+                    _callVM.WoundCareOstomyTENS = _vm.WoundCareOstomyTENS;
+                    _callVM.OtherUnsureTeam = _vm.OtherUnsureTeam;
 
                     //_callVM.Damaged = _vm.Damaged;
                     _callVM.Compliance = _vm.Compliance;
@@ -252,9 +289,9 @@ namespace USPS_Report.Areas.Reports.Controllers
                     _vm.id = id;
                 }
 
-                _msg = AddCSRLog.AddNote_ComplaintLog(_vm, id);                
+                _msg = AddCSRLog.AddNote_ComplaintLog(_vm, id);
 
-                if (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null)
+                if (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null && !_vm.ComplaintHasBeen.Contains("Pending Resolution–Supervisor") && !_vm.ComplaintHasBeen.Contains("Pending Resolution–Management"))
                 {
                     // if (_vm.ComplaintHasBeen.Contains("Not Resolved Transferred to Management"))
                     if (true)
@@ -262,12 +299,13 @@ namespace USPS_Report.Areas.Reports.Controllers
                         AddCSRLog.sendComplainLogEmail(_msg, _vm.Account, _vm.id);
                     }
                 }
-                if (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null)
+                if (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null && _vm.ComplaintHasBeen.Contains("Pending Resolution–Supervisor"))
                 {
-                    if (_vm.ComplaintHasBeen.Contains("Pending Resolution–Management"))
-                    {
-                        AddCSRLog.sendComplainLogEmailToManagers(_msg, _vm.Account, id,_vm);
-                    }
+                    AddCSRLog.sendComplainLogEmailToSupervisors(_msg, _vm.Account, _vm.id);
+                }
+                if (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null && _vm.ComplaintHasBeen.Contains("Pending Resolution–Management"))
+                {
+                    AddCSRLog.sendComplainLogEmailToManagers(_msg, _vm.Account, id, _vm);
                 }
             }
             //return Content("<script type='text/javascript'>window.close();</script>");

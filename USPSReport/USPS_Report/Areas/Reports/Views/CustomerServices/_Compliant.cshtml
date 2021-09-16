@@ -67,19 +67,186 @@
 </div>
 
 @*<br />
-<div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-2">
-        <label>  BCN Provider </label>
-    </div>
-    <div class="col-md-2">
-        @Html.TextBoxFor(m => m.BCNProvider)
-    </div>
-</div>*@
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+            <label>  BCN Provider </label>
+        </div>
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.BCNProvider)
+        </div>
+    </div>*@
 
 
 
 <hr />
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <label>  Product Line: </label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.BloodPressureMonitors) <label> Blood Pressure Monitors </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.BreastPumps) <label> Breast Pumps </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.ContGlucoseMonitoring) <label> Continuous Glucose Monitoring </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.DiabeticTestSup) <label> Diabetic Testing Supplies </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.EnteralNutrition) <label> Enteral Nutrition </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.ExternalDefibrillator) <label> External Defibrillator </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.IncontinenceSupplies) <label> Incontinence Supplies </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.InsulinPumpsSupplies) <label> Insulin Pumps & Supplies </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.InsSyrPenNeed) <label> Insulin Syringes & Pen Needles </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.OstomySupplies) <label> Ostomy Supplies </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.PleurXDrainSys) <label> PleurX Drainage System </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.PTINRTesting) <label> PT INR Testing </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.TENSUnitSup) <label> TENS Unit & Supplies </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.UrologicalSupplies) <label> Urological Supplies </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.WoundCareSupplies) <label> Wound Care Supplies </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.OtherUnsureSupplies) <label> Other/Unsure of Supplies </label></div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <label>  Team: </label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.BDI) <label> BDI </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.BPnBPM) <label> Breast Pumps & Blood Pressure Monitors </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.CallCenter) <label> Call Center </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.CSRAssessment) <label> CSR Assessment </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.DynamicSynergy) <label> Dynamic Synergy </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.Enteral) <label> Enteral </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.HGS) <label> HGS </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.InsulinPumpCGM) <label> Insulin Pump & CGM </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.MedicalDocuments) <label> Medical Documents </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.NewAccountTeam) <label> New Account </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.Nurses) <label> Nurses </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.QualityAssurance) <label> Quality Assurance </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.Shipping) <label> Shipping </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.THC) <label> THC </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.Troy) <label> Troy (BCN, BCNA, MAPPO) </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.Verification) <label> Verification </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.WebSupport) <label> Web Support </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.WoundCareOstomyTENS) <label> Wound Care, Ostomy & TENS </label></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class=" col-md-5">@Html.CheckBoxFor(m => m.OtherUnsureTeam) <label> Other/Unsure of Team </label></div>
+</div>
+
+
+<hr />
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <label>  Complaint Type: </label>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-md-1"></div>

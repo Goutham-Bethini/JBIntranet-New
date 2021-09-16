@@ -71,8 +71,8 @@ namespace ReportsDatabase
         public Nullable<bool> ComplaintShipping { get; set; }
         public Nullable<bool> ComplaintService { get; set; }
         public Nullable<bool> ComplaintSmartAction { get; set; }
-        public Nullable<bool> Survey { get; set; }
         public string Resolution { get; set; }
+        public Nullable<bool> Survey { get; set; }
         public bool Compliance { get; set; }
         public bool CustomerService { get; set; }
         public bool Discrimination { get; set; }
@@ -83,5 +83,40 @@ namespace ReportsDatabase
         public bool SmartAction { get; set; }
         public bool TextMessaging { get; set; }
         public bool WebsitePortal { get; set; }
+        public bool BloodPressureMonitors { get; set; }
+        public bool BreastPumps { get; set; }
+        public bool ContGlucoseMonitoring { get; set; }
+        public bool DiabeticTestSup { get; set; }
+        public bool EnteralNutrition { get; set; }
+        public bool ExternalDefibrillator { get; set; }
+        public bool IncontinenceSupplies { get; set; }
+        public bool InsulinPumpsSupplies { get; set; }
+        public bool InsSyrPenNeed { get; set; }
+        public bool OstomySupplies { get; set; }
+        public bool PleurXDrainSys { get; set; }
+        public bool PTINRTesting { get; set; }
+        public bool TENSUnitSup { get; set; }
+        public bool UrologicalSupplies { get; set; }
+        public bool WoundCareSupplies { get; set; }
+        public bool OtherUnsureSupplies { get; set; }
+        public bool BDI { get; set; }
+        public bool BPnBPM { get; set; }
+        public bool CallCenter { get; set; }
+        public bool CSRAssessment { get; set; }
+        public bool DynamicSynergy { get; set; }
+        public bool Enteral { get; set; }
+        public bool HGS { get; set; }
+        public bool InsulinPumpCGM { get; set; }
+        public bool MedicalDocuments { get; set; }
+        public bool NewAccountTeam { get; set; }
+        public bool Nurses { get; set; }
+        public bool QualityAssurance { get; set; }
+        public bool Shipping { get; set; }
+        public bool THC { get; set; }
+        public bool Troy { get; set; }
+        public bool Verification { get; set; }
+        public bool WebSupport { get; set; }
+        public bool WoundCareOstomyTENS { get; set; }
+        public bool OtherUnsureTeam { get; set; }
     }
 }

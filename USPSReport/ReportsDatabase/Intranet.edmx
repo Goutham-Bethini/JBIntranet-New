@@ -489,6 +489,41 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="SmartAction" Type="bit" Nullable="false" />
           <Property Name="TextMessaging" Type="bit" Nullable="false" />
           <Property Name="WebsitePortal" Type="bit" Nullable="false" />
+          <Property Name="BloodPressureMonitors" Type="bit" Nullable="false" />
+          <Property Name="BreastPumps" Type="bit" Nullable="false" />
+          <Property Name="ContGlucoseMonitoring" Type="bit" Nullable="false" />
+          <Property Name="DiabeticTestSup" Type="bit" Nullable="false" />
+          <Property Name="EnteralNutrition" Type="bit" Nullable="false" />
+          <Property Name="ExternalDefibrillator" Type="bit" Nullable="false" />
+          <Property Name="IncontinenceSupplies" Type="bit" Nullable="false" />
+          <Property Name="InsulinPumpsSupplies" Type="bit" Nullable="false" />
+          <Property Name="InsSyrPenNeed" Type="bit" Nullable="false" />
+          <Property Name="OstomySupplies" Type="bit" Nullable="false" />
+          <Property Name="PleurXDrainSys" Type="bit" Nullable="false" />
+          <Property Name="PTINRTesting" Type="bit" Nullable="false" />
+          <Property Name="TENSUnitSup" Type="bit" Nullable="false" />
+          <Property Name="UrologicalSupplies" Type="bit" Nullable="false" />
+          <Property Name="WoundCareSupplies" Type="bit" Nullable="false" />
+          <Property Name="OtherUnsureSupplies" Type="bit" Nullable="false" />
+          <Property Name="BDI" Type="bit" Nullable="false" />
+          <Property Name="BPnBPM" Type="bit" Nullable="false" />
+          <Property Name="CallCenter" Type="bit" Nullable="false" />
+          <Property Name="CSRAssessment" Type="bit" Nullable="false" />
+          <Property Name="DynamicSynergy" Type="bit" Nullable="false" />
+          <Property Name="Enteral" Type="bit" Nullable="false" />
+          <Property Name="HGS" Type="bit" Nullable="false" />
+          <Property Name="InsulinPumpCGM" Type="bit" Nullable="false" />
+          <Property Name="MedicalDocuments" Type="bit" Nullable="false" />
+          <Property Name="NewAccountTeam" Type="bit" Nullable="false" />
+          <Property Name="Nurses" Type="bit" Nullable="false" />
+          <Property Name="QualityAssurance" Type="bit" Nullable="false" />
+          <Property Name="Shipping" Type="bit" Nullable="false" />
+          <Property Name="THC" Type="bit" Nullable="false" />
+          <Property Name="Troy" Type="bit" Nullable="false" />
+          <Property Name="Verification" Type="bit" Nullable="false" />
+          <Property Name="WebSupport" Type="bit" Nullable="false" />
+          <Property Name="WoundCareOstomyTENS" Type="bit" Nullable="false" />
+          <Property Name="OtherUnsureTeam" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_CSRComplaintLog">
           <Key>
@@ -551,8 +586,8 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="ComplaintShipping" Type="bit" />
           <Property Name="ComplaintService" Type="bit" />
           <Property Name="ComplaintSmartAction" Type="bit" />
-          <Property Name="Survey" Type="bit" />
           <Property Name="Resolution" Type="varchar(max)" />
+          <Property Name="Survey" Type="bit" />
           <Property Name="Compliance" Type="bit" Nullable="false" />
           <Property Name="CustomerService" Type="bit" Nullable="false" />
           <Property Name="Discrimination" Type="bit" Nullable="false" />
@@ -563,6 +598,41 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="SmartAction" Type="bit" Nullable="false" />
           <Property Name="TextMessaging" Type="bit" Nullable="false" />
           <Property Name="WebsitePortal" Type="bit" Nullable="false" />
+          <Property Name="BloodPressureMonitors" Type="bit" Nullable="false" />
+          <Property Name="BreastPumps" Type="bit" Nullable="false" />
+          <Property Name="ContGlucoseMonitoring" Type="bit" Nullable="false" />
+          <Property Name="DiabeticTestSup" Type="bit" Nullable="false" />
+          <Property Name="EnteralNutrition" Type="bit" Nullable="false" />
+          <Property Name="ExternalDefibrillator" Type="bit" Nullable="false" />
+          <Property Name="IncontinenceSupplies" Type="bit" Nullable="false" />
+          <Property Name="InsulinPumpsSupplies" Type="bit" Nullable="false" />
+          <Property Name="InsSyrPenNeed" Type="bit" Nullable="false" />
+          <Property Name="OstomySupplies" Type="bit" Nullable="false" />
+          <Property Name="PleurXDrainSys" Type="bit" Nullable="false" />
+          <Property Name="PTINRTesting" Type="bit" Nullable="false" />
+          <Property Name="TENSUnitSup" Type="bit" Nullable="false" />
+          <Property Name="UrologicalSupplies" Type="bit" Nullable="false" />
+          <Property Name="WoundCareSupplies" Type="bit" Nullable="false" />
+          <Property Name="OtherUnsureSupplies" Type="bit" Nullable="false" />
+          <Property Name="BDI" Type="bit" Nullable="false" />
+          <Property Name="BPnBPM" Type="bit" Nullable="false" />
+          <Property Name="CallCenter" Type="bit" Nullable="false" />
+          <Property Name="CSRAssessment" Type="bit" Nullable="false" />
+          <Property Name="DynamicSynergy" Type="bit" Nullable="false" />
+          <Property Name="Enteral" Type="bit" Nullable="false" />
+          <Property Name="HGS" Type="bit" Nullable="false" />
+          <Property Name="InsulinPumpCGM" Type="bit" Nullable="false" />
+          <Property Name="MedicalDocuments" Type="bit" Nullable="false" />
+          <Property Name="NewAccountTeam" Type="bit" Nullable="false" />
+          <Property Name="Nurses" Type="bit" Nullable="false" />
+          <Property Name="QualityAssurance" Type="bit" Nullable="false" />
+          <Property Name="Shipping" Type="bit" Nullable="false" />
+          <Property Name="THC" Type="bit" Nullable="false" />
+          <Property Name="Troy" Type="bit" Nullable="false" />
+          <Property Name="Verification" Type="bit" Nullable="false" />
+          <Property Name="WebSupport" Type="bit" Nullable="false" />
+          <Property Name="WoundCareOstomyTENS" Type="bit" Nullable="false" />
+          <Property Name="OtherUnsureTeam" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_CSRComplaintLog_Attachments">
           <Key>
@@ -705,9 +775,9 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <EntitySet Name="tbl_CSRInsDetail" EntityType="IntranetModel.tbl_CSRInsDetail" />
           <EntitySet Name="BCBS_ProviderList" EntityType="IntranetModel.BCBS_ProviderList" />
           <EntitySet Name="tbl_BCNCallLog" EntityType="IntranetModel.tbl_BCNCallLog" />
+          <EntitySet Name="tbl_CSRComplaintLog_Attachments" EntityType="IntranetModel.tbl_CSRComplaintLog_Attachments" />
           <EntitySet Name="tbl_CSRCallLog" EntityType="IntranetModel.tbl_CSRCallLog" />
           <EntitySet Name="tbl_CSRComplaintLog" EntityType="IntranetModel.tbl_CSRComplaintLog" />
-          <EntitySet Name="tbl_CSRComplaintLog_Attachments" EntityType="IntranetModel.tbl_CSRComplaintLog_Attachments" />
         </EntityContainer>
         <EntityType Name="Employees_New">
           <Key>
@@ -1080,6 +1150,17 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="Assmnt_receiver_ProductCode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Assmnt_transmitter_ProductCode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="tbl_CSRComplaintLog_Attachments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" />
+          <Property Name="ComplaintId" Type="Int32" />
+          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UploadedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UploadedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="tbl_CSRCallLog">
           <Key>
             <PropertyRef Name="id" />
@@ -1205,6 +1286,41 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="SmartAction" Type="Boolean" Nullable="false" />
           <Property Name="TextMessaging" Type="Boolean" Nullable="false" />
           <Property Name="WebsitePortal" Type="Boolean" Nullable="false" />
+          <Property Name="BloodPressureMonitors" Type="Boolean" Nullable="false" />
+          <Property Name="BreastPumps" Type="Boolean" Nullable="false" />
+          <Property Name="ContGlucoseMonitoring" Type="Boolean" Nullable="false" />
+          <Property Name="DiabeticTestSup" Type="Boolean" Nullable="false" />
+          <Property Name="EnteralNutrition" Type="Boolean" Nullable="false" />
+          <Property Name="ExternalDefibrillator" Type="Boolean" Nullable="false" />
+          <Property Name="IncontinenceSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="InsulinPumpsSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="InsSyrPenNeed" Type="Boolean" Nullable="false" />
+          <Property Name="OstomySupplies" Type="Boolean" Nullable="false" />
+          <Property Name="PleurXDrainSys" Type="Boolean" Nullable="false" />
+          <Property Name="PTINRTesting" Type="Boolean" Nullable="false" />
+          <Property Name="TENSUnitSup" Type="Boolean" Nullable="false" />
+          <Property Name="UrologicalSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="WoundCareSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="OtherUnsureSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="BDI" Type="Boolean" Nullable="false" />
+          <Property Name="BPnBPM" Type="Boolean" Nullable="false" />
+          <Property Name="CallCenter" Type="Boolean" Nullable="false" />
+          <Property Name="CSRAssessment" Type="Boolean" Nullable="false" />
+          <Property Name="DynamicSynergy" Type="Boolean" Nullable="false" />
+          <Property Name="Enteral" Type="Boolean" Nullable="false" />
+          <Property Name="HGS" Type="Boolean" Nullable="false" />
+          <Property Name="InsulinPumpCGM" Type="Boolean" Nullable="false" />
+          <Property Name="MedicalDocuments" Type="Boolean" Nullable="false" />
+          <Property Name="NewAccountTeam" Type="Boolean" Nullable="false" />
+          <Property Name="Nurses" Type="Boolean" Nullable="false" />
+          <Property Name="QualityAssurance" Type="Boolean" Nullable="false" />
+          <Property Name="Shipping" Type="Boolean" Nullable="false" />
+          <Property Name="THC" Type="Boolean" Nullable="false" />
+          <Property Name="Troy" Type="Boolean" Nullable="false" />
+          <Property Name="Verification" Type="Boolean" Nullable="false" />
+          <Property Name="WebSupport" Type="Boolean" Nullable="false" />
+          <Property Name="WoundCareOstomyTENS" Type="Boolean" Nullable="false" />
+          <Property Name="OtherUnsureTeam" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_CSRComplaintLog">
           <Key>
@@ -1267,8 +1383,8 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="ComplaintShipping" Type="Boolean" />
           <Property Name="ComplaintService" Type="Boolean" />
           <Property Name="ComplaintSmartAction" Type="Boolean" />
-          <Property Name="Survey" Type="Boolean" />
           <Property Name="Resolution" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Survey" Type="Boolean" />
           <Property Name="Compliance" Type="Boolean" Nullable="false" />
           <Property Name="CustomerService" Type="Boolean" Nullable="false" />
           <Property Name="Discrimination" Type="Boolean" Nullable="false" />
@@ -1279,17 +1395,41 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="SmartAction" Type="Boolean" Nullable="false" />
           <Property Name="TextMessaging" Type="Boolean" Nullable="false" />
           <Property Name="WebsitePortal" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="tbl_CSRComplaintLog_Attachments">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Account" Type="Int32" />
-          <Property Name="ComplaintId" Type="Int32" />
-          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="UploadedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="UploadedDate" Type="DateTime" Precision="3" />
+          <Property Name="BloodPressureMonitors" Type="Boolean" Nullable="false" />
+          <Property Name="BreastPumps" Type="Boolean" Nullable="false" />
+          <Property Name="ContGlucoseMonitoring" Type="Boolean" Nullable="false" />
+          <Property Name="DiabeticTestSup" Type="Boolean" Nullable="false" />
+          <Property Name="EnteralNutrition" Type="Boolean" Nullable="false" />
+          <Property Name="ExternalDefibrillator" Type="Boolean" Nullable="false" />
+          <Property Name="IncontinenceSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="InsulinPumpsSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="InsSyrPenNeed" Type="Boolean" Nullable="false" />
+          <Property Name="OstomySupplies" Type="Boolean" Nullable="false" />
+          <Property Name="PleurXDrainSys" Type="Boolean" Nullable="false" />
+          <Property Name="PTINRTesting" Type="Boolean" Nullable="false" />
+          <Property Name="TENSUnitSup" Type="Boolean" Nullable="false" />
+          <Property Name="UrologicalSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="WoundCareSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="OtherUnsureSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="BDI" Type="Boolean" Nullable="false" />
+          <Property Name="BPnBPM" Type="Boolean" Nullable="false" />
+          <Property Name="CallCenter" Type="Boolean" Nullable="false" />
+          <Property Name="CSRAssessment" Type="Boolean" Nullable="false" />
+          <Property Name="DynamicSynergy" Type="Boolean" Nullable="false" />
+          <Property Name="Enteral" Type="Boolean" Nullable="false" />
+          <Property Name="HGS" Type="Boolean" Nullable="false" />
+          <Property Name="InsulinPumpCGM" Type="Boolean" Nullable="false" />
+          <Property Name="MedicalDocuments" Type="Boolean" Nullable="false" />
+          <Property Name="NewAccountTeam" Type="Boolean" Nullable="false" />
+          <Property Name="Nurses" Type="Boolean" Nullable="false" />
+          <Property Name="QualityAssurance" Type="Boolean" Nullable="false" />
+          <Property Name="Shipping" Type="Boolean" Nullable="false" />
+          <Property Name="THC" Type="Boolean" Nullable="false" />
+          <Property Name="Troy" Type="Boolean" Nullable="false" />
+          <Property Name="Verification" Type="Boolean" Nullable="false" />
+          <Property Name="WebSupport" Type="Boolean" Nullable="false" />
+          <Property Name="WoundCareOstomyTENS" Type="Boolean" Nullable="false" />
+          <Property Name="OtherUnsureTeam" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1698,9 +1838,56 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbl_CSRComplaintLog_Attachments">
+            <EntityTypeMapping TypeName="IntranetModel.tbl_CSRComplaintLog_Attachments">
+              <MappingFragment StoreEntitySet="tbl_CSRComplaintLog_Attachments">
+                <ScalarProperty Name="UploadedDate" ColumnName="UploadedDate" />
+                <ScalarProperty Name="UploadedBy" ColumnName="UploadedBy" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ComplaintId" ColumnName="ComplaintId" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_CSRCallLog">
             <EntityTypeMapping TypeName="IntranetModel.tbl_CSRCallLog">
               <MappingFragment StoreEntitySet="tbl_CSRCallLog">
+                <ScalarProperty Name="OtherUnsureTeam" ColumnName="OtherUnsureTeam" />
+                <ScalarProperty Name="WoundCareOstomyTENS" ColumnName="WoundCareOstomyTENS" />
+                <ScalarProperty Name="WebSupport" ColumnName="WebSupport" />
+                <ScalarProperty Name="Verification" ColumnName="Verification" />
+                <ScalarProperty Name="Troy" ColumnName="Troy" />
+                <ScalarProperty Name="THC" ColumnName="THC" />
+                <ScalarProperty Name="Shipping" ColumnName="Shipping" />
+                <ScalarProperty Name="QualityAssurance" ColumnName="QualityAssurance" />
+                <ScalarProperty Name="Nurses" ColumnName="Nurses" />
+                <ScalarProperty Name="NewAccountTeam" ColumnName="NewAccountTeam" />
+                <ScalarProperty Name="MedicalDocuments" ColumnName="MedicalDocuments" />
+                <ScalarProperty Name="InsulinPumpCGM" ColumnName="InsulinPumpCGM" />
+                <ScalarProperty Name="HGS" ColumnName="HGS" />
+                <ScalarProperty Name="Enteral" ColumnName="Enteral" />
+                <ScalarProperty Name="DynamicSynergy" ColumnName="DynamicSynergy" />
+                <ScalarProperty Name="CSRAssessment" ColumnName="CSRAssessment" />
+                <ScalarProperty Name="CallCenter" ColumnName="CallCenter" />
+                <ScalarProperty Name="BPnBPM" ColumnName="BPnBPM" />
+                <ScalarProperty Name="BDI" ColumnName="BDI" />
+                <ScalarProperty Name="OtherUnsureSupplies" ColumnName="OtherUnsureSupplies" />
+                <ScalarProperty Name="WoundCareSupplies" ColumnName="WoundCareSupplies" />
+                <ScalarProperty Name="UrologicalSupplies" ColumnName="UrologicalSupplies" />
+                <ScalarProperty Name="TENSUnitSup" ColumnName="TENSUnitSup" />
+                <ScalarProperty Name="PTINRTesting" ColumnName="PTINRTesting" />
+                <ScalarProperty Name="PleurXDrainSys" ColumnName="PleurXDrainSys" />
+                <ScalarProperty Name="OstomySupplies" ColumnName="OstomySupplies" />
+                <ScalarProperty Name="InsSyrPenNeed" ColumnName="InsSyrPenNeed" />
+                <ScalarProperty Name="InsulinPumpsSupplies" ColumnName="InsulinPumpsSupplies" />
+                <ScalarProperty Name="IncontinenceSupplies" ColumnName="IncontinenceSupplies" />
+                <ScalarProperty Name="ExternalDefibrillator" ColumnName="ExternalDefibrillator" />
+                <ScalarProperty Name="EnteralNutrition" ColumnName="EnteralNutrition" />
+                <ScalarProperty Name="DiabeticTestSup" ColumnName="DiabeticTestSup" />
+                <ScalarProperty Name="ContGlucoseMonitoring" ColumnName="ContGlucoseMonitoring" />
+                <ScalarProperty Name="BreastPumps" ColumnName="BreastPumps" />
+                <ScalarProperty Name="BloodPressureMonitors" ColumnName="BloodPressureMonitors" />
                 <ScalarProperty Name="WebsitePortal" ColumnName="WebsitePortal" />
                 <ScalarProperty Name="TextMessaging" ColumnName="TextMessaging" />
                 <ScalarProperty Name="SmartAction" ColumnName="SmartAction" />
@@ -1828,6 +2015,41 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <EntitySetMapping Name="tbl_CSRComplaintLog">
             <EntityTypeMapping TypeName="IntranetModel.tbl_CSRComplaintLog">
               <MappingFragment StoreEntitySet="tbl_CSRComplaintLog">
+                <ScalarProperty Name="OtherUnsureTeam" ColumnName="OtherUnsureTeam" />
+                <ScalarProperty Name="WoundCareOstomyTENS" ColumnName="WoundCareOstomyTENS" />
+                <ScalarProperty Name="WebSupport" ColumnName="WebSupport" />
+                <ScalarProperty Name="Verification" ColumnName="Verification" />
+                <ScalarProperty Name="Troy" ColumnName="Troy" />
+                <ScalarProperty Name="THC" ColumnName="THC" />
+                <ScalarProperty Name="Shipping" ColumnName="Shipping" />
+                <ScalarProperty Name="QualityAssurance" ColumnName="QualityAssurance" />
+                <ScalarProperty Name="Nurses" ColumnName="Nurses" />
+                <ScalarProperty Name="NewAccountTeam" ColumnName="NewAccountTeam" />
+                <ScalarProperty Name="MedicalDocuments" ColumnName="MedicalDocuments" />
+                <ScalarProperty Name="InsulinPumpCGM" ColumnName="InsulinPumpCGM" />
+                <ScalarProperty Name="HGS" ColumnName="HGS" />
+                <ScalarProperty Name="Enteral" ColumnName="Enteral" />
+                <ScalarProperty Name="DynamicSynergy" ColumnName="DynamicSynergy" />
+                <ScalarProperty Name="CSRAssessment" ColumnName="CSRAssessment" />
+                <ScalarProperty Name="CallCenter" ColumnName="CallCenter" />
+                <ScalarProperty Name="BPnBPM" ColumnName="BPnBPM" />
+                <ScalarProperty Name="BDI" ColumnName="BDI" />
+                <ScalarProperty Name="OtherUnsureSupplies" ColumnName="OtherUnsureSupplies" />
+                <ScalarProperty Name="WoundCareSupplies" ColumnName="WoundCareSupplies" />
+                <ScalarProperty Name="UrologicalSupplies" ColumnName="UrologicalSupplies" />
+                <ScalarProperty Name="TENSUnitSup" ColumnName="TENSUnitSup" />
+                <ScalarProperty Name="PTINRTesting" ColumnName="PTINRTesting" />
+                <ScalarProperty Name="PleurXDrainSys" ColumnName="PleurXDrainSys" />
+                <ScalarProperty Name="OstomySupplies" ColumnName="OstomySupplies" />
+                <ScalarProperty Name="InsSyrPenNeed" ColumnName="InsSyrPenNeed" />
+                <ScalarProperty Name="InsulinPumpsSupplies" ColumnName="InsulinPumpsSupplies" />
+                <ScalarProperty Name="IncontinenceSupplies" ColumnName="IncontinenceSupplies" />
+                <ScalarProperty Name="ExternalDefibrillator" ColumnName="ExternalDefibrillator" />
+                <ScalarProperty Name="EnteralNutrition" ColumnName="EnteralNutrition" />
+                <ScalarProperty Name="DiabeticTestSup" ColumnName="DiabeticTestSup" />
+                <ScalarProperty Name="ContGlucoseMonitoring" ColumnName="ContGlucoseMonitoring" />
+                <ScalarProperty Name="BreastPumps" ColumnName="BreastPumps" />
+                <ScalarProperty Name="BloodPressureMonitors" ColumnName="BloodPressureMonitors" />
                 <ScalarProperty Name="WebsitePortal" ColumnName="WebsitePortal" />
                 <ScalarProperty Name="TextMessaging" ColumnName="TextMessaging" />
                 <ScalarProperty Name="SmartAction" ColumnName="SmartAction" />
@@ -1838,8 +2060,8 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
                 <ScalarProperty Name="Discrimination" ColumnName="Discrimination" />
                 <ScalarProperty Name="CustomerService" ColumnName="CustomerService" />
                 <ScalarProperty Name="Compliance" ColumnName="Compliance" />
-                <ScalarProperty Name="Resolution" ColumnName="Resolution" />
                 <ScalarProperty Name="Survey" ColumnName="Survey" />
+                <ScalarProperty Name="Resolution" ColumnName="Resolution" />
                 <ScalarProperty Name="ComplaintSmartAction" ColumnName="ComplaintSmartAction" />
                 <ScalarProperty Name="ComplaintService" ColumnName="ComplaintService" />
                 <ScalarProperty Name="ComplaintShipping" ColumnName="ComplaintShipping" />
@@ -1897,18 +2119,6 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_CSRComplaintLog_Attachments">
-            <EntityTypeMapping TypeName="IntranetModel.tbl_CSRComplaintLog_Attachments">
-              <MappingFragment StoreEntitySet="tbl_CSRComplaintLog_Attachments">
-                <ScalarProperty Name="UploadedDate" ColumnName="UploadedDate" />
-                <ScalarProperty Name="UploadedBy" ColumnName="UploadedBy" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="ComplaintId" ColumnName="ComplaintId" />
-                <ScalarProperty Name="Account" ColumnName="Account" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

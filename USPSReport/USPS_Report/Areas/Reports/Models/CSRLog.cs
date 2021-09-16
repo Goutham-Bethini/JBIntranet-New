@@ -449,6 +449,44 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.TrackingNumber = _vm.TrackingNumber;
                     _rec.WorkOrder = _vm.WorkOrder;
                     //_rec.Damaged = _vm.Damaged;
+
+                    _rec.BloodPressureMonitors = _vm.BloodPressureMonitors;
+                    _rec.BreastPumps = _vm.BreastPumps;
+                    _rec.ContGlucoseMonitoring = _vm.ContGlucoseMonitoring;
+                    _rec.DiabeticTestSup = _vm.DiabeticTestSup;
+                    _rec.EnteralNutrition = _vm.EnteralNutrition;
+                    _rec.ExternalDefibrillator = _vm.ExternalDefibrillator;
+                    _rec.IncontinenceSupplies = _vm.IncontinenceSupplies;
+                    _rec.InsulinPumpsSupplies = _vm.InsulinPumpsSupplies;
+                    _rec.InsSyrPenNeed = _vm.InsSyrPenNeed;
+                    _rec.OstomySupplies = _vm.OstomySupplies;
+                    _rec.PleurXDrainSys = _vm.PleurXDrainSys;
+                    _rec.PTINRTesting = _vm.PTINRTesting;
+                    _rec.TENSUnitSup = _vm.TENSUnitSup;
+                    _rec.UrologicalSupplies = _vm.UrologicalSupplies;
+                    _rec.WoundCareSupplies = _vm.WoundCareSupplies;
+                    _rec.OtherUnsureSupplies = _vm.OtherUnsureSupplies;
+
+                    _rec.BDI = _vm.BDI;
+                    _rec.BPnBPM = _vm.BPnBPM;
+                    _rec.CallCenter = _vm.CallCenter;
+                    _rec.CSRAssessment = _vm.CSRAssessment;
+                    _rec.DynamicSynergy = _vm.DynamicSynergy;
+                    _rec.Enteral = _vm.Enteral;
+                    _rec.HGS = _vm.HGS;
+                    _rec.InsulinPumpCGM = _vm.InsulinPumpCGM;
+                    _rec.MedicalDocuments = _vm.MedicalDocuments;
+                    _rec.NewAccountTeam = _vm.NewAccountTeam;
+                    _rec.Nurses = _vm.Nurses;
+                    _rec.QualityAssurance = _vm.QualityAssurance;
+                    _rec.Shipping = _vm.Shipping;
+                    _rec.THC = _vm.THC;
+                    _rec.Troy = _vm.Troy;
+                    _rec.Verification = _vm.Verification;
+                    _rec.WebSupport = _vm.WebSupport;
+                    _rec.WoundCareOstomyTENS = _vm.WoundCareOstomyTENS;
+                    _rec.OtherUnsureTeam = _vm.OtherUnsureTeam;
+
                     _rec.Compliance = _vm.Compliance;
                     _rec.CustomerService = _vm.CustomerService;
                     _rec.Discrimination = _vm.Discrimination;
@@ -788,6 +826,43 @@ namespace USPS_Report.Areas.Reports.Models
                     //|| (_vm.BCNProvider != "" && _vm.BCNProvider != null)
                         // COMMMUNICATION
                     if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
+                        || _vm.BloodPressureMonitors == true
+                        || _vm.BreastPumps == true
+                        || _vm.ContGlucoseMonitoring == true
+                        || _vm.DiabeticTestSup == true
+                        || _vm.EnteralNutrition == true
+                        || _vm.ExternalDefibrillator == true
+                        || _vm.IncontinenceSupplies == true
+                        || _vm.InsulinPumpsSupplies == true
+                        || _vm.InsSyrPenNeed == true
+                        || _vm.OstomySupplies == true
+                        || _vm.PleurXDrainSys == true
+                        || _vm.PTINRTesting == true
+                        || _vm.TENSUnitSup == true
+                        || _vm.UrologicalSupplies == true
+                        || _vm.WoundCareSupplies == true
+                        || _vm.OtherUnsureSupplies == true
+
+                        || _vm.BDI == true
+                        || _vm.BPnBPM == true
+                        || _vm.CallCenter == true
+                        || _vm.CSRAssessment == true
+                        || _vm.DynamicSynergy == true
+                        || _vm.Enteral == true
+                        || _vm.HGS == true
+                        || _vm.InsulinPumpCGM == true
+                        || _vm.MedicalDocuments == true
+                        || _vm.NewAccountTeam == true
+                        || _vm.Nurses == true
+                        || _vm.QualityAssurance == true
+                        || _vm.Shipping == true
+                        || _vm.THC == true
+                        || _vm.Troy == true
+                        || _vm.Verification == true
+                        || _vm.WebSupport == true
+                        || _vm.WoundCareOstomyTENS == true
+                        || _vm.OtherUnsureTeam == true
+
                             || _vm.Compliance == true || _vm.CustomerService == true
                             || _vm.Discrimination == true || _vm.HealthPlan == true
                             || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true
@@ -863,6 +938,43 @@ namespace USPS_Report.Areas.Reports.Models
                             //_vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.InsLimitGuidelines == true || _vm.BCNProviderIssue == true || _vm.Other == true ||
                             //|| (_vm.BCNProvider != "" && _vm.BCNProvider != null)
                             if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
+                                || _vm.BloodPressureMonitors == true
+                                || _vm.BreastPumps == true
+                                || _vm.ContGlucoseMonitoring == true
+                                || _vm.DiabeticTestSup == true
+                                || _vm.EnteralNutrition == true
+                                || _vm.ExternalDefibrillator == true
+                                || _vm.IncontinenceSupplies == true
+                                || _vm.InsulinPumpsSupplies == true
+                                || _vm.InsSyrPenNeed == true
+                                || _vm.OstomySupplies == true
+                                || _vm.PleurXDrainSys == true
+                                || _vm.PTINRTesting == true
+                                || _vm.TENSUnitSup == true
+                                || _vm.UrologicalSupplies == true
+                                || _vm.WoundCareSupplies == true
+                                || _vm.OtherUnsureSupplies == true
+
+                                || _vm.BDI == true
+                                || _vm.BPnBPM == true
+                                || _vm.CallCenter == true
+                                || _vm.CSRAssessment == true
+                                || _vm.DynamicSynergy == true
+                                || _vm.Enteral == true
+                                || _vm.HGS == true
+                                || _vm.InsulinPumpCGM == true
+                                || _vm.MedicalDocuments == true
+                                || _vm.NewAccountTeam == true
+                                || _vm.Nurses == true
+                                || _vm.QualityAssurance == true
+                                || _vm.Shipping == true
+                                || _vm.THC == true
+                                || _vm.Troy == true
+                                || _vm.Verification == true
+                                || _vm.WebSupport == true
+                                || _vm.WoundCareOstomyTENS == true
+                                || _vm.OtherUnsureTeam == true
+
                                 || _vm.Compliance == true || _vm.CustomerService == true
                                 || _vm.Discrimination == true || _vm.HealthPlan == true
                                 || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true
@@ -891,6 +1003,111 @@ namespace USPS_Report.Areas.Reports.Models
                                 //if (_vm.Damaged == true)
                                 //        otherStr.Append("Damaged"+ Environment.NewLine);
                                 //otherStr = otherStr + "Damaged_";
+
+                                if (_vm.BloodPressureMonitors == true)
+                                    otherStr.Append("Blood Pressure Monitors" + Environment.NewLine);
+
+                                if (_vm.BreastPumps == true)
+                                    otherStr.Append("Breast Pumps" + Environment.NewLine);
+
+                                if (_vm.ContGlucoseMonitoring == true)
+                                    otherStr.Append("Continuous Glucose Monitoring" + Environment.NewLine);
+
+                                if (_vm.DiabeticTestSup == true)
+                                    otherStr.Append("Diabetic Testing Supplies" + Environment.NewLine);
+
+                                if (_vm.EnteralNutrition == true)
+                                    otherStr.Append("Enteral Nutrition" + Environment.NewLine);
+
+                                if (_vm.ExternalDefibrillator == true)
+                                    otherStr.Append("External Defibrillator" + Environment.NewLine);
+
+                                if (_vm.IncontinenceSupplies == true)
+                                    otherStr.Append("Incontinence Supplies" + Environment.NewLine);
+
+                                if (_vm.InsulinPumpsSupplies == true)
+                                    otherStr.Append("Insulin Pumps & Supplies" + Environment.NewLine);
+
+                                if (_vm.InsSyrPenNeed == true)
+                                    otherStr.Append("Insulin Syringes & Pen Needles" + Environment.NewLine);
+
+                                if (_vm.OstomySupplies == true)
+                                    otherStr.Append("Ostomy Supplies" + Environment.NewLine);
+
+                                if (_vm.PleurXDrainSys == true)
+                                    otherStr.Append("PleurX Drainage System" + Environment.NewLine);
+
+                                if (_vm.PTINRTesting == true)
+                                    otherStr.Append("PT INR Testing" + Environment.NewLine);
+
+                                if (_vm.TENSUnitSup == true)
+                                    otherStr.Append("TENS Unit & Supplies" + Environment.NewLine);
+
+                                if (_vm.UrologicalSupplies == true)
+                                    otherStr.Append("Urological Supplies" + Environment.NewLine);
+
+                                if (_vm.WoundCareSupplies == true)
+                                    otherStr.Append("Wound Care Supplies" + Environment.NewLine);
+
+                                if (_vm.OtherUnsureSupplies == true)
+                                    otherStr.Append("Other/Unsure of Supplies" + Environment.NewLine);
+
+                                if (_vm.BDI == true)
+                                    otherStr.Append("BDI" + Environment.NewLine);
+
+                                if (_vm.BPnBPM == true)
+                                    otherStr.Append("Breast Pumps & Blood Pressure Monitors" + Environment.NewLine);
+
+                                if (_vm.CallCenter == true)
+                                    otherStr.Append("Call Center" + Environment.NewLine);
+
+                                if (_vm.CSRAssessment == true)
+                                    otherStr.Append("CSR Assessment" + Environment.NewLine);
+
+                                if (_vm.DynamicSynergy == true)
+                                    otherStr.Append("Dynamic Synergy" + Environment.NewLine);
+
+                                if (_vm.Enteral == true)
+                                    otherStr.Append("Enteral" + Environment.NewLine);
+
+                                if (_vm.HGS == true)
+                                    otherStr.Append("HGS" + Environment.NewLine);
+
+                                if (_vm.InsulinPumpCGM == true)
+                                    otherStr.Append("Insulin Pump & CGM" + Environment.NewLine);
+
+                                if (_vm.MedicalDocuments == true)
+                                    otherStr.Append("Medical Documents" + Environment.NewLine);
+
+                                if (_vm.NewAccountTeam == true)
+                                    otherStr.Append("New Account" + Environment.NewLine);
+
+                                if (_vm.Nurses == true)
+                                    otherStr.Append("Nurses" + Environment.NewLine);
+
+                                if (_vm.QualityAssurance == true)
+                                    otherStr.Append("Quality Assurance" + Environment.NewLine);
+
+                                if (_vm.Shipping == true)
+                                    otherStr.Append("Shipping" + Environment.NewLine);
+
+                                if (_vm.THC == true)
+                                    otherStr.Append("THC" + Environment.NewLine);
+
+                                if (_vm.Troy == true)
+                                    otherStr.Append("Troy (BCN, BCNA, MAPPO)" + Environment.NewLine);
+
+                                if (_vm.Verification == true)
+                                    otherStr.Append("Verification" + Environment.NewLine);
+
+                                if (_vm.WebSupport == true)
+                                    otherStr.Append("Web Support" + Environment.NewLine);
+
+                                if (_vm.WoundCareOstomyTENS == true)
+                                    otherStr.Append("Wound Care, Ostomy & TENS" + Environment.NewLine);
+
+                                if (_vm.OtherUnsureTeam == true)
+                                    otherStr.Append("Other/Unsure of Team" + Environment.NewLine);
 
                                 if (_vm.Compliance == true)
                                     otherStr.Append("Compliance" + Environment.NewLine);
@@ -2201,6 +2418,44 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.CreatedBy = userName;
                     _rec.TrackingNumber = _vm.TrackingNumber;
                     //_rec.Damaged = _vm.Damaged;
+
+                    _rec.BloodPressureMonitors = _vm.BloodPressureMonitors;
+                    _rec.BreastPumps = _vm.BreastPumps;
+                    _rec.ContGlucoseMonitoring = _vm.ContGlucoseMonitoring;
+                    _rec.DiabeticTestSup = _vm.DiabeticTestSup;
+                    _rec.EnteralNutrition = _vm.EnteralNutrition;
+                    _rec.ExternalDefibrillator = _vm.ExternalDefibrillator;
+                    _rec.IncontinenceSupplies = _vm.IncontinenceSupplies;
+                    _rec.InsulinPumpsSupplies = _vm.InsulinPumpsSupplies;
+                    _rec.InsSyrPenNeed = _vm.InsSyrPenNeed;
+                    _rec.OstomySupplies = _vm.OstomySupplies;
+                    _rec.PleurXDrainSys = _vm.PleurXDrainSys;
+                    _rec.PTINRTesting = _vm.PTINRTesting;
+                    _rec.TENSUnitSup = _vm.TENSUnitSup;
+                    _rec.UrologicalSupplies = _vm.UrologicalSupplies;
+                    _rec.WoundCareSupplies = _vm.WoundCareSupplies;
+                    _rec.OtherUnsureSupplies = _vm.OtherUnsureSupplies;
+
+                    _rec.BDI = _vm.BDI;
+                    _rec.BPnBPM = _vm.BPnBPM;
+                    _rec.CallCenter = _vm.CallCenter;
+                    _rec.CSRAssessment = _vm.CSRAssessment;
+                    _rec.DynamicSynergy = _vm.DynamicSynergy;
+                    _rec.Enteral = _vm.Enteral;
+                    _rec.HGS = _vm.HGS;
+                    _rec.InsulinPumpCGM = _vm.InsulinPumpCGM;
+                    _rec.MedicalDocuments = _vm.MedicalDocuments;
+                    _rec.NewAccountTeam = _vm.NewAccountTeam;
+                    _rec.Nurses = _vm.Nurses;
+                    _rec.QualityAssurance = _vm.QualityAssurance;
+                    _rec.Shipping = _vm.Shipping;
+                    _rec.THC = _vm.THC;
+                    _rec.Troy = _vm.Troy;
+                    _rec.Verification = _vm.Verification;
+                    _rec.WebSupport = _vm.WebSupport;
+                    _rec.WoundCareOstomyTENS = _vm.WoundCareOstomyTENS;
+                    _rec.OtherUnsureTeam = _vm.OtherUnsureTeam;
+
                     _rec.Compliance = _vm.Compliance;
                     _rec.CustomerService = _vm.CustomerService;
                     _rec.Discrimination = _vm.Discrimination;
@@ -2362,6 +2617,42 @@ namespace USPS_Report.Areas.Reports.Models
                     //|| (_vm.BCNProvider != "" && _vm.BCNProvider != null)
                     // COMPLAINTS
                     if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
+                        || _vm.BloodPressureMonitors == true
+                        || _vm.BreastPumps == true
+                        || _vm.ContGlucoseMonitoring == true
+                        || _vm.DiabeticTestSup == true
+                        || _vm.EnteralNutrition == true
+                        || _vm.ExternalDefibrillator == true
+                        || _vm.IncontinenceSupplies == true
+                        || _vm.InsulinPumpsSupplies == true
+                        || _vm.InsSyrPenNeed == true
+                        || _vm.OstomySupplies == true
+                        || _vm.PleurXDrainSys == true
+                        || _vm.PTINRTesting == true
+                        || _vm.TENSUnitSup == true
+                        || _vm.UrologicalSupplies == true
+                        || _vm.WoundCareSupplies == true
+                        || _vm.OtherUnsureSupplies == true
+
+                        || _vm.BDI == true
+                        || _vm.BPnBPM == true
+                        || _vm.CallCenter == true
+                        || _vm.CSRAssessment == true
+                        || _vm.DynamicSynergy == true
+                        || _vm.Enteral == true
+                        || _vm.HGS == true
+                        || _vm.InsulinPumpCGM == true
+                        || _vm.MedicalDocuments == true
+                        || _vm.NewAccountTeam == true
+                        || _vm.Nurses == true
+                        || _vm.QualityAssurance == true
+                        || _vm.Shipping == true
+                        || _vm.THC == true
+                        || _vm.Troy == true
+                        || _vm.Verification == true
+                        || _vm.WebSupport == true
+                        || _vm.WoundCareOstomyTENS == true
+                        || _vm.OtherUnsureTeam == true
                              || _vm.Compliance == true || _vm.Driver == true || _vm.WrongProductShipped == true || _vm.QualityOfProduct == true
                              || _vm.WrongArea == true || _vm.MissingProduct == true || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
                              || _vm.ProductIncorrect == true ||_vm.Call == true || _vm.Email == true || _vm.Fax == true || _vm.WebsitePortal == true || _vm.SocialMedia == true || _vm.InsCompany == true || _vm.Survey == true ||  _vm.CallRcvdOther == true || _vm.ProductMispick == true || _vm.ProductDefective || (_vm.ProductTextArea != "" && _vm.ProductTextArea != null)
@@ -2411,6 +2702,42 @@ namespace USPS_Report.Areas.Reports.Models
                             //_vm.Other == true
                             //|| (_vm.BCNProvider != "" && _vm.BCNProvider != null)
                             if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
+                                || _vm.BloodPressureMonitors == true
+                        || _vm.BreastPumps == true
+                        || _vm.ContGlucoseMonitoring == true
+                        || _vm.DiabeticTestSup == true
+                        || _vm.EnteralNutrition == true
+                        || _vm.ExternalDefibrillator == true
+                        || _vm.IncontinenceSupplies == true
+                        || _vm.InsulinPumpsSupplies == true
+                        || _vm.InsSyrPenNeed == true
+                        || _vm.OstomySupplies == true
+                        || _vm.PleurXDrainSys == true
+                        || _vm.PTINRTesting == true
+                        || _vm.TENSUnitSup == true
+                        || _vm.UrologicalSupplies == true
+                        || _vm.WoundCareSupplies == true
+                        || _vm.OtherUnsureSupplies == true
+
+                        || _vm.BDI == true
+                        || _vm.BPnBPM == true
+                        || _vm.CallCenter == true
+                        || _vm.CSRAssessment == true
+                        || _vm.DynamicSynergy == true
+                        || _vm.Enteral == true
+                        || _vm.HGS == true
+                        || _vm.InsulinPumpCGM == true
+                        || _vm.MedicalDocuments == true
+                        || _vm.NewAccountTeam == true
+                        || _vm.Nurses == true
+                        || _vm.QualityAssurance == true
+                        || _vm.Shipping == true
+                        || _vm.THC == true
+                        || _vm.Troy == true
+                        || _vm.Verification == true
+                        || _vm.WebSupport == true
+                        || _vm.WoundCareOstomyTENS == true
+                        || _vm.OtherUnsureTeam == true
                                 || _vm.Compliance == true  
                                 || _vm.Call == true || _vm.Email == true || _vm.Fax == true || _vm.WebsitePortal == true || _vm.SocialMedia == true || _vm.InsCompany == true || _vm.Survey == true || _vm.CallRcvdOther == true ||
                                 _vm.Driver == true || _vm.WrongProductShipped == true || _vm.QualityOfProduct == true
@@ -2474,6 +2801,112 @@ namespace USPS_Report.Areas.Reports.Models
 
                                 //if (_vm.Damaged == true)
                                 //    otherStr.Append("Damaged" + Environment.NewLine);
+
+                                if (_vm.BloodPressureMonitors == true)
+                                    otherStr.Append("Blood Pressure Monitors" + Environment.NewLine);
+
+                                if (_vm.BreastPumps == true)
+                                    otherStr.Append("Breast Pumps" + Environment.NewLine);
+
+                                if (_vm.ContGlucoseMonitoring == true)
+                                    otherStr.Append("Continuous Glucose Monitoring" + Environment.NewLine);
+
+                                if (_vm.DiabeticTestSup == true)
+                                    otherStr.Append("Diabetic Testing Supplies" + Environment.NewLine);
+
+                                if (_vm.EnteralNutrition == true)
+                                    otherStr.Append("Enteral Nutrition" + Environment.NewLine);
+
+                                if (_vm.ExternalDefibrillator == true)
+                                    otherStr.Append("External Defibrillator" + Environment.NewLine);
+
+                                if (_vm.IncontinenceSupplies == true)
+                                    otherStr.Append("Incontinence Supplies" + Environment.NewLine);
+
+                                if (_vm.InsulinPumpsSupplies == true)
+                                    otherStr.Append("Insulin Pumps & Supplies" + Environment.NewLine);
+
+                                if (_vm.InsSyrPenNeed == true)
+                                    otherStr.Append("Insulin Syringes & Pen Needles" + Environment.NewLine);
+
+                                if (_vm.OstomySupplies == true)
+                                    otherStr.Append("Ostomy Supplies" + Environment.NewLine);
+
+                                if (_vm.PleurXDrainSys == true)
+                                    otherStr.Append("PleurX Drainage System" + Environment.NewLine);
+
+                                if (_vm.PTINRTesting == true)
+                                    otherStr.Append("PT INR Testing" + Environment.NewLine);
+
+                                if (_vm.TENSUnitSup == true)
+                                    otherStr.Append("TENS Unit & Supplies" + Environment.NewLine);
+
+                                if (_vm.UrologicalSupplies == true)
+                                    otherStr.Append("Urological Supplies" + Environment.NewLine);
+
+                                if (_vm.WoundCareSupplies == true)
+                                    otherStr.Append("Wound Care Supplies" + Environment.NewLine);
+
+                                if (_vm.OtherUnsureSupplies == true)
+                                    otherStr.Append("Other/Unsure of Supplies" + Environment.NewLine);
+
+                                if (_vm.BDI == true)
+                                    otherStr.Append("BDI" + Environment.NewLine);
+
+                                if (_vm.BPnBPM == true)
+                                    otherStr.Append("Breast Pumps & Blood Pressure Monitors" + Environment.NewLine);
+
+                                if (_vm.CallCenter == true)
+                                    otherStr.Append("Call Center" + Environment.NewLine);
+
+                                if (_vm.CSRAssessment == true)
+                                    otherStr.Append("CSR Assessment" + Environment.NewLine);
+
+                                if (_vm.DynamicSynergy == true)
+                                    otherStr.Append("Dynamic Synergy" + Environment.NewLine);
+
+                                if (_vm.Enteral == true)
+                                    otherStr.Append("Enteral" + Environment.NewLine);
+
+                                if (_vm.HGS == true)
+                                    otherStr.Append("HGS" + Environment.NewLine);
+
+                                if (_vm.InsulinPumpCGM == true)
+                                    otherStr.Append("Insulin Pump & CGM" + Environment.NewLine);
+
+                                if (_vm.MedicalDocuments == true)
+                                    otherStr.Append("Medical Documents" + Environment.NewLine);
+
+                                if (_vm.NewAccountTeam == true)
+                                    otherStr.Append("New Account" + Environment.NewLine);
+
+                                if (_vm.Nurses == true)
+                                    otherStr.Append("Nurses" + Environment.NewLine);
+
+                                if (_vm.QualityAssurance == true)
+                                    otherStr.Append("Quality Assurance" + Environment.NewLine);
+
+                                if (_vm.Shipping == true)
+                                    otherStr.Append("Shipping" + Environment.NewLine);
+
+                                if (_vm.THC == true)
+                                    otherStr.Append("THC" + Environment.NewLine);
+
+                                if (_vm.Troy == true)
+                                    otherStr.Append("Troy (BCN, BCNA, MAPPO)" + Environment.NewLine);
+
+                                if (_vm.Verification == true)
+                                    otherStr.Append("Verification" + Environment.NewLine);
+
+                                if (_vm.WebSupport == true)
+                                    otherStr.Append("Web Support" + Environment.NewLine);
+
+                                if (_vm.WoundCareOstomyTENS == true)
+                                    otherStr.Append("Wound Care, Ostomy & TENS" + Environment.NewLine);
+
+                                if (_vm.OtherUnsureTeam == true)
+                                    otherStr.Append("Other/Unsure of Team" + Environment.NewLine);
+
                                 if (_vm.Compliance == true)
                                     otherStr.Append("Compliance" + Environment.NewLine);
 
@@ -2762,10 +3195,10 @@ namespace USPS_Report.Areas.Reports.Models
 
 
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
-            mail.To.Add("CustomerServiceManager@jandbmedical.com");
+            //mail.To.Add("CustomerServiceManager@jandbmedical.com");
             mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
             //  mail.Bcc.Add("grani@jandbmedical.com");
             //   mail.To.Add("gbethini@jandbmedical.com");
@@ -2806,29 +3239,56 @@ namespace USPS_Report.Areas.Reports.Models
             SmtpServer.Send(mail);
         }
 
+        public static void sendComplainLogEmailToSupervisors(string message, Int64? acc, int? reference)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
+            mail.From = new MailAddress("noreply@jandbmedical.com");
+            //mail.To.Add("DISTeamLeader@jandbmedical.com");
+            mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
+            mail.Subject = "CSR Call Complaint Log To Supervisors";
+            mail.Body += " <html>";
+            mail.Body += "<body>";
+            mail.Body += "<table>";
+            mail.Body += "<tr>";
+            mail.Body += "<td>Issue for account - " + acc + " has not been resolved.</td><td></td>";
+            mail.Body += "</tr>";
+            mail.Body += "<tr>";
+            mail.Body += "<td>  Reference Number is:  </td> " + reference + "<td></td>";
+            mail.Body += "</tr>";
+            mail.Body += "<tr>";
+            mail.Body += "<td>  Note:  </td> " + message + "<td></td>";
+            mail.Body += "</tr>";
+            mail.Body += "<tr>";
+            mail.Body += "<td> Link : http://10.10.1.49/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
+            mail.Body += "</tr>";
+            mail.Body += "<tr>";
+            mail.Body += "<td>Thank You!</td><td></td>";
+            mail.Body += "</tr>";
+            mail.Body += "</table>";
+            mail.Body += "</body>";
+            mail.Body += "</html>";
+            mail.IsBodyHtml = true;
+            SmtpServer.Send(mail);
+        }
+
         public static void sendComplainLogEmailToManagers(string message, Int64? acc, int? reference, CSRComplaintVM _vm)
         {
-            //  DateTime todaydate = DateTime.Today.Date;
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
-            mail.To.Add("bserra@jandbmedical.com");
-            mail.To.Add("tkemp@jandbmedical.com");
-            mail.To.Add("tmoore@jandbmedical.com");
-            mail.To.Add("tsymanski@jandbmedical.com");
-            mail.To.Add("rpetrashko@jandbmedical.com");
-            mail.To.Add("kdick@jandbmedical.com");
-            mail.To.Add("jujones@jandbmedical.com");
-            mail.To.Add("gbarragan@jandbmedical.com");
-            mail.To.Add("jmudge@jandbmedical.com");
+            //mail.To.Add("bserra@jandbmedical.com");
+            //mail.To.Add("tkemp@jandbmedical.com");
+            //mail.To.Add("tmoore@jandbmedical.com");
+            //mail.To.Add("tsymanski@jandbmedical.com");
+            //mail.To.Add("rpetrashko@jandbmedical.com");
+            //mail.To.Add("kdick@jandbmedical.com");
+            //mail.To.Add("jujones@jandbmedical.com");
+            //mail.To.Add("gbarragan@jandbmedical.com");
+            //mail.To.Add("jmudge@jandbmedical.com");
             mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
-
-            //mail.To.Add("maheshkattamuribpl@jandbmedical.com");
-
             mail.Subject = "CSR Call Complaint Log To Managers";
-
             StringBuilder complaintReceived = new StringBuilder();
-            //body.Append("Complaint Received By = " + "<br />");
             if (_vm.Call == true)
                 complaintReceived.Append(" Call " + "<br />");
             if (_vm.Email == true)
@@ -2847,7 +3307,6 @@ namespace USPS_Report.Areas.Reports.Models
                 complaintReceived.Append(" Other " + "<br />");
 
             StringBuilder complaintType = new StringBuilder();
-            //body.Append("Complaint Received By = " + "<br />");
             if (_vm.Compliance == true)
                 complaintType.Append(" Compliance " + "<br />");
             if (_vm.CustomerService == true)
@@ -2891,18 +3350,12 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "<tr>";
             mail.Body += "<td> Link to Complaint Log: </td><td>http://10.10.1.49/JBIntranet/Reports/CustomerServices/CSRComlaintlog</td>";
             mail.Body += "</tr>";
-            //mail.Body += "<tr>";
-            //mail.Body += "<td>Thank You!</td><td></td>";
-            //mail.Body += "</tr>";
             mail.Body += "</table>";
             mail.Body += "<br />";
             mail.Body += "<span>Thank You!</span>";
             mail.Body += "</body>";
             mail.Body += "</html>";
             mail.IsBodyHtml = true;
-            // SmtpServer.Port = 25;
-            //  SmtpServer.Credentials = new System.Net.NetworkCredential("geeta.arora2006@gmail.com", "GEETUgeet1");
-            //  SmtpServer.EnableSsl = true;
             SmtpServer.Send(mail);
         }
     }
@@ -3155,6 +3608,47 @@ namespace USPS_Report.Areas.Reports.Models
         public string _refnum { get; set; }
         public int? _Account { get; set; }
         //public bool Damaged { get; set; }
+
+        //Product Line
+        public bool BloodPressureMonitors { get; set; }
+        public bool BreastPumps { get; set; }
+        public bool ContGlucoseMonitoring { get; set; }
+        public bool DiabeticTestSup { get; set; }
+        public bool EnteralNutrition { get; set; }
+        public bool ExternalDefibrillator { get; set; }
+        public bool IncontinenceSupplies { get; set; }
+        public bool InsulinPumpsSupplies { get; set; }
+        public bool InsSyrPenNeed { get; set; }
+        public bool OstomySupplies { get; set; }
+        public bool PleurXDrainSys { get; set; }
+        public bool PTINRTesting { get; set; }
+        public bool TENSUnitSup { get; set; }
+        public bool UrologicalSupplies { get; set; }
+        public bool WoundCareSupplies { get; set; }
+        public bool OtherUnsureSupplies { get; set; }
+
+        //Team
+        public bool BDI { get; set; }
+        public bool BPnBPM { get; set; }
+        public bool CallCenter { get; set; }
+        public bool CSRAssessment { get; set; }
+        public bool DynamicSynergy { get; set; }
+        public bool Enteral { get; set; }
+        public bool HGS { get; set; }
+        public bool InsulinPumpCGM { get; set; }
+        public bool MedicalDocuments { get; set; }
+        public bool NewAccountTeam { get; set; }
+        public bool Nurses { get; set; }
+        public bool QualityAssurance { get; set; }
+        public bool Shipping { get; set; }
+        public bool THC { get; set; }
+        public bool Troy { get; set; }
+        public bool Verification { get; set; }
+        public bool WebSupport { get; set; }
+        public bool WoundCareOstomyTENS { get; set; }
+        public bool OtherUnsureTeam { get; set; }
+
+        //Complaint Type
         public bool Compliance { get; set; }
         public bool CustomerService { get; set; }
         public bool Discrimination { get; set; }
@@ -3255,6 +3749,47 @@ namespace USPS_Report.Areas.Reports.Models
         public string refnum { get; set; }
         public int? Account { get; set; }
         //public bool Damaged { get; set; }
+
+        //Product Line
+        public bool BloodPressureMonitors { get; set; }
+        public bool BreastPumps { get; set; }
+        public bool ContGlucoseMonitoring { get; set; }
+        public bool DiabeticTestSup { get; set; }
+        public bool EnteralNutrition { get; set; }
+        public bool ExternalDefibrillator { get; set; }
+        public bool IncontinenceSupplies { get; set; }
+        public bool InsulinPumpsSupplies { get; set; }
+        public bool InsSyrPenNeed { get; set; }
+        public bool OstomySupplies { get; set; }
+        public bool PleurXDrainSys { get; set; }
+        public bool PTINRTesting { get; set; }
+        public bool TENSUnitSup { get; set; }
+        public bool UrologicalSupplies { get; set; }
+        public bool WoundCareSupplies { get; set; }
+        public bool OtherUnsureSupplies { get; set; }
+
+        //Team
+        public bool BDI { get; set; }
+        public bool BPnBPM { get; set; }
+        public bool CallCenter { get; set; }
+        public bool CSRAssessment { get; set; }
+        public bool DynamicSynergy { get; set; }
+        public bool Enteral { get; set; }
+        public bool HGS { get; set; }
+        public bool InsulinPumpCGM { get; set; }
+        public bool MedicalDocuments { get; set; }
+        public bool NewAccountTeam { get; set; }
+        public bool Nurses { get; set; }
+        public bool QualityAssurance { get; set; }
+        public bool Shipping { get; set; }
+        public bool THC { get; set; }
+        public bool Troy { get; set; }
+        public bool Verification { get; set; }
+        public bool WebSupport { get; set; }
+        public bool WoundCareOstomyTENS { get; set; }
+        public bool OtherUnsureTeam { get; set; }
+
+        //Complaint Type
         public bool Compliance { get; set; }
         public bool CustomerService { get; set; }
         public bool Discrimination { get; set; }

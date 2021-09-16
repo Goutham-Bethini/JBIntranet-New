@@ -26,7 +26,7 @@
 
                    })*@
 
-            <button class="btn btn-primary btn-large" type="submit" style="background-color:black">Create Report</button>
+            <button id="test" class="btn btn-primary btn-large" type="submit" style="background-color:black">Create Report</button>
         </div>
 
     }
@@ -45,8 +45,6 @@
                     </h3>
                 </div>
                 <hr />
-
-
                 <div class="table-responsive" style="width:95%; align-content:center">
                     <table data-sortable class="table table-hover table-striped table-bordered" style="width:95%; align-content:center">
                         <thead>
@@ -62,47 +60,41 @@
                                 <th>Complaint Received</th>
                                 <th>Issue</th>
                                 <th>Resolution</th>
-                                <th>Resolution Note</th>
+                                <th>Note</th>
                                 <th>Issue Date</th>
                                 <th>Complaint Date</th>
                                 <th>Resolution Date</th>
                                 <th>Complaint Attachment</th>
-                                <th>Note</th>
-
+                                <th>Resolution Note</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var rec in Model.records)
                             {
-                                <tr>
-                                    <td>@rec.account</td>
-                                    <td>@rec.ReferenceNumber</td>
-                                    <td>@rec.CreatedBy</td>
-                                    <td>@rec.CreatedOn</td>
-
-                                    @*<td>@rec.Payer</td>*@
-                                    <td>@rec.PrimaryPayer</td>
-                                    <td>@rec.SecondaryPayer</td>
-                                    <td>@rec.TeritiaryPayer</td>
-                                    <td>@rec.ComplaintRecieved</td>
-                                    <td>@rec.Issue</td>
-                                    <td>@rec.Resolution</td>
-                                    <td>@rec.ResolutionNote</td>
-                                    <td>@rec.IssueDate</td>
-                                    <td>@rec.ComplaintDate</td>
-                                    <td>@rec.ResolutionDate</td>
-                                    <td><a href="#" class="filedownload">@rec.ComplaintAttachment</a></td>
-                                    @*<td>@rec.ComplaintAttachment</td>*@
-                                    <td>@rec.Note</td>
-
-
-                                </tr>
+                            <tr>
+                                <td>@rec.account</td>
+                                <td>@rec.ReferenceNumber</td>
+                                <td>@rec.CreatedBy</td>
+                                <td>@rec.CreatedOn</td>
+                                @*<td>@rec.Payer</td>*@
+                                <td>@rec.PrimaryPayer</td>
+                                <td>@rec.SecondaryPayer</td>
+                                <td>@rec.TeritiaryPayer</td>
+                                <td>@rec.ComplaintRecieved</td>
+                                <td>@rec.Issue</td>
+                                <td>@rec.Resolution</td>
+                                <td><div class="divcls" id="notediv" style="height:50px;overflow:hidden;">@rec.Note <br /></div><a class="readcls" id="more" href="#/">Read more </a></td>
+                                <td>@rec.IssueDate</td>
+                                <td>@rec.ComplaintDate</td>
+                                <td>@rec.ResolutionDate</td>
+                                <td><a href="#" class="filedownload">@rec.ComplaintAttachment</a></td>
+                                @*<td>@rec.ComplaintAttachment</td>*@
+                                <td>@rec.ResolutionNote</td>
+                            </tr>
                             }
                         </tbody>
-
                     </table>
                 </div>
-
             </div>
         </div>
     }
@@ -121,7 +113,53 @@
 
 
 <script>
-      
+    //$('#more2').click(function (e) {
+    //    //alert($(this).closest('td').find('.divcls').text());
+    //    //alert('hi');
+    //    //alert($(this).closest('div'));
+    //    //alert(this);
+    //    $(this).closest('td').find('.divcls').css({
+    //        'height': ''
+    //    })
+    //    //$("a.active").parents('div').css({ 'height': 'auto' });
+
+    //    //$('#notediv') > $('#more').css({
+    //    //    'height': 'auto'
+    //    //})
+    //    //$('#test').css({
+    //    //    'color': 'red'
+    //    //})
+    //    //$('#more') > $('div').css({
+    //    //    'height': 'auto'
+    //    //})
+    //    //$('div').css({
+    //    //    'height': 'auto'
+    //    //})
+    //    //alert('HI');
+    //    //$(this).siblings("#notediv").css({
+
+    //    //    'height': 'auto'
+    //    //});
+    //    ////e.stopPropagation();
+    //    //$('#notediv').css({
+            
+    //    //    'height': 'auto'
+    //    //})
+    //});
+    //$('#more').click(function () {
+    //    alert($(this).closest('td').find('.divcls').text());
+    //    //$(this).closest('td').find('.divcls').height(null);
+    //    $(this).closest('td').find('.divcls').css({
+    //        'color': 'red'
+    //    })
+    //    //$(document).find('#test').height(50);
+    //});
+
+    //$(document).click(function () {
+    //    $('div').css({
+    //        'height': '50px'
+    //    })
+    //})
 
        $(".filedownload").on('click', function () {
               //console.log("text :"+$(this).text());

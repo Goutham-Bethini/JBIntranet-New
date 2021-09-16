@@ -38,8 +38,8 @@ namespace ReportsDatabase
         public virtual DbSet<tbl_CSRInsDetail> tbl_CSRInsDetail { get; set; }
         public virtual DbSet<BCBS_ProviderList> BCBS_ProviderList { get; set; }
         public virtual DbSet<tbl_BCNCallLog> tbl_BCNCallLog { get; set; }
+        public virtual DbSet<tbl_CSRComplaintLog_Attachments> tbl_CSRComplaintLog_Attachments { get; set; }
         public virtual DbSet<tbl_CSRCallLog> tbl_CSRCallLog { get; set; }
         public virtual DbSet<tbl_CSRComplaintLog> tbl_CSRComplaintLog { get; set; }
-        public virtual DbSet<tbl_CSRComplaintLog_Attachments> tbl_CSRComplaintLog_Attachments { get; set; }
     }
 }
