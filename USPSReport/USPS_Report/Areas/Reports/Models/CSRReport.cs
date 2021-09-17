@@ -548,16 +548,76 @@ namespace USPS_Report.Areas.Reports.Models
                                          (t.NeverRecivedSupplies == true) ? "Never Received Supplies" :
                                          (t.BCNProviderIssue == true ) ? "BCN Provider Issue" :
                                          (t.Other == true) ? "Others" :
-                                         (t.Compliance == true) ? "Compliance" :
-                                        (t.CustomerService == true) ? "Customer Service (CSR Issue, Hold Times, Follow Up, etc)" :
-                                        (t.Discrimination == true) ? " Discrimination / Civil Rights" :
-                                        (t.HealthPlan == true) ? "Health Plan (insurance limits, guidelines, etc)" :
-                                        (t.ProductDefectiveQuality == true) ? "Product (Defective, Quality, etc)" :
-                                        (t.ShippingUSPS == true) ? "Shipping (USPS / FedEx)" :
-                                        (t.ShippingWarehouse == true) ? "Shipping (Warehouse: Mispicks, Missing, etc)" :
-                                        (t.SmartAction == true) ? "SmartAction (Victor / Julie)" :
-                                        (t.TextMessaging == true) ? "Text Messaging" :
-                                        (t.WebsitePortal == true) ? "Website / Portal" :
+                                         (t.BloodPressureMonitors || t.BreastPumps || t.ContGlucoseMonitoring || t.DiabeticTestSup
+                                         ||t.EnteralNutrition || t.ExternalDefibrillator || t.IncontinenceSupplies || t.InsulinPumpsSupplies
+                                         || t.InsSyrPenNeed || t.OstomySupplies || t.PleurXDrainSys || t.PTINRTesting 
+                                         || t.TENSUnitSup || t.UrologicalSupplies || t.WoundCareSupplies || t.OtherUnsureSupplies) ? "Product Line: " + Environment.NewLine 
+                                         + (t.BloodPressureMonitors == true? "Blood Pressure Monitors," :"") 
+                                         + (t.BreastPumps == true ? "Breast Pumps," :"")
+                                         + (t.ContGlucoseMonitoring == true ? "Continuous Glucose Monitoring," :"")
+                                         + (t.DiabeticTestSup == true ? "Diabetic Testing Supplies," :"")
+                                         + (t.EnteralNutrition == true ? "Enteral Nutrition," :"")
+                                         + (t.ExternalDefibrillator == true ? "External Defibrillator," :"")
+                                         + (t.IncontinenceSupplies == true ? "Incontinence Supplies," :"")
+                                         + (t.InsulinPumpsSupplies == true ? "Insulin Pumps & Supplies,"  : "")
+                                         + (t.InsSyrPenNeed == true ? "Insulin Syringes & Pen Needles," :"")
+                                         + (t.OstomySupplies == true ? "Ostomy Supplies," :"")
+                                         + (t.PleurXDrainSys == true ? "PleurX Drainage System,":"")
+                                         + (t.PTINRTesting == true ? "PT INR Testing," :"")
+                                         + (t.TENSUnitSup == true ? "TENS Unit & Supplies," :"")
+                                         + (t.UrologicalSupplies == true ? "Urological Supplies," :"")
+                                         + (t.WoundCareSupplies == true ? "Wound Care Supplies," :"")
+                                         + (t.OtherUnsureSupplies == true ? "Other/Unsure of Supplies," :"")
+                                         + (Environment.NewLine)
+                                         + (t.BDI || t.BPnBPM || t.CallCenter || t.CSRAssessment
+                                         || t.DynamicSynergy || t.Enteral || t.HGS
+                                         || t.InsulinPumpCGM || t.MedicalDocuments || t.NewAccountTeam
+                                         || t.Nurses || t.QualityAssurance || t.Shipping
+                                         || t.THC || t.Troy || t.Verification
+                                         || t.WebSupport || t.WoundCareOstomyTENS || t.OtherUnsureTeam ? "Team: " + Environment.NewLine : "")
+                                         + (t.BDI ? "BDI," : "")
+                                         + (t.BPnBPM ? "Breast Pumps & Blood Pressure Monitors," : "")
+                                         + (t.CallCenter ? "Call Center," : "")
+                                         + (t.CSRAssessment ? "CSR Assessment," : "")
+                                         + (t.DynamicSynergy ? "Dynamic Synergy," : "")
+                                         + (t.Enteral ? "Enteral," : "")
+                                         + (t.HGS ? "HGS," : "")
+                                         + (t.InsulinPumpCGM ? "Insulin Pump & CGM," : "")
+                                         + (t.MedicalDocuments ? "Medical Documents," : "")
+                                         + (t.NewAccountTeam ? "New Account," : "")
+                                         + (t.Nurses ? "Nurses," : "")
+                                         + (t.QualityAssurance ? "Quality Assurance," : "")
+                                         + (t.Shipping ? "Shipping," : "")
+                                         + (t.THC ? "THC," : "")
+                                         + (t.Troy ? "Troy (BCN, BCNA, MAPPO)," : "")
+                                         + (t.Verification ? "Verification," : "")
+                                         + (t.WebSupport ? "Web Support," : "")
+                                         + (t.WoundCareOstomyTENS ? "Wound Care, Ostomy & TENS," : "")
+                                         + (t.OtherUnsureTeam ? "Other/Unsure of Team," : "")
+                                         + (Environment.NewLine)
+                                         + (t.Compliance || t.CustomerService || t.Discrimination || t.HealthPlan
+                                         || t.ProductDefectiveQuality || t.ShippingUSPS || t.ShippingWarehouse
+                                         || t.SmartAction || t.TextMessaging || t.WebsitePortal ? "Complaint Type: " + Environment.NewLine : "")
+                                         + (t.Compliance ? "Compliance," : "")
+                                         + (t.CustomerService ? "Customer Service (CSR Issue, Hold Times, Follow Up, etc),"  : "")
+                                         + (t.Discrimination ? "Discrimination / Civil Rights,"  : "")
+                                         + (t.HealthPlan ? "Health Plan (insurance limits, guidelines, etc),"  : "")
+                                         + (t.ProductDefectiveQuality ? "Product (Defective, Quality, etc),"  : "")
+                                         + (t.ShippingUSPS ? "Shipping (USPS / FedEx),"  : "")
+                                         + (t.ShippingWarehouse ? "Shipping (Warehouse: Mispicks, Missing, etc),"  : "")
+                                         + (t.SmartAction ? "SmartAction (Victor / Julie),"  : "")
+                                         + (t.TextMessaging ? "Text Messaging,"  : "")
+                                         + (t.WebsitePortal ? "Website / Portal,"  : "") :                                          
+                                        // (t.Compliance == true) ? "Compliance" :
+                                        //(t.CustomerService == true) ? "Customer Service (CSR Issue, Hold Times, Follow Up, etc)" :
+                                        //(t.Discrimination == true) ? " Discrimination / Civil Rights" :
+                                        //(t.HealthPlan == true) ? "Health Plan (insurance limits, guidelines, etc)" :
+                                        //(t.ProductDefectiveQuality == true) ? "Product (Defective, Quality, etc)" :
+                                        //(t.ShippingUSPS == true) ? "Shipping (USPS / FedEx)" :
+                                        //(t.ShippingWarehouse == true) ? "Shipping (Warehouse: Mispicks, Missing, etc)" :
+                                        //(t.SmartAction == true) ? "SmartAction (Victor / Julie)" :
+                                        //(t.TextMessaging == true) ? "Text Messaging" :
+                                        //(t.WebsitePortal == true) ? "Website / Portal" :
                                          "No Issue selected",
                                 Resolution = t.ComplaintOutcome,                                
                                 ComplaintRecieved = "",
@@ -594,16 +654,76 @@ namespace USPS_Report.Areas.Reports.Models
                                            (t.SAJamesPhonePromts == true) ? "SA James PhonePromts" : (t.SAJamesSelfService == true) ? "SA James SelfService" :
                                        (t.VPaymentCalles == true) ? "Victor Payment Call" : (t.VConfirmationCalls == true) ? "Victor Confirmation Call" :
                                        (t.DidntFollowDelIns == true) ? "Not follow delivery instruction" :
-                                       (t.Compliance==true)? "Compliance" :
-                                       (t.CustomerService == true) ? "Customer Service (CSR Issue, Hold Times, Follow Up, etc)" :
-                                       (t.Discrimination == true) ? " Discrimination / Civil Rights" :
-                                       (t.HealthPlan == true) ? "Health Plan (insurance limits, guidelines, etc)" :
-                                       (t.ProductDefectiveQuality == true) ? "Product (Defective, Quality, etc)" :
-                                       (t.ShippingUSPS == true) ? "Shipping (USPS / FedEx)" :
-                                       (t.ShippingWarehouse == true) ? "Shipping (Warehouse: Mispicks, Missing, etc)" :
-                                       (t.SmartAction == true) ? "SmartAction (Victor / Julie)" :
-                                       (t.TextMessaging == true) ? "Text Messaging" :
-                                       (t.WebsitePortal == true) ? "Website / Portal" :
+                                       (t.BloodPressureMonitors || t.BreastPumps || t.ContGlucoseMonitoring || t.DiabeticTestSup
+                                         || t.EnteralNutrition || t.ExternalDefibrillator || t.IncontinenceSupplies || t.InsulinPumpsSupplies
+                                         || t.InsSyrPenNeed || t.OstomySupplies || t.PleurXDrainSys || t.PTINRTesting
+                                         || t.TENSUnitSup || t.UrologicalSupplies || t.WoundCareSupplies || t.OtherUnsureSupplies) ? "Product Line: " + Environment.NewLine
+                                         + (t.BloodPressureMonitors == true ? "Blood Pressure Monitors," : "")
+                                         + (t.BreastPumps == true ? "Breast Pumps," : "")
+                                         + (t.ContGlucoseMonitoring == true ? "Continuous Glucose Monitoring," : "")
+                                         + (t.DiabeticTestSup == true ? "Diabetic Testing Supplies," : "")
+                                         + (t.EnteralNutrition == true ? "Enteral Nutrition," : "")
+                                         + (t.ExternalDefibrillator == true ? "External Defibrillator," : "")
+                                         + (t.IncontinenceSupplies == true ? "Incontinence Supplies," : "")
+                                         + (t.InsulinPumpsSupplies == true ? "Insulin Pumps & Supplies," : "")
+                                         + (t.InsSyrPenNeed == true ? "Insulin Syringes & Pen Needles," : "")
+                                         + (t.OstomySupplies == true ? "Ostomy Supplies," : "")
+                                         + (t.PleurXDrainSys == true ? "PleurX Drainage System," : "")
+                                         + (t.PTINRTesting == true ? "PT INR Testing," : "")
+                                         + (t.TENSUnitSup == true ? "TENS Unit & Supplies," : "")
+                                         + (t.UrologicalSupplies == true ? "Urological Supplies," : "")
+                                         + (t.WoundCareSupplies == true ? "Wound Care Supplies," : "")
+                                         + (t.OtherUnsureSupplies == true ? "Other/Unsure of Supplies," : "")
+                                         + (Environment.NewLine)
+                                         + (t.BDI || t.BPnBPM || t.CallCenter || t.CSRAssessment
+                                         || t.DynamicSynergy || t.Enteral || t.HGS
+                                         || t.InsulinPumpCGM || t.MedicalDocuments || t.NewAccountTeam
+                                         || t.Nurses || t.QualityAssurance || t.Shipping
+                                         || t.THC || t.Troy || t.Verification
+                                         || t.WebSupport || t.WoundCareOstomyTENS || t.OtherUnsureTeam ? "Team: " + Environment.NewLine : "")
+                                         + (t.BDI ? "BDI," : "")
+                                         + (t.BPnBPM ? "Breast Pumps & Blood Pressure Monitors," : "")
+                                         + (t.CallCenter ? "Call Center," : "")
+                                         + (t.CSRAssessment ? "CSR Assessment," : "")
+                                         + (t.DynamicSynergy ? "Dynamic Synergy," : "")
+                                         + (t.Enteral ? "Enteral," : "")
+                                         + (t.HGS ? "HGS," : "")
+                                         + (t.InsulinPumpCGM ? "Insulin Pump & CGM," : "")
+                                         + (t.MedicalDocuments ? "Medical Documents," : "")
+                                         + (t.NewAccountTeam ? "New Account," : "")
+                                         + (t.Nurses ? "Nurses," : "")
+                                         + (t.QualityAssurance ? "Quality Assurance," : "")
+                                         + (t.Shipping ? "Shipping," : "")
+                                         + (t.THC ? "THC," : "")
+                                         + (t.Troy ? "Troy (BCN, BCNA, MAPPO)," : "")
+                                         + (t.Verification ? "Verification," : "")
+                                         + (t.WebSupport ? "Web Support," : "")
+                                         + (t.WoundCareOstomyTENS ? "Wound Care, Ostomy & TENS," : "")
+                                         + (t.OtherUnsureTeam ? "Other/Unsure of Team," : "")
+                                         + (Environment.NewLine)
+                                         + (t.Compliance || t.CustomerService || t.Discrimination || t.HealthPlan
+                                         || t.ProductDefectiveQuality || t.ShippingUSPS || t.ShippingWarehouse
+                                         || t.SmartAction || t.TextMessaging || t.WebsitePortal ? "Complaint Type: " + Environment.NewLine : "")
+                                         + (t.Compliance ? "Compliance," : "")
+                                         + (t.CustomerService ? "Customer Service (CSR Issue, Hold Times, Follow Up, etc)," : "")
+                                         + (t.Discrimination ? "Discrimination / Civil Rights," : "")
+                                         + (t.HealthPlan ? "Health Plan (insurance limits, guidelines, etc)," : "")
+                                         + (t.ProductDefectiveQuality ? "Product (Defective, Quality, etc)," : "")
+                                         + (t.ShippingUSPS ? "Shipping (USPS / FedEx)," : "")
+                                         + (t.ShippingWarehouse ? "Shipping (Warehouse: Mispicks, Missing, etc)," : "")
+                                         + (t.SmartAction ? "SmartAction (Victor / Julie)," : "")
+                                         + (t.TextMessaging ? "Text Messaging," : "")
+                                         + (t.WebsitePortal ? "Website / Portal," : "") :
+                                       //(t.Compliance==true)? "Compliance" :
+                                       //(t.CustomerService == true) ? "Customer Service (CSR Issue, Hold Times, Follow Up, etc)" :
+                                       //(t.Discrimination == true) ? " Discrimination / Civil Rights" :
+                                       //(t.HealthPlan == true) ? "Health Plan (insurance limits, guidelines, etc)" :
+                                       //(t.ProductDefectiveQuality == true) ? "Product (Defective, Quality, etc)" :
+                                       //(t.ShippingUSPS == true) ? "Shipping (USPS / FedEx)" :
+                                       //(t.ShippingWarehouse == true) ? "Shipping (Warehouse: Mispicks, Missing, etc)" :
+                                       //(t.SmartAction == true) ? "SmartAction (Victor / Julie)" :
+                                       //(t.TextMessaging == true) ? "Text Messaging" :
+                                       //(t.WebsitePortal == true) ? "Website / Portal" :
                                        "Issue not listed",
                                  Resolution = t.ComplaintHasBeen,
                                  ResolutionNote = t.Resolution,
