@@ -118,5 +118,6 @@ namespace ReportsDatabase
         public bool WebSupport { get; set; }
         public bool WoundCareOstomyTENS { get; set; }
         public bool OtherUnsureTeam { get; set; }
+        public string PendingResolution { get; set; }
     }
 }

@@ -75,7 +75,8 @@
                                 <td>@rec.account</td>
                                 <td>@rec.ReferenceNumber</td>
                                 <td>@rec.CreatedBy</td>
-                                <td>@rec.CreatedOn</td>
+                                @*<td>@rec.CreatedOn</td>*@
+                                <td>@String.Format("{0:MM/dd/yyyy}", @rec.CreatedOn)</td>
                                 @*<td>@rec.Payer</td>*@
                                 <td>@rec.PrimaryPayer</td>
                                 <td>@rec.SecondaryPayer</td>
@@ -83,10 +84,17 @@
                                 <td>@rec.ComplaintRecieved</td>
                                 <td>@rec.Issue</td>
                                 <td>@rec.Resolution</td>
-                                <td><div class="divcls" id="notediv" style="height:50px;overflow:hidden;">@rec.Note <br /></div><a class="readcls" id="more" href="#/">Read more </a></td>
-                                <td>@rec.IssueDate</td>
-                                <td>@rec.ComplaintDate</td>
-                                <td>@rec.ResolutionDate</td>
+                                <td>@rec.Note</td>
+                                @*<td><div class="divcls" id="notediv" style="height:50px;overflow:hidden;">@rec.Note <br /></div><a class="readcls" id="more" href="#/">Read more </a></td>*@
+                                <td>@String.Format("{0:MM/dd/yyyy}", @rec.IssueDate)</td>
+                                <td>@String.Format("{0:MM/dd/yyyy}", @rec.ComplaintDate)</td>
+                                <td>@String.Format("{0:MM/dd/yyyy}", @rec.ResolutionDate)</td>
+                                @*<td>@rec.IssueDate</td>
+        <td>@rec.ComplaintDate</td>
+        <td>@rec.ResolutionDate</td>*@
+                                @*<td>@rec.IssueDate!=null?@rec.IssueDate.Value.Date:null</td>
+        <td>@rec.ComplaintDate!=null?@rec.ComplaintDate.Value.Date:null</td>
+        <td>@rec.ResolutionDate!=null?@rec.ResolutionDate.Value.Date:null</td>*@
                                 <td><a href="#" class="filedownload">@rec.ComplaintAttachment</a></td>
                                 @*<td>@rec.ComplaintAttachment</td>*@
                                 <td>@rec.ResolutionNote</td>

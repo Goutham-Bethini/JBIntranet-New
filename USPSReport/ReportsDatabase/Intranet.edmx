@@ -524,6 +524,7 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="WebSupport" Type="bit" Nullable="false" />
           <Property Name="WoundCareOstomyTENS" Type="bit" Nullable="false" />
           <Property Name="OtherUnsureTeam" Type="bit" Nullable="false" />
+          <Property Name="Survey" Type="bit" />
         </EntityType>
         <EntityType Name="tbl_CSRComplaintLog">
           <Key>
@@ -633,6 +634,7 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="WebSupport" Type="bit" Nullable="false" />
           <Property Name="WoundCareOstomyTENS" Type="bit" Nullable="false" />
           <Property Name="OtherUnsureTeam" Type="bit" Nullable="false" />
+          <Property Name="PendingResolution" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="tbl_CSRComplaintLog_Attachments">
           <Key>
@@ -1321,6 +1323,7 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="WebSupport" Type="Boolean" Nullable="false" />
           <Property Name="WoundCareOstomyTENS" Type="Boolean" Nullable="false" />
           <Property Name="OtherUnsureTeam" Type="Boolean" Nullable="false" />
+          <Property Name="Survey" Type="Boolean" />
         </EntityType>
         <EntityType Name="tbl_CSRComplaintLog">
           <Key>
@@ -1430,6 +1433,7 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="WebSupport" Type="Boolean" Nullable="false" />
           <Property Name="WoundCareOstomyTENS" Type="Boolean" Nullable="false" />
           <Property Name="OtherUnsureTeam" Type="Boolean" Nullable="false" />
+          <Property Name="PendingResolution" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1853,6 +1857,7 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <EntitySetMapping Name="tbl_CSRCallLog">
             <EntityTypeMapping TypeName="IntranetModel.tbl_CSRCallLog">
               <MappingFragment StoreEntitySet="tbl_CSRCallLog">
+                <ScalarProperty Name="Survey" ColumnName="Survey" />
                 <ScalarProperty Name="OtherUnsureTeam" ColumnName="OtherUnsureTeam" />
                 <ScalarProperty Name="WoundCareOstomyTENS" ColumnName="WoundCareOstomyTENS" />
                 <ScalarProperty Name="WebSupport" ColumnName="WebSupport" />
@@ -2015,6 +2020,7 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <EntitySetMapping Name="tbl_CSRComplaintLog">
             <EntityTypeMapping TypeName="IntranetModel.tbl_CSRComplaintLog">
               <MappingFragment StoreEntitySet="tbl_CSRComplaintLog">
+                <ScalarProperty Name="PendingResolution" ColumnName="PendingResolution" />
                 <ScalarProperty Name="OtherUnsureTeam" ColumnName="OtherUnsureTeam" />
                 <ScalarProperty Name="WoundCareOstomyTENS" ColumnName="WoundCareOstomyTENS" />
                 <ScalarProperty Name="WebSupport" ColumnName="WebSupport" />

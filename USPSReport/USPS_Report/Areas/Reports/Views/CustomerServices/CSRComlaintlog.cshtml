@@ -66,63 +66,66 @@ if (Model != null && Model.details != null)
 
 
                     @(Html.Kendo().PanelBar()
-                                                                    .Name("newComplaintlog")
-                                                                         .ExpandMode(PanelBarExpandMode.Multiple)
-                                                                    .Items(items =>
-                                                                    {
-                                                                        items.Add()
-                                .Text("AccountInfo")
-                                .Content( @<div> @Html.Partial("_AccountDetailsComplaint", Model) </div>)
-                                                                             .Expanded(true);
-
-
-
-
+                                                                            .Name("newComplaintlog")
+                                                                                 .ExpandMode(PanelBarExpandMode.Multiple)
+                                                                            .Items(items =>
+                                                                            {
                                                                                 items.Add()
-                                         .Text("Call Handling")
-                                        .Content( @<div> @Html.Partial("_CallHandling", Model) </div>)
-                                                                                     .Expanded(true);
-
-
-
-
-                                                                                        items.Add()
-
-                                              .Text("Complaint Received")
-                                                .Content( @<div> @Html.Partial("_CallReceived", Model) </div>)
+                                        .Text("AccountInfo")
+                                        .Content( @<div> @Html.Partial("_AccountDetailsComplaint", Model) </div>)
                                                                                              .Expanded(true);
 
 
 
 
-                                                                                                items.Add()
+                                                                                        items.Add()
+                                     .Text("Call Handling")
+                                    .Content( @<div> @Html.Partial("_CallHandling", Model) </div>)
+                                                                     .Expanded(true);
 
-                                           .Text("Complaint")
-                                           .Content( @<div> @Html.Partial("_Fedex", Model) </div>);
-                                                                                                     items.Add()
 
-                                                .Text("Complaint Attachment")
-                                                .Content( @<div> @Html.Partial("_ComplaintAttachment", Model) </div>);
 
-                                                        @*items.Add()
-                                                       .Text("Product")
-                                                       .Content( @<div> @Html.Partial("_Product", Model) </div>);
 
-                                                                                            items.Add()
-                                                  .Text("Customer Service")
-                                                  .Content( @<div> @Html.Partial("_CustomerService", Model) </div>);
+                                                                            items.Add()
 
-                                                                                            items.Add()
-                                                .Text("Other")
-                                                .Content( @<div> @Html.Partial("_Other", Model) </div>);*@
-                                                                    items.Add()
-                                         .Text("Resolution")
-                                         .Content( @<div> @Html.Partial("_Resolution", Model) </div>);
+                      .Text("Complaint Received")
+                        .Content( @<div> @Html.Partial("_CallReceived", Model) </div>)
+                                                 .Expanded(true);
 
-                                                                               items.Add()
-        .Text("Compliant Has Been")
-        .Content( @<div> @Html.Partial("_ComplainsHasBeen", Model) </div>).Expanded(true);
-                                                })
+
+
+
+                                                        items.Add()
+
+.Text("Complaint")
+.Content( @<div> @Html.Partial("_Fedex", Model) </div>);
+                                                 items.Add()
+
+.Text("Complaint Attachment")
+.Content( @<div> @Html.Partial("_ComplaintAttachment", Model) </div>);
+
+                    @*items.Add()
+                   .Text("Product")
+                   .Content( @<div> @Html.Partial("_Product", Model) </div>);
+
+                                                        items.Add()
+              .Text("Customer Service")
+              .Content( @<div> @Html.Partial("_CustomerService", Model) </div>);
+
+                                                        items.Add()
+            .Text("Other")
+            .Content( @<div> @Html.Partial("_Other", Model) </div>);*@
+                                items.Add()
+                                                             .Text("Pending Resolution")
+                                                             .Content( @<div> @Html.Partial("_PendingResolution", Model) </div>);
+                                                                                                   items.Add()
+                                                            .Text("Resolution")
+                                                            .Content( @<div> @Html.Partial("_Resolution", Model) </div>);
+
+                                                                                                   items.Add()
+                .Text("Compliant Has Been")
+                .Content( @<div> @Html.Partial("_ComplainsHasBeen", Model) </div>).Expanded(true);
+                                                                                    })
 
 
                     )
@@ -139,6 +142,10 @@ if (Model != null && Model.details != null)
 
 
     function SubmitConfirm() {
+        if ($('#COthers').val() != '') {
+            $('#COthers').removeAttr("disabled");
+        }
+
         //debugger;
         var i = $('#ComplaintHasBeen').val();
         //alert("ComplaintCompliance "+ $('#ComplaintCompliance').prop("checked"));
@@ -172,7 +179,7 @@ if (Model != null && Model.details != null)
             && $('#UrologicalSupplies').prop("checked") == false
             && $('#WoundCareSupplies').prop("checked") == false
             && $('#OtherUnsureSupplies').prop("checked") == false) {
-            alert("No Opition is selected under Product Line Complaint Section");
+            alert("No option has been selected in the Product Line section of the Complaint");
             return false;
         }
         else if ($('#BDI').prop("checked") == false
@@ -194,7 +201,7 @@ if (Model != null && Model.details != null)
             && $('#WebSupport').prop("checked") == false
             && $('#WoundCareOstomyTENS').prop("checked") == false
             && $('#OtherUnsureTeam').prop("checked") == false) {
-            alert("No Opition is selected under Team Complaint Section");
+            alert("No option has been selected in the Team section of the Complaint");
             return false;
         }            
         else if ($('#ComplaintCompliance').prop("checked") == false
@@ -207,15 +214,19 @@ if (Model != null && Model.details != null)
             && $('#ComplaintSmartAction').prop("checked") == false
             && $('#ComplaintTextMessaging').prop("checked") == false
             && $('#ComplaintWebsite').prop("checked") == false) {
-            alert("No Opition is selected under Complaint Type Complaint Section");
+            alert("No option has been selected in the Complaint Type section of the Complaint");
             return false;
         }
         else if ($('#COthers').val() == '') {
-            alert("No Text is added to the Comment Box under Complaint Type Complaint Section");
+            alert("No Text is added to the Comment Box under Complaint Section");
             return false;
         }
         else if ($('#ComplaintHasBeen').val() =='') {
             alert("No Option is selected under ComplaintHasBeen Section");
+            return false;
+        }
+        else if ($('#ComplaintHasBeen').val() != '' && $('#PendingResolution').val() == '') {
+            alert("No Text is added to the Pending Resolution Box");
             return false;
         }
      else if (confirm("Are you sure want to submit the record?"))

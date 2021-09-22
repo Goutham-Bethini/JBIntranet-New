@@ -523,6 +523,7 @@ namespace USPS_Report.Areas.Reports.Models
                             select new callLogReport
                             {
                                 CreatedBy = t.CreatedBy,
+                                //CreatedOn = t.CreatedOn!=null? t.CreatedOn.Date: (DateTime?)null,
                                 CreatedOn = t.CreatedOn,
                                 ReferenceNumber = t.id,
                                 account = t.Account,
@@ -727,11 +728,11 @@ namespace USPS_Report.Areas.Reports.Models
                                        "Issue not listed",
                                  Resolution = t.ComplaintHasBeen,
                                  ResolutionNote = t.Resolution,
-                                 IssueDate=t.IssueDate,
+                                 IssueDate= t.IssueDate,
                                  ComplaintDate = t.ComplaintDate,
-                                 ResolutionDate = t.ResolutionDate,  
-                                 ComplaintAttachment=a.FileName,
-                                 ComplaintRecieved = (t.SocialMedia == true) ? "Social Medial" : t.Call == true ? "Call" : t.Email == true ? "Email" : t.Fax == true ? "Fax" : t.Website == true ? "WebSite" : t.InsCompany == true ? "Insurance Complany" : t.Other == true ? t.OtherTxt : "No Issue selected"
+                                 ResolutionDate = t.ResolutionDate,
+                                 ComplaintAttachment =a.FileName,
+                                 ComplaintRecieved = (t.SocialMedia == true) ? "Social Medial" : t.Call == true ? "Call" : t.Email == true ? "Email" : t.Fax == true ? "Fax" : t.Website == true ? "WebSite" : t.InsCompany == true ? "Insurance Complany" : t.Survey == true ? "Survey" : t.Other == true ? t.OtherTxt : "No Issue selected"
 
                              }
                             ).ToList();

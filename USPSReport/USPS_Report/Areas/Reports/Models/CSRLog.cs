@@ -130,6 +130,11 @@ namespace USPS_Report.Areas.Reports.Models
                     tableRec.Account = _list.Account;
                     tableRec.TrackingNumber = _list.TrackingNumber;
                     tableRec.WorkOrder = _list.WorkOrder;
+
+
+              
+
+
                     tableRec.Compliance = _list.Compliance;
                     tableRec.CustomerService = _list.CustomerService;
                     tableRec.Discrimination = _list.Discrimination;
@@ -140,6 +145,44 @@ namespace USPS_Report.Areas.Reports.Models
                     tableRec.ShippingUSPS = _list.ShippingUSPS;
                     tableRec.ShippingWarehouse = _list.ShippingWarehouse;
                     tableRec.TextMessaging = _list.TextMessaging;
+
+                    tableRec.BloodPressureMonitors = _list.BloodPressureMonitors;
+                    tableRec.BreastPumps = _list.BreastPumps;
+                    tableRec.ContGlucoseMonitoring = _list.ContGlucoseMonitoring;
+                    tableRec.DiabeticTestSup = _list.DiabeticTestSup;
+                    tableRec.EnteralNutrition = _list.EnteralNutrition;
+                    tableRec.ExternalDefibrillator = _list.ExternalDefibrillator;
+                    tableRec.IncontinenceSupplies = _list.IncontinenceSupplies;
+                    tableRec.InsulinPumpsSupplies = _list.InsulinPumpsSupplies;
+                    tableRec.InsSyrPenNeed = _list.InsSyrPenNeed;
+                    tableRec.OstomySupplies = _list.OstomySupplies;
+                    tableRec.PleurXDrainSys = _list.PleurXDrainSys;
+                    tableRec.PTINRTesting = _list.PTINRTesting;
+                    tableRec.TENSUnitSup = _list.TENSUnitSup;
+                    tableRec.UrologicalSupplies = _list.UrologicalSupplies;
+                    tableRec.WoundCareSupplies = _list.WoundCareSupplies;
+                    tableRec.OtherUnsureSupplies = _list.OtherUnsureSupplies;
+
+                    tableRec.BDI = _list.BDI;
+                    tableRec.BPnBPM = _list.BPnBPM;
+                    tableRec.CallCenter = _list.CallCenter;
+                    tableRec.CSRAssessment = _list.CSRAssessment;
+                    tableRec.DynamicSynergy = _list.DynamicSynergy;
+                    tableRec.Enteral = _list.Enteral;
+                    tableRec.HGS = _list.HGS;
+                    tableRec.InsulinPumpCGM = _list.InsulinPumpCGM;
+                    tableRec.MedicalDocuments = _list.MedicalDocuments;
+                    tableRec.NewAccountTeam = _list.NewAccountTeam;
+                    tableRec.Nurses = _list.Nurses;
+                    tableRec.QualityAssurance = _list.QualityAssurance;
+                    tableRec.Shipping = _list.Shipping;
+                    tableRec.THC = _list.THC;
+                    tableRec.Troy = _list.Troy;
+                    tableRec.Verification = _list.Verification;
+                    tableRec.WebSupport = _list.WebSupport;
+                    tableRec.WoundCareOstomyTENS = _list.WoundCareOstomyTENS;
+                    tableRec.OtherUnsureTeam = _list.OtherUnsureTeam;
+
                     tableRec.Driver = _list.Driver;
                     tableRec.WrongProductShipped = _list.WrongProductShipped;
                     tableRec.WrongArea = _list.WrongArea;
@@ -519,6 +562,7 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.Call = _vm.Call;
                     _rec.Task = _vm.Task;
                     _rec.Web = _vm.Web;
+                    _rec.Survey = _vm.Survey;
                     _rec.Email = _vm.Email;
                     _rec.Fax = _vm.Fax;
                     _rec.LogTypeOther = _vm.LogTypeOther;
@@ -610,7 +654,7 @@ namespace USPS_Report.Areas.Reports.Models
                     //noteString = noteString + "VerifiedPHI_";
 
 
-                    if (_vm.Call == true || _vm.Task == true || _vm.Fax == true || _vm.Web == true || _vm.Email == true || _vm.LogTypeOther == true)
+                    if (_vm.Call == true || _vm.Task == true || _vm.Fax == true || _vm.Web == true || _vm.Email == true || _vm.Survey == true || _vm.LogTypeOther == true)
                     {
                         if (_vm.Call == true)
                             noteString.Append("LogType - Call " + Environment.NewLine);
@@ -622,6 +666,8 @@ namespace USPS_Report.Areas.Reports.Models
                             noteString.Append("LogType - Web " + Environment.NewLine);
                         if (_vm.Email == true)
                             noteString.Append("LogType - Email " + Environment.NewLine);
+                        if (_vm.Survey == true)
+                            noteString.Append("LogType - Survey " + Environment.NewLine);
                         if (_vm.LogTypeOther == true)
                             noteString.Append("LogType - Other " + Environment.NewLine);
 
@@ -2481,6 +2527,7 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.customerServiceTxt = _vm.CustomerServiceTextArea;
                     _rec.OtherTxt = _vm.Others;
                     _rec.ComplaintHasBeen = _vm.ComplaintHasBeen;
+                    _rec.PendingResolution = _vm.PendingResolution;
                     _rec.Resolution = _vm.Resolution;
                     string payerids = "";
                     for (int i= 0; i < _vm.payerTypeList.Count(); i++)
@@ -3071,6 +3118,13 @@ namespace USPS_Report.Areas.Reports.Models
 
                             }
 
+                            if (_vm.PendingResolution != "" && _vm.PendingResolution != null)
+                            {
+                                otherStr.Append("Pending Resolution =" + _vm.PendingResolution + Environment.NewLine);
+                                // otherStr = otherStr + " Others Note =" + _vm.Others + "_";
+
+                            }
+
                             if (_vm.Resolution != "" && _vm.Resolution != null)
                             {
                                 otherStr.Append("Resolution =" + _vm.Resolution + Environment.NewLine);
@@ -3198,11 +3252,8 @@ namespace USPS_Report.Areas.Reports.Models
             SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
-            //mail.To.Add("CustomerServiceManager@jandbmedical.com");
+            mail.To.Add("CustomerServiceManager@jandbmedical.com");
             mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
-            //  mail.Bcc.Add("grani@jandbmedical.com");
-            //   mail.To.Add("gbethini@jandbmedical.com");
-            //   mail.To.Add("grani@jandbmedical.com");
 
             mail.Subject = "CSR Call Complaint Log";
             mail.Body += " <html>";
@@ -3244,7 +3295,7 @@ namespace USPS_Report.Areas.Reports.Models
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
-            //mail.To.Add("DISTeamLeader@jandbmedical.com");
+            mail.To.Add("DISTeamLeader@jandbmedical.com");
             mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
             mail.Subject = "CSR Call Complaint Log To Supervisors";
             mail.Body += " <html>";
@@ -3277,15 +3328,15 @@ namespace USPS_Report.Areas.Reports.Models
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
-            //mail.To.Add("bserra@jandbmedical.com");
-            //mail.To.Add("tkemp@jandbmedical.com");
-            //mail.To.Add("tmoore@jandbmedical.com");
-            //mail.To.Add("tsymanski@jandbmedical.com");
-            //mail.To.Add("rpetrashko@jandbmedical.com");
-            //mail.To.Add("kdick@jandbmedical.com");
-            //mail.To.Add("jujones@jandbmedical.com");
-            //mail.To.Add("gbarragan@jandbmedical.com");
-            //mail.To.Add("jmudge@jandbmedical.com");
+            mail.To.Add("bserra@jandbmedical.com");
+            mail.To.Add("tkemp@jandbmedical.com");
+            mail.To.Add("tmoore@jandbmedical.com");
+            mail.To.Add("tsymanski@jandbmedical.com");
+            mail.To.Add("rpetrashko@jandbmedical.com");
+            mail.To.Add("kdick@jandbmedical.com");
+            mail.To.Add("jujones@jandbmedical.com");
+            mail.To.Add("gbarragan@jandbmedical.com");
+            mail.To.Add("jmudge@jandbmedical.com");
             mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
             mail.Subject = "CSR Call Complaint Log To Managers";
             StringBuilder complaintReceived = new StringBuilder();
@@ -3305,6 +3356,80 @@ namespace USPS_Report.Areas.Reports.Models
                 complaintReceived.Append(" Survey " + "<br />");
             if (_vm.CallRcvdOther == true)
                 complaintReceived.Append(" Other " + "<br />");
+
+            StringBuilder productLine = new StringBuilder();
+            if (_vm.BloodPressureMonitors == true)
+                productLine.Append(" Blood Pressure Monitors " + "<br />");
+            if (_vm.BreastPumps == true)
+                productLine.Append(" Breast Pumps " + "<br />");
+            if (_vm.ContGlucoseMonitoring == true)
+                productLine.Append(" Continuous Glucose Monitoring " + "<br />");
+            if (_vm.DiabeticTestSup == true)
+                productLine.Append(" Diabetic Testing Supplies " + "<br />");
+            if (_vm.EnteralNutrition == true)
+                productLine.Append(" Enteral Nutrition " + "<br />");
+            if (_vm.ExternalDefibrillator == true)
+                productLine.Append(" External Defibrillator " + "<br />");
+            if (_vm.IncontinenceSupplies == true)
+                productLine.Append(" Incontinence Supplies " + "<br />");
+            if (_vm.InsulinPumpsSupplies == true)
+                productLine.Append(" Insulin Pumps & Supplies " + "<br />");
+            if (_vm.InsSyrPenNeed == true)
+                productLine.Append(" Insulin Syringes & Pen Needles " + "<br />");
+            if (_vm.OstomySupplies == true)
+                productLine.Append(" Ostomy Supplies " + "<br />");
+            if (_vm.PleurXDrainSys == true)
+                productLine.Append(" PleurX Drainage System " + "<br />");
+            if (_vm.PTINRTesting == true)
+                productLine.Append(" PT INR Testing " + "<br />");
+            if (_vm.TENSUnitSup == true)
+                productLine.Append(" TENS Unit & Supplies " + "<br />");
+            if (_vm.UrologicalSupplies == true)
+                productLine.Append(" Urological Supplies " + "<br />");
+            if (_vm.WoundCareSupplies == true)
+                productLine.Append(" Wound Care Supplies " + "<br />");
+            if (_vm.OtherUnsureSupplies == true)
+                productLine.Append(" Other/Unsure of Supplies " + "<br />");
+
+            StringBuilder team = new StringBuilder();
+            if (_vm.BDI == true)
+                team.Append(" BDI " + "<br />");
+            if (_vm.BPnBPM == true)
+                team.Append(" Breast Pumps & Blood Pressure Monitors " + "<br />");
+            if (_vm.CallCenter == true)
+                team.Append(" Call Center " + "<br />");
+            if (_vm.CSRAssessment == true)
+                team.Append(" CSR Assessment " + "<br />");
+            if (_vm.DynamicSynergy == true)
+                team.Append(" Dynamic Synergy " + "<br />");
+            if (_vm.Enteral == true)
+                team.Append(" Enteral " + "<br />");
+            if (_vm.HGS == true)
+                team.Append(" HGS " + "<br />");
+            if (_vm.InsulinPumpCGM == true)
+                team.Append(" Insulin Pump & CGM " + "<br />");
+            if (_vm.MedicalDocuments == true)
+                team.Append(" Medical Documents " + "<br />");
+            if (_vm.NewAccountTeam == true)
+                team.Append(" New Account " + "<br />");
+            if (_vm.Nurses == true)
+                team.Append(" Nurses " + "<br />");
+            if (_vm.QualityAssurance == true)
+                team.Append(" Quality Assurance " + "<br />");
+            if (_vm.Shipping == true)
+                team.Append(" Shipping " + "<br />");
+            if (_vm.THC == true)
+                team.Append(" THC " + "<br />");
+            if (_vm.Troy == true)
+                team.Append(" Troy (BCN, BCNA, MAPPO) " + "<br />");
+            if (_vm.Verification == true)
+                team.Append(" Verification " + "<br />");
+            if (_vm.WebSupport == true)
+                team.Append(" Web Support " + "<br />");
+            if (_vm.WoundCareOstomyTENS == true)
+                team.Append(" Wound Care, Ostomy & TENS " + "<br />");
+            if (_vm.OtherUnsureTeam == true)
+                team.Append(" Other/Unsure of Team " + "<br />");          
 
             StringBuilder complaintType = new StringBuilder();
             if (_vm.Compliance == true)
@@ -3340,13 +3465,22 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Complaint Received: </td><td>"+ complaintReceived.ToString()+"</td>";
+            mail.Body += "</tr>";           
+            mail.Body += "<tr>";
+            mail.Body += "<td>Product Line: </td><td>" + productLine.ToString() + "</td>";
+            mail.Body += "</tr>";
+            mail.Body += "<tr>";
+            mail.Body += "<td>Team: </td><td>" + team.ToString() + "</td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Complaint Type: </td><td>" + complaintType.ToString() + "</td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Comments: </td><td>" + _vm.Others + "</td>";
-            mail.Body += "</tr>";     
+            mail.Body += "</tr>";
+            mail.Body += "<tr>";
+            mail.Body += "<td>Complaint Status: </td><td>" + _vm.ComplaintHasBeen + "</td>";
+            mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td> Link to Complaint Log: </td><td>http://10.10.1.49/JBIntranet/Reports/CustomerServices/CSRComlaintlog</td>";
             mail.Body += "</tr>";
@@ -3516,6 +3650,7 @@ namespace USPS_Report.Areas.Reports.Models
         public bool Fax { get; set; }
         public bool Web { get; set; }
         public bool LogTypeOther { get; set; }
+        public bool Survey { get; set; }
 
 
         [Required]
@@ -3826,7 +3961,9 @@ namespace USPS_Report.Areas.Reports.Models
         //  public bool NotResolved { get; set; }
         //  public bool TransferredTeamLeader { get; set; }
 
+        public string PendingResolution { get; set; }
         public string Resolution { get; set; }
+
         public string ComplaintHasBeen { get; set; }
         public AccountInfoVM details { get; set; }
 
