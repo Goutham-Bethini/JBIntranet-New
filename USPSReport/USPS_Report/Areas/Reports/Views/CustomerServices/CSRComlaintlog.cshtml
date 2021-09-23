@@ -115,8 +115,9 @@ if (Model != null && Model.details != null)
                                                         items.Add()
             .Text("Other")
             .Content( @<div> @Html.Partial("_Other", Model) </div>);*@
-                                items.Add()
+                                items.Add().HtmlAttributes(new { id = "penres" })
                                                              .Text("Pending Resolution")
+                                                             
                                                              .Content( @<div> @Html.Partial("_PendingResolution", Model) </div>);
                                                                                                    items.Add()
                                                             .Text("Resolution")
@@ -139,8 +140,19 @@ if (Model != null && Model.details != null)
 
 }
 <script type="text/javascript">
+    document.getElementById("penres").style.display = "none";
 
-
+    $('#ComplaintHasBeen').change(function () {
+        if ($('#ComplaintHasBeen').val().includes("Pending Resolution–")) {
+            document.getElementById("penres").style.display = "block";
+        }
+        else {
+            document.getElementById("penres").style.display = "none";
+        }
+        
+        //$('#penres').setAttribute("style", "display: none;");
+    });
+    
     function SubmitConfirm() {
         if ($('#COthers').val() != '') {
             $('#COthers').removeAttr("disabled");
@@ -225,8 +237,12 @@ if (Model != null && Model.details != null)
             alert("No Option is selected under ComplaintHasBeen Section");
             return false;
         }
-        else if ($('#ComplaintHasBeen').val() != '' && $('#PendingResolution').val() == '') {
+        else if ($('#ComplaintHasBeen').val() != '' && $('#ComplaintHasBeen').val().includes("Pending Resolution–") && $('#PendingResolution').val() == '') {
             alert("No Text is added to the Pending Resolution Box");
+            return false;
+        }
+        else if ($('#ComplaintHasBeen').val() != '' && $('#ComplaintHasBeen').val().includes("Closed") && $('#Resolution').val() == '') {
+            alert("No Text is added to the Resolution Box");
             return false;
         }
      else if (confirm("Are you sure want to submit the record?"))

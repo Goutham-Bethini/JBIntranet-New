@@ -59,6 +59,9 @@
                                 <th>Teritiary Payer</th>
                                 <th>Complaint Received</th>
                                 <th>Issue</th>
+                                <th>Product Line</th>
+                                <th>Team</th>
+                                <th>Complaint Type</th>
                                 <th>Resolution</th>
                                 <th>Note</th>
                                 <th>Issue Date</th>
@@ -66,6 +69,7 @@
                                 <th>Resolution Date</th>
                                 <th>Complaint Attachment</th>
                                 <th>Resolution Note</th>
+                                <th>Pending Resolution</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,6 +87,9 @@
                                 <td>@rec.TeritiaryPayer</td>
                                 <td>@rec.ComplaintRecieved</td>
                                 <td>@rec.Issue</td>
+                                <td>@rec.ProductLine</td>
+                                <td>@rec.Team</td>
+                                <td>@rec.ComplaintType</td>
                                 <td>@rec.Resolution</td>
                                 <td>@rec.Note</td>
                                 @*<td><div class="divcls" id="notediv" style="height:50px;overflow:hidden;">@rec.Note <br /></div><a class="readcls" id="more" href="#/">Read more </a></td>*@
@@ -98,6 +105,7 @@
                                 <td><a href="#" class="filedownload">@rec.ComplaintAttachment</a></td>
                                 @*<td>@rec.ComplaintAttachment</td>*@
                                 <td>@rec.ResolutionNote</td>
+                                <td>@rec.PendingResolution</td>
                             </tr>
                             }
                         </tbody>
