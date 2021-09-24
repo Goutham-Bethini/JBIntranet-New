@@ -281,65 +281,71 @@ if (Model != null && Model.firstTime == true && Model.details != null)
     });
 
     $('#startandstopbutton').click(function () {
-        //var $this = $(this);        
+        //var $this = $(this);    
+        var tn = document.getElementById('TrackingNumber');
+        var wo = document.getElementById('WorkOrder');
+        var prod = document.getElementById('Product');
+        var dc = document.getElementById('DeliveryCompany');
+        if (tn.value != "" || wo.value != "" || prod.value != "" || dc.value != "") {
+            if ($('#BloodPressureMonitors').prop("checked") == false
+                && $('#BreastPumps').prop("checked") == false
+                && $('#ContGlucoseMonitoring').prop("checked") == false
+                && $('#DiabeticTestSup').prop("checked") == false
+                && $('#EnteralNutrition').prop("checked") == false
+                && $('#ExternalDefibrillator').prop("checked") == false
+                && $('#IncontinenceSupplies').prop("checked") == false
+                && $('#InsulinPumpsSupplies').prop("checked") == false
+                && $('#InsSyrPenNeed').prop("checked") == false
+                && $('#OstomySupplies').prop("checked") == false
+                && $('#PleurXDrainSys').prop("checked") == false
+                && $('#PTINRTesting').prop("checked") == false
+                && $('#TENSUnitSup').prop("checked") == false
+                && $('#UrologicalSupplies').prop("checked") == false
+                && $('#WoundCareSupplies').prop("checked") == false
+                && $('#OtherUnsureSupplies').prop("checked") == false) {
+                alert("No option has been selected in the Product Line section of the Complaint");
+                return false;
+            }
 
-        if ($('#BloodPressureMonitors').prop("checked") == false
-            && $('#BreastPumps').prop("checked") == false
-            && $('#ContGlucoseMonitoring').prop("checked") == false
-            && $('#DiabeticTestSup').prop("checked") == false
-            && $('#EnteralNutrition').prop("checked") == false
-            && $('#ExternalDefibrillator').prop("checked") == false
-            && $('#IncontinenceSupplies').prop("checked") == false
-            && $('#InsulinPumpsSupplies').prop("checked") == false
-            && $('#InsSyrPenNeed').prop("checked") == false
-            && $('#OstomySupplies').prop("checked") == false
-            && $('#PleurXDrainSys').prop("checked") == false
-            && $('#PTINRTesting').prop("checked") == false
-            && $('#TENSUnitSup').prop("checked") == false
-            && $('#UrologicalSupplies').prop("checked") == false
-            && $('#WoundCareSupplies').prop("checked") == false
-            && $('#OtherUnsureSupplies').prop("checked") == false) {
-            alert("No option has been selected in the Product Line section of the Complaint");
-            return false;
+            if ($('#BDI').prop("checked") == false
+                && $('#BPnBPM').prop("checked") == false
+                && $('#CallCenter').prop("checked") == false
+                && $('#CSRAssessment').prop("checked") == false
+                && $('#DynamicSynergy').prop("checked") == false
+                && $('#Enteral').prop("checked") == false
+                && $('#HGS').prop("checked") == false
+                && $('#InsulinPumpCGM').prop("checked") == false
+                && $('#MedicalDocuments').prop("checked") == false
+                && $('#NewAccountTeam').prop("checked") == false
+                && $('#Nurses').prop("checked") == false
+                && $('#QualityAssurance').prop("checked") == false
+                && $('#Shipping').prop("checked") == false
+                && $('#THC').prop("checked") == false
+                && $('#Troy').prop("checked") == false
+                && $('#Verification').prop("checked") == false
+                && $('#WebSupport').prop("checked") == false
+                && $('#WoundCareOstomyTENS').prop("checked") == false
+                && $('#OtherUnsureTeam').prop("checked") == false) {
+                alert("No option has been selected in the Team section of the Complaint");
+                return false;
+            }
+
+            if ($('#Compliance').prop("checked") == false
+                && $('#CustomerService').prop("checked") == false
+                && $('#Discrimination').prop("checked") == false
+                && $('#HealthPlan').prop("checked") == false
+                && $('#ProductDefectiveQuality').prop("checked") == false
+                && $('#ShippingUSPS').prop("checked") == false
+                && $('#ShippingWarehouse').prop("checked") == false
+                && $('#SmartAction').prop("checked") == false
+                && $('#TextMessaging').prop("checked") == false
+                && $('#WebsitePortal').prop("checked") == false) {
+                alert("No option has been selected in the Complaint Type section of the Complaint");
+                return false;
+            }
+
         }
-
-        if ($('#BDI').prop("checked") == false
-            && $('#BPnBPM').prop("checked") == false
-            && $('#CallCenter').prop("checked") == false
-            && $('#CSRAssessment').prop("checked") == false
-            && $('#DynamicSynergy').prop("checked") == false
-            && $('#Enteral').prop("checked") == false
-            && $('#HGS').prop("checked") == false
-            && $('#InsulinPumpCGM').prop("checked") == false
-            && $('#MedicalDocuments').prop("checked") == false
-            && $('#NewAccountTeam').prop("checked") == false
-            && $('#Nurses').prop("checked") == false
-            && $('#QualityAssurance').prop("checked") == false
-            && $('#Shipping').prop("checked") == false
-            && $('#THC').prop("checked") == false
-            && $('#Troy').prop("checked") == false
-            && $('#Verification').prop("checked") == false
-            && $('#WebSupport').prop("checked") == false
-            && $('#WoundCareOstomyTENS').prop("checked") == false
-            && $('#OtherUnsureTeam').prop("checked") == false) {
-            alert("No option has been selected in the Team section of the Complaint");
-            return false;
-        }
-
-        if ($('#Compliance').prop("checked") == false
-            && $('#CustomerService').prop("checked") == false
-            && $('#Discrimination').prop("checked") == false
-            && $('#HealthPlan').prop("checked") == false
-            && $('#ProductDefectiveQuality').prop("checked") == false
-            && $('#ShippingUSPS').prop("checked") == false
-            && $('#ShippingWarehouse').prop("checked") == false
-            && $('#SmartAction').prop("checked") == false
-            && $('#TextMessaging').prop("checked") == false
-            && $('#WebsitePortal').prop("checked") == false) {
-            alert("No option has been selected in the Complaint Type section of the Complaint");
-            return false;
-        }
-
+        
         if ($('#Compliance').is(':checked') || $('#CustomerService').is(':checked') || $('#Discrimination').is(':checked') || $('#HealthPlan').is(':checked') || $('#ProductDefectiveQuality').is(':checked')
             || $('#ShippingUSPS').is(':checked') || $('#ShippingWarehouse').is(':checked') || $('#SmartAction').is(':checked') || $('#TextMessaging').is(':checked') || $('#WebsitePortal').is(':checked')) {
             //alert("test test");
