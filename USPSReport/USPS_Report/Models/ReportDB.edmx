@@ -766,6 +766,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="String" Name="First_Name" Nullable="true" MaxLength="35" />
           <Property Type="DateTime" Name="NextRepeatDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="Product_Category" Nullable="true" MaxLength="48" />
+          <Property Type="DateTime" Name="LastChange" Nullable="true" Precision="23" />
         </ComplexType>
         <ComplexType Name="sp_GetReportAuditInfo_Result">
           <Property Type="String" Name="Report" Nullable="true" />
@@ -1169,6 +1170,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
                 <ScalarProperty Name="First_Name" ColumnName="First_Name" />
                 <ScalarProperty Name="NextRepeatDate" ColumnName="NextRepeatDate" />
                 <ScalarProperty Name="Product_Category" ColumnName="Product_Category" />
+                <ScalarProperty Name="LastChange" ColumnName="LastChange" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

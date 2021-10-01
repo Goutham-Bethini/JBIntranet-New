@@ -55,6 +55,7 @@ new SelectListItem { Text = "Pump/CGM Team" , Value = "Pump/CGM Team"},
                                                         columns.Bound(t => t.FirstName).Title("First Name");
                                                         columns.Bound(t => t.NextRepeatDate).Title("Next Repeat Date").Format("{0:MM/dd/yyyy}");
                                                         columns.Bound(t => t.ProductCategory).Title("Product Category");
+                                                        columns.Bound(t => t.LastChange).Title("Last UpdatedDate").Format("{0:MM/dd/yyyy}");
                                                     })
                                                             .ToolBar(tools => tools.Excel())
                                                     .Sortable()

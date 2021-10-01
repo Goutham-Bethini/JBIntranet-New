@@ -18,5 +18,6 @@ namespace USPS_Report.Models
         public string First_Name { get; set; }
         public Nullable<System.DateTime> NextRepeatDate { get; set; }
         public string Product_Category { get; set; }
+        public Nullable<System.DateTime> LastChange { get; set; }
     }
 }
