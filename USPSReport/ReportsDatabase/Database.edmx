@@ -548,6 +548,25 @@ warning 6002: The table/view 'HHSQLDB.dbo.QuantityOnHand' does not have a primar
           <Property Name="AWPAdjPercent" Type="float" />
           <Property Name="ASPAdjPercent" Type="float" />
         </EntityType>
+        <EntityType Name="tbl_AssessmentDue_Attempts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="int" />
+          <Property Name="Expires" Type="datetime" />
+          <Property Name="State" Type="varchar" MaxLength="2" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="HasPullOns" Type="bit" Nullable="false" />
+          <Property Name="Attempt1st" Type="bit" Nullable="false" />
+          <Property Name="Attempt2nd" Type="bit" Nullable="false" />
+          <Property Name="Attempt3rd" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="tbl_Billing_Code_Table">
           <Key>
             <PropertyRef Name="ID" />
@@ -2325,6 +2344,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <EntitySet Name="tbl_Account_Note" EntityType="Self.tbl_Account_Note" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Account_Note_History" EntityType="Self.tbl_Account_Note_History" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Allowable_Amounts" EntityType="Self.tbl_Allowable_Amounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_AssessmentDue_Attempts" EntityType="Self.tbl_AssessmentDue_Attempts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Billing_Code_Table" EntityType="Self.tbl_Billing_Code_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Claims" EntityType="Self.tbl_Claims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Clinical_Assessments" EntityType="Self.tbl_Clinical_Assessments" Schema="dbo" store:Type="Tables" />
@@ -2603,6 +2623,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <EntitySet Name="tbl_Product_Table" EntityType="HHSQLDBModel.tbl_Product_Table" />
           <EntitySet Name="tbl_Account_Member_Insurance" EntityType="HHSQLDBModel.tbl_Account_Member_Insurance" />
           <EntitySet Name="tbl_PS_WorkOrderLine" EntityType="HHSQLDBModel.tbl_PS_WorkOrderLine" />
+          <EntitySet Name="tbl_AssessmentDue_Attempts" EntityType="HHSQLDBModel.tbl_AssessmentDue_Attempts" />
         </EntityContainer>
         <EntityType Name="JBCCServiceProductLine">
           <Key>
@@ -4872,6 +4893,25 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="D_TotalAdminDays" Type="Int16" />
           <Property Name="RentalTerminationDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="tbl_AssessmentDue_Attempts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" />
+          <Property Name="Expires" Type="DateTime" Precision="3" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="HasPullOns" Type="Boolean" Nullable="false" />
+          <Property Name="Attempt1st" Type="Boolean" Nullable="false" />
+          <Property Name="Attempt2nd" Type="Boolean" Nullable="false" />
+          <Property Name="Attempt3rd" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7138,6 +7178,26 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
                 <ScalarProperty Name="WorkOrderType" ColumnName="WorkOrderType" />
                 <ScalarProperty Name="ID_PS_WorkOrder" ColumnName="ID_PS_WorkOrder" />
                 <ScalarProperty Name="ID_PlanOfService" ColumnName="ID_PlanOfService" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_AssessmentDue_Attempts">
+            <EntityTypeMapping TypeName="HHSQLDBModel.tbl_AssessmentDue_Attempts">
+              <MappingFragment StoreEntitySet="tbl_AssessmentDue_Attempts">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Attempt3rd" ColumnName="Attempt3rd" />
+                <ScalarProperty Name="Attempt2nd" ColumnName="Attempt2nd" />
+                <ScalarProperty Name="Attempt1st" ColumnName="Attempt1st" />
+                <ScalarProperty Name="HasPullOns" ColumnName="HasPullOns" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Expires" ColumnName="Expires" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

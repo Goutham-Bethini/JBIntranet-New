@@ -26,7 +26,7 @@
                 @foreach (var item in rec.assessmentDueData)
                 {
                     <tr>
-                        <td>@Html.ActionLink(item.MonthName, "AssessmentsDueByMonth", "ClinicalAssessment", new { year = item.Year, month =item.MonthName}, new { target = "_blank" })</td>
+                        <td>@Html.ActionLink(item.MonthName, "AssessmentsDueByMonth", "ClinicalAssessment", new { year = item.Year, month =item.MonthName, count=item.MonthTotal}, new { target = "_blank" })</td>
                         <td>@item.Year </td>
                         <td>@item.MonthTotal </td>
 

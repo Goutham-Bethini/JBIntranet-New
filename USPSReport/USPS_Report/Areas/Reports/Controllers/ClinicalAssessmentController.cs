@@ -96,30 +96,77 @@ namespace USPS_Report.Areas.Reports.Controllers
             return View(_vm);
         }
 
-        public ActionResult AssessmentsDueByMonth(int? year, string month)
-        {
+        //public ActionResult AssessmentsDueByMonth(int? year, string month)
+        //{
 
-          //  var firstDayOfMonth = new DateTime(2014,2, 1);
-          //  var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-            AssessmentDueByMonth _vm = new AssessmentDueByMonth();
+        //  //  var firstDayOfMonth = new DateTime(2014,2, 1);
+        //  //  var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+        //    AssessmentDueByMonth _vm = new AssessmentDueByMonth();
          
 
+        //    int yr = year != null ? Convert.ToInt16(year) : 2016;
+        //    int mon = DateTime.ParseExact(month, "MMMM", CultureInfo.InvariantCulture).Month;
+        //    var firstdayOftheMonth = new DateTime(yr, mon, 1);
+        //    var lastdayoftheMonth = firstdayOftheMonth.AddMonths(1).AddDays(-1);
+        //  //  var firstdate = firstdayOftheMonth.Date;
+        //  //  var lastdate = lastdayoftheMonth.Date;
+
+        //    _vm.firstDate = firstdayOftheMonth;
+        //    _vm.lastDate = lastdayoftheMonth;
+
+        //    _vm.assessmentDueByMonth = PrintableReports.GetAssessmentDueByMonth(yr, firstdayOftheMonth, lastdayoftheMonth);
+        //    return View(_vm);
+        //}
+        public ActionResult AssessmentsDueByMonth(int? year, string month, int count)
+        {           
+            AssessmentDueByMonth _vm = new AssessmentDueByMonth();
             int yr = year != null ? Convert.ToInt16(year) : 2016;
             int mon = DateTime.ParseExact(month, "MMMM", CultureInfo.InvariantCulture).Month;
             var firstdayOftheMonth = new DateTime(yr, mon, 1);
             var lastdayoftheMonth = firstdayOftheMonth.AddMonths(1).AddDays(-1);
-          //  var firstdate = firstdayOftheMonth.Date;
-          //  var lastdate = lastdayoftheMonth.Date;
-
             _vm.firstDate = firstdayOftheMonth;
             _vm.lastDate = lastdayoftheMonth;
-
-            _vm.assessmentDueByMonth = PrintableReports.GetAssessmentDueByMonth(yr, firstdayOftheMonth, lastdayoftheMonth);
+            _vm.AssessmentsCount = count;
             return View(_vm);
         }
 
+        public ActionResult AssessmentsDueByMonthYr(int? year, string month, [DataSourceRequest]DataSourceRequest request)
+        {
+            AssessmentDueByMonth _vm = new AssessmentDueByMonth();
+            int yr = year != null ? Convert.ToInt16(year) : 2016;
+            int mon = DateTime.ParseExact(month, "MMMM", CultureInfo.InvariantCulture).Month;
+            var firstdayOftheMonth = new DateTime(yr, mon, 1);
+            var lastdayoftheMonth = firstdayOftheMonth.AddMonths(1).AddDays(-1);
+            _vm.firstDate = firstdayOftheMonth;
+            _vm.lastDate = lastdayoftheMonth;
+            _vm.assessmentDueByMonth = PrintableReports.GetAssessmentDueByMonth(yr, firstdayOftheMonth, lastdayoftheMonth);
+            var jsonResult = Json(_vm.assessmentDueByMonth.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
+        
+        //[HttpPost]
+        public ActionResult AssessmentsDueAttempts(AssessmentDueByMonth _vm)
+        {
+            //int yr = _vm.firstDate.Year;
+            //int mon = _vm.firstDate.Month;
+            //var firstdayOftheMonth = new DateTime(yr, mon, 1);
+            //var lastdayoftheMonth = firstdayOftheMonth.AddMonths(1).AddDays(-1);
+            if(_vm.Account!=null)
+            {
+                PrintableReports.InsertAssessmentDueNote(_vm,_vm.Account.Value, User.Identity.Name.Split('\\').Last().ToLower(),_vm.Attempt1st, _vm.Attempt2nd, _vm.Attempt3rd);
+            }
+            
+            return RedirectToAction("AssessmentsDueByMonth",new { year = _vm.firstDate.Year, month = _vm.firstDate.ToString("MMMM"), count = _vm.AssessmentsCount });
+            //return RedirectToAction("AssessmentsDueByMonth", new {  year,  month,  count }  );
+        }
 
-
+        [HttpPost]
+        public ActionResult Excel_Export_Save(string contentType, string base64, string fileName)
+        {
+            var fileContents = Convert.FromBase64String(base64);
+            return File(fileContents, contentType, fileName);
+        }
 
         public ActionResult AssessmentsCompleted()
         {
@@ -129,15 +176,12 @@ namespace USPS_Report.Areas.Reports.Controllers
             return View(_vm);
         }
 
-
         [HttpPost]
         public ActionResult AssessmentsCompleted(AssessmentVM asmntVM)
         {
             asmntVM = AssessmentReports.GetAssessmentsData(asmntVM.StartDate, asmntVM.EndDate);
             asmntVM.TotalAssessmentBarChart = ChartClass.TotalAssessmentChart(asmntVM.totalAssessmentList);
             return View(asmntVM);
-
-
         }
 
 

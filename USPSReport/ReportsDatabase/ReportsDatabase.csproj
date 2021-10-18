@@ -212,6 +212,9 @@
     <Compile Include="tbl_Allowable_Amounts.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_AssessmentDue_Attempts.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_BCNCallLog.cs">
       <DependentUpon>Intranet.tt</DependentUpon>
     </Compile>

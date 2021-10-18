@@ -74,5 +74,6 @@ namespace ReportsDatabase
         public virtual DbSet<tbl_Product_Table> tbl_Product_Table { get; set; }
         public virtual DbSet<tbl_Account_Member_Insurance> tbl_Account_Member_Insurance { get; set; }
         public virtual DbSet<tbl_PS_WorkOrderLine> tbl_PS_WorkOrderLine { get; set; }
+        public virtual DbSet<tbl_AssessmentDue_Attempts> tbl_AssessmentDue_Attempts { get; set; }
     }
 }

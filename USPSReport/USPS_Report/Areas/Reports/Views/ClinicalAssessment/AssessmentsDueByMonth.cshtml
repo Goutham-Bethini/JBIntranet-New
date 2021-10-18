@@ -1,54 +1,270 @@
 ﻿@model USPS_Report.Areas.Reports.Models.AssessmentDueByMonth
-
+@using Kendo.Mvc.UI
 @{
+    /**/
+
     ViewBag.Title = "AssessmentsDueByMonth";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-
-<hr />
-@if (Model != null && Model.assessmentDueByMonth != null)
+<h3 style="text-align:center;">Accounts need clinical assessments from @Html.DisplayName(Model.firstDate.ToString("MM/dd/yyyy")) to @Html.DisplayName(Model.lastDate.ToString("MM/dd/yyyy"))</h3>
+@*<h3 style="text-align:center;">@Html.DisplayName(Model.AssessmentsCount.ToString()) Accounts need clinical assessments from @Html.DisplayName(Model.firstDate.ToString("MM/dd/yyyy")) to @Html.DisplayName(Model.lastDate.ToString("MM/dd/yyyy"))</h3>*@
+<span id="displayCount" style="display:none;">
+    @Html.DisplayFor(t => t.AssessmentsCount, new { id = "disCount" })
+</span>
+<span id="displayDate" style="display:none;">
+    @Html.DisplayFor(t => t.firstDate, new { id = "disDate" })
+</span>
+@using (Html.BeginForm("AssessmentsDueAttempts", "ClinicalAssessment", FormMethod.Post, new { year = Model.firstDate.Year, month = Model.firstDate.ToString("MMMM"), count = Model.AssessmentsCount }))
 {
-
-    <div class="table-responsive middle">
-        <h3>@Html.DisplayName(Model.assessmentDueByMonth.Count().ToString()) Accounts need clinical assessments from @Html.DisplayName(Model.firstDate.ToString("MM/dd/yyyy")) to @Html.DisplayName(Model.lastDate.ToString("MM/dd/yyyy"))</h3>
-        <table data-sortable class="table table-hover table-striped" style="border:groove;width:700px">
-            <thead>
+    <center>
+        <div class="table-responsive middle">
+            <strong><span id="divTitle"></span></strong>
+            <table id="tblAttempt">
                 <tr>
-                    <th>Name</th>
-                    <th>Expires</th>
-                    <th>State</th>
-                    <th>Age</th>
-                    <th>Duration</th>
-                 
+                    <td width=200 colspan="2">@Html.HiddenFor(t => t.Account, new { id = "hidAc" })</td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var rec in Model.assessmentDueByMonth)
-                {
-                    <tr>
-                        <td>@rec.Account </td>
-                        <td>@rec.Expires </td>
-                        <td>@rec.state </td>
-                        <td>@rec.Age </td>
-                        <td>@rec.Duration </td>
-                       
-                    </tr>
-                }
-            </tbody>
+                <tr>
+                    <td width=200 colspan="2">@Html.HiddenFor(t => t.Expires, new { id = "hidExp" })</td>
+                </tr>
+                <tr>
+                    <td width=200 colspan="2">@Html.HiddenFor(t => t.state, new { id = "hidState" })</td>
+                <tr>
+                    <td width=200 colspan="2">@Html.HiddenFor(t => t.Age, new { id = "hidAge" })</td>
+                </tr>
+                <tr>
+                    <td width=200 colspan="2">@Html.HiddenFor(t => t.Duration, new { id = "hidDur" })</td>
+                </tr>
+                <tr>
+                    <td width=200 colspan="2">@Html.HiddenFor(t => t.HasPullOns, new { id = "hidPullOns" })</td>
+                </tr>
+                @*<tr>
+            <td width=200 colspan="2">@Html.HiddenFor(t => t.ProductCategories, new { id = "hidCatDis" })</td>
+        </tr>*@
+                <tr>
+                    <td width=200 colspan="2">@Html.HiddenFor(t => t.AssessmentsCount, new { id = "hidCount" })</td>
+                </tr>
+                <tr>
+                    <td width=200 colspan="2">@Html.HiddenFor(t => t.firstDate, new { id = "hidFirstDate" })</td>
+                </tr>
+                @*<tr>
+                    <td width=200 colspan="2">@Html.HiddenFor(t => t.Attempted1stName, new { id = "hidAttempted1stName" })</td>
+                </tr>
+                <tr>
+                    <td width=200 colspan="2">@Html.HiddenFor(t => t.Attempted1stDate, new { id = "hidAttempted1stDate" })</td>
+                </tr>
+                <tr>
+                    <td width=200 colspan="2">@Html.HiddenFor(t => t.Attempted2ndName, new { id = "hidAttempted2ndName" })</td>
+                </tr>
+                <tr>
+                    <td width=200 colspan="2">@Html.HiddenFor(t => t.Attempted2ndDate, new { id = "hidAttempted2ndDate" })</td>
+                </tr>*@
+                <tr>
+                    <td width=200 colspan="2">@Html.HiddenFor(t => t.Clin_Ass_ID, new { id = "hidClinicalId" })</td>
+                </tr>
+                </tr>
+                <tr>
+                    <th style="text-align:right;">Account:</th>
+                    <td style="text-align:left;width:200px;">
+                        <span id="displayAc">
+                            @Html.DisplayFor(t => t.Account, new { id = "disAc" })
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right;">Expires:</th>
+                    <td>
+                        <span id="displayExp">
+                            @Html.DisplayFor(t => t.Expires, new { id = "disExp" })
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right;">State:</th>
+                    <td>
+                        <span id="displayState">
+                            @Html.DisplayFor(t => t.state, new { id = "disState" })
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right;">Age:</th>
+                    <td>
+                        <span id="displayAge">
+                            @Html.DisplayFor(t => t.Age, new { id = "disAge" })
+                        </span>
 
-        </table>
-    </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right;">Duration:</th>
+                    <td>
+                        <span id="displayDuration">
+                            @Html.DisplayFor(t => t.Duration, new { id = "disDuration" })
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right;">Has Pull Ons?:</th>
+                    <td>
+                        <span id="displayPullOns">
+                            @Html.DisplayFor(t => t.HasPullOns, new { id = "disPullOns" })
+                        </span>
+                        <span id="displayClinicalId" style="display: none;">
+                            @Html.DisplayFor(t => t.Clin_Ass_ID, new { id = "disClinicalId", style = "display: none;" })
+                        </span>
+                    </td>
+                </tr>
+                @*<tr>
+            <th style="text-align:right;"></th>
+            <td>
+                <span id="displayPullOns">
+                    @Html.DisplayFor(t => t.HasPullOns, new { id = "disPullOns", })
+                </span>
+
+            </td>
+        </tr>*@
+                @*<tr>
+            <th style="text-align:right;">Product Category:</th>
+            <td>
+                <span id="displayCategory">
+                    @Html.DisplayFor(t => t.ProductCategories, new { id = "disCat" })
+                </span>
+
+            </td>
+        </tr>*@
+            </table>
+            <table id="tblAttempts">
+                <tr>
+                    <td>@Html.CheckBoxFor(t => t.Attempt1st) <span><strong>1st Attempt</strong></span></td>
+                    <td><span id="displayAttempted1stName"><strong>@Html.DisplayFor(t => t.Attempted1stName)</strong></span></td>
+                    <td>
+                        @*<span id="displayAttempted1stDate"><strong>@String.Format("{0:dd/MM/yyyy}", Model.Attempted1stDate)</strong></span>*@
+                        <span id="displayAttempted1stDate">
+                            <strong>
+                                @Html.DisplayFor(t => t.Attempted1stDate, new { id = "disAttempted1stDate" })
+                            </strong>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.CheckBoxFor(t => t.Attempt2nd) <span><strong>2nd Attempt</strong></span></td>
+                    <td><span id="displayAttempted2ndName"><strong>@Html.DisplayFor(t => t.Attempted2ndName)</strong></span></td>
+                    <td><span id="displayAttempted2ndDate"><strong>@Html.DisplayFor(t => t.Attempted2ndDate)</strong></span></td>
+                </tr>
+                <tr>
+                    <td>@Html.CheckBoxFor(t => t.Attempt3rd) <span><strong>3rd Attempt</strong></span></td>
+                </tr>
+            </table>
+            <br />
+            <button id="btnSubmit" class="btn btn-primary btn-large" type="submit">Submit</button>
+            <table id="tblValidation">
+                <tr>
+                    <td style="text-align:center;">
+                        @Html.ValidationMessageFor(t => t.Attempt1st, "", new { @class = "redText" })
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </center>
 }
 
 
-<style>
-    th {
-        background-color: dodgerblue;
-        color: white;
+<div class="center">
+
+    @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.AssessmentDueByMonthVM>()
+                                                                                                                .Name("Assessment")
+                                                                                                                .Columns(columns =>
+
+                                                                                                                {
+                                                                                                                    columns.Bound(t => t.Account).Title("Account").HtmlAttributes(new { style = "cursor: pointer;" }).ClientTemplate("<a onclick=showTest()>#=Account#</a>");
+                                                                                                                    columns.Bound(t => t.Expires).Title("Expires").Filterable(false);
+                                                                                                                    columns.Bound(t => t.state).Title("State");
+                                                                                                                    columns.Bound(t => t.Age).Title("Age");
+                                                                                                                    columns.Bound(t => t.Duration).Title("Duration");
+                                                                                                                    columns.Bound(t => t.HasPullOns).Title("Has Pull Ons?");
+                                                                                                                    columns.Bound(t => t.Attempt1st).Title("1st Attempt?");
+                                                                                                                    columns.Bound(t => t.Attempted1stName).Title("1st Attempted By");
+                                                                                                                    columns.Bound(t => t.Attempted1stDate).Title("1st Attempted Date").Format("{0:MM/dd/yyyy}");
+                                                                                                                    columns.Bound(t => t.Attempt2nd).Title("2nd Attempt?");
+                                                                                                                    columns.Bound(t => t.Attempted2ndName).Title("2nd Attempted By");
+                                                                                                                    columns.Bound(t => t.Attempted2ndDate).Title("2nd Attempted Date").Format("{0:MM/dd/yyyy}");
+                                                                                                                    columns.Bound(t => t.Clin_Ass_ID).Title("Clinical Id").HeaderHtmlAttributes(new { style = "display:none;" }).HtmlAttributes(new { style = "display:none;" });
+                                                                                                                })
+                                                                                                                               .ToolBar(tools => tools.Excel())
+                                                                                                                        .Sortable()
+                                                                                                                         .Pageable()
+                                                                                                                             .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                                                                                                                           .Excel(excel => excel
+                                                                                                                                .FileName("AssessmentDue.xlsx")
+                                                                                                                                .AllPages(true)
+                                                                                                                                .Filterable(true)
+                                                                                                                                .ProxyURL(Url.Action("Excel_Export_Save", "ClinicalAssessment"))
+                                                                                                                            )
+                                                                                                                            .HtmlAttributes(new { style = "width:fit-content;" })
+                                                                                                                            .Reorderable(r => r.Columns(true))
+                                                                                                                            .Resizable(r => r.Columns(true))
+                                                                                                                            .ColumnMenu()
+                                                                                                                        .DataSource(dataSource => dataSource
+                                                                                                                            .Ajax()
+                                                                                                                             .PageSize(50)
+                                                                                                                             .ServerOperation(false)
+                                                                                                                            .Model(model => model.Id(p => p.Account))
+                                                                                                                            .Read(read => read.Action("AssessmentsDueByMonthYr", "ClinicalAssessment", new { year = @Request.QueryString["year"], month = @Request.QueryString["month"] }))
+                                                                                                                        )
+    )
+</div>
+
+
+<script>
+    function showTest() {
+        
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        var grid = $("#Assessment").data("kendoGrid");
+        var model = grid.dataItem($(event.target).closest("tr"));
+        //console.log(model);
+        //alert(model);
+        //console.log(model);
+        $("#displayAc").html(model.Account);
+        $("#displayExp").html(model.Expires);
+        $("#displayState").html(model.state);
+        $("#displayAge").html(model.Age);
+        $("#displayDuration").html(model.Duration);
+        $("#displayPullOns").html(model.HasPullOns);
+        $('#Attempt1st').prop('checked', model.Attempt1st);
+        $("#displayAttempted1stName").html(model.Attempted1stName);
+        $("#displayAttempted1stDate").html(model.Attempted1stDate != null ? model.Attempted1stDate.toLocaleDateString('en-US') : null);
+        //alert(model.Attempted1stDate.toLocaleDateString('en-US'));
+        //$("#displayAttempted1stDate").html(model.Attempted1stDate.Format("{0:MM/dd/yyyy}"));
+        $('#Attempt2nd').prop('checked', model.Attempt2nd);
+        $("#displayAttempted2ndName").html(model.Attempted2ndName);
+        $("#displayAttempted2ndDate").html(model.Attempted2ndDate != null ? model.Attempted2ndDate.toLocaleDateString('en-US') : null);
+        $('#displayClinicalId').html(model.Clin_Ass_ID);
+        //$("#displayCategory").html(model.CategoryDescription);
     }
+    $('#btnSubmit').click(
+        function () {
+            //alert("hi");
+            $("#hidAc").val($("#displayAc").html());
+            $("#hidExp").val($("#displayExp").html());
+            $("#hidState").val($("#displayState").html());
+            $("#hidAge").val($("#displayAge").html());
+            $("#hidDur").val($("#displayDuration").html());
+            $("#hidPullOns").val($("#displayPullOns").html());
+            //$("#hidCatDis").val($("#displayCategory").html());
+            $("#hidCount").val($("#displayCount").html());
+            $("#hidFirstDate").val($("#displayDate").html());
+            $("#hidClinicalId").val($("#displayClinicalId").html());
+        });
+</script>
+
+<style>
+    /*th {
+                background-color: dodgerblue;
+                color: white;
+            }*/
 
     .middle {
         margin: auto;
