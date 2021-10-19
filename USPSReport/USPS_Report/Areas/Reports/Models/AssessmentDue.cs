@@ -132,14 +132,14 @@ am.Account,
 ca.ID ,pay.id,pay.state,age, duration 
 
 select  T1.Account,T1.Expires,T1.Clin_Ass_ID,T1.ID,T1.State,T1.Age,T1.Duration
-,TRIM( STUFF(  
+,RTRIM(LTRIM( STUFF(  
         (  
         SELECT ',' + T2.CategoryDescription  
         FROM #test T2  
         WHERE T1.Account = T2.Account  
         FOR XML PATH ('')  
-        ),1,1,'')  ) 'ProductCategories'
-,(case when max(case when TRIM( T1.CategoryDescription)='Pull Ons' then 1 else 0 end)>0 then 'Yes' else 'No' end) 'HasPullOns'
+        ),1,1,'')  )) 'ProductCategories'
+,(case when max(case when RTRIM(LTRIM( T1.CategoryDescription))='Pull Ons' then 1 else 0 end)>0 then 'Yes' else 'No' end) 'HasPullOns'
 into #test2 
 from #test T1
 group by T1.Account,T1.Expires,T1.Clin_Ass_ID,T1.ID,T1.State,T1.Age,T1.Duration
