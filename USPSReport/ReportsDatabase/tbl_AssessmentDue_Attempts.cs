@@ -24,6 +24,7 @@ namespace ReportsDatabase
         public bool Attempt1st { get; set; }
         public bool Attempt2nd { get; set; }
         public bool Attempt3rd { get; set; }
+        public bool isSetToHold { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> UpdatedBy { get; set; }

@@ -161,6 +161,17 @@ namespace USPS_Report.Areas.Reports.Controllers
             //return RedirectToAction("AssessmentsDueByMonth", new {  year,  month,  count }  );
         }
 
+        public ActionResult RemovedAccounts()
+        {
+            return View();
+        }
+        public ActionResult RemovedAccountsData([DataSourceRequest]DataSourceRequest request)
+        {           
+            var jsonResult = Json(PrintableReports.GetRemovedAcs().ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
+        }
+
         [HttpPost]
         public ActionResult Excel_Export_Save(string contentType, string base64, string fileName)
         {

@@ -1,0 +1,48 @@
+﻿@model USPS_Report.Areas.Reports.Models.RemovedAccountsVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "RemovedAccounts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3 style="text-align:center;">NNA Unable to Complete Report</h3>
+<center>
+    <div class="center" id="mydivtoclicky">
+        @*style="text-align:center;"*@
+
+        @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.RemovedAccount>()
+                                                                                                                                            .Name("RemovedAccounts")
+                                                                                                                                            .Columns(columns =>
+
+                                                                                                                                            {
+                                                                                                                                                columns.Bound(t => t.Account).Title("Account");
+                                                                                                                                                columns.Bound(t => t.RWOsSetHoldDate).Title("Date Set to Hold").Format("{0:MM/dd/yyyy}");
+                                                                                                                                                columns.Bound(t => t.State).Title("State");
+                                                                                                                                                columns.Bound(t => t.HasPullOns).Title("HasPullOns?");
+                                                                                                                                            })
+                                                                                                                                                           .ToolBar(tools => tools.Excel())
+                                                                                                                                                    .Sortable()
+                                                                                                                                                     .Pageable()
+                                                                                                                                                         .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                                                                                                                                                       .Excel(excel => excel
+                                                                                                                                                            .FileName("NNA Unable to Complete Report.xlsx")
+                                                                                                                                                            .AllPages(true)
+                                                                                                                                                            .Filterable(true)
+                                                                                                                                                            .ProxyURL(Url.Action("Excel_Export_Save", "ClinicalAssessment"))
+                                                                                                                                                        )
+                                                                                                                                                        .HtmlAttributes(new { style = "width:500px;" })
+                                                                                                                                                        .Reorderable(r => r.Columns(true))
+                                                                                                                                                        .Resizable(r => r.Columns(true))
+                                                                                                                                                        .ColumnMenu()
+                                                                                                                                                    .DataSource(dataSource => dataSource
+                                                                                                                                                        .Ajax()
+                                                                                                                                                         .PageSize(50)
+                                                                                                                                                         .ServerOperation(false)
+                                                                                                                                                        .Model(model => model.Id(p => p.Account))
+                                                                                                                                                        .Read(read => read.Action("RemovedAccountsData", "ClinicalAssessment"))
+                                                                                                                                                    )
+        )
+    </div>
+</center>
+    
+
+

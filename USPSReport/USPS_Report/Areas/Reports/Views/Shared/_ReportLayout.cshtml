@@ -316,6 +316,8 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>@Html.ActionLink("Assessments Due", "AssessmentsDue", "ClinicalAssessment", new { area = "Reports" }, new { target = "_blank" })</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("NNA Unable to Complete Report", "RemovedAccounts", "ClinicalAssessment", new { area = "Reports" }, new { target = "_blank" })</li>
                 </ul>
             </li>
 

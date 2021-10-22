@@ -151,7 +151,7 @@ ope.OperatorName Attempted1stName,
 cast(aa.CreatedDate as date) Attempted1stDate,
 cast((case when aa.Attempt2nd=1 then 1 else 0 end) as bit) Attempt2nd,
 (case when aa.Attempt2nd=1 then isnull(aa.UpdatedBy, aa.CreatedBy) else null end) Attempted2ndBy,
-ope2.OperatorName Attempted2ndName,
+(case when aa.Attempt2nd=1 then ISNULL(ope2.OperatorName,ope.OperatorName) else null end) Attempted2ndName,
 (case when aa.Attempt2nd=1 then isnull(aa.UpdatedDate, aa.CreatedDate) else null end) Attempted2ndDate,
 cast((case when aa.Attempt3rd=1 then 1 else 0 end) as bit) Attempt3rd,
 (case when aa.Attempt3rd=1 then isnull(aa.UpdatedBy, aa.CreatedBy) else null end) Attempted3rdBy,
@@ -216,6 +216,28 @@ left join HHSQLDB.dbo.tbl_Operator_Table ope2 on aa.UpdatedBy=ope2.ID";
 
         }
 
+        public static IList<RemovedAccount> GetRemovedAcs()
+        {
+            try
+            {
+                using (HHSQLDBEntities _db = new HHSQLDBEntities())
+                {
+                    IList<RemovedAccount> _list = new List<RemovedAccount>();
+                    string Query = @"select Account,ISNULL(UpdatedDate,CreatedDate) as RWOsSetHoldDate,State,
+                                    (case when HasPullOns=1 then 'Yes' else 'No' end) HasPullOns 
+                                    from HHSQLDB.dbo.tbl_AssessmentDue_Attempts where Attempt3rd = 1 or isSetToHold=1";
+                    _list = _db.Database.SqlQuery<RemovedAccount>(Query).ToList<RemovedAccount>();
+                    return _list;
+
+                }
+            }
+            catch(Exception ex)
+            {
+                string msg = ex.Message;
+                return new List<RemovedAccount>();
+            }
+        }
+
         public static void InsertAssessmentDueNote(AssessmentDueByMonth _vm, int account, string operatorName, bool attempt1st, bool attempt2nd, bool attempt3rd)
         {
             ID_VM id_op = new ID_VM();
@@ -274,9 +296,9 @@ left join HHSQLDB.dbo.tbl_Operator_Table ope2 on aa.UpdatedBy=ope2.ID";
                             _tHist.NoteText = _msgStr1.ToString();
                             _db.tbl_Account_Note_History.Add(_tHist);
                         }
-                        else if (i == 3 && attempt3rd)
+                        else if (i == 3 && (attempt3rd || _vm.isSetToHold))
                         {
-                            _msgStr1.Append("Unable to reach the member/caregiver after three attempts.  Sending contact letter.  Placing RWO on 2/1/2099 hold until assessment can be completed.");
+                            _msgStr1.Append("Unable to reach the member/caregiver due to invalid contact information.  Sending contact letter to obtain updated contact information.  Placing RWO on 2/1/2099 hold until assessment can be completed.");
                             _tHist.NoteText = _msgStr1.ToString();
                             _db.tbl_Account_Note_History.Add(_tHist);
                             tbl_Clinical_Assessments ass= _db.tbl_Clinical_Assessments.Where(t => t.ID == _vm.Clin_Ass_ID).FirstOrDefault();
@@ -331,6 +353,7 @@ left join HHSQLDB.dbo.tbl_Operator_Table ope2 on aa.UpdatedBy=ope2.ID";
                     _attempts.Attempt3rd = attempt3rd;
                     _attempts.CreatedBy = id;
                     _attempts.CreatedDate = DateTime.Now;
+                    _attempts.isSetToHold = _vm.isSetToHold;
                     _db.tbl_AssessmentDue_Attempts.Add(_attempts);
                 }
                 else
@@ -340,6 +363,7 @@ left join HHSQLDB.dbo.tbl_Operator_Table ope2 on aa.UpdatedBy=ope2.ID";
                     _attempt.Attempt3rd = attempt3rd;
                     _attempt.UpdatedBy = id;
                     _attempt.UpdatedDate = DateTime.Now;
+                    _attempt.isSetToHold = _vm.isSetToHold;
                 }
                 
                 try
@@ -430,6 +454,7 @@ left join HHSQLDB.dbo.tbl_Operator_Table ope2 on aa.UpdatedBy=ope2.ID";
         public DateTime? Attempted2ndDate { get; set; }
         public bool Attempt3rd { get; set; }
         public int Clin_Ass_ID { get; set; }
+        public bool isSetToHold { get; set; }
     }
     public class AssessmentDueByMonthVM
     {
@@ -441,7 +466,7 @@ left join HHSQLDB.dbo.tbl_Operator_Table ope2 on aa.UpdatedBy=ope2.ID";
         public int Age { get; set; }
         public int Duration { get; set; }
         public string ProductCategories { get; set; }
-        public string HasPullOns { get; set; }
+        public string HasPullOns { get; set; }        
         public bool Attempt1st { get; set; }
         public int? Attempted1stBy { get; set; }
         public string Attempted1stName { get; set; }
@@ -451,5 +476,19 @@ left join HHSQLDB.dbo.tbl_Operator_Table ope2 on aa.UpdatedBy=ope2.ID";
         public string Attempted2ndName { get; set; }
         public DateTime? Attempted2ndDate { get; set; }
         public bool Attempt3rd { get; set; }
+        public bool isSetToHold { get; set; }
+    }
+
+    public class RemovedAccountsVM
+    {
+        public List<RemovedAccount> Details { get; set; }
+    }
+
+    public class RemovedAccount
+    {
+        public int Account { get; set; }
+        public DateTime? RWOsSetHoldDate { get; set; }
+        public string State { get; set; }
+        public string HasPullOns { get; set; }
     }
 }

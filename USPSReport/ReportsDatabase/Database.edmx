@@ -562,6 +562,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.QuantityOnHand' does not have a primar
           <Property Name="Attempt1st" Type="bit" Nullable="false" />
           <Property Name="Attempt2nd" Type="bit" Nullable="false" />
           <Property Name="Attempt3rd" Type="bit" Nullable="false" />
+          <Property Name="isSetToHold" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="int" />
@@ -4907,6 +4908,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="Attempt1st" Type="Boolean" Nullable="false" />
           <Property Name="Attempt2nd" Type="Boolean" Nullable="false" />
           <Property Name="Attempt3rd" Type="Boolean" Nullable="false" />
+          <Property Name="isSetToHold" Type="Boolean" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
@@ -7190,6 +7192,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="isSetToHold" ColumnName="isSetToHold" />
                 <ScalarProperty Name="Attempt3rd" ColumnName="Attempt3rd" />
                 <ScalarProperty Name="Attempt2nd" ColumnName="Attempt2nd" />
                 <ScalarProperty Name="Attempt1st" ColumnName="Attempt1st" />
