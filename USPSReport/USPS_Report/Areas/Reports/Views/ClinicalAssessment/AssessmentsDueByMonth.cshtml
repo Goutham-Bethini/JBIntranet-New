@@ -1,14 +1,11 @@
 ﻿@model USPS_Report.Areas.Reports.Models.AssessmentDueByMonth
 @using Kendo.Mvc.UI
 @{
-    /**/
-
     ViewBag.Title = "AssessmentsDueByMonth";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h3 style="text-align:center;">Accounts need clinical assessments from @Html.DisplayName(Model.firstDate.ToString("MM/dd/yyyy")) to @Html.DisplayName(Model.lastDate.ToString("MM/dd/yyyy"))</h3>
-@*<h3 style="text-align:center;">@Html.DisplayName(Model.AssessmentsCount.ToString()) Accounts need clinical assessments from @Html.DisplayName(Model.firstDate.ToString("MM/dd/yyyy")) to @Html.DisplayName(Model.lastDate.ToString("MM/dd/yyyy"))</h3>*@
 <span id="displayCount" style="display:none;">
     @Html.DisplayFor(t => t.AssessmentsCount, new { id = "disCount" })
 </span>
@@ -38,27 +35,12 @@
                 <tr>
                     <td width=200 colspan="2">@Html.HiddenFor(t => t.HasPullOns, new { id = "hidPullOns" })</td>
                 </tr>
-                @*<tr>
-            <td width=200 colspan="2">@Html.HiddenFor(t => t.ProductCategories, new { id = "hidCatDis" })</td>
-        </tr>*@
                 <tr>
                     <td width=200 colspan="2">@Html.HiddenFor(t => t.AssessmentsCount, new { id = "hidCount" })</td>
                 </tr>
                 <tr>
                     <td width=200 colspan="2">@Html.HiddenFor(t => t.firstDate, new { id = "hidFirstDate" })</td>
                 </tr>
-                @*<tr>
-            <td width=200 colspan="2">@Html.HiddenFor(t => t.Attempted1stName, new { id = "hidAttempted1stName" })</td>
-        </tr>
-        <tr>
-            <td width=200 colspan="2">@Html.HiddenFor(t => t.Attempted1stDate, new { id = "hidAttempted1stDate" })</td>
-        </tr>
-        <tr>
-            <td width=200 colspan="2">@Html.HiddenFor(t => t.Attempted2ndName, new { id = "hidAttempted2ndName" })</td>
-        </tr>
-        <tr>
-            <td width=200 colspan="2">@Html.HiddenFor(t => t.Attempted2ndDate, new { id = "hidAttempted2ndDate" })</td>
-        </tr>*@
                 <tr>
                     <td width=200 colspan="2">@Html.HiddenFor(t => t.Clin_Ass_ID, new { id = "hidClinicalId" })</td>
                 </tr>
@@ -118,31 +100,12 @@
                         </span>
                     </td>
                 </tr>
-                @*<tr>
-            <th style="text-align:right;"></th>
-            <td>
-                <span id="displayPullOns">
-                    @Html.DisplayFor(t => t.HasPullOns, new { id = "disPullOns", })
-                </span>
-
-            </td>
-        </tr>*@
-                @*<tr>
-            <th style="text-align:right;">Product Category:</th>
-            <td>
-                <span id="displayCategory">
-                    @Html.DisplayFor(t => t.ProductCategories, new { id = "disCat" })
-                </span>
-
-            </td>
-        </tr>*@
             </table>
             <table id="tblAttempts">
                 <tr>
                     <td>@Html.CheckBoxFor(t => t.Attempt1st) <span><strong>1st Attempt</strong></span></td>
                     <td><span id="displayAttempted1stName"><strong>@Html.DisplayFor(t => t.Attempted1stName)</strong></span></td>
                     <td>
-                        @*<span id="displayAttempted1stDate"><strong>@String.Format("{0:dd/MM/yyyy}", Model.Attempted1stDate)</strong></span>*@
                         <span id="displayAttempted1stDate">
                             <strong>
                                 @Html.DisplayFor(t => t.Attempted1stDate, new { id = "disAttempted1stDate" })
@@ -161,14 +124,6 @@
             </table>
             <br />
             <button id="btnSubmit" class="btn btn-primary btn-large" type="submit">Submit</button>
-            @*<table>
-                <tr>
-                    <td><a id="ancSendLetter" style="text-decoration:underline;cursor: pointer;">Send Contact Letter</a></td>
-                </tr>
-                <tr>
-                    <td><a id="ancHold"  style="text-decoration:underline;cursor: pointer;">Click here to hold</a></td>
-                </tr>
-            </table>*@
             <table id="tblValidation">
                 <tr>
                     <td style="text-align:center;">
@@ -177,7 +132,6 @@
                 </tr>
             </table>
         </div>
-
     </center>
 }
     <center>
@@ -248,7 +202,6 @@
                             $("#hidAge").val($("#displayAge").html());
                             $("#hidDur").val($("#displayDuration").html());
                             $("#hidPullOns").val($("#displayPullOns").html());
-                            //$("#hidCatDis").val($("#displayCategory").html());
                             $("#hidCount").val($("#displayCount").html());
                             $("#hidFirstDate").val($("#displayDate").html());
                             $("#hidClinicalId").val($("#displayClinicalId").html());
@@ -263,23 +216,12 @@
                     }                       
                 });
             });
-            //$("a#ancHold").click(function () {
-            //    //alert("test");
-            //    //document.getElementById("btnSubmit").submit();
-            //    //btnSubmit
-            //    //$("#btnSubmit").submit();
-            //    //alert("test2");
-            //    //return false;
-            //});
+         
             function showTest() {
-
                 document.body.scrollTop = 0; // For Safari
                 document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
                 var grid = $("#Assessment").data("kendoGrid");
                 var model = grid.dataItem($(event.target).closest("tr"));
-                //console.log(model);
-                //alert(model);
-                //console.log(model);
                 $("#displayAc").html(model.Account);
                 $("#displayExp").html(model.Expires);
                 $("#displayState").html(model.state);
@@ -289,24 +231,19 @@
                 $('#Attempt1st').prop('checked', model.Attempt1st);
                 $("#displayAttempted1stName").html(model.Attempted1stName);
                 $("#displayAttempted1stDate").html(model.Attempted1stDate != null ? model.Attempted1stDate.toLocaleDateString('en-US') : null);
-                //alert(model.Attempted1stDate.toLocaleDateString('en-US'));
-                //$("#displayAttempted1stDate").html(model.Attempted1stDate.Format("{0:MM/dd/yyyy}"));
                 $('#Attempt2nd').prop('checked', model.Attempt2nd);
                 $("#displayAttempted2ndName").html(model.Attempted2ndName);
                 $("#displayAttempted2ndDate").html(model.Attempted2ndDate != null ? model.Attempted2ndDate.toLocaleDateString('en-US') : null);
                 $('#displayClinicalId').html(model.Clin_Ass_ID);
-                //$("#displayCategory").html(model.CategoryDescription);
             }
             $('#btnSubmit').click(
                 function () {
-                    //alert("hi");
                     $("#hidAc").val($("#displayAc").html());
                     $("#hidExp").val($("#displayExp").html());
                     $("#hidState").val($("#displayState").html());
                     $("#hidAge").val($("#displayAge").html());
                     $("#hidDur").val($("#displayDuration").html());
                     $("#hidPullOns").val($("#displayPullOns").html());
-                    //$("#hidCatDis").val($("#displayCategory").html());
                     $("#hidCount").val($("#displayCount").html());
                     $("#hidFirstDate").val($("#displayDate").html());
                     $("#hidClinicalId").val($("#displayClinicalId").html());
@@ -314,38 +251,20 @@
                 });
 
             document.getElementById("ancSendLetter").onclick = function () {
-                //alert($("#displayAc").html());
-                //if ($("#displayAc").html() != "")
                 if (Number.isInteger(parseInt($("#displayAc").html(), 10)))
                 {
-                    var newWindow = window.open('http://10.10.1.49/TestLetterGenerator2?account=' + $("#displayAc").html() + '&ddselection=2');
+                    var newWindow = window.open('http://10.10.1.49/LetterGenerator?account=' + $("#displayAc").html() + '&ddselection=2');
+
+                    //var newWindow = window.open('http://10.10.1.49/TestLetterGenerator2?account=' + $("#displayAc").html() + '&ddselection=2');
 
                     //var newWindow = window.open('http://10.10.1.49/LetterGenerator');
                 }
                 else
                     alert('Please select account to send contact letter!');
-
-
-                
-                //alert("open");
-                //$(document).ready(function () {
-                //newWindow.onload = function () {
-                //    let element = document.getElementById('Option');
-                //    element.value = 2;
-                //    alert("123");
-                //    newWindow.document.getElementById('Account').value = 7802;
-                //}
-                //});
-
             };
         </script>
 
         <style>
-            /*th {
-                background-color: dodgerblue;
-                color: white;
-            }*/
-
             .middle {
                 margin: auto;
                 width: 900px;
