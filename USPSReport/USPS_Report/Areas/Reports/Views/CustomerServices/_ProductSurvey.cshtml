@@ -1,0 +1,228 @@
+﻿@model USPS_Report.Areas.Reports.Models.CallLogVM
+<br />
+@if (Model.isPayer7or3739)
+{
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <strong>Are the products you are receiving meeting your needs? &nbsp;</strong>
+            @Html.DropDownListFor(t => t.ProductNeeds, new List<SelectListItem>
+            {
+                 new SelectListItem { Text = "Yes" , Value = "Yes"},
+                 new SelectListItem { Text = "No" , Value = "No"},
+                 new SelectListItem { Text = "Did not want to answer" , Value = "Did not want to answer"},
+            }, "Please select one Option", new { @id = "ddProductNeeds" })
+        </div>
+    </div>
+    <br />
+    <div id="divNeeds" style="display:none;">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.BPM_Needs) <label> Blood Pressure Monitor </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.BreastPumps_Needs) <label> Breast Pump </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.CGM_Needs) <label> Continuous Glucose Monitor (CGM) </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Diabetes_Needs) <label> Diabetes Testing </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Nutrition_Needs) <label> Enteral Nutrition </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Incontinence_Needs) <label> Incontinence </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Pump_Needs) <label> Insulin Pump </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Injectibles_Needs) <label> Insulin Injectibles </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Ostomy_Needs) <label> Ostomy </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Urological_Needs) <label> Urological </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Wound_Needs) <label> Wound Care </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Other_Needs) <label> Other </label></div>
+        </div>
+        <div class="row" style="position: relative;left: 50px;">
+            <div class="col-md-1"></div>
+            <div class=" col-md-2">@Html.TextBoxFor(m => m.OthersText_Needs, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-2">@Html.TextAreaFor(m => m.Comment_Needs, new { rows = "6", cols = "40" })</div>
+
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <strong>Are there any supplies you are receiving too many of? &nbsp;</strong>
+            @Html.DropDownListFor(t => t.ProductSupplies, new List<SelectListItem>
+            {
+                 new SelectListItem { Text = "Yes" , Value = "Yes"},
+                 new SelectListItem { Text = "No" , Value = "No"},
+                 new SelectListItem { Text = "Did not want to answer" , Value = "Did not want to answer"},
+            }, "Please select one Option", new { @id = "ddProductSupplies" })
+            <br />
+            <a href="http://sharepoint.jandbmedical.com/kb/Customer%20Service%20Wiki/Overstock%20Hold%20Process.aspx" id="ancSupplies" style="text-decoration:underline;display:none;" target="_blank">Follow Overstock Process on the Wiki</a>
+        </div>
+    </div>
+    <br />
+    <div id="divSupplies" style="display:none;">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.BPM_Supplies) <label> Blood Pressure Monitor </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.BreastPumps_Supplies) <label> Breast Pump </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.CGM_Supplies) <label> Continuous Glucose Monitor (CGM) </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Diabetes_Supplies) <label> Diabetes Testing </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Nutrition_Supplies) <label> Enteral Nutrition </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Incontinence_Supplies) <label> Incontinence </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Pump_Supplies) <label> Insulin Pump </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Injectibles_Supplies) <label> Insulin Injectibles </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Ostomy_Supplies) <label> Ostomy </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Urological_Supplies) <label> Urological </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Wound_Supplies) <label> Wound Care </label></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-5">@Html.CheckBoxFor(m => m.Other_Supplies) <label> Other </label></div>
+        </div>
+        <div class="row" style="position: relative;left: 50px;">
+            <div class="col-md-1"></div>
+            <div class=" col-md-2">@Html.TextBoxFor(m => m.OthersText_Supplies, new { rows = "6", cols = "40", disabled = "disabled" })</div>
+
+        </div>
+    </div>
+    <br />
+}
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-9">
+        <strong>J&B Pharmacy Services is now available for any of your medication or pharmacy needs.  You have freedom of choice for which pharmacy you would like to use.  Would you like to obtain any supplies from J&B Pharmacy Services? &nbsp;</strong>
+        <br />
+        @Html.DropDownListFor(t => t.ProductServices, new List<SelectListItem>
+        {
+                new SelectListItem { Text = "Yes" , Value = "Yes"},
+                new SelectListItem { Text = "No" , Value = "No"},
+                new SelectListItem { Text = "Did not want to answer" , Value = "Did not want to answer"},
+        }, "Please select one Option", new { @id = "ddProductServices" })
+        <br />
+        <a href="http://sharepoint.jandbmedical.com/kb/Customer%20Service%20Wiki/J%26B%20Pharmacy%20Services%20Referral%20Process.aspx" id="ancServices" style="text-decoration:underline;display:none;" target="_blank">Learning Center - J&B Pharmacy Services Referral Process (jandbmedical.com)</a>
+    </div>
+</div>
+<br />
+
+
+
+
+
+<script>
+    $('#ddProductServices').change(function () {
+        //alert("test");
+        if ($('#ddProductServices').val() == 'Yes') {
+            document.getElementById("ancServices").style.display = "block";
+        }
+        else {
+            document.getElementById("ancServices").style.display = "none";
+        }
+
+        //$('#penres').setAttribute("style", "display: none;");
+    });
+    $('#ddProductSupplies').change(function () {
+        //alert("test");
+        if ($('#ddProductSupplies').val() == 'Yes') {
+            document.getElementById("divSupplies").style.display = "block";
+            document.getElementById("ancSupplies").style.display = "block";
+        }
+        else {
+            document.getElementById("divSupplies").style.display = "none";
+            document.getElementById("ancSupplies").style.display = "none";
+        }
+
+        //$('#penres').setAttribute("style", "display: none;");
+    });
+    $('#Other_Supplies').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#OthersText_Supplies').removeAttr("disabled");
+        } else {
+            $('#OthersText_Supplies').attr("disabled", "disabled")
+        }
+    });
+    $('#ddProductNeeds').change(function () {
+        //alert("test");
+        if ($('#ddProductNeeds').val() == 'No') {
+            document.getElementById("divNeeds").style.display = "block";
+        }
+        else {
+            document.getElementById("divNeeds").style.display = "none";
+        }
+
+        //$('#penres').setAttribute("style", "display: none;");
+    });
+    $('#Other_Needs').click(function () {
+        var $this = $(this);
+
+        if ($this.is(':checked')) {
+            $('#OthersText_Needs').removeAttr("disabled");
+        } else {
+            $('#OthersText_Needs').attr("disabled", "disabled")
+        }
+    });
+</script>

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="99b51cc4bf3c4f8d8c5dec59a10e47aa" Name="Diagram1" ZoomLevel="21">
+      <Diagram DiagramId="99b51cc4bf3c4f8d8c5dec59a10e47aa" Name="Diagram1" ZoomLevel="16">
         <EntityTypeShape EntityType="IntranetModel.assessment_log" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IntranetModel.Employees_New" Width="1.5" PointX="0.75" PointY="5.75" />
         <EntityTypeShape EntityType="IntranetModel.CHAMPS_Adj_Codes" Width="1.5" PointX="5.375" PointY="6.75" />
@@ -19,8 +19,8 @@
         <EntityTypeShape EntityType="IntranetModel.BCBS_ProviderList" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="IntranetModel.tbl_BCNCallLog" Width="1.5" PointX="11.375" PointY="0.75" />
         <EntityTypeShape EntityType="IntranetModel.tbl_CSRComplaintLog_Attachments" Width="1.5" PointX="13.375" PointY="11.75" />
-        <EntityTypeShape EntityType="IntranetModel.tbl_CSRCallLog" Width="1.5" PointX="7.375" PointY="9.75" />
         <EntityTypeShape EntityType="IntranetModel.tbl_CSRComplaintLog" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="IntranetModel.tbl_CSRCallLog" Width="1.5" PointX="7.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

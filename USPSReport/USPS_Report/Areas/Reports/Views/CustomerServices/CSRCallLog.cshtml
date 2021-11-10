@@ -81,11 +81,11 @@ if (Model != null && Model.firstTime == true && Model.details != null)
     <div>
         @using (Html.BeginForm("AddCSRCallLog", "CustomerServices", FormMethod.Post, new { onsubmit = "return SubmitConfirm()" }))
         {
-         @Html.ValidationSummary();
+            @Html.ValidationSummary();
 
             @Html.HiddenFor(m => m.Account)
 
-             <div class="row">
+            <div class="row">
                 <div class="col-md-10"></div>
                 <div class="col-md-2">
                     <label>Timer:</label> @Html.TextBoxFor(m => m.TimerTxt, null, new { id = "stopwatch", @class = "text-field", @readonly = "readonly" })
@@ -97,74 +97,76 @@ if (Model != null && Model.firstTime == true && Model.details != null)
             @Html.Partial("_AccountInformation", Model)
             <br />
             @(Html.Kendo().PanelBar()
-                                        .Name("newcalllog")
-                                             .ExpandMode(PanelBarExpandMode.Multiple)
-                                        .Items(items =>
-                                        {
+                                                .Name("newcalllog")
+                                                     .ExpandMode(PanelBarExpandMode.Multiple)
+                                                .Items(items =>
+                                                {
                                 @*items.Add()
-                        .Text("AccountInfo")
-                        .Content( @<div> @Html.Partial("_AccountInformation", Model) </div>)
-                                                     .Expanded(true);*@
+                                .Text("AccountInfo")
+                                .Content( @<div> @Html.Partial("_AccountInformation", Model) </div>)
+                                                             .Expanded(true);*@
+                                                    items.Add()
+                                   .Text("Product Survey")
+                                   .Content( @<div> @Html.Partial("_ProductSurvey", Model) </div>);
+                                                                                        items.Add()
+                                                            .Text("Billing/Payments")
+                                                            .Content( @<div> @Html.Partial("_Billing", Model) </div>);
 
-            items.Add()
-    .Text("Billing/Payments")
-    .Content( @<div> @Html.Partial("_Billing", Model) </div>);
+                                                                                                                    items.Add()
+                                                                                    .Text("Demographic Changes")
 
-            items.Add()
-.Text("Demographic Changes")
+                                                                                    //  .LoadContentFrom("AccountStatus", "CustomerServices", new { _vm = Model });
+                                                                                    .Content( @<div> @Html.Partial("_DemographicChanges", Model) </div>);
 
-//  .LoadContentFrom("AccountStatus", "CustomerServices", new { _vm = Model });
-.Content( @<div> @Html.Partial("_DemographicChanges", Model) </div>);
+                                                                                                                                                items.Add()
+                                                                                                                .Text("Documentation")
+                                                                                                                .Content( @<div> @Html.Partial("_Documentation", Model) </div>);
 
-                                        items.Add()
-                            .Text("Documentation")
-                            .Content( @<div> @Html.Partial("_Documentation", Model) </div>);
+                                                                                                                                                items.Add()
+                                                                                                           .Text("Insurance")
+                                                                                                           .Content( @<div> @Html.Partial("_InsuranceChanges", Model) </div>);
 
-                                        items.Add()
-                       .Text("Insurance")
-                       .Content( @<div> @Html.Partial("_InsuranceChanges", Model) </div>);
+                                                                                                                                             items.Add()
+                                                                                                        .Text("New Account/Restart")
+                                                                                                        .Content( @<div> @Html.Partial("_NewAccount", Model) </div>);
 
-                                        items.Add()
-                       .Text("New Account/Restart")
-                       .Content( @<div> @Html.Partial("_NewAccount", Model) </div>);
+                                                                                                                                             items.Add()
+                                                                                                             .Text("Order Confirmation")
+                                                                                                        .Content( @<div> @Html.Partial("_OrderConfirmation", Model) </div>);
 
-                                        items.Add()
-                            .Text("Order Confirmation")
-                       .Content( @<div> @Html.Partial("_OrderConfirmation", Model) </div>);
+                                                                                                                                             items.Add()
+                                                                                                         .Text("Order Status")
+                                                                                                        .Content( @<div> @Html.Partial("_OrderStatus", Model) </div>);
 
-                                        items.Add()
-                        .Text("Order Status")
-                       .Content( @<div> @Html.Partial("_OrderStatus", Model) </div>);
+                                                                                                                                             items.Add()
+                                                                                                        .Text("RWO Changes")
+                                                                                                        .Content( @<div> @Html.Partial("_ProductChange", Model) </div>);
 
-                                        items.Add()
-                       .Text("RWO Changes")
-                       .Content( @<div> @Html.Partial("_ProductChange", Model) </div>);
-
-                                        items.Add()
-                   .Text("Sample")
-                  .Content( @<div> @Html.Partial("_SampleSent", Model) </div>);
-
-
-                                        items.Add()
-             .Text("Shipping Issue")
-             .Content( @<div> @Html.Partial("_ShippingIssue", Model) </div>);
-
-                                        items.Add()
-             .Text("Transferred Call")
-             .Content( @<div> @Html.Partial("_TransferredCall", Model) </div>);
+                                                                                                                                             items.Add()
+                                                                                                    .Text("Sample")
+                                                                                                   .Content( @<div> @Html.Partial("_SampleSent", Model) </div>);
 
 
-                                        items.Add()
-        .Text("Complaints")
-        .Content( @<div> @Html.Partial("_Compliant", Model) </div>);
+                                                                                                                                          items.Add()
+                                                                                           .Text("Shipping Issue")
+                                                                                           .Content( @<div> @Html.Partial("_ShippingIssue", Model) </div>);
 
-                                        items.Add()
-                  .Text("Other CallHandling")
-                  .Content( @<div> @Html.Partial("_OtherHandling", Model) </div>);
-                                        })
-)
+                                                                                                                                       items.Add()
+                                                                                        .Text("Transferred Call")
+                                                                                        .Content( @<div> @Html.Partial("_TransferredCall", Model) </div>);
+
+
+                                                                                                                                       items.Add()
+                                                                                   .Text("Complaints")
+                                                                                   .Content( @<div> @Html.Partial("_Compliant", Model) </div>);
+
+                                                                                                                                    items.Add()
+                                                                                          .Text("Other CallHandling")
+                                                                                          .Content( @<div> @Html.Partial("_OtherHandling", Model) </div>);
+                                                                                                                              })
+            )
             <br />
-            <button class="btn btn-primary btn-large" id="startandstopbutton"  type="submit" >Submit </button>
+            <button class="btn btn-primary btn-large" id="startandstopbutton" type="submit">Submit </button>
 
         }
     </div>
@@ -174,6 +176,8 @@ if (Model != null && Model.firstTime == true && Model.details != null)
 
 }
 <script>
+    
+    
 
     var stopwatch;
     var runningstate = 0; // 1 means the timecounter is running 0 means counter stopped
@@ -281,6 +285,80 @@ if (Model != null && Model.firstTime == true && Model.details != null)
     });
 
     $('#startandstopbutton').click(function () {
+
+        var count = 0;
+        
+        if ($('#NamePHI').is(':checked')) 
+            count++;             
+        if ($('#DOBPHI').is(':checked'))
+            count++;        
+        if ($('#AddressPHI').is(':checked'))
+            count++;        
+        if ($('#PhoneNumberPHI').is(':checked'))
+            count++;
+        if ($('#HealthIDPHI').is(':checked'))
+            count++;
+        if ($('#DriverLicPHI').is(':checked'))
+            count++;
+        if ($('#NotVerifyPHI').is(':checked'))
+            count++;
+        if ($('#OtherPHI').is(':checked'))
+            count++;
+        
+        if (count < 3) {
+            alert("Please select atleast 3 options in PHI Verified section!");
+            return false;
+        }
+        if ($('#ddProductSupplies').val() == 'Yes' && ($('#BPM_Supplies').prop("checked") == false
+            && $('#BreastPumps_Supplies').prop("checked") == false
+            && $('#CGM_Supplies').prop("checked") == false
+            && $('#Diabetes_Supplies').prop("checked") == false
+            && $('#Nutrition_Supplies').prop("checked") == false
+            && $('#Incontinence_Supplies').prop("checked") == false
+            && $('#Pump_Supplies').prop("checked") == false
+            && $('#Injectibles_Supplies').prop("checked") == false
+            && $('#Ostomy_Supplies').prop("checked") == false
+            && $('#Urological_Supplies').prop("checked") == false
+            && $('#Wound_Supplies').prop("checked") == false
+            && $('#Other_Supplies').prop("checked") == false
+        )) {
+            alert("No option has been selected in the product supplies");
+            return false;
+        }
+
+        if ($('#ddProductSupplies').val() == 'Yes' && $('#Other_Supplies').prop("checked") && !$('#OthersText_Supplies').val()) {
+            alert("No text in the other product supplies");
+            return false;
+        }
+
+        if($('#ddProductNeeds').val() == 'No' && ($('#BPM_Needs').prop("checked") == false
+            && $('#BreastPumps_Needs').prop("checked") == false
+            && $('#CGM_Needs').prop("checked") == false
+            && $('#Diabetes_Needs').prop("checked") == false
+            && $('#Nutrition_Needs').prop("checked") == false
+            && $('#Incontinence_Needs').prop("checked") == false
+            && $('#Pump_Needs').prop("checked") == false
+            && $('#Injectibles_Needs').prop("checked") == false
+            && $('#Ostomy_Needs').prop("checked") == false
+            && $('#Urological_Needs').prop("checked") == false
+            && $('#Wound_Needs').prop("checked") == false
+            && $('#Other_Needs').prop("checked") == false
+        )) {
+            alert("No option has been selected in the product needs");
+            return false;
+        }
+
+        if ($('#ddProductNeeds').val() == 'No' && $('#Other_Needs').prop("checked") && !$('#OthersText_Needs').val()) {
+            alert("No text in the other product needs");
+            return false;
+        }
+
+        if ($('#ddProductNeeds').val() == 'No' && !$('#Comment_Needs').val()) {
+            alert("Please explain in the comment box how products do not meet the member needs");
+            return false;
+        }
+            
+
         //var $this = $(this);    
         var tn = document.getElementById('TrackingNumber');
         var wo = document.getElementById('WorkOrder');
@@ -325,7 +403,8 @@ if (Model != null && Model.firstTime == true && Model.details != null)
                 && $('#Verification').prop("checked") == false
                 && $('#WebSupport').prop("checked") == false
                 && $('#WoundCareOstomyTENS').prop("checked") == false
-                && $('#OtherUnsureTeam').prop("checked") == false) {
+                && $('#OtherUnsureTeam').prop("checked") == false
+                && $('#ITHelpDesk').prop("checked") == false) {
                 alert("No option has been selected in the Team section of the Complaint");
                 return false;
             }
@@ -339,15 +418,18 @@ if (Model != null && Model.firstTime == true && Model.details != null)
                 && $('#ShippingWarehouse').prop("checked") == false
                 && $('#SmartAction').prop("checked") == false
                 && $('#TextMessaging').prop("checked") == false
-                && $('#WebsitePortal').prop("checked") == false) {
+                && $('#WebsitePortal').prop("checked") == false
+                && $('#ProcessDelay').prop("checked") == false
+                && $('#PhoneFaxIssues').prop("checked") == false) {
                 alert("No option has been selected in the Complaint Type section of the Complaint");
                 return false;
             }
-
+            
         }
         
         if ($('#Compliance').is(':checked') || $('#CustomerService').is(':checked') || $('#Discrimination').is(':checked') || $('#HealthPlan').is(':checked') || $('#ProductDefectiveQuality').is(':checked')
-            || $('#ShippingUSPS').is(':checked') || $('#ShippingWarehouse').is(':checked') || $('#SmartAction').is(':checked') || $('#TextMessaging').is(':checked') || $('#WebsitePortal').is(':checked')) {
+            || $('#ShippingUSPS').is(':checked') || $('#ShippingWarehouse').is(':checked') || $('#SmartAction').is(':checked') || $('#TextMessaging').is(':checked') || $('#WebsitePortal').is(':checked')
+            || $('#ProcessDelay').is(':checked') || $('#PhoneFaxIssues').is(':checked')) {
             //alert("test test");
             var oth = document.getElementById('Others');
             var out = document.getElementById('ddout');

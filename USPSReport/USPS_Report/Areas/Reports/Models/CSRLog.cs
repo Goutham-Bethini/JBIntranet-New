@@ -145,6 +145,8 @@ namespace USPS_Report.Areas.Reports.Models
                     tableRec.ShippingUSPS = _list.ShippingUSPS;
                     tableRec.ShippingWarehouse = _list.ShippingWarehouse;
                     tableRec.TextMessaging = _list.TextMessaging;
+                    tableRec.ProcessDelay = _list.ProcessDelay;
+                    tableRec.PhoneFaxIssues = _list.PhoneFaxIssues;
 
                     tableRec.BloodPressureMonitors = _list.BloodPressureMonitors;
                     tableRec.BreastPumps = _list.BreastPumps;
@@ -182,6 +184,7 @@ namespace USPS_Report.Areas.Reports.Models
                     tableRec.WebSupport = _list.WebSupport;
                     tableRec.WoundCareOstomyTENS = _list.WoundCareOstomyTENS;
                     tableRec.OtherUnsureTeam = _list.OtherUnsureTeam;
+                    tableRec.ITHelpDesk = _list.ITHelpDesk;
 
                     tableRec.Driver = _list.Driver;
                     tableRec.WrongProductShipped = _list.WrongProductShipped;
@@ -449,6 +452,17 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.TransferredCallTxt = _vm.TransferredCallTxtArea;
                     _rec.OtherHandlingTxt = _vm.OtherHandlingTxt;
                     _rec.VerifiedPHI = _vm.VerifiedPHI;
+
+                    _rec.NamePHI = _vm.NamePHI;
+                    _rec.DOBPHI = _vm.DOBPHI;
+                    _rec.AddressPHI = _vm.AddressPHI;
+                    _rec.PhoneNumberPHI = _vm.PhoneNumberPHI;
+                    _rec.HealthIDPHI = _vm.HealthIDPHI;
+                    _rec.DriverLicPHI = _vm.DriverLicPHI;
+                    _rec.NotVerifyPHI = _vm.NotVerifyPHI;
+                    _rec.OtherPHI = _vm.OtherPHI;
+                    _rec.OtherTextPHI = _vm.OtherTextPHI;
+
                     _rec.VoiceForHealth = _vm.VoicesForHealth;
                     _rec.Copay = _vm.Copay;
                     _rec.Billing = _vm.Billing;
@@ -529,6 +543,7 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.WebSupport = _vm.WebSupport;
                     _rec.WoundCareOstomyTENS = _vm.WoundCareOstomyTENS;
                     _rec.OtherUnsureTeam = _vm.OtherUnsureTeam;
+                    _rec.ITHelpDesk = _vm.ITHelpDesk;
 
                     _rec.Compliance = _vm.Compliance;
                     _rec.CustomerService = _vm.CustomerService;
@@ -540,6 +555,42 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.SmartAction = _vm.SmartAction;
                     _rec.TextMessaging = _vm.TextMessaging;
                     _rec.WebsitePortal = _vm.WebsitePortal;
+                    _rec.ProcessDelay = _vm.ProcessDelay;
+                    _rec.PhoneFaxIssues = _vm.PhoneFaxIssues;
+
+                    _rec.ProductNeeds = _vm.ProductNeeds;
+                    _rec.BPM_Needs = _vm.BPM_Needs;
+                    _rec.BreastPumps_Needs = _vm.BreastPumps_Needs;
+                    _rec.CGM_Needs = _vm.CGM_Needs;
+                    _rec.Diabetes_Needs = _vm.Diabetes_Needs;
+                    _rec.Nutrition_Needs = _vm.Nutrition_Needs;
+                    _rec.Incontinence_Needs = _vm.Incontinence_Needs;
+                    _rec.Pump_Needs = _vm.Pump_Needs;
+                    _rec.Injectibles_Needs = _vm.Injectibles_Needs;
+                    _rec.Ostomy_Needs = _vm.Ostomy_Needs;
+                    _rec.Urological_Needs = _vm.Urological_Needs;
+                    _rec.Wound_Needs = _vm.Wound_Needs;
+                    _rec.Other_Needs = _vm.Other_Needs;
+                    _rec.OthersText_Needs = _vm.OthersText_Needs;
+                    _rec.Comment_Needs = _vm.Comment_Needs;
+
+                    _rec.ProductSupplies = _vm.ProductSupplies;
+                    _rec.BPM_Supplies = _vm.BPM_Supplies;
+                    _rec.BreastPumps_Supplies = _vm.BreastPumps_Supplies;
+                    _rec.CGM_Supplies = _vm.CGM_Supplies;
+                    _rec.Diabetes_Supplies = _vm.Diabetes_Supplies;
+                    _rec.Nutrition_Supplies = _vm.Nutrition_Supplies;
+                    _rec.Incontinence_Supplies = _vm.Incontinence_Supplies;
+                    _rec.Pump_Supplies = _vm.Pump_Supplies;
+                    _rec.Injectibles_Supplies = _vm.Injectibles_Supplies;
+                    _rec.Ostomy_Supplies = _vm.Ostomy_Supplies;
+                    _rec.Urological_Supplies = _vm.Urological_Supplies;
+                    _rec.Wound_Supplies = _vm.Wound_Supplies;
+                    _rec.Other_Supplies = _vm.Other_Supplies;
+                    _rec.OthersText_Supplies = _vm.OthersText_Supplies;
+
+                    _rec.ProductServices = _vm.ProductServices;
+
                     //_rec.Driver = _vm.Driver;
                     //_rec.WrongProductShipped = _vm.WrongProductShipped;
                     //_rec.QualityOfProdut = _vm.QualityOfProduct;
@@ -563,6 +614,8 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.Task = _vm.Task;
                     _rec.Web = _vm.Web;
                     _rec.Survey = _vm.Survey;
+                    _rec.Text = _vm.Text;
+                    _rec.Portal = _vm.Portal;
                     _rec.Email = _vm.Email;
                     _rec.Fax = _vm.Fax;
                     _rec.LogTypeOther = _vm.LogTypeOther;
@@ -651,10 +704,29 @@ namespace USPS_Report.Areas.Reports.Models
 
                     if (_vm.VerifiedPHI == true)
                         noteString.Append("VerifiedPHI" + Environment.NewLine);
-                    //noteString = noteString + "VerifiedPHI_";
 
+                    if (_vm.NamePHI == true)
+                        noteString.Append("PHI Verified - Name " + Environment.NewLine);
+                    if (_vm.DOBPHI == true)
+                        noteString.Append("PHI Verified - Date of Birth " + Environment.NewLine);
+                    if (_vm.AddressPHI == true)
+                        noteString.Append("PHI Verified - Address " + Environment.NewLine);
+                    if (_vm.PhoneNumberPHI == true)
+                        noteString.Append("PHI Verified - Phone Number " + Environment.NewLine);
+                    if (_vm.HealthIDPHI == true)
+                        noteString.Append("PHI Verified - Health plan ID " + Environment.NewLine);
+                    if (_vm.DriverLicPHI == true)
+                        noteString.Append("PHI Verified - Driver’s License " + Environment.NewLine);
+                    if (_vm.NotVerifyPHI == true)
+                        noteString.Append("PHI Verified - Would not verify PHI " + Environment.NewLine);
+                    if (_vm.OtherPHI == true)
+                        noteString.Append("PHI Verified - Other " + Environment.NewLine);
+                    if (_vm.OtherTextPHI != "" && _vm.OtherTextPHI != null)
+                    {
+                        otherStr.Append(" PHI Verified Other's Note =" + _vm.OtherTextPHI + " " + Environment.NewLine);
+                    }
 
-                    if (_vm.Call == true || _vm.Task == true || _vm.Fax == true || _vm.Web == true || _vm.Email == true || _vm.Survey == true || _vm.LogTypeOther == true)
+                    if (_vm.Call == true || _vm.Task == true || _vm.Fax == true || _vm.Web == true || _vm.Email == true || _vm.Survey == true || _vm.LogTypeOther == true || _vm.Text == true || _vm.Portal == true)
                     {
                         if (_vm.Call == true)
                             noteString.Append("LogType - Call " + Environment.NewLine);
@@ -668,6 +740,10 @@ namespace USPS_Report.Areas.Reports.Models
                             noteString.Append("LogType - Email " + Environment.NewLine);
                         if (_vm.Survey == true)
                             noteString.Append("LogType - Survey " + Environment.NewLine);
+                        if (_vm.Text == true)
+                            noteString.Append("LogType - Text " + Environment.NewLine);
+                        if (_vm.Portal == true)
+                            noteString.Append("LogType - Portal " + Environment.NewLine);
                         if (_vm.LogTypeOther == true)
                             noteString.Append("LogType - Other " + Environment.NewLine);
 
@@ -742,7 +818,209 @@ namespace USPS_Report.Areas.Reports.Models
                            
                         }
                     }
-           // BILLING
+
+                    //COMMUNICATOIN
+                    if (_vm.ProductNeeds!=null)
+                    {
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();   //&& t.NoteCreatedBy == id
+                        if (_note == null)
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "COMMUNICATION";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 9;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();  //&& t.NoteCreatedBy == id
+                        }
+                        if (_note != null)
+                        {
+                            StringBuilder _sbNeeds = new StringBuilder();
+                            //string str1 = "";
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
+                            _sbNeeds.Append("Are the products you are receiving meeting your needs? " + Environment.NewLine);
+                            _sbNeeds.Append(_vm.ProductNeeds + Environment.NewLine);
+                            if(_vm.ProductNeeds== "No")
+                            {
+                                _sbNeeds.Append("Products not meeting needs: " + Environment.NewLine);
+
+                                if (_vm.BPM_Needs)
+                                    _sbNeeds.Append("Blood Pressure Monitor " + Environment.NewLine);
+
+                                if (_vm.BreastPumps_Needs)
+                                    _sbNeeds.Append("Breast Pump " + Environment.NewLine);
+
+                                if (_vm.CGM_Needs)
+                                    _sbNeeds.Append("Continuous Glucose Monitor (CGM) " + Environment.NewLine);
+
+                                if (_vm.Diabetes_Needs)
+                                    _sbNeeds.Append("Diabetes Testing " + Environment.NewLine);
+
+                                if (_vm.Nutrition_Needs)
+                                    _sbNeeds.Append("Enteral Nutrition " + Environment.NewLine);
+
+                                if (_vm.Incontinence_Needs)
+                                    _sbNeeds.Append("Incontinence " + Environment.NewLine);
+
+                                if (_vm.Pump_Needs)
+                                    _sbNeeds.Append("Insulin Pump " + Environment.NewLine);
+
+                                if (_vm.Injectibles_Needs)
+                                    _sbNeeds.Append("Insulin Injectibles " + Environment.NewLine);
+
+                                if (_vm.Ostomy_Needs)
+                                    _sbNeeds.Append("Ostomy " + Environment.NewLine);
+
+                                if (_vm.Urological_Needs)
+                                    _sbNeeds.Append("Urological " + Environment.NewLine);
+
+                                if (_vm.Wound_Needs)
+                                    _sbNeeds.Append("Wound Care " + Environment.NewLine);
+
+                                if (_vm.Other_Needs)
+                                    _sbNeeds.Append(_vm.OthersText_Needs + Environment.NewLine);
+
+                                _sbNeeds.Append("Explanation of how products do not meet members needs: " + Environment.NewLine);
+                                _sbNeeds.Append(_vm.Comment_Needs + Environment.NewLine);
+
+                            }                            
+
+                            StringBuilder _sbmain = new StringBuilder();
+                            _sbmain.Append(noteString);
+                            _sbmain.Append(_sbNeeds + Environment.NewLine);
+                            _tHist.NoteText = _sbmain.ToString();
+                            _tHist.ID_Operator = id;
+                            _db.tbl_Account_Note_History.Add(_tHist);
+                        }
+                    }
+
+                    //COMMUNICATOIN
+                    if (_vm.ProductSupplies != null)
+                    {
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();   //&& t.NoteCreatedBy == id
+                        if (_note == null)
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "COMMUNICATION";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 9;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();  //&& t.NoteCreatedBy == id
+                        }
+                        if (_note != null)
+                        {
+                            StringBuilder _sbSupplies = new StringBuilder();
+                            //string str1 = "";
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
+                            _sbSupplies.Append("Are there any supplies you are receiving too many of? " + Environment.NewLine);
+                            _sbSupplies.Append(_vm.ProductSupplies + Environment.NewLine);
+                            if (_vm.ProductSupplies == "Yes")
+                            {
+                                _sbSupplies.Append("Products receiving too many of: " + Environment.NewLine);
+
+                                if (_vm.BPM_Supplies)
+                                    _sbSupplies.Append("Blood Pressure Monitor " + Environment.NewLine);
+
+                                if (_vm.BreastPumps_Supplies)
+                                    _sbSupplies.Append("Breast Pump " + Environment.NewLine);
+
+                                if (_vm.CGM_Supplies)
+                                    _sbSupplies.Append("Continuous Glucose Monitor (CGM) " + Environment.NewLine);
+
+                                if (_vm.Diabetes_Supplies)
+                                    _sbSupplies.Append("Diabetes Testing " + Environment.NewLine);
+
+                                if (_vm.Nutrition_Supplies)
+                                    _sbSupplies.Append("Enteral Nutrition " + Environment.NewLine);
+
+                                if (_vm.Incontinence_Supplies)
+                                    _sbSupplies.Append("Incontinence " + Environment.NewLine);
+
+                                if (_vm.Pump_Supplies)
+                                    _sbSupplies.Append("Insulin Pump " + Environment.NewLine);
+
+                                if (_vm.Injectibles_Supplies)
+                                    _sbSupplies.Append("Insulin Injectibles " + Environment.NewLine);
+
+                                if (_vm.Ostomy_Supplies)
+                                    _sbSupplies.Append("Ostomy " + Environment.NewLine);
+
+                                if (_vm.Urological_Supplies)
+                                    _sbSupplies.Append("Urological " + Environment.NewLine);
+
+                                if (_vm.Wound_Supplies)
+                                    _sbSupplies.Append("Wound Care " + Environment.NewLine);
+
+                                if (_vm.Other_Supplies)
+                                    _sbSupplies.Append(_vm.OthersText_Supplies + Environment.NewLine);
+
+                                _sbSupplies.Append("Agent was directed to follow Overstock Process " + Environment.NewLine);
+                            }
+
+                            StringBuilder _sbmain = new StringBuilder();
+                            _sbmain.Append(noteString);
+                            _sbmain.Append(_sbSupplies + Environment.NewLine);
+                            _tHist.NoteText = _sbmain.ToString();
+                            _tHist.ID_Operator = id;
+                            _db.tbl_Account_Note_History.Add(_tHist);
+                        }
+                    }
+
+                    //COMMUNICATOIN
+                    if (_vm.ProductServices != null)
+                    {
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();   //&& t.NoteCreatedBy == id
+                        if (_note == null)
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "COMMUNICATION";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 9;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();  //&& t.NoteCreatedBy == id
+                        }
+                        if (_note != null)
+                        {
+                            StringBuilder _sbServices = new StringBuilder();
+                            //string str1 = "";
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
+                            _sbServices.Append("J&B Pharmacy Services is now available for any of your medication or pharmacy needs.  You have freedom of choice for which pharmacy you would like to use.  Would you like to obtain any supplies from J&B Pharmacy Services? " + Environment.NewLine);
+                            _sbServices.Append(_vm.ProductServices + Environment.NewLine);
+                            if (_vm.ProductServices == "Yes")
+                            {
+                                _sbServices.Append("Agent was directed to follow Pharmacy Referral Process " + Environment.NewLine);
+                            }
+
+                            StringBuilder _sbmain = new StringBuilder();
+                            _sbmain.Append(noteString);
+                            _sbmain.Append(_sbServices + Environment.NewLine);
+                            _tHist.NoteText = _sbmain.ToString();
+                            _tHist.ID_Operator = id;
+                            _db.tbl_Account_Note_History.Add(_tHist);
+                        }
+                    }
+
+                    // BILLING
                     if (_vm.Billing == true && (_vm.BillingTxt != "" && _vm.BillingTxt != null))
                     {
                        
@@ -908,12 +1186,13 @@ namespace USPS_Report.Areas.Reports.Models
                         || _vm.WebSupport == true
                         || _vm.WoundCareOstomyTENS == true
                         || _vm.OtherUnsureTeam == true
+                        || _vm.ITHelpDesk == true
 
                             || _vm.Compliance == true || _vm.CustomerService == true
                             || _vm.Discrimination == true || _vm.HealthPlan == true
                             || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true
                             || _vm.ShippingWarehouse == true || _vm.SmartAction == true
-                            || _vm.TextMessaging == true || _vm.WebsitePortal == true
+                            || _vm.TextMessaging == true || _vm.WebsitePortal == true || _vm.ProcessDelay == true || _vm.PhoneFaxIssues == true 
                             ||  (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
                             ||_vm.Incorrect == true || _vm.Mispick == true ||  (_vm.ProductTextArea != "" && _vm.ProductTextArea != null)
                             || (_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null)
@@ -1020,12 +1299,13 @@ namespace USPS_Report.Areas.Reports.Models
                                 || _vm.WebSupport == true
                                 || _vm.WoundCareOstomyTENS == true
                                 || _vm.OtherUnsureTeam == true
+                                || _vm.ITHelpDesk == true
 
                                 || _vm.Compliance == true || _vm.CustomerService == true
                                 || _vm.Discrimination == true || _vm.HealthPlan == true
                                 || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true
                                 || _vm.ShippingWarehouse == true || _vm.SmartAction == true
-                                || _vm.TextMessaging == true || _vm.WebsitePortal == true
+                                || _vm.TextMessaging == true || _vm.WebsitePortal == true || _vm.ProcessDelay == true || _vm.PhoneFaxIssues == true 
                                 || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null) || (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null))
                                 {
                                     if (_vm.TrackingNumber != "" && _vm.TrackingNumber != null)
@@ -1155,11 +1435,14 @@ namespace USPS_Report.Areas.Reports.Models
                                 if (_vm.OtherUnsureTeam == true)
                                     otherStr.Append("Other/Unsure of Team" + Environment.NewLine);
 
+                                if (_vm.ITHelpDesk == true)
+                                    otherStr.Append("IT / HelpDesk" + Environment.NewLine);
+
                                 if (_vm.Compliance == true)
                                     otherStr.Append("Compliance" + Environment.NewLine);
 
                                 if (_vm.CustomerService == true)
-                                    otherStr.Append("Customer Service (CSR Issue, Hold Times, Follow Up, etc)" + Environment.NewLine);
+                                    otherStr.Append("Customer Service (CSR Issue, Hold Times,etc)" + Environment.NewLine);
 
                                 if (_vm.Discrimination == true)
                                     otherStr.Append("Discrimination / Civil Rights" + Environment.NewLine);
@@ -1184,6 +1467,12 @@ namespace USPS_Report.Areas.Reports.Models
 
                                 if (_vm.WebsitePortal == true)
                                     otherStr.Append("Website / Portal" + Environment.NewLine);
+
+                                if (_vm.ProcessDelay == true)
+                                    otherStr.Append("Process Delay (Internal delays regarding follow up, processing, submission, etc)" + Environment.NewLine);
+
+                                if (_vm.PhoneFaxIssues == true)
+                                    otherStr.Append("Phone / Fax Issues" + Environment.NewLine);
 
                                 //if (_vm.Driver == true)
                                 //       otherStr.Append("Driver" + Environment.NewLine);
@@ -2501,6 +2790,7 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.WebSupport = _vm.WebSupport;
                     _rec.WoundCareOstomyTENS = _vm.WoundCareOstomyTENS;
                     _rec.OtherUnsureTeam = _vm.OtherUnsureTeam;
+                    _rec.ITHelpDesk = _vm.ITHelpDesk;
 
                     _rec.Compliance = _vm.Compliance;
                     _rec.CustomerService = _vm.CustomerService;
@@ -2512,6 +2802,9 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.ShippingUSPS = _vm.ShippingUSPS;
                     _rec.ShippingWarehouse = _vm.ShippingWarehouse;
                     _rec.TextMessaging = _vm.TextMessaging;
+                    _rec.ProcessDelay = _vm.ProcessDelay;
+                    _rec.PhoneFaxIssues = _vm.PhoneFaxIssues;
+
                     _rec.Driver = _vm.Driver;
                     _rec.WrongProductShipped = _vm.WrongProductShipped;
                     _rec.WrongArea = _vm.WrongArea;
@@ -2700,6 +2993,7 @@ namespace USPS_Report.Areas.Reports.Models
                         || _vm.WebSupport == true
                         || _vm.WoundCareOstomyTENS == true
                         || _vm.OtherUnsureTeam == true
+                        || _vm.ITHelpDesk == true
                              || _vm.Compliance == true || _vm.Driver == true || _vm.WrongProductShipped == true || _vm.QualityOfProduct == true
                              || _vm.WrongArea == true || _vm.MissingProduct == true || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
                              || _vm.ProductIncorrect == true ||_vm.Call == true || _vm.Email == true || _vm.Fax == true || _vm.WebsitePortal == true || _vm.SocialMedia == true || _vm.InsCompany == true || _vm.Survey == true ||  _vm.CallRcvdOther == true || _vm.ProductMispick == true || _vm.ProductDefective || (_vm.ProductTextArea != "" && _vm.ProductTextArea != null)
@@ -2707,7 +3001,7 @@ namespace USPS_Report.Areas.Reports.Models
                              || (_vm.Others != "" && _vm.Others != null)|| (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null)
                              || _vm.DidntFollowDelIns == true || _vm.VConfirmationCalls == true || _vm.ComplaintProduct == true || _vm.CustomerService == true || _vm.Discrimination == true || _vm.SmartAction == true || _vm.VPaymentCalles == true || _vm.SAJamesPhonePromts == true
                                 || _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.WebsitePortal == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
-                                _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.HealthPlan == true || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true || _vm.ShippingWarehouse == true || _vm.TextMessaging == true || 
+                                _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.HealthPlan == true || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true || _vm.ShippingWarehouse == true || _vm.TextMessaging == true || _vm.ProcessDelay == true || _vm.PhoneFaxIssues == true || 
                                (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) 
                                || _vm.IssueDate != null || _vm.ComplaintDate != null || _vm.ResolutionDate != null || _vm.InitialRespDate != null || _vm.WrittenRespDate != null
                                )
@@ -2785,13 +3079,14 @@ namespace USPS_Report.Areas.Reports.Models
                         || _vm.WebSupport == true
                         || _vm.WoundCareOstomyTENS == true
                         || _vm.OtherUnsureTeam == true
+                        || _vm.ITHelpDesk == true
                                 || _vm.Compliance == true  
                                 || _vm.Call == true || _vm.Email == true || _vm.Fax == true || _vm.WebsitePortal == true || _vm.SocialMedia == true || _vm.InsCompany == true || _vm.Survey == true || _vm.CallRcvdOther == true ||
                                 _vm.Driver == true || _vm.WrongProductShipped == true || _vm.QualityOfProduct == true
                                 || _vm.WrongArea == true || _vm.MissingProduct == true || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
                                   || _vm.DidntFollowDelIns == true || _vm.VConfirmationCalls == true || _vm.VPaymentCalles == true || _vm.SAJamesPhonePromts == true
                                 || _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.WebsitePortal == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
-                                _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.HealthPlan == true || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true || _vm.ShippingWarehouse == true || _vm.TextMessaging == true ||
+                                _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.HealthPlan == true || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true || _vm.ShippingWarehouse == true || _vm.TextMessaging == true || _vm.ProcessDelay == true || _vm.PhoneFaxIssues == true ||
                                (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) 
                                || _vm.IssueDate != null || _vm.ComplaintDate != null || _vm.ResolutionDate != null || _vm.InitialRespDate !=null || _vm.WrittenRespDate != null ||
                                 _vm.ComplaintProduct == true || _vm.CustomerService == true || _vm.Discrimination == true || _vm.SmartAction == true 
@@ -2954,6 +3249,9 @@ namespace USPS_Report.Areas.Reports.Models
                                 if (_vm.OtherUnsureTeam == true)
                                     otherStr.Append("Other/Unsure of Team" + Environment.NewLine);
 
+                                if (_vm.ITHelpDesk == true)
+                                    otherStr.Append("IT / HelpDesk" + Environment.NewLine);
+
                                 if (_vm.Compliance == true)
                                     otherStr.Append("Compliance" + Environment.NewLine);
 
@@ -2961,7 +3259,7 @@ namespace USPS_Report.Areas.Reports.Models
                                     otherStr.Append("Product" + Environment.NewLine);
 
                                 if (_vm.CustomerService == true)
-                                    otherStr.Append("Customer Service (CSR Issue, Hold Times, Follow Up, etc)" + Environment.NewLine);
+                                    otherStr.Append("Customer Service (CSR Issue, Hold Times,etc)" + Environment.NewLine);
 
                                 //if (_vm.ComplaintShipping == true)
                                 //    otherStr.Append("Shipping" + Environment.NewLine);
@@ -2993,6 +3291,12 @@ namespace USPS_Report.Areas.Reports.Models
 
                                 if (_vm.TextMessaging == true)
                                     otherStr.Append("Text Messaging" + Environment.NewLine);
+
+                                if (_vm.ProcessDelay == true)
+                                    otherStr.Append("Process Delay (Internal delays regarding follow up, processing, submission, etc)" + Environment.NewLine);
+
+                                if (_vm.PhoneFaxIssues == true)
+                                    otherStr.Append("Phone / Fax Issues" + Environment.NewLine);
 
                                 if (_vm.Driver == true)
                                     otherStr.Append("Driver" + Environment.NewLine);
@@ -3429,13 +3733,15 @@ namespace USPS_Report.Areas.Reports.Models
             if (_vm.WoundCareOstomyTENS == true)
                 team.Append(" Wound Care, Ostomy & TENS " + "<br />");
             if (_vm.OtherUnsureTeam == true)
-                team.Append(" Other/Unsure of Team " + "<br />");          
+                team.Append(" Other/Unsure of Team " + "<br />");
+            if (_vm.ITHelpDesk == true)
+                team.Append(" IT / HelpDesk " + "<br />");
 
             StringBuilder complaintType = new StringBuilder();
             if (_vm.Compliance == true)
                 complaintType.Append(" Compliance " + "<br />");
             if (_vm.CustomerService == true)
-                complaintType.Append(" Customer Service (CSR Issue, Hold Times, Follow Up, etc) " + "<br />");
+                complaintType.Append(" Customer Service (CSR Issue, Hold Times,etc) " + "<br />");
             if (_vm.Discrimination == true)
                 complaintType.Append(" Discrimination / Civil Rights " + "<br />");
             if (_vm.HealthPlan == true)
@@ -3452,6 +3758,10 @@ namespace USPS_Report.Areas.Reports.Models
                 complaintType.Append(" Text Messaging " + "<br />");
             if (_vm.WebsitePortal == true)
                 complaintType.Append(" Website / Portal " + "<br />");
+            if (_vm.ProcessDelay == true)
+                complaintType.Append(" Process Delay (Internal delays regarding follow up, processing, submission, etc) " + "<br />");
+            if (_vm.PhoneFaxIssues == true)
+                complaintType.Append(" Phone / Fax Issues " + "<br />");
 
             mail.Body += " <html>";
             mail.Body += " <head><style>table, th, td {border: 1px solid black;border - collapse: collapse;}</style></head> ";
@@ -3597,6 +3907,37 @@ namespace USPS_Report.Areas.Reports.Models
     }
     public class CallLogVM
     {
+        public bool BPM_Supplies { get; set; }
+        public bool BreastPumps_Supplies { get; set; }
+        public bool CGM_Supplies { get; set; }
+        public bool Diabetes_Supplies { get; set; }
+        public bool Nutrition_Supplies { get; set; }
+        public bool Incontinence_Supplies { get; set; }
+        public bool Pump_Supplies { get; set; }
+        public bool Injectibles_Supplies { get; set; }
+        public bool Ostomy_Supplies { get; set; }
+        public bool Urological_Supplies { get; set; }
+        public bool Wound_Supplies { get; set; }
+        public bool Other_Supplies { get; set; }
+        public string OthersText_Supplies { get; set; }
+        public string ProductSupplies { get; set; }
+        public string ProductServices { get; set; }
+        public bool isPayer7or3739 { get; set; }
+        public string ProductNeeds { get; set; }
+        public bool BPM_Needs { get; set; }
+        public bool BreastPumps_Needs { get; set; }
+        public bool CGM_Needs { get; set; }
+        public bool Diabetes_Needs { get; set; }
+        public bool Nutrition_Needs { get; set; }
+        public bool Incontinence_Needs { get; set; }
+        public bool Pump_Needs { get; set; }
+        public bool Injectibles_Needs { get; set; }
+        public bool Ostomy_Needs { get; set; }
+        public bool Urological_Needs { get; set; }
+        public bool Wound_Needs { get; set; }
+        public bool Other_Needs { get; set; }
+        public string OthersText_Needs { get; set; }
+        public string Comment_Needs { get; set; }
 
         //-----------------update ---------------------------//
         public string Product { get; set; }
@@ -3642,6 +3983,17 @@ namespace USPS_Report.Areas.Reports.Models
         [RegularExpression("^([0-9]+)$", ErrorMessage = "Please enter intergers only")]
         public Int64? Account { get; set; }
         public bool VerifiedPHI { get; set; }
+
+        public bool NamePHI { get; set; }
+        public bool DOBPHI { get; set; }
+        public bool AddressPHI { get; set; }
+        public bool PhoneNumberPHI { get; set; }
+        public bool HealthIDPHI { get; set; }
+        public bool DriverLicPHI { get; set; }
+        public bool NotVerifyPHI { get; set; }
+        public bool OtherPHI { get; set; }
+        public string OtherTextPHI { get; set; }
+
         public bool VoicesForHealth { get; set; }
 
         public bool Call { get; set; }
@@ -3651,6 +4003,8 @@ namespace USPS_Report.Areas.Reports.Models
         public bool Web { get; set; }
         public bool LogTypeOther { get; set; }
         public bool Survey { get; set; }
+        public bool Text { get; set; }
+        public bool Portal { get; set; }
 
 
         [Required]
@@ -3782,6 +4136,7 @@ namespace USPS_Report.Areas.Reports.Models
         public bool WebSupport { get; set; }
         public bool WoundCareOstomyTENS { get; set; }
         public bool OtherUnsureTeam { get; set; }
+        public bool ITHelpDesk { get; set; }
 
         //Complaint Type
         public bool Compliance { get; set; }
@@ -3794,6 +4149,8 @@ namespace USPS_Report.Areas.Reports.Models
         public bool SmartAction { get; set; }
         public bool TextMessaging { get; set; }
         public bool WebsitePortal { get; set; }
+        public bool ProcessDelay { get; set; }
+        public bool PhoneFaxIssues { get; set; }
 
         //public bool Driver { get; set; }
         //public bool WrongProductShipped { get; set; }
@@ -3830,6 +4187,11 @@ namespace USPS_Report.Areas.Reports.Models
 
 
     }
+    //public class ProductSurveyVM
+    //{
+    //    public string ProductNeeds { get; set; }
+        
+    //}
 
     public class CSRComplaintVM
     {
@@ -3923,6 +4285,7 @@ namespace USPS_Report.Areas.Reports.Models
         public bool WebSupport { get; set; }
         public bool WoundCareOstomyTENS { get; set; }
         public bool OtherUnsureTeam { get; set; }
+        public bool ITHelpDesk { get; set; }
 
         //Complaint Type
         public bool Compliance { get; set; }
@@ -3935,6 +4298,8 @@ namespace USPS_Report.Areas.Reports.Models
         public bool SmartAction { get; set; }
         public bool TextMessaging { get; set; }
         public bool WebsitePortal { get; set; }
+        public bool ProcessDelay { get; set; }
+        public bool PhoneFaxIssues { get; set; }
 
 
         public bool Driver { get; set; }

@@ -55,7 +55,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
             _vm.TimerTxt = "0:0:0";
             _vm.payerTypeList = AddCSRLog.HDMSPayerInfo(_vm.Account).ToList();
-
+            _vm.isPayer7or3739= _vm.payerTypeList.Any(i => new List<int> { 7, 3739 }.Contains(i.payerid.Value));
             using (HHSQLDBEntities _db = new HHSQLDBEntities())
             {
                 string query = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + User.Identity.Name.Split('\\').Last().ToLower() + "',28,GETDATE())";
@@ -246,6 +246,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     _callVM.WebSupport = _vm.WebSupport;
                     _callVM.WoundCareOstomyTENS = _vm.WoundCareOstomyTENS;
                     _callVM.OtherUnsureTeam = _vm.OtherUnsureTeam;
+                    _callVM.ITHelpDesk = _vm.ITHelpDesk;
 
                     //_callVM.Damaged = _vm.Damaged;
                     _callVM.Compliance = _vm.Compliance;
@@ -258,6 +259,9 @@ namespace USPS_Report.Areas.Reports.Controllers
                     _callVM.SmartAction = _vm.SmartAction;
                     _callVM.TextMessaging = _vm.TextMessaging;
                     _callVM.WebsitePortal = _vm.WebsitePortal;
+                    _callVM.ProcessDelay = _vm.ProcessDelay;
+                    _callVM.PhoneFaxIssues = _vm.PhoneFaxIssues;
+
                     //_callVM.WrongProductShipped = _vm.WrongProductShipped;
                     //_callVM.QualityOfProduct = _vm.QualityOfProduct;
                     //_callVM.Defective = _vm.ProductDefective;

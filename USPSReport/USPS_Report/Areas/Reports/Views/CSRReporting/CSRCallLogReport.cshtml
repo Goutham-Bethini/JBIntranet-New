@@ -51,25 +51,24 @@
                             <tr>
                                 <th>Account</th>
                                 <th>Ref Num</th>
-                                <th>CreatedBy</th>
                                 <th>CreatedOn</th>
-                                @*<th>Payer</th>*@
+                                <th>Resolution</th>
                                 <th>Primary Payer</th>
                                 <th>Secondary Payer</th>
                                 <th>Teritiary Payer</th>
-                                <th>Complaint Received</th>
-                                <th>Issue</th>
                                 <th>Product Line</th>
                                 <th>Team</th>
-                                <th>Complaint Type</th>
-                                <th>Resolution</th>
-                                <th>Note</th>
                                 <th>Issue Date</th>
                                 <th>Complaint Date</th>
-                                <th>Resolution Date</th>
-                                <th>Complaint Attachment</th>
-                                <th>Resolution Note</th>
+                                <th>Complaint Received</th>
+                                <th>Complaint Type</th>
+                                <th>Issue</th>
+                                <th>Note</th>
                                 <th>Pending Resolution</th>
+                                <th>Resolution Date</th>
+                                <th>Resolution Note</th>
+                                <th>Complaint Attachment</th>
+                                <th>CreatedBy</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,34 +77,24 @@
                             <tr>
                                 <td>@rec.account</td>
                                 <td>@rec.ReferenceNumber</td>
-                                <td>@rec.CreatedBy</td>
-                                @*<td>@rec.CreatedOn</td>*@
                                 <td>@String.Format("{0:MM/dd/yyyy}", @rec.CreatedOn)</td>
-                                @*<td>@rec.Payer</td>*@
+                                <td>@rec.Resolution</td>
                                 <td>@rec.PrimaryPayer</td>
                                 <td>@rec.SecondaryPayer</td>
                                 <td>@rec.TeritiaryPayer</td>
-                                <td>@rec.ComplaintRecieved</td>
-                                <td>@rec.Issue</td>
                                 <td>@rec.ProductLine</td>
                                 <td>@rec.Team</td>
-                                <td>@rec.ComplaintType</td>
-                                <td>@rec.Resolution</td>
-                                <td>@rec.Note</td>
-                                @*<td><div class="divcls" id="notediv" style="height:50px;overflow:hidden;">@rec.Note <br /></div><a class="readcls" id="more" href="#/">Read more </a></td>*@
                                 <td>@String.Format("{0:MM/dd/yyyy}", @rec.IssueDate)</td>
                                 <td>@String.Format("{0:MM/dd/yyyy}", @rec.ComplaintDate)</td>
-                                <td>@String.Format("{0:MM/dd/yyyy}", @rec.ResolutionDate)</td>
-                                @*<td>@rec.IssueDate</td>
-        <td>@rec.ComplaintDate</td>
-        <td>@rec.ResolutionDate</td>*@
-                                @*<td>@rec.IssueDate!=null?@rec.IssueDate.Value.Date:null</td>
-        <td>@rec.ComplaintDate!=null?@rec.ComplaintDate.Value.Date:null</td>
-        <td>@rec.ResolutionDate!=null?@rec.ResolutionDate.Value.Date:null</td>*@
-                                <td><a href="#" class="filedownload">@rec.ComplaintAttachment</a></td>
-                                @*<td>@rec.ComplaintAttachment</td>*@
-                                <td>@rec.ResolutionNote</td>
+                                <td>@rec.ComplaintRecieved</td>
+                                <td>@rec.ComplaintType</td>
+                                <td>@rec.Issue</td>
+                                <td>@rec.Note</td>
                                 <td>@rec.PendingResolution</td>
+                                <td>@String.Format("{0:MM/dd/yyyy}", @rec.ResolutionDate)</td>
+                                <td>@rec.ResolutionNote</td>
+                                <td><a href="#" class="filedownload">@rec.ComplaintAttachment</a></td>
+                                <td>@rec.CreatedBy</td>
                             </tr>
                             }
                         </tbody>

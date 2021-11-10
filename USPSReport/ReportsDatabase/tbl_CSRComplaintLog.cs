@@ -119,5 +119,8 @@ namespace ReportsDatabase
         public bool WoundCareOstomyTENS { get; set; }
         public bool OtherUnsureTeam { get; set; }
         public string PendingResolution { get; set; }
+        public bool ProcessDelay { get; set; }
+        public bool PhoneFaxIssues { get; set; }
+        public bool ITHelpDesk { get; set; }
     }
 }

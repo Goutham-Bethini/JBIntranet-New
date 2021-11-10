@@ -66,67 +66,67 @@ if (Model != null && Model.details != null)
 
 
                     @(Html.Kendo().PanelBar()
-                                                                            .Name("newComplaintlog")
-                                                                                 .ExpandMode(PanelBarExpandMode.Multiple)
-                                                                            .Items(items =>
-                                                                            {
-                                                                                items.Add()
-                                        .Text("AccountInfo")
-                                        .Content( @<div> @Html.Partial("_AccountDetailsComplaint", Model) </div>)
-                                                                                             .Expanded(true);
-
-
-
-
+                                                                                    .Name("newComplaintlog")
+                                                                                         .ExpandMode(PanelBarExpandMode.Multiple)
+                                                                                    .Items(items =>
+                                                                                    {
                                                                                         items.Add()
-                                     .Text("Call Handling")
-                                    .Content( @<div> @Html.Partial("_CallHandling", Model) </div>)
-                                                                     .Expanded(true);
+                                                .Text("AccountInfo")
+                                                .Content( @<div> @Html.Partial("_AccountDetailsComplaint", Model) </div>)
+                                                                                                             .Expanded(true);
 
 
 
+
+                                                                                                items.Add()
+                                 .Text("Call Handling")
+                                .Content( @<div> @Html.Partial("_CallHandling", Model) </div>)
+                                                     .Expanded(true);
+
+
+
+
+                                                                                    items.Add()
+                  //.ImageHtmlAttributes(new { style = "color:red;" }).LinkHtmlAttributes(new { style = "font-weight: bold;" })
+                  .Text("Complaint Received").ImageUrl("http://demos.kendoui.com/content/shared/icons/16/star.png")
+                  .Content( @<div> @Html.Partial("_CallReceived", Model) </div>)
+                                         .Expanded(true);
+
+
+
+
+                                                                                items.Add()
+
+            .Text("Complaint")
+            .Content( @<div> @Html.Partial("_Fedex", Model) </div>);
+                                                                                                    items.Add()
+
+                                       .Text("Complaint Attachment")
+                                       .Content( @<div> @Html.Partial("_ComplaintAttachment", Model) </div>);
+
+                                            @*items.Add()
+                                           .Text("Product")
+                                           .Content( @<div> @Html.Partial("_Product", Model) </div>);
+
+                                                                                items.Add()
+                                      .Text("Customer Service")
+                                      .Content( @<div> @Html.Partial("_CustomerService", Model) </div>);
+
+                                                                                items.Add()
+                                    .Text("Other")
+                                    .Content( @<div> @Html.Partial("_Other", Model) </div>);*@
+                                                        items.Add().HtmlAttributes(new { id = "penres" })
+                                                                         .Text("Pending Resolution").ImageUrl("http://demos.kendoui.com/content/shared/icons/16/star.png")
+
+                                                                         .Content( @<div> @Html.Partial("_PendingResolution", Model) </div>);
+                                                                                                   items.Add()
+                                                .Text("Resolution")
+                                                .Content( @<div> @Html.Partial("_Resolution", Model) </div>);
 
                                                                             items.Add()
-
-                      .Text("Complaint Received")
-                        .Content( @<div> @Html.Partial("_CallReceived", Model) </div>)
-                                                 .Expanded(true);
-
-
-
-
-                                                        items.Add()
-
-.Text("Complaint")
-.Content( @<div> @Html.Partial("_Fedex", Model) </div>);
-                                                 items.Add()
-
-.Text("Complaint Attachment")
-.Content( @<div> @Html.Partial("_ComplaintAttachment", Model) </div>);
-
-                    @*items.Add()
-                   .Text("Product")
-                   .Content( @<div> @Html.Partial("_Product", Model) </div>);
-
-                                                        items.Add()
-              .Text("Customer Service")
-              .Content( @<div> @Html.Partial("_CustomerService", Model) </div>);
-
-                                                        items.Add()
-            .Text("Other")
-            .Content( @<div> @Html.Partial("_Other", Model) </div>);*@
-                                items.Add().HtmlAttributes(new { id = "penres" })
-                                                             .Text("Pending Resolution")
-                                                             
-                                                             .Content( @<div> @Html.Partial("_PendingResolution", Model) </div>);
-                                                                                                   items.Add()
-                                                            .Text("Resolution")
-                                                            .Content( @<div> @Html.Partial("_Resolution", Model) </div>);
-
-                                                                                                   items.Add()
-                .Text("Compliant Has Been")
-                .Content( @<div> @Html.Partial("_ComplainsHasBeen", Model) </div>).Expanded(true);
-                                                                                    })
+.Text("Compliant Has Been").ImageUrl("http://demos.kendoui.com/content/shared/icons/16/star.png")
+.Content( @<div> @Html.Partial("_ComplainsHasBeen", Model) </div>).Expanded(true);
+                                                                                })
 
 
                     )
@@ -225,7 +225,9 @@ if (Model != null && Model.details != null)
             && $('#ComplaintShipingWarehouse').prop("checked") == false
             && $('#ComplaintSmartAction').prop("checked") == false
             && $('#ComplaintTextMessaging').prop("checked") == false
-            && $('#ComplaintWebsite').prop("checked") == false) {
+            && $('#ComplaintWebsite').prop("checked") == false
+            && $('#ComplaintDelay').prop("checked") == false
+            && $('#ComplaintPhoneFax').prop("checked") == false) {
             alert("No option has been selected in the Complaint Type section of the Complaint");
             return false;
         }
@@ -252,6 +254,28 @@ if (Model != null && Model.details != null)
     }
 
     $("#startandstopbutton").click(function () {
+        if ($("#IssueDate").val() == "") {
+            alert("No Issue Date selected");
+        }
+        if ($("#ComplaintDate").val() == "") {
+            alert("No Complaint Date selected");
+        }
+        //alert("hi");
+        //var issue = document.getElementById('IssueDate');
+        //if ($("#IssueDate").val() == "") {
+        //    $("#IssueDate").style.backgroundColor = "#ffeeee";
+        //    $("#IssueDate").style.border = "1px solid #ff0000";
+        //    return false;
+        //}
+        //else {
+        //    //debugger;
+        //    //alert("pass");
+        //    $("#IssueDate").removeAttribute("style");
+        //    //document.getElementById('Others').style.backgroundColor = "transparent";
+        //    ////oth.style.backgroundColor = "";
+        //    //oth.style.border = "";
+        //}
+
         var ddComplaint = document.getElementById('ComplaintHasBeen');
         if (ddComplaint.value == "") {
             ddComplaint.style.backgroundColor = "#ffeeee";
@@ -286,11 +310,30 @@ if (Model != null && Model.details != null)
 </script>
 
 <style>
+    /*li:nth-child(n+2):nth-child(-n+3) {
+        color: red !important;
+        text-decoration: underline !important;
+    }*/
+    /*.k-panelbar > .k-item:3-child {
+        color: red !important;
+        text-decoration: underline !important;
+    }*/
+    /*#newComplaintlog > li:first-child {
+        color: red;
+    }*/
     .text-field {
         background-color: #FFFFCC;
         color: #FF0000;
         width: 60px;
         font-size: large;
     }
+    /*.k-panelbar ul li a  {
+        color: red !important;
+        text-decoration: underline !important;
+    }*/
+    /*.k-panelbar > .k-item > .k-link  {
+        color: red !important;
+        text-decoration: underline !important;
+    }*/
 </style>
 

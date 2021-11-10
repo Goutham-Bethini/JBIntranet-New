@@ -1349,6 +1349,7 @@
     <Content Include="Areas\Reports\Views\CustomerServices\_ComplaintAttachment.cshtml" />
     <Content Include="Areas\Reports\Views\CustomerServices\_PendingResolution.cshtml" />
     <Content Include="Areas\Reports\Views\ClinicalAssessment\RemovedAccounts.cshtml" />
+    <Content Include="Areas\Reports\Views\CustomerServices\_ProductSurvey.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GBethini.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />

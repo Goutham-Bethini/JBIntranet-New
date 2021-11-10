@@ -171,5 +171,49 @@ namespace ReportsDatabase
         public bool WoundCareOstomyTENS { get; set; }
         public bool OtherUnsureTeam { get; set; }
         public Nullable<bool> Survey { get; set; }
+        public Nullable<bool> Text { get; set; }
+        public Nullable<bool> Portal { get; set; }
+        public bool ProcessDelay { get; set; }
+        public bool NamePHI { get; set; }
+        public bool DOBPHI { get; set; }
+        public bool AddressPHI { get; set; }
+        public bool PhoneNumberPHI { get; set; }
+        public bool HealthIDPHI { get; set; }
+        public bool DriverLicPHI { get; set; }
+        public bool NotVerifyPHI { get; set; }
+        public bool OtherPHI { get; set; }
+        public string OtherTextPHI { get; set; }
+        public bool PhoneFaxIssues { get; set; }
+        public bool ITHelpDesk { get; set; }
+        public string ProductNeeds { get; set; }
+        public bool BPM_Needs { get; set; }
+        public bool BreastPumps_Needs { get; set; }
+        public bool Other_Needs { get; set; }
+        public string OthersText_Needs { get; set; }
+        public bool CGM_Needs { get; set; }
+        public bool Diabetes_Needs { get; set; }
+        public bool Nutrition_Needs { get; set; }
+        public bool Incontinence_Needs { get; set; }
+        public bool Pump_Needs { get; set; }
+        public bool Injectibles_Needs { get; set; }
+        public bool Ostomy_Needs { get; set; }
+        public bool Urological_Needs { get; set; }
+        public bool Wound_Needs { get; set; }
+        public string ProductSupplies { get; set; }
+        public bool BPM_Supplies { get; set; }
+        public bool BreastPumps_Supplies { get; set; }
+        public bool CGM_Supplies { get; set; }
+        public bool Diabetes_Supplies { get; set; }
+        public bool Nutrition_Supplies { get; set; }
+        public bool Incontinence_Supplies { get; set; }
+        public bool Pump_Supplies { get; set; }
+        public bool Injectibles_Supplies { get; set; }
+        public bool Ostomy_Supplies { get; set; }
+        public bool Urological_Supplies { get; set; }
+        public bool Wound_Supplies { get; set; }
+        public bool Other_Supplies { get; set; }
+        public string OthersText_Supplies { get; set; }
+        public string Comment_Needs { get; set; }
+        public string ProductServices { get; set; }
     }
 }
