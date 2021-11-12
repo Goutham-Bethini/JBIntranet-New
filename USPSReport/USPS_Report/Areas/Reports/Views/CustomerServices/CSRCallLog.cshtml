@@ -107,7 +107,7 @@ if (Model != null && Model.firstTime == true && Model.details != null)
                                                              .Expanded(true);*@
                                                     items.Add()
                                    .Text("Product Survey")
-                                   .Content( @<div> @Html.Partial("_ProductSurvey", Model) </div>);
+                                   .Content( @<div> @Html.Partial("_ProductSurvey", Model) </div>).Expanded(true);
                                                                                         items.Add()
                                                             .Text("Billing/Payments")
                                                             .Content( @<div> @Html.Partial("_Billing", Model) </div>);

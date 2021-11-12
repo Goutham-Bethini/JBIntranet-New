@@ -569,6 +569,7 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="OthersText_Supplies" Type="varchar(max)" />
           <Property Name="Comment_Needs" Type="varchar(max)" />
           <Property Name="ProductServices" Type="varchar(max)" />
+          <Property Name="SocialMedia" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tbl_CSRComplaintLog">
           <Key>
@@ -1528,6 +1529,7 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="OthersText_Supplies" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Comment_Needs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ProductServices" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SocialMedia" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2065,6 +2067,7 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <EntitySetMapping Name="tbl_CSRCallLog">
             <EntityTypeMapping TypeName="IntranetModel.tbl_CSRCallLog">
               <MappingFragment StoreEntitySet="tbl_CSRCallLog">
+                <ScalarProperty Name="SocialMedia" ColumnName="SocialMedia" />
                 <ScalarProperty Name="ProductServices" ColumnName="ProductServices" />
                 <ScalarProperty Name="Comment_Needs" ColumnName="Comment_Needs" />
                 <ScalarProperty Name="OthersText_Supplies" ColumnName="OthersText_Supplies" />

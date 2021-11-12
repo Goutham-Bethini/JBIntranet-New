@@ -215,5 +215,6 @@ namespace ReportsDatabase
         public string OthersText_Supplies { get; set; }
         public string Comment_Needs { get; set; }
         public string ProductServices { get; set; }
+        public bool SocialMedia { get; set; }
     }
 }

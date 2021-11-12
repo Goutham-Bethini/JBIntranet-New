@@ -616,6 +616,7 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.Survey = _vm.Survey;
                     _rec.Text = _vm.Text;
                     _rec.Portal = _vm.Portal;
+                    _rec.SocialMedia = _vm.SocialMedia;
                     _rec.Email = _vm.Email;
                     _rec.Fax = _vm.Fax;
                     _rec.LogTypeOther = _vm.LogTypeOther;
@@ -726,7 +727,7 @@ namespace USPS_Report.Areas.Reports.Models
                         otherStr.Append(" PHI Verified Other's Note =" + _vm.OtherTextPHI + " " + Environment.NewLine);
                     }
 
-                    if (_vm.Call == true || _vm.Task == true || _vm.Fax == true || _vm.Web == true || _vm.Email == true || _vm.Survey == true || _vm.LogTypeOther == true || _vm.Text == true || _vm.Portal == true)
+                    if (_vm.Call == true || _vm.Task == true || _vm.Fax == true || _vm.Web == true || _vm.Email == true || _vm.Survey == true || _vm.LogTypeOther == true || _vm.Text == true || _vm.Portal == true || _vm.SocialMedia == true)
                     {
                         if (_vm.Call == true)
                             noteString.Append("LogType - Call " + Environment.NewLine);
@@ -744,6 +745,8 @@ namespace USPS_Report.Areas.Reports.Models
                             noteString.Append("LogType - Text " + Environment.NewLine);
                         if (_vm.Portal == true)
                             noteString.Append("LogType - Portal " + Environment.NewLine);
+                        if (_vm.SocialMedia == true)
+                            noteString.Append("LogType - Social Media " + Environment.NewLine);
                         if (_vm.LogTypeOther == true)
                             noteString.Append("LogType - Other " + Environment.NewLine);
 
@@ -4005,6 +4008,7 @@ namespace USPS_Report.Areas.Reports.Models
         public bool Survey { get; set; }
         public bool Text { get; set; }
         public bool Portal { get; set; }
+        public bool SocialMedia { get; set; }
 
 
         [Required]
