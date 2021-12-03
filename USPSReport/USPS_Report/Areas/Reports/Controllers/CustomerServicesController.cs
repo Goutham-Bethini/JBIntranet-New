@@ -160,17 +160,32 @@ namespace USPS_Report.Areas.Reports.Controllers
 
         }
 
-
+        [HttpGet]
+        public ActionResult Download(string FileName)
+        {
+            try
+            {
+                var fullPath = Path.Combine(@"\\JBMMIWEB001\StateAudit$\Files\Complaint log files", FileName);
+                string mimeType = System.Web.MimeMapping.GetMimeMapping(FileName);
+                // return File(fullPath, "application/vnd.ms-excel", FileName);
+                return File(fullPath, mimeType, FileName);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         [HttpPost]
         public ActionResult AddCSRComlaintlog(CSRComplaintVM _vm, HttpPostedFileBase file, FormCollection form)
         {
             String _msg = String.Empty;
-            int id = 0;
+            //int id = 0;
+            int complaintId = 0;
             if (_vm != null)
             {
                 _vm.payerTypeList = AddCSRLog.HDMSPayerInfo(_vm.Account).ToList();
-                _vm.id = AddCSRLog.AddComplaintLog(_vm);
+                complaintId = AddCSRLog.AddComplaintLog(_vm);
 
                 string dir = @"\\JBMMIWEB001\StateAudit$\Files\Complaint log files";
                 string path = string.Empty;
@@ -191,7 +206,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     {
                         tbl_CSRComplaintLog_Attachments att = new tbl_CSRComplaintLog_Attachments();
                         att.Account = _vm.Account;
-                        att.ComplaintId = _vm.id;
+                        att.ComplaintId = complaintId;
                         att.FileName = file.FileName;
                         att.UploadedBy = userName;
                         att.UploadedDate = DateTime.Now;
@@ -288,12 +303,12 @@ namespace USPS_Report.Areas.Reports.Controllers
                     _callVM.Others = _vm.Others;
 
 
-                    id = AddCSRLog.AddCallLog(_callVM);
+                    _vm.id = AddCSRLog.AddCallLog(_callVM);
 
-                    _vm.id = id;
+                    //_vm.id = id;
                 }
 
-                _msg = AddCSRLog.AddNote_ComplaintLog(_vm, id);
+                _msg = AddCSRLog.AddNote_ComplaintLog(_vm, _vm.id);
 
                 if (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null && !_vm.ComplaintHasBeen.Contains("Pending Resolution–Supervisor") && !_vm.ComplaintHasBeen.Contains("Pending Resolution–Management"))
                 {
@@ -309,7 +324,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                 }
                 if (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null && _vm.ComplaintHasBeen.Contains("Pending Resolution–Management"))
                 {
-                    AddCSRLog.sendComplainLogEmailToManagers(_msg, _vm.Account, id, _vm);
+                    AddCSRLog.sendComplainLogEmailToManagers(_msg, _vm.Account, _vm.id, _vm);
                 }
             }
             //return Content("<script type='text/javascript'>window.close();</script>");

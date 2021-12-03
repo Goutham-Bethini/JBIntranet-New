@@ -683,6 +683,8 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="ProcessDelay" Type="bit" Nullable="false" />
           <Property Name="PhoneFaxIssues" Type="bit" Nullable="false" />
           <Property Name="ITHelpDesk" Type="bit" Nullable="false" />
+          <Property Name="Id_CSRCallLog" Type="int" />
+          <Property Name="WorkOrder" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="tbl_CSRComplaintLog_Attachments">
           <Key>
@@ -826,8 +828,8 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <EntitySet Name="BCBS_ProviderList" EntityType="IntranetModel.BCBS_ProviderList" />
           <EntitySet Name="tbl_BCNCallLog" EntityType="IntranetModel.tbl_BCNCallLog" />
           <EntitySet Name="tbl_CSRComplaintLog_Attachments" EntityType="IntranetModel.tbl_CSRComplaintLog_Attachments" />
-          <EntitySet Name="tbl_CSRComplaintLog" EntityType="IntranetModel.tbl_CSRComplaintLog" />
           <EntitySet Name="tbl_CSRCallLog" EntityType="IntranetModel.tbl_CSRCallLog" />
+          <EntitySet Name="tbl_CSRComplaintLog" EntityType="IntranetModel.tbl_CSRComplaintLog" />
         </EntityContainer>
         <EntityType Name="Employees_New">
           <Key>
@@ -1211,119 +1213,6 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="UploadedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="UploadedDate" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tbl_CSRComplaintLog">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Account" Type="Int32" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
-          <Property Name="PayerType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="TrackingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Damaged" Type="Boolean" />
-          <Property Name="Driver" Type="Boolean" />
-          <Property Name="WrongProductShipped" Type="Boolean" />
-          <Property Name="QualityOfProdut" Type="Boolean" />
-          <Property Name="WrongArea" Type="Boolean" />
-          <Property Name="MissingProduct" Type="Boolean" />
-          <Property Name="FedExTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ProductIncrease" Type="Boolean" />
-          <Property Name="ProductMispick" Type="Boolean" />
-          <Property Name="ProductDefective" Type="Boolean" />
-          <Property Name="ProductTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ImpoliteORoffensive" Type="Boolean" />
-          <Property Name="HoldTimes" Type="Boolean" />
-          <Property Name="customerServiceTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="OtherTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ComplaintHasBeen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Product" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DeliveryCompany" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="BCNProvider" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Other" Type="Boolean" Nullable="false" />
-          <Property Name="BCNProviderIssue" Type="Boolean" Nullable="false" />
-          <Property Name="InsLimitGuidelines" Type="Boolean" Nullable="false" />
-          <Property Name="PhysicianIssue" Type="Boolean" Nullable="false" />
-          <Property Name="NeverRecivedSupplies" Type="Boolean" Nullable="false" />
-          <Property Name="NoFollowUpWithMem" Type="Boolean" Nullable="false" />
-          <Property Name="ReturnedFromVM" Type="Boolean" Nullable="false" />
-          <Property Name="NoFollowUp" Type="Boolean" Nullable="false" />
-          <Property Name="Website" Type="Boolean" Nullable="false" />
-          <Property Name="VirtualCallBack" Type="Boolean" Nullable="false" />
-          <Property Name="SAJamesSelfService" Type="Boolean" Nullable="false" />
-          <Property Name="SAJamesPhonePromts" Type="Boolean" Nullable="false" />
-          <Property Name="VPaymentCalles" Type="Boolean" Nullable="false" />
-          <Property Name="VConfirmationCalls" Type="Boolean" Nullable="false" />
-          <Property Name="DidntFollowDelIns" Type="Boolean" Nullable="false" />
-          <Property Name="ComplaintDate" Type="DateTime" Precision="3" />
-          <Property Name="ResolutionDate" Type="DateTime" Precision="3" />
-          <Property Name="InitialRespDate" Type="DateTime" Precision="3" />
-          <Property Name="WrittenRespDate" Type="DateTime" Precision="3" />
-          <Property Name="IssueDate" Type="DateTime" Precision="3" />
-          <Property Name="Call" Type="Boolean" />
-          <Property Name="Email" Type="Boolean" />
-          <Property Name="Fax" Type="Boolean" />
-          <Property Name="Mail" Type="Boolean" />
-          <Property Name="CallRcvdWebsite" Type="Boolean" />
-          <Property Name="SocialMedia" Type="Boolean" />
-          <Property Name="InsCompany" Type="Boolean" />
-          <Property Name="CallRcvdOther" Type="Boolean" />
-          <Property Name="ComplaintProduct" Type="Boolean" />
-          <Property Name="ComplaintShipping" Type="Boolean" />
-          <Property Name="ComplaintService" Type="Boolean" />
-          <Property Name="ComplaintSmartAction" Type="Boolean" />
-          <Property Name="Resolution" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Survey" Type="Boolean" />
-          <Property Name="Compliance" Type="Boolean" Nullable="false" />
-          <Property Name="CustomerService" Type="Boolean" Nullable="false" />
-          <Property Name="Discrimination" Type="Boolean" Nullable="false" />
-          <Property Name="HealthPlan" Type="Boolean" Nullable="false" />
-          <Property Name="ProductDefectiveQuality" Type="Boolean" Nullable="false" />
-          <Property Name="ShippingUSPS" Type="Boolean" Nullable="false" />
-          <Property Name="ShippingWarehouse" Type="Boolean" Nullable="false" />
-          <Property Name="SmartAction" Type="Boolean" Nullable="false" />
-          <Property Name="TextMessaging" Type="Boolean" Nullable="false" />
-          <Property Name="WebsitePortal" Type="Boolean" Nullable="false" />
-          <Property Name="BloodPressureMonitors" Type="Boolean" Nullable="false" />
-          <Property Name="BreastPumps" Type="Boolean" Nullable="false" />
-          <Property Name="ContGlucoseMonitoring" Type="Boolean" Nullable="false" />
-          <Property Name="DiabeticTestSup" Type="Boolean" Nullable="false" />
-          <Property Name="EnteralNutrition" Type="Boolean" Nullable="false" />
-          <Property Name="ExternalDefibrillator" Type="Boolean" Nullable="false" />
-          <Property Name="IncontinenceSupplies" Type="Boolean" Nullable="false" />
-          <Property Name="InsulinPumpsSupplies" Type="Boolean" Nullable="false" />
-          <Property Name="InsSyrPenNeed" Type="Boolean" Nullable="false" />
-          <Property Name="OstomySupplies" Type="Boolean" Nullable="false" />
-          <Property Name="PleurXDrainSys" Type="Boolean" Nullable="false" />
-          <Property Name="PTINRTesting" Type="Boolean" Nullable="false" />
-          <Property Name="TENSUnitSup" Type="Boolean" Nullable="false" />
-          <Property Name="UrologicalSupplies" Type="Boolean" Nullable="false" />
-          <Property Name="WoundCareSupplies" Type="Boolean" Nullable="false" />
-          <Property Name="OtherUnsureSupplies" Type="Boolean" Nullable="false" />
-          <Property Name="BDI" Type="Boolean" Nullable="false" />
-          <Property Name="BPnBPM" Type="Boolean" Nullable="false" />
-          <Property Name="CallCenter" Type="Boolean" Nullable="false" />
-          <Property Name="CSRAssessment" Type="Boolean" Nullable="false" />
-          <Property Name="DynamicSynergy" Type="Boolean" Nullable="false" />
-          <Property Name="Enteral" Type="Boolean" Nullable="false" />
-          <Property Name="HGS" Type="Boolean" Nullable="false" />
-          <Property Name="InsulinPumpCGM" Type="Boolean" Nullable="false" />
-          <Property Name="MedicalDocuments" Type="Boolean" Nullable="false" />
-          <Property Name="NewAccountTeam" Type="Boolean" Nullable="false" />
-          <Property Name="Nurses" Type="Boolean" Nullable="false" />
-          <Property Name="QualityAssurance" Type="Boolean" Nullable="false" />
-          <Property Name="Shipping" Type="Boolean" Nullable="false" />
-          <Property Name="THC" Type="Boolean" Nullable="false" />
-          <Property Name="Troy" Type="Boolean" Nullable="false" />
-          <Property Name="Verification" Type="Boolean" Nullable="false" />
-          <Property Name="WebSupport" Type="Boolean" Nullable="false" />
-          <Property Name="WoundCareOstomyTENS" Type="Boolean" Nullable="false" />
-          <Property Name="OtherUnsureTeam" Type="Boolean" Nullable="false" />
-          <Property Name="PendingResolution" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ProcessDelay" Type="Boolean" Nullable="false" />
-          <Property Name="PhoneFaxIssues" Type="Boolean" Nullable="false" />
-          <Property Name="ITHelpDesk" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="tbl_CSRCallLog">
           <Key>
             <PropertyRef Name="id" />
@@ -1530,6 +1419,121 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
           <Property Name="Comment_Needs" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ProductServices" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SocialMedia" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_CSRComplaintLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="PayerType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TrackingNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Damaged" Type="Boolean" />
+          <Property Name="Driver" Type="Boolean" />
+          <Property Name="WrongProductShipped" Type="Boolean" />
+          <Property Name="QualityOfProdut" Type="Boolean" />
+          <Property Name="WrongArea" Type="Boolean" />
+          <Property Name="MissingProduct" Type="Boolean" />
+          <Property Name="FedExTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProductIncrease" Type="Boolean" />
+          <Property Name="ProductMispick" Type="Boolean" />
+          <Property Name="ProductDefective" Type="Boolean" />
+          <Property Name="ProductTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ImpoliteORoffensive" Type="Boolean" />
+          <Property Name="HoldTimes" Type="Boolean" />
+          <Property Name="customerServiceTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OtherTxt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ComplaintHasBeen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Product" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryCompany" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BCNProvider" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Other" Type="Boolean" Nullable="false" />
+          <Property Name="BCNProviderIssue" Type="Boolean" Nullable="false" />
+          <Property Name="InsLimitGuidelines" Type="Boolean" Nullable="false" />
+          <Property Name="PhysicianIssue" Type="Boolean" Nullable="false" />
+          <Property Name="NeverRecivedSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="NoFollowUpWithMem" Type="Boolean" Nullable="false" />
+          <Property Name="ReturnedFromVM" Type="Boolean" Nullable="false" />
+          <Property Name="NoFollowUp" Type="Boolean" Nullable="false" />
+          <Property Name="Website" Type="Boolean" Nullable="false" />
+          <Property Name="VirtualCallBack" Type="Boolean" Nullable="false" />
+          <Property Name="SAJamesSelfService" Type="Boolean" Nullable="false" />
+          <Property Name="SAJamesPhonePromts" Type="Boolean" Nullable="false" />
+          <Property Name="VPaymentCalles" Type="Boolean" Nullable="false" />
+          <Property Name="VConfirmationCalls" Type="Boolean" Nullable="false" />
+          <Property Name="DidntFollowDelIns" Type="Boolean" Nullable="false" />
+          <Property Name="ComplaintDate" Type="DateTime" Precision="3" />
+          <Property Name="ResolutionDate" Type="DateTime" Precision="3" />
+          <Property Name="InitialRespDate" Type="DateTime" Precision="3" />
+          <Property Name="WrittenRespDate" Type="DateTime" Precision="3" />
+          <Property Name="IssueDate" Type="DateTime" Precision="3" />
+          <Property Name="Call" Type="Boolean" />
+          <Property Name="Email" Type="Boolean" />
+          <Property Name="Fax" Type="Boolean" />
+          <Property Name="Mail" Type="Boolean" />
+          <Property Name="CallRcvdWebsite" Type="Boolean" />
+          <Property Name="SocialMedia" Type="Boolean" />
+          <Property Name="InsCompany" Type="Boolean" />
+          <Property Name="CallRcvdOther" Type="Boolean" />
+          <Property Name="ComplaintProduct" Type="Boolean" />
+          <Property Name="ComplaintShipping" Type="Boolean" />
+          <Property Name="ComplaintService" Type="Boolean" />
+          <Property Name="ComplaintSmartAction" Type="Boolean" />
+          <Property Name="Resolution" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Survey" Type="Boolean" />
+          <Property Name="Compliance" Type="Boolean" Nullable="false" />
+          <Property Name="CustomerService" Type="Boolean" Nullable="false" />
+          <Property Name="Discrimination" Type="Boolean" Nullable="false" />
+          <Property Name="HealthPlan" Type="Boolean" Nullable="false" />
+          <Property Name="ProductDefectiveQuality" Type="Boolean" Nullable="false" />
+          <Property Name="ShippingUSPS" Type="Boolean" Nullable="false" />
+          <Property Name="ShippingWarehouse" Type="Boolean" Nullable="false" />
+          <Property Name="SmartAction" Type="Boolean" Nullable="false" />
+          <Property Name="TextMessaging" Type="Boolean" Nullable="false" />
+          <Property Name="WebsitePortal" Type="Boolean" Nullable="false" />
+          <Property Name="BloodPressureMonitors" Type="Boolean" Nullable="false" />
+          <Property Name="BreastPumps" Type="Boolean" Nullable="false" />
+          <Property Name="ContGlucoseMonitoring" Type="Boolean" Nullable="false" />
+          <Property Name="DiabeticTestSup" Type="Boolean" Nullable="false" />
+          <Property Name="EnteralNutrition" Type="Boolean" Nullable="false" />
+          <Property Name="ExternalDefibrillator" Type="Boolean" Nullable="false" />
+          <Property Name="IncontinenceSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="InsulinPumpsSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="InsSyrPenNeed" Type="Boolean" Nullable="false" />
+          <Property Name="OstomySupplies" Type="Boolean" Nullable="false" />
+          <Property Name="PleurXDrainSys" Type="Boolean" Nullable="false" />
+          <Property Name="PTINRTesting" Type="Boolean" Nullable="false" />
+          <Property Name="TENSUnitSup" Type="Boolean" Nullable="false" />
+          <Property Name="UrologicalSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="WoundCareSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="OtherUnsureSupplies" Type="Boolean" Nullable="false" />
+          <Property Name="BDI" Type="Boolean" Nullable="false" />
+          <Property Name="BPnBPM" Type="Boolean" Nullable="false" />
+          <Property Name="CallCenter" Type="Boolean" Nullable="false" />
+          <Property Name="CSRAssessment" Type="Boolean" Nullable="false" />
+          <Property Name="DynamicSynergy" Type="Boolean" Nullable="false" />
+          <Property Name="Enteral" Type="Boolean" Nullable="false" />
+          <Property Name="HGS" Type="Boolean" Nullable="false" />
+          <Property Name="InsulinPumpCGM" Type="Boolean" Nullable="false" />
+          <Property Name="MedicalDocuments" Type="Boolean" Nullable="false" />
+          <Property Name="NewAccountTeam" Type="Boolean" Nullable="false" />
+          <Property Name="Nurses" Type="Boolean" Nullable="false" />
+          <Property Name="QualityAssurance" Type="Boolean" Nullable="false" />
+          <Property Name="Shipping" Type="Boolean" Nullable="false" />
+          <Property Name="THC" Type="Boolean" Nullable="false" />
+          <Property Name="Troy" Type="Boolean" Nullable="false" />
+          <Property Name="Verification" Type="Boolean" Nullable="false" />
+          <Property Name="WebSupport" Type="Boolean" Nullable="false" />
+          <Property Name="WoundCareOstomyTENS" Type="Boolean" Nullable="false" />
+          <Property Name="OtherUnsureTeam" Type="Boolean" Nullable="false" />
+          <Property Name="PendingResolution" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProcessDelay" Type="Boolean" Nullable="false" />
+          <Property Name="PhoneFaxIssues" Type="Boolean" Nullable="false" />
+          <Property Name="ITHelpDesk" Type="Boolean" Nullable="false" />
+          <Property Name="Id_CSRCallLog" Type="Int32" />
+          <Property Name="WorkOrder" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1950,120 +1954,6 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_CSRComplaintLog">
-            <EntityTypeMapping TypeName="IntranetModel.tbl_CSRComplaintLog">
-              <MappingFragment StoreEntitySet="tbl_CSRComplaintLog">
-                <ScalarProperty Name="ITHelpDesk" ColumnName="ITHelpDesk" />
-                <ScalarProperty Name="PhoneFaxIssues" ColumnName="PhoneFaxIssues" />
-                <ScalarProperty Name="ProcessDelay" ColumnName="ProcessDelay" />
-                <ScalarProperty Name="PendingResolution" ColumnName="PendingResolution" />
-                <ScalarProperty Name="OtherUnsureTeam" ColumnName="OtherUnsureTeam" />
-                <ScalarProperty Name="WoundCareOstomyTENS" ColumnName="WoundCareOstomyTENS" />
-                <ScalarProperty Name="WebSupport" ColumnName="WebSupport" />
-                <ScalarProperty Name="Verification" ColumnName="Verification" />
-                <ScalarProperty Name="Troy" ColumnName="Troy" />
-                <ScalarProperty Name="THC" ColumnName="THC" />
-                <ScalarProperty Name="Shipping" ColumnName="Shipping" />
-                <ScalarProperty Name="QualityAssurance" ColumnName="QualityAssurance" />
-                <ScalarProperty Name="Nurses" ColumnName="Nurses" />
-                <ScalarProperty Name="NewAccountTeam" ColumnName="NewAccountTeam" />
-                <ScalarProperty Name="MedicalDocuments" ColumnName="MedicalDocuments" />
-                <ScalarProperty Name="InsulinPumpCGM" ColumnName="InsulinPumpCGM" />
-                <ScalarProperty Name="HGS" ColumnName="HGS" />
-                <ScalarProperty Name="Enteral" ColumnName="Enteral" />
-                <ScalarProperty Name="DynamicSynergy" ColumnName="DynamicSynergy" />
-                <ScalarProperty Name="CSRAssessment" ColumnName="CSRAssessment" />
-                <ScalarProperty Name="CallCenter" ColumnName="CallCenter" />
-                <ScalarProperty Name="BPnBPM" ColumnName="BPnBPM" />
-                <ScalarProperty Name="BDI" ColumnName="BDI" />
-                <ScalarProperty Name="OtherUnsureSupplies" ColumnName="OtherUnsureSupplies" />
-                <ScalarProperty Name="WoundCareSupplies" ColumnName="WoundCareSupplies" />
-                <ScalarProperty Name="UrologicalSupplies" ColumnName="UrologicalSupplies" />
-                <ScalarProperty Name="TENSUnitSup" ColumnName="TENSUnitSup" />
-                <ScalarProperty Name="PTINRTesting" ColumnName="PTINRTesting" />
-                <ScalarProperty Name="PleurXDrainSys" ColumnName="PleurXDrainSys" />
-                <ScalarProperty Name="OstomySupplies" ColumnName="OstomySupplies" />
-                <ScalarProperty Name="InsSyrPenNeed" ColumnName="InsSyrPenNeed" />
-                <ScalarProperty Name="InsulinPumpsSupplies" ColumnName="InsulinPumpsSupplies" />
-                <ScalarProperty Name="IncontinenceSupplies" ColumnName="IncontinenceSupplies" />
-                <ScalarProperty Name="ExternalDefibrillator" ColumnName="ExternalDefibrillator" />
-                <ScalarProperty Name="EnteralNutrition" ColumnName="EnteralNutrition" />
-                <ScalarProperty Name="DiabeticTestSup" ColumnName="DiabeticTestSup" />
-                <ScalarProperty Name="ContGlucoseMonitoring" ColumnName="ContGlucoseMonitoring" />
-                <ScalarProperty Name="BreastPumps" ColumnName="BreastPumps" />
-                <ScalarProperty Name="BloodPressureMonitors" ColumnName="BloodPressureMonitors" />
-                <ScalarProperty Name="WebsitePortal" ColumnName="WebsitePortal" />
-                <ScalarProperty Name="TextMessaging" ColumnName="TextMessaging" />
-                <ScalarProperty Name="SmartAction" ColumnName="SmartAction" />
-                <ScalarProperty Name="ShippingWarehouse" ColumnName="ShippingWarehouse" />
-                <ScalarProperty Name="ShippingUSPS" ColumnName="ShippingUSPS" />
-                <ScalarProperty Name="ProductDefectiveQuality" ColumnName="ProductDefectiveQuality" />
-                <ScalarProperty Name="HealthPlan" ColumnName="HealthPlan" />
-                <ScalarProperty Name="Discrimination" ColumnName="Discrimination" />
-                <ScalarProperty Name="CustomerService" ColumnName="CustomerService" />
-                <ScalarProperty Name="Compliance" ColumnName="Compliance" />
-                <ScalarProperty Name="Survey" ColumnName="Survey" />
-                <ScalarProperty Name="Resolution" ColumnName="Resolution" />
-                <ScalarProperty Name="ComplaintSmartAction" ColumnName="ComplaintSmartAction" />
-                <ScalarProperty Name="ComplaintService" ColumnName="ComplaintService" />
-                <ScalarProperty Name="ComplaintShipping" ColumnName="ComplaintShipping" />
-                <ScalarProperty Name="ComplaintProduct" ColumnName="ComplaintProduct" />
-                <ScalarProperty Name="CallRcvdOther" ColumnName="CallRcvdOther" />
-                <ScalarProperty Name="InsCompany" ColumnName="InsCompany" />
-                <ScalarProperty Name="SocialMedia" ColumnName="SocialMedia" />
-                <ScalarProperty Name="CallRcvdWebsite" ColumnName="CallRcvdWebsite" />
-                <ScalarProperty Name="Mail" ColumnName="Mail" />
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Call" ColumnName="Call" />
-                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
-                <ScalarProperty Name="WrittenRespDate" ColumnName="WrittenRespDate" />
-                <ScalarProperty Name="InitialRespDate" ColumnName="InitialRespDate" />
-                <ScalarProperty Name="ResolutionDate" ColumnName="ResolutionDate" />
-                <ScalarProperty Name="ComplaintDate" ColumnName="ComplaintDate" />
-                <ScalarProperty Name="DidntFollowDelIns" ColumnName="DidntFollowDelIns" />
-                <ScalarProperty Name="VConfirmationCalls" ColumnName="VConfirmationCalls" />
-                <ScalarProperty Name="VPaymentCalles" ColumnName="VPaymentCalles" />
-                <ScalarProperty Name="SAJamesPhonePromts" ColumnName="SAJamesPhonePromts" />
-                <ScalarProperty Name="SAJamesSelfService" ColumnName="SAJamesSelfService" />
-                <ScalarProperty Name="VirtualCallBack" ColumnName="VirtualCallBack" />
-                <ScalarProperty Name="Website" ColumnName="Website" />
-                <ScalarProperty Name="NoFollowUp" ColumnName="NoFollowUp" />
-                <ScalarProperty Name="ReturnedFromVM" ColumnName="ReturnedFromVM" />
-                <ScalarProperty Name="NoFollowUpWithMem" ColumnName="NoFollowUpWithMem" />
-                <ScalarProperty Name="NeverRecivedSupplies" ColumnName="NeverRecivedSupplies" />
-                <ScalarProperty Name="PhysicianIssue" ColumnName="PhysicianIssue" />
-                <ScalarProperty Name="InsLimitGuidelines" ColumnName="InsLimitGuidelines" />
-                <ScalarProperty Name="BCNProviderIssue" ColumnName="BCNProviderIssue" />
-                <ScalarProperty Name="Other" ColumnName="Other" />
-                <ScalarProperty Name="BCNProvider" ColumnName="BCNProvider" />
-                <ScalarProperty Name="DeliveryCompany" ColumnName="DeliveryCompany" />
-                <ScalarProperty Name="Product" ColumnName="Product" />
-                <ScalarProperty Name="ComplaintHasBeen" ColumnName="ComplaintHasBeen" />
-                <ScalarProperty Name="OtherTxt" ColumnName="OtherTxt" />
-                <ScalarProperty Name="customerServiceTxt" ColumnName="customerServiceTxt" />
-                <ScalarProperty Name="HoldTimes" ColumnName="HoldTimes" />
-                <ScalarProperty Name="ImpoliteORoffensive" ColumnName="ImpoliteORoffensive" />
-                <ScalarProperty Name="ProductTxt" ColumnName="ProductTxt" />
-                <ScalarProperty Name="ProductDefective" ColumnName="ProductDefective" />
-                <ScalarProperty Name="ProductMispick" ColumnName="ProductMispick" />
-                <ScalarProperty Name="ProductIncrease" ColumnName="ProductIncrease" />
-                <ScalarProperty Name="FedExTxt" ColumnName="FedExTxt" />
-                <ScalarProperty Name="MissingProduct" ColumnName="MissingProduct" />
-                <ScalarProperty Name="WrongArea" ColumnName="WrongArea" />
-                <ScalarProperty Name="QualityOfProdut" ColumnName="QualityOfProdut" />
-                <ScalarProperty Name="WrongProductShipped" ColumnName="WrongProductShipped" />
-                <ScalarProperty Name="Driver" ColumnName="Driver" />
-                <ScalarProperty Name="Damaged" ColumnName="Damaged" />
-                <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
-                <ScalarProperty Name="PayerType" ColumnName="PayerType" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="Account" ColumnName="Account" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_CSRCallLog">
             <EntityTypeMapping TypeName="IntranetModel.tbl_CSRCallLog">
               <MappingFragment StoreEntitySet="tbl_CSRCallLog">
@@ -2268,6 +2158,122 @@ warning 6002: The table/view 'Intranet.dbo.IndianaMedicaidSurvey' does not have 
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_CSRComplaintLog">
+            <EntityTypeMapping TypeName="IntranetModel.tbl_CSRComplaintLog">
+              <MappingFragment StoreEntitySet="tbl_CSRComplaintLog">
+                <ScalarProperty Name="WorkOrder" ColumnName="WorkOrder" />
+                <ScalarProperty Name="Id_CSRCallLog" ColumnName="Id_CSRCallLog" />
+                <ScalarProperty Name="ITHelpDesk" ColumnName="ITHelpDesk" />
+                <ScalarProperty Name="PhoneFaxIssues" ColumnName="PhoneFaxIssues" />
+                <ScalarProperty Name="ProcessDelay" ColumnName="ProcessDelay" />
+                <ScalarProperty Name="PendingResolution" ColumnName="PendingResolution" />
+                <ScalarProperty Name="OtherUnsureTeam" ColumnName="OtherUnsureTeam" />
+                <ScalarProperty Name="WoundCareOstomyTENS" ColumnName="WoundCareOstomyTENS" />
+                <ScalarProperty Name="WebSupport" ColumnName="WebSupport" />
+                <ScalarProperty Name="Verification" ColumnName="Verification" />
+                <ScalarProperty Name="Troy" ColumnName="Troy" />
+                <ScalarProperty Name="THC" ColumnName="THC" />
+                <ScalarProperty Name="Shipping" ColumnName="Shipping" />
+                <ScalarProperty Name="QualityAssurance" ColumnName="QualityAssurance" />
+                <ScalarProperty Name="Nurses" ColumnName="Nurses" />
+                <ScalarProperty Name="NewAccountTeam" ColumnName="NewAccountTeam" />
+                <ScalarProperty Name="MedicalDocuments" ColumnName="MedicalDocuments" />
+                <ScalarProperty Name="InsulinPumpCGM" ColumnName="InsulinPumpCGM" />
+                <ScalarProperty Name="HGS" ColumnName="HGS" />
+                <ScalarProperty Name="Enteral" ColumnName="Enteral" />
+                <ScalarProperty Name="DynamicSynergy" ColumnName="DynamicSynergy" />
+                <ScalarProperty Name="CSRAssessment" ColumnName="CSRAssessment" />
+                <ScalarProperty Name="CallCenter" ColumnName="CallCenter" />
+                <ScalarProperty Name="BPnBPM" ColumnName="BPnBPM" />
+                <ScalarProperty Name="BDI" ColumnName="BDI" />
+                <ScalarProperty Name="OtherUnsureSupplies" ColumnName="OtherUnsureSupplies" />
+                <ScalarProperty Name="WoundCareSupplies" ColumnName="WoundCareSupplies" />
+                <ScalarProperty Name="UrologicalSupplies" ColumnName="UrologicalSupplies" />
+                <ScalarProperty Name="TENSUnitSup" ColumnName="TENSUnitSup" />
+                <ScalarProperty Name="PTINRTesting" ColumnName="PTINRTesting" />
+                <ScalarProperty Name="PleurXDrainSys" ColumnName="PleurXDrainSys" />
+                <ScalarProperty Name="OstomySupplies" ColumnName="OstomySupplies" />
+                <ScalarProperty Name="InsSyrPenNeed" ColumnName="InsSyrPenNeed" />
+                <ScalarProperty Name="InsulinPumpsSupplies" ColumnName="InsulinPumpsSupplies" />
+                <ScalarProperty Name="IncontinenceSupplies" ColumnName="IncontinenceSupplies" />
+                <ScalarProperty Name="ExternalDefibrillator" ColumnName="ExternalDefibrillator" />
+                <ScalarProperty Name="EnteralNutrition" ColumnName="EnteralNutrition" />
+                <ScalarProperty Name="DiabeticTestSup" ColumnName="DiabeticTestSup" />
+                <ScalarProperty Name="ContGlucoseMonitoring" ColumnName="ContGlucoseMonitoring" />
+                <ScalarProperty Name="BreastPumps" ColumnName="BreastPumps" />
+                <ScalarProperty Name="BloodPressureMonitors" ColumnName="BloodPressureMonitors" />
+                <ScalarProperty Name="WebsitePortal" ColumnName="WebsitePortal" />
+                <ScalarProperty Name="TextMessaging" ColumnName="TextMessaging" />
+                <ScalarProperty Name="SmartAction" ColumnName="SmartAction" />
+                <ScalarProperty Name="ShippingWarehouse" ColumnName="ShippingWarehouse" />
+                <ScalarProperty Name="ShippingUSPS" ColumnName="ShippingUSPS" />
+                <ScalarProperty Name="ProductDefectiveQuality" ColumnName="ProductDefectiveQuality" />
+                <ScalarProperty Name="HealthPlan" ColumnName="HealthPlan" />
+                <ScalarProperty Name="Discrimination" ColumnName="Discrimination" />
+                <ScalarProperty Name="CustomerService" ColumnName="CustomerService" />
+                <ScalarProperty Name="Compliance" ColumnName="Compliance" />
+                <ScalarProperty Name="Survey" ColumnName="Survey" />
+                <ScalarProperty Name="Resolution" ColumnName="Resolution" />
+                <ScalarProperty Name="ComplaintSmartAction" ColumnName="ComplaintSmartAction" />
+                <ScalarProperty Name="ComplaintService" ColumnName="ComplaintService" />
+                <ScalarProperty Name="ComplaintShipping" ColumnName="ComplaintShipping" />
+                <ScalarProperty Name="ComplaintProduct" ColumnName="ComplaintProduct" />
+                <ScalarProperty Name="CallRcvdOther" ColumnName="CallRcvdOther" />
+                <ScalarProperty Name="InsCompany" ColumnName="InsCompany" />
+                <ScalarProperty Name="SocialMedia" ColumnName="SocialMedia" />
+                <ScalarProperty Name="CallRcvdWebsite" ColumnName="CallRcvdWebsite" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Call" ColumnName="Call" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="WrittenRespDate" ColumnName="WrittenRespDate" />
+                <ScalarProperty Name="InitialRespDate" ColumnName="InitialRespDate" />
+                <ScalarProperty Name="ResolutionDate" ColumnName="ResolutionDate" />
+                <ScalarProperty Name="ComplaintDate" ColumnName="ComplaintDate" />
+                <ScalarProperty Name="DidntFollowDelIns" ColumnName="DidntFollowDelIns" />
+                <ScalarProperty Name="VConfirmationCalls" ColumnName="VConfirmationCalls" />
+                <ScalarProperty Name="VPaymentCalles" ColumnName="VPaymentCalles" />
+                <ScalarProperty Name="SAJamesPhonePromts" ColumnName="SAJamesPhonePromts" />
+                <ScalarProperty Name="SAJamesSelfService" ColumnName="SAJamesSelfService" />
+                <ScalarProperty Name="VirtualCallBack" ColumnName="VirtualCallBack" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="NoFollowUp" ColumnName="NoFollowUp" />
+                <ScalarProperty Name="ReturnedFromVM" ColumnName="ReturnedFromVM" />
+                <ScalarProperty Name="NoFollowUpWithMem" ColumnName="NoFollowUpWithMem" />
+                <ScalarProperty Name="NeverRecivedSupplies" ColumnName="NeverRecivedSupplies" />
+                <ScalarProperty Name="PhysicianIssue" ColumnName="PhysicianIssue" />
+                <ScalarProperty Name="InsLimitGuidelines" ColumnName="InsLimitGuidelines" />
+                <ScalarProperty Name="BCNProviderIssue" ColumnName="BCNProviderIssue" />
+                <ScalarProperty Name="Other" ColumnName="Other" />
+                <ScalarProperty Name="BCNProvider" ColumnName="BCNProvider" />
+                <ScalarProperty Name="DeliveryCompany" ColumnName="DeliveryCompany" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="ComplaintHasBeen" ColumnName="ComplaintHasBeen" />
+                <ScalarProperty Name="OtherTxt" ColumnName="OtherTxt" />
+                <ScalarProperty Name="customerServiceTxt" ColumnName="customerServiceTxt" />
+                <ScalarProperty Name="HoldTimes" ColumnName="HoldTimes" />
+                <ScalarProperty Name="ImpoliteORoffensive" ColumnName="ImpoliteORoffensive" />
+                <ScalarProperty Name="ProductTxt" ColumnName="ProductTxt" />
+                <ScalarProperty Name="ProductDefective" ColumnName="ProductDefective" />
+                <ScalarProperty Name="ProductMispick" ColumnName="ProductMispick" />
+                <ScalarProperty Name="ProductIncrease" ColumnName="ProductIncrease" />
+                <ScalarProperty Name="FedExTxt" ColumnName="FedExTxt" />
+                <ScalarProperty Name="MissingProduct" ColumnName="MissingProduct" />
+                <ScalarProperty Name="WrongArea" ColumnName="WrongArea" />
+                <ScalarProperty Name="QualityOfProdut" ColumnName="QualityOfProdut" />
+                <ScalarProperty Name="WrongProductShipped" ColumnName="WrongProductShipped" />
+                <ScalarProperty Name="Driver" ColumnName="Driver" />
+                <ScalarProperty Name="Damaged" ColumnName="Damaged" />
+                <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
+                <ScalarProperty Name="PayerType" ColumnName="PayerType" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

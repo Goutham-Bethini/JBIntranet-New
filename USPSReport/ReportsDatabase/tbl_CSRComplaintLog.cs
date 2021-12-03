@@ -122,5 +122,7 @@ namespace ReportsDatabase
         public bool ProcessDelay { get; set; }
         public bool PhoneFaxIssues { get; set; }
         public bool ITHelpDesk { get; set; }
+        public Nullable<int> Id_CSRCallLog { get; set; }
+        public string WorkOrder { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace USPS_Report.Areas.Reports.Models
             account = Convert.ToInt32(Account);
             using (HHSQLDBEntities _db = new HHSQLDBEntities())
             {
-            //    tbl_Account_Member _list = new tbl_Account_Member();
+                //    tbl_Account_Member _list = new tbl_Account_Member();
                 if (account != null && account != 0)
                 {
                     // _list = _db.tbl_Account_Member.Where(t => t.Account == account && t.Member == 1).SingleOrDefault();
@@ -50,34 +50,34 @@ namespace USPS_Report.Areas.Reports.Models
                                  }).SingleOrDefault();
 
                     if (_list != null)
-                        {
-                            tableRec.firstName = _list.First_Name + " " + _list.Last_Name;
-                             tableRec.lastName = _list.Last_Name;
-                            tableRec.address1 = _list.Address_1;
-                            tableRec.address2 = _list.Address_2;
-                            tableRec.city = _list.City;
-                            tableRec.state = _list.State;
-                            tableRec.zipcode = _list.Zip;
-                            tableRec.phone = _list.Phone;
-                            tableRec.DOB = _list.BirthDate;
-                            tableRec.Email = _list.EmailAddress;
-                            tableRec.Account2 = account;
+                    {
+                        tableRec.firstName = _list.First_Name + " " + _list.Last_Name;
+                        tableRec.lastName = _list.Last_Name;
+                        tableRec.address1 = _list.Address_1;
+                        tableRec.address2 = _list.Address_2;
+                        tableRec.city = _list.City;
+                        tableRec.state = _list.State;
+                        tableRec.zipcode = _list.Zip;
+                        tableRec.phone = _list.Phone;
+                        tableRec.DOB = _list.BirthDate;
+                        tableRec.Email = _list.EmailAddress;
+                        tableRec.Account2 = account;
 
-                        }
-                        else
-                        {
-                            tableRec.firstName = "WrongAccount";
-                        }
-                    
+                    }
+                    else
+                    {
+                        tableRec.firstName = "WrongAccount";
+                    }
+
                 }
-                if(account == null || account == 0)
+                if (account == null || account == 0)
                 {
 
-                     
-                        tableRec.firstName = "New Account";
-                        
-                        tableRec.Account2 = account;
-                    
+
+                    tableRec.firstName = "New Account";
+
+                    tableRec.Account2 = account;
+
                 }
                 // if (_list != null)
                 //   _vm.Add(tableRec);
@@ -123,18 +123,16 @@ namespace USPS_Report.Areas.Reports.Models
             using (IntranetEntities _db = new IntranetEntities())
             {
                 tbl_CSRCallLog _list = new tbl_CSRCallLog();
-
+                tbl_CSRComplaintLog _list2 = new tbl_CSRComplaintLog();
+                tbl_CSRComplaintLog_Attachments _list3 = new tbl_CSRComplaintLog_Attachments();
                 _list = _db.tbl_CSRCallLog.Where(t => t.id == id).SingleOrDefault();
+                _list2 = _db.tbl_CSRComplaintLog.Where(t => t.Account == _list.Account && t.Id_CSRCallLog==id).OrderByDescending(tt=>tt.id).FirstOrDefault();
+                
                 if (_list != null)
                 {
                     tableRec.Account = _list.Account;
                     tableRec.TrackingNumber = _list.TrackingNumber;
                     tableRec.WorkOrder = _list.WorkOrder;
-
-
-              
-
-
                     tableRec.Compliance = _list.Compliance;
                     tableRec.CustomerService = _list.CustomerService;
                     tableRec.Discrimination = _list.Discrimination;
@@ -210,7 +208,7 @@ namespace USPS_Report.Areas.Reports.Models
                     tableRec.SAJamesSelfService = _list.SAJamesSelfService;
                     tableRec.VirtualCallBack = _list.VirtualCallBack;
                     //tableRec.Website = _list.Website;
-                    
+
                     tableRec.NoFollowUp = _list.NoFollowUp;
                     tableRec.ReturnedFromVM = _list.ReturnedFromVM;
                     tableRec.NoFollowUpWithMem = _list.NoFollowUpWithMem;
@@ -219,15 +217,103 @@ namespace USPS_Report.Areas.Reports.Models
                     //tableRec.InsLimitGuidelines = _list.InsLimitGuidelines;
                     //tableRec.BCNProviderIssue = _list.BCNProviderIssue;
                     //tableRec.Other = _list.Other;
-                    tableRec.ComplaintProduct = (_list.Damaged == true  || _list.QualityOfProdut == true || _list.ProductDefective == true ) ? true : false;
+                    tableRec.ComplaintProduct = (_list.Damaged == true || _list.QualityOfProdut == true || _list.ProductDefective == true) ? true : false;
                     //tableRec.ComplaintShipping = (_list.OtherIssue_MissingProduct == true || _list.Driver == true || _list.DidntFollowDelIns == true || _list.WrongArea == true || _list.WrongProductShipped == true ) ? true : false;
                     //tableRec.ComplaintService = (_list.ImpoliteORoffensive == true || _list.VirtualCallBack == true || _list.HoldTimes == true || _list.NoFollowUp == true || _list.ReturnedFromVM == true || _list.NoFollowUpWithMem == true || _list.NeverRecivedSupplies == true || _list.PhysicianIssue == true) ? true : false;
                     //tableRec.ComplaintSmartAction = (_list.VConfirmationCalls == true || _list.VPaymentCalles == true ||  _list.SAJamesPhonePromts ==true || _list.SAJamesSelfService == true) ? true : false;
 
-               
-                    }
 
                 }
+                if (_list2 != null)
+                {
+                    _list3 = _db.tbl_CSRComplaintLog_Attachments.Where(t => t.Account == _list2.Account && t.ComplaintId == _list2.id).FirstOrDefault();
+                    if (_list3 != null)
+                    {
+                        tableRec.AttachedFile=_list3.FileName;
+                    }
+                    tableRec.IssueDate = _list2.IssueDate;
+                    tableRec.ComplaintDate = _list2.ComplaintDate;
+                    tableRec.ResolutionDate = _list2.ResolutionDate;
+                    tableRec.InitialRespDate = _list2.InitialRespDate;
+                    tableRec.WrittenRespDate = _list2.WrittenRespDate;
+
+                    tableRec.Call = _list2.Call ?? false;
+                    tableRec.Email = _list2.Email ?? false;
+                    tableRec.Fax = _list2.Fax ?? false;
+                    tableRec.CallRcvdWebsite = _list2.CallRcvdWebsite ?? false;
+                    tableRec.SocialMedia = _list2.SocialMedia ?? false;
+                    tableRec.InsCompany = _list2.InsCompany ?? false;
+                    tableRec.Survey = _list2.Survey ?? false;
+                    tableRec.CallRcvdOther = _list2.CallRcvdOther ?? false;
+
+                    tableRec.TrackingNumber = _list2.TrackingNumber;
+                    tableRec.WorkOrder = _list2.WorkOrder;
+                    tableRec.Product = _list2.Product;
+                    tableRec.DeliveryCompany = _list2.DeliveryCompany;
+                    
+
+                    tableRec.BloodPressureMonitors = _list2.BloodPressureMonitors;
+                    tableRec.BreastPumps = _list2.BreastPumps;
+                    tableRec.ContGlucoseMonitoring = _list2.ContGlucoseMonitoring;
+                    tableRec.DiabeticTestSup = _list2.DiabeticTestSup;
+                    tableRec.EnteralNutrition = _list2.EnteralNutrition;
+                    tableRec.ExternalDefibrillator = _list2.ExternalDefibrillator;
+                    tableRec.IncontinenceSupplies = _list2.IncontinenceSupplies;
+                    tableRec.InsulinPumpsSupplies = _list2.InsulinPumpsSupplies;
+                    tableRec.InsSyrPenNeed = _list2.InsSyrPenNeed;
+                    tableRec.OstomySupplies = _list2.OstomySupplies;
+                    tableRec.PleurXDrainSys = _list2.PleurXDrainSys;
+                    tableRec.PTINRTesting = _list2.PTINRTesting;
+                    tableRec.TENSUnitSup = _list2.TENSUnitSup;
+                    tableRec.UrologicalSupplies = _list2.UrologicalSupplies;
+                    tableRec.WoundCareSupplies = _list2.WoundCareSupplies;
+                    tableRec.OtherUnsureSupplies = _list2.OtherUnsureSupplies;
+
+                    tableRec.BDI = _list2.BDI;
+                    tableRec.BPnBPM = _list2.BPnBPM;
+                    tableRec.CallCenter = _list2.CallCenter;
+                    tableRec.CSRAssessment = _list2.CSRAssessment;
+                    tableRec.DynamicSynergy = _list2.DynamicSynergy;
+                    tableRec.Enteral = _list2.Enteral;
+                    tableRec.HGS = _list2.HGS;
+                    tableRec.InsulinPumpCGM = _list2.InsulinPumpCGM;
+                    tableRec.MedicalDocuments = _list2.MedicalDocuments;
+                    tableRec.NewAccountTeam = _list2.NewAccountTeam;
+                    tableRec.Nurses = _list2.Nurses;
+                    tableRec.QualityAssurance = _list2.QualityAssurance;
+                    tableRec.Shipping = _list2.Shipping;
+                    tableRec.THC = _list2.THC;
+                    tableRec.Troy = _list2.Troy;
+                    tableRec.Verification = _list2.Verification;
+                    tableRec.WebSupport = _list2.WebSupport;
+                    tableRec.WoundCareOstomyTENS = _list2.WoundCareOstomyTENS;
+                    tableRec.OtherUnsureTeam = _list2.OtherUnsureTeam;
+                    tableRec.ITHelpDesk = _list2.ITHelpDesk;
+
+                    tableRec.Compliance = _list2.Compliance;
+                    tableRec.CustomerService = _list2.CustomerService;
+                    tableRec.Discrimination = _list2.Discrimination;
+                    tableRec.SmartAction = _list2.SmartAction;
+                    tableRec.WebsitePortal = _list2.WebsitePortal;
+                    tableRec.HealthPlan = _list2.HealthPlan;
+                    tableRec.ProductDefectiveQuality = _list2.ProductDefectiveQuality;
+                    tableRec.ShippingUSPS = _list2.ShippingUSPS;
+                    tableRec.ShippingWarehouse = _list2.ShippingWarehouse;
+                    tableRec.TextMessaging = _list2.TextMessaging;
+                    tableRec.ProcessDelay = _list2.ProcessDelay;
+                    tableRec.PhoneFaxIssues = _list2.PhoneFaxIssues;
+
+                    tableRec.Others = _list2.OtherTxt;
+
+                    tableRec.PendingResolution = _list2.PendingResolution;
+
+                    tableRec.Resolution = _list2.Resolution;
+
+                    tableRec.ComplaintHasBeen = _list2.ComplaintHasBeen;
+
+
+                }
+            }
             using (HHSQLDBEntities _db = new HHSQLDBEntities())
             {
 
@@ -236,24 +322,24 @@ namespace USPS_Report.Areas.Reports.Models
 
                 //  _list = _db.tbl_Account_Member.Where(t => t.Account == tableRec.Account && t.Member == 1).SingleOrDefault();
 
-                  _list = (from t in _db.tbl_Account_Member
-                             where t.Account == tableRec.Account && t.Member == 1
-                             select new tbl_Account_Member_VM
-                             {
-                                 First_Name = t.First_Name,
-                                 Last_Name = t.Last_Name,
-                                 Address_1 = t.Address_1,
-                                 Address_2 = t.Address_2,
-                                 City = t.City,
-                                 State = t.State,
-                                 Zip = t.Zip,
-                                 Phone = t.Phone,
-                                 BirthDate = t.BirthDate,
-                                 EmailAddress = t.EmailAddress
-                                 
-                                
+                _list = (from t in _db.tbl_Account_Member
+                         where t.Account == tableRec.Account && t.Member == 1
+                         select new tbl_Account_Member_VM
+                         {
+                             First_Name = t.First_Name,
+                             Last_Name = t.Last_Name,
+                             Address_1 = t.Address_1,
+                             Address_2 = t.Address_2,
+                             City = t.City,
+                             State = t.State,
+                             Zip = t.Zip,
+                             Phone = t.Phone,
+                             BirthDate = t.BirthDate,
+                             EmailAddress = t.EmailAddress
 
-                             }).SingleOrDefault();
+
+
+                         }).SingleOrDefault();
 
                 if (_list != null)
                 {
@@ -274,12 +360,12 @@ namespace USPS_Report.Areas.Reports.Models
                 }
 
                 else
-                    
-                    { acc.firstName = "wrong"; }
+
+                { acc.firstName = "wrong"; }
 
                 tableRec.details = acc;
             }
-           
+
             return tableRec;
         }
 
@@ -308,11 +394,11 @@ namespace USPS_Report.Areas.Reports.Models
                     //                                 // phoneno = pt.Phone_Number
 
                     //                             }).Distinct().OrderByDescending(t => t.payerType).ToList();
-                    string Sql = @"Select ID_Payer as payerid,PayerName as payerType,1 as insOrd from v__AccountMemberEffectiveInsurance_Ins1 where Account = "+Account+" and  ((Expiration_Date is null or Expiration_Date > GETDATE())"+
+                    string Sql = @"Select ID_Payer as payerid,PayerName as payerType,1 as insOrd from v__AccountMemberEffectiveInsurance_Ins1 where Account = " + Account + " and  ((Expiration_Date is null or Expiration_Date > GETDATE())" +
                                                " and (Effective_Date is null or Effective_Date < GETDATE()))  union  Select ID_Payer as payerid,PayerName as payerType,2 as insOrd from v__AccountMemberEffectiveInsurance_Ins2 where Account = " + Account + " and  ((Expiration_Date is null or Expiration_Date > GETDATE())  and (Effective_Date is null or Effective_Date < GETDATE())) union Select ID_Payer as payerid,PayerName as payerType,3 as insOrd from v__AccountMemberEffectiveInsurance_Ins3 where Account = " + Account + " and  ((Expiration_Date is null or Expiration_Date > GETDATE()) and (Effective_Date is null or Effective_Date < GETDATE())) order by insOrd ";
                     var _list = _db.Database.SqlQuery<HDMSPayer>(Sql).ToList();
 
-                  //  _list.Insert(0, pn);
+                    //  _list.Insert(0, pn);
 
                     return _list;
 
@@ -414,7 +500,7 @@ namespace USPS_Report.Areas.Reports.Models
         public static int AddCallLog(CallLogVM _vm)
         {
             String _msg = String.Empty;
-            int id=0;
+            int id = 0;
             try
             {
                 using (IntranetEntities _db = new IntranetEntities())
@@ -426,7 +512,7 @@ namespace USPS_Report.Areas.Reports.Models
 
 
                     tbl_CSRCallLog _rec = new tbl_CSRCallLog();
-                   // _rec.RefNum = _vm.refnum;
+                    // _rec.RefNum = _vm.refnum;
                     _rec.Account = Convert.ToInt32(_vm.Account);
                     _rec.CreatedOn = DateTime.Now;
                     _rec.CreatedBy = userName;
@@ -642,30 +728,30 @@ namespace USPS_Report.Areas.Reports.Models
                     //_rec.Other = _vm.Other;
                     //-----------------------------------------------------------------
 
-                     _db.tbl_CSRCallLog.Add(_rec);
+                    _db.tbl_CSRCallLog.Add(_rec);
 
 
                     try { } catch (Exception ex) { var msg = ex.Message; }
-                    
+
                     _db.SaveChanges();
                     id = _rec.id;
 
-                  
+
                 }
             }
             catch (Exception ex)
             {
                 _msg = ex.Message;
             }
-            return id; 
+            return id;
         }
 
         public static string AddNote_CallLog(CallLogVM _vm, int reference)
         {
-           
+
 
             StringBuilder otherStr = new StringBuilder();
-          
+
             otherStr.Append("Call Regarding = ");
 
             //  string noteString = "";
@@ -682,7 +768,7 @@ namespace USPS_Report.Areas.Reports.Models
 
 
                     id_op = (from emp in _db.tbl_Operator_Table
-                             where emp.OperatorName.ToUpper() == userName.ToUpper()  && emp.DeletedDate == null && emp.InactiveDate == null
+                             where emp.OperatorName.ToUpper() == userName.ToUpper() && emp.DeletedDate == null && emp.InactiveDate == null
                              select new ID_VM
                              {
                                  // name = emp.empFullName,
@@ -692,16 +778,16 @@ namespace USPS_Report.Areas.Reports.Models
                     Int32? id = Convert.ToInt32(id_op.ID);
 
                     if (_vm.Name != null && _vm.Name != "")
-                            noteString.Append("Spoke To = " + _vm.Name + Environment.NewLine);
+                        noteString.Append("Spoke To = " + _vm.Name + Environment.NewLine);
                     // noteString = noteString + "Spoke To = " + _vm.Name + "_";
 
                     if (_vm.Relation != null && _vm.Relation != "")
                         noteString.Append("Relation = " + _vm.Relation + Environment.NewLine);
-                        // noteString = noteString + "Relation = " + _vm.Relation + "_";
+                    // noteString = noteString + "Relation = " + _vm.Relation + "_";
 
                     if (_vm.otherRelname != null && _vm.otherRelname != "")
                         noteString.Append("Relation = " + _vm.otherRelname + Environment.NewLine);
-                        // noteString = noteString + "Relation = " + _vm.otherRelname + "_";
+                    // noteString = noteString + "Relation = " + _vm.otherRelname + "_";
 
                     if (_vm.VerifiedPHI == true)
                         noteString.Append("VerifiedPHI" + Environment.NewLine);
@@ -755,7 +841,7 @@ namespace USPS_Report.Areas.Reports.Models
                     {
                         noteString.Append("LogType - None " + Environment.NewLine);
                     }
-                       
+
 
 
                     //IList<tbl_Account_Note> _notelist = new List<tbl_Account_Note>();
@@ -769,10 +855,10 @@ namespace USPS_Report.Areas.Reports.Models
 
                     tbl_Account_Note _note = new tbl_Account_Note();
 
-       // CO-PAY COLLECTIONS 
+                    // CO-PAY COLLECTIONS 
                     if (_vm.Copay == true && (_vm.BillingTxt != "" && _vm.BillingTxt != null))
                     {
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "CO-PAY COLLECTIONS" ).FirstOrDefault(); // && t.NoteCreatedBy == id
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "CO-PAY COLLECTIONS").FirstOrDefault(); // && t.NoteCreatedBy == id
                         if (_note == null)
                         {
                             tbl_Account_Note _tbl = new tbl_Account_Note();
@@ -784,7 +870,9 @@ namespace USPS_Report.Areas.Reports.Models
                             _tbl.SystemRecordType = 100;
                             _tbl.ID_NoteLibrary = 14;
                             _db.tbl_Account_Note.Add(_tbl);
-                            try { _db.SaveChanges();
+                            try
+                            {
+                                _db.SaveChanges();
 
                             }
                             catch (Exception ex)
@@ -793,7 +881,7 @@ namespace USPS_Report.Areas.Reports.Models
                             }
 
 
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "CO-PAY COLLECTIONS" ).FirstOrDefault(); // && t.NoteCreatedBy == id
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "CO-PAY COLLECTIONS").FirstOrDefault(); // && t.NoteCreatedBy == id
                             // Environment.UserName1
 
 
@@ -807,7 +895,7 @@ namespace USPS_Report.Areas.Reports.Models
                             _tHist.NoteDate = DateTime.Now;
 
                             _msgStr1.Append(noteString);
-                            _msgStr1.Append("Call Regarding = Copay" +  Environment.NewLine + "Note = " + _vm.BillingTxt);
+                            _msgStr1.Append("Call Regarding = Copay" + Environment.NewLine + "Note = " + _vm.BillingTxt);
 
                             _tHist.NoteText = _msgStr1.ToString();
 
@@ -818,12 +906,12 @@ namespace USPS_Report.Areas.Reports.Models
                             _tHist.ID_Operator = Convert.ToInt16(id_op.ID);
 
                             _db.tbl_Account_Note_History.Add(_tHist);
-                           
+
                         }
                     }
 
                     //COMMUNICATOIN
-                    if (_vm.ProductNeeds!=null)
+                    if (_vm.ProductNeeds != null)
                     {
                         _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();   //&& t.NoteCreatedBy == id
                         if (_note == null)
@@ -849,7 +937,7 @@ namespace USPS_Report.Areas.Reports.Models
                             _tHist.NoteDate = DateTime.Now;
                             _sbNeeds.Append("Are the products you are receiving meeting your needs? " + Environment.NewLine);
                             _sbNeeds.Append(_vm.ProductNeeds + Environment.NewLine);
-                            if(_vm.ProductNeeds== "No")
+                            if (_vm.ProductNeeds == "No")
                             {
                                 _sbNeeds.Append("Products not meeting needs: " + Environment.NewLine);
 
@@ -892,7 +980,7 @@ namespace USPS_Report.Areas.Reports.Models
                                 _sbNeeds.Append("Explanation of how products do not meet members needs: " + Environment.NewLine);
                                 _sbNeeds.Append(_vm.Comment_Needs + Environment.NewLine);
 
-                            }                            
+                            }
 
                             StringBuilder _sbmain = new StringBuilder();
                             _sbmain.Append(noteString);
@@ -1026,9 +1114,9 @@ namespace USPS_Report.Areas.Reports.Models
                     // BILLING
                     if (_vm.Billing == true && (_vm.BillingTxt != "" && _vm.BillingTxt != null))
                     {
-                       
 
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "BILLING" ).FirstOrDefault(); // && t.NoteCreatedBy == id
+
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "BILLING").FirstOrDefault(); // && t.NoteCreatedBy == id
 
                         if (_note == null)
                         {
@@ -1043,8 +1131,8 @@ namespace USPS_Report.Areas.Reports.Models
                             _db.tbl_Account_Note.Add(_tbl);
                             _db.SaveChanges();
 
-                           
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "BILLING" ).FirstOrDefault(); // && t.NoteCreatedBy == id
+
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "BILLING").FirstOrDefault(); // && t.NoteCreatedBy == id
 
 
 
@@ -1057,13 +1145,13 @@ namespace USPS_Report.Areas.Reports.Models
                             _tHist.ID_Note = _note.ID;
                             _tHist.NoteDate = DateTime.Now;
 
-                           
+
                             _msgStr2.Append(noteString);
                             _msgStr2.Append("Call Regarding = Billing" + Environment.NewLine + "Note = " + _vm.BillingTxt);
 
                             _tHist.NoteText = _msgStr2.ToString();
 
-                           // _tHist.NoteText = noteString + "Call Regarding = Billing_" + "Note = " + _vm.BillingTxt;
+                            // _tHist.NoteText = noteString + "Call Regarding = Billing_" + "Note = " + _vm.BillingTxt;
                             _tHist.ID_Operator = id;
 
                             _db.tbl_Account_Note_History.Add(_tHist);
@@ -1082,7 +1170,7 @@ namespace USPS_Report.Areas.Reports.Models
                     // COMMMUNICATION
                     if (_vm.Eligibility == true && (_vm.InsuranceChangeTxt != "" && _vm.InsuranceChangeTxt != null))
                     {
-                       
+
                         _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "INSURANCE").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
                         if (_note == null)
@@ -1097,7 +1185,7 @@ namespace USPS_Report.Areas.Reports.Models
                             _tbl.ID_NoteLibrary = 9;
                             _db.tbl_Account_Note.Add(_tbl);
                             _db.SaveChanges();
-                           
+
                             _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "INSURANCE").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
 
@@ -1117,11 +1205,11 @@ namespace USPS_Report.Areas.Reports.Models
                             _tHist.NoteText = _msgStr3.ToString();
 
 
-                           // _tHist.NoteText = noteString + "Call Regarding =  Eligibility_" + "Note = " + _vm.BillingTxt;
+                            // _tHist.NoteText = noteString + "Call Regarding =  Eligibility_" + "Note = " + _vm.BillingTxt;
                             _tHist.ID_Operator = id;
 
                             _db.tbl_Account_Note_History.Add(_tHist);
-                           
+
                         }
                     }
 
@@ -1151,7 +1239,7 @@ namespace USPS_Report.Areas.Reports.Models
                     //    _vm.BCNProviderIssue == true || 
                     //    _vm.Other == true ||
                     //|| (_vm.BCNProvider != "" && _vm.BCNProvider != null)
-                        // COMMMUNICATION
+                    // COMMMUNICATION
                     if ((_vm.TrackingNumber != "" && _vm.TrackingNumber != null) || (_vm.WorkOrder != "" && _vm.WorkOrder != null)
                         || _vm.BloodPressureMonitors == true
                         || _vm.BreastPumps == true
@@ -1195,17 +1283,17 @@ namespace USPS_Report.Areas.Reports.Models
                             || _vm.Discrimination == true || _vm.HealthPlan == true
                             || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true
                             || _vm.ShippingWarehouse == true || _vm.SmartAction == true
-                            || _vm.TextMessaging == true || _vm.WebsitePortal == true || _vm.ProcessDelay == true || _vm.PhoneFaxIssues == true 
-                            ||  (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
-                            ||_vm.Incorrect == true || _vm.Mispick == true ||  (_vm.ProductTextArea != "" && _vm.ProductTextArea != null)
+                            || _vm.TextMessaging == true || _vm.WebsitePortal == true || _vm.ProcessDelay == true || _vm.PhoneFaxIssues == true
+                            || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
+                            || _vm.Incorrect == true || _vm.Mispick == true || (_vm.ProductTextArea != "" && _vm.ProductTextArea != null)
                             || (_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null)
-                            || (_vm.Others != "" && _vm.Others != null)                                 
+                            || (_vm.Others != "" && _vm.Others != null)
                             || (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null))
+                    {
+
+                        if (_vm.ComplainOutCome != null && _vm.ComplainOutCome.Contains("Not Resolved Transferred to Team Leaders"))
                         {
 
-                        if (_vm.ComplainOutCome != null &&_vm.ComplainOutCome.Contains("Not Resolved Transferred to Team Leaders"))
-                        {
-                           
                             _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMPLAINTS").FirstOrDefault(); //&& t.NoteCreatedBy == id
                             if (_note == null)
                             {
@@ -1219,20 +1307,20 @@ namespace USPS_Report.Areas.Reports.Models
                                 _tbl.ID_NoteLibrary = 31;
                                 _db.tbl_Account_Note.Add(_tbl);
                                 _db.SaveChanges();
-                              
+
 
                                 _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMPLAINTS").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
                             }
-                           
+
                         }
                         else
                         {
-                           
+
                             _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMMUNICATION").FirstOrDefault(); //&& t.NoteCreatedBy == id
                             if (_note == null)
                             {
-                                
+
                                 tbl_Account_Note _tbl = new tbl_Account_Note();
                                 _tbl.Account = Convert.ToInt32(_vm.Account);
                                 _tbl.Member = 1;
@@ -1244,18 +1332,18 @@ namespace USPS_Report.Areas.Reports.Models
                                 _db.tbl_Account_Note.Add(_tbl);
                                 _db.SaveChanges();
 
-                              
+
                                 _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMMUNICATION").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
                             }
                         }
-                    
-                            if (_note != null)
-                            {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                        if (_note != null)
+                        {
+
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
 
 
@@ -1308,14 +1396,14 @@ namespace USPS_Report.Areas.Reports.Models
                                 || _vm.Discrimination == true || _vm.HealthPlan == true
                                 || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true
                                 || _vm.ShippingWarehouse == true || _vm.SmartAction == true
-                                || _vm.TextMessaging == true || _vm.WebsitePortal == true || _vm.ProcessDelay == true || _vm.PhoneFaxIssues == true 
+                                || _vm.TextMessaging == true || _vm.WebsitePortal == true || _vm.ProcessDelay == true || _vm.PhoneFaxIssues == true
                                 || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null) || (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null))
-                                {
-                                    if (_vm.TrackingNumber != "" && _vm.TrackingNumber != null)
-                                             otherStr.Append("Tracking Number = " + _vm.TrackingNumber + Environment.NewLine);
-                                        //  otherStr = otherStr + " Tracking Number = " + _vm.TrackingNumber + "_";
+                            {
+                                if (_vm.TrackingNumber != "" && _vm.TrackingNumber != null)
+                                    otherStr.Append("Tracking Number = " + _vm.TrackingNumber + Environment.NewLine);
+                                //  otherStr = otherStr + " Tracking Number = " + _vm.TrackingNumber + "_";
 
-                                    if (_vm.WorkOrder != "" && _vm.WorkOrder != null)
+                                if (_vm.WorkOrder != "" && _vm.WorkOrder != null)
                                     otherStr.Append("WorkOrder = " + _vm.WorkOrder + Environment.NewLine);
                                 // otherStr = otherStr + " WorkOrder = " + _vm.WorkOrder + "_";
 
@@ -1549,60 +1637,60 @@ namespace USPS_Report.Areas.Reports.Models
                                 //        // otherStr = otherStr + "MissingProduct_";
 
                                 if (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
-                                         otherStr.Append(" Note =" + _vm.FedExTextArea + Environment.NewLine);
-                                        // otherStr = otherStr + " FedExNote =" + _vm.FedExTextArea + "_";
+                                    otherStr.Append(" Note =" + _vm.FedExTextArea + Environment.NewLine);
+                                // otherStr = otherStr + " FedExNote =" + _vm.FedExTextArea + "_";
 
-                                }
+                            }
 
                             //_vm.Defective ||
 
-                                if (_vm.Incorrect == true || _vm.Mispick == true ||  (_vm.ProductTextArea != "" && _vm.ProductTextArea != null))
-                                {
-                                 
-                                    if (_vm.Incorrect == true)
-                                          otherStr.Append("Incorrect Product" + Environment.NewLine);
-                                        //otherStr = otherStr + "Incorrect_";
+                            if (_vm.Incorrect == true || _vm.Mispick == true || (_vm.ProductTextArea != "" && _vm.ProductTextArea != null))
+                            {
 
-                                    if (_vm.Mispick == true)
-                                     otherStr.Append("Mispick Product" + Environment.NewLine);
-                                        //otherStr = otherStr + "Mispick_";
+                                if (_vm.Incorrect == true)
+                                    otherStr.Append("Incorrect Product" + Environment.NewLine);
+                                //otherStr = otherStr + "Incorrect_";
 
-                                    //if (_vm.Defective == true)
-                                    //    otherStr.Append("Defective Product" + Environment.NewLine);
-                                    //     //otherStr = otherStr + "Defective_";
+                                if (_vm.Mispick == true)
+                                    otherStr.Append("Mispick Product" + Environment.NewLine);
+                                //otherStr = otherStr + "Mispick_";
+
+                                //if (_vm.Defective == true)
+                                //    otherStr.Append("Defective Product" + Environment.NewLine);
+                                //     //otherStr = otherStr + "Defective_";
 
 
 
                                 if (_vm.ProductTextArea != "" && _vm.ProductTextArea != null)
                                     otherStr.Append("Product Note =" + _vm.ProductTextArea + Environment.NewLine);
-                                        //otherStr = otherStr + " Product Note =" + _vm.ProductTextArea + "_";
+                                //otherStr = otherStr + " Product Note =" + _vm.ProductTextArea + "_";
 
-                                }
+                            }
                             //_vm.Impolite_Offensive == true || _vm.HoldTimes == true ||
-                                if ((_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null))
-                                {
+                            if ((_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null))
+                            {
 
-                                    //if (_vm.Impolite_Offensive == true)
-                                    //        otherStr.Append("Impolite or Offensive" + Environment.NewLine);
-                                    //    //otherStr = otherStr + "Impolite/Offensive_";
+                                //if (_vm.Impolite_Offensive == true)
+                                //        otherStr.Append("Impolite or Offensive" + Environment.NewLine);
+                                //    //otherStr = otherStr + "Impolite/Offensive_";
 
-                                    //if (_vm.HoldTimes == true)
-                                    //    otherStr.Append("Hold Times" + Environment.NewLine);
-                                    //        // otherStr = otherStr + "HoldTimes_";
+                                //if (_vm.HoldTimes == true)
+                                //    otherStr.Append("Hold Times" + Environment.NewLine);
+                                //        // otherStr = otherStr + "HoldTimes_";
 
 
-                                    if (_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null)
-                                      otherStr.Append("Customer Service Note =" + _vm.CustomerServiceTextArea + Environment.NewLine);
-                                      // otherStr = otherStr + " Customer Service Note =" + _vm.CustomerServiceTextArea + "_";
+                                if (_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null)
+                                    otherStr.Append("Customer Service Note =" + _vm.CustomerServiceTextArea + Environment.NewLine);
+                                // otherStr = otherStr + " Customer Service Note =" + _vm.CustomerServiceTextArea + "_";
 
-                                }
+                            }
 
-                                if (_vm.Others != "" && _vm.Others != null)
-                                {
-                                         otherStr.Append(" Others Note =" + _vm.Others + Environment.NewLine);
-                                       // otherStr = otherStr + " Others Note =" + _vm.Others + "_";
+                            if (_vm.Others != "" && _vm.Others != null)
+                            {
+                                otherStr.Append(" Others Note =" + _vm.Others + Environment.NewLine);
+                                // otherStr = otherStr + " Others Note =" + _vm.Others + "_";
 
-                                }
+                            }
 
                             StringBuilder _msgStr4 = new StringBuilder();
                             _msgStr4.Append(noteString);
@@ -1615,85 +1703,85 @@ namespace USPS_Report.Areas.Reports.Models
                             //  _tHist.NoteText = noteString + otherStr + "OutCome = " +_vm.ComplainOutCome + "_Reference Number = " +reference; 
                             _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                                //try
-                                //{
-                                //    _db.SaveChanges();
-                                //}
-                                //catch (Exception Ex)
-                                //{
-                                //    string msg = Ex.Message;
+                            _db.tbl_Account_Note_History.Add(_tHist);
+                            //try
+                            //{
+                            //    _db.SaveChanges();
+                            //}
+                            //catch (Exception Ex)
+                            //{
+                            //    string msg = Ex.Message;
 
-                                //}
-                            }
+                            //}
                         }
+                    }
 
-                        //DEMOGRAPHICS  
-                        if ((_vm.Address == true || _vm.Physician == true || _vm.Phone == true) && (_vm.DemographicChanges != "" && _vm.DemographicChanges != null))
-                        {
-                        
+                    //DEMOGRAPHICS  
+                    if ((_vm.Address == true || _vm.Physician == true || _vm.Phone == true) && (_vm.DemographicChanges != "" && _vm.DemographicChanges != null))
+                    {
+
 
                         StringBuilder _DemStr = new StringBuilder();
-                           // string str = "";
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "DEMOGRAPHICS" ).FirstOrDefault(); //&& t.NoteCreatedBy == id
+                        // string str = "";
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "DEMOGRAPHICS").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                            
-                            tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "DEMOGRAPHICS";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 4;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
 
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "DEMOGRAPHICS" ).FirstOrDefault(); //&& t.NoteCreatedBy == id
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "DEMOGRAPHICS";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 4;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
+
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "DEMOGRAPHICS").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
+                        if (_note != null)
+                        {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
-                                if (_vm.Address)
-                                {
-                                         _DemStr.Append("Address" + Environment.NewLine);
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
+                            if (_vm.Address)
+                            {
+                                _DemStr.Append("Address" + Environment.NewLine);
 
                                 //str = str + "Address_";
-                                 }
+                            }
                             if (_vm.Physician)
-                                {
-                                    _DemStr.Append("Physician" + Environment.NewLine);
-                                        // str = str + "Physician_";
-                                }
-                                if (_vm.Phone)
-                                {
-                                     _DemStr.Append("Phone Number" + Environment.NewLine);
-                                        //str = str + "Phone Number_";
+                            {
+                                _DemStr.Append("Physician" + Environment.NewLine);
+                                // str = str + "Physician_";
+                            }
+                            if (_vm.Phone)
+                            {
+                                _DemStr.Append("Phone Number" + Environment.NewLine);
+                                //str = str + "Phone Number_";
                             }
 
                             StringBuilder _msgStr5 = new StringBuilder();
                             _msgStr5.Append(noteString);
-                            _msgStr5.Append("Call Regarding = " +_DemStr + Environment.NewLine);
+                            _msgStr5.Append("Call Regarding = " + _DemStr + Environment.NewLine);
                             _msgStr5.Append("Note = " + _vm.DemographicChanges + Environment.NewLine);
 
                             _tHist.NoteText = _msgStr5.ToString();
 
-                           // _tHist.NoteText = noteString + "Call Regarding = " + str + "Note = " + _vm.DemographicChanges;
+                            // _tHist.NoteText = noteString + "Call Regarding = " + str + "Note = " + _vm.DemographicChanges;
 
-                                _tHist.ID_Operator = id;
+                            _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                             
-                            }
+                            _db.tbl_Account_Note_History.Add(_tHist);
+
                         }
+                    }
 
 
 
@@ -1702,38 +1790,38 @@ namespace USPS_Report.Areas.Reports.Models
 
 
 
-                        //AOB 
-                        if (_vm.AOB == true && (_vm.DocumentationTxt != "" && _vm.DocumentationTxt != null))
-                        {
-                     
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "AOB" ).FirstOrDefault(); //&& t.NoteCreatedBy == id
+                    //AOB 
+                    if (_vm.AOB == true && (_vm.DocumentationTxt != "" && _vm.DocumentationTxt != null))
+                    {
+
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "AOB").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                          
-                            tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "AOB";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 16;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
 
-                           
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "AOB" ).FirstOrDefault(); //&& t.NoteCreatedBy == id
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "AOB";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 16;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
+
+
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "AOB").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
+                        if (_note != null)
+                        {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
                             StringBuilder _msgStr6 = new StringBuilder();
                             _msgStr6.Append(noteString);
@@ -1741,46 +1829,46 @@ namespace USPS_Report.Areas.Reports.Models
 
                             _tHist.NoteText = _msgStr6.ToString();
 
-                          //  _tHist.NoteText = noteString + "Call Regarding = AOB_" + "Note = " + _vm.DocumentationTxt;
-                                _tHist.ID_Operator = id;
+                            //  _tHist.NoteText = noteString + "Call Regarding = AOB_" + "Note = " + _vm.DocumentationTxt;
+                            _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                             
-                            }
+                            _db.tbl_Account_Note_History.Add(_tHist);
+
                         }
+                    }
 
 
-                        //PRESCRIPTI0N 
-                        if (_vm.Prescription == true && (_vm.DocumentationTxt != "" && _vm.DocumentationTxt != null))
-                        {
-                       
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "PRESCRIPTI0N" ).FirstOrDefault(); //&& t.NoteCreatedBy == id
+                    //PRESCRIPTI0N 
+                    if (_vm.Prescription == true && (_vm.DocumentationTxt != "" && _vm.DocumentationTxt != null))
+                    {
+
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "PRESCRIPTI0N").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                           
+                        {
+
                             tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "PRESCRIPTI0N";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 2;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
-                      
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "PRESCRIPTI0N" ).FirstOrDefault(); //&& t.NoteCreatedBy == id
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "PRESCRIPTI0N";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 2;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
+
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "PRESCRIPTI0N").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
+                        if (_note != null)
+                        {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
                             StringBuilder _msgStr7 = new StringBuilder();
                             _msgStr7.Append(noteString);
@@ -1788,46 +1876,46 @@ namespace USPS_Report.Areas.Reports.Models
 
                             _tHist.NoteText = _msgStr7.ToString();
 
-                           // _tHist.NoteText = noteString + "Call Regarding = Prescription_" + "Note = " + _vm.DocumentationTxt;
-                                _tHist.ID_Operator = id;
+                            // _tHist.NoteText = noteString + "Call Regarding = Prescription_" + "Note = " + _vm.DocumentationTxt;
+                            _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                                
-                            }
+                            _db.tbl_Account_Note_History.Add(_tHist);
 
                         }
 
-                        //CMN 
-                        if (_vm.CMN == true && (_vm.DocumentationTxt != "" && _vm.DocumentationTxt != null))
-                        {
-                       
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "CMN" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                    }
+
+                    //CMN 
+                    if (_vm.CMN == true && (_vm.DocumentationTxt != "" && _vm.DocumentationTxt != null))
+                    {
+
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "CMN").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "CMN";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 6;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "CMN";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 6;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
 
-                           
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "CMN" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "CMN").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
+                        if (_note != null)
+                        {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
                             StringBuilder _msgStr8 = new StringBuilder();
                             _msgStr8.Append(noteString);
@@ -1835,44 +1923,44 @@ namespace USPS_Report.Areas.Reports.Models
 
                             _tHist.NoteText = _msgStr8.ToString();
 
-                           // _tHist.NoteText = noteString + "Call Regarding =  CMN_" + "Note = " + _vm.DocumentationTxt;
-                                _tHist.ID_Operator = id;
+                            // _tHist.NoteText = noteString + "Call Regarding =  CMN_" + "Note = " + _vm.DocumentationTxt;
+                            _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                                
-                            }
+                            _db.tbl_Account_Note_History.Add(_tHist);
+
                         }
+                    }
 
-                        //PRIOR AUTH 
-                        if (_vm.PriorAuthorization == true && (_vm.DocumentationTxt != "" && _vm.DocumentationTxt != null))
-                        {
-                       
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "PRIOR AUTH" ).Take(1).SingleOrDefault();  //&& t.NoteCreatedBy == id
+                    //PRIOR AUTH 
+                    if (_vm.PriorAuthorization == true && (_vm.DocumentationTxt != "" && _vm.DocumentationTxt != null))
+                    {
+
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "PRIOR AUTH").Take(1).SingleOrDefault();  //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "PRIOR AUTH";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 7;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
-                         
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "PRIOR AUTH" ).FirstOrDefault(); //&& t.NoteCreatedBy == id
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "PRIOR AUTH";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 7;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
+
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "PRIOR AUTH").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
+                        if (_note != null)
+                        {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
                             StringBuilder _msgStr9 = new StringBuilder();
                             _msgStr9.Append(noteString);
@@ -1882,52 +1970,52 @@ namespace USPS_Report.Areas.Reports.Models
 
 
                             //_tHist.NoteText = noteString + "Call Regarding =  PriorAuthorization_" + "Note = " + _vm.DocumentationTxt;
-                                _tHist.ID_Operator = id;
+                            _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                                
-                            }
+                            _db.tbl_Account_Note_History.Add(_tHist);
+
                         }
+                    }
 
-                        //OVER QUANTITY DOCUMENTATION 
-                        if ((_vm.SupportingDoc == true || _vm.LMN == true) && (_vm.DocumentationTxt != "" && _vm.DocumentationTxt != null)) 
-                        {
-                    
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "OVER QUANTITY DOCUMENTATION" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                    //OVER QUANTITY DOCUMENTATION 
+                    if ((_vm.SupportingDoc == true || _vm.LMN == true) && (_vm.DocumentationTxt != "" && _vm.DocumentationTxt != null))
+                    {
+
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "OVER QUANTITY DOCUMENTATION").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "OVER QUANTITY DOCUMENTATION";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 28;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "OVER QUANTITY DOCUMENTATION";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 28;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
 
-                    
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "OVER QUANTITY DOCUMENTATION" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "OVER QUANTITY DOCUMENTATION").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
+                        if (_note != null)
+                        {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
                             StringBuilder _msgStr10 = new StringBuilder();
                             _msgStr10.Append(noteString);
-                            _msgStr10.Append("Call Regarding -"+ Environment.NewLine);
+                            _msgStr10.Append("Call Regarding -" + Environment.NewLine);
                             if (_vm.SupportingDoc == true)
-                             _msgStr10.Append("Supporting Document" + Environment.NewLine); 
+                                _msgStr10.Append("Supporting Document" + Environment.NewLine);
                             if (_vm.LMN == true)
-                            _msgStr10.Append("LMN" + Environment.NewLine);
+                                _msgStr10.Append("LMN" + Environment.NewLine);
 
 
                             _msgStr10.Append("Note = " + _vm.DocumentationTxt);
@@ -1938,101 +2026,101 @@ namespace USPS_Report.Areas.Reports.Models
                             // _tHist.NoteText = noteString + "Call Regarding = SupportingDoc_" + "Note = " + _vm.DocumentationTxt;
                             _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                               
-                            }
-                        }
+                            _db.tbl_Account_Note_History.Add(_tHist);
 
-                        //COMMUNICATOIN
-                        if ((_vm.TeacherLetter == true || _vm.Logs == true || _vm.ABN == true) && (_vm.DocumentationTxt != "" && _vm.DocumentationTxt != null))
-                        {
-                     
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION" ).FirstOrDefault();   //&& t.NoteCreatedBy == id
+                        }
+                    }
+
+                    //COMMUNICATOIN
+                    if ((_vm.TeacherLetter == true || _vm.Logs == true || _vm.ABN == true) && (_vm.DocumentationTxt != "" && _vm.DocumentationTxt != null))
+                    {
+
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();   //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "COMMUNICATION";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 9;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "COMMUNICATION";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 9;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
 
-                          
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
-                                     StringBuilder _DocStr = new StringBuilder();
-                                    //string str1 = "";
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
-                                if (_vm.TeacherLetter)
-                                 _DocStr.Append("Teacher Letter" + Environment.NewLine);
-                                    //str1 = str1 + "Teacher Letter_";
-                                if (_vm.Logs)
+                        if (_note != null)
+                        {
+                            StringBuilder _DocStr = new StringBuilder();
+                            //string str1 = "";
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
+                            if (_vm.TeacherLetter)
+                                _DocStr.Append("Teacher Letter" + Environment.NewLine);
+                            //str1 = str1 + "Teacher Letter_";
+                            if (_vm.Logs)
                                 _DocStr.Append("Logs" + Environment.NewLine);
-                                    // str1 = str1 + "Logs_";
-                                if (_vm.ABN)
-                                 _DocStr.Append("ABN" + Environment.NewLine);
+                            // str1 = str1 + "Logs_";
+                            if (_vm.ABN)
+                                _DocStr.Append("ABN" + Environment.NewLine);
                             //  str1 = str1 + "ABN_";
 
 
                             StringBuilder _msgStr11 = new StringBuilder();
                             _msgStr11.Append(noteString);
-                            _msgStr11.Append("Call Regarding = "+_DocStr + Environment.NewLine + "Note = " + _vm.DocumentationTxt);
+                            _msgStr11.Append("Call Regarding = " + _DocStr + Environment.NewLine + "Note = " + _vm.DocumentationTxt);
 
                             _tHist.NoteText = _msgStr11.ToString();
 
-                           // _tHist.NoteText = noteString + "Call Regarding =" + str1 + "Note = " + _vm.DocumentationTxt;
+                            // _tHist.NoteText = noteString + "Call Regarding =" + str1 + "Note = " + _vm.DocumentationTxt;
 
 
-                                _tHist.ID_Operator = id;
+                            _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                              
-                            }
+                            _db.tbl_Account_Note_History.Add(_tHist);
+
                         }
+                    }
 
-                        //INSURANCE 
-                        if (_vm.InsuarnceChanges == true && (_vm.InsuranceChangeTxt != "" && _vm.InsuranceChangeTxt != null))
-                        {
-                        
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "INSURANCE" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                    //INSURANCE 
+                    if (_vm.InsuarnceChanges == true && (_vm.InsuranceChangeTxt != "" && _vm.InsuranceChangeTxt != null))
+                    {
+
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "INSURANCE").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "INSURANCE";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 3;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "INSURANCE";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 3;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
 
-                         
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "INSURANCE" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "INSURANCE").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
+                        if (_note != null)
+                        {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
                             StringBuilder _msgStr12 = new StringBuilder();
                             _msgStr12.Append(noteString);
@@ -2041,70 +2129,70 @@ namespace USPS_Report.Areas.Reports.Models
                             _tHist.NoteText = _msgStr12.ToString();
 
 
-                           // _tHist.NoteText = noteString + "Call Regarding = InsuarnceChanges_" + "Note = " + _vm.InsuranceChangeTxt;
+                            // _tHist.NoteText = noteString + "Call Regarding = InsuarnceChanges_" + "Note = " + _vm.InsuranceChangeTxt;
 
-                                _tHist.ID_Operator = id;
+                            _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                               
-                            }
+                            _db.tbl_Account_Note_History.Add(_tHist);
+
                         }
+                    }
 
-                        //NEW ACCOUNT 
-                        if (_vm.NewAccount == true && (_vm.NewAccountTxtArea != "" && _vm.NewAccountTxtArea != null))
-                        {
-                       
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "NEW ACCOUNT" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                    //NEW ACCOUNT 
+                    if (_vm.NewAccount == true && (_vm.NewAccountTxtArea != "" && _vm.NewAccountTxtArea != null))
+                    {
+
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "NEW ACCOUNT").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "NEW ACCOUNT";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 1;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
-                       
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "NEW ACCOUNT" ).FirstOrDefault(); //&& t.NoteCreatedBy == id
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "NEW ACCOUNT";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 1;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
+
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "NEW ACCOUNT").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
+                        if (_note != null)
+                        {
+
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
+
+                            StringBuilder _NewaccStr = new StringBuilder();
+                            //string newaccStr = "";
+
+                            if (_vm.TypeSupplies1 != null && _vm.TypeSupplies1 != "")
+                            {
+                                _NewaccStr.Append("Type Supplies = " + _vm.TypeSupplies1 + Environment.NewLine);
+                                //newaccStr = newaccStr + "Type Supplies = " + _vm.TypeSupplies1 + "_";
+                            }
+                            if (_vm.TypeSupplies2 != null && _vm.TypeSupplies2 != "")
                             {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                                _NewaccStr.Append("Type Supplies = " + _vm.TypeSupplies2 + Environment.NewLine);
+                                //newaccStr = newaccStr + "Type Supplies = " + _vm.TypeSupplies2 + "_";
+                            }
 
-                                    StringBuilder _NewaccStr = new StringBuilder();
-                                    //string newaccStr = "";
-
-                                if (_vm.TypeSupplies1 != null && _vm.TypeSupplies1 != "")
-                                {
-                                    _NewaccStr.Append("Type Supplies = " + _vm.TypeSupplies1 + Environment.NewLine);
-                                    //newaccStr = newaccStr + "Type Supplies = " + _vm.TypeSupplies1 + "_";
-                                }
-                                if (_vm.TypeSupplies2 != null && _vm.TypeSupplies2 != "")
-                                {
-
-                                    _NewaccStr.Append("Type Supplies = " + _vm.TypeSupplies2 + Environment.NewLine);
-                                    //newaccStr = newaccStr + "Type Supplies = " + _vm.TypeSupplies2 + "_";
-                                }
-
-                                if (_vm.TypeSuppliesOther != null && _vm.TypeSuppliesOther != "")
-                                {
-                                        _NewaccStr.Append("Other Type Supplies = " + _vm.TypeSuppliesOther + Environment.NewLine);
-                                    // newaccStr = newaccStr + "Other Type Supplies = " + _vm.TypeSuppliesOther + "_";
-                                }
+                            if (_vm.TypeSuppliesOther != null && _vm.TypeSuppliesOther != "")
+                            {
+                                _NewaccStr.Append("Other Type Supplies = " + _vm.TypeSuppliesOther + Environment.NewLine);
+                                // newaccStr = newaccStr + "Other Type Supplies = " + _vm.TypeSuppliesOther + "_";
+                            }
 
                             StringBuilder _msgStr13 = new StringBuilder();
                             _msgStr13.Append(noteString);
-                            _msgStr13.Append("Call Regarding = New Account" + Environment.NewLine +_NewaccStr +Environment.NewLine+ "Note = " + _vm.NewAccountTxtArea);
+                            _msgStr13.Append("Call Regarding = New Account" + Environment.NewLine + _NewaccStr + Environment.NewLine + "Note = " + _vm.NewAccountTxtArea);
 
                             _tHist.NoteText = _msgStr13.ToString();
 
@@ -2113,82 +2201,14 @@ namespace USPS_Report.Areas.Reports.Models
 
                             _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                               
-                            }
-                        }
-                        //ACTIVE/INACTIVE 
-                        if (_vm.Restart == true && (_vm.NewAccountTxtArea != "" && _vm.NewAccountTxtArea != null)  )
-                        {
-                       
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "ACTIVE/INACTIVE" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
-
-                        if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "ACTIVE/INACTIVE";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 12;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
-                     
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "ACTIVE/INACTIVE" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
-
-
+                            _db.tbl_Account_Note_History.Add(_tHist);
 
                         }
-                            if (_note != null)
-                            {
-
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
-
-                                    StringBuilder _RestartStr = new StringBuilder();
-                                    //string restrtStr = "";
-
-                                if (_vm.TypeSupplies1 != null && _vm.TypeSupplies1 != "")
-                                {
-                                     _RestartStr.Append("Type supplies = " + _vm.TypeSupplies1 + Environment.NewLine);
-                                    //restrtStr = restrtStr + "Type supplies = " + _vm.TypeSupplies1 + "_";
-                                }
-                                if (_vm.TypeSupplies2 != null && _vm.TypeSupplies2 != "")
-                                {
-                                    _RestartStr.Append("Type supplies = " + _vm.TypeSupplies2 + Environment.NewLine);
-                                    // restrtStr = restrtStr + "Type supplies = " + _vm.TypeSupplies2 + "_";
-                                }
-                                if (_vm.TypeSuppliesOther != null && _vm.TypeSuppliesOther != "")
-                                {
-                                        _RestartStr.Append("Other = " + _vm.TypeSuppliesOther + Environment.NewLine);
-                                    //restrtStr = restrtStr + "Other = " + _vm.TypeSuppliesOther + "_";
-                                 }
-                           // _RestartStr.Append(_vm.NewAccountTxtArea + Environment.NewLine);
-                            //  restrtStr = restrtStr + _vm.NewAccountTxtArea;
-
-                            StringBuilder _msgStr14 = new StringBuilder();
-                            _msgStr14.Append(noteString);
-                            _msgStr14.Append("Call Regarding = Restart" + Environment.NewLine +_RestartStr+ "Note = " + _vm.NewAccountTxtArea);
-
-                            _tHist.NoteText = _msgStr14.ToString();
-
-                            //_tHist.NoteText = noteString + "Call Regarding = Restart_" + restrtStr + "Note = " + _vm.NewAccountTxtArea;
-
-                            _tHist.ID_Operator = id;
-
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                               
-                            }
-                        }
-
-
+                    }
                     //ACTIVE/INACTIVE 
-                    if (_vm.AccountDeactivated == true && (_vm.OtherHandlingTxt != "" && _vm.OtherHandlingTxt != null))
+                    if (_vm.Restart == true && (_vm.NewAccountTxtArea != "" && _vm.NewAccountTxtArea != null))
                     {
-                       
+
                         _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "ACTIVE/INACTIVE").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
                         if (_note == null)
@@ -2216,8 +2236,76 @@ namespace USPS_Report.Areas.Reports.Models
                             _tHist.ID_Note = _note.ID;
                             _tHist.NoteDate = DateTime.Now;
 
-                         
-                        
+                            StringBuilder _RestartStr = new StringBuilder();
+                            //string restrtStr = "";
+
+                            if (_vm.TypeSupplies1 != null && _vm.TypeSupplies1 != "")
+                            {
+                                _RestartStr.Append("Type supplies = " + _vm.TypeSupplies1 + Environment.NewLine);
+                                //restrtStr = restrtStr + "Type supplies = " + _vm.TypeSupplies1 + "_";
+                            }
+                            if (_vm.TypeSupplies2 != null && _vm.TypeSupplies2 != "")
+                            {
+                                _RestartStr.Append("Type supplies = " + _vm.TypeSupplies2 + Environment.NewLine);
+                                // restrtStr = restrtStr + "Type supplies = " + _vm.TypeSupplies2 + "_";
+                            }
+                            if (_vm.TypeSuppliesOther != null && _vm.TypeSuppliesOther != "")
+                            {
+                                _RestartStr.Append("Other = " + _vm.TypeSuppliesOther + Environment.NewLine);
+                                //restrtStr = restrtStr + "Other = " + _vm.TypeSuppliesOther + "_";
+                            }
+                            // _RestartStr.Append(_vm.NewAccountTxtArea + Environment.NewLine);
+                            //  restrtStr = restrtStr + _vm.NewAccountTxtArea;
+
+                            StringBuilder _msgStr14 = new StringBuilder();
+                            _msgStr14.Append(noteString);
+                            _msgStr14.Append("Call Regarding = Restart" + Environment.NewLine + _RestartStr + "Note = " + _vm.NewAccountTxtArea);
+
+                            _tHist.NoteText = _msgStr14.ToString();
+
+                            //_tHist.NoteText = noteString + "Call Regarding = Restart_" + restrtStr + "Note = " + _vm.NewAccountTxtArea;
+
+                            _tHist.ID_Operator = id;
+
+                            _db.tbl_Account_Note_History.Add(_tHist);
+
+                        }
+                    }
+
+
+                    //ACTIVE/INACTIVE 
+                    if (_vm.AccountDeactivated == true && (_vm.OtherHandlingTxt != "" && _vm.OtherHandlingTxt != null))
+                    {
+
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "ACTIVE/INACTIVE").FirstOrDefault();  //&& t.NoteCreatedBy == id
+
+                        if (_note == null)
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "ACTIVE/INACTIVE";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 12;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
+
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "ACTIVE/INACTIVE").FirstOrDefault();  //&& t.NoteCreatedBy == id
+
+
+
+                        }
+                        if (_note != null)
+                        {
+
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
+
+
+
                             StringBuilder _msgStr14 = new StringBuilder();
                             _msgStr14.Append(noteString);
                             _msgStr14.Append("Call Regarding = Other Call Handling" + Environment.NewLine + "Account Deactivated" + Environment.NewLine + "Note = " + _vm.OtherHandlingTxt);
@@ -2235,33 +2323,33 @@ namespace USPS_Report.Areas.Reports.Models
 
                     //ORDER CONFIRMATION  
                     if (_vm.OrderConfirmation == true && (_vm.OrderConfirmationTxt != "" && _vm.OrderConfirmationTxt != null))
-                        {
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "ORDER CONFIRMATION" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                    {
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "ORDER CONFIRMATION").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "ORDER CONFIRMATION";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 15;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "ORDER CONFIRMATION";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 15;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
 
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "ORDER CONFIRMATION" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "ORDER CONFIRMATION").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
+                        if (_note != null)
+                        {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
                             StringBuilder _msgStr15 = new StringBuilder();
                             _msgStr15.Append(noteString);
@@ -2270,101 +2358,101 @@ namespace USPS_Report.Areas.Reports.Models
                             _tHist.NoteText = _msgStr15.ToString();
 
                             //_tHist.NoteText = noteString + "Call Regarding = Order Confirmation_" + "Note = " + _vm.OrderConfirmationTxt;
-                                _tHist.ID_Operator = id;
+                            _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                              
-                            }
+                            _db.tbl_Account_Note_History.Add(_tHist);
+
                         }
+                    }
 
-                        //COMMUNICATION
-                        if ((_vm.FedExOrUSPSTracking == true || _vm.OrderShipped == true || _vm.OrderETA == true || _vm.RWOCreated == true) && (_vm.OrderStatusTxt != "" && _vm.OrderStatusTxt != null))
-                        {
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION" ).FirstOrDefault();   //&& t.NoteCreatedBy == id
+                    //COMMUNICATION
+                    if ((_vm.FedExOrUSPSTracking == true || _vm.OrderShipped == true || _vm.OrderETA == true || _vm.RWOCreated == true) && (_vm.OrderStatusTxt != "" && _vm.OrderStatusTxt != null))
+                    {
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();   //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "COMMUNICATION";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 9;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "COMMUNICATION";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 9;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
 
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION" ).FirstOrDefault(); //&& t.NoteCreatedBy == id
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
-                               // string str3 = "";
+                        if (_note != null)
+                        {
+                            // string str3 = "";
                             StringBuilder _ComStr = new StringBuilder();
 
                             tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
-                                if (_vm.FedExOrUSPSTracking)
-                                     _ComStr.Append("FedEx/USPS Tracking" +Environment.NewLine +_vm.FedExOrUSPSTrackingNumber + Environment.NewLine);
-                                    //str3 = str3 + "FedEx/USPS Tracking_";
-                                if (_vm.OrderShipped)
-                                    _ComStr.Append("Order Shipped" + Environment.NewLine);
-                                    //str3 = str3 + "OrderShipped_";
-                                if (_vm.OrderETA)
-                                 _ComStr.Append("Order ETA" + Environment.NewLine);
-                                    // str3 = str3 + "Order ETA_";
-                                if (_vm.RWOCreated)
+                            if (_vm.FedExOrUSPSTracking)
+                                _ComStr.Append("FedEx/USPS Tracking" + Environment.NewLine + _vm.FedExOrUSPSTrackingNumber + Environment.NewLine);
+                            //str3 = str3 + "FedEx/USPS Tracking_";
+                            if (_vm.OrderShipped)
+                                _ComStr.Append("Order Shipped" + Environment.NewLine);
+                            //str3 = str3 + "OrderShipped_";
+                            if (_vm.OrderETA)
+                                _ComStr.Append("Order ETA" + Environment.NewLine);
+                            // str3 = str3 + "Order ETA_";
+                            if (_vm.RWOCreated)
                                 _ComStr.Append("RWO Created" + Environment.NewLine);
                             // str3 = str3 + "RWO Created_";
 
                             StringBuilder _msgStr16 = new StringBuilder();
                             _msgStr16.Append(noteString);
-                            _msgStr16.Append("Call Regarding = "+_ComStr + Environment.NewLine + "Note = " + _vm.OrderStatusTxt);
+                            _msgStr16.Append("Call Regarding = " + _ComStr + Environment.NewLine + "Note = " + _vm.OrderStatusTxt);
 
                             _tHist.NoteText = _msgStr16.ToString();
 
-                           // _tHist.NoteText = noteString + "Call Regarding = " + str3 + "Note_" + _vm.OrderStatusTxt;
-                                _tHist.ID_Operator = id;
+                            // _tHist.NoteText = noteString + "Call Regarding = " + str3 + "Note_" + _vm.OrderStatusTxt;
+                            _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                                
-                            }
+                            _db.tbl_Account_Note_History.Add(_tHist);
+
                         }
+                    }
 
-                        //ORDER HELD  
-                        if (_vm.OrderHolding == true && (_vm.OrderStatusTxt != "" && _vm.OrderStatusTxt != null))
-                        {
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "ORDER HELD" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                    //ORDER HELD  
+                    if (_vm.OrderHolding == true && (_vm.OrderStatusTxt != "" && _vm.OrderStatusTxt != null))
+                    {
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "ORDER HELD").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "ORDER HELD";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 29;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "ORDER HELD";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 29;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
 
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "ORDER HELD" ).FirstOrDefault(); //&& t.NoteCreatedBy == id
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "ORDER HELD").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
+                        if (_note != null)
+                        {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
                             StringBuilder _msgStr17 = new StringBuilder();
                             _msgStr17.Append(noteString);
@@ -2372,120 +2460,120 @@ namespace USPS_Report.Areas.Reports.Models
 
                             _tHist.NoteText = _msgStr17.ToString();
 
-                           // _tHist.NoteText = noteString + " Call Regarding = Order Holding_" + "Note = " + _vm.OrderStatusTxt;
-                                _tHist.ID_Operator = id;
+                            // _tHist.NoteText = noteString + " Call Regarding = Order Holding_" + "Note = " + _vm.OrderStatusTxt;
+                            _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                                
-                            }
+                            _db.tbl_Account_Note_History.Add(_tHist);
+
                         }
+                    }
 
-                        //PRODUCT  
-                        if ((_vm.PC_IncreaseOrDecrease == true || _vm.PC_Hold == true || _vm.PC_RemoveOrAdd == true || _vm.ProductChange == true) && (_vm.ProductChangeTxt != "" && _vm.ProductChangeTxt != null))
-                        {
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "PRODUCT" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                    //PRODUCT  
+                    if ((_vm.PC_IncreaseOrDecrease == true || _vm.PC_Hold == true || _vm.PC_RemoveOrAdd == true || _vm.ProductChange == true) && (_vm.ProductChangeTxt != "" && _vm.ProductChangeTxt != null))
+                    {
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "PRODUCT").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "PRODUCT";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 10;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "PRODUCT";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 10;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
 
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "PRODUCT" ).FirstOrDefault(); //&& t.NoteCreatedBy == id
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "PRODUCT").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
+                        if (_note != null)
+                        {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
-                               // string str4 = "";
+                            // string str4 = "";
                             StringBuilder _proStr = new StringBuilder();
                             if (_vm.PC_IncreaseOrDecrease)
-                                _proStr.Append("Increase/Decrease" +Environment.NewLine);
-                                // str4 = str4 + "Increase/Decrease_";
-                                if (_vm.PC_Hold)
+                                _proStr.Append("Increase/Decrease" + Environment.NewLine);
+                            // str4 = str4 + "Increase/Decrease_";
+                            if (_vm.PC_Hold)
                                 _proStr.Append("Hold" + Environment.NewLine);
-                                    //str4 = str4 + "Hold_";
-                                if (_vm.PC_RemoveOrAdd)
+                            //str4 = str4 + "Hold_";
+                            if (_vm.PC_RemoveOrAdd)
                                 _proStr.Append("Remove/Add" + Environment.NewLine);
-                                    // str4 = str4 + "Remove/Add_";
-                                if (_vm.ProductChange)
+                            // str4 = str4 + "Remove/Add_";
+                            if (_vm.ProductChange)
                                 _proStr.Append("Product Change" + Environment.NewLine);
                             //str4 = str4 + "Product Change";
 
                             StringBuilder _msgStr18 = new StringBuilder();
                             _msgStr18.Append(noteString);
-                            _msgStr18.Append("Call Regarding = "+_proStr + Environment.NewLine + "Note = " + _vm.ProductChangeTxt);
+                            _msgStr18.Append("Call Regarding = " + _proStr + Environment.NewLine + "Note = " + _vm.ProductChangeTxt);
 
                             _tHist.NoteText = _msgStr18.ToString();
 
-                                //_tHist.NoteText = noteString + "Call Regarding = " + str4 + "Note = " + _vm.ProductChangeTxt;
-                                _tHist.ID_Operator = id;
+                            //_tHist.NoteText = noteString + "Call Regarding = " + str4 + "Note = " + _vm.ProductChangeTxt;
+                            _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                                
-                            }
+                            _db.tbl_Account_Note_History.Add(_tHist);
+
                         }
+                    }
 
-                        //SAMPLE CHOICE 
-                        if (_vm.SampleChoice == true && (_vm.SampleTxt != "" && _vm.SampleTxt != null))
-                        {
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "SAMPLE CHOICE" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                    //SAMPLE CHOICE 
+                    if (_vm.SampleChoice == true && (_vm.SampleTxt != "" && _vm.SampleTxt != null))
+                    {
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "SAMPLE CHOICE").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "SAMPLE CHOICE";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 17;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "SAMPLE CHOICE";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 17;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
 
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "SAMPLE CHOICE" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "SAMPLE CHOICE").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
+                        if (_note != null)
+                        {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
                             StringBuilder _msgStr19 = new StringBuilder();
                             _msgStr19.Append(noteString);
-                            _msgStr19.Append("Call Regarding = Sample Choice " +Environment.NewLine);
+                            _msgStr19.Append("Call Regarding = Sample Choice " + Environment.NewLine);
                             _msgStr19.Append("Note = " + _vm.SampleTxt);
 
                             _tHist.NoteText = _msgStr19.ToString();
 
-                           // _tHist.NoteText = noteString + "Note = " + _vm.SampleTxt;
-                                _tHist.ID_Operator = id;
+                            // _tHist.NoteText = noteString + "Note = " + _vm.SampleTxt;
+                            _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                               
-                            }
+                            _db.tbl_Account_Note_History.Add(_tHist);
+
                         }
+                    }
 
 
-                        //Sample Task
+                    //Sample Task
                     if (_vm.SampleTask == true && (_vm.SampleTxt != "" && _vm.SampleTxt != null))
                     {
                         _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "SAMPLE TASK").FirstOrDefault();  //&& t.NoteCreatedBy == id
@@ -2532,94 +2620,94 @@ namespace USPS_Report.Areas.Reports.Models
 
                     //SHIPPING ISSUE  
                     if ((_vm.DefectiveProductOrNotUsable == true || _vm.WrongOrExtraProductShipped == true || _vm.MissingProduct == true || _vm.Sh_Other == true) && (_vm.ShippingIssueTxt != "" && _vm.ShippingIssueTxt != null))
-                        {
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "SHIPPING ISSUE" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                    {
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "SHIPPING ISSUE").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "SHIPPING ISSUE";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 11;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "SHIPPING ISSUE";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 11;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
 
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "SHIPPING ISSUE" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "SHIPPING ISSUE").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
-                               // string str5 = "";
+                        if (_note != null)
+                        {
+                            // string str5 = "";
                             StringBuilder _shipStr = new StringBuilder();
                             tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
-                                if (_vm.DefectiveProductOrNotUsable)
-                                _shipStr.Append("Defective Product/Product not Usable"+Environment.NewLine);
-                                    //str5 = str5 + "Defective Product/Product not Usable_";
-                                if (_vm.WrongOrExtraProductShipped)
-                                    _shipStr.Append("Wrong/Extra Product Shipped" + Environment.NewLine);
-                                    //str5 = str5 + "Wrong/Extra Product Shipped_";
-                                if (_vm.MissingProduct)
-                                    _shipStr.Append("Missing Product" + Environment.NewLine);
-                                    //str5 = str5 + "Missing Product_";
-                                if (_vm.Sh_Other)
-                                    _shipStr.Append("Other =" );
-                                    //str5 = str5 + "Other = ";
-                                if (_vm.ShippingOtherName != null && _vm.ShippingOtherName != "")
-                                    _shipStr.Append(_vm.ShippingOtherName + Environment.NewLine);
+                            if (_vm.DefectiveProductOrNotUsable)
+                                _shipStr.Append("Defective Product/Product not Usable" + Environment.NewLine);
+                            //str5 = str5 + "Defective Product/Product not Usable_";
+                            if (_vm.WrongOrExtraProductShipped)
+                                _shipStr.Append("Wrong/Extra Product Shipped" + Environment.NewLine);
+                            //str5 = str5 + "Wrong/Extra Product Shipped_";
+                            if (_vm.MissingProduct)
+                                _shipStr.Append("Missing Product" + Environment.NewLine);
+                            //str5 = str5 + "Missing Product_";
+                            if (_vm.Sh_Other)
+                                _shipStr.Append("Other =");
+                            //str5 = str5 + "Other = ";
+                            if (_vm.ShippingOtherName != null && _vm.ShippingOtherName != "")
+                                _shipStr.Append(_vm.ShippingOtherName + Environment.NewLine);
                             // str5 = str5 + _vm.ShippingOtherName + "_";
 
                             StringBuilder _msgStr20 = new StringBuilder();
                             _msgStr20.Append(noteString);
-                            _msgStr20.Append("Call Regarding = "+ _shipStr+ Environment.NewLine + "Note = " + _vm.ShippingIssueTxt);
+                            _msgStr20.Append("Call Regarding = " + _shipStr + Environment.NewLine + "Note = " + _vm.ShippingIssueTxt);
 
                             _tHist.NoteText = _msgStr20.ToString();
 
                             // _tHist.NoteText = noteString + "Call Regarding = " + str5 + "Note = " + _vm.ShippingIssueTxt;
                             _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                                
-                            }
-                        }
+                            _db.tbl_Account_Note_History.Add(_tHist);
 
-                        //COMMUNICATION
-                        if ((_vm.TransferredCall != null && _vm.TransferredCall != "") || (_vm.TransferredCallTxtArea != "" && _vm.TransferredCallTxtArea != null))
-                        {
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION" ).FirstOrDefault(); //&& t.NoteCreatedBy == id
+                        }
+                    }
+
+                    //COMMUNICATION
+                    if ((_vm.TransferredCall != null && _vm.TransferredCall != "") || (_vm.TransferredCallTxtArea != "" && _vm.TransferredCallTxtArea != null))
+                    {
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault(); //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "COMMUNICATION";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 9;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "COMMUNICATION";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 9;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
 
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
+                        if (_note != null)
+                        {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
 
                             StringBuilder _msgStr21 = new StringBuilder();
@@ -2631,61 +2719,61 @@ namespace USPS_Report.Areas.Reports.Models
                             //_tHist.NoteText = noteString + "Transferred Call To = " + _vm.TransferredCall + "_" + "Note=" + _vm.TransferredCallTxtArea;
                             _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                                
-                            }
+                            _db.tbl_Account_Note_History.Add(_tHist);
+
                         }
+                    }
 
                     //_vm.AccountDeactivated == true  (_vm.OtherHandlingTxt != "" && _vm.OtherHandlingTxt != null)
                     //COMMUNICATION
 
 
-                    if ((_vm.ReturnedCall_LeftVoicemail == true || _vm.WrongNumber == true  || _vm.Nursing_CSRassessment == true ||_vm.Other_CallHandling== true) && (_vm.OtherHandlingTxt != "" && _vm.OtherHandlingTxt != null))
-                        {
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                    if ((_vm.ReturnedCall_LeftVoicemail == true || _vm.WrongNumber == true || _vm.Nursing_CSRassessment == true || _vm.Other_CallHandling == true) && (_vm.OtherHandlingTxt != "" && _vm.OtherHandlingTxt != null))
+                    {
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
                         if (_note == null)
-                            {
-                                tbl_Account_Note _tbl = new tbl_Account_Note();
-                                _tbl.Account = Convert.ToInt32(_vm.Account);
-                                _tbl.Member = 1;
-                                _tbl.NoteHeading = "COMMUNICATION";
-                                _tbl.NoteCreateDate = DateTime.Now;
-                                _tbl.NoteCreatedBy = id;
-                                _tbl.SystemRecordType = 100;
-                                _tbl.ID_NoteLibrary = 9;
-                                _db.tbl_Account_Note.Add(_tbl);
-                                _db.SaveChanges();
+                        {
+                            tbl_Account_Note _tbl = new tbl_Account_Note();
+                            _tbl.Account = Convert.ToInt32(_vm.Account);
+                            _tbl.Member = 1;
+                            _tbl.NoteHeading = "COMMUNICATION";
+                            _tbl.NoteCreateDate = DateTime.Now;
+                            _tbl.NoteCreatedBy = id;
+                            _tbl.SystemRecordType = 100;
+                            _tbl.ID_NoteLibrary = 9;
+                            _db.tbl_Account_Note.Add(_tbl);
+                            _db.SaveChanges();
 
-                                _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();  // && t.NoteCreatedBy == id
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();  // && t.NoteCreatedBy == id
 
 
 
                         }
-                            if (_note != null)
-                            {
+                        if (_note != null)
+                        {
 
-                                tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                                _tHist.ID_Note = _note.ID;
-                                _tHist.NoteDate = DateTime.Now;
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
 
                             StringBuilder _callStr = new StringBuilder();
 
                             //  string str6 = "";
                             if (_vm.ReturnedCall_LeftVoicemail)
-                                _callStr.Append("Returned Call & Left Voicemail" +Environment.NewLine);
-                        //        str6 = str6 + "Returned Call & Left Voicemail_";
+                                _callStr.Append("Returned Call & Left Voicemail" + Environment.NewLine);
+                            //        str6 = str6 + "Returned Call & Left Voicemail_";
 
-                                if (_vm.WrongNumber)
+                            if (_vm.WrongNumber)
                                 _callStr.Append("Wrong Number" + Environment.NewLine);
-                                 //str6 = str6 + "Wrong Number_";
+                            //str6 = str6 + "Wrong Number_";
 
-                              //  if (_vm.AccountDeactivated)
-                               // _callStr.Append("Account Deactivated" + Environment.NewLine);
-                               // str6 = str6 + "Account Deactivated_";
+                            //  if (_vm.AccountDeactivated)
+                            // _callStr.Append("Account Deactivated" + Environment.NewLine);
+                            // str6 = str6 + "Account Deactivated_";
 
 
-                                if (_vm.Nursing_CSRassessment)
+                            if (_vm.Nursing_CSRassessment)
                                 _callStr.Append("Nursing / CSRassessment" + Environment.NewLine);
 
 
@@ -2695,31 +2783,31 @@ namespace USPS_Report.Areas.Reports.Models
 
                             StringBuilder _msgStr22 = new StringBuilder();
                             _msgStr22.Append(noteString);
-                            _msgStr22.Append("Call Regarding = "+_callStr + Environment.NewLine + "Note = " + _vm.OtherHandlingTxt);
+                            _msgStr22.Append("Call Regarding = " + _callStr + Environment.NewLine + "Note = " + _vm.OtherHandlingTxt);
 
                             _tHist.NoteText = _msgStr22.ToString();
 
 
-                           // _tHist.NoteText = noteString + "Call Regarding = " + str6 + "Note = " + _vm.OtherHandlingTxt;
-                                _tHist.ID_Operator = id;
+                            // _tHist.NoteText = noteString + "Call Regarding = " + str6 + "Note = " + _vm.OtherHandlingTxt;
+                            _tHist.ID_Operator = id;
 
-                                _db.tbl_Account_Note_History.Add(_tHist);
-                              
-                            }
-                        }
-
-                        try
-                        {
-                            _db.SaveChanges();
-                        }
-                        catch (Exception Ex)
-                        {
-                            string msg = Ex.Message;
+                            _db.tbl_Account_Note_History.Add(_tHist);
 
                         }
+                    }
+
+                    try
+                    {
+                        _db.SaveChanges();
+                    }
+                    catch (Exception Ex)
+                    {
+                        string msg = Ex.Message;
 
                     }
-                
+
+                }
+
             }
             catch (Exception ex)
             {
@@ -2728,12 +2816,12 @@ namespace USPS_Report.Areas.Reports.Models
 
             StringBuilder _msgStr = new StringBuilder();
             _msgStr.Append(noteString);
-            _msgStr.Append(otherStr +Environment.NewLine);
-            _msgStr.Append("OutCome = " + _vm.ComplainOutCome );
+            _msgStr.Append(otherStr + Environment.NewLine);
+            _msgStr.Append("OutCome = " + _vm.ComplainOutCome);
 
             string returnStr = _msgStr.ToString();
-          
-            returnStr= returnStr.Replace(Environment.NewLine, "<br />");
+
+            returnStr = returnStr.Replace(Environment.NewLine, "<br />");
 
             return returnStr;
         }
@@ -2750,11 +2838,13 @@ namespace USPS_Report.Areas.Reports.Models
                     var userName = components.Last();
 
                     tbl_CSRComplaintLog _rec = new tbl_CSRComplaintLog();
-                  //  _rec.RefNum = _vm.refnum;
+                    _rec.Id_CSRCallLog = _vm.id;
+                    //  _rec.RefNum = _vm.refnum;
                     _rec.Account = _vm.Account;
                     _rec.CreatedOn = DateTime.Now;
                     _rec.CreatedBy = userName;
                     _rec.TrackingNumber = _vm.TrackingNumber;
+                    _rec.WorkOrder = _vm.WorkOrder;
                     //_rec.Damaged = _vm.Damaged;
 
                     _rec.BloodPressureMonitors = _vm.BloodPressureMonitors;
@@ -2826,10 +2916,10 @@ namespace USPS_Report.Areas.Reports.Models
                     _rec.PendingResolution = _vm.PendingResolution;
                     _rec.Resolution = _vm.Resolution;
                     string payerids = "";
-                    for (int i= 0; i < _vm.payerTypeList.Count(); i++)
+                    for (int i = 0; i < _vm.payerTypeList.Count(); i++)
                     {
                         payerids += _vm.payerTypeList[i].payerid.ToString();
-                        if (i != _vm.payerTypeList.Count()-1)
+                        if (i != _vm.payerTypeList.Count() - 1)
                         {
                             payerids += ", ";
                         }
@@ -2878,7 +2968,7 @@ namespace USPS_Report.Areas.Reports.Models
                     //_rec.ComplaintShipping = _vm.ComplaintShipping;
                     //_rec.ComplaintService = _vm.ComplaintService;
                     //_rec.ComplaintSmartAction = _vm.ComplaintSmartAction;
-                    
+
 
 
 
@@ -2899,7 +2989,7 @@ namespace USPS_Report.Areas.Reports.Models
             return id;
         }
 
-        public static string AddNote_ComplaintLog(CSRComplaintVM _vm,int reference)
+        public static string AddNote_ComplaintLog(CSRComplaintVM _vm, int? reference)
         {
             StringBuilder otherStr = new StringBuilder();
             StringBuilder noteString = new StringBuilder();
@@ -2999,17 +3089,17 @@ namespace USPS_Report.Areas.Reports.Models
                         || _vm.ITHelpDesk == true
                              || _vm.Compliance == true || _vm.Driver == true || _vm.WrongProductShipped == true || _vm.QualityOfProduct == true
                              || _vm.WrongArea == true || _vm.MissingProduct == true || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
-                             || _vm.ProductIncorrect == true ||_vm.Call == true || _vm.Email == true || _vm.Fax == true || _vm.WebsitePortal == true || _vm.SocialMedia == true || _vm.InsCompany == true || _vm.Survey == true ||  _vm.CallRcvdOther == true || _vm.ProductMispick == true || _vm.ProductDefective || (_vm.ProductTextArea != "" && _vm.ProductTextArea != null)
+                             || _vm.ProductIncorrect == true || _vm.Call == true || _vm.Email == true || _vm.Fax == true || _vm.WebsitePortal == true || _vm.SocialMedia == true || _vm.InsCompany == true || _vm.Survey == true || _vm.CallRcvdOther == true || _vm.ProductMispick == true || _vm.ProductDefective || (_vm.ProductTextArea != "" && _vm.ProductTextArea != null)
                              || _vm.ImpoliteORoffensive == true || _vm.HoldTimes == true || (_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null)
-                             || (_vm.Others != "" && _vm.Others != null)|| (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null)
+                             || (_vm.Others != "" && _vm.Others != null) || (_vm.ComplaintHasBeen != "" && _vm.ComplaintHasBeen != null)
                              || _vm.DidntFollowDelIns == true || _vm.VConfirmationCalls == true || _vm.ComplaintProduct == true || _vm.CustomerService == true || _vm.Discrimination == true || _vm.SmartAction == true || _vm.VPaymentCalles == true || _vm.SAJamesPhonePromts == true
                                 || _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.WebsitePortal == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
-                                _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.HealthPlan == true || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true || _vm.ShippingWarehouse == true || _vm.TextMessaging == true || _vm.ProcessDelay == true || _vm.PhoneFaxIssues == true || 
-                               (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) 
+                                _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.HealthPlan == true || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true || _vm.ShippingWarehouse == true || _vm.TextMessaging == true || _vm.ProcessDelay == true || _vm.PhoneFaxIssues == true ||
+                               (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null)
                                || _vm.IssueDate != null || _vm.ComplaintDate != null || _vm.ResolutionDate != null || _vm.InitialRespDate != null || _vm.WrittenRespDate != null
                                )
                     {
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMPLAINTS" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMPLAINTS").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
                         if (_note == null)
                         {
@@ -3024,7 +3114,7 @@ namespace USPS_Report.Areas.Reports.Models
                             _db.tbl_Account_Note.Add(_tbl);
                             _db.SaveChanges();
 
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMPLAINTS" ).FirstOrDefault();  //&& t.NoteCreatedBy == id
+                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMPLAINTS").FirstOrDefault();  //&& t.NoteCreatedBy == id
 
 
 
@@ -3083,19 +3173,19 @@ namespace USPS_Report.Areas.Reports.Models
                         || _vm.WoundCareOstomyTENS == true
                         || _vm.OtherUnsureTeam == true
                         || _vm.ITHelpDesk == true
-                                || _vm.Compliance == true  
+                                || _vm.Compliance == true
                                 || _vm.Call == true || _vm.Email == true || _vm.Fax == true || _vm.WebsitePortal == true || _vm.SocialMedia == true || _vm.InsCompany == true || _vm.Survey == true || _vm.CallRcvdOther == true ||
                                 _vm.Driver == true || _vm.WrongProductShipped == true || _vm.QualityOfProduct == true
                                 || _vm.WrongArea == true || _vm.MissingProduct == true || (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
                                   || _vm.DidntFollowDelIns == true || _vm.VConfirmationCalls == true || _vm.VPaymentCalles == true || _vm.SAJamesPhonePromts == true
                                 || _vm.SAJamesSelfService == true || _vm.VirtualCallBack == true || _vm.WebsitePortal == true || _vm.NoFollowUp == true || _vm.ReturnedFromVM == true || _vm.NoFollowUpWithMem == true ||
                                 _vm.NeverRecivedSupplies == true || _vm.PhysicianIssue == true || _vm.HealthPlan == true || _vm.ProductDefectiveQuality == true || _vm.ShippingUSPS == true || _vm.ShippingWarehouse == true || _vm.TextMessaging == true || _vm.ProcessDelay == true || _vm.PhoneFaxIssues == true ||
-                               (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null) 
-                               || _vm.IssueDate != null || _vm.ComplaintDate != null || _vm.ResolutionDate != null || _vm.InitialRespDate !=null || _vm.WrittenRespDate != null ||
-                                _vm.ComplaintProduct == true || _vm.CustomerService == true || _vm.Discrimination == true || _vm.SmartAction == true 
+                               (_vm.Product != "" && _vm.Product != null) || (_vm.DeliveryCompany != "" && _vm.DeliveryCompany != null)
+                               || _vm.IssueDate != null || _vm.ComplaintDate != null || _vm.ResolutionDate != null || _vm.InitialRespDate != null || _vm.WrittenRespDate != null ||
+                                _vm.ComplaintProduct == true || _vm.CustomerService == true || _vm.Discrimination == true || _vm.SmartAction == true
                                )
                             {
-                                otherStr.Append("Complaint Received By = " );
+                                otherStr.Append("Complaint Received By = ");
                                 if (_vm.Call == true)
                                     otherStr.Append(" Call " + Environment.NewLine);
                                 if (_vm.Email == true)
@@ -3115,8 +3205,8 @@ namespace USPS_Report.Areas.Reports.Models
                                 if (_vm.CallRcvdOther == true)
                                     otherStr.Append(" Other  " + Environment.NewLine);
 
-                                if(_vm.IssueDate != null)
-                                    otherStr.Append(" Issue Date  " +Convert.ToDateTime(_vm.IssueDate).ToShortDateString()+ Environment.NewLine);
+                                if (_vm.IssueDate != null)
+                                    otherStr.Append(" Issue Date  " + Convert.ToDateTime(_vm.IssueDate).ToShortDateString() + Environment.NewLine);
                                 if (_vm.ComplaintDate != null)
                                     otherStr.Append(" Complaint Date  " + Convert.ToDateTime(_vm.ComplaintDate).ToShortDateString() + Environment.NewLine);
                                 if (_vm.ResolutionDate != null)
@@ -3128,8 +3218,8 @@ namespace USPS_Report.Areas.Reports.Models
 
 
                                 if (_vm.TrackingNumber != "" && _vm.TrackingNumber != null)
-                                    otherStr.Append("Tracking Number =" + _vm.TrackingNumber +Environment.NewLine);
-                                    //otherStr = otherStr + " Tracking Number = " + _vm.TrackingNumber + "_";
+                                    otherStr.Append("Tracking Number =" + _vm.TrackingNumber + Environment.NewLine);
+                                //otherStr = otherStr + " Tracking Number = " + _vm.TrackingNumber + "_";
 
                                 if (_vm.WorkOrder != "" && _vm.WorkOrder != null)
                                     otherStr.Append("WorkOrder = " + _vm.WorkOrder + Environment.NewLine);
@@ -3352,11 +3442,11 @@ namespace USPS_Report.Areas.Reports.Models
 
                                 if (_vm.QualityOfProduct == true)
                                     otherStr.Append("Quality Of Product" + Environment.NewLine);
-                                  //otherStr = otherStr + "QualityOfProduct_";
+                                //otherStr = otherStr + "QualityOfProduct_";
 
                                 if (_vm.WrongArea == true)
                                     otherStr.Append("Wrong Area" + Environment.NewLine);
-                                   //otherStr = otherStr + "WrongArea_";
+                                //otherStr = otherStr + "WrongArea_";
 
                                 if (_vm.MissingProduct == true)
                                     otherStr.Append("Missing Product" + Environment.NewLine);
@@ -3373,7 +3463,7 @@ namespace USPS_Report.Areas.Reports.Models
 
                                 if (_vm.FedExTextArea != "" && _vm.FedExTextArea != null)
                                     otherStr.Append("Note =" + _vm.FedExTextArea + Environment.NewLine);
-                              //  otherStr = otherStr + " FedExNote =" + _vm.FedExTextArea + "_";
+                                //  otherStr = otherStr + " FedExNote =" + _vm.FedExTextArea + "_";
 
                             }
 
@@ -3382,15 +3472,15 @@ namespace USPS_Report.Areas.Reports.Models
 
                                 if (_vm.ProductIncorrect == true)
                                     otherStr.Append("Incorrect Product" + Environment.NewLine);
-                                   // otherStr = otherStr + "Incorrect_";
+                                // otherStr = otherStr + "Incorrect_";
 
                                 if (_vm.ProductMispick == true)
                                     otherStr.Append("Mispick Product" + Environment.NewLine);
-                                   // otherStr = otherStr + "Mispick_";
+                                // otherStr = otherStr + "Mispick_";
 
                                 if (_vm.ProductDefective == true)
                                     otherStr.Append("Defective Product" + Environment.NewLine);
-                               // otherStr = otherStr + "Defective_";
+                                // otherStr = otherStr + "Defective_";
 
 
 
@@ -3405,23 +3495,23 @@ namespace USPS_Report.Areas.Reports.Models
 
                                 if (_vm.ImpoliteORoffensive == true)
                                     otherStr.Append("Impolite/Offensive" + Environment.NewLine);
-                                     //otherStr = otherStr + "Impolite/Offensive_";
+                                //otherStr = otherStr + "Impolite/Offensive_";
 
                                 if (_vm.HoldTimes == true)
                                     otherStr.Append("Hold Times" + Environment.NewLine);
-                                    //otherStr = otherStr + "HoldTimes_";
+                                //otherStr = otherStr + "HoldTimes_";
 
 
                                 if (_vm.CustomerServiceTextArea != "" && _vm.CustomerServiceTextArea != null)
                                     otherStr.Append("Customer Service Note =" + _vm.CustomerServiceTextArea + Environment.NewLine);
-                                    //otherStr = otherStr + " Customer Service Note =" + _vm.CustomerServiceTextArea + "_";
+                                //otherStr = otherStr + " Customer Service Note =" + _vm.CustomerServiceTextArea + "_";
 
                             }
 
                             if (_vm.Others != "" && _vm.Others != null)
                             {
                                 otherStr.Append("Others Note =" + _vm.Others + Environment.NewLine);
-                               // otherStr = otherStr + " Others Note =" + _vm.Others + "_";
+                                // otherStr = otherStr + " Others Note =" + _vm.Others + "_";
 
                             }
 
@@ -3442,13 +3532,13 @@ namespace USPS_Report.Areas.Reports.Models
                             StringBuilder _msgStr23 = new StringBuilder();
                             _msgStr23.Append(noteString);
                             _msgStr23.Append(otherStr);
-                            _msgStr23.Append("Complaint Has Been = " + _vm.ComplaintHasBeen + Environment.NewLine );
+                            _msgStr23.Append("Complaint Has Been = " + _vm.ComplaintHasBeen + Environment.NewLine);
 
-                            if (reference!=0)
+                            if (reference != null)
                             {
                                 _msgStr23.Append("Reference Number = " + reference + Environment.NewLine);
                             }
-                            
+
 
                             _tHist.NoteText = _msgStr23.ToString();
 
@@ -3456,7 +3546,7 @@ namespace USPS_Report.Areas.Reports.Models
                             _tHist.ID_Operator = id;
 
                             _db.tbl_Account_Note_History.Add(_tHist);
-                            
+
                         }
                     }
 
@@ -3489,7 +3579,7 @@ namespace USPS_Report.Areas.Reports.Models
 
             returnStr = returnStr.Replace(Environment.NewLine, "<br />");
 
-          
+
             return returnStr;
 
         }
@@ -3498,18 +3588,18 @@ namespace USPS_Report.Areas.Reports.Models
         public static void sendEmail(string message, Int64? acc, int? reference)
         {
 
-         
-          //  DateTime todaydate = DateTime.Today.Date;
-          
-           
+
+            //  DateTime todaydate = DateTime.Today.Date;
+
+
 
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
-         
-           mail.To.Add("disteamleader@jandbmedical.com");
-          //  mail.To.Add("gbethini@jandbmedical.com");
-          mail.Bcc.Add("grani@jandbmedical.com");
+
+            mail.To.Add("disteamleader@jandbmedical.com");
+            //  mail.To.Add("gbethini@jandbmedical.com");
+            mail.Bcc.Add("grani@jandbmedical.com");
 
 
             mail.Subject = "CSR Call Complaint Log";
@@ -3517,7 +3607,7 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "<body>";
             mail.Body += "<table>";
             mail.Body += "<tr>";
-            mail.Body += "<td>Issue for account - " + acc + " has not been resolved.</td><td></td>"; 
+            mail.Body += "<td>Issue for account - " + acc + " has not been resolved.</td><td></td>";
             mail.Body += "</tr>";
 
             mail.Body += "<tr>";
@@ -3541,9 +3631,9 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "</body>";
             mail.Body += "</html>";
             mail.IsBodyHtml = true;
-           // SmtpServer.Port = 25;
-          //  SmtpServer.Credentials = new System.Net.NetworkCredential("geeta.arora2006@gmail.com", "GEETUgeet1");
-          //  SmtpServer.EnableSsl = true;
+            // SmtpServer.Port = 25;
+            //  SmtpServer.Credentials = new System.Net.NetworkCredential("geeta.arora2006@gmail.com", "GEETUgeet1");
+            //  SmtpServer.EnableSsl = true;
             SmtpServer.Send(mail);
         }
 
@@ -3559,8 +3649,8 @@ namespace USPS_Report.Areas.Reports.Models
             SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
-            mail.To.Add("CustomerServiceManager@jandbmedical.com");
-            //mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
+            //mail.To.Add("CustomerServiceManager@jandbmedical.com");
+            mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
 
             mail.Subject = "CSR Call Complaint Log";
             mail.Body += " <html>";
@@ -3602,8 +3692,8 @@ namespace USPS_Report.Areas.Reports.Models
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
-            mail.To.Add("DISTeamLeader@jandbmedical.com");
-            //mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
+            //mail.To.Add("DISTeamLeader@jandbmedical.com");
+            mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
             mail.Subject = "CSR Call Complaint Log To Supervisors";
             mail.Body += " <html>";
             mail.Body += "<body>";
@@ -3635,16 +3725,16 @@ namespace USPS_Report.Areas.Reports.Models
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
-            mail.To.Add("bserra@jandbmedical.com");
-            mail.To.Add("tkemp@jandbmedical.com");
-            mail.To.Add("tmoore@jandbmedical.com");
-            mail.To.Add("tsymanski@jandbmedical.com");
-            mail.To.Add("rpetrashko@jandbmedical.com");
-            mail.To.Add("kdick@jandbmedical.com");
-            mail.To.Add("jujones@jandbmedical.com");
-            mail.To.Add("gbarragan@jandbmedical.com");
-            mail.To.Add("jmudge@jandbmedical.com");
-            //mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
+            //mail.To.Add("bserra@jandbmedical.com");
+            //mail.To.Add("tkemp@jandbmedical.com");
+            //mail.To.Add("tmoore@jandbmedical.com");
+            //mail.To.Add("tsymanski@jandbmedical.com");
+            //mail.To.Add("rpetrashko@jandbmedical.com");
+            //mail.To.Add("kdick@jandbmedical.com");
+            //mail.To.Add("jujones@jandbmedical.com");
+            //mail.To.Add("gbarragan@jandbmedical.com");
+            //mail.To.Add("jmudge@jandbmedical.com");
+            mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
             mail.Subject = "CSR Call Complaint Log To Managers";
             StringBuilder complaintReceived = new StringBuilder();
             if (_vm.Call == true)
@@ -3652,7 +3742,7 @@ namespace USPS_Report.Areas.Reports.Models
             if (_vm.Email == true)
                 complaintReceived.Append(" Email " + "<br />");
             if (_vm.Fax == true)
-                complaintReceived.Append(" Fax " + "<br />");         
+                complaintReceived.Append(" Fax " + "<br />");
             if (_vm.CallRcvdWebsite == true)
                 complaintReceived.Append(" Website " + "<br />");
             if (_vm.SocialMedia == true)
@@ -3777,8 +3867,8 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "<td>Reference Number: </td><td>" + _vm.id + "</td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
-            mail.Body += "<td>Complaint Received: </td><td>"+ complaintReceived.ToString()+"</td>";
-            mail.Body += "</tr>";           
+            mail.Body += "<td>Complaint Received: </td><td>" + complaintReceived.ToString() + "</td>";
+            mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Product Line: </td><td>" + productLine.ToString() + "</td>";
             mail.Body += "</tr>";
@@ -3837,7 +3927,7 @@ namespace USPS_Report.Areas.Reports.Models
 
     public class AccountInfoVM
     {
-        public int? Account2 { get; set; } 
+        public int? Account2 { get; set; }
         public string TimerVal { get; set; }
         public string firstName { get; set; }
 
@@ -3899,7 +3989,7 @@ namespace USPS_Report.Areas.Reports.Models
         public bool NNA { get; set; }
         public bool Copay { get; set; }
         public bool OrderStatus { get; set; }
-   
+
 
     }
 
@@ -3978,11 +4068,11 @@ namespace USPS_Report.Areas.Reports.Models
         public bool OpPermission { get; set; }
         public string errormsg { get; set; }
         public string empFullName { get; set; }
-      
-     //   public string refnum { get; set; }
+
+        //   public string refnum { get; set; }
         public bool firstTime { get; set; }
         public string TimerTxt { get; set; }
-     
+
         [RegularExpression("^([0-9]+)$", ErrorMessage = "Please enter intergers only")]
         public Int64? Account { get; set; }
         public bool VerifiedPHI { get; set; }
@@ -4072,7 +4162,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         public bool Other_CallHandling { get; set; }
         public bool Sh_Other { get; set; }
-       // public bool Compliant { get; set; }
+        // public bool Compliant { get; set; }
 
         public bool AccountDeactivated { get; set; }
 
@@ -4090,7 +4180,7 @@ namespace USPS_Report.Areas.Reports.Models
         public string TransferredCall { get; set; }
         public string TransferredCallTxtArea { get; set; }
         public string ShippingOtherName { get; set; }
-        public string ShippingIssueTxt{ get; set; }
+        public string ShippingIssueTxt { get; set; }
         public string OtherHandlingTxt { get; set; }
 
         public string SampleTxt { get; set; }
@@ -4186,7 +4276,7 @@ namespace USPS_Report.Areas.Reports.Models
         public bool TransferredTeamLeader { get; set; }
 
 
-       //
+        //
 
 
 
@@ -4194,7 +4284,7 @@ namespace USPS_Report.Areas.Reports.Models
     //public class ProductSurveyVM
     //{
     //    public string ProductNeeds { get; set; }
-        
+
     //}
 
     public class CSRComplaintVM
@@ -4241,7 +4331,7 @@ namespace USPS_Report.Areas.Reports.Models
 
 
         public int? id { get; set; }
-      
+
         public bool ProductIncorrect { get; set; }
         public bool ProductMispick { get; set; }
         public bool ProductDefective { get; set; }
@@ -4310,16 +4400,16 @@ namespace USPS_Report.Areas.Reports.Models
         public bool WrongProductShipped { get; set; }
         public bool QualityOfProduct { get; set; }
 
-        public bool WrongArea {get;set;}
-        public bool MissingProduct {get;set;}
+        public bool WrongArea { get; set; }
+        public bool MissingProduct { get; set; }
         public string WorkOrder { get; set; }
         public string TrackingNumber { get; set; }
         public string FedExTextArea { get; set; }
 
-      
+
         public string ProductTextArea { get; set; }
 
-   
+
         public bool HoldTimes { get; set; }
         public string CustomerServiceTextArea { get; set; }
 
@@ -4353,6 +4443,7 @@ namespace USPS_Report.Areas.Reports.Models
         public bool Survey { get; set; }
         public bool CallRcvdOther { get; set; }
         public bool ComplaintProduct { get; set; }
+        public string AttachedFile { get; set; }
         //public bool ComplaintShipping { get; set; }
         //public bool ComplaintService { get; set; }
         //public bool ComplaintSmartAction { get; set; }

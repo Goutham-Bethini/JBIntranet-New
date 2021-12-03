@@ -9,6 +9,7 @@
     <div class="col-md-2"><label> Issue Date</label><span style="color:red;">*</span></div>
     <div class="col-md-2">@Html.Kendo().DatePicker().Name("IssueDate").Value(Model.IssueDate).Format("MM/dd/yyyy")</div>
 
+
 </div>
 
 <br />
@@ -46,7 +47,43 @@
 
 
  
+<script>
+    $(document).ready(function () {
 
+        @*alert("hello");
+        alert("@Html.Raw(Model.IssueDate)");*@
+        
+        var issueDP = $("#IssueDate").data('kendoDatePicker');
+        issueDP.value("@Html.Raw(Model.IssueDate)");
+
+        var complaintDP = $("#ComplaintDate").data('kendoDatePicker');
+        complaintDP.value("@Html.Raw(Model.ComplaintDate)");
+
+        var resolutionDP = $("#ResolutionDate").data('kendoDatePicker');
+        resolutionDP.value("@Html.Raw(Model.ResolutionDate)");
+
+        var initialDP = $("#InitialRespDate").data('kendoDatePicker');
+        initialDP.value("@Html.Raw(Model.InitialRespDate)");
+
+        var writtenDP = $("#WrittenRespDate").data('kendoDatePicker');
+        writtenDP.value("@Html.Raw(Model.WrittenRespDate)");
+        
+    });
+    
+    //var dp = $("#IssueDate").data('kendoDatePicker');
+    //dp.value("07/30/2014");
+    //var $datepicker = $('#IssueDate');
+    //$datepicker.datepicker();
+    //$datepicker.datepicker('setDate', new Date());
+    //var datepicker = $("#IssueDate").data("kendoDatePicker");
+
+    //datepicker.value(new Date());
+
+    //alert(new Date('December 17, 2000 03:24:00'));
+    //debugger;
+    //var todayDate = new Date();
+    //$("#IssueDate").data("kendoDatePicker").value(todayDate).Format("MM/dd/yyyy");
+</script>
  
 
 

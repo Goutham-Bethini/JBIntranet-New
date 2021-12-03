@@ -21,34 +21,34 @@ else
 
 
 
-<div>
+    <div>
 
-    @using (Html.BeginForm("CSRComlaintlog", "CustomerServices", FormMethod.Post))
-    {
+        @using (Html.BeginForm("CSRComlaintlog", "CustomerServices", FormMethod.Post))
+        {
 
-        <div>
-            @Html.CheckBoxFor(m => m.newAccount)
-            <label>New Account</label>  OR
-            <label>Reference Number </label>
-            @Html.TextBoxFor(m => m.id)
-
-
-            
-
-            <button class="btn btn-primary btn-large" type="submit">Submit</button>
-        </div>
-    }
-</div>
+            <div>
+                @Html.CheckBoxFor(m => m.newAccount)
+                <label>New Account</label>  OR
+                <label>Reference Number </label>
+                @Html.TextBoxFor(m => m.id)
 
 
-<hr />
-if (Model != null && Model.details != null)
-{
-    if (Model.details.firstName == "wrong" )
-    {
-<p style = "color:red"> Please enter a correct reference number </p>
+
+
+                <button class="btn btn-primary btn-large" type="submit">Submit</button>
+            </div>
         }
-       else if (Model.details.firstName == "WrongAccount")
+    </div>
+
+
+    <hr />
+    if (Model != null && Model.details != null)
+    {
+        if (Model.details.firstName == "wrong")
+        {
+            <p style="color:red"> Please enter a correct reference number </p>
+        }
+        else if (Model.details.firstName == "WrongAccount")
         {
             <p style="color:red"> Please enter a correct Account number </p>
         }
@@ -66,81 +66,87 @@ if (Model != null && Model.details != null)
 
 
                     @(Html.Kendo().PanelBar()
-                                                                                    .Name("newComplaintlog")
-                                                                                         .ExpandMode(PanelBarExpandMode.Multiple)
-                                                                                    .Items(items =>
-                                                                                    {
-                                                                                        items.Add()
-                                                .Text("AccountInfo")
-                                                .Content( @<div> @Html.Partial("_AccountDetailsComplaint", Model) </div>)
-                                                                                                             .Expanded(true);
+                                                                                                    .Name("newComplaintlog")
+                                                                                                         .ExpandMode(PanelBarExpandMode.Multiple)
+                                                                                                    .Items(items =>
+                                                                                                    {
+                                                                                                        items.Add()
+                                                                .Text("AccountInfo")
+                                                                .Content( @<div> @Html.Partial("_AccountDetailsComplaint", Model) </div>)
+                                                                                                                                             .Expanded(true);
 
 
 
 
-                                                                                                items.Add()
-                                 .Text("Call Handling")
-                                .Content( @<div> @Html.Partial("_CallHandling", Model) </div>)
-                                                     .Expanded(true);
+                                                                                                                items.Add()
+                         .Text("Call Handling")
+                        .Content( @<div> @Html.Partial("_CallHandling", Model) </div>)
+                     .Expanded(true);
 
 
 
 
-                                                                                    items.Add()
-                  //.ImageHtmlAttributes(new { style = "color:red;" }).LinkHtmlAttributes(new { style = "font-weight: bold;" })
-                  .Text("Complaint Received").ImageUrl("http://demos.kendoui.com/content/shared/icons/16/star.png")
-                  .Content( @<div> @Html.Partial("_CallReceived", Model) </div>)
-                                         .Expanded(true);
-
-
-
-
-                                                                                items.Add()
-
-            .Text("Complaint")
-            .Content( @<div> @Html.Partial("_Fedex", Model) </div>);
                                                                                                     items.Add()
+          //.ImageHtmlAttributes(new { style = "color:red;" }).LinkHtmlAttributes(new { style = "font-weight: bold;" })
+          .Text("Complaint Received").ImageUrl("http://demos.kendoui.com/content/shared/icons/16/star.png")
+          .Content( @<div> @Html.Partial("_CallReceived", Model) </div>)
+                             .Expanded(true);
 
-                                       .Text("Complaint Attachment")
-                                       .Content( @<div> @Html.Partial("_ComplaintAttachment", Model) </div>);
 
-                                            @*items.Add()
-                                           .Text("Product")
-                                           .Content( @<div> @Html.Partial("_Product", Model) </div>);
 
-                                                                                items.Add()
-                                      .Text("Customer Service")
-                                      .Content( @<div> @Html.Partial("_CustomerService", Model) </div>);
 
-                                                                                items.Add()
-                                    .Text("Other")
-                                    .Content( @<div> @Html.Partial("_Other", Model) </div>);*@
-                                                        items.Add().HtmlAttributes(new { id = "penres" })
-                                                                         .Text("Pending Resolution").ImageUrl("http://demos.kendoui.com/content/shared/icons/16/star.png")
+                                                                                                  items.Add()
 
-                                                                         .Content( @<div> @Html.Partial("_PendingResolution", Model) </div>);
-                                                                                                   items.Add()
-                                                .Text("Resolution")
-                                                .Content( @<div> @Html.Partial("_Resolution", Model) </div>);
+      .Text("Complaint")
+      .Content( @<div> @Html.Partial("_Fedex", Model) </div>);
+                                                                                                  items.Add()
 
-                                                                            items.Add()
-.Text("Compliant Has Been").ImageUrl("http://demos.kendoui.com/content/shared/icons/16/star.png")
-.Content( @<div> @Html.Partial("_ComplainsHasBeen", Model) </div>).Expanded(true);
-                                                                                })
+             .Text("Complaint Attachment")
+             .Content( @<div> @Html.Partial("_ComplaintAttachment", Model) </div>);
+
+                    @*items.Add()
+                               .Text("Product")
+                               .Content( @<div> @Html.Partial("_Product", Model) </div>);
+
+                                                                    items.Add()
+                          .Text("Customer Service")
+                          .Content( @<div> @Html.Partial("_CustomerService", Model) </div>);
+
+                                                                    items.Add()
+                        .Text("Other")
+                        .Content( @<div> @Html.Partial("_Other", Model) </div>);*@
+                                items.Add().HtmlAttributes(new { id = "penres", style = "display:none;" })
+     .Text("Pending Resolution").ImageUrl("http://demos.kendoui.com/content/shared/icons/16/star.png")
+
+     .Content( @<div> @Html.Partial("_PendingResolution", Model) </div>).Expanded(true);
+                                                                                       items.Add()
+                                .Text("Resolution")
+                                .Content( @<div> @Html.Partial("_Resolution", Model) </div>);
+
+                                                                                                                                        items.Add()
+                                                                            .Text("Compliant Has Been").ImageUrl("http://demos.kendoui.com/content/shared/icons/16/star.png")
+                                                                            .Content( @<div> @Html.Partial("_ComplainsHasBeen", Model) </div>).Expanded(true);
+                                                                                                                                                                                })
 
 
                     )
                     <button class="btn btn-primary btn-large" id="startandstopbutton" type="submit">Submit </button>
                 }
             </div>
+        }
     }
-}
 
 
 
 }
 <script type="text/javascript">
-    document.getElementById("penres").style.display = "none";
+
+    $("#displayAttachedFile").on('click', function () {
+        var FileName = $(this).text();
+        var urllink = '@Url.Action("Download", "CustomerServices", new {FileName = "-1"})';
+        urllink = urllink.replace("-1", FileName);
+        window.location.href = urllink;
+    });
 
     $('#ComplaintHasBeen').change(function () {
         if ($('#ComplaintHasBeen').val().includes("Pending Resolution–")) {
@@ -150,14 +156,25 @@ if (Model != null && Model.details != null)
             document.getElementById("penres").style.display = "none";
         }
         
-        //$('#penres').setAttribute("style", "display: none;");
     });
-    
+    $(document).ready(function () {
+
+        if (document.getElementById("ComplaintHasBeen")) {
+            if ($('#ComplaintHasBeen').val().includes("Pending Resolution–")) {
+                document.getElementById("penres").style.display = "block";
+            }
+            else {
+                document.getElementById("penres").style.display = "none";
+            }
+        }
+        $("#displayAttachedFile").html("@Html.Raw(Model.AttachedFile)");
+    });
+
+
     function SubmitConfirm() {
         if ($('#COthers').val() != '') {
             $('#COthers').removeAttr("disabled");
         }
-
         //debugger;
         var i = $('#ComplaintHasBeen').val();
         //alert("ComplaintCompliance "+ $('#ComplaintCompliance').prop("checked"));
@@ -212,10 +229,11 @@ if (Model != null && Model.details != null)
             && $('#Verification').prop("checked") == false
             && $('#WebSupport').prop("checked") == false
             && $('#WoundCareOstomyTENS').prop("checked") == false
-            && $('#OtherUnsureTeam').prop("checked") == false) {
+            && $('#OtherUnsureTeam').prop("checked") == false
+            && $('#ITHelpDesk').prop("checked") == false) {
             alert("No option has been selected in the Team section of the Complaint");
             return false;
-        }            
+        }
         else if ($('#ComplaintCompliance').prop("checked") == false
             && $('#ComplaintCustomerService').prop("checked") == false
             && $('#ComplaintDiscrimination').prop("checked") == false
@@ -256,9 +274,11 @@ if (Model != null && Model.details != null)
     $("#startandstopbutton").click(function () {
         if ($("#IssueDate").val() == "") {
             alert("No Issue Date selected");
+            return false;
         }
         if ($("#ComplaintDate").val() == "") {
             alert("No Complaint Date selected");
+            return false;
         }
         //alert("hi");
         //var issue = document.getElementById('IssueDate');
@@ -306,7 +326,8 @@ if (Model != null && Model.details != null)
     //    }
     //});
 
-
+    //var todayDate = new Date();
+    //$('#IssueDate').data("kendoDatePicker").value(todayDate);
 </script>
 
 <style>

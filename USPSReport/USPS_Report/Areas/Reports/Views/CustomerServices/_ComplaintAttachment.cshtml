@@ -4,15 +4,20 @@
 
 @*@using (Html.BeginForm("UploadReferral", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
 {*@
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-1">
-            <label>  Upload File </label>
-        </div>
-        <div class="col-md-2">
-            <input type="file" id="file" name="file" />
-        </div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-1">
+        <label>  Upload File </label>
     </div>
+    <div class="col-md-2">
+        <input type="file" id="file" name="file" />
+    </div>
+    <div class="col-md-2">
+        <span id="displayAttachedFile" style="text-decoration:underline;cursor: pointer;">
+            @Html.DisplayFor(t => t.AttachedFile, new { id = "disAttachedFile" })
+        </span>
+    </div>
+</div>
     <br />
     @*<div class="row">
         <div class="col-md-1"></div>
