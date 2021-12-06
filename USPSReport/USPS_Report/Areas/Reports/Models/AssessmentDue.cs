@@ -308,9 +308,9 @@ left join HHSQLDB.dbo.tbl_Operator_Table ope2 on aa.UpdatedBy=ope2.ID";
                                 ass.DeleteDate= DateTime.Now;
                             }
                             string locQuery = @"select rwo.ID from HHSQLDB.dbo.tbl_PS_RepeatingOrders rwo 
-                                                join HHSQLDB.dbo.tbl_Product_Table pro on rwo.ID_Product = pro.ID
-                                                join HHSQLDB.dbo.tbl_ProductCategory_Table cat on pro.ID_ProductCategory = cat.ID
-                                                where pro.ID_ProductCategory in (1, 2, 3, 6, 7, 9, 10, 13, 14, 24, 43, 84)
+                                                left join HHSQLDB.dbo.tbl_Product_Table pro on rwo.ID_Product = pro.ID
+                                                left join HHSQLDB.dbo.tbl_ProductCategory_Table cat on pro.ID_ProductCategory = cat.ID
+                                                where (pro.ID_ProductCategory in (1, 2, 3, 6, 7, 9, 10, 13, 14, 24, 43, 84) or rwo.ID_Product=9629)
                                                 and Account = " + account.ToString();
                             List<int> lstIds = _db.Database.SqlQuery<int>(locQuery).ToList<int>();
                             
