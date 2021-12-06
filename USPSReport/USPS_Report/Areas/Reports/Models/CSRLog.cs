@@ -3649,7 +3649,7 @@ namespace USPS_Report.Areas.Reports.Models
             SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
-            //mail.To.Add("CustomerServiceManager@jandbmedical.com");
+            mail.To.Add("CustomerServiceManager@jandbmedical.com");
             mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
 
             mail.Subject = "CSR Call Complaint Log";
@@ -3692,7 +3692,7 @@ namespace USPS_Report.Areas.Reports.Models
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
-            //mail.To.Add("DISTeamLeader@jandbmedical.com");
+            mail.To.Add("DISTeamLeader@jandbmedical.com");
             mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
             mail.Subject = "CSR Call Complaint Log To Supervisors";
             mail.Body += " <html>";
@@ -3725,15 +3725,15 @@ namespace USPS_Report.Areas.Reports.Models
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
-            //mail.To.Add("bserra@jandbmedical.com");
-            //mail.To.Add("tkemp@jandbmedical.com");
-            //mail.To.Add("tmoore@jandbmedical.com");
-            //mail.To.Add("tsymanski@jandbmedical.com");
-            //mail.To.Add("rpetrashko@jandbmedical.com");
-            //mail.To.Add("kdick@jandbmedical.com");
-            //mail.To.Add("jujones@jandbmedical.com");
-            //mail.To.Add("gbarragan@jandbmedical.com");
-            //mail.To.Add("jmudge@jandbmedical.com");
+            mail.To.Add("bserra@jandbmedical.com");
+            mail.To.Add("tkemp@jandbmedical.com");
+            mail.To.Add("tmoore@jandbmedical.com");
+            mail.To.Add("tsymanski@jandbmedical.com");
+            mail.To.Add("rpetrashko@jandbmedical.com");
+            mail.To.Add("kdick@jandbmedical.com");
+            mail.To.Add("jujones@jandbmedical.com");
+            mail.To.Add("gbarragan@jandbmedical.com");
+            mail.To.Add("jmudge@jandbmedical.com");
             mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
             mail.Subject = "CSR Call Complaint Log To Managers";
             StringBuilder complaintReceived = new StringBuilder();

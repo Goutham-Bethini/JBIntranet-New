@@ -185,36 +185,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm != null)
             {
                 _vm.payerTypeList = AddCSRLog.HDMSPayerInfo(_vm.Account).ToList();
-                complaintId = AddCSRLog.AddComplaintLog(_vm);
-
                 string dir = @"\\JBMMIWEB001\StateAudit$\Files\Complaint log files";
-                string path = string.Empty;
-                if (file != null && file.ContentLength > 0)
-                {
-                    path = Path.Combine(dir, Path.GetFileName(file.FileName));
-                    if (!string.IsNullOrEmpty(path) && System.IO.File.Exists(path))
-                    {
-                        // if(System.IO.File.di)
-                        // If file found, delete it    
-                        System.IO.File.Delete(path);
-                    }
-                    //Saving the file  
-                    file.SaveAs(path);
-                    var components = System.Web.HttpContext.Current.User.Identity.Name.Split('\\');
-                    var userName = components.Last();
-                    using (IntranetEntities _db = new IntranetEntities())
-                    {
-                        tbl_CSRComplaintLog_Attachments att = new tbl_CSRComplaintLog_Attachments();
-                        att.Account = _vm.Account;
-                        att.ComplaintId = complaintId;
-                        att.FileName = file.FileName;
-                        att.UploadedBy = userName;
-                        att.UploadedDate = DateTime.Now;
-                        _db.tbl_CSRComplaintLog_Attachments.Add(att);
-                        _db.SaveChanges();
-                    }
-                }
-
                 if (_vm.newAccount == true)
                 {
                     CallLogVM _callVM = new CallLogVM();
@@ -306,6 +277,33 @@ namespace USPS_Report.Areas.Reports.Controllers
                     _vm.id = AddCSRLog.AddCallLog(_callVM);
 
                     //_vm.id = id;
+                }
+                complaintId = AddCSRLog.AddComplaintLog(_vm);
+                string path = string.Empty;
+                if (file != null && file.ContentLength > 0)
+                {
+                    path = Path.Combine(dir, Path.GetFileName(file.FileName));
+                    if (!string.IsNullOrEmpty(path) && System.IO.File.Exists(path))
+                    {
+                        // if(System.IO.File.di)
+                        // If file found, delete it    
+                        System.IO.File.Delete(path);
+                    }
+                    //Saving the file  
+                    file.SaveAs(path);
+                    var components = System.Web.HttpContext.Current.User.Identity.Name.Split('\\');
+                    var userName = components.Last();
+                    using (IntranetEntities _db = new IntranetEntities())
+                    {
+                        tbl_CSRComplaintLog_Attachments att = new tbl_CSRComplaintLog_Attachments();
+                        att.Account = _vm.Account;
+                        att.ComplaintId = complaintId;
+                        att.FileName = file.FileName;
+                        att.UploadedBy = userName;
+                        att.UploadedDate = DateTime.Now;
+                        _db.tbl_CSRComplaintLog_Attachments.Add(att);
+                        _db.SaveChanges();
+                    }
                 }
 
                 _msg = AddCSRLog.AddNote_ComplaintLog(_vm, _vm.id);
