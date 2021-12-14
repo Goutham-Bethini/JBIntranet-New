@@ -200,6 +200,16 @@ columns.Bound(t => t.Clin_Ass_ID).Title("Clinical Id").HeaderHtmlAttributes(new 
             localStorage["kendo-grid-options"] = kendo.stringify(grid.getOptions());
         });
 
+        ////e.preventDefault();
+        //var options = localStorage["kendo-grid-options"];
+        //var optionsJSON = JSON.parse(options);
+
+        //if (optionsJSON) {
+        //    grid.setOptions(optionsJSON);
+        //}
+
+        //grid.hideColumn(12);
+
         $("#load").click(function (e) {
             e.preventDefault();
             var options = localStorage["kendo-grid-options"];
