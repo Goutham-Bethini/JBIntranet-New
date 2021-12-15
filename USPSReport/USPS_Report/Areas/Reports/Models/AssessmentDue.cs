@@ -44,7 +44,7 @@ and pay.id in (7, 3179, 3739)
 JOIN HHSQLDB.dbo.tbl_Account_Member_Insurance mis on mis.Account = am.Account
 AND mis.Member = 1
 AND mis.Entry_Number = ins.Entry_Number
-WHERE datepart(yy, dateadd(mm, c.duration, c.assessmentDate)) = (Year(DATEADD(year, 0, getdate())) + "+count+@")
+WHERE datepart(yy, dateadd(mm, c.duration, c.assessmentDate)) = (Year(DATEADD(year, 0, getdate())) + "+count+ @")
 AND(effective_date is Null or effective_date < GetDate())
 AND(expiration_date is Null or expiration_date > GetDate())
 AND c.DeleteDate IS NULL
@@ -55,6 +55,8 @@ from HHSQLDB.dbo.tbl_Clinical_Assessments
 where Account = c.Account
 and Member = c.Member
 order by AssessmentDate desc)
+and c.Account not in  (select att.Account from [HHSQLDB].[dbo].[tbl_AssessmentDue_Attempts] att 
+where att.account=c.Account and (att.Attempt3rd = 1 or att.isSetToHold = 1))
 GROUP BY datepart(mm, dateadd(mm, c.duration, c.AssessmentDate))
 ORDER BY datepart(mm, dateadd(mm, c.duration, c.AssessmentDate))").ToList<AssessmentDueData>();
                         _assesment.assessmentDueData = _monthlyList;
@@ -87,6 +89,7 @@ set @year="+yr.ToString()
 
 + @"' IF OBJECT_ID('tempdb..#test') IS NOT NULL DROP TABLE  #test
 IF OBJECT_ID('tempdb..#test2') IS NOT NULL DROP TABLE  #test2
+IF OBJECT_ID('tempdb..#test3') IS NOT NULL DROP TABLE  #test3
 SELECT   
 distinct 
 am.Account,  
@@ -156,10 +159,16 @@ cast((case when aa.Attempt2nd=1 then 1 else 0 end) as bit) Attempt2nd,
 cast((case when aa.Attempt3rd=1 then 1 else 0 end) as bit) Attempt3rd,
 (case when aa.Attempt3rd=1 then isnull(aa.UpdatedBy, aa.CreatedBy) else null end) Attempted3rdBy,
 (case when aa.Attempt3rd=1 then isnull(aa.UpdatedDate, aa.CreatedDate) else null end) Attempted3rdDate 
+into #test3 
 from #test2 res 
 left join HHSQLDB.dbo.tbl_AssessmentDue_Attempts aa on res.Account=aa.Account
 left join HHSQLDB.dbo.tbl_Operator_Table ope on aa.CreatedBy=ope.ID 
-left join HHSQLDB.dbo.tbl_Operator_Table ope2 on aa.UpdatedBy=ope2.ID";
+left join HHSQLDB.dbo.tbl_Operator_Table ope2 on aa.UpdatedBy=ope2.ID
+
+select * from #test3 tt
+where tt.Account not in  (select Account from [HHSQLDB].[dbo].[tbl_AssessmentDue_Attempts] att 
+where att.Account=tt.Account and (att.Attempt3rd = 1 or att.isSetToHold = 1))";
+
 //                    string Query = @"SELECT   
 //am.Account,  
 //CONVERT(varchar(12),
@@ -301,12 +310,12 @@ left join HHSQLDB.dbo.tbl_Operator_Table ope2 on aa.UpdatedBy=ope2.ID";
                             _msgStr1.Append("Unable to reach the member/caregiver due to invalid contact information.  Sending contact letter to obtain updated contact information.  Placing RWO on 2/1/2099 hold until assessment can be completed.");
                             _tHist.NoteText = _msgStr1.ToString();
                             _db.tbl_Account_Note_History.Add(_tHist);
-                            tbl_Clinical_Assessments ass= _db.tbl_Clinical_Assessments.Where(t => t.ID == _vm.Clin_Ass_ID).FirstOrDefault();
-                            if (ass != null)
-                            {
-                                ass.ID_DeletedBy = id;
-                                ass.DeleteDate= DateTime.Now;
-                            }
+                            //tbl_Clinical_Assessments ass= _db.tbl_Clinical_Assessments.Where(t => t.ID == _vm.Clin_Ass_ID).FirstOrDefault();
+                            //if (ass != null)
+                            //{
+                            //    ass.ID_DeletedBy = id;
+                            //    ass.DeleteDate= DateTime.Now;
+                            //}
                             string locQuery = @"select rwo.ID from HHSQLDB.dbo.tbl_PS_RepeatingOrders rwo 
                                                 left join HHSQLDB.dbo.tbl_Product_Table pro on rwo.ID_Product = pro.ID
                                                 left join HHSQLDB.dbo.tbl_ProductCategory_Table cat on pro.ID_ProductCategory = cat.ID
