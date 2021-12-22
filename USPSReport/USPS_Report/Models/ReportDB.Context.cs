@@ -528,7 +528,7 @@ namespace USPS_Report.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertReturn_Line", return_IDParameter, workOrder_Line_IDParameter, qty_ReturnParameter);
         }
     
-        public virtual int sp_UpdateReturn(Nullable<int> return_ID, string reshipped, string tracking_Number, string return_Note, string tag_Type, Nullable<int> reason__List_option_ID, string return_Other_Reason, Nullable<int> boxesReturned, Nullable<System.DateTime> dateRtrn, Nullable<short> send_To_Billing, Nullable<short> dont_Display, Nullable<int> oracleRMA, Nullable<System.DateTime> pickUpDate, string reshippedAtCost)
+        public virtual int sp_UpdateReturn(Nullable<int> return_ID, string reshipped, string returnForCredit, string returnWreceipt, string tracking_Number, string return_Note, string tag_Type, Nullable<int> reason__List_option_ID, string return_Other_Reason, Nullable<int> boxesReturned, Nullable<System.DateTime> dateRtrn, Nullable<short> send_To_Billing, Nullable<short> dont_Display, Nullable<int> oracleRMA, Nullable<System.DateTime> pickUpDate, string reshippedAtCost)
         {
             var return_IDParameter = return_ID.HasValue ?
                 new ObjectParameter("return_ID", return_ID) :
@@ -537,6 +537,14 @@ namespace USPS_Report.Models
             var reshippedParameter = reshipped != null ?
                 new ObjectParameter("reshipped", reshipped) :
                 new ObjectParameter("reshipped", typeof(string));
+    
+            var returnForCreditParameter = returnForCredit != null ?
+                new ObjectParameter("returnForCredit", returnForCredit) :
+                new ObjectParameter("returnForCredit", typeof(string));
+    
+            var returnWreceiptParameter = returnWreceipt != null ?
+                new ObjectParameter("returnWreceipt", returnWreceipt) :
+                new ObjectParameter("returnWreceipt", typeof(string));
     
             var tracking_NumberParameter = tracking_Number != null ?
                 new ObjectParameter("tracking_Number", tracking_Number) :
@@ -586,7 +594,7 @@ namespace USPS_Report.Models
                 new ObjectParameter("reshippedAtCost", reshippedAtCost) :
                 new ObjectParameter("reshippedAtCost", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateReturn", return_IDParameter, reshippedParameter, tracking_NumberParameter, return_NoteParameter, tag_TypeParameter, reason__List_option_IDParameter, return_Other_ReasonParameter, boxesReturnedParameter, dateRtrnParameter, send_To_BillingParameter, dont_DisplayParameter, oracleRMAParameter, pickUpDateParameter, reshippedAtCostParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateReturn", return_IDParameter, reshippedParameter, returnForCreditParameter, returnWreceiptParameter, tracking_NumberParameter, return_NoteParameter, tag_TypeParameter, reason__List_option_IDParameter, return_Other_ReasonParameter, boxesReturnedParameter, dateRtrnParameter, send_To_BillingParameter, dont_DisplayParameter, oracleRMAParameter, pickUpDateParameter, reshippedAtCostParameter);
         }
     
         public virtual int sp_UpdateReturn_Line(Nullable<int> return_Line_ID, Nullable<int> qty_Return)
@@ -664,6 +672,19 @@ namespace USPS_Report.Models
                 new ObjectParameter("reportId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetReportAuditInfo_Result>("sp_GetReportAuditInfo", reportIdParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetRWOChanges_Result> sp_GetRWOChanges(Nullable<System.DateTime> fromdate, Nullable<System.DateTime> toDate)
+        {
+            var fromdateParameter = fromdate.HasValue ?
+                new ObjectParameter("fromdate", fromdate) :
+                new ObjectParameter("fromdate", typeof(System.DateTime));
+    
+            var toDateParameter = toDate.HasValue ?
+                new ObjectParameter("toDate", toDate) :
+                new ObjectParameter("toDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetRWOChanges_Result>("sp_GetRWOChanges", fromdateParameter, toDateParameter);
         }
     }
 }

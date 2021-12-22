@@ -370,6 +370,7 @@
     <Compile Include="Areas\Reports\Controllers\ReviewDoctorsController.cs" />
     <Compile Include="Areas\Reports\Controllers\ROnotPurchaseController.cs" />
     <Compile Include="Areas\Reports\Controllers\RWOController.cs" />
+    <Compile Include="Areas\Reports\Controllers\RWOsChangesController.cs" />
     <Compile Include="Areas\Reports\Controllers\RWOsOlderDatesController.cs" />
     <Compile Include="Areas\Reports\Controllers\RWOsWith2099DatesController.cs" />
     <Compile Include="Areas\Reports\Controllers\SchedulerController.cs" />
@@ -426,6 +427,7 @@
     <Compile Include="Areas\Reports\Models\Products.cs" />
     <Compile Include="Areas\Reports\Models\RWOMultipleLocations.cs" />
     <Compile Include="Areas\Reports\Models\RWOMultipleTimes.cs" />
+    <Compile Include="Areas\Reports\Models\RWOsChanges.cs" />
     <Compile Include="Areas\Reports\Models\RwosReport.cs" />
     <Compile Include="Areas\Reports\Models\RWOsWith2099Dates.cs" />
     <Compile Include="Areas\Reports\Models\RWOwithOlderDates.cs" />
@@ -581,6 +583,9 @@
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_GetReturnReasonList_Result.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_GetRWOChanges_Result.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_GetRWOs2099Audit_Result.cs">
@@ -1350,6 +1355,7 @@
     <Content Include="Areas\Reports\Views\CustomerServices\_PendingResolution.cshtml" />
     <Content Include="Areas\Reports\Views\ClinicalAssessment\RemovedAccounts.cshtml" />
     <Content Include="Areas\Reports\Views\CustomerServices\_ProductSurvey.cshtml" />
+    <Content Include="Areas\Reports\Views\RWOsChanges\RWOsChanges.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GBethini.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
