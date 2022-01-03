@@ -20,7 +20,7 @@ namespace USPS_Report.Areas.Reports.Models
                 using (HHSQLDBEntities _db = new HHSQLDBEntities())
                 {
                    IList<Assesment_counts> _list = new List<Assesment_counts>();
-                    for (int count = 0;count <2; count ++)
+                    for (int count = -1;count <2; count ++)
                      {
                         Assesment_counts _assesment= new Assesment_counts();
                         IList<AssessmentDueData> _monthlyList = new List<AssessmentDueData>();
