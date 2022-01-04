@@ -22,5 +22,7 @@ namespace USPS_Report.Models
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> NextRepeatDate { get; set; }
         public Nullable<int> Qty { get; set; }
+        public Nullable<int> Primary_Payer_ID { get; set; }
+        public Nullable<int> Secondary_Payer_ID { get; set; }
     }
 }

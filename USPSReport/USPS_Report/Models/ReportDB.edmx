@@ -795,6 +795,8 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="NextRepeatDate" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="Qty" Nullable="true" />
+          <Property Type="Int32" Name="Primary_Payer_ID" Nullable="true" />
+          <Property Type="Int32" Name="Secondary_Payer_ID" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1218,6 +1220,8 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="NextRepeatDate" ColumnName="NextRepeatDate" />
                 <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Primary_Payer_ID" ColumnName="Primary Payer ID" />
+                <ScalarProperty Name="Secondary_Payer_ID" ColumnName="Secondary Payer ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

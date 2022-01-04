@@ -19,6 +19,8 @@ namespace USPS_Report.Areas.Reports.Models
         public class RWOsChangesData
         {
             public int Account { get; set; }
+            public int? Primary_Payer_ID { get; set; }
+            public int? Secondary_Payer_ID { get; set; }
             public string ProductCode { get; set; }
             public string ProductDescription { get; set; }
             public string LastChangedBy { get; set; }
@@ -40,6 +42,8 @@ namespace USPS_Report.Areas.Reports.Models
                                    select new RWOsChangesData
                                    {
                                        Account = item.Account,
+                                       Primary_Payer_ID=item.Primary_Payer_ID,
+                                       Secondary_Payer_ID = item.Secondary_Payer_ID,
                                        ProductCode = item.ProductCode,
                                        ProductDescription = item.productdescription,
                                        LastChangedBy = item.LastChangedBy,
