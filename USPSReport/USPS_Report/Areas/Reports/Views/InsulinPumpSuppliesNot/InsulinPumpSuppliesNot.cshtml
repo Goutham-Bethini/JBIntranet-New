@@ -17,7 +17,6 @@
                                                                                 columns.Bound(t => t.Qty).Title("Qty").Filterable(f => f.UI("myfilter"));
                                                                                 columns.Bound(t => t.PayerName).Title("PayerName");
                                                                                 columns.Bound(t => t.ID_Payer).Title("Payer").Filterable(f => f.UI("myfilter"));
-                                                                                columns.Bound(t => t.IsVerified).Title("IsVerified?").ClientTemplate("<input type='checkbox' id='IsVerified' #= IsVerified ? checked='checked': '' # class='chkbx' />");
                                                                             })
                                                                             .ToolBar(tools => tools.Excel())
                                                                             .Sortable()

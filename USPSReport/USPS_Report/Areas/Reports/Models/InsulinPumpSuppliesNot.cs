@@ -21,7 +21,6 @@ namespace USPS_Report.Areas.Reports.Models
             public int? Qty { get; set; }
             public string PayerName { get; set; }
             public int? ID_Payer { get; set; }
-            public bool IsVerified { get; set; }
         }
 
         public static IList<InsulinPumpSupply> GetInsulinPumpSupplies()
