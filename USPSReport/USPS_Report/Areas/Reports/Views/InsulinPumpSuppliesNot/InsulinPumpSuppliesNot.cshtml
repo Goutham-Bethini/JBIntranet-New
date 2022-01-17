@@ -1,0 +1,55 @@
+﻿@model USPS_Report.Areas.Reports.Models.InsulinPumpSuppliesNot.InsulinPumpSuppliesNotVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "InsulinPumpSuppliesNot";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3 class="middle" style="text-align:center;">Insulin Pump Supplies not 1:1</h3>
+<div class="center">
+    @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.InsulinPumpSuppliesNot.InsulinPumpSupply>()
+                                                                            .Name("InsulinPumpSupply")
+                                                                            .Columns(columns =>
+                                                                            {
+                                                                                columns.Bound(t => t.Account).Title("Account").Filterable(f => f.UI("myfilter"));
+                                                                                columns.Bound(t => t.NextRepeatDate).Title("NextRepeatDate").Format("{0:MM/dd/yyyy}");
+                                                                                columns.Bound(t => t.ID_ProductCategory).Title("ProductCategory");
+                                                                                columns.Bound(t => t.ProductCode).Title("ProductCode");
+                                                                                columns.Bound(t => t.Qty).Title("Qty").Filterable(f => f.UI("myfilter"));
+                                                                                columns.Bound(t => t.PayerName).Title("PayerName");
+                                                                                columns.Bound(t => t.ID_Payer).Title("Payer").Filterable(f => f.UI("myfilter"));
+                                                                                columns.Bound(t => t.IsVerified).Title("IsVerified?").ClientTemplate("<input type='checkbox' id='IsVerified' #= IsVerified ? checked='checked': '' # class='chkbx' />");
+                                                                            })
+                                                                            .ToolBar(tools => tools.Excel())
+                                                                            .Sortable()
+                                                                            //.Pageable()
+                                                                            .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                                                                            .Excel(excel => excel
+                                                                            .FileName("InsulinPumpSupplies.xlsx")
+                                                                            //.AllPages(true)
+                                                                            .Filterable(true)
+                                                                            .ProxyURL(Url.Action("Excel_Export_Save", "InsulinPumpSuppliesNot"))
+                                                                            )
+                                                                            //.HtmlAttributes(new { style = "width:fit-content;" })
+                                                                            .Reorderable(r => r.Columns(true))
+                                                                            .Resizable(r => r.Columns(true))
+                                                                            .ColumnMenu()
+                                                                            .DataSource(dataSource => dataSource
+                                                                            .Ajax()
+                                                                            //.PageSize(50)
+                                                                            .ServerOperation(false)
+                                                                            .Model(model => model.Id(p => p.Account))
+                                                                            .Read(read => read.Action("InsulinPumpSuppliesNotData", "InsulinPumpSuppliesNot", null))
+                                                                            )
+    )
+</div>
+
+
+<script>
+    function myfilter(element) {
+        element.kendoNumericTextBox({
+            //format: "n0"
+            format: "#", decimals: 0
+        });
+    }
+</script>
+

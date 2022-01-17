@@ -357,6 +357,7 @@
     <Compile Include="Areas\Reports\Controllers\InactiveAccountsController.cs" />
     <Compile Include="Areas\Reports\Controllers\InboundController.cs" />
     <Compile Include="Areas\Reports\Controllers\IndianaController.cs" />
+    <Compile Include="Areas\Reports\Controllers\InsulinPumpSuppliesNotController.cs" />
     <Compile Include="Areas\Reports\Controllers\LogisticsController.cs" />
     <Compile Include="Areas\Reports\Controllers\ManageOrderController.cs" />
     <Compile Include="Areas\Reports\Controllers\MIStateAuditController.cs" />
@@ -406,6 +407,7 @@
     <Compile Include="Areas\Reports\Models\HoldReasonVM.cs" />
     <Compile Include="Areas\Reports\Models\IllegalPuncuationReport.cs" />
     <Compile Include="Areas\Reports\Models\InactiveAccountsReport.cs" />
+    <Compile Include="Areas\Reports\Models\InsulinPumpSuppliesNot.cs" />
     <Compile Include="Areas\Reports\Models\Logistics.cs" />
     <Compile Include="Areas\Reports\Models\MergePdfs.cs" />
     <Compile Include="Areas\Reports\Models\MIStateAudit.cs" />
@@ -622,6 +624,9 @@
     <Compile Include="Models\uspsDB.cs" />
     <Compile Include="Models\UspsReportVM.cs" />
     <Compile Include="Models\USPS_POD_tbl.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_GetInsulinPumpSupplies_Result.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\v_FutureOrderTypes.cs">
@@ -1356,6 +1361,7 @@
     <Content Include="Areas\Reports\Views\ClinicalAssessment\RemovedAccounts.cshtml" />
     <Content Include="Areas\Reports\Views\CustomerServices\_ProductSurvey.cshtml" />
     <Content Include="Areas\Reports\Views\RWOsChanges\RWOsChanges.cshtml" />
+    <Content Include="Areas\Reports\Views\InsulinPumpSuppliesNot\InsulinPumpSuppliesNot.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GBethini.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />

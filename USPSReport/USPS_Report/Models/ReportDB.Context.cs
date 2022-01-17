@@ -686,5 +686,10 @@ namespace USPS_Report.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetRWOChanges_Result>("sp_GetRWOChanges", fromdateParameter, toDateParameter);
         }
+    
+        public virtual ObjectResult<usp_GetInsulinPumpSupplies_Result> usp_GetInsulinPumpSupplies()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetInsulinPumpSupplies_Result>("usp_GetInsulinPumpSupplies");
+        }
     }
 }

@@ -263,6 +263,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="return_Line_ID" Type="int" Mode="In" />
           <Parameter Name="qty_Return" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_GetInsulinPumpSupplies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ReportsModelStoreContainer">
           <EntitySet Name="AOBAttempts" EntityType="Self.AOBAttempts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BarCodeAttempts" EntityType="Self.BarCodeAttempts" Schema="dbo" store:Type="Tables" />
@@ -483,6 +484,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
             <Parameter Name="fromdate" Mode="In" Type="DateTime" />
             <Parameter Name="toDate" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="usp_GetInsulinPumpSupplies" ReturnType="Collection(ReportsModel.usp_GetInsulinPumpSupplies_Result)" />
         </EntityContainer>
         <EntityType Name="FedEx_POD_tbl">
           <Key>
@@ -797,6 +799,15 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="Int32" Name="Qty" Nullable="true" />
           <Property Type="Int32" Name="Primary_Payer_ID" Nullable="true" />
           <Property Type="Int32" Name="Secondary_Payer_ID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetInsulinPumpSupplies_Result">
+          <Property Type="Int32" Name="Account" Nullable="false" />
+          <Property Type="DateTime" Name="NextRepeatDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="ID_ProductCategory" Nullable="true" />
+          <Property Type="String" Name="ProductCode" Nullable="false" MaxLength="16" />
+          <Property Type="Int32" Name="Qty" Nullable="true" />
+          <Property Type="String" Name="PayerName" Nullable="true" MaxLength="64" />
+          <Property Type="Int32" Name="ID_Payer" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1222,6 +1233,19 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
                 <ScalarProperty Name="Qty" ColumnName="Qty" />
                 <ScalarProperty Name="Primary_Payer_ID" ColumnName="Primary Payer ID" />
                 <ScalarProperty Name="Secondary_Payer_ID" ColumnName="Secondary Payer ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetInsulinPumpSupplies" FunctionName="ReportsModel.Store.usp_GetInsulinPumpSupplies">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.usp_GetInsulinPumpSupplies_Result">
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="NextRepeatDate" ColumnName="NextRepeatDate" />
+                <ScalarProperty Name="ID_ProductCategory" ColumnName="ID_ProductCategory" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="PayerName" ColumnName="PayerName" />
+                <ScalarProperty Name="ID_Payer" ColumnName="ID_Payer" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
