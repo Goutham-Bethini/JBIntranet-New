@@ -3543,8 +3543,8 @@ namespace USPS_Report.Areas.Reports.Models
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
-
-            mail.To.Add("disteamleader@jandbmedical.com");
+            mail.To.Add("ResolutionTeam@jandbmedical.com");
+            //mail.To.Add("disteamleader@jandbmedical.com");
             //  mail.To.Add("gbethini@jandbmedical.com");
             mail.Bcc.Add("grani@jandbmedical.com");
 
@@ -3639,7 +3639,8 @@ namespace USPS_Report.Areas.Reports.Models
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
-            mail.To.Add("DISTeamLeader@jandbmedical.com");
+            mail.To.Add("ResolutionTeam@jandbmedical.com");
+            //mail.To.Add("DISTeamLeader@jandbmedical.com");
             //mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
             mail.Subject = "CSR Call Complaint Log To Supervisors";
             mail.Body += " <html>";
