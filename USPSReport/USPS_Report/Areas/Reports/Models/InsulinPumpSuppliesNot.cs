@@ -30,6 +30,7 @@ namespace USPS_Report.Areas.Reports.Models
             {
                 using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
                 {
+                    _db.Database.CommandTimeout = 180;
                     lstInsulinPumpSupplies = (from item in _db.usp_GetInsulinPumpSupplies()
                                                 select new InsulinPumpSupply
                                                 {
