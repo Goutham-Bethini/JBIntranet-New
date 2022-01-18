@@ -3593,7 +3593,7 @@ namespace USPS_Report.Areas.Reports.Models
 
 
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
+            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
             mail.To.Add("CustomerServiceManager@jandbmedical.com");
@@ -3637,7 +3637,7 @@ namespace USPS_Report.Areas.Reports.Models
         public static void sendComplainLogEmailToSupervisors(string message, Int64? acc, int? reference)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
+            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
             mail.To.Add("ResolutionTeam@jandbmedical.com");
             //mail.To.Add("DISTeamLeader@jandbmedical.com");
@@ -3671,7 +3671,7 @@ namespace USPS_Report.Areas.Reports.Models
         public static void sendComplainLogEmailToManagers(string message, Int64? acc, int? reference, CSRComplaintVM _vm)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
+            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
             mail.To.Add("bserra@jandbmedical.com");
             mail.To.Add("tkemp@jandbmedical.com");
