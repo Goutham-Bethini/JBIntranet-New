@@ -138,7 +138,7 @@ namespace USPS_Report.Areas.Reports.Models
 
                         TrackingNumbers = string.Join(", \n", _db.tbl_UPS_WorkOrders.Where(u => u.ID_WorkOrder == t.ID && u.CancelDate == null).Select(u => u.ConfirmationNumber).ToArray()),
 
-                        Length = _db.tbl_UPS_WorkOrders.Where(u => u.ID_WorkOrder == t.ID).Select(u => u.ConfirmationNumber.Length).Take(1).SingleOrDefault(),
+                        Length = _db.tbl_UPS_WorkOrders.Where(u => u.ID_WorkOrder == t.ID).Select(u => u.ConfirmationNumber != null ? u.ConfirmationNumber.Length : 0).Take(1).SingleOrDefault(),
 
 
 
