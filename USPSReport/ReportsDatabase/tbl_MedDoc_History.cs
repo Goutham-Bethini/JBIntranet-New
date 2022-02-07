@@ -332,5 +332,6 @@ namespace ReportsDatabase
         public string DX11 { get; set; }
         public string DX12 { get; set; }
         public string Comments { get; set; }
+        public Nullable<long> ID_WorkFlowItem { get; set; }
     }
 }

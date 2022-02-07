@@ -56,7 +56,6 @@ namespace ReportsDatabase
         public virtual DbSet<tbl_Account_Member> tbl_Account_Member { get; set; }
         public virtual DbSet<tbl_Account_Information> tbl_Account_Information { get; set; }
         public virtual DbSet<FedExLogins> FedExLogins { get; set; }
-        public virtual DbSet<tbl_PS_WorkOrder> tbl_PS_WorkOrder { get; set; }
         public virtual DbSet<tbl_Account_Note_History> tbl_Account_Note_History { get; set; }
         public virtual DbSet<tbl_Claims> tbl_Claims { get; set; }
         public virtual DbSet<tbl_Encounters> tbl_Encounters { get; set; }
@@ -70,10 +69,11 @@ namespace ReportsDatabase
         public virtual DbSet<tbl_MedDoc_History> tbl_MedDoc_History { get; set; }
         public virtual DbSet<tbl_Operator_Table> tbl_Operator_Table { get; set; }
         public virtual DbSet<tbl_Name_PayerTypes> tbl_Name_PayerTypes { get; set; }
-        public virtual DbSet<tbl_Payer_Table> tbl_Payer_Table { get; set; }
         public virtual DbSet<tbl_Product_Table> tbl_Product_Table { get; set; }
         public virtual DbSet<tbl_Account_Member_Insurance> tbl_Account_Member_Insurance { get; set; }
-        public virtual DbSet<tbl_PS_WorkOrderLine> tbl_PS_WorkOrderLine { get; set; }
         public virtual DbSet<tbl_AssessmentDue_Attempts> tbl_AssessmentDue_Attempts { get; set; }
+        public virtual DbSet<tbl_Payer_Table> tbl_Payer_Table { get; set; }
+        public virtual DbSet<tbl_PS_WorkOrderLine> tbl_PS_WorkOrderLine { get; set; }
+        public virtual DbSet<tbl_PS_WorkOrder> tbl_PS_WorkOrder { get; set; }
     }
 }

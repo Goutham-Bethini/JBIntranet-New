@@ -228,6 +228,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ColdFuionHHSQLDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\ColdFusionReports\Models\ColdFuionHHSQLDB1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ColdFuionHHSQLDB.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Areas\ColdFusionReports\Models\ColdFusionIntranet.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

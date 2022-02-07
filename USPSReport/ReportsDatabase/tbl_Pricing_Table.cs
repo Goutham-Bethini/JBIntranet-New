@@ -29,5 +29,6 @@ namespace ReportsDatabase
         public Nullable<decimal> Rental_Weekly { get; set; }
         public Nullable<short> UseAWP { get; set; }
         public Nullable<double> AWPMultiplier { get; set; }
+        public Nullable<short> UseASP { get; set; }
     }
 }

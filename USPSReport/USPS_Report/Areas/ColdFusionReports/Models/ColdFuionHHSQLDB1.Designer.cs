@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\gbethini\Documents\GitHub-Projects\jb-intranet\USPSReport\USPS_Report\Areas\ColdFusionReports\Models\ColdFuionHHSQLDB.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\gbethini\Documents\GitHub-Projects\JBIntranet-New\USPSReport\USPS_Report\Areas\ColdFusionReports\Models\ColdFuionHHSQLDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

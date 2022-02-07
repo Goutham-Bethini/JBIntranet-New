@@ -47,5 +47,6 @@ namespace ReportsDatabase
         public short DeductibleMet { get; set; }
         public Nullable<short> SubscriberRelationship { get; set; }
         public string ExternalReference { get; set; }
+        public short BenefitPlan { get; set; }
     }
 }

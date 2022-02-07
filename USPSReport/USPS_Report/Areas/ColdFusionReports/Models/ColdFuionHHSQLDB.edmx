@@ -5,6 +5,8 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ColdFuionHHSQLDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HHSQLDB.dbo.FedExLogins' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FedExLogins">
           <Key>
             <PropertyRef Name="felID" />
@@ -20,6 +22,8 @@
           <Property Name="felAdded" Type="datetime" />
           <Property Name="felAddedBy" Type="varchar" MaxLength="30" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HHSQLDB.dbo.FedExMeterNumbers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FedExMeterNumbers">
           <Key>
             <PropertyRef Name="fmnID" />
@@ -31,27 +35,38 @@
           <Property Name="fmnUpdatedBy" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityContainer Name="ColdFuionHHSQLDBModelStoreContainer">
-          <EntitySet Name="FedExLogins" EntityType="Self.FedExLogins" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FedExMeterNumbers" EntityType="Self.FedExMeterNumbers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FedExLogins" EntityType="Self.FedExLogins" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FedExLogins].[felID] AS [felID], 
+    [FedExLogins].[felName] AS [felName], 
+    [FedExLogins].[felUser] AS [felUser], 
+    [FedExLogins].[felPass] AS [felPass], 
+    [FedExLogins].[felUpdated] AS [felUpdated], 
+    [FedExLogins].[felUpdatedBy] AS [felUpdatedBy], 
+    [FedExLogins].[felDeleted] AS [felDeleted], 
+    [FedExLogins].[felDeletedBy] AS [felDeletedBy], 
+    [FedExLogins].[felAdded] AS [felAdded], 
+    [FedExLogins].[felAddedBy] AS [felAddedBy]
+    FROM [dbo].[FedExLogins] AS [FedExLogins]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="FedExMeterNumbers" EntityType="Self.FedExMeterNumbers" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FedExMeterNumbers].[fmnID] AS [fmnID], 
+    [FedExMeterNumbers].[fmnMeter_Number] AS [fmnMeter_Number], 
+    [FedExMeterNumbers].[fmnName] AS [fmnName], 
+    [FedExMeterNumbers].[fmnUpdated] AS [fmnUpdated], 
+    [FedExMeterNumbers].[fmnUpdatedBy] AS [fmnUpdatedBy]
+    FROM [dbo].[FedExMeterNumbers] AS [FedExMeterNumbers]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ColdFuionHHSQLDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ColdFuionHHSQLDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="FedExMeterNumbers" EntityType="ColdFuionHHSQLDBModel.FedExMeterNumber" />
           <EntitySet Name="FedExLogins" EntityType="ColdFuionHHSQLDBModel.FedExLogin" />
+          <EntitySet Name="FedExMeterNumbers" EntityType="ColdFuionHHSQLDBModel.FedExMeterNumber" />
         </EntityContainer>
-        <EntityType Name="FedExMeterNumber">
-          <Key>
-            <PropertyRef Name="fmnID" />
-          </Key>
-          <Property Name="fmnID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fmnMeter_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fmnName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="fmnUpdated" Type="DateTime" Precision="3" />
-          <Property Name="fmnUpdatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="FedExLogin">
           <Key>
             <PropertyRef Name="felID" />
@@ -67,23 +82,22 @@
           <Property Name="felAdded" Type="DateTime" Precision="3" />
           <Property Name="felAddedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="FedExMeterNumber">
+          <Key>
+            <PropertyRef Name="fmnID" />
+          </Key>
+          <Property Name="fmnID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fmnMeter_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fmnName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fmnUpdated" Type="DateTime" Precision="3" />
+          <Property Name="fmnUpdatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ColdFuionHHSQLDBModelStoreContainer" CdmEntityContainer="ColdFuionHHSQLDBEntities">
-          <EntitySetMapping Name="FedExMeterNumbers">
-            <EntityTypeMapping TypeName="ColdFuionHHSQLDBModel.FedExMeterNumber">
-              <MappingFragment StoreEntitySet="FedExMeterNumbers">
-                <ScalarProperty Name="fmnUpdatedBy" ColumnName="fmnUpdatedBy" />
-                <ScalarProperty Name="fmnUpdated" ColumnName="fmnUpdated" />
-                <ScalarProperty Name="fmnName" ColumnName="fmnName" />
-                <ScalarProperty Name="fmnMeter_Number" ColumnName="fmnMeter_Number" />
-                <ScalarProperty Name="fmnID" ColumnName="fmnID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="FedExLogins">
             <EntityTypeMapping TypeName="ColdFuionHHSQLDBModel.FedExLogin">
               <MappingFragment StoreEntitySet="FedExLogins">
@@ -97,6 +111,17 @@
                 <ScalarProperty Name="felUser" ColumnName="felUser" />
                 <ScalarProperty Name="felName" ColumnName="felName" />
                 <ScalarProperty Name="felID" ColumnName="felID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FedExMeterNumbers">
+            <EntityTypeMapping TypeName="ColdFuionHHSQLDBModel.FedExMeterNumber">
+              <MappingFragment StoreEntitySet="FedExMeterNumbers">
+                <ScalarProperty Name="fmnUpdatedBy" ColumnName="fmnUpdatedBy" />
+                <ScalarProperty Name="fmnUpdated" ColumnName="fmnUpdated" />
+                <ScalarProperty Name="fmnName" ColumnName="fmnName" />
+                <ScalarProperty Name="fmnMeter_Number" ColumnName="fmnMeter_Number" />
+                <ScalarProperty Name="fmnID" ColumnName="fmnID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

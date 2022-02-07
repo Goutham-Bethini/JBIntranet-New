@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="eb802f2c82664dbd933eed5f8cc64f87" Name="Diagram1" ZoomLevel="17">
-        <EntityTypeShape EntityType="ColdFuionHHSQLDBModel.FedExMeterNumber" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="ColdFuionHHSQLDBModel.FedExLogin" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ColdFuionHHSQLDBModel.FedExMeterNumber" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

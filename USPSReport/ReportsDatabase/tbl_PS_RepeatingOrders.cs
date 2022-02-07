@@ -46,5 +46,6 @@ namespace ReportsDatabase
         public Nullable<int> ID_OriginatedWOLine { get; set; }
         public Nullable<int> ID_Incident { get; set; }
         public Nullable<int> ID_PA2 { get; set; }
+        public Nullable<int> Tag { get; set; }
     }
 }

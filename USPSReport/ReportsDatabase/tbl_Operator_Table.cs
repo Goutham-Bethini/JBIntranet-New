@@ -57,5 +57,10 @@ namespace ReportsDatabase
         public Nullable<short> Imaging_AskScanOption { get; set; }
         public Nullable<bool> NoPSWOPreview { get; set; }
         public Nullable<short> DisplayCollectionWksAtLogin { get; set; }
+        public Nullable<short> IsWorkFlow_User { get; set; }
+        public string AS_UserToken { get; set; }
+        public Nullable<System.DateTime> AS_UserToken_Expiration { get; set; }
+        public string AS_RefreshToken { get; set; }
+        public Nullable<System.DateTime> AS_RefreshToken_Expiration { get; set; }
     }
 }
