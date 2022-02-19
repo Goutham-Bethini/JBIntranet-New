@@ -833,7 +833,7 @@ namespace USPS_Report.Areas.Reports.Models
             using (HHSQLDBEntities _db = new HHSQLDBEntities())
             {
 
-                var _wo = _db.tbl_PS_WorkOrder.Where(t => t.ID == wo && t.Cancel_Date == null).Take(1).SingleOrDefault();
+                var _wo = _db.tbl_PS_WorkOrder.Where(t => t.ID == wo /*&& t.Cancel_Date == null*/).Take(1).SingleOrDefault();
                 if (_wo != null)
                 {
                     cancel = true;
