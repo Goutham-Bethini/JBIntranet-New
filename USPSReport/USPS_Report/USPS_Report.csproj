@@ -63,9 +63,8 @@
       <Private>True</Private>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Kendo.Mvc, Version=2016.2.630.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\jb-intranet\USPSReport\USPS_Report\bin\Kendo.Mvc.dll</HintPath>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>\\JBMMIFS001\it\Mahesh\JbIntranet-New\USPSReport\USPS_Report\bin\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="RazorPDF">
@@ -88,7 +87,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\jb-intranet\USPSReport\USPS_Report\bin\System.Web.Mvc.dll</HintPath>
+      <HintPath>\\JBMMIFS001\it\Mahesh\JbIntranet-New\USPSReport\USPS_Report\bin\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
