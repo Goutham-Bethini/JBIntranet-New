@@ -349,7 +349,7 @@ namespace USPS_Report.Areas.Reports.Models
                         }
                         //----------------------------------------
 
-                          if (_trackingList.Count != 0)
+                        if (_trackingList.Count != 0)
                         {
                             foreach (var t in _trackingList)
                             {
@@ -398,6 +398,16 @@ namespace USPS_Report.Areas.Reports.Models
                         }
 
                         item.CancelReason = "Reason";
+
+                        if(item.TrackingNumbers!=null&&item.TrackingNumbers!="")
+                        {
+                            string trackingNumbers = item.TrackingNumbers.Replace(" \n", "");
+                            if(trackingNumbers[trackingNumbers.Length - 1] == ',')
+                            {
+                                trackingNumbers=trackingNumbers.Remove(trackingNumbers.Length - 1, 1);
+                            }
+                            item.TrackingNumbersList = trackingNumbers.Split(',').ToList<string>();
+                        }
                     }
 
                     string query2 = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',19,GETDATE())";
@@ -1137,6 +1147,8 @@ namespace USPS_Report.Areas.Reports.Models
 
 
         public string TrackingNumbers { get; set; }
+
+        public List<string> TrackingNumbersList { get; set; }
 
 
         public string History { get; set; }
