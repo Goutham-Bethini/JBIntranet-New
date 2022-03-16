@@ -310,7 +310,7 @@ namespace USPS_Report.Areas.Reports.Models
                                 HttpClient client = new HttpClient();
 
 
-                                client.BaseAddress = new Uri("http://10.10.1.49/TrackingShippedBy/");
+                                client.BaseAddress = new Uri("http://JBMAZWeb02/TrackingShippedBy/");
                               //  client.BaseAddress = new Uri("http://localhost:61027/");
 
                                 var result2 = client.GetAsync("api/Values/" + item.WorkOrderID).Result;
@@ -458,7 +458,7 @@ namespace USPS_Report.Areas.Reports.Models
                 // web api - tracking info
                 HttpClient client = new HttpClient();
 
-                    client.BaseAddress = new Uri("http://10.10.1.49/TrackingShippedBy/");
+                    client.BaseAddress = new Uri("http://JBMAZWeb02/TrackingShippedBy/");
                    //  client.BaseAddress = new Uri("http://localhost:61027/");
 
                     var result2 = client.GetAsync("api/Values/" +WorkOrderID).Result;
@@ -750,7 +750,7 @@ namespace USPS_Report.Areas.Reports.Models
                                 HttpClient client = new HttpClient();
 
 
-                                client.BaseAddress = new Uri("http://10.10.1.49/TrackingShippedBy/"); 
+                                client.BaseAddress = new Uri("http://JBMAZWeb02/TrackingShippedBy/"); 
                               //  client.BaseAddress = new Uri("http://localhost:61027/");
 
                                 var result2 = client.GetAsync("api/Values/" + item.WorkOrderID).Result;
@@ -976,7 +976,7 @@ namespace USPS_Report.Areas.Reports.Models
         {
 
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
             string cancel_reason = string.Format("{0} {1}", reason, otherreason);

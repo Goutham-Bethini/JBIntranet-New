@@ -592,7 +592,7 @@ namespace USPS_Report.Areas.Reports.Models
             if (all == true)
             {
                 MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+                SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
                 mail.From = new MailAddress("noreply@jandbmedical.com");
 
                 mail.To.Add("grani@jandbmedical.com");
@@ -653,7 +653,7 @@ namespace USPS_Report.Areas.Reports.Models
                 mail.Body += "</tr>";
 
                 mail.Body += "<tr>";
-                mail.Body += "<td>  link:   http://10.10.1.49/JBIntranet/Reports/RWO/ProductSub </td> <td> </td>";
+                mail.Body += "<td>  link:   http://JBMAZWeb02/JBIntranet/Reports/RWO/ProductSub </td> <td> </td>";
                 mail.Body += "</tr>";
 
                 mail.Body += "<tr>";
@@ -678,7 +678,7 @@ namespace USPS_Report.Areas.Reports.Models
             else { 
 
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
             mail.Bcc.Add("grani@jandbmedical.com");
@@ -739,7 +739,7 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "</tr>";
 
             mail.Body += "<tr>";
-            mail.Body += "<td>  link:   http://10.10.1.49/JBIntranet/Reports/RWO/ProductSub </td> <td> </td>";
+            mail.Body += "<td>  link:   http://JBMAZWeb02/JBIntranet/Reports/RWO/ProductSub </td> <td> </td>";
             mail.Body += "</tr>";
 
             mail.Body += "<tr>";

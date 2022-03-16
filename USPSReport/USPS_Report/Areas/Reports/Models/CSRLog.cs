@@ -3541,7 +3541,7 @@ namespace USPS_Report.Areas.Reports.Models
 
 
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
             mail.To.Add("ResolutionTeam@jandbmedical.com");
             //mail.To.Add("disteamleader@jandbmedical.com");
@@ -3567,7 +3567,7 @@ namespace USPS_Report.Areas.Reports.Models
 
 
             mail.Body += "<tr>";
-            mail.Body += "<td> Link : http://10.10.1.49/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
+            mail.Body += "<td> Link : http://JBMAZWeb02/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Thank You!</td><td></td>";
@@ -3593,7 +3593,7 @@ namespace USPS_Report.Areas.Reports.Models
 
 
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
             mail.To.Add("CustomerServiceManager@jandbmedical.com");
@@ -3617,7 +3617,7 @@ namespace USPS_Report.Areas.Reports.Models
 
 
             mail.Body += "<tr>";
-            mail.Body += "<td> Link : http://10.10.1.49/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
+            mail.Body += "<td> Link : http://JBMAZWeb02/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Thank You!</td><td></td>";
@@ -3637,7 +3637,7 @@ namespace USPS_Report.Areas.Reports.Models
         public static void sendComplainLogEmailToSupervisors(string message, Int64? acc, int? reference)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
             mail.To.Add("ResolutionTeam@jandbmedical.com");
             //mail.To.Add("DISTeamLeader@jandbmedical.com");
@@ -3656,7 +3656,7 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "<td>  Note:  </td> " + message + "<td></td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
-            mail.Body += "<td> Link : http://10.10.1.49/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
+            mail.Body += "<td> Link : http://JBMAZWeb02/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Thank You!</td><td></td>";
@@ -3671,7 +3671,7 @@ namespace USPS_Report.Areas.Reports.Models
         public static void sendComplainLogEmailToManagers(string message, Int64? acc, int? reference, CSRComplaintVM _vm)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
             mail.To.Add("bserra@jandbmedical.com");
             mail.To.Add("tkemp@jandbmedical.com");
@@ -3833,7 +3833,7 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "<td>Complaint Status: </td><td>" + _vm.ComplaintHasBeen + "</td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
-            mail.Body += "<td> Link to Complaint Log: </td><td>http://10.10.1.49/JBIntranet/Reports/CustomerServices/CSRComlaintlog</td>";
+            mail.Body += "<td> Link to Complaint Log: </td><td>http://JBMAZWeb02/JBIntranet/Reports/CustomerServices/CSRComlaintlog</td>";
             mail.Body += "</tr>";
             mail.Body += "</table>";
             mail.Body += "<br />";

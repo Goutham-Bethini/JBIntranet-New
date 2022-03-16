@@ -14,7 +14,7 @@ namespace USPS_Report.Areas.Reports.Controllers
     public class ManageOrderController : Controller
     {
        
-        string dir = @"\\JBMMIWEB001\StateAudit$\Files\";
+        string dir = @"\\jbmazfs02\Test\IntranetDocuments\StateAudit$\Files\";
         // GET: Reports/ManageOrders
         public ActionResult CancelOrders()
         {

@@ -76,7 +76,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         public static void WelcomeEmailforInteractiveWebSite(string _email, string username, string firstName)
         {
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
 
             string str = @"<table width=""80%"" align=""center"" style=""font-family:Arial,sans-serif;color:#54616B;"">
         <tr>
@@ -218,7 +218,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         //       public static void WelcomeEmailforInteractiveWebSite(string _email , string username)
         //       {
-        //           SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+        //           SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
 
         //           string messageHtml = @"<html><body> 
         //                 <img src=""cid:12345"" />
@@ -359,7 +359,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         public static void DeclineEmailforInteractiveWebSite(string _email)
         {
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
 
             string messageHtml = @"<html><body> 
                   <img src=""cid:12345"" />
@@ -449,7 +449,7 @@ namespace USPS_Report.Areas.Reports.Models
            // _email = "grani@jandbmedical.com";
             try {
                 MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+                SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
                 mail.From = new MailAddress("noreply@jandbmedical.com");
 
                 mail.To.Add(_email);
