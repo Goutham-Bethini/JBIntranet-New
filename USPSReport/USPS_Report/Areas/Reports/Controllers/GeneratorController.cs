@@ -8508,7 +8508,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             //------------------------------
 
             Anchor JBPoratalLink = new Anchor("www.portal.jandbportal.com", _Font12BoldBlueUnderlineFont);
-            JBPoratalLink.Reference = "https://portal.jandbmedical.com/SGAccount/MyLogin?ReturnUrl=%2f";
+            JBPoratalLink.Reference = "http://jbmazweb02/TestJBInteractive/SGAccount/MyLogin?ReturnUrl=%2f";
 
             // this.AddParagraph(doc, iTextSharp.text.Element.ALIGN_JUSTIFIED, _smallBoldFont, new Chunk("Your insurance may require you to confirm your supplies and/or you may have copay/coinsurance requirements that must be met before your order ships.  You can contact us by phone at (800) 737-0045 ext 125, interactive website www.jandbportal.com, J&B Medical Android or IOS app, or wait to receive a call from Victor (our automated system) 7 days before your order is due to ship.  \n\n"));
             Chunk c1 = new Chunk("Register at ", _Font12Font);
@@ -8804,7 +8804,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             //------------------------------
 
             Anchor JBPoratalLink = new Anchor("www.portal.jandbportal.com", _Font12BoldBlueUnderlineFont);
-            JBPoratalLink.Reference = "https://portal.jandbmedical.com/SGAccount/MyLogin?ReturnUrl=%2f";
+            JBPoratalLink.Reference = "http://jbmazweb02/TestJBInteractive/SGAccount/MyLogin?ReturnUrl=%2f";
 
             // this.AddParagraph(doc, iTextSharp.text.Element.ALIGN_JUSTIFIED, _smallBoldFont, new Chunk("Your insurance may require you to confirm your supplies and/or you may have copay/coinsurance requirements that must be met before your order ships.  You can contact us by phone at (800) 737-0045 ext 125, interactive website www.jandbportal.com, J&B Medical Android or IOS app, or wait to receive a call from Victor (our automated system) 7 days before your order is due to ship.  \n\n"));
             Chunk c1 = new Chunk("Register at ", _Font12Font);
