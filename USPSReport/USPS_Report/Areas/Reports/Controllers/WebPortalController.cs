@@ -178,7 +178,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
                 WebClient _web = new WebClient();
                //  client.BaseAddress = new Uri("http://localhost:6415/");
-                client.BaseAddress = new Uri("http://jbmazweb02/TestJBInteractive/");
+                client.BaseAddress = new Uri("https://portal.jandbmedical.com/");
                 var content = JsonConvert.SerializeObject(_vm);
 
                 var result2 = client.PostAsync("api/NewAccSetup?operatorId=925&password=WebAccount", new StringContent(content, Encoding.UTF8, "application/json")).Result;

@@ -17,7 +17,7 @@ namespace USPS_Report.Areas.Reports.Controllers
     public class ClaimAdjustmentController : Controller
     {
         // GET: Reports/ClaimAdjustment
-        string dir = @"\\jbmazfs02\Test\IntranetDocuments\StateAudit$\Files\";
+        string dir = @"\\jbmwix-azfs01\IT\IntranetDocuments\StateAudit$\Files\";
         // GET: Reports/ManageOrders
         public ActionResult ClaimAdjustment()
         {

@@ -287,11 +287,11 @@ columns.Bound(t => t.Clin_Ass_ID).Title("Clinical Id").HeaderHtmlAttributes(new 
 
     document.getElementById("ancSendLetter").onclick = function () {
         if (Number.isInteger(parseInt($("#displayAc").html(), 10))) {
-            var newWindow = window.open('http://JBMAZWeb02/LetterGenerator?account=' + $("#displayAc").html() + '&ddselection=2');
+            var newWindow = window.open('http://JBMAZWeb01/LetterGenerator?account=' + $("#displayAc").html() + '&ddselection=2');
 
-            //var newWindow = window.open('http://JBMAZWeb02/TestLetterGenerator2?account=' + $("#displayAc").html() + '&ddselection=2');
+            //var newWindow = window.open('http://JBMAZWeb01/TestLetterGenerator2?account=' + $("#displayAc").html() + '&ddselection=2');
 
-            //var newWindow = window.open('http://JBMAZWeb02/LetterGenerator');
+            //var newWindow = window.open('http://JBMAZWeb01/LetterGenerator');
         }
         else
             alert('Please select account to send contact letter!');

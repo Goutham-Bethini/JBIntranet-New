@@ -2986,7 +2986,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
             mail.Body += "<tr>";
-            mail.Body += "<td> Link : http://JBMAZWeb02/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
+            mail.Body += "<td> Link : http://JBMAZWeb01/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Thank You!</td><td></td>";

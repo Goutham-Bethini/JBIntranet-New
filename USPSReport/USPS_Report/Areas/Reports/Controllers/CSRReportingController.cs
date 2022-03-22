@@ -53,7 +53,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         {
             try
             {
-                var fullPath = Path.Combine(@"\\jbmazfs02\Test\IntranetDocuments\StateAudit$\Files\Complaint log files", FileName);
+                var fullPath = Path.Combine(@"\\jbmwix-azfs01\IT\IntranetDocuments\StateAudit$\Files\Complaint log files", FileName);
                 string mimeType = System.Web.MimeMapping.GetMimeMapping(FileName);
                 // return File(fullPath, "application/vnd.ms-excel", FileName);
                 return File(fullPath, mimeType, FileName);

@@ -38,7 +38,7 @@ namespace USPS_Report.Areas.Reports.Models
       
       <tr>
     <td></td>
-    <td style = ""text-align:left;  font-size: 15px; "" ><strong> - The ""Message Center"" section of the <a href = ""http://jbmazweb02/TestJBInteractive"" > Patient Portal </a> </strong>
+    <td style = ""text-align:left;  font-size: 15px; "" ><strong> - The ""Message Center"" section of the <a href = ""https://portal.jandbmedical.com"" > Patient Portal </a> </strong>
          </tr>
             <tr>
            <td></td>
@@ -285,7 +285,7 @@ If you are not an intended recipient, please contact us immediately by telephone
   <p style=""font-size:20px""> We are sending the attached letter about your account</p>
      <h2> Need more help?</h2>
         <p style=""font-size:20px;""> If you have any questions, or something is incorrect, we are here to help.You can reach us by any of the following:</p>
-          <p style=""font-size:20px""> -The “Message Center” section of the <a href = ""http://jbmazweb02/TestJBInteractive"" > Patient Portal </a> </p>
+          <p style=""font-size:20px""> -The “Message Center” section of the <a href = ""https://portal.jandbmedical.com"" > Patient Portal </a> </p>
             <p style=""font-size:20px""> -Email us at <a href = ""mailto:contact@jandbmedical.com""> contact@jandbmedical.com </a> </p>
                <p style=""font-size:20px""> -Call us at (800) 737 - 0045 </p>
                  <br/>
@@ -380,7 +380,7 @@ If you are not an intended recipient, please contact us immediately by telephone
       
       <tr>
     <td></td>
-    <td style = ""text-align:left;  font-size: 15px; "" ><strong> - La sección ""Centro de mensajes"" del <a href = ""http://jbmazweb02/TestJBInteractive"" > portal del paciente </a> </strong>
+    <td style = ""text-align:left;  font-size: 15px; "" ><strong> - La sección ""Centro de mensajes"" del <a href = ""https://portal.jandbmedical.com"" > portal del paciente </a> </strong>
          </tr>
             <tr>
            <td></td>

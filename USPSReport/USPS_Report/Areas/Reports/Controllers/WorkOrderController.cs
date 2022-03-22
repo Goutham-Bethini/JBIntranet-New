@@ -185,7 +185,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                         HttpClient client = new HttpClient();
 
 
-                        client.BaseAddress = new Uri("http://JBMAZWeb02/TrackingOracle/");
+                        client.BaseAddress = new Uri("http://JBMAZWeb01/TrackingOracle/");
 
 
                         var result2 = client.GetAsync("api/Interface/" + _vm.ID).Result;

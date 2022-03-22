@@ -653,7 +653,7 @@ namespace USPS_Report.Areas.Reports.Models
                 mail.Body += "</tr>";
 
                 mail.Body += "<tr>";
-                mail.Body += "<td>  link:   http://JBMAZWeb02/JBIntranet/Reports/RWO/ProductSub </td> <td> </td>";
+                mail.Body += "<td>  link:   http://JBMAZWeb01/JBIntranet/Reports/RWO/ProductSub </td> <td> </td>";
                 mail.Body += "</tr>";
 
                 mail.Body += "<tr>";
@@ -739,7 +739,7 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "</tr>";
 
             mail.Body += "<tr>";
-            mail.Body += "<td>  link:   http://JBMAZWeb02/JBIntranet/Reports/RWO/ProductSub </td> <td> </td>";
+            mail.Body += "<td>  link:   http://JBMAZWeb01/JBIntranet/Reports/RWO/ProductSub </td> <td> </td>";
             mail.Body += "</tr>";
 
             mail.Body += "<tr>";

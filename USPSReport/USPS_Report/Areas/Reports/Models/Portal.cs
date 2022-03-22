@@ -229,7 +229,7 @@ namespace USPS_Report.Areas.Reports.Models
         //       </tr>
         //<tr>
         //  <td style = ""width:10%""></td>
-        //   <td style = ""text-align:center"" > Select the link to get started:  <a href = ""http://jbmazweb02/TestJBInteractive/SGAccount/MyLogin?ReturnUrl=%2f"" > www.jandbportal.com </a> </td>
+        //   <td style = ""text-align:center"" > Select the link to get started:  <a href = ""https://portal.jandbmedical.com/SGAccount/MyLogin?ReturnUrl=%2f"" > www.jandbportal.com </a> </td>
         // </tr>
         //<tr>
         //  <td style = ""width:10%""></td>
@@ -287,7 +287,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         //     <tr>
         //   <td style = ""width:3%"" ></td>
-        //   <td style = ""text-align:left;  font-size: 15px; "" ><strong> -The ""Message Center"" section of the <a href = ""http://jbmazweb02/TestJBInteractive"" > Patient Portal </a> </strong>
+        //   <td style = ""text-align:left;  font-size: 15px; "" ><strong> -The ""Message Center"" section of the <a href = ""https://portal.jandbmedical.com"" > Patient Portal </a> </strong>
         //        </tr>
         //           <tr>
         //          <td style = ""width:3%"" ></td>
@@ -375,7 +375,7 @@ namespace USPS_Report.Areas.Reports.Models
       
       <tr>
     <td style = ""width:3%"" ></td>
-    <td style = ""text-align:left;  font-size: 15px; "" ><strong> -The ""Message Center"" section of the <a href = ""http://jbmazweb02/TestJBInteractive"" > Patient Portal </a> </strong>
+    <td style = ""text-align:left;  font-size: 15px; "" ><strong> -The ""Message Center"" section of the <a href = ""https://portal.jandbmedical.com"" > Patient Portal </a> </strong>
          </tr>
             <tr>
            <td style = ""width:3%"" ></td>

@@ -310,7 +310,7 @@ namespace USPS_Report.Areas.Reports.Models
                                 HttpClient client = new HttpClient();
 
 
-                                client.BaseAddress = new Uri("http://JBMAZWeb02/TrackingShippedBy/");
+                                client.BaseAddress = new Uri("http://JBMAZWeb01/TrackingShippedBy/");
                               //  client.BaseAddress = new Uri("http://localhost:61027/");
 
                                 var result2 = client.GetAsync("api/Values/" + item.WorkOrderID).Result;
@@ -458,7 +458,7 @@ namespace USPS_Report.Areas.Reports.Models
                 // web api - tracking info
                 HttpClient client = new HttpClient();
 
-                    client.BaseAddress = new Uri("http://JBMAZWeb02/TrackingShippedBy/");
+                    client.BaseAddress = new Uri("http://JBMAZWeb01/TrackingShippedBy/");
                    //  client.BaseAddress = new Uri("http://localhost:61027/");
 
                     var result2 = client.GetAsync("api/Values/" +WorkOrderID).Result;
@@ -750,7 +750,7 @@ namespace USPS_Report.Areas.Reports.Models
                                 HttpClient client = new HttpClient();
 
 
-                                client.BaseAddress = new Uri("http://JBMAZWeb02/TrackingShippedBy/"); 
+                                client.BaseAddress = new Uri("http://JBMAZWeb01/TrackingShippedBy/"); 
                               //  client.BaseAddress = new Uri("http://localhost:61027/");
 
                                 var result2 = client.GetAsync("api/Values/" + item.WorkOrderID).Result;

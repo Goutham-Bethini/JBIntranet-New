@@ -3567,7 +3567,7 @@ namespace USPS_Report.Areas.Reports.Models
 
 
             mail.Body += "<tr>";
-            mail.Body += "<td> Link : http://JBMAZWeb02/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
+            mail.Body += "<td> Link : http://JBMAZWeb01/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Thank You!</td><td></td>";
@@ -3617,7 +3617,7 @@ namespace USPS_Report.Areas.Reports.Models
 
 
             mail.Body += "<tr>";
-            mail.Body += "<td> Link : http://JBMAZWeb02/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
+            mail.Body += "<td> Link : http://JBMAZWeb01/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Thank You!</td><td></td>";
@@ -3656,7 +3656,7 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "<td>  Note:  </td> " + message + "<td></td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
-            mail.Body += "<td> Link : http://JBMAZWeb02/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
+            mail.Body += "<td> Link : http://JBMAZWeb01/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Thank You!</td><td></td>";
@@ -3833,7 +3833,7 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "<td>Complaint Status: </td><td>" + _vm.ComplaintHasBeen + "</td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
-            mail.Body += "<td> Link to Complaint Log: </td><td>http://JBMAZWeb02/JBIntranet/Reports/CustomerServices/CSRComlaintlog</td>";
+            mail.Body += "<td> Link to Complaint Log: </td><td>http://JBMAZWeb01/JBIntranet/Reports/CustomerServices/CSRComlaintlog</td>";
             mail.Body += "</tr>";
             mail.Body += "</table>";
             mail.Body += "<br />";

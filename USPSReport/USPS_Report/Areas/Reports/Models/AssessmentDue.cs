@@ -391,8 +391,8 @@ where att.Account=tt.Account and (att.Attempt3rd = 1 or att.isSetToHold = 1))";
         {
             Account = 7802;
             bool IsContactLetterSent = false;
-            // string BaseAddress = "http://localhost:61129";  //https://JBMAZWeb02
-            string BaseAddress = "https://JBMAZWeb02";
+            // string BaseAddress = "http://localhost:61129";  //https://JBMAZWeb01
+            string BaseAddress = "https://JBMAZWeb01";
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(BaseAddress);
             var result2 = client.GetAsync("/LetterGenService/api/values/" + Account.ToString() + "/NursingOrDeact/Email").Result;

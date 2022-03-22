@@ -134,7 +134,7 @@ namespace USPS_Report.Controllers
             string filename = _dRpt.Confirmation + "_" + _dRpt.WorkOrderId.ToString() + ".pdf";
             _dRpt.PdfExists = false;
 
-            string path = "//jbmazfs02//Test//IntranetDocuments//USPS_Pdf" + "//";
+            string path = "//jbmwix-azfs01//IT//IntranetDocuments//USPS_Pdf" + "//";
             if (System.IO.File.Exists(path + filename)) 
             {
                 _dRpt.PdfExists = true;
@@ -407,7 +407,7 @@ namespace USPS_Report.Controllers
             
             _dRpt.FileExists = null;
 
-            string path = "//jbmazfs02//Test//IntranetDocuments//POD_Docs//USPS_Pdf" + "//";
+            string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//USPS_Pdf" + "//";
 
             string FilePath =path+filename;
             WebClient User = new WebClient();
@@ -428,7 +428,7 @@ namespace USPS_Report.Controllers
 
             _dRpt.FileExists = null;
 
-            string path = "//jbmazfs02//Test//IntranetDocuments//POD_Docs//FedEx_Pdf" + "//";
+            string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//FedEx_Pdf" + "//";
 
             string FilePath = path + filename;
             WebClient User = new WebClient();
@@ -471,7 +471,7 @@ namespace USPS_Report.Controllers
             var fileName = _trackNum.Trim() + "-" + Dateshipped.Value.Date.ToString("MMddyyyy") + ".pdf";
             WebClient webClient = new WebClient();
 
-            // string path = "//jbmazfs02//Test//IntranetDocuments//POD_Docs//FedEx_Pdf//" + Year.ToString() + "//";
+            // string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//FedEx_Pdf//" + Year.ToString() + "//";
             string path = @"\\jbmmifs003\POD\NewFedEx\" + Year.ToString() + "\\";
             
 
@@ -644,7 +644,7 @@ namespace USPS_Report.Controllers
             DateTime? Dateshipped = Convert.ToDateTime(_date);
             Int32? Year = Convert.ToInt32(Dateshipped.Value.Date.Year);
             Int32? Month = Convert.ToInt32(Dateshipped.Value.Date.Month);
-            //string path = "//jbmazfs02//Test//IntranetDocuments//POD_Docs//FedEx_Pdf//" + Year.ToString() + "//";
+            //string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//FedEx_Pdf//" + Year.ToString() + "//";
             string path = @"\\jbmmifs003\POD\NewFedEx\" + Year.ToString() + "\\";
             var fileName = _trackNum.Trim() + "-" + Dateshipped.Value.Date.ToString("MMddyyyy") + ".pdf";
             DateTime _dt = Convert.ToDateTime("2/24/2014");
@@ -744,7 +744,7 @@ namespace USPS_Report.Controllers
            
             _dRpt.FileExists = null;
             
-                string path = "//jbmazfs02//Test//IntranetDocuments//POD_Docs//USPS_Pdf" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//USPS_Pdf" + "//";
                 if (System.IO.File.Exists(path + filename))
                 {
                     _dRpt.FileExists = true;
@@ -793,7 +793,7 @@ namespace USPS_Report.Controllers
 
             _dRpt.FileExists = null;
 
-            string path = "//jbmazfs02//Test//IntranetDocuments//POD_Docs//FedEx_Pdf" + "//";
+            string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//FedEx_Pdf" + "//";
             if (System.IO.File.Exists(path + filename))
             {
                 _dRpt.FileExists = true;
@@ -1612,7 +1612,7 @@ namespace USPS_Report.Controllers
 
             _dRpt.FileExists = null;
 
-            string path = "//jbmazfs02//Test//IntranetDocuments//POD_Docs//USPS_Pdf" + "//";
+            string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//USPS_Pdf" + "//";
             if (System.IO.File.Exists(path + filename))
             {
                 _dRpt.FileExists = true;
@@ -1656,7 +1656,7 @@ namespace USPS_Report.Controllers
 
             _dRpt.FileExists = null;
 
-            string path = "//jbmazfs02//Test//IntranetDocuments//POD_Docs//USPS_Pdf" + "//";
+            string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//USPS_Pdf" + "//";
 
             string FilePath = path + filename;
             WebClient User = new WebClient();
