@@ -176,8 +176,11 @@ namespace USPS_Report.Areas.Reports.Controllers
             string err = ""; ;
             try
             {
+
                 WebClient _web = new WebClient();
-               //  client.BaseAddress = new Uri("http://localhost:6415/");
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                //  client.BaseAddress = new Uri("http://localhost:6415/");
                 client.BaseAddress = new Uri("https://portal.jandbmedical.com/");
                 var content = JsonConvert.SerializeObject(_vm);
 
