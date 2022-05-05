@@ -414,6 +414,7 @@
     <Compile Include="Areas\Reports\Models\InactiveAccountsReport.cs" />
     <Compile Include="Areas\Reports\Models\InsulinPumpSuppliesNot.cs" />
     <Compile Include="Areas\Reports\Models\Logistics.cs" />
+    <Compile Include="Areas\Reports\Models\ManageOrder.cs" />
     <Compile Include="Areas\Reports\Models\MergePdfs.cs" />
     <Compile Include="Areas\Reports\Models\MIStateAudit.cs" />
     <Compile Include="Areas\Reports\Models\PayerLinkReport.cs" />

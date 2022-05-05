@@ -53,12 +53,12 @@
 
     <p>&nbsp;</p>
     <div class="container-fluid">
-       
+
 
         <div class="form-group">
             <label class="control-label col-sm-2">Upload Cancel Order file:</label>
             <div class="col-sm-10">
-                <input type="file" id="file" name="file"/>
+                <input type="file" id="file" name="file" />
             </div>
             <br />
         </div>
@@ -66,9 +66,9 @@
         <div class="form-group">
             <label class="control-label col-sm-2"> Cancel Note: </label>
             <div class="col-sm-10">
-                <input type="text" name="Note" id="Note"/>
-              
-            
+                <input type="text" name="Note" id="Note" />
+
+
             </div>
             <br />
         </div>
@@ -82,7 +82,21 @@
             </div>
 
         </div>
+        <button type="button" id="btnExport" style="display:none;" class="btn btn-primary" onclick="exportTableToExcel('ExcludedWorkorders', 'ExcludedWorkorders')">Export to excel</button>
+        <div style="display:none;" id="excludeGrid">
+            <table>
+                <tr>
+                    <td>
+                        <span><strong style="text-decoration-line: underline;">Excluded Workorders:</strong></span>
+                        <br />
+                        <div id="ExcludedWorkorders">
 
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
     </div>
 }
 
@@ -123,6 +137,60 @@
             }
              
         }
+
+        function exportTableToExcel(tableID, filename = '') {
+            var downloadLink;
+            var dataType = 'application/vnd.ms-excel';
+            var tableSelect = document.getElementById(tableID);
+            // Opera 8.0+
+            var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+
+            // Firefox 1.0+
+            var isFirefox = typeof InstallTrigger !== 'undefined';
+
+            // Safari 3.0+ "[object HTMLElementConstructor]"
+            var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+
+            // Internet Explorer 6-11
+            var isIE = false || !!document.documentMode;
+
+            // Edge 20+
+            var isEdge = !isIE && !!window.StyleMedia;
+
+            // Chrome 1 - 79
+            var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+
+            //alert(isChrome);
+            //alert(isEdge);
+            //alert(isIE);
+            if (isChrome) {
+                var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+            }
+            else if (isEdge) {
+                var tableHTML = tableSelect.outerHTML.replace(/#/g, '%23');
+            }
+            else {
+                var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+            }
+            // Specify file name
+            filename = filename ? filename + '.xls' : 'excel_data.xls';
+            // Create download link element
+            downloadLink = document.createElement("a");
+            document.body.appendChild(downloadLink);
+            if (navigator.msSaveOrOpenBlob) {
+                var blob = new Blob(['\ufeff', tableHTML], {
+                    type: dataType
+                });
+                navigator.msSaveOrOpenBlob(blob, filename);
+            } else {
+                // Create a link to the file
+                downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+                // Setting the file name
+                downloadLink.download = filename;
+                //triggering the function
+                downloadLink.click();
+            }
+        }
             function SubmitButtonOnclick()
             {
                
@@ -151,6 +219,32 @@
                             $('#cancelform')[0].reset();
                             $el.unwrap();
                             $('#successMsg').html(result.Message);
+                            if (result.ExcludedData.length > 0) {
+                                alert(result.ExcludedData.length);
+                                var html = '<table class="table table-striped" border="1">';
+                                html += '<thead>';
+                                html += '<tr>';
+                                html += '<th>Work Order</th>';
+                                html += '<th>Account</th>';
+                                html += '<th>Reason</th>';
+                                html += '</tr>';
+                                html += '</thead>';
+                                html += '<tbody>';
+                                var flag = 0;
+                                $.each(result.ExcludedData, function (index, value) {
+                                    html += '<tr>';
+                                    $.each(value, function (index2, value2) {
+                                        html += '<td>' + value2 + '</td>';
+                                    });
+                                    html += '</tr>';
+                                });
+                                html += '</tbody>';
+                                html += '</table>';
+                                $('#ExcludedWorkorders').html(html);
+                                $('#btnExport').css('display', 'inline');
+                                $('#excludeGrid').css('display', 'inline');
+                            }
+                            
                         } else {
                             $('#errorMsg').html(result.Message);
                         }
