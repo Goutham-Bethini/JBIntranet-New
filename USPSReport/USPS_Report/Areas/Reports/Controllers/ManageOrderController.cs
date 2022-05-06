@@ -92,7 +92,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                                                 (item.HoldFromShipping == 1 && item.HoldFromShippingReason.Contains("%Back Order%")) ? "Back Ordered and Holding" :
                                                 (item.HoldFromShipping == 1 && item.HoldFromShippingReason.Contains("Back Order ~")) ? "Back Ordered" : "Waiting to Interface";
                                 //string Status = "Printed/Sent to oracle";
-                                if (Status.Contains("Printed/Sent to oracle") || Status.Contains("Waiting to Interface"))
+                                if (Status.Contains("Completed") || Status.Contains("Printed/Sent to oracle") || Status.Contains("Waiting to Interface"))
                                 {
                                     excludeList.Add(new ExcludedOrder { WorkOrder = item.ID, Account = item.Account, Reason = Status });
                                 }
