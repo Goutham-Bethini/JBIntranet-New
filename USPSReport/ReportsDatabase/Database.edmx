@@ -1003,6 +1003,16 @@ warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not
           <Property Name="Prev_UOMCount" Type="smallint" />
           <Property Name="Prev_UOMCost" Type="money" />
         </EntityType>
+        <EntityType Name="tbl_MassCancel_History">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="varchar(max)" />
+          <Property Name="ActionBy" Type="varchar" MaxLength="32" />
+          <Property Name="ActionDate" Type="datetime" />
+          <Property Name="CancelNote" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="tbl_MedDoc_History">
           <Key>
             <PropertyRef Name="ID" />
@@ -1326,6 +1336,8 @@ warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not
           <Property Name="DX12" Type="varchar" MaxLength="12" />
           <Property Name="Comments" Type="varchar" MaxLength="512" />
           <Property Name="ID_WorkFlowItem" Type="bigint" />
+          <Property Name="PhysicianOrderText" Type="varchar" MaxLength="8000" />
+          <Property Name="Discontinued" Type="smallint" />
         </EntityType>
         <EntityType Name="tbl_MedDoc_Type_Table">
           <Key>
@@ -1349,6 +1361,9 @@ warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not
           <Property Name="StateRegulationRxRenewal" Type="smallint" />
           <Property Name="ComplexItemsType" Type="smallint" />
           <Property Name="PharmacyRxTPNType" Type="smallint" />
+          <Property Name="PhysicianOrderType" Type="smallint" />
+          <Property Name="PharmacyRxCompoundType" Type="smallint" />
+          <Property Name="NursingDocumentType" Type="smallint" />
         </EntityType>
         <EntityType Name="tbl_Name_Frequency">
           <Key>
@@ -1850,6 +1865,12 @@ warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not
           <Property Name="D_DrugImprint" Type="varchar" MaxLength="255" />
           <Property Name="AcceptableExceptionDate" Type="datetime" />
           <Property Name="ID_AcceptableExceptionBy" Type="int" />
+          <Property Name="D_DiluentPwdrVol" Type="float" />
+          <Property Name="D_DiluentInDoseVol" Type="smallint" />
+          <Property Name="D_MS_DrugName" Type="varchar" MaxLength="255" />
+          <Property Name="D_BillQtyIndicator" Type="smallint" />
+          <Property Name="D_DispenseSizeOverride" Type="float" />
+          <Property Name="D_DispenseUOMOverride" Type="varchar" MaxLength="6" />
         </EntityType>
         <EntityType Name="tbl_ProductCategory_Table">
           <Key>
@@ -2433,6 +2454,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <EntitySet Name="tbl_Inv_UOM_Table" EntityType="Self.tbl_Inv_UOM_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Inv_Vendor_Table" EntityType="Self.tbl_Inv_Vendor_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Inv_VendorProduct_Table" EntityType="Self.tbl_Inv_VendorProduct_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_MassCancel_History" EntityType="Self.tbl_MassCancel_History" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_MedDoc_History" EntityType="Self.tbl_MedDoc_History" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_MedDoc_Type_Table" EntityType="Self.tbl_MedDoc_Type_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Name_Frequency" EntityType="Self.tbl_Name_Frequency" Schema="dbo" store:Type="Tables" />
@@ -2713,6 +2735,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <EntitySet Name="tbl_Payer_Table" EntityType="HHSQLDBModel.tbl_Payer_Table" />
           <EntitySet Name="tbl_PS_WorkOrderLine" EntityType="HHSQLDBModel.tbl_PS_WorkOrderLine" />
           <EntitySet Name="tbl_PS_WorkOrder" EntityType="HHSQLDBModel.tbl_PS_WorkOrder" />
+          <EntitySet Name="tbl_MassCancel_History" EntityType="HHSQLDBModel.tbl_MassCancel_History" />
         </EntityContainer>
         <EntityType Name="JBCCServiceProductLine">
           <Key>
@@ -3174,6 +3197,9 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="StateRegulationRxRenewal" Type="Int16" />
           <Property Name="ComplexItemsType" Type="Int16" />
           <Property Name="PharmacyRxTPNType" Type="Int16" />
+          <Property Name="PhysicianOrderType" Type="Int16" />
+          <Property Name="PharmacyRxCompoundType" Type="Int16" />
+          <Property Name="NursingDocumentType" Type="Int16" />
         </EntityType>
         <EntityType Name="tbl_Procedure_Groups_Table">
           <Key>
@@ -4340,6 +4366,8 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="DX12" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="Comments" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
           <Property Name="ID_WorkFlowItem" Type="Int64" />
+          <Property Name="PhysicianOrderText" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="Discontinued" Type="Int16" />
         </EntityType>
         <EntityType Name="tbl_Operator_Table">
           <Key>
@@ -4592,6 +4620,12 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="D_DrugImprint" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="AcceptableExceptionDate" Type="DateTime" Precision="3" />
           <Property Name="ID_AcceptableExceptionBy" Type="Int32" />
+          <Property Name="D_DiluentPwdrVol" Type="Double" />
+          <Property Name="D_DiluentInDoseVol" Type="Int16" />
+          <Property Name="D_MS_DrugName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="D_BillQtyIndicator" Type="Int16" />
+          <Property Name="D_DispenseSizeOverride" Type="Double" />
+          <Property Name="D_DispenseUOMOverride" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbl_Account_Member_Insurance">
           <Key>
@@ -5077,6 +5111,16 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="DeliveryRouteAssigned_Date" Type="DateTime" Precision="3" />
           <Property Name="ID_DeliveryRouteAssigned_By" Type="Int32" />
         </EntityType>
+        <EntityType Name="tbl_MassCancel_History">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActionBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="ActionDate" Type="DateTime" Precision="3" />
+          <Property Name="CancelNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5512,6 +5556,9 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <EntitySetMapping Name="tbl_MedDoc_Type_Table">
             <EntityTypeMapping TypeName="HHSQLDBModel.tbl_MedDoc_Type_Table">
               <MappingFragment StoreEntitySet="tbl_MedDoc_Type_Table">
+                <ScalarProperty Name="NursingDocumentType" ColumnName="NursingDocumentType" />
+                <ScalarProperty Name="PharmacyRxCompoundType" ColumnName="PharmacyRxCompoundType" />
+                <ScalarProperty Name="PhysicianOrderType" ColumnName="PhysicianOrderType" />
                 <ScalarProperty Name="PharmacyRxTPNType" ColumnName="PharmacyRxTPNType" />
                 <ScalarProperty Name="ComplexItemsType" ColumnName="ComplexItemsType" />
                 <ScalarProperty Name="StateRegulationRxRenewal" ColumnName="StateRegulationRxRenewal" />
@@ -6379,6 +6426,8 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <EntitySetMapping Name="tbl_MedDoc_History">
             <EntityTypeMapping TypeName="HHSQLDBModel.tbl_MedDoc_History">
               <MappingFragment StoreEntitySet="tbl_MedDoc_History">
+                <ScalarProperty Name="Discontinued" ColumnName="Discontinued" />
+                <ScalarProperty Name="PhysicianOrderText" ColumnName="PhysicianOrderText" />
                 <ScalarProperty Name="ID_WorkFlowItem" ColumnName="ID_WorkFlowItem" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="DX12" ColumnName="DX12" />
@@ -6842,6 +6891,12 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <EntitySetMapping Name="tbl_Product_Table">
             <EntityTypeMapping TypeName="HHSQLDBModel.tbl_Product_Table">
               <MappingFragment StoreEntitySet="tbl_Product_Table">
+                <ScalarProperty Name="D_DispenseUOMOverride" ColumnName="D_DispenseUOMOverride" />
+                <ScalarProperty Name="D_DispenseSizeOverride" ColumnName="D_DispenseSizeOverride" />
+                <ScalarProperty Name="D_BillQtyIndicator" ColumnName="D_BillQtyIndicator" />
+                <ScalarProperty Name="D_MS_DrugName" ColumnName="D_MS_DrugName" />
+                <ScalarProperty Name="D_DiluentInDoseVol" ColumnName="D_DiluentInDoseVol" />
+                <ScalarProperty Name="D_DiluentPwdrVol" ColumnName="D_DiluentPwdrVol" />
                 <ScalarProperty Name="ID_AcceptableExceptionBy" ColumnName="ID_AcceptableExceptionBy" />
                 <ScalarProperty Name="AcceptableExceptionDate" ColumnName="AcceptableExceptionDate" />
                 <ScalarProperty Name="D_DrugImprint" ColumnName="D_DrugImprint" />
@@ -7439,6 +7494,17 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
                 <ScalarProperty Name="ID_PlanOfService" ColumnName="ID_PlanOfService" />
                 <ScalarProperty Name="Member" ColumnName="Member" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MassCancel_History">
+            <EntityTypeMapping TypeName="HHSQLDBModel.tbl_MassCancel_History">
+              <MappingFragment StoreEntitySet="tbl_MassCancel_History">
+                <ScalarProperty Name="CancelNote" ColumnName="CancelNote" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+                <ScalarProperty Name="ActionBy" ColumnName="ActionBy" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

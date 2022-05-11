@@ -260,6 +260,9 @@
     <Compile Include="tbl_Inv_Vendor_Table.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_MassCancel_History.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_MedDoc_History.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>

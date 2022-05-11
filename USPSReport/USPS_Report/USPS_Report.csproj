@@ -1368,6 +1368,7 @@
     <Content Include="Areas\Reports\Views\CustomerServices\_ProductSurvey.cshtml" />
     <Content Include="Areas\Reports\Views\RWOsChanges\RWOsChanges.cshtml" />
     <Content Include="Areas\Reports\Views\InsulinPumpSuppliesNot\InsulinPumpSuppliesNot.cshtml" />
+    <Content Include="Areas\Reports\Views\ManageOrder\MassCancelHistory.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GBethini.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />

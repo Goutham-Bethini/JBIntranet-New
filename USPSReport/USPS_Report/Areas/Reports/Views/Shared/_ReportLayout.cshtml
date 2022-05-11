@@ -84,14 +84,16 @@
                     <li class="divider"></li>
                     <li><a href="http://JBMAZWeb01/JBIntranet/Reports/HDMSPunctuations/Index" target="_blank">HDMS Punctuation Corrections</a></li>
                     <li class="divider"></li>
-                    @if (manageOrdersAccess)
-                    {
-                        <li>@Html.ActionLink("Cancel Orders", "CancelOrders", "ManageOrder", new { area = "Reports" }, new { target = "_blank" })</li>
-                        <li class="divider"></li>
-                        <li>@Html.ActionLink("Mass Releases", "MassReleases", "ManageOrder", new { area = "Reports" }, new { target = "_blank" })</li>
-                        <li class="divider"></li>
-                        <li>@Html.ActionLink("UnCancel Orders", "UnCancelOrders", "ManageOrder", new { area = "Reports" }, new { target = "_blank" })</li>
-                    }
+                    @*@if (manageOrdersAccess)
+        {*@
+                    <li>@Html.ActionLink("Cancel Orders", "CancelOrders", "ManageOrder", new { area = "Reports" }, new { target = "_blank" })</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Mass Cancel History", "MassCancelHistory", "ManageOrder", new { area = "Reports" }, new { target = "_blank" })</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Mass Releases", "MassReleases", "ManageOrder", new { area = "Reports" }, new { target = "_blank" })</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("UnCancel Orders", "UnCancelOrders", "ManageOrder", new { area = "Reports" }, new { target = "_blank" })</li>
+                    @*}*@
                     <li class="divider"></li>
                     <li>@Html.ActionLink("InactiveAccount with RO's", "InactiveAccountsData", "InactiveAccounts", new { area = "Reports" }, null)</li>
                     <li class="divider"></li>

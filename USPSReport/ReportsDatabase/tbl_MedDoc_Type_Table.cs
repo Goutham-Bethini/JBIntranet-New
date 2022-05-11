@@ -32,5 +32,8 @@ namespace ReportsDatabase
         public Nullable<short> StateRegulationRxRenewal { get; set; }
         public Nullable<short> ComplexItemsType { get; set; }
         public Nullable<short> PharmacyRxTPNType { get; set; }
+        public Nullable<short> PhysicianOrderType { get; set; }
+        public Nullable<short> PharmacyRxCompoundType { get; set; }
+        public Nullable<short> NursingDocumentType { get; set; }
     }
 }

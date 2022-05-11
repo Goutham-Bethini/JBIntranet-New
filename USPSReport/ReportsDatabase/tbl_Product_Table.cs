@@ -125,5 +125,11 @@ namespace ReportsDatabase
         public string D_DrugImprint { get; set; }
         public Nullable<System.DateTime> AcceptableExceptionDate { get; set; }
         public Nullable<int> ID_AcceptableExceptionBy { get; set; }
+        public Nullable<double> D_DiluentPwdrVol { get; set; }
+        public Nullable<short> D_DiluentInDoseVol { get; set; }
+        public string D_MS_DrugName { get; set; }
+        public Nullable<short> D_BillQtyIndicator { get; set; }
+        public Nullable<double> D_DispenseSizeOverride { get; set; }
+        public string D_DispenseUOMOverride { get; set; }
     }
 }

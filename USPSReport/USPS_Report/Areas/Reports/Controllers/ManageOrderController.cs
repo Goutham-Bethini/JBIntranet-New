@@ -1,4 +1,6 @@
 ﻿using ClosedXML.Excel;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using ReportsDatabase;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ namespace USPS_Report.Areas.Reports.Controllers
     {
 
         string dir = @"\\jbmwix-azfs01\IT\IntranetDocuments\StateAudit$\Files\";
+        string dir2 = @"\\jbmwix-azfs01\IT\IntranetDocuments\StateAudit$\Files\Mass Cancel\";
         // GET: Reports/ManageOrders
         public ActionResult CancelOrders()
         {
@@ -50,10 +53,24 @@ namespace USPS_Report.Areas.Reports.Controllers
                 //Checking file content length and Extension must be .xlsx  
                 if (files.Count > 0 && (files[0] != null && files[0].ContentLength > 0 && System.IO.Path.GetExtension(files[0].FileName).ToLower() == ".xlsx"))
                 {
-
+                    string hisFile = Path.GetFileNameWithoutExtension(files[0].FileName) + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";
                     string path = Path.Combine(dir, Path.GetFileName(files[0].FileName));
+                    string path2 = Path.Combine(dir2, hisFile);
                     //Saving the file  
                     file.SaveAs(path);
+                    file.SaveAs(path2);
+                    var components = System.Web.HttpContext.Current.User.Identity.Name.Split('\\');
+                    var userName = components.Last();
+                    using (HHSQLDBEntities _db = new HHSQLDBEntities())
+                    {
+                        tbl_MassCancel_History cancel = new tbl_MassCancel_History();
+                        cancel.FileName = hisFile;
+                        cancel.ActionBy = userName;
+                        cancel.ActionDate = DateTime.Now;
+                        cancel.CancelNote = Note;
+                        _db.tbl_MassCancel_History.Add(cancel);
+                        _db.SaveChanges();
+                    }
 
                     // Load data to SQL Server
                     var list = new List<Int32>();
@@ -109,8 +126,6 @@ namespace USPS_Report.Areas.Reports.Controllers
                         }
                         if (cancelList != null && cancelList.Any())
                         {
-                            var components = User.Identity.Name.Split('\\');
-                            var userName = components.Last();
                             using (var _db = new USPS_Report.Models.ReportsEntities())
                             {
                                 _db.sp_CancelOrders(string.Join(",", cancelList.Select(n => n.ToString()).ToArray()), Note, userName);
@@ -144,6 +159,39 @@ namespace USPS_Report.Areas.Reports.Controllers
                 throw;
             }
 
+        }
+
+        //public ActionResult MassCancelHistory()
+        //{
+        //    return View();
+        //}
+
+        public ActionResult MassCancelHistory()
+        {
+            return View(USPS_Report.Areas.Reports.Models.ManageOrder.GetData());
+        }
+
+        [HttpGet]
+        public ActionResult Download(string FileName)
+        {
+            try
+            {
+                var fullPath = Path.Combine(@"\\jbmwix-azfs01\IT\IntranetDocuments\StateAudit$\Files\Mass Cancel\", FileName);
+                string mimeType = System.Web.MimeMapping.GetMimeMapping(FileName);
+                // return File(fullPath, "application/vnd.ms-excel", FileName);
+                return File(fullPath, mimeType, FileName);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ActionResult MassCancelHistoryData([DataSourceRequest] DataSourceRequest request)
+        {
+            var jsonResult = Json(USPS_Report.Areas.Reports.Models.ManageOrder.GetData().ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
 
 
