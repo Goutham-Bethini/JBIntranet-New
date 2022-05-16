@@ -97,7 +97,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                         wb.SaveAs(filePath);
                         using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
                         {
-                            _db.Database.ExecuteSqlCommand("Insert into HHSQLDB_Pharmacy.dbo.StateAuditReports Values(@report,@quarter,@year,@dateCreated,@fileName)", new SqlParameter("report", objMIStateAuditVM.Report), new SqlParameter("quarter", Convert.ToInt32(objMIStateAuditVM.Quarter.Substring(0, 1))), new SqlParameter("year", Convert.ToDouble(objMIStateAuditVM.Year)), new SqlParameter("dateCreated", curDateTime), new SqlParameter("fileName", reportFileName));
+                            _db.Database.ExecuteSqlCommand("Insert into HHSQLDB.dbo.StateAuditReports Values(@report,@quarter,@year,@dateCreated,@fileName)", new SqlParameter("report", objMIStateAuditVM.Report), new SqlParameter("quarter", Convert.ToInt32(objMIStateAuditVM.Quarter.Substring(0, 1))), new SqlParameter("year", Convert.ToDouble(objMIStateAuditVM.Year)), new SqlParameter("dateCreated", curDateTime), new SqlParameter("fileName", reportFileName));
                             //_db.sp_InsertStateAuditReports(objMIStateAuditVM.Report, Convert.ToInt32(objMIStateAuditVM.Quarter.Substring(0, 1)),
                             //Convert.ToDouble(objMIStateAuditVM.Year), reportFileName);
                         }
