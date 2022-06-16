@@ -35,6 +35,10 @@ namespace USPS_Report.Models
         public virtual DbSet<DetailedSP> DetailedSPs { get; set; }
         public virtual DbSet<AOBAttempt> AOBAttempts { get; set; }
         public virtual DbSet<BarCodeAttempt> BarCodeAttempts { get; set; }
+        public virtual DbSet<AllProdQtySubstitution_table> AllProdQtySubstitution_table { get; set; }
+        public virtual DbSet<AllRWOProdQtySubstitution_table> AllRWOProdQtySubstitution_table { get; set; }
+        public virtual DbSet<ProdQtySubstitution_table> ProdQtySubstitution_table { get; set; }
+        public virtual DbSet<RWOProdQtySubstitution_table> RWOProdQtySubstitution_table { get; set; }
     
         public virtual ObjectResult<sp_RWO_Lookup_Result> sp_RWO_Lookup(string productCode, Nullable<int> holdCode, Nullable<System.DateTime> startDt, Nullable<System.DateTime> endDt, string payerID, Nullable<int> locationID, Nullable<int> methodID, Nullable<int> inactive, Nullable<int> delTimeID, string ferqID, Nullable<int> isAssigned, Nullable<int> makeRWOInComplete, Nullable<int> serviceTypeId, string hCPCCode)
         {
@@ -690,6 +694,37 @@ namespace USPS_Report.Models
         public virtual ObjectResult<usp_GetInsulinPumpSupplies_Result> usp_GetInsulinPumpSupplies()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetInsulinPumpSupplies_Result>("usp_GetInsulinPumpSupplies");
+        }
+    
+        public virtual ObjectResult<sp_ProdSubToDoList_Result> sp_ProdSubToDoList(string oldProdCode, string newProdCode)
+        {
+            var oldProdCodeParameter = oldProdCode != null ?
+                new ObjectParameter("oldProdCode", oldProdCode) :
+                new ObjectParameter("oldProdCode", typeof(string));
+    
+            var newProdCodeParameter = newProdCode != null ?
+                new ObjectParameter("newProdCode", newProdCode) :
+                new ObjectParameter("newProdCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ProdSubToDoList_Result>("sp_ProdSubToDoList", oldProdCodeParameter, newProdCodeParameter);
+        }
+    
+        public virtual ObjectResult<sp_RWOProdSubToDoList_Result> sp_RWOProdSubToDoList(string oldProdCode, string newProdCode)
+        {
+            var oldProdCodeParameter = oldProdCode != null ?
+                new ObjectParameter("oldProdCode", oldProdCode) :
+                new ObjectParameter("oldProdCode", typeof(string));
+    
+            var newProdCodeParameter = newProdCode != null ?
+                new ObjectParameter("newProdCode", newProdCode) :
+                new ObjectParameter("newProdCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_RWOProdSubToDoList_Result>("sp_RWOProdSubToDoList", oldProdCodeParameter, newProdCodeParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetAllProdQtySubs_Result> sp_GetAllProdQtySubs()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetAllProdQtySubs_Result>("sp_GetAllProdQtySubs");
         }
     }
 }

@@ -1,0 +1,282 @@
+﻿@model USPS_Report.Areas.Reports.Models.ProductQtySubstitution.ProductQtySubstitutionVM
+@{
+    ViewBag.Title = "ProductQtySubstitution";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3 class="middle" style="text-align:center;">Product Quantity Substitution</h3>
+<hr />
+<div>
+    @Html.HiddenFor(t => t.Type)
+    @using (Html.BeginForm("ProdQtySubPreView", "ProductQtySubstitution", FormMethod.Post))
+    {
+        <center>
+            <table>
+                <tr align="center">
+                    <td>@Html.ValidationMessageFor(t => t.Type, "", new { @class = "redText" })</td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        Type: @Html.DropDownListFor(t => t.Type, new List<SelectListItem>
+{
+new SelectListItem { Text = "Existing Orders" , Value = "Existing"},
+new SelectListItem { Text = "Repeating Orders" , Value = "Repeating"}
+}, "Select Type")
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>@Html.ValidationMessageFor(t => t.OldProdCode, "", new { @class = "redText" })</td>
+                </tr>
+                <tr align="right">
+                    <td>Old Product Code: @Html.TextBoxFor(t => t.OldProdCode)</td>
+                </tr>
+                <tr align="center">
+                    <td>@Html.ValidationMessageFor(t => t.NewProdCode, "", new { @class = "redText" })</td>
+                </tr>
+                <tr>
+                    <td>New Product Code: @Html.TextBoxFor(t => t.NewProdCode)</td>
+                </tr>
+            </table>
+            <br />
+            <button class="btn btn-primary btn-large" type="submit">Pre View</button>
+        </center>
+    }
+</div>
+
+<center>
+
+    @if (Model != null && Model.PreViewProductOldNewQtys != null && Model.PreViewProductOldNewQtys.Count > 0)
+    {
+        <h4>Pending Requests:</h4>
+
+        using (Html.BeginForm("SelectedProdQtySub", "ProductQtySubstitution", FormMethod.Post))
+        {
+            <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered" style="width:1200px;">
+                    @*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*@
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;"><input id="SelectAll" type="checkbox" />&nbsp;Update all?&nbsp;&nbsp;&nbsp;&nbsp;</th>  @*<input name="RemoveAll" id="RemoveAll2" type="radio" value="N" />*@
+                            <th style="text-align:center;">Old Product Code</th>
+                            <th style="text-align:center;">Old Qty</th>
+                            <th style="text-align:center;">New Product Code</th>
+                            <th style="text-align:center;">New Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.PreViewProductOldNewQtys.Count(); i += 1)
+                        {
+                            <tr>
+                                <td style="text-align:center;">
+                                    <div class="row">
+                                        <div class="radio-inline">
+                                            <label>
+                                                @Html.RadioButtonFor(x => x.PreViewProductOldNewQtys[i].NeedUpdate, "true", new { @class = "radioYes" })
+                                                Yes
+
+                                            </label>
+                                        </div>
+                                        <div class="radio-inline">
+                                            <label>
+                                                @Html.RadioButtonFor(x => x.PreViewProductOldNewQtys[i].NeedUpdate, "false", new { @class = "radioNo" })
+                                                No
+                                            </label>
+                                            @Html.HiddenFor(x => x.PreViewProductOldNewQtys[i].NeedUpdate)
+
+
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="text-align:center;">
+                                    @Html.DisplayFor(x => x.PreViewProductOldNewQtys[i].OldProdCode)
+                                    @Html.HiddenFor(x => x.PreViewProductOldNewQtys[i].OldProdCode)
+                                </td>
+
+                                <td style="text-align:center;">
+                                    @Html.DisplayFor(x => x.PreViewProductOldNewQtys[i].OldQty)
+                                    @Html.HiddenFor(x => x.PreViewProductOldNewQtys[i].OldQty)
+                                </td>
+                                <td style="text-align:center;">
+                                    @Html.DisplayFor(x => x.PreViewProductOldNewQtys[i].NewProdCode)
+                                    @Html.HiddenFor(x => x.PreViewProductOldNewQtys[i].NewProdCode)
+                                </td>
+
+                                <td style="text-align:center;">
+                                    @Html.DisplayFor(x => x.PreViewProductOldNewQtys[i].NewQty)
+                                    @Html.HiddenFor(x => x.PreViewProductOldNewQtys[i].NewQty)
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+                <center>
+                    @if (HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "mott"
+                        || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "bserra"
+                        || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "ekeller"
+                        || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "sissa"
+                        || HttpContext.Current.User.Identity.Name.Split('\\').Last().ToLower() == "maheshkattamuribpl"
+                        )
+                    {
+                        <button class="btn btn-primary btn-large" type="submit">submit</button>
+                    }
+                </center>
+            </div>
+        }
+    }
+    else if (Model != null && Model.PreViewProductOldNewQtys != null)
+    {
+        <br />
+        <div style="color:red;">--No Data--</div>
+    }
+
+    @if (Model != null && Model.AllProdSubstitutions != null && Model.AllProdSubstitutions.Count > 0)
+    {
+        <div style="color:red;">@ViewBag.message</div>
+        <h4>Processed Requests:</h4>
+        <div class="table-responsive">
+            <table data-sortable class="table table-hover table-striped table-bordered" style="width:1200px">
+                <thead>
+                    <tr>
+                        <th>Old Product</th>
+                        <th>New Product</th>
+                        <th>Updated Date</th>
+                        <th>Updated By</th>
+                        <th># of Accounts</th>
+                        <th>Repeating or Existing</th>
+                        <th>Export to Excel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rec in Model.AllProdSubstitutions)
+                    {
+                        <tr>
+
+                            <td>@rec.OldProdCode</td>
+                            <td>@rec.NewProdCode</td>
+                            <td>@rec.UpdatedDate.Value.ToShortDateString()</td>
+                            <td>@rec.UpdatedBy</td>
+                            <td>@rec.NoOfAccounts</td>
+                            <td>@rec.RepeatingOrExisting</td>
+                            <td>@Html.ActionLink("Export", "ExportReport", "ProductQtySubstitution", new { oldProdCode = @rec.OldProdCode, newProdCode = @rec.NewProdCode, updatedDate = @rec.UpdatedDate.Value, updatedBy = @rec.UpdatedBy, repeatingOrExisting = @rec.RepeatingOrExisting }, null) </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+
+    }
+
+    @*@if (Model != null && Model.AllProdQtySubstitutions != null && Model.AllProdQtySubstitutions.Count > 0)
+        {
+            <div style="color:red;">Substitution is done successfully.</div>
+            <h4>Processed Requests:</h4>
+            <div class="table-responsive">
+                <table data-sortable class="table table-hover table-striped table-bordered" style="width:1200px">
+                    <thead>
+                        <tr>
+
+                            <th>Account</th>
+                            <th>Work Order</th>
+                            <th>Old Product</th>
+                            <th>OldProd Qty</th>
+                            <th>New Product</th>
+                            <th>NewProd Qty</th>
+                            <th>Updated Date</th>
+                            <th>Updated By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rec in Model.AllProdQtySubstitutions)
+                        {
+                            <tr>
+
+                                <td>@rec.Account</td>
+                                <td>@rec.WorkOrder</td>
+                                <td>@rec.oldProdCode</td>
+                                <td>@rec.oldQuantity.Value</td>
+                                <td>@rec.newProdCode</td>
+                                <td>@rec.newQuantity.Value</td>
+                                <td>@rec.UpdatedDate</td>
+                                <td>@rec.UpdatedBy</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        }
+        @if (Model != null && Model.AllRWOProdQtySubstitutions != null && Model.AllRWOProdQtySubstitutions.Count > 0)
+        {
+            <div style="color:red;">Substitution is done successfully.</div>
+            <h4>Processed Requests:</h4>
+            <div class="table-responsive">
+                <table data-sortable class="table table-hover table-striped table-bordered" style="width:1200px">
+                    <thead>
+                        <tr>
+
+                            <th>Account</th>
+                            <th>Old Product</th>
+                            <th>OldProd Qty</th>
+                            <th>New Product</th>
+                            <th>NewProd Qty</th>
+                            <th>Updated Date</th>
+                            <th>Updated By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var rec in Model.AllRWOProdQtySubstitutions)
+                        {
+                            <tr>
+
+                                <td>@rec.Account</td>
+                                <td>@rec.oldProdCode</td>
+                                <td>@rec.oldQuantity.Value</td>
+                                <td>@rec.newProdCode</td>
+                                <td>@rec.newQuantity.Value</td>
+                                <td>@rec.UpdatedDate</td>
+                                <td>@rec.UpdatedBy</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        }*@
+
+</center>
+
+<style>
+    .redText {
+        color: Red;
+    }
+</style>
+
+<script>
+    $("#SelectAll").click(function () {
+        if ($(this).is(':checked')) {
+            //alert("checked");
+            $(".radioYes").prop('checked', true);
+            //$(".radioYes").attr("checked", "checked");
+        }
+        else {
+            //alert("not checked");
+            //$(".radioYes").removeAttr("checked");
+            $(".radioNo").prop('checked', true);
+        }
+    });
+
+    $(".radioNo").click(function () {
+        if ($(this).is(':checked')) {
+            //alert("checked");
+            $("#SelectAll").prop('checked', false);
+            //$(".radioYes").attr("checked", "checked");
+        }
+    });
+</script>

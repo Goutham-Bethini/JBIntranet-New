@@ -11,6 +11,10 @@
         <EntityTypeShape EntityType="ReportsModel.DetailedSP" Width="1.5" PointX="3.375" PointY="6.75" />
         <EntityTypeShape EntityType="ReportsModel.AOBAttempt" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="ReportsModel.BarCodeAttempt" Width="1.5" PointX="5.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ReportsModel.AllProdQtySubstitution_table" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ReportsModel.AllRWOProdQtySubstitution_table" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ReportsModel.ProdQtySubstitution_table" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="ReportsModel.RWOProdQtySubstitution_table" Width="1.5" PointX="7.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

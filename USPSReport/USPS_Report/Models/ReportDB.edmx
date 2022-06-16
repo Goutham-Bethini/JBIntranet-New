@@ -5,6 +5,33 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ReportsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AllProdQtySubstitution_table">
+          <Key>
+            <PropertyRef Name="RowId" />
+          </Key>
+          <Property Name="RowId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="int" Nullable="false" />
+          <Property Name="WorkOrder" Type="int" Nullable="false" />
+          <Property Name="oldProdCode" Type="varchar" MaxLength="16" />
+          <Property Name="oldQuantity" Type="int" />
+          <Property Name="newProdCode" Type="varchar" MaxLength="16" />
+          <Property Name="newQuantity" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="AllRWOProdQtySubstitution_table">
+          <Key>
+            <PropertyRef Name="RowId" />
+          </Key>
+          <Property Name="RowId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account" Type="int" Nullable="false" />
+          <Property Name="oldProdCode" Type="varchar" MaxLength="16" />
+          <Property Name="oldQuantity" Type="int" />
+          <Property Name="newProdCode" Type="varchar" MaxLength="16" />
+          <Property Name="newQuantity" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+        </EntityType>
         <EntityType Name="AOBAttempts">
           <Key>
             <PropertyRef Name="ID" />
@@ -80,6 +107,26 @@
           <Property Name="UserID" Type="nvarchar" MaxLength="50" />
           <Property Name="DateProcessed" Type="datetime" />
         </EntityType>
+        <EntityType Name="ProdQtySubstitution_table">
+          <Key>
+            <PropertyRef Name="RowId" />
+          </Key>
+          <Property Name="RowId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="oldProdCode" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="oldQuantity" Type="int" />
+          <Property Name="newProdCode" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="newQuantity" Type="int" />
+        </EntityType>
+        <EntityType Name="RWOProdQtySubstitution_table">
+          <Key>
+            <PropertyRef Name="RowId" />
+          </Key>
+          <Property Name="RowId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="oldProdCode" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="oldQuantity" Type="int" />
+          <Property Name="newProdCode" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="newQuantity" Type="int" />
+        </EntityType>
         <EntityType Name="USPS_POD_tbl">
           <Key>
             <PropertyRef Name="uID" />
@@ -128,6 +175,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="return_ID" Type="int" Mode="In" />
           <Parameter Name="workOrder_Line_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_GetAllProdQtySubs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetHistoryReturnItemsData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetReportAuditInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="reportId" Type="int" Mode="In" />
@@ -206,6 +254,10 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="OperatorName" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_MIStateAuditData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ProdSubToDoList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="oldProdCode" Type="varchar" Mode="In" />
+          <Parameter Name="newProdCode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_RWO_Lookup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProductCode" Type="varchar" Mode="In" />
           <Parameter Name="HoldCode" Type="int" Mode="In" />
@@ -238,6 +290,10 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="ServiceTypeId" Type="int" Mode="In" />
           <Parameter Name="HCPCCode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_RWOProdSubToDoList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="oldProdCode" Type="varchar" Mode="In" />
+          <Parameter Name="newProdCode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_UnCancelOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="list" Type="varchar(max)" Mode="In" />
         </Function>
@@ -265,11 +321,15 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
         </Function>
         <Function Name="usp_GetInsulinPumpSupplies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ReportsModelStoreContainer">
+          <EntitySet Name="AllProdQtySubstitution_table" EntityType="Self.AllProdQtySubstitution_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AllRWOProdQtySubstitution_table" EntityType="Self.AllRWOProdQtySubstitution_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AOBAttempts" EntityType="Self.AOBAttempts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BarCodeAttempts" EntityType="Self.BarCodeAttempts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetailedSP" EntityType="Self.DetailedSP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FedEx_POD_tbl" EntityType="Self.FedEx_POD_tbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FedEx_Tracking_Tbl" EntityType="Self.FedEx_Tracking_Tbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProdQtySubstitution_table" EntityType="Self.ProdQtySubstitution_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RWOProdQtySubstitution_table" EntityType="Self.RWOProdQtySubstitution_table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USPS_POD_tbl" EntityType="Self.USPS_POD_tbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="v_FutureOrderTypes" EntityType="Self.v_FutureOrderTypes" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -485,6 +545,19 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
             <Parameter Name="toDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="usp_GetInsulinPumpSupplies" ReturnType="Collection(ReportsModel.usp_GetInsulinPumpSupplies_Result)" />
+          <EntitySet Name="AllProdQtySubstitution_table" EntityType="ReportsModel.AllProdQtySubstitution_table" />
+          <EntitySet Name="AllRWOProdQtySubstitution_table" EntityType="ReportsModel.AllRWOProdQtySubstitution_table" />
+          <EntitySet Name="ProdQtySubstitution_table" EntityType="ReportsModel.ProdQtySubstitution_table" />
+          <EntitySet Name="RWOProdQtySubstitution_table" EntityType="ReportsModel.RWOProdQtySubstitution_table" />
+          <FunctionImport Name="sp_ProdSubToDoList" ReturnType="Collection(ReportsModel.sp_ProdSubToDoList_Result)">
+            <Parameter Name="oldProdCode" Mode="In" Type="String" />
+            <Parameter Name="newProdCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RWOProdSubToDoList" ReturnType="Collection(ReportsModel.sp_RWOProdSubToDoList_Result)">
+            <Parameter Name="oldProdCode" Mode="In" Type="String" />
+            <Parameter Name="newProdCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetAllProdQtySubs" ReturnType="Collection(ReportsModel.sp_GetAllProdQtySubs_Result)" />
         </EntityContainer>
         <EntityType Name="FedEx_POD_tbl">
           <Key>
@@ -808,6 +881,73 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="Int32" Name="Qty" Nullable="true" />
           <Property Type="String" Name="PayerName" Nullable="true" MaxLength="64" />
           <Property Type="Int32" Name="ID_Payer" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="AllProdQtySubstitution_table">
+          <Key>
+            <PropertyRef Name="RowId" />
+          </Key>
+          <Property Name="RowId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" Nullable="false" />
+          <Property Name="WorkOrder" Type="Int32" Nullable="false" />
+          <Property Name="oldProdCode" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="oldQuantity" Type="Int32" />
+          <Property Name="newProdCode" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="newQuantity" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AllRWOProdQtySubstitution_table">
+          <Key>
+            <PropertyRef Name="RowId" />
+          </Key>
+          <Property Name="RowId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" Nullable="false" />
+          <Property Name="oldProdCode" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="oldQuantity" Type="Int32" />
+          <Property Name="newProdCode" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="newQuantity" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProdQtySubstitution_table">
+          <Key>
+            <PropertyRef Name="RowId" />
+          </Key>
+          <Property Name="RowId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="oldProdCode" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="oldQuantity" Type="Int32" />
+          <Property Name="newProdCode" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="newQuantity" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RWOProdQtySubstitution_table">
+          <Key>
+            <PropertyRef Name="RowId" />
+          </Key>
+          <Property Name="RowId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="oldProdCode" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="oldQuantity" Type="Int32" />
+          <Property Name="newProdCode" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="newQuantity" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="sp_ProdSubToDoList_Result">
+          <Property Type="String" Name="OldProdCode" Nullable="false" MaxLength="16" />
+          <Property Type="Int32" Name="OldQty" Nullable="true" />
+          <Property Type="String" Name="NewProdCode" Nullable="false" MaxLength="16" />
+          <Property Type="Int32" Name="NewQty" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_RWOProdSubToDoList_Result">
+          <Property Type="String" Name="OldProdCode" Nullable="false" MaxLength="16" />
+          <Property Type="Int32" Name="OldQty" Nullable="true" />
+          <Property Type="String" Name="NewProdCode" Nullable="false" MaxLength="16" />
+          <Property Type="Int32" Name="NewQty" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetAllProdQtySubs_Result">
+          <Property Type="String" Name="oldProdCode" Nullable="true" MaxLength="16" />
+          <Property Type="String" Name="newProdCode" Nullable="true" MaxLength="16" />
+          <Property Type="DateTime" Name="Updated_Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Updated_By" Nullable="true" MaxLength="32" />
+          <Property Type="Int32" Name="No_of_Accounts" Nullable="true" />
+          <Property Type="String" Name="Repeating_or_Existing" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1246,6 +1386,89 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
                 <ScalarProperty Name="Qty" ColumnName="Qty" />
                 <ScalarProperty Name="PayerName" ColumnName="PayerName" />
                 <ScalarProperty Name="ID_Payer" ColumnName="ID_Payer" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="AllProdQtySubstitution_table">
+            <EntityTypeMapping TypeName="ReportsModel.AllProdQtySubstitution_table">
+              <MappingFragment StoreEntitySet="AllProdQtySubstitution_table">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="newQuantity" ColumnName="newQuantity" />
+                <ScalarProperty Name="newProdCode" ColumnName="newProdCode" />
+                <ScalarProperty Name="oldQuantity" ColumnName="oldQuantity" />
+                <ScalarProperty Name="oldProdCode" ColumnName="oldProdCode" />
+                <ScalarProperty Name="WorkOrder" ColumnName="WorkOrder" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="RowId" ColumnName="RowId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AllRWOProdQtySubstitution_table">
+            <EntityTypeMapping TypeName="ReportsModel.AllRWOProdQtySubstitution_table">
+              <MappingFragment StoreEntitySet="AllRWOProdQtySubstitution_table">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="newQuantity" ColumnName="newQuantity" />
+                <ScalarProperty Name="newProdCode" ColumnName="newProdCode" />
+                <ScalarProperty Name="oldQuantity" ColumnName="oldQuantity" />
+                <ScalarProperty Name="oldProdCode" ColumnName="oldProdCode" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="RowId" ColumnName="RowId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProdQtySubstitution_table">
+            <EntityTypeMapping TypeName="ReportsModel.ProdQtySubstitution_table">
+              <MappingFragment StoreEntitySet="ProdQtySubstitution_table">
+                <ScalarProperty Name="newQuantity" ColumnName="newQuantity" />
+                <ScalarProperty Name="newProdCode" ColumnName="newProdCode" />
+                <ScalarProperty Name="oldQuantity" ColumnName="oldQuantity" />
+                <ScalarProperty Name="oldProdCode" ColumnName="oldProdCode" />
+                <ScalarProperty Name="RowId" ColumnName="RowId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RWOProdQtySubstitution_table">
+            <EntityTypeMapping TypeName="ReportsModel.RWOProdQtySubstitution_table">
+              <MappingFragment StoreEntitySet="RWOProdQtySubstitution_table">
+                <ScalarProperty Name="newQuantity" ColumnName="newQuantity" />
+                <ScalarProperty Name="newProdCode" ColumnName="newProdCode" />
+                <ScalarProperty Name="oldQuantity" ColumnName="oldQuantity" />
+                <ScalarProperty Name="oldProdCode" ColumnName="oldProdCode" />
+                <ScalarProperty Name="RowId" ColumnName="RowId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_ProdSubToDoList" FunctionName="ReportsModel.Store.sp_ProdSubToDoList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.sp_ProdSubToDoList_Result">
+                <ScalarProperty Name="OldProdCode" ColumnName="OldProdCode" />
+                <ScalarProperty Name="OldQty" ColumnName="OldQty" />
+                <ScalarProperty Name="NewProdCode" ColumnName="NewProdCode" />
+                <ScalarProperty Name="NewQty" ColumnName="NewQty" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_RWOProdSubToDoList" FunctionName="ReportsModel.Store.sp_RWOProdSubToDoList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.sp_RWOProdSubToDoList_Result">
+                <ScalarProperty Name="OldProdCode" ColumnName="OldProdCode" />
+                <ScalarProperty Name="OldQty" ColumnName="OldQty" />
+                <ScalarProperty Name="NewProdCode" ColumnName="NewProdCode" />
+                <ScalarProperty Name="NewQty" ColumnName="NewQty" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetAllProdQtySubs" FunctionName="ReportsModel.Store.sp_GetAllProdQtySubs">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.sp_GetAllProdQtySubs_Result">
+                <ScalarProperty Name="oldProdCode" ColumnName="oldProdCode" />
+                <ScalarProperty Name="newProdCode" ColumnName="newProdCode" />
+                <ScalarProperty Name="Updated_Date" ColumnName="Updated Date" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated By" />
+                <ScalarProperty Name="No_of_Accounts" ColumnName="No of Accounts" />
+                <ScalarProperty Name="Repeating_or_Existing" ColumnName="Repeating or Existing" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

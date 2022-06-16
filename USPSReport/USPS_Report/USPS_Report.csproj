@@ -369,6 +369,7 @@
     <Compile Include="Areas\Reports\Controllers\OutboundCallsController.cs" />
     <Compile Include="Areas\Reports\Controllers\payerlinksController.cs" />
     <Compile Include="Areas\Reports\Controllers\POTAReportsController.cs" />
+    <Compile Include="Areas\Reports\Controllers\ProductQtySubstitutionController.cs" />
     <Compile Include="Areas\Reports\Controllers\PumpTrackerController.cs" />
     <Compile Include="Areas\Reports\Controllers\QOHController.cs" />
     <Compile Include="Areas\Reports\Controllers\ReportControllerOld.cs" />
@@ -421,6 +422,7 @@
     <Compile Include="Areas\Reports\Models\Portal.cs" />
     <Compile Include="Areas\Reports\Models\POTA_Report.cs" />
     <Compile Include="Areas\Reports\Models\ProdSubstitution.cs" />
+    <Compile Include="Areas\Reports\Models\ProductQtySubstitution.cs" />
     <Compile Include="Areas\Reports\Models\QOH.cs" />
     <Compile Include="Areas\Reports\Models\QOHReport.cs" />
     <Compile Include="Areas\Reports\Models\Reports.cs" />
@@ -463,6 +465,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AllProdQtySubstitution.cs" />
+    <Compile Include="Models\AllProdQtySubstitution_table.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AllProdSubstitution.cs" />
+    <Compile Include="Models\AllRWOProdQtySubstitutionTable.cs" />
+    <Compile Include="Models\AllRWOProdQtySubstitution_table.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AOBAttempt.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
@@ -542,9 +553,14 @@
     <Compile Include="Models\PharmacyConfirmation.cs">
       <DependentUpon>ModelCallAgent.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProdQtySubstitution_table.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProductConfirmation.cs">
       <DependentUpon>ModelCallAgent.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductSubstitutionReport.cs" />
+    <Compile Include="Models\ProductSubstitutionRWOReport.cs" />
     <Compile Include="Models\ReportDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -560,10 +576,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\RWOProdQtySubstitution_table.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_CustomerReordersupplies_MarkDone_Result.cs">
       <DependentUpon>ModelCallAgent.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_EligibilitySearch_Result.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_GetAllProdQtySubs_Result.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_GetHistoryReturnItemsData_Result.cs">
@@ -612,6 +634,12 @@
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_MIStateAuditData_Result.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_ProdSubToDoList_Result.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_RWOProdSubToDoList_Result.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_RWO_LookupWithDates_Result.cs">
@@ -1369,6 +1397,7 @@
     <Content Include="Areas\Reports\Views\RWOsChanges\RWOsChanges.cshtml" />
     <Content Include="Areas\Reports\Views\InsulinPumpSuppliesNot\InsulinPumpSuppliesNot.cshtml" />
     <Content Include="Areas\Reports\Views\ManageOrder\MassCancelHistory.cshtml" />
+    <Content Include="Areas\Reports\Views\ProductQtySubstitution\ProductQtySubstitution.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GBethini.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
