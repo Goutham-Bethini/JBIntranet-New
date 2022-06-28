@@ -429,14 +429,15 @@ namespace USPS_Report.Areas.Reports.Models
         {
             try
             {
-                string OraConnection = ConfigurationManager.ConnectionStrings["EntitiesOracle1"].ConnectionString;
+                string OraConnection = ConfigurationManager.ConnectionStrings["OracleConnection"].ConnectionString;
                 string Query = @"select INTWEIGHT from tbl_ups_workorders where id_workorder ='" + WorkOrderID + "'";
                 decimal Weight = 0.0m;
                 //decimal weigh_dec = 0.0m;
-                using (OleDbConnection conn = new OleDbConnection(OraConnection))
+                using (Oracle.ManagedDataAccess.Client.OracleConnection conn = new Oracle.ManagedDataAccess.Client.OracleConnection(OraConnection))
                 {
                     conn.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(Query, conn))
+                    
+                    using (Oracle.ManagedDataAccess.Client.OracleCommand cmd = new Oracle.ManagedDataAccess.Client.OracleCommand(Query, conn))
                     {
                        Weight = cmd.ExecuteScalar() != null  ? string.IsNullOrEmpty(cmd.ExecuteScalar().ToString()) ? 0.0m : (decimal)cmd.ExecuteScalar() : 0.0m;
                     }
