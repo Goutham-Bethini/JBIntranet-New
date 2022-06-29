@@ -150,22 +150,25 @@ namespace USPS_Report.Controllers
         {
            // DetailReport _dRpt = uspsDB.GetData(_pId);
 
-            string _conn = ConfigurationManager.ConnectionStrings["EntitiesOracle1"].ConnectionString;
+            string _conn = ConfigurationManager.ConnectionStrings["OracleConnection"].ConnectionString;
             string _dt = _date.Value.Month + "/" + _date.Value.Day + "/" + _date.Value.Year;
-
-
-            OleDbConnection myConnection = new OleDbConnection(_conn);
             String OrdersFedExQuery = string.Empty;
-            myConnection.Open();
+            Oracle.ManagedDataAccess.Client.OracleConnection conn = new Oracle.ManagedDataAccess.Client.OracleConnection(_conn);
+            conn.Open();
+            OrdersFedExQuery = "select Reference_Number, tracking_Number,RECIP_ADDR,RECIP_ADDR2,RECIP_CITY,REC_ST,RECIP_ZIP, DELIVER_DATE,Ship_Date,RATED_WGT,RECIP_NAME,Invoice_date, Invoice_number  from XXCUST01.jbm_FEDEX_PODS where tracking_Number = '" + _pId + "' and Ship_Date = TO_DATE ('" + _dt + "', 'MM/DD/YYYY')  ";
+            //OleDbConnection myConnection = new OleDbConnection(_conn);
+            //String OrdersFedExQuery = string.Empty;
+            //myConnection.Open();
 
-            // OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from apps.TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "' and CANCELDATE is Null";
-         OrdersFedExQuery = "select Reference_Number, tracking_Number,RECIP_ADDR,RECIP_ADDR2,RECIP_CITY,REC_ST,RECIP_ZIP, DELIVER_DATE,Ship_Date,RATED_WGT,RECIP_NAME,Invoice_date, Invoice_number  from XXCUST01.jbm_FEDEX_PODS where tracking_Number = '" + _pId + "' and Ship_Date = TO_DATE ('"+_dt+"', 'MM/DD/YYYY')  ";
-          
-               // "select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED, INTWEIGHT from  TBL_UPS_WORKORDERS where ConfirmationNumber = '" + _pId + "' ; ";
+            //   // OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from apps.TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "' and CANCELDATE is Null";
+            //OrdersFedExQuery = "select Reference_Number, tracking_Number,RECIP_ADDR,RECIP_ADDR2,RECIP_CITY,REC_ST,RECIP_ZIP, DELIVER_DATE,Ship_Date,RATED_WGT,RECIP_NAME,Invoice_date, Invoice_number  from XXCUST01.jbm_FEDEX_PODS where tracking_Number = '" + _pId + "' and Ship_Date = TO_DATE ('"+_dt+"', 'MM/DD/YYYY')  ";
 
-            OleDbCommand myFedExCommand = new OleDbCommand(OrdersFedExQuery, myConnection);
+            // "select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED, INTWEIGHT from  TBL_UPS_WORKORDERS where ConfirmationNumber = '" + _pId + "' ; ";
+            Oracle.ManagedDataAccess.Client.OracleCommand myFedExCommand = new Oracle.ManagedDataAccess.Client.OracleCommand(OrdersFedExQuery, conn);
+            Oracle.ManagedDataAccess.Client.OracleDataReader FedExReader = myFedExCommand.ExecuteReader();
+            //OleDbCommand myFedExCommand = new OleDbCommand(OrdersFedExQuery, myConnection);
 
-            OleDbDataReader FedExReader = myFedExCommand.ExecuteReader();
+            //OleDbDataReader FedExReader = myFedExCommand.ExecuteReader();
 
             DetailReport _dRpt = new DetailReport();
             int RecordsFedEx = 0;
@@ -243,20 +246,23 @@ namespace USPS_Report.Controllers
            
 
 
-                string _conn = ConfigurationManager.ConnectionStrings["EntitiesOracle1"].ConnectionString;
+                string _conn = ConfigurationManager.ConnectionStrings["OracleConnection"].ConnectionString;
             string _dt = _date.Value.Month + "/" + _date.Value.Day + "/" + _date.Value.Year;
+            Oracle.ManagedDataAccess.Client.OracleConnection conn = new Oracle.ManagedDataAccess.Client.OracleConnection(_conn);
+            conn.Open();
 
-
-            OleDbConnection myConnection = new OleDbConnection(_conn);
+            //OleDbConnection myConnection = new OleDbConnection(_conn);
             String OrdersFedExQuery = string.Empty;
-            myConnection.Open();
+            //myConnection.Open();
 
             // OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from apps.TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "' and CANCELDATE is Null";
+
             OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER, DATESHIPPED, INTWEIGHT from TBL_UPS_WORKORDERS where CONFIRMATIONNUMBER = '" + _pId + "' ";
+            Oracle.ManagedDataAccess.Client.OracleCommand myFedExCommand = new Oracle.ManagedDataAccess.Client.OracleCommand(OrdersFedExQuery, conn);
+            Oracle.ManagedDataAccess.Client.OracleDataReader FedExReader = myFedExCommand.ExecuteReader();
+            //OleDbCommand myFedExCommand = new OleDbCommand(OrdersFedExQuery, myConnection);
 
-            OleDbCommand myFedExCommand = new OleDbCommand(OrdersFedExQuery, myConnection);
-
-            OleDbDataReader FedExReader = myFedExCommand.ExecuteReader();
+            //OleDbDataReader FedExReader = myFedExCommand.ExecuteReader();
 
        
             int RecordsFedEx = 0;
