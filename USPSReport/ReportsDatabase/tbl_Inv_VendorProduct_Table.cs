@@ -35,5 +35,7 @@ namespace ReportsDatabase
         public Nullable<int> Prev_ID_UOM { get; set; }
         public Nullable<short> Prev_UOMCount { get; set; }
         public Nullable<decimal> Prev_UOMCost { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<int> ID_CreatedBy { get; set; }
     }
 }
