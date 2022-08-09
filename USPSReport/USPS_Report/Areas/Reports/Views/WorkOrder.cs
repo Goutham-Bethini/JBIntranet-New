@@ -125,14 +125,12 @@ namespace USPS_Report.Areas.Reports.Models
                         CreatedBy = t.ID_PrimaryAssignedUser.Equals(221) ? "Auto" : t.ops_LegalName,
                         CancelledBy = t.op1_LegalName != null ? t.op1_LegalName : t.Cancel_By,
                         WorkOrderID = t.ID,
-
+                        //Status = isFailedToInterface(t.Account, t.ID)? "Failed to Interface" : " not failed",
                         Status = t.Cancel_Date != null ? "<strong><u>Cancelled:</u></strong> " + Environment.NewLine + t.Cancel_Note : t.Completed_Date != null ? "<strong>Completed</strong> " : t.LastPrintDate != null ? "<strong>Printed/Sent to oracle</strong> " :
                           (t.HoldFromShipping == 1 && t.HoldFromShippingReason == null) ? "<strong>Created</strong>" :
                            (t.HoldFromShipping == 1 && t.HoldFromShippingReason != null) ? " <strong><u>Holding:</u></strong>" + "~" + t.HoldFromShippingReason :
                         (t.HoldFromShipping == 1 && t.HoldFromShippingReason.Contains("%Back Order%")) ? "<strong><u>Back Ordered and Holding:</u></strong> " + Environment.NewLine + t.HoldFromShippingReason :
-                        (t.HoldFromShipping == 1 && t.HoldFromShippingReason.Contains("Back Order ~")) ? "<strong>Back Ordered</strong>" : "<strong>Waiting to Interface</strong>",
-
-                        // (t.HoldFromShipping == 1 && t.HoldFromShippingReason == null) ? "<strong>Created</strong>" : "<strong>Waiting to Interface</strong>",
+                        (t.HoldFromShipping == 1 && t.HoldFromShippingReason.Contains("Back Order ~")) ? "<strong>Back Ordered</strong>" : isFailedToInterface(t.Account, t.ID) ? "Failed to Interface" : " <strong>Waiting to Interface</strong>",
 
                         ReleasedBy = string.Join("\n", _db.WorkOrdersReleased.Where(u => u.worID_WorkOrder == t.ID).Select(u => u.worReleasedBy).ToArray()),
 
@@ -423,6 +421,80 @@ namespace USPS_Report.Areas.Reports.Models
             }
 
 
+        }
+
+        public static bool isFailedToInterface(int?account, int wo)
+        {
+            try
+            {
+                string OraConnection = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ConnectionString;
+                string Query = @"select status from jbm_hdms_order_interface where workorderid="+wo+" and ROWNUM = 1 order by creation_date desc";
+                bool isFailed = false;
+                using (OleDbConnection conn = new OleDbConnection(OraConnection))
+                {
+                    conn.Open();
+                    using (OleDbCommand cmd = new OleDbCommand(Query, conn))
+                    {
+                        string res= cmd.ExecuteScalar().ToString();
+                        isFailed = (res == "" || res == "L") ? false: true ;
+                        if(isFailed)
+                        {
+                            string Query2 = @"select error_code from JBM_ORDER_INTERFACE_ERROR_LOG where error_code not in ( 'FAILED PHONE DETAILS UPDATE', 'FAILED EMAIL ADDRESS UPDATE') and workorderid = " + wo + " and ROWNUM = 1 order by creation_date desc";
+                            using (OleDbCommand cmd2 = new OleDbCommand(Query2, conn))
+                            {
+                                string res2 = cmd2.ExecuteScalar().ToString();
+                             
+                                MailMessage mail = new MailMessage();
+                                SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
+                                mail.From = new MailAddress("noreply@jandbmedical.com");
+                                //mail.To.Add("ShippingTeam@jandbmedical.com");
+                                //mail.To.Add("maheshkattamuribpl@jandbmedical.com");
+                                mail.To.Add("mott@jandbmedical.com");
+                                mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
+                                mail.Subject = "Failed to Interface";
+                                string body = @"<html>
+<body>
+Hello All, <br/><br/>  Please find Work order details below-<br/><br/>
+<table border=""1"">
+<tr>
+<th>
+HDMS account number
+</th>
+<th>
+WO number
+</th>
+<th>
+Failed Reason
+</th>
+</tr>
+<tr>
+<td>
+"+account+@"
+</td>
+<td>
+"+wo+@"
+</td>
+<td>
+"+res2+@"
+</td>
+</tr>
+</table>
+<br/> Thanks,<br/> IT Team
+</body>
+</html> ";
+                                mail.Body = body;
+                                mail.IsBodyHtml = true;
+                                SmtpServer.Send(mail);
+                            }
+                        }
+                    }
+                }
+                return isFailed;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }            
         }
 
         public static decimal GetWeightFromOracle(int WorkOrderID)
