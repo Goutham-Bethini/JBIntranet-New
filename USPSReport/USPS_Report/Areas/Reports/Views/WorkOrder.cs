@@ -13,6 +13,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.OleDb;
 using System.Configuration;
 using USPS_Report.Areas.ColdFusionReports.Models;
+using USPS_Report.Helper;
 
 namespace USPS_Report.Areas.Reports.Models
 {
@@ -60,6 +61,7 @@ namespace USPS_Report.Areas.Reports.Models
                     else
                         _woListTemp = _db.tbl_PS_WorkOrder.Where(t => t.Account == account).OrderByDescending(t => t.ID).Take(numbers).ToList();
 
+                    
                     var _woList = (from p in _woListTemp
                                    select new
                                    {
@@ -80,44 +82,9 @@ namespace USPS_Report.Areas.Reports.Models
                                        op1_LegalName = _db.tbl_Operator_Table.Where(op => op.ID == p.Cancel_User).Select(op => op.LegalName).Take(1).SingleOrDefault(),
                                        ops_LegalName = _db.tbl_Operator_Table.Where(op => op.ID == p.ID_PrimaryAssignedUser).Select(op => op.LegalName).Take(1).SingleOrDefault(),
                                        fullName = _db.tbl_Account_Member.Where(mem => mem.Account == p.Account && mem.Member == 1).Select(t => t.First_Name + " " + t.Last_Name).SingleOrDefault(),
-                                       // lastName = _db.tbl_Account_Member.Where(mem => mem.Account == p.Account).Select(t => t.Last_Name).SingleOrDefault(),
-
-
-
                                    }).ToList();
-                    //var _woList = (from wos in _woListTemp2.AsEnumerable()
-                    //               join ops in _db.tbl_Operator_Table
-                    //               on wos.ID_PrimaryAssignedUser equals ops.ID
 
-                    //               from op1 in _db.tbl_Operator_Table.Where(op=>op.ID == wos.Cancel_User).DefaultIfEmpty()
-                    //             //  from wr in _db.WorkOrdersReleaseds.Where(w => w.worID_WorkOrder == wos.ID).DefaultIfEmpty()
-                    //                   //  from ups in _db.tbl_UPS_WorkOrders.Where(u=>u.ID_WorkOrder == wos.ID).DefaultIfEmpty()
-                    //           //   where wos.Account == account
-                    //               select new
-                    //               {
-                    //                   wos.Account,
-                    //                   wos.Request_Date,
-                    //                   wos.Cancel_By,
-                    //                   wos.ID,
-                    //                   wos.Cancel_Date,
-                    //                   wos.Completed_Date,
-                    //                   wos.LastPrintDate,
-                    //                   wos.HoldFromShipping,
-                    //                   wos.HoldFromShippingReason,
-                    //                   wos.ID_PrimaryAssignedUser,
-                    //                   ops_LegalName = ops.LegalName ,
-                    //                   op1.LegalName,
-                    //                   wos.DateMovedToUser,
-                    //                   wos.ConfirmationNumber,
-                    //                   wos.Cancel_Note,
-                    //                //  ups_confirmation =  ups.ConfirmationNumber
-                    //                   //wr.worReleasedBy
-                    //               }).ToList();
-
-
-
-                    var _list = _woList.Select(t => new WorkOrder
-
+                    var _list = _woList.Select(t =>  new WorkOrder
                     {
                         fullname = t.fullName,
                         Account = t.Account,
@@ -126,7 +93,8 @@ namespace USPS_Report.Areas.Reports.Models
                         CancelledBy = t.op1_LegalName != null ? t.op1_LegalName : t.Cancel_By,
                         WorkOrderID = t.ID,
                         //Status = isFailedToInterface(t.Account, t.ID)? "Failed to Interface" : " not failed",
-                        Status = t.Cancel_Date != null ? "<strong><u>Cancelled:</u></strong> " + Environment.NewLine + t.Cancel_Note :
+                        //isRMAdone(t.ID) ? "<strong>Return/RMA</strong>" :
+                        Status =  t.Cancel_Date != null ? "<strong><u>Cancelled:</u></strong> " + Environment.NewLine + t.Cancel_Note :
                         t.Completed_Date != null ? (isFailedToInterface(t.Account, t.ID) ? "<strong>Failed to Interface</strong>" : "<strong>Completed</strong> ") :
                         t.LastPrintDate != null ? (isFailedToInterface(t.Account, t.ID) ? "<strong>Failed to Interface</strong>" : "<strong>Printed/Sent to oracle</strong> ") :
                           (t.HoldFromShipping == 1 && t.HoldFromShippingReason == null) ? "<strong>Created</strong>" :
@@ -139,8 +107,6 @@ namespace USPS_Report.Areas.Reports.Models
                         TrackingNumbers = string.Join(", \n", _db.tbl_UPS_WorkOrders.Where(u => u.ID_WorkOrder == t.ID && u.CancelDate == null).Select(u => u.ConfirmationNumber).ToArray()),
 
                         Length = _db.tbl_UPS_WorkOrders.Where(u => u.ID_WorkOrder == t.ID).Select(u => u.ConfirmationNumber.Length).Take(1).SingleOrDefault(),
-
-
 
                         productDetails = (from wol in _db.tbl_PS_WorkOrderLine
                                           join pro in _db.tbl_Product_Table
@@ -155,6 +121,7 @@ namespace USPS_Report.Areas.Reports.Models
                                           {
                                               Product = pro.ProductCode,
                                               Description = pro.ProductDescription,
+                                              //ProductId= wol.ID_Product,
                                               Ordered = wol.QtyOrdered,
                                               Shipped = wol.QtyShipped,
                                               UOM = uom.UOMName + " of " + pro.PerUnitQty,
@@ -287,6 +254,65 @@ namespace USPS_Report.Areas.Reports.Models
 
                     foreach (var item in _list)
                     {
+                        RMAProduct obj;
+                        List<RMAProduct> lstRMAProduct = new List<RMAProduct>();
+                        try
+                        {
+                            string _conn = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ConnectionString;
+                            OleDbConnection myConnection = new OleDbConnection(_conn);
+                            String query = string.Empty;
+                            myConnection.Open();
+                            query = @"SELECT   rma_sh.order_number return_order_number,
+msib.attribute2 ordered_item_HDMS,rma_sl.ordered_item,
+           rma_sh.creation_date,
+           SUM (rma_sl.ORDERED_QUANTITY * rma_sl.UNIT_SELLING_PRICE)
+              ""Extended_Price"",
+           r_sh.order_number sales_order_number,
+           r_sh.creation_date,
+           SUM(r_sl.ORDERED_QUANTITY * r_sl.UNIT_SELLING_PRICE)
+              ""Extended_Price""
+    FROM OE_ORDER_LINES_ALL rma_sl,
+           OE_ORDER_HEADERS_ALL rma_sh,
+           oe_order_lines_all r_sl,
+           oe_order_headers_all r_sh,
+           mtl_system_items_b msib
+   WHERE rma_sl.header_id = rma_sh.header_id
+           AND r_sh.order_number = " + item.WorkOrderID + @"
+           AND rma_sh.order_category_code = 'RETURN'
+           AND r_sl.header_id = r_sh.header_id
+           AND rma_sl.reference_line_id = r_sl.line_id
+           and msib.organization_id = 92
+           and msib.segment1 = rma_sl.ordered_item
+GROUP BY   rma_sh.order_number,msib.attribute2,rma_sl.ordered_item,
+           r_sh.order_number,
+           rma_sh.creation_date,
+           r_sh.creation_date
+ORDER BY r_sh.creation_date DESC
+";
+                            OleDbCommand myCommand = new OleDbCommand(query, myConnection);
+                            OleDbDataReader reader = myCommand.ExecuteReader();
+                            
+                            while (reader.Read())
+                            {
+                                obj = new RMAProduct();
+                                obj.ReturnOrderNumber = GetSafeData.GetSafeInt(reader.GetValue(0));
+                                obj.ProductCode = GetSafeData.GetSafeString(reader.GetValue(1));
+                                obj.OrderNumber = GetSafeData.GetSafeInt(reader.GetValue(5));
+                                lstRMAProduct.Add(obj);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            lstRMAProduct = new List<RMAProduct>();
+                        }
+                        
+                        item.Status = lstRMAProduct.Count>0? "<strong>Return/RMA</strong>" : item.Status;
+                        foreach(ProductDetails product in item.productDetails)
+                        {
+                            product.isLineRMAdone = lstRMAProduct.Count>0? lstRMAProduct.Any(t => t.ProductCode == product.Product):false;
+                        }
+                        
+                           
                         StringBuilder _str = new StringBuilder();
                         IList<HistoryList> _historyList = new List<HistoryList>();
                         _historyList = item.historylist;
@@ -424,6 +450,58 @@ namespace USPS_Report.Areas.Reports.Models
             }
 
 
+        }
+        public static bool isRMAdone(int wo)
+        {
+            string _conn = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ConnectionString;
+            OleDbConnection myConnection = new OleDbConnection(_conn);
+            String query = string.Empty;
+            myConnection.Open();
+            query = @"SELECT   rma_sh.order_number return_order_number,
+msib.attribute2 ordered_item_HDMS,rma_sl.ordered_item,
+           rma_sh.creation_date,
+           SUM (rma_sl.ORDERED_QUANTITY * rma_sl.UNIT_SELLING_PRICE)
+              ""Extended_Price"",
+           r_sh.order_number sales_order_number,
+           r_sh.creation_date,
+           SUM(r_sl.ORDERED_QUANTITY * r_sl.UNIT_SELLING_PRICE)
+              ""Extended_Price""
+    FROM OE_ORDER_LINES_ALL rma_sl,
+           OE_ORDER_HEADERS_ALL rma_sh,
+           oe_order_lines_all r_sl,
+           oe_order_headers_all r_sh,
+           mtl_system_items_b msib
+   WHERE rma_sl.header_id = rma_sh.header_id
+           AND r_sh.order_number = "+wo+@"
+           AND rma_sh.order_category_code = 'RETURN'
+           AND r_sl.header_id = r_sh.header_id
+           AND rma_sl.reference_line_id = r_sl.line_id
+           and msib.organization_id = 92
+           and msib.segment1 = rma_sl.ordered_item
+GROUP BY   rma_sh.order_number,msib.attribute2,rma_sl.ordered_item,
+           r_sh.order_number,
+           rma_sh.creation_date,
+           r_sh.creation_date
+ORDER BY r_sh.creation_date DESC
+";
+            OleDbCommand myCommand = new OleDbCommand(query, myConnection);
+            OleDbDataReader reader = myCommand.ExecuteReader();
+            RMAProduct obj;
+            List<RMAProduct> lstRMAProduct = new List<RMAProduct>();
+            while (reader.Read())
+            {
+                obj = new RMAProduct();
+                obj.ReturnOrderNumber = GetSafeData.GetSafeInt(reader.GetValue(0));
+                obj.ProductCode= GetSafeData.GetSafeString(reader.GetValue(1));
+                obj.OrderNumber= GetSafeData.GetSafeInt(reader.GetValue(5));
+                lstRMAProduct.Add(obj);
+            }
+            if (lstRMAProduct.Count > 0)
+            {
+                return true;
+            }
+            else
+            return false;
         }
 
         public static bool isFailedToInterface(int? account, int wo)
@@ -718,6 +796,7 @@ Failed Reason
                                           {
                                               Product = pro.ProductCode,
                                               Description = pro.ProductDescription,
+                                              //ProductId= wol.ID_Product,
                                               Ordered = wol.QtyOrdered,
                                               Shipped = wol.QtyShipped,
                                               UOM = uom.UOMName + " of " + pro.PerUnitQty,
@@ -1303,12 +1382,20 @@ Failed Reason
         public string NoteCreatedBy { get; set; }
     }
 
+    public class RMAProduct
+    {
+        public int OrderNumber { get; set; }
+        public int ReturnOrderNumber { get; set; }
+        public string ProductCode { get; set; }
+    }
+
     public class ProductDetails
     {
+        public bool isLineRMAdone { get; set; }
         public int lineId { get; set; }
         public string Product { get; set; }
         public string Description { get; set; }
-
+        //public int? ProductId { get; set; }
         public decimal? UnitPRice { get; set; }
         public double? UnitWeight { get; set; }
 
