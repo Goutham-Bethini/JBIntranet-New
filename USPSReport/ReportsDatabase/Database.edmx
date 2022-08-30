@@ -286,6 +286,9 @@ warning 6002: The table/view 'HHSQLDB.dbo.QuantityOnHand' does not have a primar
           <Property Name="Last_Updated_Date" Type="datetime" />
           <Property Name="Last_Updated_User" Type="int" />
           <Property Name="PreferredContactMethod" Type="smallint" />
+          <Property Name="HospitalAdminDate" Type="datetime" />
+          <Property Name="HospitalDischargeDate" Type="datetime" />
+          <Property Name="HospitalRoomNumber" Type="varchar" MaxLength="12" />
         </EntityType>
         <EntityType Name="tbl_Account_Insurance">
           <Key>
@@ -476,6 +479,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.QuantityOnHand' does not have a primar
           <Property Name="FullName" Type="varchar" MaxLength="111" StoreGeneratedPattern="Computed" />
           <Property Name="ID_Diet" Type="int" />
           <Property Name="MedicalHistory" Type="varchar" MaxLength="2048" />
+          <Property Name="ID_Ethnicity" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -515,7 +519,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Note" Type="int" />
           <Property Name="NoteDate" Type="datetime" />
-          <Property Name="NoteText" Type="varchar" MaxLength="7500" />
+          <Property Name="NoteText" Type="varchar(max)" />
           <Property Name="ID_Operator" Type="int" />
           <Property Name="Tag" Type="int" />
           <Property Name="PSR_ID" Type="int" />
@@ -660,6 +664,8 @@ warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not
           <Property Name="UB_90" Type="smallint" />
           <Property Name="UB_92" Type="smallint" />
           <Property Name="ReadyByUserToSubmit" Type="smallint" />
+          <Property Name="UB_3" Type="smallint" />
+          <Property Name="UB_46" Type="smallint" />
         </EntityType>
         <EntityType Name="tbl_Clinical_Assessments">
           <Key>
@@ -1002,6 +1008,8 @@ warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not
           <Property Name="Prev_ID_UOM" Type="int" />
           <Property Name="Prev_UOMCount" Type="smallint" />
           <Property Name="Prev_UOMCost" Type="money" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ID_CreatedBy" Type="int" />
         </EntityType>
         <EntityType Name="tbl_MassCancel_History">
           <Key>
@@ -1299,18 +1307,18 @@ warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not
           <Property Name="EN_FoodHCPC1" Type="varchar" MaxLength="6" />
           <Property Name="EN_FoodHCPC2" Type="varchar" MaxLength="6" />
           <Property Name="SubmitEDIAsOldDMERCFormat" Type="smallint" />
-          <Property Name="EqCost1Note" Type="varchar" MaxLength="60" />
-          <Property Name="EqCost2Note" Type="varchar" MaxLength="60" />
-          <Property Name="EqCost3Note" Type="varchar" MaxLength="60" />
-          <Property Name="EqCost4Note" Type="varchar" MaxLength="60" />
-          <Property Name="EqCost5Note" Type="varchar" MaxLength="60" />
-          <Property Name="EqCost6Note" Type="varchar" MaxLength="60" />
-          <Property Name="EqCost7Note" Type="varchar" MaxLength="60" />
-          <Property Name="EqCost8Note" Type="varchar" MaxLength="60" />
-          <Property Name="EqCost9Note" Type="varchar" MaxLength="60" />
-          <Property Name="EqCost10Note" Type="varchar" MaxLength="60" />
-          <Property Name="EqCost11Note" Type="varchar" MaxLength="60" />
-          <Property Name="EqCost12Note" Type="varchar" MaxLength="60" />
+          <Property Name="EqCost1Note" Type="varchar" MaxLength="255" />
+          <Property Name="EqCost2Note" Type="varchar" MaxLength="255" />
+          <Property Name="EqCost3Note" Type="varchar" MaxLength="255" />
+          <Property Name="EqCost4Note" Type="varchar" MaxLength="255" />
+          <Property Name="EqCost5Note" Type="varchar" MaxLength="255" />
+          <Property Name="EqCost6Note" Type="varchar" MaxLength="255" />
+          <Property Name="EqCost7Note" Type="varchar" MaxLength="255" />
+          <Property Name="EqCost8Note" Type="varchar" MaxLength="255" />
+          <Property Name="EqCost9Note" Type="varchar" MaxLength="255" />
+          <Property Name="EqCost10Note" Type="varchar" MaxLength="255" />
+          <Property Name="EqCost11Note" Type="varchar" MaxLength="255" />
+          <Property Name="EqCost12Note" Type="varchar" MaxLength="255" />
           <Property Name="EqCost1IDFreq" Type="int" />
           <Property Name="EqCost2IDFreq" Type="int" />
           <Property Name="EqCost3IDFreq" Type="int" />
@@ -1364,6 +1372,21 @@ warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not
           <Property Name="PhysicianOrderType" Type="smallint" />
           <Property Name="PharmacyRxCompoundType" Type="smallint" />
           <Property Name="NursingDocumentType" Type="smallint" />
+          <Property Name="DefaultHCPC5" Type="varchar" MaxLength="6" />
+          <Property Name="DefaultHCPC6" Type="varchar" MaxLength="6" />
+          <Property Name="DefaultHCPC7" Type="varchar" MaxLength="6" />
+          <Property Name="DefaultHCPC8" Type="varchar" MaxLength="6" />
+          <Property Name="DefaultHCPC9" Type="varchar" MaxLength="6" />
+          <Property Name="DefaultHCPC10" Type="varchar" MaxLength="6" />
+          <Property Name="DefaultHCPC11" Type="varchar" MaxLength="6" />
+          <Property Name="DefaultHCPC12" Type="varchar" MaxLength="6" />
+          <Property Name="PharmacyRxFactorType" Type="smallint" />
+          <Property Name="PharmacyRxTrackByDoses" Type="smallint" />
+          <Property Name="PharmacyRxLabelSize" Type="smallint" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ID_CreatedBy" Type="int" />
+          <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="ID_DeletedBy" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Name_Frequency">
           <Key>
@@ -1794,7 +1817,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not
           <Property Name="ID_MaintPM" Type="int" />
           <Property Name="SearchDisplayColor" Type="smallint" />
           <Property Name="D_MS_PNID" Type="varchar" MaxLength="32" />
-          <Property Name="D_PkgDrugName" Type="varchar" MaxLength="80" />
+          <Property Name="D_PkgDrugName" Type="varchar" MaxLength="255" />
           <Property Name="D_GenericName" Type="varchar" MaxLength="80" />
           <Property Name="D_Strength" Type="varchar" MaxLength="16" />
           <Property Name="D_StrengthUOM" Type="varchar" MaxLength="32" />
@@ -2074,6 +2097,8 @@ warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not
           <Property Name="ID_AssignedToWhse_By" Type="int" />
           <Property Name="DeliveryRouteAssigned_Date" Type="datetime" />
           <Property Name="ID_DeliveryRouteAssigned_By" Type="int" />
+          <Property Name="RxDrug_MovedToFill_By" Type="int" />
+          <Property Name="WO_Insight_User" Type="int" />
         </EntityType>
         <EntityType Name="tbl_PS_WorkOrderLine">
           <Key>
@@ -2142,11 +2167,10 @@ warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not
           <Property Name="DoNotBillProductMacroComponent" Type="smallint" />
           <Property Name="D_CalcUnitCost" Type="money" />
           <Property Name="D_MS_PNID" Type="varchar" MaxLength="32" />
-          <Property Name="D_PkgDrugName" Type="varchar" MaxLength="80" />
+          <Property Name="D_PkgDrugName" Type="varchar" MaxLength="255" />
           <Property Name="D_NumberOfLabels" Type="smallint" />
           <Property Name="D_DosesPerDay" Type="smallint" />
           <Property Name="D_TotalDaysSupply" Type="smallint" />
-          <Property Name="d_cmp_DosesPerBag_old" Type="smallint" />
           <Property Name="D_Cmp_NumberOfBags" Type="smallint" />
           <Property Name="ProcedureCodeOverride" Type="varchar" MaxLength="12" />
           <Property Name="WasAutoCreatedFromOutReach" Type="smallint" />
@@ -2225,6 +2249,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.tbl_Account_Member_Insurance' does not
           <Property Name="RentalTerminationDate" Type="datetime" />
           <Property Name="ID_RxNumber" Type="int" />
           <Property Name="D_NextCompoundDate" Type="datetime" />
+          <Property Name="D_DosesPerContainer" Type="smallint" />
         </EntityType>
         <EntityType Name="tbl_Referral_Source_Table">
           <Key>
@@ -2733,9 +2758,9 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <EntitySet Name="tbl_Account_Member_Insurance" EntityType="HHSQLDBModel.tbl_Account_Member_Insurance" />
           <EntitySet Name="tbl_AssessmentDue_Attempts" EntityType="HHSQLDBModel.tbl_AssessmentDue_Attempts" />
           <EntitySet Name="tbl_Payer_Table" EntityType="HHSQLDBModel.tbl_Payer_Table" />
-          <EntitySet Name="tbl_PS_WorkOrderLine" EntityType="HHSQLDBModel.tbl_PS_WorkOrderLine" />
           <EntitySet Name="tbl_PS_WorkOrder" EntityType="HHSQLDBModel.tbl_PS_WorkOrder" />
           <EntitySet Name="tbl_MassCancel_History" EntityType="HHSQLDBModel.tbl_MassCancel_History" />
+          <EntitySet Name="tbl_PS_WorkOrderLine" EntityType="HHSQLDBModel.tbl_PS_WorkOrderLine" />
         </EntityContainer>
         <EntityType Name="JBCCServiceProductLine">
           <Key>
@@ -3032,6 +3057,8 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="Prev_ID_UOM" Type="Int32" />
           <Property Name="Prev_UOMCount" Type="Int16" />
           <Property Name="Prev_UOMCost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ID_CreatedBy" Type="Int32" />
         </EntityType>
         <EntityType Name="ClaimsToSubmit">
           <Key>
@@ -3200,6 +3227,21 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="PhysicianOrderType" Type="Int16" />
           <Property Name="PharmacyRxCompoundType" Type="Int16" />
           <Property Name="NursingDocumentType" Type="Int16" />
+          <Property Name="DefaultHCPC5" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="DefaultHCPC6" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="DefaultHCPC7" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="DefaultHCPC8" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="DefaultHCPC9" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="DefaultHCPC10" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="DefaultHCPC11" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="DefaultHCPC12" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="PharmacyRxFactorType" Type="Int16" />
+          <Property Name="PharmacyRxTrackByDoses" Type="Int16" />
+          <Property Name="PharmacyRxLabelSize" Type="Int16" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ID_CreatedBy" Type="Int32" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="ID_DeletedBy" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_Procedure_Groups_Table">
           <Key>
@@ -3594,6 +3636,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="FullName" Type="String" MaxLength="111" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="ID_Diet" Type="Int32" />
           <Property Name="MedicalHistory" Type="String" MaxLength="2048" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Ethnicity" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_Account_Information">
           <Key>
@@ -3633,6 +3676,9 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="Last_Updated_Date" Type="DateTime" Precision="3" />
           <Property Name="Last_Updated_User" Type="Int32" />
           <Property Name="PreferredContactMethod" Type="Int16" />
+          <Property Name="HospitalAdminDate" Type="DateTime" Precision="3" />
+          <Property Name="HospitalDischargeDate" Type="DateTime" Precision="3" />
+          <Property Name="HospitalRoomNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="FedExLogins">
           <Key>
@@ -3656,7 +3702,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_Note" Type="Int32" />
           <Property Name="NoteDate" Type="DateTime" Precision="3" />
-          <Property Name="NoteText" Type="String" MaxLength="7500" FixedLength="false" Unicode="false" />
+          <Property Name="NoteText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ID_Operator" Type="Int32" />
           <Property Name="Tag" Type="Int32" />
           <Property Name="PSR_ID" Type="Int32" />
@@ -3721,6 +3767,8 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="UB_90" Type="Int16" />
           <Property Name="UB_92" Type="Int16" />
           <Property Name="ReadyByUserToSubmit" Type="Int16" />
+          <Property Name="UB_3" Type="Int16" />
+          <Property Name="UB_46" Type="Int16" />
         </EntityType>
         <EntityType Name="tbl_Encounters">
           <Key>
@@ -4329,18 +4377,18 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="EN_FoodHCPC1" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="EN_FoodHCPC2" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="SubmitEDIAsOldDMERCFormat" Type="Int16" />
-          <Property Name="EqCost1Note" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="EqCost2Note" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="EqCost3Note" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="EqCost4Note" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="EqCost5Note" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="EqCost6Note" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="EqCost7Note" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="EqCost8Note" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="EqCost9Note" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="EqCost10Note" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="EqCost11Note" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="EqCost12Note" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="EqCost1Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EqCost2Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EqCost3Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EqCost4Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EqCost5Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EqCost6Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EqCost7Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EqCost8Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EqCost9Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EqCost10Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EqCost11Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EqCost12Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="EqCost1IDFreq" Type="Int32" />
           <Property Name="EqCost2IDFreq" Type="Int32" />
           <Property Name="EqCost3IDFreq" Type="Int32" />
@@ -4549,7 +4597,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="ID_MaintPM" Type="Int32" />
           <Property Name="SearchDisplayColor" Type="Int16" />
           <Property Name="D_MS_PNID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="D_PkgDrugName" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="D_PkgDrugName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="D_GenericName" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Name="D_Strength" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
           <Property Name="D_StrengthUOM" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
@@ -4830,157 +4878,6 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="DoNotAutoconfirmWorkOrders" Type="Int16" />
           <Property Name="SpanDateOnSingleDrug" Type="Int16" />
         </EntityType>
-        <EntityType Name="tbl_PS_WorkOrderLine">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Account" Type="Int32" Nullable="false" />
-          <Property Name="ID_PlanOfService" Type="Int32" Nullable="false" />
-          <Property Name="ID_PS_WorkOrder" Type="Int32" Nullable="false" />
-          <Property Name="WorkOrderType" Type="Int16" Nullable="false" />
-          <Property Name="ID_RxDoctor" Type="Int32" />
-          <Property Name="ID_CMN" Type="Int32" />
-          <Property Name="ID_PAPrimary" Type="Int32" />
-          <Property Name="ID_PASecondary" Type="Int32" />
-          <Property Name="ID_Billing_Code" Type="Int32" />
-          <Property Name="ID_Product" Type="Int32" />
-          <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="QtyOrdered" Type="Int32" />
-          <Property Name="QtyShipped" Type="Int32" />
-          <Property Name="QtyBackOrdered" Type="Int32" />
-          <Property Name="UnitQty" Type="Int16" />
-          <Property Name="SalesTaxExempt" Type="Boolean" Nullable="false" />
-          <Property Name="SizeComment" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="ItemNote" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ItemType" Type="Int16" />
-          <Property Name="Frequency" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="ManufacturerSerialNumber" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="SerialNumber" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="ID_Item" Type="Int32" />
-          <Property Name="ID_Pickup_Reason" Type="Int32" />
-          <Property Name="ID_ProductExchange" Type="Int32" />
-          <Property Name="SerialNumberExchange" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="OxygenHours" Type="Int32" />
-          <Property Name="HCPC" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="Modifier1" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="Modifier2" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="Modifier3" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="Modifier4" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="PlannedIDPayer" Type="Int32" />
-          <Property Name="HistoryNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Tag" Type="Int32" />
-          <Property Name="ApprovedForBilling" Type="Boolean" />
-          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
-          <Property Name="ID_DeletedBy" Type="Int32" />
-          <Property Name="EDIConfirmationNumber" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
-          <Property Name="EDIImageLastPrintDate" Type="DateTime" Precision="3" />
-          <Property Name="ID_OrigWOLineFromBO" Type="Int32" />
-          <Property Name="LineNarrative" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="ID_QuoteLine" Type="Int32" />
-          <Property Name="PN_Unit_COGS" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PN_ID_Vendor" Type="Int32" />
-          <Property Name="PN_Unit_ContractAllowable" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PN_Unit_ContractCostPlusPercent" Type="Double" />
-          <Property Name="PN_Unit_ContractCostPlusRule" Type="Int16" />
-          <Property Name="PN_Unit_ContractPrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="RepeatNarrativeForRentals" Type="Int16" />
-          <Property Name="PN_Unit_ContractRetailPlusPercent" Type="Double" />
-          <Property Name="QtyShippedTotal" Type="Int32" />
-          <Property Name="CalculatedUnitCoPay" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="CoPayPaymentAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="OxygenMonthsSupply" Type="Int16" />
-          <Property Name="OriginalUnitPrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ID_AutoClaimHoldReason" Type="Int32" />
-          <Property Name="DoNotRemoveFromStock" Type="Int16" />
-          <Property Name="ProductMacroComponent" Type="Int16" />
-          <Property Name="DoNotBillProductMacroComponent" Type="Int16" />
-          <Property Name="D_CalcUnitCost" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="D_MS_PNID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="D_PkgDrugName" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="D_NumberOfLabels" Type="Int16" />
-          <Property Name="D_DosesPerDay" Type="Int16" />
-          <Property Name="D_TotalDaysSupply" Type="Int16" />
-          <Property Name="d_cmp_DosesPerBag_old" Type="Int16" />
-          <Property Name="D_Cmp_NumberOfBags" Type="Int16" />
-          <Property Name="ProcedureCodeOverride" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="WasAutoCreatedFromOutReach" Type="Int16" />
-          <Property Name="D_PrintSyringeLabel" Type="Int16" />
-          <Property Name="D_UsedAsIfPrimaryTherapy" Type="Int16" />
-          <Property Name="ID_EstLine" Type="Int32" />
-          <Property Name="D_Cmp_DrugUnitPrice" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="D_RxDrug_Fill_StableUntilDate" Type="DateTime" Precision="3" />
-          <Property Name="StateTaxRate" Type="Double" />
-          <Property Name="StateTaxAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="CountyTaxRate" Type="Double" />
-          <Property Name="CountyTaxAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="CityTaxRate" Type="Double" />
-          <Property Name="CityTaxAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="StateCopayTaxRate" Type="Double" />
-          <Property Name="StateCopayTaxAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="CountyCopayTaxRate" Type="Double" />
-          <Property Name="CountyCopayTaxAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="CityCopayTaxRate" Type="Double" />
-          <Property Name="CityCopayTaxAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="D_DoseScheduleDay1" Type="Int16" />
-          <Property Name="D_DoseScheduleDay2" Type="Int16" />
-          <Property Name="D_DoseScheduleDay3" Type="Int16" />
-          <Property Name="D_DoseScheduleDay4" Type="Int16" />
-          <Property Name="D_DoseScheduleDay5" Type="Int16" />
-          <Property Name="D_DoseScheduleDay6" Type="Int16" />
-          <Property Name="D_DoseScheduleDay7" Type="Int16" />
-          <Property Name="ID_DiscountPlan" Type="Int32" />
-          <Property Name="CalcUnitPriceDiscount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="D_ID_Adjudicate_Submit" Type="Int32" />
-          <Property Name="D_ID_Adjudicate_Respond" Type="Int32" />
-          <Property Name="D_DrugEntryType" Type="Int16" />
-          <Property Name="D_TPNOrderedAdminVol_ml" Type="Double" />
-          <Property Name="D_TPNOverfillVol_ml" Type="Double" />
-          <Property Name="D_TPNLipidsIndicator" Type="Int16" />
-          <Property Name="D_TPNAdditivePool" Type="Int16" />
-          <Property Name="D_TPNOverfillPercent" Type="Double" />
-          <Property Name="D_TPNInfusionDurationHrs" Type="Double" />
-          <Property Name="D_TPNTaperUpHrs" Type="Double" />
-          <Property Name="D_TPNTaperDownHrs" Type="Double" />
-          <Property Name="D_TPNQSWithWaterAdditive" Type="Int16" />
-          <Property Name="D_TPNQSWithWaterLipids" Type="Int16" />
-          <Property Name="D_TPN_Calc_KCal_Protein" Type="Int16" />
-          <Property Name="D_TPN_Calc_KCal_Carbohydrates" Type="Int16" />
-          <Property Name="D_TPN_Calc_KCal_Fat" Type="Int16" />
-          <Property Name="Compliance_DeviceCode" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
-          <Property Name="D_DispensedPkgQty" Type="Int16" />
-          <Property Name="QtyToBillOverride" Type="Double" />
-          <Property Name="NWA_OrderLineID" Type="Int32" />
-          <Property Name="D_ID_Adjudicate_RespondReject" Type="Int32" />
-          <Property Name="D_DispensingFee" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="HDMSMobileConfirmDate" Type="DateTime" Precision="3" />
-          <Property Name="D_TPN_CompounderFileCreateDate" Type="DateTime" Precision="3" />
-          <Property Name="D_TPN_CompounderFileCreatedByID" Type="Int32" />
-          <Property Name="D_ClaimClarificationCode" Type="Int16" />
-          <Property Name="D_TPNAdditiveVol_ml" Type="Double" />
-          <Property Name="D_DIScreenBypassDate" Type="DateTime" Precision="3" />
-          <Property Name="D_DIScreenBypassBy_ID" Type="Int32" />
-          <Property Name="D_ClaimClarificationCode2" Type="Int16" />
-          <Property Name="D_ClaimClarificationCode3" Type="Int16" />
-          <Property Name="HDMSMobileItemLoaded" Type="Int16" />
-          <Property Name="D_DrugQty" Type="Double" />
-          <Property Name="D_TPN_DosingWeight" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="D_TPN_rPH_Approval_1_Date" Type="DateTime" Precision="3" />
-          <Property Name="D_TPN_rPH_Approval_1_IDOperator" Type="Int32" />
-          <Property Name="D_TPN_rPH_Approval_2_Date" Type="DateTime" Precision="3" />
-          <Property Name="D_TPN_rPH_Approval_2_IDOperator" Type="Int32" />
-          <Property Name="D_TPN_TotalProteins" Type="Double" />
-          <Property Name="D_TPN_TotalCarbohydrates" Type="Double" />
-          <Property Name="D_TPN_TotalLipids" Type="Double" />
-          <Property Name="D_TPN_TotalAminoAcidPercent" Type="Double" />
-          <Property Name="D_TPN_TotalCarbohydratePercent" Type="Double" />
-          <Property Name="D_TPN_DosingComment" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
-          <Property Name="D_TotalDoses" Type="Int32" />
-          <Property Name="D_TotalAdminDays" Type="Int16" />
-          <Property Name="RentalTerminationDate" Type="DateTime" Precision="3" />
-          <Property Name="ID_RxNumber" Type="Int32" />
-          <Property Name="D_NextCompoundDate" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="tbl_PS_WorkOrder">
           <Key>
             <PropertyRef Name="ID" />
@@ -5110,6 +5007,8 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="ID_AssignedToWhse_By" Type="Int32" />
           <Property Name="DeliveryRouteAssigned_Date" Type="DateTime" Precision="3" />
           <Property Name="ID_DeliveryRouteAssigned_By" Type="Int32" />
+          <Property Name="RxDrug_MovedToFill_By" Type="Int32" />
+          <Property Name="WO_Insight_User" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_MassCancel_History">
           <Key>
@@ -5120,6 +5019,157 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <Property Name="ActionBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="ActionDate" Type="DateTime" Precision="3" />
           <Property Name="CancelNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_PS_WorkOrderLine">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="Int32" Nullable="false" />
+          <Property Name="ID_PlanOfService" Type="Int32" Nullable="false" />
+          <Property Name="ID_PS_WorkOrder" Type="Int32" Nullable="false" />
+          <Property Name="WorkOrderType" Type="Int16" Nullable="false" />
+          <Property Name="ID_RxDoctor" Type="Int32" />
+          <Property Name="ID_CMN" Type="Int32" />
+          <Property Name="ID_PAPrimary" Type="Int32" />
+          <Property Name="ID_PASecondary" Type="Int32" />
+          <Property Name="ID_Billing_Code" Type="Int32" />
+          <Property Name="ID_Product" Type="Int32" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="QtyOrdered" Type="Int32" />
+          <Property Name="QtyShipped" Type="Int32" />
+          <Property Name="QtyBackOrdered" Type="Int32" />
+          <Property Name="UnitQty" Type="Int16" />
+          <Property Name="SalesTaxExempt" Type="Boolean" Nullable="false" />
+          <Property Name="SizeComment" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="ItemNote" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ItemType" Type="Int16" />
+          <Property Name="Frequency" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ManufacturerSerialNumber" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Item" Type="Int32" />
+          <Property Name="ID_Pickup_Reason" Type="Int32" />
+          <Property Name="ID_ProductExchange" Type="Int32" />
+          <Property Name="SerialNumberExchange" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="OxygenHours" Type="Int32" />
+          <Property Name="HCPC" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Modifier1" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Modifier2" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Modifier3" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Modifier4" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="PlannedIDPayer" Type="Int32" />
+          <Property Name="HistoryNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Tag" Type="Int32" />
+          <Property Name="ApprovedForBilling" Type="Boolean" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="ID_DeletedBy" Type="Int32" />
+          <Property Name="EDIConfirmationNumber" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="EDIImageLastPrintDate" Type="DateTime" Precision="3" />
+          <Property Name="ID_OrigWOLineFromBO" Type="Int32" />
+          <Property Name="LineNarrative" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="ID_QuoteLine" Type="Int32" />
+          <Property Name="PN_Unit_COGS" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PN_ID_Vendor" Type="Int32" />
+          <Property Name="PN_Unit_ContractAllowable" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PN_Unit_ContractCostPlusPercent" Type="Double" />
+          <Property Name="PN_Unit_ContractCostPlusRule" Type="Int16" />
+          <Property Name="PN_Unit_ContractPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RepeatNarrativeForRentals" Type="Int16" />
+          <Property Name="PN_Unit_ContractRetailPlusPercent" Type="Double" />
+          <Property Name="QtyShippedTotal" Type="Int32" />
+          <Property Name="CalculatedUnitCoPay" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CoPayPaymentAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OxygenMonthsSupply" Type="Int16" />
+          <Property Name="OriginalUnitPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ID_AutoClaimHoldReason" Type="Int32" />
+          <Property Name="DoNotRemoveFromStock" Type="Int16" />
+          <Property Name="ProductMacroComponent" Type="Int16" />
+          <Property Name="DoNotBillProductMacroComponent" Type="Int16" />
+          <Property Name="D_CalcUnitCost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="D_MS_PNID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="D_PkgDrugName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="D_NumberOfLabels" Type="Int16" />
+          <Property Name="D_DosesPerDay" Type="Int16" />
+          <Property Name="D_TotalDaysSupply" Type="Int16" />
+          <Property Name="D_Cmp_NumberOfBags" Type="Int16" />
+          <Property Name="ProcedureCodeOverride" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="WasAutoCreatedFromOutReach" Type="Int16" />
+          <Property Name="D_PrintSyringeLabel" Type="Int16" />
+          <Property Name="D_UsedAsIfPrimaryTherapy" Type="Int16" />
+          <Property Name="ID_EstLine" Type="Int32" />
+          <Property Name="D_Cmp_DrugUnitPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="D_RxDrug_Fill_StableUntilDate" Type="DateTime" Precision="3" />
+          <Property Name="StateTaxRate" Type="Double" />
+          <Property Name="StateTaxAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CountyTaxRate" Type="Double" />
+          <Property Name="CountyTaxAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CityTaxRate" Type="Double" />
+          <Property Name="CityTaxAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="StateCopayTaxRate" Type="Double" />
+          <Property Name="StateCopayTaxAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CountyCopayTaxRate" Type="Double" />
+          <Property Name="CountyCopayTaxAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CityCopayTaxRate" Type="Double" />
+          <Property Name="CityCopayTaxAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="D_DoseScheduleDay1" Type="Int16" />
+          <Property Name="D_DoseScheduleDay2" Type="Int16" />
+          <Property Name="D_DoseScheduleDay3" Type="Int16" />
+          <Property Name="D_DoseScheduleDay4" Type="Int16" />
+          <Property Name="D_DoseScheduleDay5" Type="Int16" />
+          <Property Name="D_DoseScheduleDay6" Type="Int16" />
+          <Property Name="D_DoseScheduleDay7" Type="Int16" />
+          <Property Name="ID_DiscountPlan" Type="Int32" />
+          <Property Name="CalcUnitPriceDiscount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="D_ID_Adjudicate_Submit" Type="Int32" />
+          <Property Name="D_ID_Adjudicate_Respond" Type="Int32" />
+          <Property Name="D_DrugEntryType" Type="Int16" />
+          <Property Name="D_TPNOrderedAdminVol_ml" Type="Double" />
+          <Property Name="D_TPNOverfillVol_ml" Type="Double" />
+          <Property Name="D_TPNLipidsIndicator" Type="Int16" />
+          <Property Name="D_TPNAdditivePool" Type="Int16" />
+          <Property Name="D_TPNOverfillPercent" Type="Double" />
+          <Property Name="D_TPNInfusionDurationHrs" Type="Double" />
+          <Property Name="D_TPNTaperUpHrs" Type="Double" />
+          <Property Name="D_TPNTaperDownHrs" Type="Double" />
+          <Property Name="D_TPNQSWithWaterAdditive" Type="Int16" />
+          <Property Name="D_TPNQSWithWaterLipids" Type="Int16" />
+          <Property Name="D_TPN_Calc_KCal_Protein" Type="Int16" />
+          <Property Name="D_TPN_Calc_KCal_Carbohydrates" Type="Int16" />
+          <Property Name="D_TPN_Calc_KCal_Fat" Type="Int16" />
+          <Property Name="Compliance_DeviceCode" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
+          <Property Name="D_DispensedPkgQty" Type="Int16" />
+          <Property Name="QtyToBillOverride" Type="Double" />
+          <Property Name="NWA_OrderLineID" Type="Int32" />
+          <Property Name="D_ID_Adjudicate_RespondReject" Type="Int32" />
+          <Property Name="D_DispensingFee" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="HDMSMobileConfirmDate" Type="DateTime" Precision="3" />
+          <Property Name="D_TPN_CompounderFileCreateDate" Type="DateTime" Precision="3" />
+          <Property Name="D_TPN_CompounderFileCreatedByID" Type="Int32" />
+          <Property Name="D_ClaimClarificationCode" Type="Int16" />
+          <Property Name="D_TPNAdditiveVol_ml" Type="Double" />
+          <Property Name="D_DIScreenBypassDate" Type="DateTime" Precision="3" />
+          <Property Name="D_DIScreenBypassBy_ID" Type="Int32" />
+          <Property Name="D_ClaimClarificationCode2" Type="Int16" />
+          <Property Name="D_ClaimClarificationCode3" Type="Int16" />
+          <Property Name="HDMSMobileItemLoaded" Type="Int16" />
+          <Property Name="D_DrugQty" Type="Double" />
+          <Property Name="D_TPN_DosingWeight" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="D_TPN_rPH_Approval_1_Date" Type="DateTime" Precision="3" />
+          <Property Name="D_TPN_rPH_Approval_1_IDOperator" Type="Int32" />
+          <Property Name="D_TPN_rPH_Approval_2_Date" Type="DateTime" Precision="3" />
+          <Property Name="D_TPN_rPH_Approval_2_IDOperator" Type="Int32" />
+          <Property Name="D_TPN_TotalProteins" Type="Double" />
+          <Property Name="D_TPN_TotalCarbohydrates" Type="Double" />
+          <Property Name="D_TPN_TotalLipids" Type="Double" />
+          <Property Name="D_TPN_TotalAminoAcidPercent" Type="Double" />
+          <Property Name="D_TPN_TotalCarbohydratePercent" Type="Double" />
+          <Property Name="D_TPN_DosingComment" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="D_TotalDoses" Type="Int32" />
+          <Property Name="D_TotalAdminDays" Type="Int16" />
+          <Property Name="RentalTerminationDate" Type="DateTime" Precision="3" />
+          <Property Name="ID_RxNumber" Type="Int32" />
+          <Property Name="D_NextCompoundDate" Type="DateTime" Precision="3" />
+          <Property Name="D_DosesPerContainer" Type="Int16" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5405,6 +5455,8 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <EntitySetMapping Name="tbl_Inv_VendorProduct_Table">
             <EntityTypeMapping TypeName="HHSQLDBModel.tbl_Inv_VendorProduct_Table">
               <MappingFragment StoreEntitySet="tbl_Inv_VendorProduct_Table">
+                <ScalarProperty Name="ID_CreatedBy" ColumnName="ID_CreatedBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="Prev_UOMCost" ColumnName="Prev_UOMCost" />
                 <ScalarProperty Name="Prev_UOMCount" ColumnName="Prev_UOMCount" />
                 <ScalarProperty Name="Prev_ID_UOM" ColumnName="Prev_ID_UOM" />
@@ -5556,6 +5608,21 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <EntitySetMapping Name="tbl_MedDoc_Type_Table">
             <EntityTypeMapping TypeName="HHSQLDBModel.tbl_MedDoc_Type_Table">
               <MappingFragment StoreEntitySet="tbl_MedDoc_Type_Table">
+                <ScalarProperty Name="ID_DeletedBy" ColumnName="ID_DeletedBy" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="ID_CreatedBy" ColumnName="ID_CreatedBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="PharmacyRxLabelSize" ColumnName="PharmacyRxLabelSize" />
+                <ScalarProperty Name="PharmacyRxTrackByDoses" ColumnName="PharmacyRxTrackByDoses" />
+                <ScalarProperty Name="PharmacyRxFactorType" ColumnName="PharmacyRxFactorType" />
+                <ScalarProperty Name="DefaultHCPC12" ColumnName="DefaultHCPC12" />
+                <ScalarProperty Name="DefaultHCPC11" ColumnName="DefaultHCPC11" />
+                <ScalarProperty Name="DefaultHCPC10" ColumnName="DefaultHCPC10" />
+                <ScalarProperty Name="DefaultHCPC9" ColumnName="DefaultHCPC9" />
+                <ScalarProperty Name="DefaultHCPC8" ColumnName="DefaultHCPC8" />
+                <ScalarProperty Name="DefaultHCPC7" ColumnName="DefaultHCPC7" />
+                <ScalarProperty Name="DefaultHCPC6" ColumnName="DefaultHCPC6" />
+                <ScalarProperty Name="DefaultHCPC5" ColumnName="DefaultHCPC5" />
                 <ScalarProperty Name="NursingDocumentType" ColumnName="NursingDocumentType" />
                 <ScalarProperty Name="PharmacyRxCompoundType" ColumnName="PharmacyRxCompoundType" />
                 <ScalarProperty Name="PhysicianOrderType" ColumnName="PhysicianOrderType" />
@@ -5869,6 +5936,7 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <EntitySetMapping Name="tbl_Account_Member">
             <EntityTypeMapping TypeName="HHSQLDBModel.tbl_Account_Member">
               <MappingFragment StoreEntitySet="tbl_Account_Member">
+                <ScalarProperty Name="ID_Ethnicity" ColumnName="ID_Ethnicity" />
                 <ScalarProperty Name="MedicalHistory" ColumnName="MedicalHistory" />
                 <ScalarProperty Name="ID_Diet" ColumnName="ID_Diet" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
@@ -5983,6 +6051,9 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <EntitySetMapping Name="tbl_Account_Information">
             <EntityTypeMapping TypeName="HHSQLDBModel.tbl_Account_Information">
               <MappingFragment StoreEntitySet="tbl_Account_Information">
+                <ScalarProperty Name="HospitalRoomNumber" ColumnName="HospitalRoomNumber" />
+                <ScalarProperty Name="HospitalDischargeDate" ColumnName="HospitalDischargeDate" />
+                <ScalarProperty Name="HospitalAdminDate" ColumnName="HospitalAdminDate" />
                 <ScalarProperty Name="PreferredContactMethod" ColumnName="PreferredContactMethod" />
                 <ScalarProperty Name="Last_Updated_User" ColumnName="Last_Updated_User" />
                 <ScalarProperty Name="Last_Updated_Date" ColumnName="Last_Updated_Date" />
@@ -6056,6 +6127,8 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
           <EntitySetMapping Name="tbl_Claims">
             <EntityTypeMapping TypeName="HHSQLDBModel.tbl_Claims">
               <MappingFragment StoreEntitySet="tbl_Claims">
+                <ScalarProperty Name="UB_46" ColumnName="UB_46" />
+                <ScalarProperty Name="UB_3" ColumnName="UB_3" />
                 <ScalarProperty Name="ReadyByUserToSubmit" ColumnName="ReadyByUserToSubmit" />
                 <ScalarProperty Name="UB_92" ColumnName="UB_92" />
                 <ScalarProperty Name="UB_90" ColumnName="UB_90" />
@@ -7215,161 +7288,11 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_PS_WorkOrderLine">
-            <EntityTypeMapping TypeName="HHSQLDBModel.tbl_PS_WorkOrderLine">
-              <MappingFragment StoreEntitySet="tbl_PS_WorkOrderLine">
-                <ScalarProperty Name="D_NextCompoundDate" ColumnName="D_NextCompoundDate" />
-                <ScalarProperty Name="ID_RxNumber" ColumnName="ID_RxNumber" />
-                <ScalarProperty Name="RentalTerminationDate" ColumnName="RentalTerminationDate" />
-                <ScalarProperty Name="D_TotalAdminDays" ColumnName="D_TotalAdminDays" />
-                <ScalarProperty Name="D_TotalDoses" ColumnName="D_TotalDoses" />
-                <ScalarProperty Name="D_TPN_DosingComment" ColumnName="D_TPN_DosingComment" />
-                <ScalarProperty Name="D_TPN_TotalCarbohydratePercent" ColumnName="D_TPN_TotalCarbohydratePercent" />
-                <ScalarProperty Name="D_TPN_TotalAminoAcidPercent" ColumnName="D_TPN_TotalAminoAcidPercent" />
-                <ScalarProperty Name="D_TPN_TotalLipids" ColumnName="D_TPN_TotalLipids" />
-                <ScalarProperty Name="D_TPN_TotalCarbohydrates" ColumnName="D_TPN_TotalCarbohydrates" />
-                <ScalarProperty Name="D_TPN_TotalProteins" ColumnName="D_TPN_TotalProteins" />
-                <ScalarProperty Name="D_TPN_rPH_Approval_2_IDOperator" ColumnName="D_TPN_rPH_Approval_2_IDOperator" />
-                <ScalarProperty Name="D_TPN_rPH_Approval_2_Date" ColumnName="D_TPN_rPH_Approval_2_Date" />
-                <ScalarProperty Name="D_TPN_rPH_Approval_1_IDOperator" ColumnName="D_TPN_rPH_Approval_1_IDOperator" />
-                <ScalarProperty Name="D_TPN_rPH_Approval_1_Date" ColumnName="D_TPN_rPH_Approval_1_Date" />
-                <ScalarProperty Name="D_TPN_DosingWeight" ColumnName="D_TPN_DosingWeight" />
-                <ScalarProperty Name="D_DrugQty" ColumnName="D_DrugQty" />
-                <ScalarProperty Name="HDMSMobileItemLoaded" ColumnName="HDMSMobileItemLoaded" />
-                <ScalarProperty Name="D_ClaimClarificationCode3" ColumnName="D_ClaimClarificationCode3" />
-                <ScalarProperty Name="D_ClaimClarificationCode2" ColumnName="D_ClaimClarificationCode2" />
-                <ScalarProperty Name="D_DIScreenBypassBy_ID" ColumnName="D_DIScreenBypassBy_ID" />
-                <ScalarProperty Name="D_DIScreenBypassDate" ColumnName="D_DIScreenBypassDate" />
-                <ScalarProperty Name="D_TPNAdditiveVol_ml" ColumnName="D_TPNAdditiveVol_ml" />
-                <ScalarProperty Name="D_ClaimClarificationCode" ColumnName="D_ClaimClarificationCode" />
-                <ScalarProperty Name="D_TPN_CompounderFileCreatedByID" ColumnName="D_TPN_CompounderFileCreatedByID" />
-                <ScalarProperty Name="D_TPN_CompounderFileCreateDate" ColumnName="D_TPN_CompounderFileCreateDate" />
-                <ScalarProperty Name="HDMSMobileConfirmDate" ColumnName="HDMSMobileConfirmDate" />
-                <ScalarProperty Name="D_DispensingFee" ColumnName="D_DispensingFee" />
-                <ScalarProperty Name="D_ID_Adjudicate_RespondReject" ColumnName="D_ID_Adjudicate_RespondReject" />
-                <ScalarProperty Name="NWA_OrderLineID" ColumnName="NWA_OrderLineID" />
-                <ScalarProperty Name="QtyToBillOverride" ColumnName="QtyToBillOverride" />
-                <ScalarProperty Name="D_DispensedPkgQty" ColumnName="D_DispensedPkgQty" />
-                <ScalarProperty Name="Compliance_DeviceCode" ColumnName="Compliance_DeviceCode" />
-                <ScalarProperty Name="D_TPN_Calc_KCal_Fat" ColumnName="D_TPN_Calc_KCal_Fat" />
-                <ScalarProperty Name="D_TPN_Calc_KCal_Carbohydrates" ColumnName="D_TPN_Calc_KCal_Carbohydrates" />
-                <ScalarProperty Name="D_TPN_Calc_KCal_Protein" ColumnName="D_TPN_Calc_KCal_Protein" />
-                <ScalarProperty Name="D_TPNQSWithWaterLipids" ColumnName="D_TPNQSWithWaterLipids" />
-                <ScalarProperty Name="D_TPNQSWithWaterAdditive" ColumnName="D_TPNQSWithWaterAdditive" />
-                <ScalarProperty Name="D_TPNTaperDownHrs" ColumnName="D_TPNTaperDownHrs" />
-                <ScalarProperty Name="D_TPNTaperUpHrs" ColumnName="D_TPNTaperUpHrs" />
-                <ScalarProperty Name="D_TPNInfusionDurationHrs" ColumnName="D_TPNInfusionDurationHrs" />
-                <ScalarProperty Name="D_TPNOverfillPercent" ColumnName="D_TPNOverfillPercent" />
-                <ScalarProperty Name="D_TPNAdditivePool" ColumnName="D_TPNAdditivePool" />
-                <ScalarProperty Name="D_TPNLipidsIndicator" ColumnName="D_TPNLipidsIndicator" />
-                <ScalarProperty Name="D_TPNOverfillVol_ml" ColumnName="D_TPNOverfillVol_ml" />
-                <ScalarProperty Name="D_TPNOrderedAdminVol_ml" ColumnName="D_TPNOrderedAdminVol_ml" />
-                <ScalarProperty Name="D_DrugEntryType" ColumnName="D_DrugEntryType" />
-                <ScalarProperty Name="D_ID_Adjudicate_Respond" ColumnName="D_ID_Adjudicate_Respond" />
-                <ScalarProperty Name="D_ID_Adjudicate_Submit" ColumnName="D_ID_Adjudicate_Submit" />
-                <ScalarProperty Name="CalcUnitPriceDiscount" ColumnName="CalcUnitPriceDiscount" />
-                <ScalarProperty Name="ID_DiscountPlan" ColumnName="ID_DiscountPlan" />
-                <ScalarProperty Name="D_DoseScheduleDay7" ColumnName="D_DoseScheduleDay7" />
-                <ScalarProperty Name="D_DoseScheduleDay6" ColumnName="D_DoseScheduleDay6" />
-                <ScalarProperty Name="D_DoseScheduleDay5" ColumnName="D_DoseScheduleDay5" />
-                <ScalarProperty Name="D_DoseScheduleDay4" ColumnName="D_DoseScheduleDay4" />
-                <ScalarProperty Name="D_DoseScheduleDay3" ColumnName="D_DoseScheduleDay3" />
-                <ScalarProperty Name="D_DoseScheduleDay2" ColumnName="D_DoseScheduleDay2" />
-                <ScalarProperty Name="D_DoseScheduleDay1" ColumnName="D_DoseScheduleDay1" />
-                <ScalarProperty Name="CityCopayTaxAmount" ColumnName="CityCopayTaxAmount" />
-                <ScalarProperty Name="CityCopayTaxRate" ColumnName="CityCopayTaxRate" />
-                <ScalarProperty Name="CountyCopayTaxAmount" ColumnName="CountyCopayTaxAmount" />
-                <ScalarProperty Name="CountyCopayTaxRate" ColumnName="CountyCopayTaxRate" />
-                <ScalarProperty Name="StateCopayTaxAmount" ColumnName="StateCopayTaxAmount" />
-                <ScalarProperty Name="StateCopayTaxRate" ColumnName="StateCopayTaxRate" />
-                <ScalarProperty Name="CityTaxAmount" ColumnName="CityTaxAmount" />
-                <ScalarProperty Name="CityTaxRate" ColumnName="CityTaxRate" />
-                <ScalarProperty Name="CountyTaxAmount" ColumnName="CountyTaxAmount" />
-                <ScalarProperty Name="CountyTaxRate" ColumnName="CountyTaxRate" />
-                <ScalarProperty Name="StateTaxAmount" ColumnName="StateTaxAmount" />
-                <ScalarProperty Name="StateTaxRate" ColumnName="StateTaxRate" />
-                <ScalarProperty Name="D_RxDrug_Fill_StableUntilDate" ColumnName="D_RxDrug_Fill_StableUntilDate" />
-                <ScalarProperty Name="D_Cmp_DrugUnitPrice" ColumnName="D_Cmp_DrugUnitPrice" />
-                <ScalarProperty Name="ID_EstLine" ColumnName="ID_EstLine" />
-                <ScalarProperty Name="D_UsedAsIfPrimaryTherapy" ColumnName="D_UsedAsIfPrimaryTherapy" />
-                <ScalarProperty Name="D_PrintSyringeLabel" ColumnName="D_PrintSyringeLabel" />
-                <ScalarProperty Name="WasAutoCreatedFromOutReach" ColumnName="WasAutoCreatedFromOutReach" />
-                <ScalarProperty Name="ProcedureCodeOverride" ColumnName="ProcedureCodeOverride" />
-                <ScalarProperty Name="D_Cmp_NumberOfBags" ColumnName="D_Cmp_NumberOfBags" />
-                <ScalarProperty Name="d_cmp_DosesPerBag_old" ColumnName="d_cmp_DosesPerBag_old" />
-                <ScalarProperty Name="D_TotalDaysSupply" ColumnName="D_TotalDaysSupply" />
-                <ScalarProperty Name="D_DosesPerDay" ColumnName="D_DosesPerDay" />
-                <ScalarProperty Name="D_NumberOfLabels" ColumnName="D_NumberOfLabels" />
-                <ScalarProperty Name="D_PkgDrugName" ColumnName="D_PkgDrugName" />
-                <ScalarProperty Name="D_MS_PNID" ColumnName="D_MS_PNID" />
-                <ScalarProperty Name="D_CalcUnitCost" ColumnName="D_CalcUnitCost" />
-                <ScalarProperty Name="DoNotBillProductMacroComponent" ColumnName="DoNotBillProductMacroComponent" />
-                <ScalarProperty Name="ProductMacroComponent" ColumnName="ProductMacroComponent" />
-                <ScalarProperty Name="DoNotRemoveFromStock" ColumnName="DoNotRemoveFromStock" />
-                <ScalarProperty Name="ID_AutoClaimHoldReason" ColumnName="ID_AutoClaimHoldReason" />
-                <ScalarProperty Name="OriginalUnitPrice" ColumnName="OriginalUnitPrice" />
-                <ScalarProperty Name="OxygenMonthsSupply" ColumnName="OxygenMonthsSupply" />
-                <ScalarProperty Name="CoPayPaymentAmount" ColumnName="CoPayPaymentAmount" />
-                <ScalarProperty Name="CalculatedUnitCoPay" ColumnName="CalculatedUnitCoPay" />
-                <ScalarProperty Name="QtyShippedTotal" ColumnName="QtyShippedTotal" />
-                <ScalarProperty Name="PN_Unit_ContractRetailPlusPercent" ColumnName="PN_Unit_ContractRetailPlusPercent" />
-                <ScalarProperty Name="RepeatNarrativeForRentals" ColumnName="RepeatNarrativeForRentals" />
-                <ScalarProperty Name="PN_Unit_ContractPrice" ColumnName="PN_Unit_ContractPrice" />
-                <ScalarProperty Name="PN_Unit_ContractCostPlusRule" ColumnName="PN_Unit_ContractCostPlusRule" />
-                <ScalarProperty Name="PN_Unit_ContractCostPlusPercent" ColumnName="PN_Unit_ContractCostPlusPercent" />
-                <ScalarProperty Name="PN_Unit_ContractAllowable" ColumnName="PN_Unit_ContractAllowable" />
-                <ScalarProperty Name="PN_ID_Vendor" ColumnName="PN_ID_Vendor" />
-                <ScalarProperty Name="PN_Unit_COGS" ColumnName="PN_Unit_COGS" />
-                <ScalarProperty Name="ID_QuoteLine" ColumnName="ID_QuoteLine" />
-                <ScalarProperty Name="LineNarrative" ColumnName="LineNarrative" />
-                <ScalarProperty Name="ID_OrigWOLineFromBO" ColumnName="ID_OrigWOLineFromBO" />
-                <ScalarProperty Name="EDIImageLastPrintDate" ColumnName="EDIImageLastPrintDate" />
-                <ScalarProperty Name="EDIConfirmationNumber" ColumnName="EDIConfirmationNumber" />
-                <ScalarProperty Name="ID_DeletedBy" ColumnName="ID_DeletedBy" />
-                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
-                <ScalarProperty Name="ApprovedForBilling" ColumnName="ApprovedForBilling" />
-                <ScalarProperty Name="Tag" ColumnName="Tag" />
-                <ScalarProperty Name="HistoryNote" ColumnName="HistoryNote" />
-                <ScalarProperty Name="PlannedIDPayer" ColumnName="PlannedIDPayer" />
-                <ScalarProperty Name="Modifier4" ColumnName="Modifier4" />
-                <ScalarProperty Name="Modifier3" ColumnName="Modifier3" />
-                <ScalarProperty Name="Modifier2" ColumnName="Modifier2" />
-                <ScalarProperty Name="Modifier1" ColumnName="Modifier1" />
-                <ScalarProperty Name="HCPC" ColumnName="HCPC" />
-                <ScalarProperty Name="OxygenHours" ColumnName="OxygenHours" />
-                <ScalarProperty Name="SerialNumberExchange" ColumnName="SerialNumberExchange" />
-                <ScalarProperty Name="ID_ProductExchange" ColumnName="ID_ProductExchange" />
-                <ScalarProperty Name="ID_Pickup_Reason" ColumnName="ID_Pickup_Reason" />
-                <ScalarProperty Name="ID_Item" ColumnName="ID_Item" />
-                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-                <ScalarProperty Name="ManufacturerSerialNumber" ColumnName="ManufacturerSerialNumber" />
-                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
-                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
-                <ScalarProperty Name="ItemNote" ColumnName="ItemNote" />
-                <ScalarProperty Name="SizeComment" ColumnName="SizeComment" />
-                <ScalarProperty Name="SalesTaxExempt" ColumnName="SalesTaxExempt" />
-                <ScalarProperty Name="UnitQty" ColumnName="UnitQty" />
-                <ScalarProperty Name="QtyBackOrdered" ColumnName="QtyBackOrdered" />
-                <ScalarProperty Name="QtyShipped" ColumnName="QtyShipped" />
-                <ScalarProperty Name="QtyOrdered" ColumnName="QtyOrdered" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
-                <ScalarProperty Name="ID_Billing_Code" ColumnName="ID_Billing_Code" />
-                <ScalarProperty Name="ID_PASecondary" ColumnName="ID_PASecondary" />
-                <ScalarProperty Name="ID_PAPrimary" ColumnName="ID_PAPrimary" />
-                <ScalarProperty Name="ID_CMN" ColumnName="ID_CMN" />
-                <ScalarProperty Name="ID_RxDoctor" ColumnName="ID_RxDoctor" />
-                <ScalarProperty Name="WorkOrderType" ColumnName="WorkOrderType" />
-                <ScalarProperty Name="ID_PS_WorkOrder" ColumnName="ID_PS_WorkOrder" />
-                <ScalarProperty Name="ID_PlanOfService" ColumnName="ID_PlanOfService" />
-                <ScalarProperty Name="Account" ColumnName="Account" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_PS_WorkOrder">
             <EntityTypeMapping TypeName="HHSQLDBModel.tbl_PS_WorkOrder">
               <MappingFragment StoreEntitySet="tbl_PS_WorkOrder">
+                <ScalarProperty Name="WO_Insight_User" ColumnName="WO_Insight_User" />
+                <ScalarProperty Name="RxDrug_MovedToFill_By" ColumnName="RxDrug_MovedToFill_By" />
                 <ScalarProperty Name="ID_DeliveryRouteAssigned_By" ColumnName="ID_DeliveryRouteAssigned_By" />
                 <ScalarProperty Name="DeliveryRouteAssigned_Date" ColumnName="DeliveryRouteAssigned_Date" />
                 <ScalarProperty Name="ID_AssignedToWhse_By" ColumnName="ID_AssignedToWhse_By" />
@@ -7505,6 +7428,158 @@ warning 6002: The table/view 'HHSQLDB.dbo.v__AccountMemberEffectiveInsurance_Ins
                 <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
                 <ScalarProperty Name="ActionBy" ColumnName="ActionBy" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PS_WorkOrderLine">
+            <EntityTypeMapping TypeName="HHSQLDBModel.tbl_PS_WorkOrderLine">
+              <MappingFragment StoreEntitySet="tbl_PS_WorkOrderLine">
+                <ScalarProperty Name="D_DosesPerContainer" ColumnName="D_DosesPerContainer" />
+                <ScalarProperty Name="D_NextCompoundDate" ColumnName="D_NextCompoundDate" />
+                <ScalarProperty Name="ID_RxNumber" ColumnName="ID_RxNumber" />
+                <ScalarProperty Name="RentalTerminationDate" ColumnName="RentalTerminationDate" />
+                <ScalarProperty Name="D_TotalAdminDays" ColumnName="D_TotalAdminDays" />
+                <ScalarProperty Name="D_TotalDoses" ColumnName="D_TotalDoses" />
+                <ScalarProperty Name="D_TPN_DosingComment" ColumnName="D_TPN_DosingComment" />
+                <ScalarProperty Name="D_TPN_TotalCarbohydratePercent" ColumnName="D_TPN_TotalCarbohydratePercent" />
+                <ScalarProperty Name="D_TPN_TotalAminoAcidPercent" ColumnName="D_TPN_TotalAminoAcidPercent" />
+                <ScalarProperty Name="D_TPN_TotalLipids" ColumnName="D_TPN_TotalLipids" />
+                <ScalarProperty Name="D_TPN_TotalCarbohydrates" ColumnName="D_TPN_TotalCarbohydrates" />
+                <ScalarProperty Name="D_TPN_TotalProteins" ColumnName="D_TPN_TotalProteins" />
+                <ScalarProperty Name="D_TPN_rPH_Approval_2_IDOperator" ColumnName="D_TPN_rPH_Approval_2_IDOperator" />
+                <ScalarProperty Name="D_TPN_rPH_Approval_2_Date" ColumnName="D_TPN_rPH_Approval_2_Date" />
+                <ScalarProperty Name="D_TPN_rPH_Approval_1_IDOperator" ColumnName="D_TPN_rPH_Approval_1_IDOperator" />
+                <ScalarProperty Name="D_TPN_rPH_Approval_1_Date" ColumnName="D_TPN_rPH_Approval_1_Date" />
+                <ScalarProperty Name="D_TPN_DosingWeight" ColumnName="D_TPN_DosingWeight" />
+                <ScalarProperty Name="D_DrugQty" ColumnName="D_DrugQty" />
+                <ScalarProperty Name="HDMSMobileItemLoaded" ColumnName="HDMSMobileItemLoaded" />
+                <ScalarProperty Name="D_ClaimClarificationCode3" ColumnName="D_ClaimClarificationCode3" />
+                <ScalarProperty Name="D_ClaimClarificationCode2" ColumnName="D_ClaimClarificationCode2" />
+                <ScalarProperty Name="D_DIScreenBypassBy_ID" ColumnName="D_DIScreenBypassBy_ID" />
+                <ScalarProperty Name="D_DIScreenBypassDate" ColumnName="D_DIScreenBypassDate" />
+                <ScalarProperty Name="D_TPNAdditiveVol_ml" ColumnName="D_TPNAdditiveVol_ml" />
+                <ScalarProperty Name="D_ClaimClarificationCode" ColumnName="D_ClaimClarificationCode" />
+                <ScalarProperty Name="D_TPN_CompounderFileCreatedByID" ColumnName="D_TPN_CompounderFileCreatedByID" />
+                <ScalarProperty Name="D_TPN_CompounderFileCreateDate" ColumnName="D_TPN_CompounderFileCreateDate" />
+                <ScalarProperty Name="HDMSMobileConfirmDate" ColumnName="HDMSMobileConfirmDate" />
+                <ScalarProperty Name="D_DispensingFee" ColumnName="D_DispensingFee" />
+                <ScalarProperty Name="D_ID_Adjudicate_RespondReject" ColumnName="D_ID_Adjudicate_RespondReject" />
+                <ScalarProperty Name="NWA_OrderLineID" ColumnName="NWA_OrderLineID" />
+                <ScalarProperty Name="QtyToBillOverride" ColumnName="QtyToBillOverride" />
+                <ScalarProperty Name="D_DispensedPkgQty" ColumnName="D_DispensedPkgQty" />
+                <ScalarProperty Name="Compliance_DeviceCode" ColumnName="Compliance_DeviceCode" />
+                <ScalarProperty Name="D_TPN_Calc_KCal_Fat" ColumnName="D_TPN_Calc_KCal_Fat" />
+                <ScalarProperty Name="D_TPN_Calc_KCal_Carbohydrates" ColumnName="D_TPN_Calc_KCal_Carbohydrates" />
+                <ScalarProperty Name="D_TPN_Calc_KCal_Protein" ColumnName="D_TPN_Calc_KCal_Protein" />
+                <ScalarProperty Name="D_TPNQSWithWaterLipids" ColumnName="D_TPNQSWithWaterLipids" />
+                <ScalarProperty Name="D_TPNQSWithWaterAdditive" ColumnName="D_TPNQSWithWaterAdditive" />
+                <ScalarProperty Name="D_TPNTaperDownHrs" ColumnName="D_TPNTaperDownHrs" />
+                <ScalarProperty Name="D_TPNTaperUpHrs" ColumnName="D_TPNTaperUpHrs" />
+                <ScalarProperty Name="D_TPNInfusionDurationHrs" ColumnName="D_TPNInfusionDurationHrs" />
+                <ScalarProperty Name="D_TPNOverfillPercent" ColumnName="D_TPNOverfillPercent" />
+                <ScalarProperty Name="D_TPNAdditivePool" ColumnName="D_TPNAdditivePool" />
+                <ScalarProperty Name="D_TPNLipidsIndicator" ColumnName="D_TPNLipidsIndicator" />
+                <ScalarProperty Name="D_TPNOverfillVol_ml" ColumnName="D_TPNOverfillVol_ml" />
+                <ScalarProperty Name="D_TPNOrderedAdminVol_ml" ColumnName="D_TPNOrderedAdminVol_ml" />
+                <ScalarProperty Name="D_DrugEntryType" ColumnName="D_DrugEntryType" />
+                <ScalarProperty Name="D_ID_Adjudicate_Respond" ColumnName="D_ID_Adjudicate_Respond" />
+                <ScalarProperty Name="D_ID_Adjudicate_Submit" ColumnName="D_ID_Adjudicate_Submit" />
+                <ScalarProperty Name="CalcUnitPriceDiscount" ColumnName="CalcUnitPriceDiscount" />
+                <ScalarProperty Name="ID_DiscountPlan" ColumnName="ID_DiscountPlan" />
+                <ScalarProperty Name="D_DoseScheduleDay7" ColumnName="D_DoseScheduleDay7" />
+                <ScalarProperty Name="D_DoseScheduleDay6" ColumnName="D_DoseScheduleDay6" />
+                <ScalarProperty Name="D_DoseScheduleDay5" ColumnName="D_DoseScheduleDay5" />
+                <ScalarProperty Name="D_DoseScheduleDay4" ColumnName="D_DoseScheduleDay4" />
+                <ScalarProperty Name="D_DoseScheduleDay3" ColumnName="D_DoseScheduleDay3" />
+                <ScalarProperty Name="D_DoseScheduleDay2" ColumnName="D_DoseScheduleDay2" />
+                <ScalarProperty Name="D_DoseScheduleDay1" ColumnName="D_DoseScheduleDay1" />
+                <ScalarProperty Name="CityCopayTaxAmount" ColumnName="CityCopayTaxAmount" />
+                <ScalarProperty Name="CityCopayTaxRate" ColumnName="CityCopayTaxRate" />
+                <ScalarProperty Name="CountyCopayTaxAmount" ColumnName="CountyCopayTaxAmount" />
+                <ScalarProperty Name="CountyCopayTaxRate" ColumnName="CountyCopayTaxRate" />
+                <ScalarProperty Name="StateCopayTaxAmount" ColumnName="StateCopayTaxAmount" />
+                <ScalarProperty Name="StateCopayTaxRate" ColumnName="StateCopayTaxRate" />
+                <ScalarProperty Name="CityTaxAmount" ColumnName="CityTaxAmount" />
+                <ScalarProperty Name="CityTaxRate" ColumnName="CityTaxRate" />
+                <ScalarProperty Name="CountyTaxAmount" ColumnName="CountyTaxAmount" />
+                <ScalarProperty Name="CountyTaxRate" ColumnName="CountyTaxRate" />
+                <ScalarProperty Name="StateTaxAmount" ColumnName="StateTaxAmount" />
+                <ScalarProperty Name="StateTaxRate" ColumnName="StateTaxRate" />
+                <ScalarProperty Name="D_RxDrug_Fill_StableUntilDate" ColumnName="D_RxDrug_Fill_StableUntilDate" />
+                <ScalarProperty Name="D_Cmp_DrugUnitPrice" ColumnName="D_Cmp_DrugUnitPrice" />
+                <ScalarProperty Name="ID_EstLine" ColumnName="ID_EstLine" />
+                <ScalarProperty Name="D_UsedAsIfPrimaryTherapy" ColumnName="D_UsedAsIfPrimaryTherapy" />
+                <ScalarProperty Name="D_PrintSyringeLabel" ColumnName="D_PrintSyringeLabel" />
+                <ScalarProperty Name="WasAutoCreatedFromOutReach" ColumnName="WasAutoCreatedFromOutReach" />
+                <ScalarProperty Name="ProcedureCodeOverride" ColumnName="ProcedureCodeOverride" />
+                <ScalarProperty Name="D_Cmp_NumberOfBags" ColumnName="D_Cmp_NumberOfBags" />
+                <ScalarProperty Name="D_TotalDaysSupply" ColumnName="D_TotalDaysSupply" />
+                <ScalarProperty Name="D_DosesPerDay" ColumnName="D_DosesPerDay" />
+                <ScalarProperty Name="D_NumberOfLabels" ColumnName="D_NumberOfLabels" />
+                <ScalarProperty Name="D_PkgDrugName" ColumnName="D_PkgDrugName" />
+                <ScalarProperty Name="D_MS_PNID" ColumnName="D_MS_PNID" />
+                <ScalarProperty Name="D_CalcUnitCost" ColumnName="D_CalcUnitCost" />
+                <ScalarProperty Name="DoNotBillProductMacroComponent" ColumnName="DoNotBillProductMacroComponent" />
+                <ScalarProperty Name="ProductMacroComponent" ColumnName="ProductMacroComponent" />
+                <ScalarProperty Name="DoNotRemoveFromStock" ColumnName="DoNotRemoveFromStock" />
+                <ScalarProperty Name="ID_AutoClaimHoldReason" ColumnName="ID_AutoClaimHoldReason" />
+                <ScalarProperty Name="OriginalUnitPrice" ColumnName="OriginalUnitPrice" />
+                <ScalarProperty Name="OxygenMonthsSupply" ColumnName="OxygenMonthsSupply" />
+                <ScalarProperty Name="CoPayPaymentAmount" ColumnName="CoPayPaymentAmount" />
+                <ScalarProperty Name="CalculatedUnitCoPay" ColumnName="CalculatedUnitCoPay" />
+                <ScalarProperty Name="QtyShippedTotal" ColumnName="QtyShippedTotal" />
+                <ScalarProperty Name="PN_Unit_ContractRetailPlusPercent" ColumnName="PN_Unit_ContractRetailPlusPercent" />
+                <ScalarProperty Name="RepeatNarrativeForRentals" ColumnName="RepeatNarrativeForRentals" />
+                <ScalarProperty Name="PN_Unit_ContractPrice" ColumnName="PN_Unit_ContractPrice" />
+                <ScalarProperty Name="PN_Unit_ContractCostPlusRule" ColumnName="PN_Unit_ContractCostPlusRule" />
+                <ScalarProperty Name="PN_Unit_ContractCostPlusPercent" ColumnName="PN_Unit_ContractCostPlusPercent" />
+                <ScalarProperty Name="PN_Unit_ContractAllowable" ColumnName="PN_Unit_ContractAllowable" />
+                <ScalarProperty Name="PN_ID_Vendor" ColumnName="PN_ID_Vendor" />
+                <ScalarProperty Name="PN_Unit_COGS" ColumnName="PN_Unit_COGS" />
+                <ScalarProperty Name="ID_QuoteLine" ColumnName="ID_QuoteLine" />
+                <ScalarProperty Name="LineNarrative" ColumnName="LineNarrative" />
+                <ScalarProperty Name="ID_OrigWOLineFromBO" ColumnName="ID_OrigWOLineFromBO" />
+                <ScalarProperty Name="EDIImageLastPrintDate" ColumnName="EDIImageLastPrintDate" />
+                <ScalarProperty Name="EDIConfirmationNumber" ColumnName="EDIConfirmationNumber" />
+                <ScalarProperty Name="ID_DeletedBy" ColumnName="ID_DeletedBy" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="ApprovedForBilling" ColumnName="ApprovedForBilling" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="HistoryNote" ColumnName="HistoryNote" />
+                <ScalarProperty Name="PlannedIDPayer" ColumnName="PlannedIDPayer" />
+                <ScalarProperty Name="Modifier4" ColumnName="Modifier4" />
+                <ScalarProperty Name="Modifier3" ColumnName="Modifier3" />
+                <ScalarProperty Name="Modifier2" ColumnName="Modifier2" />
+                <ScalarProperty Name="Modifier1" ColumnName="Modifier1" />
+                <ScalarProperty Name="HCPC" ColumnName="HCPC" />
+                <ScalarProperty Name="OxygenHours" ColumnName="OxygenHours" />
+                <ScalarProperty Name="SerialNumberExchange" ColumnName="SerialNumberExchange" />
+                <ScalarProperty Name="ID_ProductExchange" ColumnName="ID_ProductExchange" />
+                <ScalarProperty Name="ID_Pickup_Reason" ColumnName="ID_Pickup_Reason" />
+                <ScalarProperty Name="ID_Item" ColumnName="ID_Item" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="ManufacturerSerialNumber" ColumnName="ManufacturerSerialNumber" />
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+                <ScalarProperty Name="ItemNote" ColumnName="ItemNote" />
+                <ScalarProperty Name="SizeComment" ColumnName="SizeComment" />
+                <ScalarProperty Name="SalesTaxExempt" ColumnName="SalesTaxExempt" />
+                <ScalarProperty Name="UnitQty" ColumnName="UnitQty" />
+                <ScalarProperty Name="QtyBackOrdered" ColumnName="QtyBackOrdered" />
+                <ScalarProperty Name="QtyShipped" ColumnName="QtyShipped" />
+                <ScalarProperty Name="QtyOrdered" ColumnName="QtyOrdered" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
+                <ScalarProperty Name="ID_Billing_Code" ColumnName="ID_Billing_Code" />
+                <ScalarProperty Name="ID_PASecondary" ColumnName="ID_PASecondary" />
+                <ScalarProperty Name="ID_PAPrimary" ColumnName="ID_PAPrimary" />
+                <ScalarProperty Name="ID_CMN" ColumnName="ID_CMN" />
+                <ScalarProperty Name="ID_RxDoctor" ColumnName="ID_RxDoctor" />
+                <ScalarProperty Name="WorkOrderType" ColumnName="WorkOrderType" />
+                <ScalarProperty Name="ID_PS_WorkOrder" ColumnName="ID_PS_WorkOrder" />
+                <ScalarProperty Name="ID_PlanOfService" ColumnName="ID_PlanOfService" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

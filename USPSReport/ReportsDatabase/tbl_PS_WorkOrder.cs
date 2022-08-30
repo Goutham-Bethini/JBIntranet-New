@@ -139,5 +139,7 @@ namespace ReportsDatabase
         public Nullable<int> ID_AssignedToWhse_By { get; set; }
         public Nullable<System.DateTime> DeliveryRouteAssigned_Date { get; set; }
         public Nullable<int> ID_DeliveryRouteAssigned_By { get; set; }
+        public Nullable<int> RxDrug_MovedToFill_By { get; set; }
+        public Nullable<int> WO_Insight_User { get; set; }
     }
 }

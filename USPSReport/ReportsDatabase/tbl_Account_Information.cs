@@ -48,5 +48,8 @@ namespace ReportsDatabase
         public Nullable<System.DateTime> Last_Updated_Date { get; set; }
         public Nullable<int> Last_Updated_User { get; set; }
         public Nullable<short> PreferredContactMethod { get; set; }
+        public Nullable<System.DateTime> HospitalAdminDate { get; set; }
+        public Nullable<System.DateTime> HospitalDischargeDate { get; set; }
+        public string HospitalRoomNumber { get; set; }
     }
 }

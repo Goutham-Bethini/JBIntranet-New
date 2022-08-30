@@ -66,5 +66,7 @@ namespace ReportsDatabase
         public Nullable<short> UB_90 { get; set; }
         public Nullable<short> UB_92 { get; set; }
         public Nullable<short> ReadyByUserToSubmit { get; set; }
+        public Nullable<short> UB_3 { get; set; }
+        public Nullable<short> UB_46 { get; set; }
     }
 }

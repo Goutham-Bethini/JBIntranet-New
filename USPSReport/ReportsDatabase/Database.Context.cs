@@ -73,8 +73,8 @@ namespace ReportsDatabase
         public virtual DbSet<tbl_Account_Member_Insurance> tbl_Account_Member_Insurance { get; set; }
         public virtual DbSet<tbl_AssessmentDue_Attempts> tbl_AssessmentDue_Attempts { get; set; }
         public virtual DbSet<tbl_Payer_Table> tbl_Payer_Table { get; set; }
-        public virtual DbSet<tbl_PS_WorkOrderLine> tbl_PS_WorkOrderLine { get; set; }
         public virtual DbSet<tbl_PS_WorkOrder> tbl_PS_WorkOrder { get; set; }
         public virtual DbSet<tbl_MassCancel_History> tbl_MassCancel_History { get; set; }
+        public virtual DbSet<tbl_PS_WorkOrderLine> tbl_PS_WorkOrderLine { get; set; }
     }
 }

@@ -13,6 +13,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.OleDb;
 using System.Configuration;
 using USPS_Report.Areas.ColdFusionReports.Models;
+using USPS_Report.Helper;
 
 namespace USPS_Report.Areas.Reports.Models
 {
@@ -24,27 +25,27 @@ namespace USPS_Report.Areas.Reports.Models
             {
 
                 var productDetails = (from wol in _db.tbl_PS_WorkOrderLine
-                                  join pro in _db.tbl_Product_Table
-                                  on wol.ID_Product equals pro.ID
-                                  join uom in _db.tbl_Inv_UOM_Table
-                                  on pro.ID_UOM equals uom.ID
-                                  from wo in _db.ERP_OrdersSent.Where(w => w.woWorkOrder == wol.ID_PS_WorkOrder).DefaultIfEmpty()
-                                  from lin in _db.ERP_OrderLines.Where(w => w.linWOid == wo.woID && w.linProductCode == pro.ProductCode).DefaultIfEmpty()
+                                      join pro in _db.tbl_Product_Table
+                                      on wol.ID_Product equals pro.ID
+                                      join uom in _db.tbl_Inv_UOM_Table
+                                      on pro.ID_UOM equals uom.ID
+                                      from wo in _db.ERP_OrdersSent.Where(w => w.woWorkOrder == wol.ID_PS_WorkOrder).DefaultIfEmpty()
+                                      from lin in _db.ERP_OrderLines.Where(w => w.linWOid == wo.woID && w.linProductCode == pro.ProductCode).DefaultIfEmpty()
 
 
-                                  where wol.ID_PS_WorkOrder == 4903622
+                                      where wol.ID_PS_WorkOrder == 4903622
                                       select new ProductDetails
-                                  {
-                                      Product = pro.ProductCode,
-                                      Description = pro.ProductDescription,
-                                      Ordered = wol.QtyOrdered,
-                                      Shipped = wol.QtyShipped,
-                                      UOM = uom.UOMName + " of " + pro.PerUnitQty,
-                                      UnitWeight = pro.UnitWeight,
-                                      LineOrderQty = lin.linQtyAvailable
+                                      {
+                                          Product = pro.ProductCode,
+                                          Description = pro.ProductDescription,
+                                          Ordered = wol.QtyOrdered,
+                                          Shipped = wol.QtyShipped,
+                                          UOM = uom.UOMName + " of " + pro.PerUnitQty,
+                                          UnitWeight = pro.UnitWeight,
+                                          LineOrderQty = lin.linQtyAvailable
 
-                                  }).ToList();
-        }
+                                      }).ToList();
+            }
         }
         public static IList<WorkOrder> GetWorkOrderByAccountByNumbers(Int32? account, Int32 numbers, string operatorName)
         {
@@ -60,64 +61,30 @@ namespace USPS_Report.Areas.Reports.Models
                     else
                         _woListTemp = _db.tbl_PS_WorkOrder.Where(t => t.Account == account).OrderByDescending(t => t.ID).Take(numbers).ToList();
 
+                    
                     var _woList = (from p in _woListTemp
-                                        select new
-                                        {
-                                            p.Account,
-                                            p.Request_Date,
-                                            p.Cancel_By,
-                                            p.ID,
-                                            p.Cancel_Date,
-                                            p.Completed_Date,
-                                            p.LastPrintDate,
-                                            p.HoldFromShipping,
-                                            p.HoldFromShippingReason,
-                                            p.ID_PrimaryAssignedUser,
-                                            Cancel_User = p.Cancel_User != null ? (int)p.Cancel_User : 0,
-                                            p.DateMovedToUser,
-                                            p.ConfirmationNumber,
-                                            p.Cancel_Note,
-                                            op1_LegalName = _db.tbl_Operator_Table.Where(op => op.ID == p.Cancel_User).Select(op => op.LegalName).Take(1).SingleOrDefault(),
-                                            ops_LegalName = _db.tbl_Operator_Table.Where(op => op.ID == p.ID_PrimaryAssignedUser).Select(op => op.LegalName).Take(1).SingleOrDefault(),
-                                            fullName = _db.tbl_Account_Member.Where(mem => mem.Account ==p.Account && mem.Member == 1).Select(t=>t.First_Name + " " + t.Last_Name).SingleOrDefault(),
-                                           // lastName = _db.tbl_Account_Member.Where(mem => mem.Account == p.Account).Select(t => t.Last_Name).SingleOrDefault(),
+                                   select new
+                                   {
+                                       p.Account,
+                                       p.Request_Date,
+                                       p.Cancel_By,
+                                       p.ID,
+                                       p.Cancel_Date,
+                                       p.Completed_Date,
+                                       p.LastPrintDate,
+                                       p.HoldFromShipping,
+                                       p.HoldFromShippingReason,
+                                       p.ID_PrimaryAssignedUser,
+                                       Cancel_User = p.Cancel_User != null ? (int)p.Cancel_User : 0,
+                                       p.DateMovedToUser,
+                                       p.ConfirmationNumber,
+                                       p.Cancel_Note,
+                                       op1_LegalName = _db.tbl_Operator_Table.Where(op => op.ID == p.Cancel_User).Select(op => op.LegalName).Take(1).SingleOrDefault(),
+                                       ops_LegalName = _db.tbl_Operator_Table.Where(op => op.ID == p.ID_PrimaryAssignedUser).Select(op => op.LegalName).Take(1).SingleOrDefault(),
+                                       fullName = _db.tbl_Account_Member.Where(mem => mem.Account == p.Account && mem.Member == 1).Select(t => t.First_Name + " " + t.Last_Name).SingleOrDefault(),
+                                   }).ToList();
 
-
-
-                                        }).ToList();
-                    //var _woList = (from wos in _woListTemp2.AsEnumerable()
-                    //               join ops in _db.tbl_Operator_Table
-                    //               on wos.ID_PrimaryAssignedUser equals ops.ID
-
-                    //               from op1 in _db.tbl_Operator_Table.Where(op=>op.ID == wos.Cancel_User).DefaultIfEmpty()
-                    //             //  from wr in _db.WorkOrdersReleaseds.Where(w => w.worID_WorkOrder == wos.ID).DefaultIfEmpty()
-                    //                   //  from ups in _db.tbl_UPS_WorkOrders.Where(u=>u.ID_WorkOrder == wos.ID).DefaultIfEmpty()
-                    //           //   where wos.Account == account
-                    //               select new
-                    //               {
-                    //                   wos.Account,
-                    //                   wos.Request_Date,
-                    //                   wos.Cancel_By,
-                    //                   wos.ID,
-                    //                   wos.Cancel_Date,
-                    //                   wos.Completed_Date,
-                    //                   wos.LastPrintDate,
-                    //                   wos.HoldFromShipping,
-                    //                   wos.HoldFromShippingReason,
-                    //                   wos.ID_PrimaryAssignedUser,
-                    //                   ops_LegalName = ops.LegalName ,
-                    //                   op1.LegalName,
-                    //                   wos.DateMovedToUser,
-                    //                   wos.ConfirmationNumber,
-                    //                   wos.Cancel_Note,
-                    //                //  ups_confirmation =  ups.ConfirmationNumber
-                    //                   //wr.worReleasedBy
-                    //               }).ToList();
-
-
-
-                    var _list = _woList.Select(t => new WorkOrder
-
+                    var _list = _woList.Select(t =>  new WorkOrder
                     {
                         fullname = t.fullName,
                         Account = t.Account,
@@ -125,22 +92,21 @@ namespace USPS_Report.Areas.Reports.Models
                         CreatedBy = t.ID_PrimaryAssignedUser.Equals(221) ? "Auto" : t.ops_LegalName,
                         CancelledBy = t.op1_LegalName != null ? t.op1_LegalName : t.Cancel_By,
                         WorkOrderID = t.ID,
-
-                        Status = t.Cancel_Date != null ? "<strong><u>Cancelled:</u></strong> " + Environment.NewLine + t.Cancel_Note : t.Completed_Date != null ? "<strong>Completed</strong> " : t.LastPrintDate != null ? "<strong>Printed/Sent to oracle</strong> " :
+                        //Status = isFailedToInterface(t.Account, t.ID)? "Failed to Interface" : " not failed",
+                        //isRMAdone(t.ID) ? "<strong>Return/RMA</strong>" :
+                        Status =  t.Cancel_Date != null ? "<strong><u>Cancelled:</u></strong> " + Environment.NewLine + t.Cancel_Note :
+                        t.Completed_Date != null ? (isFailedToInterface(t.Account, t.ID) ? "<strong>Failed to Interface</strong>" : "<strong>Completed</strong> ") :
+                        t.LastPrintDate != null ? (isFailedToInterface(t.Account, t.ID) ? "<strong>Failed to Interface</strong>" : "<strong>Printed/Sent to oracle</strong> ") :
                           (t.HoldFromShipping == 1 && t.HoldFromShippingReason == null) ? "<strong>Created</strong>" :
                            (t.HoldFromShipping == 1 && t.HoldFromShippingReason != null) ? " <strong><u>Holding:</u></strong>" + "~" + t.HoldFromShippingReason :
                         (t.HoldFromShipping == 1 && t.HoldFromShippingReason.Contains("%Back Order%")) ? "<strong><u>Back Ordered and Holding:</u></strong> " + Environment.NewLine + t.HoldFromShippingReason :
-                        (t.HoldFromShipping == 1 && t.HoldFromShippingReason.Contains("Back Order ~")) ? "<strong>Back Ordered</strong>" : "<strong>Waiting to Interface</strong>",
-
-                        // (t.HoldFromShipping == 1 && t.HoldFromShippingReason == null) ? "<strong>Created</strong>" : "<strong>Waiting to Interface</strong>",
+                        (t.HoldFromShipping == 1 && t.HoldFromShippingReason.Contains("Back Order ~")) ? "<strong>Back Ordered</strong>" : " <strong>Waiting to Interface</strong>",
 
                         ReleasedBy = string.Join("\n", _db.WorkOrdersReleased.Where(u => u.worID_WorkOrder == t.ID).Select(u => u.worReleasedBy).ToArray()),
 
                         TrackingNumbers = string.Join(", \n", _db.tbl_UPS_WorkOrders.Where(u => u.ID_WorkOrder == t.ID && u.CancelDate == null).Select(u => u.ConfirmationNumber).ToArray()),
 
                         Length = _db.tbl_UPS_WorkOrders.Where(u => u.ID_WorkOrder == t.ID).Select(u => u.ConfirmationNumber.Length).Take(1).SingleOrDefault(),
-
-
 
                         productDetails = (from wol in _db.tbl_PS_WorkOrderLine
                                           join pro in _db.tbl_Product_Table
@@ -155,6 +121,7 @@ namespace USPS_Report.Areas.Reports.Models
                                           {
                                               Product = pro.ProductCode,
                                               Description = pro.ProductDescription,
+                                              //ProductId= wol.ID_Product,
                                               Ordered = wol.QtyOrdered,
                                               Shipped = wol.QtyShipped,
                                               UOM = uom.UOMName + " of " + pro.PerUnitQty,
@@ -280,14 +247,73 @@ namespace USPS_Report.Areas.Reports.Models
                                         join HHSQLDB.dbo.tbl_Account_Note_History anh 
                                         on an.ID=anh.ID_Note
                                         join HHSQLDB.dbo.tbl_Operator_Table ope on anh.ID_Operator=ope.ID
-                                        where an.Account="+ t.Account+@"
+                                        where an.Account=" + t.Account + @"
                                         and anh.NoteDate>=(select dateadd(day, -30, getdate()))
                                         order by anh.NoteDate desc").ToList<AccountNote>()
                     }).ToList();
 
                     foreach (var item in _list)
                     {
-                        StringBuilder _str = new StringBuilder(); 
+                        RMAProduct obj;
+                        List<RMAProduct> lstRMAProduct = new List<RMAProduct>();
+                        try
+                        {
+                            string _conn = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ConnectionString;
+                            OleDbConnection myConnection = new OleDbConnection(_conn);
+                            String query = string.Empty;
+                            myConnection.Open();
+                            query = @"SELECT   rma_sh.order_number return_order_number,
+msib.attribute2 ordered_item_HDMS,rma_sl.ordered_item,
+           rma_sh.creation_date,
+           SUM (rma_sl.ORDERED_QUANTITY * rma_sl.UNIT_SELLING_PRICE)
+              ""Extended_Price"",
+           r_sh.order_number sales_order_number,
+           r_sh.creation_date,
+           SUM(r_sl.ORDERED_QUANTITY * r_sl.UNIT_SELLING_PRICE)
+              ""Extended_Price""
+    FROM OE_ORDER_LINES_ALL rma_sl,
+           OE_ORDER_HEADERS_ALL rma_sh,
+           oe_order_lines_all r_sl,
+           oe_order_headers_all r_sh,
+           mtl_system_items_b msib
+   WHERE rma_sl.header_id = rma_sh.header_id
+           AND r_sh.order_number = " + item.WorkOrderID + @"
+           AND rma_sh.order_category_code = 'RETURN'
+           AND r_sl.header_id = r_sh.header_id
+           AND rma_sl.reference_line_id = r_sl.line_id
+           and msib.organization_id = 92
+           and msib.segment1 = rma_sl.ordered_item
+GROUP BY   rma_sh.order_number,msib.attribute2,rma_sl.ordered_item,
+           r_sh.order_number,
+           rma_sh.creation_date,
+           r_sh.creation_date
+ORDER BY r_sh.creation_date DESC
+";
+                            OleDbCommand myCommand = new OleDbCommand(query, myConnection);
+                            OleDbDataReader reader = myCommand.ExecuteReader();
+                            
+                            while (reader.Read())
+                            {
+                                obj = new RMAProduct();
+                                obj.ReturnOrderNumber = GetSafeData.GetSafeInt(reader.GetValue(0));
+                                obj.ProductCode = GetSafeData.GetSafeString(reader.GetValue(1));
+                                obj.OrderNumber = GetSafeData.GetSafeInt(reader.GetValue(5));
+                                lstRMAProduct.Add(obj);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            lstRMAProduct = new List<RMAProduct>();
+                        }
+                        
+                        item.Status = lstRMAProduct.Count>0? "<strong>Return/RMA</strong>" : item.Status;
+                        foreach(ProductDetails product in item.productDetails)
+                        {
+                            product.isLineRMAdone = lstRMAProduct.Count>0? lstRMAProduct.Any(t => t.ProductCode == product.Product):false;
+                        }
+                        
+                           
+                        StringBuilder _str = new StringBuilder();
                         IList<HistoryList> _historyList = new List<HistoryList>();
                         _historyList = item.historylist;
                         foreach (var t in _historyList)
@@ -295,7 +321,7 @@ namespace USPS_Report.Areas.Reports.Models
                             _str = _str.Append(t.Date.ToString());
                             _str = _str.Append(" - " + t.Process);
                             _str = _str.Append(Environment.NewLine);
-                            
+
                         }
                         item.History = _str.ToString();
 
@@ -305,13 +331,14 @@ namespace USPS_Report.Areas.Reports.Models
                         {
                             //   _trackingList = _db.Database.SqlQuery<TrackingList>("select ConfirmationNum from Reports..FedEx_Tracking_Tbl where WorkOrder = " + item.WorkOrderID).ToList();
 
-                            try {
+                            try
+                            {
                                 // web api - tracking info
                                 HttpClient client = new HttpClient();
 
 
                                 client.BaseAddress = new Uri("http://JBMAZWeb01/TrackingShippedBy/");
-                              //  client.BaseAddress = new Uri("http://localhost:61027/");
+                                //  client.BaseAddress = new Uri("http://localhost:61027/");
 
                                 var result2 = client.GetAsync("api/Values/" + item.WorkOrderID).Result;
 
@@ -344,7 +371,7 @@ namespace USPS_Report.Areas.Reports.Models
                         //------------------------------------
                         if (_trackingList.Count == 0 && item.TrackingNumbers == "")
                         {
-                            string query = "select * from Reports.dbo.FedEx_Tracking_Tbl where WorkOrder = "+ item.WorkOrderID + "";
+                            string query = "select * from Reports.dbo.FedEx_Tracking_Tbl where WorkOrder = " + item.WorkOrderID + "";
                             _trackingList = _db.Database.SqlQuery<TrackingList>(query).ToList();
                         }
                         //----------------------------------------
@@ -367,7 +394,7 @@ namespace USPS_Report.Areas.Reports.Models
                                         }
                                     }
                                 }
-                               
+
                             }
 
                             item.Cancel = 0; //no cancel button, order is already shipped
@@ -399,12 +426,12 @@ namespace USPS_Report.Areas.Reports.Models
 
                         item.CancelReason = "Reason";
 
-                        if(item.TrackingNumbers!=null&&item.TrackingNumbers!="")
+                        if (item.TrackingNumbers != null && item.TrackingNumbers != "")
                         {
                             string trackingNumbers = item.TrackingNumbers.Replace(" \n", "");
-                            if(trackingNumbers[trackingNumbers.Length - 1] == ',')
+                            if (trackingNumbers[trackingNumbers.Length - 1] == ',')
                             {
-                                trackingNumbers=trackingNumbers.Remove(trackingNumbers.Length - 1, 1);
+                                trackingNumbers = trackingNumbers.Remove(trackingNumbers.Length - 1, 1);
                             }
                             item.TrackingNumbersList = trackingNumbers.Split(',').ToList<string>();
                         }
@@ -424,6 +451,143 @@ namespace USPS_Report.Areas.Reports.Models
 
 
         }
+        public static bool isRMAdone(int wo)
+        {
+            string _conn = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ConnectionString;
+            OleDbConnection myConnection = new OleDbConnection(_conn);
+            String query = string.Empty;
+            myConnection.Open();
+            query = @"SELECT   rma_sh.order_number return_order_number,
+msib.attribute2 ordered_item_HDMS,rma_sl.ordered_item,
+           rma_sh.creation_date,
+           SUM (rma_sl.ORDERED_QUANTITY * rma_sl.UNIT_SELLING_PRICE)
+              ""Extended_Price"",
+           r_sh.order_number sales_order_number,
+           r_sh.creation_date,
+           SUM(r_sl.ORDERED_QUANTITY * r_sl.UNIT_SELLING_PRICE)
+              ""Extended_Price""
+    FROM OE_ORDER_LINES_ALL rma_sl,
+           OE_ORDER_HEADERS_ALL rma_sh,
+           oe_order_lines_all r_sl,
+           oe_order_headers_all r_sh,
+           mtl_system_items_b msib
+   WHERE rma_sl.header_id = rma_sh.header_id
+           AND r_sh.order_number = "+wo+@"
+           AND rma_sh.order_category_code = 'RETURN'
+           AND r_sl.header_id = r_sh.header_id
+           AND rma_sl.reference_line_id = r_sl.line_id
+           and msib.organization_id = 92
+           and msib.segment1 = rma_sl.ordered_item
+GROUP BY   rma_sh.order_number,msib.attribute2,rma_sl.ordered_item,
+           r_sh.order_number,
+           rma_sh.creation_date,
+           r_sh.creation_date
+ORDER BY r_sh.creation_date DESC
+";
+            OleDbCommand myCommand = new OleDbCommand(query, myConnection);
+            OleDbDataReader reader = myCommand.ExecuteReader();
+            RMAProduct obj;
+            List<RMAProduct> lstRMAProduct = new List<RMAProduct>();
+            while (reader.Read())
+            {
+                obj = new RMAProduct();
+                obj.ReturnOrderNumber = GetSafeData.GetSafeInt(reader.GetValue(0));
+                obj.ProductCode= GetSafeData.GetSafeString(reader.GetValue(1));
+                obj.OrderNumber= GetSafeData.GetSafeInt(reader.GetValue(5));
+                lstRMAProduct.Add(obj);
+            }
+            if (lstRMAProduct.Count > 0)
+            {
+                return true;
+            }
+            else
+            return false;
+        }
+
+        public static bool isFailedToInterface(int? account, int wo)
+        {
+            try
+            {
+                string OraConnection = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ConnectionString;
+                string Query = @"select status from jbm_hdms_order_interface where workorderid=" + wo + " and ROWNUM = 1 order by creation_date desc";
+                bool isFailed = false;
+                using (OleDbConnection conn = new OleDbConnection(OraConnection))
+                {
+                    conn.Open();
+                    using (OleDbCommand cmd = new OleDbCommand(Query, conn))
+                    {
+                        string res = cmd.ExecuteScalar().ToString();
+                        isFailed = (res == "" || res == "L") ? false : true;
+                        if (isFailed)
+                        {
+                            string Query2 = @"select error_code from JBM_ORDER_INTERFACE_ERROR_LOG where error_code not in ( 'FAILED PHONE DETAILS UPDATE', 'FAILED EMAIL ADDRESS UPDATE') and workorderid = " + wo + " and ROWNUM = 1 order by creation_date desc";
+                            string res2 = string.Empty;
+
+                            using (OleDbCommand cmd2 = new OleDbCommand(Query2, conn))
+                            {
+                                try
+                                {
+                                    res2 = cmd2.ExecuteScalar().ToString();
+                                }
+                                catch(Exception ex)
+                                {
+
+                                }                                
+
+                                MailMessage mail = new MailMessage();
+                                SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
+                                mail.From = new MailAddress("noreply@jandbmedical.com");
+                                //mail.To.Add("ShippingTeam@jandbmedical.com");
+                                //mail.To.Add("maheshkattamuribpl@jandbmedical.com");
+                                mail.To.Add("mott@jandbmedical.com");
+                                mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
+                                mail.Subject = "Failed to Interface";
+                                string body = @"<html>
+<body>
+Hello All, <br/><br/>  Please find Work order details below-<br/><br/>
+<table border=""1"">
+<tr>
+<th>
+HDMS account number
+</th>
+<th>
+WO number
+</th>
+<th>
+Failed Reason
+</th>
+</tr>
+<tr>
+<td>
+" + account + @"
+</td>
+<td>
+" + wo + @"
+</td>
+<td>
+" + res2 + @"
+</td>
+</tr>
+</table>
+<br/> Thanks,<br/> IT Team
+</body>
+</html> ";
+                                mail.Body = body;
+                                mail.IsBodyHtml = true;
+                                SmtpServer.Send(mail);
+                            }
+
+
+                        }
+                    }
+                }
+                return isFailed;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
         public static decimal GetWeightFromOracle(int WorkOrderID)
         {
@@ -439,52 +603,52 @@ namespace USPS_Report.Areas.Reports.Models
                     
                     using (Oracle.ManagedDataAccess.Client.OracleCommand cmd = new Oracle.ManagedDataAccess.Client.OracleCommand(Query, conn))
                     {
-                       Weight = cmd.ExecuteScalar() != null  ? string.IsNullOrEmpty(cmd.ExecuteScalar().ToString()) ? 0.0m : (decimal)cmd.ExecuteScalar() : 0.0m;
+                        Weight = cmd.ExecuteScalar() != null ? string.IsNullOrEmpty(cmd.ExecuteScalar().ToString()) ? 0.0m : (decimal)cmd.ExecuteScalar() : 0.0m;
                     }
                 }
                 return Weight;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
+
         }
         public static string GetShippedByFromOracle(int WorkOrderID)
         {
             IList<TrackingShippedList> _trackingList = new List<TrackingShippedList>();
             string ShippedBy = "";
             try
-               {              
+            {
                 // web api - tracking info
                 HttpClient client = new HttpClient();
 
-                    client.BaseAddress = new Uri("http://JBMAZWeb01/TrackingShippedBy/");
-                   //  client.BaseAddress = new Uri("http://localhost:61027/");
+                client.BaseAddress = new Uri("http://JBMAZWeb01/TrackingShippedBy/");
+                //  client.BaseAddress = new Uri("http://localhost:61027/");
 
-                    var result2 = client.GetAsync("api/Values/" +WorkOrderID).Result;
+                var result2 = client.GetAsync("api/Values/" + WorkOrderID).Result;
 
-                    //   var ser = JsonConvert.SerializeObject(typeof(CoInsDetail)); 
-                    string _value;
-                    using (var stm1 = result2.Content.ReadAsStreamAsync())
+                //   var ser = JsonConvert.SerializeObject(typeof(CoInsDetail)); 
+                string _value;
+                using (var stm1 = result2.Content.ReadAsStreamAsync())
+                {
+                    using (StreamReader reader = new StreamReader(stm1.Result))
                     {
-                        using (StreamReader reader = new StreamReader(stm1.Result))
-                        {
-                            TrackingShippedList trcking = new TrackingShippedList();
-                            _value = reader.ReadToEnd();
+                        TrackingShippedList trcking = new TrackingShippedList();
+                        _value = reader.ReadToEnd();
 
-                            _trackingList = JsonConvert.DeserializeObject<IList<TrackingShippedList>>(_value);
+                        _trackingList = JsonConvert.DeserializeObject<IList<TrackingShippedList>>(_value);
 
-                        }
                     }
+                }
 
                 foreach (var item in _trackingList)
                 {
-                    if(!string.IsNullOrEmpty(item.FullName))
+                    if (!string.IsNullOrEmpty(item.FullName))
                     {
                         using (HHSQLDBEntities _hhdb = new HHSQLDBEntities())
                         {
-                            string FullName = _hhdb.Database.SqlQuery<string>("Select top 1 felName from FedExLogins where felID = "+ item.FullName+"").FirstOrDefault();
+                            string FullName = _hhdb.Database.SqlQuery<string>("Select top 1 felName from FedExLogins where felID = " + item.FullName + "").FirstOrDefault();
                             if (!string.IsNullOrEmpty(FullName))
                             {
                                 item.FullName = FullName;
@@ -493,33 +657,33 @@ namespace USPS_Report.Areas.Reports.Models
                     }
                 }
 
-                    //StringBuilder sb = new StringBuilder();
+                //StringBuilder sb = new StringBuilder();
 
-                    //_trackingList = JsonConvert.DeserializeObject<TrackingList>(_value);
-                }
-                catch (Exception ex)
-                {
-                    string msg = ex.Message;
-                }
+                //_trackingList = JsonConvert.DeserializeObject<TrackingList>(_value);
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;
+            }
 
-           
+
             //------------------------------------
             if (_trackingList.Count == 0)
             {
                 string query = "select * from Reports.dbo.FedEx_Tracking_Tbl where WorkOrder = " + WorkOrderID + "";
-                using(HHSQLDBEntities _db = new HHSQLDBEntities())
+                using (HHSQLDBEntities _db = new HHSQLDBEntities())
                 {
                     _trackingList = _db.Database.SqlQuery<TrackingShippedList>(query).ToList();
-                }               
+                }
             }
             //----------------------------------------
-          
+
             if (_trackingList.Count != 0)
             {
                 foreach (var t in _trackingList)
-                {                    
+                {
                     ShippedBy = t.FullName;
-                }        
+                }
             }
             return ShippedBy;
         }
@@ -625,7 +789,7 @@ namespace USPS_Report.Areas.Reports.Models
                                           join uom in _db.tbl_Inv_UOM_Table
                                           on pro.ID_UOM equals uom.ID
                                           from wo in _db.ERP_OrdersSent.Where(w => w.woWorkOrder == wol.ID_PS_WorkOrder).DefaultIfEmpty()
-                                         // from lin in _db.ERP_OrderLines.Where(w => w.linWOid == wo.woID && w.linProductCode == pro.ProductCode && w.linQty == wol.QtyOrdered).DefaultIfEmpty()
+                                              // from lin in _db.ERP_OrderLines.Where(w => w.linWOid == wo.woID && w.linProductCode == pro.ProductCode && w.linQty == wol.QtyOrdered).DefaultIfEmpty()
 
 
                                           where wol.ID_PS_WorkOrder == t.ID
@@ -633,12 +797,13 @@ namespace USPS_Report.Areas.Reports.Models
                                           {
                                               Product = pro.ProductCode,
                                               Description = pro.ProductDescription,
+                                              //ProductId= wol.ID_Product,
                                               Ordered = wol.QtyOrdered,
                                               Shipped = wol.QtyShipped,
                                               UOM = uom.UOMName + " of " + pro.PerUnitQty,
                                               UnitWeight = pro.UnitWeight,
                                               LineOrderQty = _db.ERP_OrderLines.Where(w => w.linWOid == wo.woID && w.linProductCode == pro.ProductCode && w.linQty == wol.QtyOrdered).Select(u => u.linQtyAvailable).Take(1).FirstOrDefault(),
-                                            //  lin.linQtyAvailable,
+                                              //  lin.linQtyAvailable,
                                               UnitPRice = wol.UnitPrice,
                                               lineId = wol.ID
 
@@ -741,7 +906,7 @@ namespace USPS_Report.Areas.Reports.Models
                         IList<TrackingShippedList> _trackingList = new List<TrackingShippedList>();
 
                         item.TrackingNumbers = "";
-                        if (1==1)
+                        if (1 == 1)
                         {
                             //   _trackingList = _db.Database.SqlQuery<TrackingList>("select ConfirmationNum from Reports..FedEx_Tracking_Tbl where WorkOrder = " + item.WorkOrderID).ToList();
 
@@ -751,8 +916,8 @@ namespace USPS_Report.Areas.Reports.Models
                                 HttpClient client = new HttpClient();
 
 
-                                client.BaseAddress = new Uri("http://JBMAZWeb01/TrackingShippedBy/"); 
-                              //  client.BaseAddress = new Uri("http://localhost:61027/");
+                                client.BaseAddress = new Uri("http://JBMAZWeb01/TrackingShippedBy/");
+                                //  client.BaseAddress = new Uri("http://localhost:61027/");
 
                                 var result2 = client.GetAsync("api/Values/" + item.WorkOrderID).Result;
 
@@ -762,7 +927,7 @@ namespace USPS_Report.Areas.Reports.Models
                                 {
                                     using (StreamReader reader = new StreamReader(stm1.Result))
                                     {
-                                        TrackingShippedList trcking = new TrackingShippedList ();
+                                        TrackingShippedList trcking = new TrackingShippedList();
                                         _value = reader.ReadToEnd();
 
                                         _trackingList = JsonConvert.DeserializeObject<IList<TrackingShippedList>>(_value);
@@ -850,7 +1015,7 @@ namespace USPS_Report.Areas.Reports.Models
                     cancel = true;
                     _wo.Cancel_Date = DateTime.Now;
                     _wo.Cancel_By = userName;
-                    _wo.Cancel_Note = reason ;
+                    _wo.Cancel_Note = reason;
                     _db.Entry(_wo).State = EntityState.Modified;
                     _db.SaveChanges();
                 }
@@ -868,15 +1033,15 @@ namespace USPS_Report.Areas.Reports.Models
             using (HHSQLDBEntities _db = new HHSQLDBEntities())
             {
                 WorkOrdersReleased _wr = new WorkOrdersReleased();
-                
+
 
                 var _wo = _db.tbl_PS_WorkOrder.Where(t => t.ID == wo && t.Cancel_Date == null).Take(1).SingleOrDefault();
-                 if (_wo != null)
+                if (_wo != null)
                 {
                     holdFromShippingReason = _wo.HoldFromShippingReason;
 
                     _wo.HoldFromShipping = 0;
-                    
+
                     _db.Entry(_wo).State = EntityState.Modified;
                     _db.SaveChanges();
 
@@ -894,7 +1059,7 @@ namespace USPS_Report.Areas.Reports.Models
                     using (IntranetEntities _INdb = new IntranetEntities())
                     {
                         Eligibility_Orders _eo = new Eligibility_Orders();
-                        var maxID = _INdb.Eligibility_Orders.OrderByDescending(t=>t.ordELRid).Select(t => t.ordELRid).Take(1).SingleOrDefault();
+                        var maxID = _INdb.Eligibility_Orders.OrderByDescending(t => t.ordELRid).Select(t => t.ordELRid).Take(1).SingleOrDefault();
 
                         _eo.ordELRid = maxID;
                         _eo.ordWOId = wo;
@@ -907,11 +1072,11 @@ namespace USPS_Report.Areas.Reports.Models
                     }
 
                 }
-               
+
 
             }
 
-            
+
             return cancel;
         }
 
@@ -982,7 +1147,7 @@ namespace USPS_Report.Areas.Reports.Models
 
             string cancel_reason = string.Format("{0} {1}", reason, otherreason);
 
-          //  mail.To.Add("medsurgcsreps@jandbmedical.com");
+            //  mail.To.Add("medsurgcsreps@jandbmedical.com");
             mail.To.Add("ShippingTeam@jandbmedical.com");
             mail.To.Add("ekarrumi@jandbmedical.com");
             mail.Bcc.Add("grani@jandbmedical.com");
@@ -1044,7 +1209,7 @@ namespace USPS_Report.Areas.Reports.Models
                              where emp.OperatorName.ToUpper() == userName.ToUpper() && emp.InactiveDate == null && emp.InactiveDate == null
                              select new ID_VM
                              {
-                                
+
                                  ID = emp.ID
                              }).Take(1).SingleOrDefault();
 
@@ -1074,23 +1239,23 @@ namespace USPS_Report.Areas.Reports.Models
 
 
                         _note = _db.tbl_Account_Note.Where(t => t.Account == _acc && t.NoteHeading == "PRODUCT").FirstOrDefault(); // && t.NoteCreatedBy == id
-                                                                                                                                                 // Environment.UserName
+                                                                                                                                   // Environment.UserName
 
 
                     }
                     if (_note != null)
                     {
-                       
 
-                        string noteString = "Order= "+_vm.ID+" Cancel for  Account = " ;
-                       
+
+                        string noteString = "Order= " + _vm.ID + " Cancel for  Account = ";
+
 
 
                         tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
                         _tHist.ID_Note = _note.ID;
                         _tHist.NoteDate = DateTime.Now;
-                      
-                        _tHist.NoteText = noteString +  _acc + Environment.NewLine + "Reason:" + _vm.Reason;
+
+                        _tHist.NoteText = noteString + _acc + Environment.NewLine + "Reason:" + _vm.Reason;
 
 
 
@@ -1098,7 +1263,7 @@ namespace USPS_Report.Areas.Reports.Models
 
                         _db.tbl_Account_Note_History.Add(_tHist);
 
-                      
+
                     }
 
 
@@ -1172,10 +1337,10 @@ namespace USPS_Report.Areas.Reports.Models
         public int Numbers { get; set; }
         public int? Account { get; set; }
         public int ID { get; set; }
-       
+
         public string Reason { get; set; }
-        
-        
+
+
         public string OtherReason { get; set; }
 
         public int? CancelFlag { get; set; }
@@ -1185,9 +1350,9 @@ namespace USPS_Report.Areas.Reports.Models
 
     public class TrackingList
     {
-       
+
         public string ConfirmationNum { get; set; }
-        
+
         public string FullName { get; set; }
 
     }
@@ -1215,15 +1380,23 @@ namespace USPS_Report.Areas.Reports.Models
         public string NoteHeading { get; set; }
         public DateTime? NoteDate { get; set; }
         public string NoteText { get; set; }
-        public string NoteCreatedBy { get; set; }        
+        public string NoteCreatedBy { get; set; }
+    }
+
+    public class RMAProduct
+    {
+        public int OrderNumber { get; set; }
+        public int ReturnOrderNumber { get; set; }
+        public string ProductCode { get; set; }
     }
 
     public class ProductDetails
     {
+        public bool isLineRMAdone { get; set; }
         public int lineId { get; set; }
         public string Product { get; set; }
         public string Description { get; set; }
-
+        //public int? ProductId { get; set; }
         public decimal? UnitPRice { get; set; }
         public double? UnitWeight { get; set; }
 
@@ -1247,32 +1420,34 @@ namespace USPS_Report.Areas.Reports.Models
     public class CancelOrderVM
     {
         public int wo { get; set; }
-        public int? cancelFlag  { get; set; }
+        public int? cancelFlag { get; set; }
     }
 
 
     public class InactiveAccountReport
     {
-        public static IList<InactiveAccuntVM> GetInactiveAccount() {
+        public static IList<InactiveAccuntVM> GetInactiveAccount()
+        {
             try
             {
-               
+
                 using (HHSQLDBEntities _db = new HHSQLDBEntities())
                 {
 
                     var _list = (from rwo in _db.tbl_PS_RepeatingOrders
-                                    join inf in _db.tbl_Account_Information
-                                    on rwo.Account equals inf.Account
-                                    select new {
-                                        rwo.Account,
-                                        inf.InActiveAccount
-                                    }).Where(t => t.InActiveAccount == 1).Select(a => new InactiveAccuntVM
-                                    {
-                                        Account = a.Account
-                                    }).Distinct().ToList();
+                                 join inf in _db.tbl_Account_Information
+                                 on rwo.Account equals inf.Account
+                                 select new
+                                 {
+                                     rwo.Account,
+                                     inf.InActiveAccount
+                                 }).Where(t => t.InActiveAccount == 1).Select(a => new InactiveAccuntVM
+                                 {
+                                     Account = a.Account
+                                 }).Distinct().ToList();
 
-                                   
-                        
+
+
                     return _list;
                 }
             }
@@ -1303,7 +1478,7 @@ namespace USPS_Report.Areas.Reports.Models
                                  {
                                      Account = ro.Account
                                  }).ToList();
-                                
+
                     return _list;
                 }
             }
