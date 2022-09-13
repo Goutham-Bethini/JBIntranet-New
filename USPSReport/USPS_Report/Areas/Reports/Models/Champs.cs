@@ -113,9 +113,13 @@ namespace USPS_Report.Areas.Reports.Models
 
                 string query2 = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',23,GETDATE())";
 
-
-
                 int rowsinsert = _db.Database.ExecuteSqlCommand(query2);
+
+                //specific auditing for Claim By Payer report.
+                string query3 = @"insert into Reports.dbo.ReportsAuditLine_ClaimByPayer(OperatorName, ReportId, HCPCS, NPCode1, ResultCount, ReportAccessDate)
+                                 values('" + operatorName + "',23,'" + HCPC + "','" + NPCode1 + "'," + _list.Count + ", GETDATE())";
+
+                rowsinsert = _db.Database.ExecuteSqlCommand(query3);
 
                 return _list;
             }
