@@ -70,9 +70,9 @@ namespace USPS_Report.Areas.Reports.Controllers
            
             return View(_vm);
         }
-        public ActionResult ClaimNeeded(int PayerID, DateTime StartDt, DateTime EndDt, string NPcode, bool allNPcode, [DataSourceRequest] DataSourceRequest request)
+        public ActionResult ClaimNeeded(int PayerID, DateTime StartDt, DateTime EndDt, string NPcode, bool allNPcode, string HCPC, [DataSourceRequest] DataSourceRequest request)
         {
-            var result = Json(ChampsTools.GetClaimsByPayer(PayerID, StartDt, EndDt, NPcode, allNPcode, User.Identity.Name.Split('\\').Last().ToLower()).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            var result = Json(ChampsTools.GetClaimsByPayer(PayerID, StartDt, EndDt, NPcode, allNPcode, HCPC, User.Identity.Name.Split('\\').Last().ToLower()).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
             result.MaxJsonLength = int.MaxValue;
             return result;
            // return Json(ChampsTools.GetClaimsByPayer(PayerID, StartDt, EndDt, NPcode, allNPcode, User.Identity.Name.Split('\\').Last().ToLower()).ToDataSourceResult(request), JsonRequestBehavior.AllowGet);

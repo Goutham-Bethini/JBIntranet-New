@@ -7,20 +7,24 @@
 @using (Html.BeginForm("ClaimByPayer", "Billing", FormMethod.Post))
 {
 
-<h2 class="center">Claim By Payer</h2>
+    <h2 class="center">Claim By Payer</h2>
 
     <div class="row">
         <div class="center">
             @Html.ValidationMessageFor(model => model.PayerId)
-            <h4>Please enter a payer number : @Html.TextBoxFor(m => m.PayerId)
+            <h4>
+                Please enter a payer number : @Html.TextBoxFor(m => m.PayerId)
                 &nbsp;&nbsp;&nbsp;&nbsp;
-            Start Date @Html.Kendo().DatePicker().Name("StartDt").Value(Model.StartDt).Format("MM/dd/yyyy") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            End Date @Html.Kendo().DatePicker().Name("EndDt").Value(Model.EndDt).Format("MM/dd/yyyy") </h4> 
+                Start Date @Html.Kendo().DatePicker().Name("StartDt").Value(Model.StartDt).Format("MM/dd/yyyy") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                End Date @Html.Kendo().DatePicker().Name("EndDt").Value(Model.EndDt).Format("MM/dd/yyyy")
+            </h4>
             <br />
-            NPCode1 @Html.TextBoxFor(m=>m.NPcode)  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; All NPCodes1 @Html.CheckBoxFor(m=>m.allNPcode) &nbsp;&nbsp; 
+            HCPC: @Html.TextBoxFor(m => m.HCPC) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            NPCode1: @Html.TextBoxFor(m => m.NPcode)  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; All NPCodes1 @Html.CheckBoxFor(m => m.allNPcode) &nbsp;&nbsp;
+            <br /><br/>
+           
             <h4 style="color:red">To filter out the one particular NPcode1 , please uncheck the all Npcode1 checkbox.</h4>
-            
-           <br />
+            <br />
             <button class="btn btn-primary btn-large" type="submit" style="width: 300px; margin: 0 auto">Submit</button>
         </div>
 
@@ -28,12 +32,12 @@
     if (Model != null && Model.PayerId != null)
     {
         <hr />
-     
-
-<div class="center">
 
 
-    @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.ClaimVM>()
+        <div class="center">
+
+
+            @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.ClaimVM>()
                 .Name("PAnoNeeded")
                 .Columns(columns =>
                 {
@@ -90,25 +94,24 @@
                      .PageSize(200)
                      .ServerOperation(false)
                     .Model(model => model.Id(p => p.ID_Claim))
-                    .Read(read => read.Action("ClaimNeeded", "Billing", new { PayerID = Model.PayerId, StartDt = Model.StartDt, EndDt = Model.EndDt, NPcode = Model.NPcode, allNPcode = Model.allNPcode}))
+                    .Read(read => read.Action("ClaimNeeded", "Billing", new { PayerID = Model.PayerId, StartDt = Model.StartDt, EndDt = Model.EndDt, NPcode = Model.NPcode, allNPcode = Model.allNPcode, HCPC = Model.HCPC }))
                 //.Destroy(update => update.Action("PANotNeeded_Destroy", "CustomerService"))
 
 
                 )
-    )
+            )
 
 
-</div>
+        </div>
     }
 
 }
 <style>
     .center {
-        text-align:center;
-
+        text-align: center;
     }
 
-     .outer {
+    .outer {
         width: 100%;
         color: navy;
         background-color: lightblue;
@@ -119,34 +122,33 @@
     .c {
         text-align: center;
     }
-    .text-field{
-    background-color:#FFFFCC;
-    color : #FF0000;
-    width : 60px;
-   font-size:large;
+
+    .text-field {
+        background-color: #FFFFCC;
+        color: #FF0000;
+        width: 60px;
+        font-size: large;
     }
 
-    .field-validation-error
-{
-color: #ff0000;
-}
-.field-validation-valid
-{
-display: none;
-}
-.input-validation-error
-{
-border: 1px solid #ff0000;
-background-color: #ffeeee;
-}
-.validation-summary-errors
-{
-font-weight: bold;
-color: #ff0000;
-}
-.validation-summary-valid
-{
-display: none;
-}
-</style>
+    .field-validation-error {
+        color: #ff0000;
+    }
 
+    .field-validation-valid {
+        display: none;
+    }
+
+    .input-validation-error {
+        border: 1px solid #ff0000;
+        background-color: #ffeeee;
+    }
+
+    .validation-summary-errors {
+        font-weight: bold;
+        color: #ff0000;
+    }
+
+    .validation-summary-valid {
+        display: none;
+    }
+</style>

@@ -27,46 +27,84 @@ namespace USPS_Report.Areas.Reports.Models
         //       }
         //       }
 
-        public static IList<ClaimVM> GetClaimsByPayer(int? payerId, DateTime startDt, DateTime endDt, string NPCode1, bool allNpCodes, string operatorName)
+        public static IList<ClaimVM> GetClaimsByPayer(int? payerId, DateTime startDt, DateTime endDt, string NPCode1, bool allNpCodes, string HCPC, string operatorName)
         {
            using (HHSQLDBEntities _db = new HHSQLDBEntities())
             {
                 string query = "";
-                if (allNpCodes == true)
-                {
-                    query = ";With table1 as (Select Distinct t1.ID_Claim,t1.ID_Payer, " +
-      " t1.Account as Acct,  t1.ID_Bill, Billing_Date as DOS, Procedure_Code as HCPC,mem.First_Name, mem.Last_Name,  " +
-    " t1.ClaimBalance, ins.Policy_Number, t3.RespDate, t1.SumAllowed as AllowableAmt , t1.sumpay as PaymentAmt " +
-     " from[dbo].[v_AR_ClaimDetail_Selection] t1 Left join tbl_Account_Insurance t2 on t1.Account = t2.Account AND t2.ID_Payer = " + payerId + " AND " +
-       " ((t2.Effective_Date is NULL OR t2.Effective_Date < Billing_Date) " +
-      " AND(t2.Expiration_Date is NULL or t2.Expiration_Date > Billing_Date))  " +
-    " left join tbl_Account_Member_Insurance ins on t2.Account = ins.Account and t2.Entry_Number = ins.Entry_Number " +
-    "left join tbl_account_member mem on t1.Account = mem.Account and  mem.Member = 1" +
-    " Left JOIN(Select ID_Claim, ID_Bill, MIN(RESPONSEDate) as RespDate FROM dbo.v__Util_ClaimBillRejectionInfo  where ResponseDate >= '1/1/2015' " +
-     " Group by ID_Claim, ID_Bill  ) t3 on t1.ID_Claim = t3.ID_Claim AND t1.ID_Bill = t3.ID_Bill " +
-     " where t1.ID_Payer = " + payerId + " and t1.ClaimBalance != 0 and Billing_Date >= '" + startDt + "' and Billing_Date <= '" + endDt + "' ) " +
+                string HCPCs = "";
+                string appender1_HCPC = "";
+                string appender2_HCPC = "";
 
-    " Select t4.*, t5.NPCode1, t5.NPDesc1, t5.NPCode2, t5.NPDesc2, t5.NPCode3, t5.NPDesc3, t5.NPCode4, t5.NPDesc4,  t5.DocumentNumber as DocNum, t7.MaxDateTime as lastClaimDt from table1 t4 " +
-     " left join dbo.v_Rejection_Report t5 on t4.ID_Claim = t5.Current_ClaimID AND t4.ID_Bill = t5.ID_Bill AND " +
-     "RejectionDate = t4.RespDate left join (  SELECT ID_Claim, MAX(DateOfHistory)AS MaxDateTime FROM v_ClaimHistoryDisplay_Report where  HistoryType = 'Submitted Claim'   GROUP BY ID_Claim ) as t7 on t7.ID_Claim = t4.ID_Claim ";
+                if (!string.IsNullOrEmpty(HCPC))
+                {
+                    List<string> HCPC_List = new List<string>();
+                    string[] HCPCList = HCPC.Split(',');
+                    foreach (var hcpc in HCPCList)
+                    {
+                        HCPC_List.Add(string.Format("'{0}'", hcpc));
+                    }
+                    HCPCs = string.Join(",", HCPC_List);
+
+                    if (allNpCodes)
+                    {
+                        appender2_HCPC = " where t4.HCPC in(" + HCPCs + ")";
+                    }
+                    else
+                    {
+                        appender2_HCPC = " and t4.HCPC in(" + HCPCs + ")";
+                    }
+                    appender1_HCPC = " and Procedure_Code in("+ HCPCs +")";                   
+                }
+                if (allNpCodes == true)
+                {                                              
+                   query = ";With table1 as (Select Distinct t1.ID_Claim,t1.ID_Payer, " +
+    " t1.Account as Acct,  t1.ID_Bill, Billing_Date as DOS, Procedure_Code as HCPC,mem.First_Name, mem.Last_Name,  " +
+  " t1.ClaimBalance, ins.Policy_Number, t3.RespDate, t1.SumAllowed as AllowableAmt , t1.sumpay as PaymentAmt " +
+   " from[dbo].[v_AR_ClaimDetail_Selection] t1 Left join tbl_Account_Insurance t2 on t1.Account = t2.Account AND t2.ID_Payer = " + payerId + " AND " +
+     " ((t2.Effective_Date is NULL OR t2.Effective_Date < Billing_Date) " +
+    " AND(t2.Expiration_Date is NULL or t2.Expiration_Date > Billing_Date))  " +
+  " left join tbl_Account_Member_Insurance ins on t2.Account = ins.Account and t2.Entry_Number = ins.Entry_Number " +
+  "left join tbl_account_member mem on t1.Account = mem.Account and  mem.Member = 1" +
+  " Left JOIN(Select ID_Claim, ID_Bill, MIN(RESPONSEDate) as RespDate FROM dbo.v__Util_ClaimBillRejectionInfo  where ResponseDate >= '1/1/2015' " +
+   " Group by ID_Claim, ID_Bill  ) t3 on t1.ID_Claim = t3.ID_Claim AND t1.ID_Bill = t3.ID_Bill " +
+   " where t1.ID_Payer = " + payerId + "and t1.ClaimBalance != 0" + appender1_HCPC +" and Billing_Date >= '" + startDt + "' and Billing_Date <= '" + endDt + "' )" +
+
+  " Select t4.*, t5.NPCode1, t5.NPDesc1, t5.NPCode2, t5.NPDesc2, t5.NPCode3, t5.NPDesc3, t5.NPCode4, t5.NPDesc4,  t5.DocumentNumber as DocNum, t7.MaxDateTime as lastClaimDt from table1 t4 " +
+   " left join dbo.v_Rejection_Report t5 on t4.ID_Claim = t5.Current_ClaimID AND t4.ID_Bill = t5.ID_Bill AND " +
+   "RejectionDate = t4.RespDate left join (  SELECT ID_Claim, MAX(DateOfHistory)AS MaxDateTime FROM v_ClaimHistoryDisplay_Report where  HistoryType = 'Submitted Claim'   GROUP BY ID_Claim ) as t7 on t7.ID_Claim = t4.ID_Claim"
+   + appender2_HCPC;
+                                   
                 }
 
                 else {
-                   query = ";With table1 as (Select Distinct t1.ID_Claim,t1.ID_Payer, " +
+                    //orders.Add(String.Format("'{0}'", all_orders[i]));
+
+                    List<string> NPCodes_List = new List<string>();
+                    string NPCodes = "";
+                    string[] NPCodesList = NPCode1.Split(',');
+                    foreach(var npcode in NPCodesList)
+                    {
+                        NPCodes_List.Add(string.Format("'{0}'", npcode));
+                    }
+                    NPCodes = string.Join(",", NPCodes_List);
+
+                   query = @";With table1 as (Select Distinct t1.ID_Claim,t1.ID_Payer, " +
      " t1.Account as Acct,  t1.ID_Bill, Billing_Date as DOS, Procedure_Code as HCPC,mem.First_Name, mem.Last_Name,  " +
    " t1.ClaimBalance, ins.Policy_Number, t3.RespDate, t1.SumAllowed as AllowableAmt , t1.sumpay as PaymentAmt " +
-    " from[dbo].[v_AR_ClaimDetail_Selection] t1 Left join tbl_Account_Insurance t2 on t1.Account = t2.Account AND t2.ID_Payer = " + payerId + " AND " +
+    " from [dbo].[v_AR_ClaimDetail_Selection] t1 Left join tbl_Account_Insurance t2 on t1.Account = t2.Account AND t2.ID_Payer = " + payerId + " AND " +
       " ((t2.Effective_Date is NULL OR t2.Effective_Date < Billing_Date) " +
      " AND(t2.Expiration_Date is NULL or t2.Expiration_Date > Billing_Date))  " +
    " left join tbl_Account_Member_Insurance ins on t2.Account = ins.Account and t2.Entry_Number = ins.Entry_Number " +
    "left join tbl_account_member mem on t1.Account = mem.Account and  mem.Member = 1" +
    " Left JOIN(Select ID_Claim, ID_Bill, MIN(RESPONSEDate) as RespDate FROM dbo.v__Util_ClaimBillRejectionInfo  where ResponseDate >= '1/1/2015' " +
     " Group by ID_Claim, ID_Bill  ) t3 on t1.ID_Claim = t3.ID_Claim AND t1.ID_Bill = t3.ID_Bill " +
-    " where t1.ID_Payer = " + payerId + " and t1.ClaimBalance != 0 and Billing_Date >= '" + startDt + "' and Billing_Date <= '" + endDt + "' ) " +
+    " where t1.ID_Payer = " + payerId + " and t1.ClaimBalance != 0"+appender1_HCPC+" and Billing_Date >= '" + startDt + "' and Billing_Date <= '" + endDt + "' ) " +
 
    " Select t4.*, t5.NPCode1, t5.NPDesc1, t5.NPCode2, t5.NPDesc2, t5.NPCode3, t5.NPDesc3, t5.NPCode4, t5.NPDesc4,  t5.DocumentNumber as DocNum, t7.MaxDateTime as lastClaimDt from table1 t4 " +
-    " left join dbo.v_Rejection_Report t5 on t4.ID_Claim = t5.Current_ClaimID AND t4.ID_Bill = t5.ID_Bill AND t5.NPCode1 = '" + NPCode1 + "' and " +
-    "RejectionDate = t4.RespDate left join (  SELECT ID_Claim, MAX(DateOfHistory)AS MaxDateTime FROM v_ClaimHistoryDisplay_Report where  HistoryType = 'Submitted Claim'   GROUP BY ID_Claim ) as t7 on t7.ID_Claim = t4.ID_Claim ";
+    " left join dbo.v_Rejection_Report t5 on t4.ID_Claim = t5.Current_ClaimID AND t4.ID_Bill = t5.ID_Bill AND t5.NPCode1 in(" + NPCodes + ") and " +
+    "RejectionDate = t4.RespDate left join (  SELECT ID_Claim, MAX(DateOfHistory)AS MaxDateTime FROM v_ClaimHistoryDisplay_Report where  HistoryType = 'Submitted Claim'   GROUP BY ID_Claim ) as t7 on t7.ID_Claim = t4.ID_Claim" 
+    + " where t5.NPCode1 in("+ NPCodes + ")" + appender2_HCPC;
 
                 }
 
@@ -74,6 +112,8 @@ namespace USPS_Report.Areas.Reports.Models
                 var _list = _db.Database.SqlQuery<ClaimVM>(query).ToList();
 
                 string query2 = @"insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',23,GETDATE())";
+
+
 
                 int rowsinsert = _db.Database.ExecuteSqlCommand(query2);
 
@@ -824,6 +864,7 @@ namespace USPS_Report.Areas.Reports.Models
         public DateTime EndDt { get; set; }
         public string NPcode { get; set; }
         public bool allNPcode { get; set; }
+        public string HCPC { get; set; }
     }
 
     public class CollectionModel
