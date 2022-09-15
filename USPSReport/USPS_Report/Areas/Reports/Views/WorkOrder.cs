@@ -14,6 +14,7 @@ using System.Data.OleDb;
 using System.Configuration;
 using USPS_Report.Areas.ColdFusionReports.Models;
 using USPS_Report.Helper;
+using System.Data.OracleClient;
 
 namespace USPS_Report.Areas.Reports.Models
 {
@@ -258,39 +259,93 @@ namespace USPS_Report.Areas.Reports.Models
                         List<RMAProduct> lstRMAProduct = new List<RMAProduct>();
                         try
                         {
-                            string _conn = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ConnectionString;
-                            OleDbConnection myConnection = new OleDbConnection(_conn);
+                            string _conn = ConfigurationManager.ConnectionStrings["OracleConnection"].ConnectionString;
+                            Oracle.ManagedDataAccess.Client.OracleConnection myConnection = new Oracle.ManagedDataAccess.Client.OracleConnection(_conn);
                             String query = string.Empty;
                             myConnection.Open();
+                            //                            query = @"SELECT   rma_sh.order_number return_order_number,
+                            //msib.attribute2 ordered_item_HDMS,rma_sl.ordered_item,
+                            //           rma_sh.creation_date,
+                            //           SUM (rma_sl.ORDERED_QUANTITY * rma_sl.UNIT_SELLING_PRICE)
+                            //              ""Extended_Price"",
+                            //           r_sh.order_number sales_order_number,
+                            //           r_sh.creation_date,
+                            //           SUM(r_sl.ORDERED_QUANTITY * r_sl.UNIT_SELLING_PRICE)
+                            //              ""Extended_Price""
+                            //    FROM OE_ORDER_LINES_ALL rma_sl,
+                            //           OE_ORDER_HEADERS_ALL rma_sh,
+                            //           oe_order_lines_all r_sl,
+                            //           oe_order_headers_all r_sh,
+                            //           mtl_system_items_b msib
+                            //   WHERE rma_sl.header_id = rma_sh.header_id
+                            //           AND r_sh.order_number = " + item.WorkOrderID + @"
+                            //           AND rma_sh.order_category_code = 'RETURN'
+                            //           AND r_sl.header_id = r_sh.header_id
+                            //           AND rma_sl.reference_line_id = r_sl.line_id
+                            //           and msib.organization_id = 92
+                            //           and msib.segment1 = rma_sl.ordered_item
+                            //GROUP BY   rma_sh.order_number,msib.attribute2,rma_sl.ordered_item,
+                            //           r_sh.order_number,
+                            //           rma_sh.creation_date,
+                            //           r_sh.creation_date
+                            //ORDER BY r_sh.creation_date DESC
+                            //";
+
                             query = @"SELECT   rma_sh.order_number return_order_number,
-msib.attribute2 ordered_item_HDMS,rma_sl.ordered_item,
+
+msib.attribute2 ordered_item_HDMS,msib.ITEM_NUMBER,
+
            rma_sh.creation_date,
-           SUM (rma_sl.ORDERED_QUANTITY * rma_sl.UNIT_SELLING_PRICE)
+
+           SUM (rma_sl.EXTENDED_AMOUNT)
+
               ""Extended_Price"",
+
            r_sh.order_number sales_order_number,
+
            r_sh.creation_date,
-           SUM(r_sl.ORDERED_QUANTITY * r_sl.UNIT_SELLING_PRICE)
+
+           SUM(r_sl.EXTENDED_AMOUNT)
+
               ""Extended_Price""
-    FROM OE_ORDER_LINES_ALL rma_sl,
-           OE_ORDER_HEADERS_ALL rma_sh,
-           oe_order_lines_all r_sl,
-           oe_order_headers_all r_sh,
-           mtl_system_items_b msib
+
+    FROM XXJBM_DOO_LINES_ALL rma_sl,
+
+           XXJBM_DOO_HEADERS_ALL rma_sh,
+
+           XXJBM_doo_lines_all r_sl,
+
+           XXJBM_doo_headers_all r_sh,
+
+           XXJBM_egp_system_items_b msib
+
    WHERE rma_sl.header_id = rma_sh.header_id
+
            AND r_sh.order_number = " + item.WorkOrderID + @"
-           AND rma_sh.order_category_code = 'RETURN'
+
+           AND rma_sl.category_code = 'RETURN'
+
            AND r_sl.header_id = r_sh.header_id
+
            AND rma_sl.reference_line_id = r_sl.line_id
-           and msib.organization_id = 92
-           and msib.segment1 = rma_sl.ordered_item
-GROUP BY   rma_sh.order_number,msib.attribute2,rma_sl.ordered_item,
+
+           --and msib.organization_id = 92
+
+           and msib.INVENTORY_ITEM_ID = rma_sl.INVENTORY_ITEM_ID
+
+GROUP BY   rma_sh.order_number,msib.attribute2,msib.ITEM_NUMBER,
+
            r_sh.order_number,
+
            rma_sh.creation_date,
+
            r_sh.creation_date
-ORDER BY r_sh.creation_date DESC
+
+ORDER BY r_sh.creation_date DESC 
 ";
-                            OleDbCommand myCommand = new OleDbCommand(query, myConnection);
-                            OleDbDataReader reader = myCommand.ExecuteReader();
+
+                            Oracle.ManagedDataAccess.Client.OracleCommand myCommand = new Oracle.ManagedDataAccess.Client.OracleCommand(query, myConnection);
+                            Oracle.ManagedDataAccess.Client.OracleDataReader reader = myCommand.ExecuteReader();
                             
                             while (reader.Read())
                             {
@@ -508,22 +563,23 @@ ORDER BY r_sh.creation_date DESC
         {
             try
             {
-                string OraConnection = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ConnectionString;
+                string OraConnection = ConfigurationManager.ConnectionStrings["OracleConnection"].ConnectionString;
                 string Query = @"select status from jbm_hdms_order_interface where workorderid=" + wo + " and ROWNUM = 1 order by creation_date desc";
                 bool isFailed = false;
-                using (OleDbConnection conn = new OleDbConnection(OraConnection))
+                using (Oracle.ManagedDataAccess.Client.OracleConnection conn = new Oracle.ManagedDataAccess.Client.OracleConnection(OraConnection))
                 {
                     conn.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(Query, conn))
+                    using (Oracle.ManagedDataAccess.Client.OracleCommand cmd = new Oracle.ManagedDataAccess.Client.OracleCommand(Query, conn))
                     {
                         string res = cmd.ExecuteScalar().ToString();
                         isFailed = (res == "" || res == "L") ? false : true;
                         if (isFailed)
                         {
-                            string Query2 = @"select error_code from JBM_ORDER_INTERFACE_ERROR_LOG where error_code not in ( 'FAILED PHONE DETAILS UPDATE', 'FAILED EMAIL ADDRESS UPDATE') and workorderid = " + wo + " and ROWNUM = 1 order by creation_date desc";
+                            string Query2 = @"select error_message from jbm_hdms_order_interface where error_message is not null and workorderid = " + wo + " and ROWNUM = 1 order by creation_date desc";
+                            //string Query2 = @"select error_code from JBM_ORDER_INTERFACE_ERROR_LOG where error_code not in ( 'FAILED PHONE DETAILS UPDATE', 'FAILED EMAIL ADDRESS UPDATE') and workorderid = " + wo + " and ROWNUM = 1 order by creation_date desc";
                             string res2 = string.Empty;
 
-                            using (OleDbCommand cmd2 = new OleDbCommand(Query2, conn))
+                            using (Oracle.ManagedDataAccess.Client.OracleCommand cmd2 = new Oracle.ManagedDataAccess.Client.OracleCommand(Query2, conn))
                             {
                                 try
                                 {

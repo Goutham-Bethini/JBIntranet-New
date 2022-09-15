@@ -71,15 +71,15 @@ namespace USPS_Report.Models
             //myConnection.Open();
             if (_tracNum.Length > 10)
             {
-                // OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from apps.TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "' and CANCELDATE is Null";
-                OrdersFedExQuery = "select Reference_Number, tracking_Number, Ship_Date from XXCUST01.jbm_FEDEX_PODS where tracking_Number = '" + _tracNum + "'";
+                // OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "' and CANCELDATE is Null";
+                OrdersFedExQuery = "select Reference_Number, tracking_Number, Ship_Date from jbm_FEDEX_PODS where tracking_Number = '" + _tracNum + "'";
 
             }
             else
             {
                 bool result = Int32.TryParse(_tracNum, out workOrdernum);
                 if (result)
-                    OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from apps.TBL_UPS_WORKORDERS a where ID_WORKORDER = '" + workOrdernum + "' and CANCELDATE is Null";
+                    OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from TBL_UPS_WORKORDERS a where ID_WORKORDER = '" + workOrdernum + "' and CANCELDATE is Null";
 
             }
 
@@ -152,13 +152,13 @@ namespace USPS_Report.Models
             //myConnection.Open();
             if (_tracNum.Length > 10)
             {
-                OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from apps.TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "'";
+                OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "'";
             }
             else
             {
                 bool result = Int32.TryParse(_tracNum, out workOrdernum);
                  if (result)
-                 OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from apps.TBL_UPS_WORKORDERS a where ID_WORKORDER = '" + workOrdernum + "'";
+                 OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from TBL_UPS_WORKORDERS a where ID_WORKORDER = '" + workOrdernum + "'";
 
             }
 
