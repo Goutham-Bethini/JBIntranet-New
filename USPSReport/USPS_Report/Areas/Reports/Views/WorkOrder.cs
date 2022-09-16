@@ -564,7 +564,7 @@ ORDER BY r_sh.creation_date DESC
             try
             {
                 string OraConnection = ConfigurationManager.ConnectionStrings["OracleConnection"].ConnectionString;
-                string Query = @"select status from jbm_hdms_order_interface where workorderid=" + wo + " and ROWNUM = 1 order by creation_date desc";
+                string Query = @"select status from jbm_hdms_order_interface where workorderid='" + wo + "' and ROWNUM = 1 order by creation_date desc";
                 bool isFailed = false;
                 using (Oracle.ManagedDataAccess.Client.OracleConnection conn = new Oracle.ManagedDataAccess.Client.OracleConnection(OraConnection))
                 {
@@ -575,7 +575,7 @@ ORDER BY r_sh.creation_date DESC
                         isFailed = (res == "" || res == "L") ? false : true;
                         if (isFailed)
                         {
-                            string Query2 = @"select error_message from jbm_hdms_order_interface where error_message is not null and workorderid = " + wo + " and ROWNUM = 1 order by creation_date desc";
+                            string Query2 = @"select error_message from jbm_hdms_order_interface where error_message is not null and workorderid = '" + wo + "' and ROWNUM = 1 order by creation_date desc";
                             //string Query2 = @"select error_code from JBM_ORDER_INTERFACE_ERROR_LOG where error_code not in ( 'FAILED PHONE DETAILS UPDATE', 'FAILED EMAIL ADDRESS UPDATE') and workorderid = " + wo + " and ROWNUM = 1 order by creation_date desc";
                             string res2 = string.Empty;
 
