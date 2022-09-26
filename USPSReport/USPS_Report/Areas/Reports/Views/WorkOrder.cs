@@ -95,8 +95,8 @@ namespace USPS_Report.Areas.Reports.Models
                         //Status = isFailedToInterface(t.Account, t.ID)? "Failed to Interface" : " not failed",
                         //isRMAdone(t.ID) ? "<strong>Return/RMA</strong>" :
                         Status =  t.Cancel_Date != null ? "<strong><u>Cancelled:</u></strong> " + Environment.NewLine + t.Cancel_Note :
-                        t.Completed_Date != null ? (isFailedToInterface(t.Account, t.ID) ? "<strong>Failed to Interface</strong>" : "<strong>Completed</strong> ") :
-                        t.LastPrintDate != null ? (isFailedToInterface(t.Account, t.ID) ? "<strong>Failed to Interface</strong>" : "<strong>Printed/Sent to oracle</strong> ") :
+                        t.Completed_Date != null ? (isFailedToInterface(t.Account, t.ID) ? "<strong style='color: red;'>Failed to Interface</strong>" : "<strong>Completed</strong> ") :
+                        t.LastPrintDate != null ? (isFailedToInterface(t.Account, t.ID) ? "<strong style='color: red;'>Failed to Interface</strong>" : "<strong>Printed/Sent to oracle</strong> ") :
                           (t.HoldFromShipping == 1 && t.HoldFromShippingReason == null) ? "<strong>Created</strong>" :
                            (t.HoldFromShipping == 1 && t.HoldFromShippingReason != null) ? " <strong><u>Holding:</u></strong>" + "~" + t.HoldFromShippingReason :
                         (t.HoldFromShipping == 1 && t.HoldFromShippingReason.Contains("%Back Order%")) ? "<strong><u>Back Ordered and Holding:</u></strong> " + Environment.NewLine + t.HoldFromShippingReason :
@@ -537,10 +537,10 @@ ORDER BY r_sh.creation_date DESC
                                 MailMessage mail = new MailMessage();
                                 SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
                                 mail.From = new MailAddress("noreply@jandbmedical.com");
-                                //mail.To.Add("ShippingTeam@jandbmedical.com");
+                                mail.To.Add("ShippingTeam@jandbmedical.com");
                                 //mail.To.Add("maheshkattamuribpl@jandbmedical.com");
-                                mail.To.Add("mott@jandbmedical.com");
-                                mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
+                                //mail.To.Add("mott@jandbmedical.com");
+                                //mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
                                 mail.Subject = "Failed to Interface";
                                 string body = @"<html>
 <body>
