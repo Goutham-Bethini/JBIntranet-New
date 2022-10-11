@@ -254,63 +254,7 @@ namespace USPS_Report.Areas.Reports.Models
 
                     foreach (var item in _list)
                     {
-                        RMAProduct obj;
-                        List<RMAProduct> lstRMAProduct = new List<RMAProduct>();
-                        try
-                        {
-                            string _conn = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ConnectionString;
-                            OleDbConnection myConnection = new OleDbConnection(_conn);
-                            String query = string.Empty;
-                            myConnection.Open();
-                            query = @"SELECT   rma_sh.order_number return_order_number,
-msib.attribute2 ordered_item_HDMS,rma_sl.ordered_item,
-           rma_sh.creation_date,
-           SUM (rma_sl.ORDERED_QUANTITY * rma_sl.UNIT_SELLING_PRICE)
-              ""Extended_Price"",
-           r_sh.order_number sales_order_number,
-           r_sh.creation_date,
-           SUM(r_sl.ORDERED_QUANTITY * r_sl.UNIT_SELLING_PRICE)
-              ""Extended_Price""
-    FROM OE_ORDER_LINES_ALL rma_sl,
-           OE_ORDER_HEADERS_ALL rma_sh,
-           oe_order_lines_all r_sl,
-           oe_order_headers_all r_sh,
-           mtl_system_items_b msib
-   WHERE rma_sl.header_id = rma_sh.header_id
-           AND r_sh.order_number = " + item.WorkOrderID + @"
-           AND rma_sh.order_category_code = 'RETURN'
-           AND r_sl.header_id = r_sh.header_id
-           AND rma_sl.reference_line_id = r_sl.line_id
-           and msib.organization_id = 92
-           and msib.segment1 = rma_sl.ordered_item
-GROUP BY   rma_sh.order_number,msib.attribute2,rma_sl.ordered_item,
-           r_sh.order_number,
-           rma_sh.creation_date,
-           r_sh.creation_date
-ORDER BY r_sh.creation_date DESC
-";
-                            OleDbCommand myCommand = new OleDbCommand(query, myConnection);
-                            OleDbDataReader reader = myCommand.ExecuteReader();
-                            
-                            while (reader.Read())
-                            {
-                                obj = new RMAProduct();
-                                obj.ReturnOrderNumber = GetSafeData.GetSafeInt(reader.GetValue(0));
-                                obj.ProductCode = GetSafeData.GetSafeString(reader.GetValue(1));
-                                obj.OrderNumber = GetSafeData.GetSafeInt(reader.GetValue(5));
-                                lstRMAProduct.Add(obj);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            lstRMAProduct = new List<RMAProduct>();
-                        }
                         
-                        item.Status = lstRMAProduct.Count>0? "<strong>Return/RMA</strong>" : item.Status;
-                        foreach(ProductDetails product in item.productDetails)
-                        {
-                            product.isLineRMAdone = lstRMAProduct.Count>0? lstRMAProduct.Any(t => t.ProductCode == product.Product):false;
-                        }
                         
                            
                         StringBuilder _str = new StringBuilder();
@@ -434,6 +378,64 @@ ORDER BY r_sh.creation_date DESC
                                 trackingNumbers = trackingNumbers.Remove(trackingNumbers.Length - 1, 1);
                             }
                             item.TrackingNumbersList = trackingNumbers.Split(',').ToList<string>();
+                        }
+
+                        RMAProduct obj;
+                        List<RMAProduct> lstRMAProduct = new List<RMAProduct>();
+                        try
+                        {
+                            string _conn = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ConnectionString;
+                            OleDbConnection myConnection = new OleDbConnection(_conn);
+                            String query = string.Empty;
+                            myConnection.Open();
+                            query = @"SELECT   rma_sh.order_number return_order_number,
+msib.attribute2 ordered_item_HDMS,rma_sl.ordered_item,
+           rma_sh.creation_date,
+           SUM (rma_sl.ORDERED_QUANTITY * rma_sl.UNIT_SELLING_PRICE)
+              ""Extended_Price"",
+           r_sh.order_number sales_order_number,
+           r_sh.creation_date,
+           SUM(r_sl.ORDERED_QUANTITY * r_sl.UNIT_SELLING_PRICE)
+              ""Extended_Price""
+    FROM OE_ORDER_LINES_ALL rma_sl,
+           OE_ORDER_HEADERS_ALL rma_sh,
+           oe_order_lines_all r_sl,
+           oe_order_headers_all r_sh,
+           mtl_system_items_b msib
+   WHERE rma_sl.header_id = rma_sh.header_id
+           AND r_sh.order_number = " + item.WorkOrderID + @"
+           AND rma_sh.order_category_code = 'RETURN'
+           AND r_sl.header_id = r_sh.header_id
+           AND rma_sl.reference_line_id = r_sl.line_id
+           and msib.organization_id = 92
+           and msib.segment1 = rma_sl.ordered_item
+GROUP BY   rma_sh.order_number,msib.attribute2,rma_sl.ordered_item,
+           r_sh.order_number,
+           rma_sh.creation_date,
+           r_sh.creation_date
+ORDER BY r_sh.creation_date DESC
+";
+                            OleDbCommand myCommand = new OleDbCommand(query, myConnection);
+                            OleDbDataReader reader = myCommand.ExecuteReader();
+
+                            while (reader.Read())
+                            {
+                                obj = new RMAProduct();
+                                obj.ReturnOrderNumber = GetSafeData.GetSafeInt(reader.GetValue(0));
+                                obj.ProductCode = GetSafeData.GetSafeString(reader.GetValue(1));
+                                obj.OrderNumber = GetSafeData.GetSafeInt(reader.GetValue(5));
+                                lstRMAProduct.Add(obj);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            lstRMAProduct = new List<RMAProduct>();
+                        }
+
+                        item.Status = lstRMAProduct.Count > 0 ? "<strong>Return/RMA</strong>" : item.Status;
+                        foreach (ProductDetails product in item.productDetails)
+                        {
+                            product.isLineRMAdone = lstRMAProduct.Count > 0 ? lstRMAProduct.Any(t => t.ProductCode == product.Product) : false;
                         }
                     }
 
