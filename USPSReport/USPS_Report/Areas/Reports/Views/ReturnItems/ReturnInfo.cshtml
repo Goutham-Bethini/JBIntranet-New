@@ -67,16 +67,26 @@
     <tr>
         <td>
             @Html.Label("Return Receipt w/Credit?")
-            @Html.RadioButtonFor(m => m.ReturnForCredit, "Yes")<label>Yes</label>
-            @Html.RadioButtonFor(m => m.ReturnForCredit, "No")<label>No</label>
+            @Html.DropDownListFor(m => m.ReturnForCredit, new List<SelectListItem>
+                {
+                   new SelectListItem{ Text="None", Value = "" },
+                   new SelectListItem{ Text="Yes", Value = "Yes" },
+                   new SelectListItem{ Text="No", Value = "No" },
+
+                })
+
         </td>
         <td></td>
     </tr>
     <tr>
         <td>
             @Html.Label("Return w/Receipt, No Credit?")
-            @Html.RadioButtonFor(m => m.ReturnWreceipt, "Yes")<label>Yes</label>
-            @Html.RadioButtonFor(m => m.ReturnWreceipt, "No")<label>No</label>
+            @Html.DropDownListFor(m => m.ReturnWreceipt, new List<SelectListItem>
+               {
+              new SelectListItem{ Text="None", Value=""},
+              new SelectListItem{ Text="Yes", Value ="Yes"},
+              new SelectListItem{ Text = "No", Value = "No"},
+               })
         </td>
         <td></td>
     </tr>
