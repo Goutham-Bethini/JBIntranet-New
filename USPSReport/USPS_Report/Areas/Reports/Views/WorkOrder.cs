@@ -1408,6 +1408,7 @@ Failed Reason
 
         public int? Ordered { get; set; }
         public int? Shipped { get; set; }
+        public decimal? UnitCost { get; set; }
         public int? LineOrderQty { get; set; }
     }
 
