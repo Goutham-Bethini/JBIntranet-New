@@ -6,6 +6,7 @@ using System.Data.OleDb;
 using System.Data.OracleClient;
 using System.Linq;
 using System.Web;
+using USPS_Report.Models;
 
 namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
 {
@@ -107,7 +108,11 @@ namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
                     productivityReportData = new ProductivityReportData();
                     using (USPS_Report.Areas.ColdFusionReports.Models.ColdFuionHHSQLDBEntities _db = new USPS_Report.Areas.ColdFusionReports.Models.ColdFuionHHSQLDBEntities())
                     {
-                        productivityReportData.User = _db.FedExLogins.Where(i => i.felID == item.USERID).Select(i => i.felName).FirstOrDefault();
+                        using(xCarrier_ProdEntities XCarrier = new xCarrier_ProdEntities())
+                        {
+                            //productivityReportData.User = _db.FedExLogins.Where(i => i.felID == item.USERID).Select(i => i.felName).FirstOrDefault();
+                            productivityReportData.User = XCarrier.XCARRIER_USER_REGISTRATION.Where(i => i.LOGIN_ID == item.USERID).Select( i => i.USERNAME).FirstOrDefault();
+                        }                      
                         productivityReportData.Meter_Number = item.Meter_Number;
                         var fmnName = _db.FedExMeterNumbers.Where(i => i.fmnMeter_Number == item.Meter_Number).Select(i => i.fmnName).FirstOrDefault();
                         if (fmnName != null && fmnName != "")

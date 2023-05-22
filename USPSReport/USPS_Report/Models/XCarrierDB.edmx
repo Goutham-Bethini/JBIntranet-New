@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="xCarrier_ProdModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="XCARRIER_USER_REGISTRATION">
+          <Key>
+            <PropertyRef Name="LOGIN_ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LOGIN_ID" Type="int" Nullable="false" />
+          <Property Name="USERNAME" Type="nvarchar" MaxLength="40" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="40" />
+          <Property Name="PLANT_ID" Type="nvarchar" MaxLength="20" />
+          <Property Name="COMPANY_ID" Type="nvarchar" MaxLength="20" />
+          <Property Name="EMPLOYEE_ID" Type="nvarchar" MaxLength="20" />
+          <Property Name="FIRST_NAME" Type="nvarchar" MaxLength="40" />
+          <Property Name="LAST_NAME" Type="nvarchar" MaxLength="40" />
+          <Property Name="DESIGNATION" Type="nvarchar" MaxLength="40" />
+          <Property Name="DEPARTMENT" Type="nvarchar" MaxLength="40" />
+          <Property Name="ADDRESS_LINE1" Type="nvarchar" MaxLength="40" />
+          <Property Name="ADDRESS_LINE2" Type="nvarchar" MaxLength="40" />
+          <Property Name="ADDRESS_LINE3" Type="nvarchar" MaxLength="40" />
+          <Property Name="CITY" Type="nvarchar" MaxLength="30" />
+          <Property Name="STATE" Type="nvarchar" MaxLength="30" />
+          <Property Name="COUNTRY" Type="nvarchar" MaxLength="30" />
+          <Property Name="ZIPCODE" Type="nvarchar" MaxLength="30" />
+          <Property Name="PHONE" Type="nvarchar" MaxLength="30" />
+          <Property Name="FAX" Type="nvarchar" MaxLength="30" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="60" />
+          <Property Name="ROLE_ID" Type="int" />
+          <Property Name="CREATED_BY" Type="nvarchar" MaxLength="80" />
+          <Property Name="UPDATED_BY" Type="nvarchar" MaxLength="80" />
+          <Property Name="CREATED_ON" Type="datetime" />
+          <Property Name="UPDATED_ON" Type="datetime" />
+          <Property Name="ACTIVE_USER" Type="bit" />
+          <Property Name="USER_ROLE" Type="nvarchar" MaxLength="30" />
+          <Property Name="Global" Type="nvarchar" MaxLength="10" />
+          <Property Name="LAST_LOGIN_DATE_TIME" Type="datetime" />
+          <Property Name="PLANT_NAME" Type="nvarchar" MaxLength="120" />
+          <Property Name="PROFILE_IMAGE_URL" Type="nvarchar(max)" />
+          <Property Name="BUILDING_NO" Type="nvarchar" MaxLength="50" />
+          <Property Name="MAIL_STOP" Type="nvarchar" MaxLength="50" />
+          <Property Name="COSTCENTER" Type="nvarchar" MaxLength="50" />
+          <Property Name="DG_SIGNATURE_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="COMPANY" Type="nvarchar(max)" />
+          <Property Name="CONTACT" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityContainer Name="xCarrier_ProdModelStoreContainer">
+          <EntitySet Name="XCARRIER_USER_REGISTRATION" EntityType="Self.XCARRIER_USER_REGISTRATION" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="xCarrier_ProdModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="XCARRIER_USER_REGISTRATION">
+          <Key>
+            <PropertyRef Name="LOGIN_ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LOGIN_ID" Type="Int32" Nullable="false" />
+          <Property Name="USERNAME" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PLANT_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="COMPANY_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EMPLOYEE_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="DESIGNATION" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="DEPARTMENT" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS_LINE1" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS_LINE2" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS_LINE3" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="CITY" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="STATE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="COUNTRY" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ZIPCODE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="PHONE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="FAX" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="ROLE_ID" Type="Int32" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="UPDATED_BY" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_ON" Type="DateTime" Precision="3" />
+          <Property Name="UPDATED_ON" Type="DateTime" Precision="3" />
+          <Property Name="ACTIVE_USER" Type="Boolean" />
+          <Property Name="USER_ROLE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Global" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="LAST_LOGIN_DATE_TIME" Type="DateTime" Precision="3" />
+          <Property Name="PLANT_NAME" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="PROFILE_IMAGE_URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BUILDING_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MAIL_STOP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COSTCENTER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DG_SIGNATURE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COMPANY" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CONTACT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="xCarrier_ProdEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="XCARRIER_USER_REGISTRATION" EntityType="Self.XCARRIER_USER_REGISTRATION" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="xCarrier_ProdModelStoreContainer" CdmEntityContainer="xCarrier_ProdEntities">
+          <EntitySetMapping Name="XCARRIER_USER_REGISTRATION">
+            <EntityTypeMapping TypeName="xCarrier_ProdModel.XCARRIER_USER_REGISTRATION">
+              <MappingFragment StoreEntitySet="XCARRIER_USER_REGISTRATION">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LOGIN_ID" ColumnName="LOGIN_ID" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="PLANT_ID" ColumnName="PLANT_ID" />
+                <ScalarProperty Name="COMPANY_ID" ColumnName="COMPANY_ID" />
+                <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="DESIGNATION" ColumnName="DESIGNATION" />
+                <ScalarProperty Name="DEPARTMENT" ColumnName="DEPARTMENT" />
+                <ScalarProperty Name="ADDRESS_LINE1" ColumnName="ADDRESS_LINE1" />
+                <ScalarProperty Name="ADDRESS_LINE2" ColumnName="ADDRESS_LINE2" />
+                <ScalarProperty Name="ADDRESS_LINE3" ColumnName="ADDRESS_LINE3" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="FAX" ColumnName="FAX" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="UPDATED_BY" ColumnName="UPDATED_BY" />
+                <ScalarProperty Name="CREATED_ON" ColumnName="CREATED_ON" />
+                <ScalarProperty Name="UPDATED_ON" ColumnName="UPDATED_ON" />
+                <ScalarProperty Name="ACTIVE_USER" ColumnName="ACTIVE_USER" />
+                <ScalarProperty Name="USER_ROLE" ColumnName="USER_ROLE" />
+                <ScalarProperty Name="Global" ColumnName="Global" />
+                <ScalarProperty Name="LAST_LOGIN_DATE_TIME" ColumnName="LAST_LOGIN_DATE_TIME" />
+                <ScalarProperty Name="PLANT_NAME" ColumnName="PLANT_NAME" />
+                <ScalarProperty Name="PROFILE_IMAGE_URL" ColumnName="PROFILE_IMAGE_URL" />
+                <ScalarProperty Name="BUILDING_NO" ColumnName="BUILDING_NO" />
+                <ScalarProperty Name="MAIL_STOP" ColumnName="MAIL_STOP" />
+                <ScalarProperty Name="COSTCENTER" ColumnName="COSTCENTER" />
+                <ScalarProperty Name="DG_SIGNATURE_ID" ColumnName="DG_SIGNATURE_ID" />
+                <ScalarProperty Name="COMPANY" ColumnName="COMPANY" />
+                <ScalarProperty Name="CONTACT" ColumnName="CONTACT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

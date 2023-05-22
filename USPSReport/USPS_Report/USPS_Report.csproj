@@ -642,6 +642,24 @@
     <Compile Include="Models\v_FutureOrderTypes2.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\XCarrierDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XCarrierDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\XCarrierDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XCarrierDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\XCarrierDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XCarrierDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\XCARRIER_USER_REGISTRATION.cs">
+      <DependentUpon>XCarrierDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -1025,6 +1043,16 @@
     <Content Include="Models\ReportDB.edmx.diagram">
       <DependentUpon>ReportDB.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\XCarrierDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>XCarrierDB.edmx</DependentUpon>
+      <LastGenOutput>XCarrierDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\XCarrierDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>XCarrierDB.edmx</DependentUpon>
+      <LastGenOutput>XCarrierDB.cs</LastGenOutput>
+    </Content>
     <Content Include="PaperAirplane.jpg" />
     <Content Include="print.css" />
     <Content Include="Scripts\bootstrap-table.js" />
@@ -1370,6 +1398,13 @@
     <Content Include="Areas\Reports\Views\RWOsChanges\RWOsChanges.cshtml" />
     <Content Include="Areas\Reports\Views\InsulinPumpSuppliesNot\InsulinPumpSuppliesNot.cshtml" />
     <Content Include="Areas\Reports\Views\ManageOrder\MassCancelHistory.cshtml" />
+    <EntityDeploy Include="Models\XCarrierDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>XCarrierDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\XCarrierDB.edmx.diagram">
+      <DependentUpon>XCarrierDB.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GBethini.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
