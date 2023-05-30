@@ -1,0 +1,88 @@
+﻿@model List<USPS_Report.Areas.ColdFusionReports.Models.DataModels.WorkOrdersModel>
+@{
+    ViewBag.Title = "Fedex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 75%;
+        margin-left: 10px;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    #workOrderId {
+        margin-left: 10px;
+        width: 50%;
+        height: 35px;
+        border-radius: 5px;
+    }
+
+    #clear {
+        margin-left: 60px;
+        width: 85px;
+        height: 35px;
+        border-radius: 5px;
+    }
+
+    #search {
+        margin-left: 10px;
+        width: 85px;
+        height: 35px;
+        border-radius: 5px;
+    }
+</style>
+<br />
+<br />
+
+
+@using (Html.BeginForm("Index", "Fedexx", FormMethod.Post))
+{
+<div style="display:flex">
+    <label style="margin-left:10px;margin-top:5px">Work Order ID : </label>
+    <input type="number" name="workOrderId" id="workOrderId" />
+    <button type="reset" id="clear">Clear</button>
+    <button type="submit" id="search">Search</button>
+</div>
+
+}
+
+<br />
+<br />
+
+@if(Model != null)
+{
+<table>
+    <tr>
+        <th>WorkOrder</th>
+        <th>Date Shipped</th>
+        <th>Package Weight</th>
+        <th>Packed By</th>
+        <th>Confirmation Number</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.WorkOrder</td>
+            <td>@item.DateShipped</td>
+            <td>@item.PackageWeight</td>
+            <td>@item.PackedBy</td>
+            <td><a href="https://www.fedex.com/fedextrack/?trknbr=@item.ConfirmationNumber" target="_blank">@item.ConfirmationNumber</a></td>
+
+        </tr>
+    }
+
+</table>
+}
+
+
