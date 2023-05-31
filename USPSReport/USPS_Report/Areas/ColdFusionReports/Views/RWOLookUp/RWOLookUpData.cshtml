@@ -20,7 +20,7 @@
                         <tr class="row">
                             <td class="col-md-2">
                                 <strong><label>Product Code: </label></strong>
-                                @Html.DropDownListFor(m => m.ProductCodeSelected, new SelectList(Model.ProductCodeList, "productID", "productCode"), "--Select--", new { @class = "form-control" })
+                                @Html.DropDownListFor(m => m.ProductCodeSelected, new SelectList(Model.ProductCodeList, "productID", "productCode"), "--Select--", new { @class = "form-control", id = "productCodeDropdown", onchange = "handleDropDownChange()" })
                             </td>
                             <td class="col-md-2">
                                 <strong><label>RWO Holding: </label></strong>
@@ -69,31 +69,43 @@
                     <br />
 
                     <div style="margin-left:18px;">
-                        @if (Model.ProductCodeSelected != null)
+                        @if (Model.ProductCodeList != null)
                         {
-                            for (int i = 0; i < Model.ProductCodeList.Count; i++)
+
+                            var res = Model.ProductCodeList.Where(t => Model.ProductCodeSelected != null && t.productID == Model.ProductCodeSelected).FirstOrDefault();
+
+                            if (res != null)
                             {
-                                if (Model.ProductCodeSelected == Model.ProductCodeList[i].productID)
-                                {
-                                    <strong><label>Billing Code: </label></strong><br />
-                                    <label style="border: 1px solid #ddd;width: 208px;height: 34px;padding-top:5px;padding-left:14px;">@Model.ProductCodeList[i].billingCode</label>
+                                <strong><label>Billing Code: </label></strong><br />
+                        <label style="border: 1px solid #ddd;width: 208px;height: 34px;padding-top:5px;padding-left:14px;" id="billingCodeLabel" >
+                                    @res.billingCode
+                                </label>
+                            }
+                            else
+                            {
+                                <strong><label>Billing Code: </label></strong><br /><label style="border: 1px solid #ddd;width: 208px;height: 34px;padding-top:5px;padding-left:14px;" id="billingCodeLabel" disabled>
 
-                                    {
-                                       var  billingCODE = @Model.ProductCodeList[i].billingCode;
-
-                                        
-
-
-                                    }
-
-                                }
+                                </label>
                             }
 
+
+
+                            <!--for (int i = 0; i < Model.ProductCodeList.Count; i++)
+                            {
+                                if (Model.ProductCodeSelected == Model.ProductCodeList[i].productID)
+                                {-->
+                            @*<strong><label>Billing Code: </label></strong><br /><label style="border: 1px solid #ddd;width: 208px;height: 34px;padding-top:5px;padding-left:14px;" id="billingCodeLabel">@Model.ProductCodeList[i].billingCode</label>*@
+                            <!--}
+                            }-->
                         }
                     </div>
 
+
+
                     <br />
                     <button class="btn btn-primary btn-large pull-right" type="submit"><i class="glyphicon glyphicon-search"> Search</i></button>
+
+                    <label id="billingCodeLabel"></label>
 
 
                 </form>
@@ -120,10 +132,10 @@
                             columns.Bound(c => c.Account).Title("Account").Width(100);
                             columns.Bound(c => c.First_Name).Title("First Name").Width(200);
                             columns.Bound(c => c.Last_Name).Title("Last Name").Width(200);
-                            
+
 
                                 columns.Bound(c => c.ID_BillingCode).Title("Billing Code").Width(200);
-                            
+
 
                         })
                              .ToolBar(tools => tools.Excel())
@@ -156,6 +168,22 @@
 </div>
 
 <script src="~/Scripts/kendo/jszip.min_2.4.0.js"></script>
+
+<script>
+    function handleDropDownChange() {
+        var prod = document.getElementById("productCodeDropdown");
+        var selectedvalue = prod.value;
+        console.log(selectedvalue);
+
+
+
+        var lab = document.getElementById("billingCodeLabel");
+        lab.innerText = selectedvalue;
+    }
+
+
+
+</script>
 
 <style>
     .center {
