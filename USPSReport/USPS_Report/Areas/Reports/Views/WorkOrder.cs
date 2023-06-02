@@ -255,114 +255,6 @@ namespace USPS_Report.Areas.Reports.Models
 
                     foreach (var item in _list)
                     {
-                        RMAProduct obj;
-                        List<RMAProduct> lstRMAProduct = new List<RMAProduct>();
-                        try
-                        {
-                            string _conn = ConfigurationManager.ConnectionStrings["OracleConnection"].ConnectionString;
-                            Oracle.ManagedDataAccess.Client.OracleConnection myConnection = new Oracle.ManagedDataAccess.Client.OracleConnection(_conn);
-                            String query = string.Empty;
-                            myConnection.Open();
-                            //                            query = @"SELECT   rma_sh.order_number return_order_number,
-                            //msib.attribute2 ordered_item_HDMS,rma_sl.ordered_item,
-                            //           rma_sh.creation_date,
-                            //           SUM (rma_sl.ORDERED_QUANTITY * rma_sl.UNIT_SELLING_PRICE)
-                            //              ""Extended_Price"",
-                            //           r_sh.order_number sales_order_number,
-                            //           r_sh.creation_date,
-                            //           SUM(r_sl.ORDERED_QUANTITY * r_sl.UNIT_SELLING_PRICE)
-                            //              ""Extended_Price""
-                            //    FROM OE_ORDER_LINES_ALL rma_sl,
-                            //           OE_ORDER_HEADERS_ALL rma_sh,
-                            //           oe_order_lines_all r_sl,
-                            //           oe_order_headers_all r_sh,
-                            //           mtl_system_items_b msib
-                            //   WHERE rma_sl.header_id = rma_sh.header_id
-                            //           AND r_sh.order_number = " + item.WorkOrderID + @"
-                            //           AND rma_sh.order_category_code = 'RETURN'
-                            //           AND r_sl.header_id = r_sh.header_id
-                            //           AND rma_sl.reference_line_id = r_sl.line_id
-                            //           and msib.organization_id = 92
-                            //           and msib.segment1 = rma_sl.ordered_item
-                            //GROUP BY   rma_sh.order_number,msib.attribute2,rma_sl.ordered_item,
-                            //           r_sh.order_number,
-                            //           rma_sh.creation_date,
-                            //           r_sh.creation_date
-                            //ORDER BY r_sh.creation_date DESC
-                            //";
-
-                            query = @"SELECT   rma_sh.order_number return_order_number,
-
-msib.attribute2 ordered_item_HDMS,msib.ITEM_NUMBER,
-
-           rma_sh.creation_date,
-
-           SUM (rma_sl.EXTENDED_AMOUNT)
-
-              ""Extended_Price"",
-
-           r_sh.order_number sales_order_number,
-
-           r_sh.creation_date,
-
-           SUM(r_sl.EXTENDED_AMOUNT)
-
-              ""Extended_Price""
-
-    FROM XXJBM_DOO_LINES_ALL rma_sl,
-
-           XXJBM_DOO_HEADERS_ALL rma_sh,
-
-           XXJBM_doo_lines_all r_sl,
-
-           XXJBM_doo_headers_all r_sh,
-
-           XXJBM_egp_system_items_b msib
-
-   WHERE rma_sl.header_id = rma_sh.header_id
-
-           AND r_sh.order_number = " + item.WorkOrderID + @"
-
-           AND rma_sl.category_code = 'RETURN'
-
-           AND r_sl.header_id = r_sh.header_id
-
-           AND rma_sl.reference_line_id = r_sl.line_id
-
-           --and msib.organization_id = 92
-
-           and msib.INVENTORY_ITEM_ID = rma_sl.INVENTORY_ITEM_ID
-
-GROUP BY   rma_sh.order_number,msib.attribute2,msib.ITEM_NUMBER,
-
-           r_sh.order_number,
-
-           rma_sh.creation_date,
-
-           r_sh.creation_date
-
-ORDER BY r_sh.creation_date DESC 
-";
-
-                            Oracle.ManagedDataAccess.Client.OracleCommand myCommand = new Oracle.ManagedDataAccess.Client.OracleCommand(query, myConnection);
-                            Oracle.ManagedDataAccess.Client.OracleDataReader reader = myCommand.ExecuteReader();
-                            
-                            while (reader.Read())
-                            {
-                                obj = new RMAProduct();
-                                obj.ReturnOrderNumber = GetSafeData.GetSafeInt(reader.GetValue(0));
-                                obj.ProductCode = GetSafeData.GetSafeString(reader.GetValue(1));
-                                obj.OrderNumber = GetSafeData.GetSafeInt(reader.GetValue(5));
-                                lstRMAProduct.Add(obj);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            lstRMAProduct = new List<RMAProduct>();
-                        }
-                        
-                        
-                           
                         StringBuilder _str = new StringBuilder();
                         IList<HistoryList> _historyList = new List<HistoryList>();
                         _historyList = item.historylist;
@@ -433,7 +325,7 @@ ORDER BY r_sh.creation_date DESC
                                 item.Length = t.ConfirmationNum.Length;
                                 item.TrackingNumbers = item.TrackingNumbers + t.ConfirmationNum + ", \n";
                                 item.ShippedBy = t.FullName;
-                                if (!string.IsNullOrEmpty(item.ShippedBy))
+                                if (!(item.ShippedBy is string) && (!string.IsNullOrEmpty(item.ShippedBy)))
                                 {
                                     using (HHSQLDBEntities _hhdb = new HHSQLDBEntities())
                                     {
@@ -558,58 +450,6 @@ ORDER BY r_sh.creation_date DESC
             }
 
 
-        }
-        public static bool isRMAdone(int wo)
-        {
-            string _conn = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ConnectionString;
-            OleDbConnection myConnection = new OleDbConnection(_conn);
-            String query = string.Empty;
-            myConnection.Open();
-            query = @"SELECT   rma_sh.order_number return_order_number,
-msib.attribute2 ordered_item_HDMS,rma_sl.ordered_item,
-           rma_sh.creation_date,
-           SUM (rma_sl.ORDERED_QUANTITY * rma_sl.UNIT_SELLING_PRICE)
-              ""Extended_Price"",
-           r_sh.order_number sales_order_number,
-           r_sh.creation_date,
-           SUM(r_sl.ORDERED_QUANTITY * r_sl.UNIT_SELLING_PRICE)
-              ""Extended_Price""
-    FROM OE_ORDER_LINES_ALL rma_sl,
-           OE_ORDER_HEADERS_ALL rma_sh,
-           oe_order_lines_all r_sl,
-           oe_order_headers_all r_sh,
-           mtl_system_items_b msib
-   WHERE rma_sl.header_id = rma_sh.header_id
-           AND r_sh.order_number = "+wo+@"
-           AND rma_sh.order_category_code = 'RETURN'
-           AND r_sl.header_id = r_sh.header_id
-           AND rma_sl.reference_line_id = r_sl.line_id
-           and msib.organization_id = 92
-           and msib.segment1 = rma_sl.ordered_item
-GROUP BY   rma_sh.order_number,msib.attribute2,rma_sl.ordered_item,
-           r_sh.order_number,
-           rma_sh.creation_date,
-           r_sh.creation_date
-ORDER BY r_sh.creation_date DESC
-";
-            OleDbCommand myCommand = new OleDbCommand(query, myConnection);
-            OleDbDataReader reader = myCommand.ExecuteReader();
-            RMAProduct obj;
-            List<RMAProduct> lstRMAProduct = new List<RMAProduct>();
-            while (reader.Read())
-            {
-                obj = new RMAProduct();
-                obj.ReturnOrderNumber = GetSafeData.GetSafeInt(reader.GetValue(0));
-                obj.ProductCode= GetSafeData.GetSafeString(reader.GetValue(1));
-                obj.OrderNumber= GetSafeData.GetSafeInt(reader.GetValue(5));
-                lstRMAProduct.Add(obj);
-            }
-            if (lstRMAProduct.Count > 0)
-            {
-                return true;
-            }
-            else
-            return false;
         }
 
         public static bool isFailedToInterface(int? account, int wo)
@@ -1143,14 +983,13 @@ Failed Reason
             {
                 WorkOrdersReleased _wr = new WorkOrdersReleased();
 
-
                 var _wo = _db.tbl_PS_WorkOrder.Where(t => t.ID == wo && t.Cancel_Date == null).Take(1).SingleOrDefault();
                 if (_wo != null)
                 {
                     holdFromShippingReason = _wo.HoldFromShippingReason;
 
                     _wo.HoldFromShipping = 0;
-
+                    _wo.HoldFromShippingReason = null;
                     _db.Entry(_wo).State = EntityState.Modified;
                     _db.SaveChanges();
 
