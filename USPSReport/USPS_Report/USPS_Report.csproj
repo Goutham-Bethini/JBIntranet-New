@@ -208,6 +208,7 @@
     <Compile Include="Areas\ColdFusionReports\Controllers\DoctorController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\ExpiringCMNsController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\FedExPackStationLoginsController.cs" />
+    <Compile Include="Areas\ColdFusionReports\Controllers\FedexxController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\NewExpiringCMNsController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\PasswordChangeController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\ProductivityReportController.cs" />
@@ -281,6 +282,8 @@
     <Compile Include="Areas\ColdFusionReports\Models\DataModels\RWOs.cs" />
     <Compile Include="Areas\ColdFusionReports\Models\DataModels\ShippedOrders.cs" />
     <Compile Include="Areas\ColdFusionReports\Models\DataModels\USSoperatorLookup.cs" />
+    <Compile Include="Areas\ColdFusionReports\Models\DataModels\WorkOrders.cs" />
+    <Compile Include="Areas\ColdFusionReports\Models\DataModels\WorkOrdersModel.cs" />
     <Compile Include="Areas\ColdFusionReports\Models\Employees_AlphaSplit.cs">
       <DependentUpon>ColdFusionIntranet.tt</DependentUpon>
     </Compile>
@@ -347,6 +350,7 @@
     <Compile Include="Areas\ColdFusionReports\Models\sp_ussOperatorLookup_Result.cs">
       <DependentUpon>ColdFusionReports.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\ColdFusionReports\Models\WorkOrderModel.cs" />
     <Compile Include="Areas\Reports\Controllers\BCBSController.cs" />
     <Compile Include="Areas\Reports\Controllers\BillingController.cs" />
     <Compile Include="Areas\Reports\Controllers\Billing_ChampsController.cs" />
