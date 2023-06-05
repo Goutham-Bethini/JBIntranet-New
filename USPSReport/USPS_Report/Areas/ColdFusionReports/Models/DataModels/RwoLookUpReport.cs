@@ -29,7 +29,9 @@ namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
                                  select new ProductListViewModel
                                  {
                                      productID = pro.ID,
-                                     productCode = pro.ProductCode
+                                     productCode = pro.ProductCode,
+                                     billingCode =  pro.ID_BillingCode
+                                    
                                  }).Distinct().OrderBy(t => t.productCode).ToList();
 
                     return _list;
@@ -276,6 +278,7 @@ namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
             string sql = @"SELECT
 					rwo.Hold,
 					pro.ProductCode,
+                    pro.ID_BillingCode,
 					rwo.Account,
 					mem.First_Name,
 					mem.Last_Name,
@@ -386,6 +389,8 @@ namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
         public Int32? productID { get; set; }
         public string productCode { get; set; }
 
+        public int? billingCode { get; set; }
+
     }
 
     public class RwoLookUpSearchViewModel
@@ -431,6 +436,8 @@ namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? NextRepeatDate { get; set; }
         public string Name { get; set; }
+
+        public int? ID_BillingCode { get; set; }
     }
 
 
