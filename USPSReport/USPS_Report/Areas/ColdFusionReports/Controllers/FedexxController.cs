@@ -23,7 +23,7 @@ namespace USPS_Report.Areas.ColdFusionReports.Controllers
             if (workOrderId != null)
             {
                 try
-                {
+                { 
                     string OraConnection = ConfigurationManager.ConnectionStrings["EntitiesOracle1"].ConnectionString;
                     string Query = @"select * from tbl_ups_workorders where id_workorder ='" + workOrderId + "'";
                     
