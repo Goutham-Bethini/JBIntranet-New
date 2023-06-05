@@ -199,7 +199,9 @@
                         <li class="divider"></li>
                         <li><a href="http://JBMAZWeb01/ColdFusionReports/ColdFusionReports/PasswordChange/PasswordChange" target="_blank">Reset FedEx Password</a></li>
                         <li class="divider"></li>
-                        <li><a href="http://jbreports.jandbmedical.com/hdms/Admin/Warehouse/FedExTracking.aspx" target="_blank">Fedex Tracking</a></li>
+                        <li>
+                            @Html.ActionLink("FedEx Tracking", "Index", "Fedexx", new { area = "ColdFusionReports" }, new { target = "_blank" })
+                        </li>
                         <li class="divider"></li>
                         <li><a href=@url target="_blank">ProductivityReport </a></li>
                     </ul>

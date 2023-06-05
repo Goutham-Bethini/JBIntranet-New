@@ -649,6 +649,24 @@
     <Compile Include="Models\v_FutureOrderTypes2.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\XCarrierProd.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XCarrierProd.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\XCarrierProd.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XCarrierProd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\XCarrierProd.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XCarrierProd.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\XCARRIER_USER_REGISTRATION.cs">
+      <DependentUpon>XCarrierProd.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -1032,6 +1050,16 @@
     <Content Include="Models\ReportDB.edmx.diagram">
       <DependentUpon>ReportDB.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\XCarrierProd.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>XCarrierProd.edmx</DependentUpon>
+      <LastGenOutput>XCarrierProd.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\XCarrierProd.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>XCarrierProd.edmx</DependentUpon>
+      <LastGenOutput>XCarrierProd.cs</LastGenOutput>
+    </Content>
     <Content Include="PaperAirplane.jpg" />
     <Content Include="print.css" />
     <Content Include="Scripts\bootstrap-table.js" />
@@ -1377,6 +1405,14 @@
     <Content Include="Areas\Reports\Views\RWOsChanges\RWOsChanges.cshtml" />
     <Content Include="Areas\Reports\Views\InsulinPumpSuppliesNot\InsulinPumpSuppliesNot.cshtml" />
     <Content Include="Areas\Reports\Views\ManageOrder\MassCancelHistory.cshtml" />
+    <Content Include="Areas\ColdFusionReports\Views\Fedexx\Index.cshtml" />
+    <EntityDeploy Include="Models\XCarrierProd.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>XCarrierProd.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\XCarrierProd.edmx.diagram">
+      <DependentUpon>XCarrierProd.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GBethini.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />

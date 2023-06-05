@@ -7,10 +7,10 @@ namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
 {
     public class WorkOrdersModel
     {
-        public int? WorkOrder { get; set; }
-        public DateTime DateShipped { get; set; }
-        public string PackageWeight { get; set; }
-        public DateTime PackedBy { get; set; }
-        public int? ConfirmationNumber { get; set; }
+        public int ID_WorkOrder { get; set; }
+        public DateTime? DateShipped { get; set; }
+        public decimal? IntWeight { get; set; }
+        public string UserID { get; set; }
+        public string ConfirmationNumber { get; set; }
     }
 }
