@@ -218,6 +218,7 @@
     <Compile Include="Areas\ColdFusionReports\Controllers\RWOsController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\ShippedOrdersController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\SpecialDoctorsController.cs" />
+    <Compile Include="Areas\ColdFusionReports\Controllers\TrackingInformationController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\USSoperatorLookupController.cs" />
     <Compile Include="Areas\ColdFusionReports\Models\CMN_Rules.cs">
       <DependentUpon>ColdFusionIntranet.tt</DependentUpon>
@@ -350,6 +351,7 @@
     <Compile Include="Areas\ColdFusionReports\Models\sp_ussOperatorLookup_Result.cs">
       <DependentUpon>ColdFusionReports.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\ColdFusionReports\Models\TrackingInfo.cs" />
     <Compile Include="Areas\ColdFusionReports\Models\WorkOrderModel.cs" />
     <Compile Include="Areas\Reports\Controllers\BCBSController.cs" />
     <Compile Include="Areas\Reports\Controllers\BillingController.cs" />
@@ -1413,6 +1415,7 @@
     <Content Include="Models\XCarrierProd.edmx.diagram">
       <DependentUpon>XCarrierProd.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\ColdFusionReports\Views\TrackingInformation\AmazonWalmartTracking.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\GBethini.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />

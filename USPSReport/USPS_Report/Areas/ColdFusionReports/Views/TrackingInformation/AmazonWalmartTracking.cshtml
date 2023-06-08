@@ -1,0 +1,89 @@
+﻿@model List<USPS_Report.Areas.ColdFusionReports.Models.TrackingInfo>
+@{
+    ViewBag.Title = "AmazonWalmartTracking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/AmzWmtStyle.css" rel="stylesheet" />
+
+<br />
+
+@using (Html.BeginForm("AmazonWalmartTracking", "TrackingInformation", FormMethod.Post))
+{
+    <div style="width:80%; padding:20px">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 class="panel-title">Amazon Walmart Tracking</h2>
+            </div>
+            <div class="panel-body">
+                <div style="display:flex;margin-left:40px;">
+                    <div>
+                        <label for="start-date">Start Date:</label><br />
+                        <input type="date" id="start-date" name="FromDate" class="form-control" required>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div>
+                        <label for="end-date">End Date:</label><br />
+                        <input type="date" id="end-date" name="ToDate" class="form-control" required>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="submit" value="Submit" style="height:34px;margin-top:26px;" class="btn btn-primary">
+                </div>
+            </div>
+        </div>    
+    </div>   
+}
+<br />
+<br />
+@if (Request.HttpMethod == "POST")
+{
+    if (Model != null)
+    {
+        <div style="width:80%; padding:20px">
+            <table class="table-container" id="datatbl">
+                <thead>
+                    <tr>
+                        <th>Sales Order Number</th>
+                        <th>PO Number</th>
+                        <th>Order Creation Date</th>
+                        <th>Order Type</th>
+                        <th>Tracking Number</th>
+                        <th>Tracking Creation Date</th>
+                        <th>Shipment Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var workOrder in Model)
+                    {
+                        <tr>
+                            <td>@workOrder.OrderNumber</td>
+                            <td>@workOrder.CustomerPONumber</td>
+                            <td>@workOrder.OrderCreationDate</td>
+                            <td>@workOrder.OrderType</td>
+                            <td>@workOrder.TrackingNumber</td>
+                            <td>@workOrder.TrackingCreationDate</td>
+                            <td>@workOrder.ShipmentNumber</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+          </div>
+            }
+   }
+
+<script>
+    $(document).ready(function () {
+        $("#datatbl").DataTable({
+            dom: 'Bfrti',
+            buttons: [{
+                extend: 'excel',
+                filename: 'TrackingInfo',
+                text: '<strong>EXPORT TO EXCEL</strong>',
+                header: 'false'
+            }               
+            ],
+            "paging": false,
+        });
+    });
+</script>
+ 
