@@ -1,0 +1,80 @@
+﻿@model List<USPS_Report.Areas.ColdFusionReports.Models.DataModels.WorkOrderModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .table-container {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table-container th,
+        .table-container td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table-container th {
+            background-color: #f2f2f2;
+        }
+</style>
+
+<br />
+
+@using (Html.BeginForm("Index", "WorkOrders", FormMethod.Post))
+{
+    <div style="display:flex;margin-left:40px;">
+        <div>
+            <label for="start-date">Start Date:</label><br />
+            <input type="date" id="start-date" name="startdate" class="form-control" required>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div>
+            <label for="end-date">End Date:</label><br />
+            <input type="date" id="end-date" name="enddate" class="form-control" required>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" value="Submit" style="height:34px;margin-top:26px;" class="btn btn-primary">
+    </div>
+}
+<br />
+<br />
+@if (Model != null)
+{
+    <table class="table-container">
+        <thead>
+            <tr>
+                <th>Order Number</th>
+                <th>Customer PO Number</th>
+                <th>Creation Date</th>
+                <th>Order type Code</th>
+                <th>Confirmation Number</th>
+                <th>Date Shipped</th>
+                <th>Shipment Number</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            @foreach (var workOrder in Model)
+            {
+            <tr>
+                <td>@workOrder.order_number</td>
+                <td>@workOrder.customer_po_number</td>
+                <td>@workOrder.creation_date</td>
+                <td>@workOrder.order_type_code</td>
+                <td>@workOrder.confirmationnumber</td>
+                <td>@workOrder.dateshipped</td>
+                <td>@workOrder.shipment_number</td>
+                
+            </tr>
+            }
+        </tbody>
+    </table>
+
+
+}
+

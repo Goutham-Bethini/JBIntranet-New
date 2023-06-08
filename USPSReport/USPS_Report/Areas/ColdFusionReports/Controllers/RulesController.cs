@@ -13,6 +13,7 @@ namespace USPS_Report.Areas.ColdFusionReports.Controllers
         {
             ReportsRulesVM _vm = new ReportsRulesVM();
             _vm.Details= USPS_Report.Areas.ColdFusionReports.Models.DataModels.ExpiringCMNs.GetCMNreports();
+            
             return View(_vm);
         }
         public ActionResult Documentation()
