@@ -203,6 +203,10 @@
                             @Html.ActionLink("FedEx Tracking", "Index", "Fedexx", new { area = "ColdFusionReports" }, new { target = "_blank" })
                         </li>
                         <li class="divider"></li>
+                        <li>
+                            @Html.ActionLink("Amazon & Walmart Tracking", "AmazonWalmartTracking", "TrackingInformation", new { area = "ColdFusionReports" }, new { target = "_blank" })
+                        </li>
+                        <li class="divider"></li>
                         <li><a href=@url target="_blank">ProductivityReport </a></li>
                     </ul>
                 }
