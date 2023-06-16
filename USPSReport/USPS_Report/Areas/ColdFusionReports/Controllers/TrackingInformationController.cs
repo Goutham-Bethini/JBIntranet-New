@@ -28,18 +28,16 @@ namespace USPS_Report.Areas.ColdFusionReports.Controllers
                     string OraConnection = ConfigurationManager.ConnectionStrings["OracleConnection"].ConnectionString;
                     string FromDateStr = FromDate.Value.ToShortDateString();
                     string ToDateStr = ToDate.Value.AddDays(1).ToShortDateString();
-                    string Query = @"SELECT
+                    string Query = @"SELECT DISTINCT
                                     a.order_number SALES_ORDER_NUMBER,
-                                    c.customer_po_number PO_NUMBER,
+                                    a.customer_po_number PO_NUMBER,
                                     a.creation_date ORDER_CREATIONDATE,
                                     a.order_type_code ORDER_TYPE,
                                     b.confirmationnumber TRACKING_NUMBER,
                                     b.dateshipped TRACKING_CREATIONDATE,
                                     b.shipment_number DELIVERY_NUMBER
                                     FROM
-                                    xxjbm_doo_headers_all a JOIN tbl_ups_workorders b on a.order_number = b.id_workorder
-                                    LEFT JOIN XXJBM_ORDER_INTERFACE c on a.order_number = c.cloud_order_number
-                                    WHERE
+                                    xxjbm_doo_headers_all a JOIN tbl_ups_workorders b on a.order_number = b.id_workorder                  WHERE
                                     order_type_code = 'AMAZON Standard Sales Order'
                                     and a.creation_date >= to_date('" + FromDateStr + "','MM/DD/YYYY') and a.creation_date < to_date('" + ToDateStr + "','MM/DD/YYYY')";
                     using (Oracle.ManagedDataAccess.Client.OracleConnection conn = new Oracle.ManagedDataAccess.Client.OracleConnection(OraConnection))
