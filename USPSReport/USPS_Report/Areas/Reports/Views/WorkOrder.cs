@@ -1098,7 +1098,7 @@ Failed Reason
             //  mail.To.Add("medsurgcsreps@jandbmedical.com");
             mail.To.Add("ShippingTeam@jandbmedical.com");
             mail.To.Add("ekarrumi@jandbmedical.com");
-            mail.Bcc.Add("grani@jandbmedical.com");
+            mail.Bcc.Add("jstalker@jandbmedical.com");
 
             mail.Subject = "Cancel Order Tool";
             mail.Body += " <html>";
