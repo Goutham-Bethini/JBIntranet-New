@@ -46,7 +46,9 @@
                 </div>
                 <hr />
                 <div class="table-responsive" style="width:95%; align-content:center">
-                    <table data-sortable class="table table-hover table-striped table-bordered" style="width:95%; align-content:center">
+                    <table data-sortable class="table table-hover table-striped table-bordered" id="tableExport" style="width:95%; align-content:center">
+                        <button id="btnExport">Export Excel</button>
+
                         <thead>
                             <tr>
                                 <th>Account</th>
@@ -62,7 +64,7 @@
                                 <th>Complaint Date</th>
                                 <th>Complaint Received</th>
                                 <th>Complaint Type</th>
-                                <th>Issue</th>
+                                @*<th>Issue</th>*@
                                 <th>Note</th>
                                 <th>Pending Resolution</th>
                                 <th>Resolution Date</th>
@@ -74,28 +76,28 @@
                         <tbody>
                             @foreach (var rec in Model.records)
                             {
-                            <tr>
-                                <td>@rec.account</td>
-                                <td>@rec.ReferenceNumber</td>
-                                <td>@String.Format("{0:MM/dd/yyyy}", @rec.CreatedOn)</td>
-                                <td>@rec.Resolution</td>
-                                <td>@rec.PrimaryPayer</td>
-                                <td>@rec.SecondaryPayer</td>
-                                <td>@rec.TeritiaryPayer</td>
-                                <td>@rec.ProductLine</td>
-                                <td>@rec.Team</td>
-                                <td>@String.Format("{0:MM/dd/yyyy}", @rec.IssueDate)</td>
-                                <td>@String.Format("{0:MM/dd/yyyy}", @rec.ComplaintDate)</td>
-                                <td>@rec.ComplaintRecieved</td>
-                                <td>@rec.ComplaintType</td>
-                                <td>@rec.Issue</td>
-                                <td>@rec.Note</td>
-                                <td>@rec.PendingResolution</td>
-                                <td>@String.Format("{0:MM/dd/yyyy}", @rec.ResolutionDate)</td>
-                                <td>@rec.ResolutionNote</td>
-                                <td><a href="#" class="filedownload">@rec.ComplaintAttachment</a></td>
-                                <td>@rec.CreatedBy</td>
-                            </tr>
+                                <tr>
+                                    <td>@rec.account</td>
+                                    <td>@rec.ReferenceNumber</td>
+                                    <td>@String.Format("{0:MM/dd/yyyy}", @rec.CreatedOn)</td>
+                                    <td>@rec.Resolution</td>
+                                    <td>@rec.PrimaryPayer</td>
+                                    <td>@rec.SecondaryPayer</td>
+                                    <td>@rec.TeritiaryPayer</td>
+                                    <td>@rec.ProductLine</td>
+                                    <td>@rec.Team</td>
+                                    <td>@String.Format("{0:MM/dd/yyyy}", @rec.IssueDate)</td>
+                                    <td>@String.Format("{0:MM/dd/yyyy}", @rec.ComplaintDate)</td>
+                                    <td>@rec.ComplaintRecieved</td>
+                                    <td>@rec.ComplaintType</td>
+                                    @*<td>@rec.Issue</td>*@
+                                    <td>@rec.Note</td>
+                                    <td>@rec.PendingResolution</td>
+                                    <td>@String.Format("{0:MM/dd/yyyy}", @rec.ResolutionDate)</td>
+                                    <td>@rec.ResolutionNote</td>
+                                    <td><a href="#" class="filedownload">@rec.ComplaintAttachment</a></td>
+                                    <td>@rec.CreatedBy</td>
+                                </tr>
                             }
                         </tbody>
                     </table>
@@ -117,7 +119,7 @@
 </style>
 
 
-<script>
+    <script>
     //$('#more2').click(function (e) {
     //    //alert($(this).closest('td').find('.divcls').text());
     //    //alert('hi');
@@ -147,7 +149,7 @@
     //    //});
     //    ////e.stopPropagation();
     //    //$('#notediv').css({
-            
+
     //    //    'height': 'auto'
     //    //})
     //});
@@ -173,8 +175,32 @@
                 var urllink = '@Url.Action("Download", "CSRReporting", new {FileName = "-1"})';
                  urllink = urllink.replace("-1", FileName);
                  window.location.href = urllink;
-              });
-</script>
+       });
+
+
+
+        $(document).ready(function () {
+            $("#btnExport").click(function () {
+                // Get the table element
+                let table = document.getElementById("tableExport");
+
+                // Create a new workbook
+                let wb = XLSX.utils.book_new();
+
+                // Add the table data to a worksheet
+                let ws = XLSX.utils.table_to_sheet(table);
+
+                // Add the worksheet to the workbook
+                XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+                // Save the workbook as an Excel file
+                XLSX.writeFile(wb, "export.xlsx");
+            });
+        });
+
+
+
+    </script>
 
 
 
