@@ -119,7 +119,7 @@
 </style>
 
 
-    <script>
+<script>
     //$('#more2').click(function (e) {
     //    //alert($(this).closest('td').find('.divcls').text());
     //    //alert('hi');
@@ -167,8 +167,9 @@
     //        'height': '50px'
     //    })
     //})
+        $(document).ready(function () {
 
-       $(".filedownload").on('click', function () {
+            $(".filedownload").on('click', function () {
               //console.log("text :"+$(this).text());
                var FileName = $(this).text();
                //console.log("File Name " + FileName);
@@ -177,9 +178,6 @@
                  window.location.href = urllink;
        });
 
-
-
-        $(document).ready(function () {
             $("#btnExport").click(function () {
                 // Get the table element
                 let table = document.getElementById("tableExport");
@@ -200,7 +198,7 @@
 
 
 
-    </script>
+</script>
 
 
 

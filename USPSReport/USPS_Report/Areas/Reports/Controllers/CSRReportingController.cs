@@ -24,15 +24,12 @@ namespace USPS_Report.Areas.Reports.Controllers
             _vm.callPerPeroson = CSRReport.GetTotalCallPerPerson(_vm.date, User.Identity.Name.Split('\\').Last().ToLower());
             return View(_vm);
         }
-
-
         public ActionResult CSRAssessment()
         {
             CSRAssessmentVM _vm = new CSRAssessmentVM();
             _vm.csrAssessment = CSRReport.GetCSRAssessment(User.Identity.Name.Split('\\').Last().ToLower());
             return View(_vm);
         }
-
         public ActionResult CSRCallLogReport()
         {
             callLogReportVM _vm = new callLogReportVM();
@@ -40,14 +37,12 @@ namespace USPS_Report.Areas.Reports.Controllers
             _vm.endDt = DateTime.Today.AddDays(-1);
             return View(_vm);
         }
-
         [HttpPost]
         public ActionResult CSRCallLogReport(callLogReportVM _vm)
         {
             _vm.records = CSRReport.GetCalllogReport(_vm.startDt, _vm.endDt, User.Identity.Name.Split('\\').Last().ToLower());
             return View(_vm);
         }
-
         [HttpGet]
         public ActionResult Download(string FileName)
         {
@@ -63,7 +58,6 @@ namespace USPS_Report.Areas.Reports.Controllers
                 throw ex;
             }
         }
-
         public ActionResult HoldOrders()
         {
             SpecialHoldsVM _vm = new SpecialHoldsVM();
