@@ -1303,14 +1303,15 @@ Failed Reason
 
         public string FullName { get; set; }
 
+        public string Shipping_Source { get; set; }
+
     }
 
     public class TrackingShippedList
     {
         public string FullName { get; set; }
         public string ConfirmationNum { get; set; }
-
-
+        public string Shipping_Source { get; set; }
 
     }
 
