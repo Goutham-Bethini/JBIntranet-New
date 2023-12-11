@@ -15,6 +15,7 @@ using System.Configuration;
 using USPS_Report.Areas.ColdFusionReports.Models;
 using USPS_Report.Helper;
 using System.Data.OracleClient;
+using Microsoft.Owin.Security.DataHandler.Encoder;
 
 namespace USPS_Report.Areas.Reports.Models
 {
@@ -268,9 +269,7 @@ namespace USPS_Report.Areas.Reports.Models
                         item.History = _str.ToString();
 
                         IList<TrackingList> _trackingList = new List<TrackingList>();
-
-                        if (item.TrackingNumbers == "")
-                        {
+                  
                             //   _trackingList = _db.Database.SqlQuery<TrackingList>("select ConfirmationNum from Reports..FedEx_Tracking_Tbl where WorkOrder = " + item.WorkOrderID).ToList();
 
                             try
@@ -280,7 +279,7 @@ namespace USPS_Report.Areas.Reports.Models
 
 
                                 client.BaseAddress = new Uri("http://JBMAZWeb01/TrackingShippedBy/");
-                                //  client.BaseAddress = new Uri("http://localhost:61027/");
+                                 // client.BaseAddress = new Uri("http://localhost:61027/");
 
                                 var result2 = client.GetAsync("api/Values/" + item.WorkOrderID).Result;
 
@@ -309,7 +308,7 @@ namespace USPS_Report.Areas.Reports.Models
                                 string msg = ex.Message;
                             }
 
-                        }
+                        
                         //------------------------------------
                         if (_trackingList.Count == 0 && item.TrackingNumbers == "")
                         {
@@ -320,11 +319,14 @@ namespace USPS_Report.Areas.Reports.Models
 
                         if (_trackingList.Count != 0)
                         {
+                            //As we are also having the same information from Oracle, set the tracking numbers to ""/
+                            item.TrackingNumbers = "";
                             foreach (var t in _trackingList)
                             {
                                 item.Length = t.ConfirmationNum.Length;
-                                item.TrackingNumbers = item.TrackingNumbers + t.ConfirmationNum + ", \n";
+                                item.TrackingNumbers = item.TrackingNumbers + t.ConfirmationNum + ", \n"; 
                                 item.ShippedBy = t.FullName;
+                                item.Shipping_Source = t.Shipping_Source;
                                 if (!(item.ShippedBy is string) && (!string.IsNullOrEmpty(item.ShippedBy)))
                                 {
                                     using (HHSQLDBEntities _hhdb = new HHSQLDBEntities())
@@ -1261,6 +1263,7 @@ Failed Reason
 
 
         public string TrackingNumbers { get; set; }
+        public string  Shipping_Source { get; set; }
 
         public List<string> TrackingNumbersList { get; set; }
 
