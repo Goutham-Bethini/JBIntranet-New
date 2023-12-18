@@ -111,14 +111,21 @@
                                         {
                                             if (@rec.TrackingNumbersList != null)
                                             {
-                                                <div>
-                                                    @foreach (var rec2 in @rec.TrackingNumbersList)
-                                                    {
-                                                        <a href='https://www.fedex.com/fedextrack/?trknbr=@rec2' target='_blank'>@rec2</a>
-                                                    }
-                                                </div>
+                                       <div>
+                                        @foreach (var rec2 in @rec.TrackingNumbersList)
+                                        {
+                                            if (rec2.Length <= 9)
+                                            {
+                                                <a href='https://promeddel.e-courier.com/promeddel/home/wizard_tracking.asp?AllRef=@rec2' target='_blank'>@rec2</a>
+                                            }
+                                            else
+                                            {
+                                                <a href='https://www.fedex.com/fedextrack/?trknbr=@rec2' target='_blank'>@rec2</a>
                                             }
                                         }
+                                       </div>
+                                      }
+                                    }
                                     </td>
                                     <td>@MvcHtmlString.Create(@rec.History.Replace(Environment.NewLine, "<br />"))</td>
 
