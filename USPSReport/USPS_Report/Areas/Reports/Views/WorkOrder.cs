@@ -99,7 +99,7 @@ namespace USPS_Report.Areas.Reports.Models
                        t.Completed_Date != null ? "<strong>Completed</strong> " : 
                        t.LastPrintDate != null ? "<strong>Printed/Sent to oracle</strong> " :
                           (t.HoldFromShipping == 1 && t.HoldFromShippingReason == null) ? "<strong>Created</strong>" :
-                           (t.HoldFromShipping == 1 && t.HoldFromShippingReason != null) ? " <strong><u>Pending:</u></strong>" + "~" + t.HoldFromShippingReason :
+                           (t.HoldFromShipping == 1 && t.HoldFromShippingReason != null) ? " <strong><u>Holding:</u></strong>" + "~" + t.HoldFromShippingReason :
                         (t.HoldFromShipping == 1 && t.HoldFromShippingReason.Contains("%Back Order%")) ? "<strong><u>Back Ordered and Holding:</u></strong> " + Environment.NewLine + t.HoldFromShippingReason :
                         (t.HoldFromShipping == 1 && t.HoldFromShippingReason.Contains("Back Order ~")) ? "<strong>Back Ordered</strong>" : " <strong>Waiting to Interface</strong>",
 
