@@ -505,7 +505,9 @@ namespace USPS_Report.Areas.Reports.Models
                     var components = HttpContext.Current.User.Identity.Name.Split('\\');
                     var userName = components.Last();
                     id_op = (from emp in _db.tbl_Operator_Table
-                             where emp.OperatorName.ToUpper() == userName.ToUpper() && emp.InactiveDate == null && emp.InactiveDate == null
+                             where emp.OperatorName.ToUpper() == userName.ToUpper() 
+                             && emp.InactiveDate == null                             
+                             && emp.DeletedDate==null
                              select new ID_VM
                              {
                                  ID = emp.ID
