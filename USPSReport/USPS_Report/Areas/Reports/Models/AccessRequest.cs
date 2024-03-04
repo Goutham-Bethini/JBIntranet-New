@@ -16,7 +16,7 @@ namespace USPS_Report.Areas.Reports.Models
             var userName = components.Last();
 
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("AccessRequest@jandbmedical.com");
 
             mail.To.Add("grani@jandbmedical.com");

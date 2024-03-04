@@ -63,30 +63,32 @@ namespace USPS_Report.Models
 
             Int32 workOrdernum;
 
-            string _conn = ConfigurationManager.ConnectionStrings["EntitiesOracle1"].ConnectionString;
-
-            OleDbConnection myConnection = new OleDbConnection(_conn);
+            string _conn = ConfigurationManager.ConnectionStrings["OracleConnection"].ConnectionString;
+            Oracle.ManagedDataAccess.Client.OracleConnection conn = new Oracle.ManagedDataAccess.Client.OracleConnection(_conn);
+            conn.Open();
+            //OleDbConnection myConnection = new OleDbConnection(_conn);
             String OrdersFedExQuery = string.Empty;
-            myConnection.Open();
+            //myConnection.Open();
             if (_tracNum.Length > 10)
             {
-                // OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from apps.TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "' and CANCELDATE is Null";
-                OrdersFedExQuery = "select Reference_Number, tracking_Number, Ship_Date from XXCUST01.jbm_FEDEX_PODS where tracking_Number = '" + _tracNum + "'";
+                // OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "' and CANCELDATE is Null";
+                OrdersFedExQuery = "select Reference_Number, tracking_Number, Ship_Date from jbm_FEDEX_PODS where tracking_Number = '" + _tracNum + "'";
 
             }
             else
             {
                 bool result = Int32.TryParse(_tracNum, out workOrdernum);
                 if (result)
-                    OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from apps.TBL_UPS_WORKORDERS a where ID_WORKORDER = '" + workOrdernum + "' and CANCELDATE is Null";
+                    OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from TBL_UPS_WORKORDERS a where ID_WORKORDER = '" + workOrdernum + "' and CANCELDATE is Null";
 
             }
 
 
+            Oracle.ManagedDataAccess.Client.OracleCommand myFedExCommand = new Oracle.ManagedDataAccess.Client.OracleCommand(OrdersFedExQuery, conn);
+            Oracle.ManagedDataAccess.Client.OracleDataReader FedExReader = myFedExCommand.ExecuteReader();
+            //OleDbCommand myFedExCommand = new OleDbCommand(OrdersFedExQuery, myConnection);
 
-            OleDbCommand myFedExCommand = new OleDbCommand(OrdersFedExQuery, myConnection);
-
-            OleDbDataReader FedExReader = myFedExCommand.ExecuteReader();
+            //OleDbDataReader FedExReader = myFedExCommand.ExecuteReader();
 
             int RecordsFedEx = 0;
             while (FedExReader.Read())
@@ -142,28 +144,30 @@ namespace USPS_Report.Models
           
             Int32 workOrdernum;
 
-            string _conn = ConfigurationManager.ConnectionStrings["EntitiesOracle1"].ConnectionString;
-
-            OleDbConnection myConnection = new OleDbConnection(_conn);
+            string _conn = ConfigurationManager.ConnectionStrings["OracleConnection"].ConnectionString;
+            Oracle.ManagedDataAccess.Client.OracleConnection conn = new Oracle.ManagedDataAccess.Client.OracleConnection(_conn);
+            conn.Open();
+            //OleDbConnection myConnection = new OleDbConnection(_conn);
             String OrdersFedExQuery = string.Empty;
-            myConnection.Open();
+            //myConnection.Open();
             if (_tracNum.Length > 10)
             {
-                OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from apps.TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "'";
+                OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "'";
             }
             else
             {
                 bool result = Int32.TryParse(_tracNum, out workOrdernum);
                  if (result)
-                 OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from apps.TBL_UPS_WORKORDERS a where ID_WORKORDER = '" + workOrdernum + "'";
+                 OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from TBL_UPS_WORKORDERS a where ID_WORKORDER = '" + workOrdernum + "'";
 
             }
 
 
+            Oracle.ManagedDataAccess.Client.OracleCommand myFedExCommand = new Oracle.ManagedDataAccess.Client.OracleCommand(OrdersFedExQuery, conn);
+            Oracle.ManagedDataAccess.Client.OracleDataReader FedExReader = myFedExCommand.ExecuteReader();
+            //OleDbCommand myFedExCommand = new OleDbCommand(OrdersFedExQuery, myConnection);
 
-            OleDbCommand myFedExCommand = new OleDbCommand(OrdersFedExQuery, myConnection);
-
-            OleDbDataReader FedExReader = myFedExCommand.ExecuteReader();
+            //OleDbDataReader FedExReader = myFedExCommand.ExecuteReader();
 
             int RecordsFedEx = 0;
             while (FedExReader.Read())

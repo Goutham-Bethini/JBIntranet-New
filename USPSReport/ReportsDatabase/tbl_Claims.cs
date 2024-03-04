@@ -42,5 +42,31 @@ namespace ReportsDatabase
         public Nullable<int> ID_CollectionStatusChangedBy { get; set; }
         public Nullable<int> ID_CurrentClaimsWorksheet { get; set; }
         public Nullable<int> DelayReasonIdentifier { get; set; }
+        public Nullable<short> UB_5 { get; set; }
+        public Nullable<short> UB_7 { get; set; }
+        public Nullable<short> UB_9 { get; set; }
+        public Nullable<short> UB_10 { get; set; }
+        public Nullable<short> UB_11 { get; set; }
+        public Nullable<short> UB_12 { get; set; }
+        public Nullable<short> UB_13 { get; set; }
+        public Nullable<short> UB_14 { get; set; }
+        public Nullable<short> UB_15 { get; set; }
+        public Nullable<short> UB_18 { get; set; }
+        public Nullable<short> UB_21 { get; set; }
+        public Nullable<short> UB_30 { get; set; }
+        public Nullable<short> UB_31 { get; set; }
+        public Nullable<short> UB_32 { get; set; }
+        public Nullable<short> UB_40 { get; set; }
+        public Nullable<short> UB_45 { get; set; }
+        public Nullable<short> UB_51 { get; set; }
+        public Nullable<short> UB_52 { get; set; }
+        public Nullable<short> UB_60 { get; set; }
+        public Nullable<short> UB_61 { get; set; }
+        public Nullable<short> UB_70 { get; set; }
+        public Nullable<short> UB_90 { get; set; }
+        public Nullable<short> UB_92 { get; set; }
+        public Nullable<short> ReadyByUserToSubmit { get; set; }
+        public Nullable<short> UB_3 { get; set; }
+        public Nullable<short> UB_46 { get; set; }
     }
 }

@@ -165,7 +165,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         {
             try
             {
-                var fullPath = Path.Combine(@"\\JBMMIWEB001\StateAudit$\Files\Complaint log files", FileName);
+                var fullPath = Path.Combine(@"\\jbmwix-azfs01\IT\IntranetDocuments\StateAudit$\Files\Complaint log files", FileName);
                 string mimeType = System.Web.MimeMapping.GetMimeMapping(FileName);
                 // return File(fullPath, "application/vnd.ms-excel", FileName);
                 return File(fullPath, mimeType, FileName);
@@ -185,7 +185,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm != null)
             {
                 _vm.payerTypeList = AddCSRLog.HDMSPayerInfo(_vm.Account).ToList();
-                string dir = @"\\JBMMIWEB001\StateAudit$\Files\Complaint log files";
+                string dir = @"\\jbmwix-azfs01\IT\IntranetDocuments\StateAudit$\Files\Complaint log files";
                 if (_vm.newAccount == true)
                 {
                     CallLogVM _callVM = new CallLogVM();

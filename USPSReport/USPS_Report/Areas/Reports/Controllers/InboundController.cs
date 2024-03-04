@@ -858,7 +858,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         {
             //to send excel as an attachment in email
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("AlertAutoRWOFailed@jandbmedical.com");
             mail.To.Add("grani@jandbmedical.com");
             mail.To.Add("2158767046@vzwpix.com");

@@ -83,5 +83,6 @@ namespace ReportsDatabase
         public Nullable<short> NCPDP_PersonCodeOverride { get; set; }
         public string Legacy_PolicyNumber { get; set; }
         public Nullable<System.DateTime> Legacy_PolicyNumber_ChangeDate { get; set; }
+        public string ProcessorControlNumberOverride { get; set; }
     }
 }

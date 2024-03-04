@@ -63,11 +63,14 @@
       <Private>True</Private>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Kendo.Mvc, Version=2016.2.630.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kendo.Mvc, Version=2014.3.1128.545, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\jb-intranet\USPSReport\USPS_Report\bin\Kendo.Mvc.dll</HintPath>
+      <HintPath>\\JBMAZWeb01\E$\WebApplications\JBIntranet\bin\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.19.15.1\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
     <Reference Include="RazorPDF">
       <HintPath>..\packages\RazorPDF.1.0.0\lib\net45\RazorPDF.dll</HintPath>
     </Reference>
@@ -86,9 +89,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\jb-intranet\USPSReport\USPS_Report\bin\System.Web.Mvc.dll</HintPath>
+      <HintPath>\\JBMAZWeb01\E$\WebApplications\JBIntranet\bin\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -205,6 +208,7 @@
     <Compile Include="Areas\ColdFusionReports\Controllers\DoctorController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\ExpiringCMNsController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\FedExPackStationLoginsController.cs" />
+    <Compile Include="Areas\ColdFusionReports\Controllers\FedexxController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\NewExpiringCMNsController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\PasswordChangeController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\ProductivityReportController.cs" />
@@ -214,6 +218,7 @@
     <Compile Include="Areas\ColdFusionReports\Controllers\RWOsController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\ShippedOrdersController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\SpecialDoctorsController.cs" />
+    <Compile Include="Areas\ColdFusionReports\Controllers\TrackingInformationController.cs" />
     <Compile Include="Areas\ColdFusionReports\Controllers\USSoperatorLookupController.cs" />
     <Compile Include="Areas\ColdFusionReports\Models\CMN_Rules.cs">
       <DependentUpon>ColdFusionIntranet.tt</DependentUpon>
@@ -227,6 +232,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ColdFuionHHSQLDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\ColdFusionReports\Models\ColdFuionHHSQLDB1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ColdFuionHHSQLDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Areas\ColdFusionReports\Models\ColdFusionIntranet.Context.cs">
       <AutoGen>True</AutoGen>
@@ -273,6 +283,8 @@
     <Compile Include="Areas\ColdFusionReports\Models\DataModels\RWOs.cs" />
     <Compile Include="Areas\ColdFusionReports\Models\DataModels\ShippedOrders.cs" />
     <Compile Include="Areas\ColdFusionReports\Models\DataModels\USSoperatorLookup.cs" />
+    <Compile Include="Areas\ColdFusionReports\Models\DataModels\WorkOrders.cs" />
+    <Compile Include="Areas\ColdFusionReports\Models\DataModels\WorkOrdersModel.cs" />
     <Compile Include="Areas\ColdFusionReports\Models\Employees_AlphaSplit.cs">
       <DependentUpon>ColdFusionIntranet.tt</DependentUpon>
     </Compile>
@@ -339,6 +351,8 @@
     <Compile Include="Areas\ColdFusionReports\Models\sp_ussOperatorLookup_Result.cs">
       <DependentUpon>ColdFusionReports.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\ColdFusionReports\Models\TrackingInfo.cs" />
+    <Compile Include="Areas\ColdFusionReports\Models\WorkOrderModel.cs" />
     <Compile Include="Areas\Reports\Controllers\BCBSController.cs" />
     <Compile Include="Areas\Reports\Controllers\BillingController.cs" />
     <Compile Include="Areas\Reports\Controllers\Billing_ChampsController.cs" />
@@ -357,6 +371,7 @@
     <Compile Include="Areas\Reports\Controllers\InactiveAccountsController.cs" />
     <Compile Include="Areas\Reports\Controllers\InboundController.cs" />
     <Compile Include="Areas\Reports\Controllers\IndianaController.cs" />
+    <Compile Include="Areas\Reports\Controllers\InsulinPumpSuppliesNotController.cs" />
     <Compile Include="Areas\Reports\Controllers\LogisticsController.cs" />
     <Compile Include="Areas\Reports\Controllers\ManageOrderController.cs" />
     <Compile Include="Areas\Reports\Controllers\MIStateAuditController.cs" />
@@ -370,6 +385,7 @@
     <Compile Include="Areas\Reports\Controllers\ReviewDoctorsController.cs" />
     <Compile Include="Areas\Reports\Controllers\ROnotPurchaseController.cs" />
     <Compile Include="Areas\Reports\Controllers\RWOController.cs" />
+    <Compile Include="Areas\Reports\Controllers\RWOsChangesController.cs" />
     <Compile Include="Areas\Reports\Controllers\RWOsOlderDatesController.cs" />
     <Compile Include="Areas\Reports\Controllers\RWOsWith2099DatesController.cs" />
     <Compile Include="Areas\Reports\Controllers\SchedulerController.cs" />
@@ -405,7 +421,9 @@
     <Compile Include="Areas\Reports\Models\HoldReasonVM.cs" />
     <Compile Include="Areas\Reports\Models\IllegalPuncuationReport.cs" />
     <Compile Include="Areas\Reports\Models\InactiveAccountsReport.cs" />
+    <Compile Include="Areas\Reports\Models\InsulinPumpSuppliesNot.cs" />
     <Compile Include="Areas\Reports\Models\Logistics.cs" />
+    <Compile Include="Areas\Reports\Models\ManageOrder.cs" />
     <Compile Include="Areas\Reports\Models\MergePdfs.cs" />
     <Compile Include="Areas\Reports\Models\MIStateAudit.cs" />
     <Compile Include="Areas\Reports\Models\PayerLinkReport.cs" />
@@ -426,6 +444,7 @@
     <Compile Include="Areas\Reports\Models\Products.cs" />
     <Compile Include="Areas\Reports\Models\RWOMultipleLocations.cs" />
     <Compile Include="Areas\Reports\Models\RWOMultipleTimes.cs" />
+    <Compile Include="Areas\Reports\Models\RWOsChanges.cs" />
     <Compile Include="Areas\Reports\Models\RwosReport.cs" />
     <Compile Include="Areas\Reports\Models\RWOsWith2099Dates.cs" />
     <Compile Include="Areas\Reports\Models\RWOwithOlderDates.cs" />
@@ -452,6 +471,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\GetSafeData.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AOBAttempt.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
@@ -583,6 +603,9 @@
     <Compile Include="Models\sp_GetReturnReasonList_Result.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_GetRWOChanges_Result.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_GetRWOs2099Audit_Result.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
@@ -619,11 +642,32 @@
     <Compile Include="Models\USPS_POD_tbl.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\usp_GetInsulinPumpSupplies_Result.cs">
+      <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\v_FutureOrderTypes.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\v_FutureOrderTypes2.cs">
       <DependentUpon>ReportDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\XCarrierProd.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XCarrierProd.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\XCarrierProd.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XCarrierProd.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\XCarrierProd.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XCarrierProd.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\XCARRIER_USER_REGISTRATION.cs">
+      <DependentUpon>XCarrierProd.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -661,6 +705,7 @@
     </Content>
     <Content Include="bootstrap.css" />
     <Content Include="calendaricon.png" />
+    <Content Include="Content\AmzWmtStyle.css" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
@@ -1008,8 +1053,19 @@
     <Content Include="Models\ReportDB.edmx.diagram">
       <DependentUpon>ReportDB.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\XCarrierProd.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>XCarrierProd.edmx</DependentUpon>
+      <LastGenOutput>XCarrierProd.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\XCarrierProd.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>XCarrierProd.edmx</DependentUpon>
+      <LastGenOutput>XCarrierProd.cs</LastGenOutput>
+    </Content>
     <Content Include="PaperAirplane.jpg" />
     <Content Include="print.css" />
+    <Content Include="Scripts\AWalmart.js" />
     <Content Include="Scripts\bootstrap-table.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1350,8 +1406,23 @@
     <Content Include="Areas\Reports\Views\CustomerServices\_PendingResolution.cshtml" />
     <Content Include="Areas\Reports\Views\ClinicalAssessment\RemovedAccounts.cshtml" />
     <Content Include="Areas\Reports\Views\CustomerServices\_ProductSurvey.cshtml" />
+    <Content Include="Areas\Reports\Views\RWOsChanges\RWOsChanges.cshtml" />
+    <Content Include="Areas\Reports\Views\InsulinPumpSuppliesNot\InsulinPumpSuppliesNot.cshtml" />
+    <Content Include="Areas\Reports\Views\ManageOrder\MassCancelHistory.cshtml" />
+    <Content Include="Areas\ColdFusionReports\Views\Fedexx\Index.cshtml" />
+    <EntityDeploy Include="Models\XCarrierProd.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>XCarrierProd.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\XCarrierProd.edmx.diagram">
+      <DependentUpon>XCarrierProd.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\ColdFusionReports\Views\TrackingInformation\AmazonWalmartTracking.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
     <None Include="Properties\PublishProfiles\GBethini.pubxml" />
+    <None Include="Properties\PublishProfiles\JBIntranetTest.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -2036,7 +2107,6 @@
     <Folder Include="Areas\Reports\Views\Test\" />
     <Folder Include="Content\themesOld\base\images\" />
     <Folder Include="Content\themesOld\base\minified\images\" />
-    <Folder Include="Helper\" />
     <Folder Include="PDFDocuments\" />
     <Folder Include="Report Files\" />
   </ItemGroup>

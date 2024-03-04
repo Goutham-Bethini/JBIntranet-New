@@ -16,8 +16,9 @@ namespace USPS_Report.Areas.Reports.Models
         {
 
             IList<ReassmentCalls> _list = new List<ReassmentCalls>();
-            
-            SqlConnection _conn = new SqlConnection("Server=JBMMISQL002;Database=CallAgentDB;Uid=SQLAPPUSER;pwd=$Ql@pp1");
+            var conns = System.Configuration.ConfigurationManager.ConnectionStrings["CallAgentDbconnectionstring"].ConnectionString;
+            SqlConnection _conn = new SqlConnection(conns);
+            //SqlConnection _conn = new SqlConnection("Server=JBMAZSQL01;Database=CallAgentDB;Uid=SQLAPPUSER;pwd=$Ql@pp1");
 
             _conn.Open();
 
@@ -148,8 +149,9 @@ namespace USPS_Report.Areas.Reports.Models
          
 
             IList<NewAccount> _list = new List<NewAccount>();
-
-            SqlConnection _conn = new SqlConnection("Server=JBMMISQL002;Database=CallAgentDB;Uid=SQLAPPUSER;pwd=$Ql@pp1");
+            var conns = System.Configuration.ConfigurationManager.ConnectionStrings["CallAgentDbconnectionstring"].ConnectionString;
+            SqlConnection _conn = new SqlConnection(conns);
+            //SqlConnection _conn = new SqlConnection("Server=JBMAZSQL01;Database=CallAgentDB;Uid=SQLAPPUSER;pwd=$Ql@pp1");
 
             _conn.Open();
 

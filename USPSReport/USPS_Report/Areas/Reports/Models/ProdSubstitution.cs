@@ -140,7 +140,6 @@ namespace USPS_Report.Areas.Reports.Models
             return _vm;
         }
 
-       
 
         public static ProductSubModel displayProdSubsList(ProductSubModel _vm, string operatorName)
         {
@@ -150,9 +149,9 @@ namespace USPS_Report.Areas.Reports.Models
 
             IList<RwoProSub> proSublist = new List<RwoProSub>();
 
-          
-                using (HHSQLDBEntities _db = new HHSQLDBEntities())
-                {
+
+            using (HHSQLDBEntities _db = new HHSQLDBEntities())
+            {
                 proSublist = _db.Database.SqlQuery<RwoProSub>(" SELECT " +
           "  CASE " +
              "   WHEN subApproved IS NOT NULL THEN 'Approved' " +
@@ -173,17 +172,16 @@ namespace USPS_Report.Areas.Reports.Models
                " sub.subNewProdQty,  sub.allProds, " +
            " CASE " +
             "    WHEN pr1.ProductCode IS NOT NULL THEN pr1.ProductCode " +
-             "   ELSE 'prd3.ProductCode' " + //prd3.ProductCode 
+             "   ELSE null " + 
            " END AS OldProd, " +
            " CASE " +
             "    WHEN pr2.ProductCode IS NOT NULL THEN pr2.ProductCode " +
-             "   ELSE 'prd4.ProductCode' " + //prd4.ProductCode
+             "   ELSE null " + 
             " END AS NewProd " +
        " FROM Intranet..RWO_Product_Substitutions sub " +
      "   LEFT JOIN HHSQLDB..tbl_product_table            pr1 ON pr1.id = sub.subOldProd " +
       "  LEFT JOIN HHSQLDB..tbl_product_table            pr2 ON pr2.id = sub.subNewProd " +
-     "   LEFT JOIN HHSQLDB_Legacy..tbl_product_table     prd3    ON prd3.id = sub.subOldProd " +
-     "   LEFT JOIN HHSQLDB_Legacy..tbl_product_table     prd4    ON prd4.ID = sub.subNewProd " +
+   
 
      "   WHERE " +
           "  sub.subDeleted IS NULL and sub.subAdded >= '1/1/2014' " +
@@ -197,27 +195,104 @@ namespace USPS_Report.Areas.Reports.Models
           "  sub.subAdded DESC " +
           "insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',21,GETDATE())").ToList<RwoProSub>();
 
-                }
+            }
 
             var pendingReqList = (from list in proSublist
                                   where list.subDeleted == null
                                   && list.subApproved == null
                                   && list.subDenied == null
-                                  select list).OrderByDescending(t=>t.subAdded).ToList();
+                                  select list).OrderByDescending(t => t.subAdded).ToList();
 
             _vm.pendingList = pendingReqList;
 
             var ProcessedReqList = (from list in proSublist
-                                  where list.subAdded != null
-                                  || list.subApproved != null
-                                  || list.subDenied != null
-                                   || list.subDeleted != null
+                                    where list.subAdded != null
+                                    || list.subApproved != null
+                                    || list.subDenied != null
+                                     || list.subDeleted != null
                                     select list).OrderByDescending(t => t.subAdded).ToList();
 
             _vm.processedList = ProcessedReqList;
 
             return _vm;
         }
+
+        //   public static ProductSubModel displayProdSubsList(ProductSubModel _vm, string operatorName)
+        //   {
+        //       int year = DateTime.Now.AddYears(-2).Year;
+        //       DateTime firstDay = new DateTime(year, 1, 1);
+        //       //ProductSubModel _vm = new ProductSubModel();
+
+        //       IList<RwoProSub> proSublist = new List<RwoProSub>();
+
+
+        //           using (HHSQLDBEntities _db = new HHSQLDBEntities())
+        //           {
+        //           proSublist = _db.Database.SqlQuery<RwoProSub>(" SELECT " +
+        //     "  CASE " +
+        //        "   WHEN subApproved IS NOT NULL THEN 'Approved' " +
+        //         "  WHEN subDenied IS NOT NULL THEN 'Denied' " +
+        //         "  WHEN subDeleted IS NOT NULL THEN 'Deleted' " +
+        //         "  ELSE 'Pending' " +
+        //    "   END AS Status, " +
+        //     "  sub.subAdded, " +
+        //     "  sub.subAddedBy, " +
+        //     "  sub.subApproved, " +
+        //      " sub.subApprovedBy, " +
+        //      " sub.subDeleted, " +
+        //     "  sub.subDeletedBy," +
+        //      " sub.subDenied, " +
+        //      " sub.subDeniedBy, " +
+        //      " sub.subRwoCount, " +
+        //        " sub.subOldProdQty, " +
+        //          " sub.subNewProdQty,  sub.allProds, " +
+        //      " CASE " +
+        //       "    WHEN pr1.ProductCode IS NOT NULL THEN pr1.ProductCode " +
+        //        "   ELSE 'prd3.ProductCode' " + //prd3.ProductCode 
+        //      " END AS OldProd, " +
+        //      " CASE " +
+        //       "    WHEN pr2.ProductCode IS NOT NULL THEN pr2.ProductCode " +
+        //        "   ELSE 'prd4.ProductCode' " + //prd4.ProductCode
+        //       " END AS NewProd " +
+        //  " FROM Intranet..RWO_Product_Substitutions sub " +
+        //"   LEFT JOIN HHSQLDB..tbl_product_table            pr1 ON pr1.id = sub.subOldProd " +
+        // "  LEFT JOIN HHSQLDB..tbl_product_table            pr2 ON pr2.id = sub.subNewProd " +
+        //"   LEFT JOIN HHSQLDB_Legacy..tbl_product_table     prd3    ON prd3.id = sub.subOldProd " +
+        //"   LEFT JOIN HHSQLDB_Legacy..tbl_product_table     prd4    ON prd4.ID = sub.subNewProd " +
+
+        //"   WHERE " +
+        //     "  sub.subDeleted IS NULL and sub.subAdded >= '1/1/2014' " +
+        //"   ORDER BY " +
+        //     "  CASE " +
+        //        "   WHEN sub.subApproved IS NOT NULL THEN 1 " +
+        //        "   WHEN sub.subDenied IS NOT NULL THEN 2 " +
+        //        "   WHEN sub.subDeleted IS NOT NULL THEN 3 " +
+        //        "   ELSE 0 " +
+        //    "   END, " +
+        //     "  sub.subAdded DESC " +
+        //     "insert into Reports.dbo.tbl_ReportsAuditLine values('" + operatorName + "',21,GETDATE())").ToList<RwoProSub>();
+
+        //           }
+
+        //       var pendingReqList = (from list in proSublist
+        //                             where list.subDeleted == null
+        //                             && list.subApproved == null
+        //                             && list.subDenied == null
+        //                             select list).OrderByDescending(t=>t.subAdded).ToList();
+
+        //       _vm.pendingList = pendingReqList;
+
+        //       var ProcessedReqList = (from list in proSublist
+        //                             where list.subAdded != null
+        //                             || list.subApproved != null
+        //                             || list.subDenied != null
+        //                              || list.subDeleted != null
+        //                               select list).OrderByDescending(t => t.subAdded).ToList();
+
+        //       _vm.processedList = ProcessedReqList;
+
+        //       return _vm;
+        //   }
 
 
         public static void updateProdSubTable(ProductSubModel _vm)
@@ -517,7 +592,7 @@ namespace USPS_Report.Areas.Reports.Models
             if (all == true)
             {
                 MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+                SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
                 mail.From = new MailAddress("noreply@jandbmedical.com");
 
                 mail.To.Add("grani@jandbmedical.com");
@@ -578,7 +653,7 @@ namespace USPS_Report.Areas.Reports.Models
                 mail.Body += "</tr>";
 
                 mail.Body += "<tr>";
-                mail.Body += "<td>  link:   http://10.10.1.49/JBIntranet/Reports/RWO/ProductSub </td> <td> </td>";
+                mail.Body += "<td>  link:   http://JBMAZWeb01/JBIntranet/Reports/RWO/ProductSub </td> <td> </td>";
                 mail.Body += "</tr>";
 
                 mail.Body += "<tr>";
@@ -603,7 +678,7 @@ namespace USPS_Report.Areas.Reports.Models
             else { 
 
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
             mail.Bcc.Add("grani@jandbmedical.com");
@@ -664,7 +739,7 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "</tr>";
 
             mail.Body += "<tr>";
-            mail.Body += "<td>  link:   http://10.10.1.49/JBIntranet/Reports/RWO/ProductSub </td> <td> </td>";
+            mail.Body += "<td>  link:   http://JBMAZWeb01/JBIntranet/Reports/RWO/ProductSub </td> <td> </td>";
             mail.Body += "</tr>";
 
             mail.Body += "<tr>";

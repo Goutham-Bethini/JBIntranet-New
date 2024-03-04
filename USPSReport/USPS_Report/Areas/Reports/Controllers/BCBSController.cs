@@ -2960,7 +2960,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
             mail.To.Add("disteamleader@jandbmedical.com");
@@ -2986,7 +2986,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
             mail.Body += "<tr>";
-            mail.Body += "<td> Link : http://10.10.1.49/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
+            mail.Body += "<td> Link : http://JBMAZWeb01/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Thank You!</td><td></td>";

@@ -16,7 +16,7 @@ namespace USPS_Report.Areas.Reports.Models
             using (HHSQLDBEntities _db = new HHSQLDBEntities())
             {
                 records = _db.Database.SqlQuery<HDMSPunctuationsVM>(@" Select AI.Account,AI.Reference as InsuranceID,AM.First_Name as FirstName,AM.Last_Name as LastName,AM.Sex as Gender,AM.BirthDate,AI.Billable_Party_Member, prov.OrganizationName
-  ,CASE when AI.Reference LIKE '%[^a-z0-9-'']%' then 'Yes' else 'No' End as Is_IssueWith_InsuranceID
+  ,CASE when REPLACE(REPLACE(AI.Reference, CHAR(13), ''), CHAR(10), '') LIKE '%[^a-z0-9-'']%' then 'Yes' else 'No' End as Is_IssueWith_InsuranceID
   ,CASE when (AM.First_Name LIKE ' %' or AM.First_Name LIKE '% ') then 'Yes' else 'No' End as Is_IssueWith_FirstName
   ,CASE when (AM.Last_Name LIKE ' %' or AM.Last_Name LIKE '% ') then 'Yes' else 'No' End as Is_IssueWith_LastName
   ,CASE when (AM.Sex is null or AM.Sex ='') then 'Yes' else 'No' End as Is_IssueWith_Gender

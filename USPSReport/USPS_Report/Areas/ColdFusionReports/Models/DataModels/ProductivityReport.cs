@@ -51,11 +51,11 @@ namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
             ProductivityReportVM productivityReportVM = new ProductivityReportVM();
             productivityReportVM.SelectedDate = selectedDate;
             productivityReportVM.PreDate = selectedDate.AddDays(-1);
-            productivityReportVM.NextDate = selectedDate.AddDays(1);          
-            string _conn = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ConnectionString;
+            productivityReportVM.NextDate = selectedDate.AddDays(1);
+            string _conn = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ToString();
             //string _conn = @"Data Source=(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = nchljandbdb01.jandbmedical.com)(PORT = 1541))
             //                (CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = JBTA1)));Provider=OraOLEDB.Oracle;User Id= XXCUST01;Password=XXCUST01;";        
-            OleDbConnection myConnection = new OleDbConnection(_conn);
+            OracleConnection myConnection = new OracleConnection(_conn);
             String query = string.Empty;
             myConnection.Open();
             query = @"SELECT
@@ -82,8 +82,8 @@ namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
             + "ORDER BY "
                 + "UserID,"
                 + "Meter_Number";
-            OleDbCommand myCommand = new OleDbCommand(query, myConnection);
-            OleDbDataReader reader = myCommand.ExecuteReader();
+            OracleCommand myCommand = new OracleCommand(query, myConnection);
+            OracleDataReader reader = myCommand.ExecuteReader();
             ProductivityReportFromDB productivityReportFromDB;
             List<ProductivityReportFromDB> lstProductivityReportFromDB = new List<ProductivityReportFromDB>();
             while (reader.Read())
@@ -184,16 +184,16 @@ namespace USPS_Report.Areas.ColdFusionReports.Models.DataModels
                 StationUpdateVM locStationUpdateVM = new StationUpdateVM();
                 locStationUpdateVM.MeterNumber = stationUpdateVM.MeterNumber;
                 locStationUpdateVM.Name = stationUpdateVM.Name;
-                string _conn = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ConnectionString;
-                OleDbConnection myConnection = new OleDbConnection(_conn);
+                string _conn = ConfigurationManager.ConnectionStrings["ColdFusionReportsEntitiesOracle"].ToString();
+                OracleConnection myConnection = new OracleConnection(_conn);
                 String query = string.Empty;
                 myConnection.Open();
                 query = @"SELECT DISTINCT Meter_Number
 				FROM TBL_UPS_WORKORDERS
 				WHERE Meter_Number IS NOT NULL
 				ORDER BY Meter_Number";
-                OleDbCommand myCommand = new OleDbCommand(query, myConnection);
-                OleDbDataReader reader = myCommand.ExecuteReader();
+                OracleCommand myCommand = new OracleCommand(query, myConnection);
+                OracleDataReader reader = myCommand.ExecuteReader();
                 List<string> lstMeter_Number = new List<string>();
                 while (reader.Read())
                 {

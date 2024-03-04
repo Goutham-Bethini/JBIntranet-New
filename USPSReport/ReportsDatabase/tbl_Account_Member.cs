@@ -120,5 +120,8 @@ namespace ReportsDatabase
         public string Suffix_Name { get; set; }
         public string MobilePhone { get; set; }
         public string FullName { get; set; }
+        public Nullable<int> ID_Diet { get; set; }
+        public string MedicalHistory { get; set; }
+        public Nullable<int> ID_Ethnicity { get; set; }
     }
 }

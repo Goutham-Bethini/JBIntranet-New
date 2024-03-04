@@ -1,0 +1,70 @@
+﻿@model USPS_Report.Areas.Reports.Models.RWOsChanges.RWOsChangesVM
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "RWOsChanges";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center>
+    <h2> RWO Changes</h2>
+</center>
+
+@using (Ajax.BeginForm("RWOsChanges", "RWOsChanges", new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "viewData", InsertionMode = InsertionMode.Replace }))
+{
+    <center>
+        <div class="form-inline">
+            <label>Start Date </label>
+            @Html.Kendo().DatePicker().Name("startDt").Value(Model.StartDt).Format("MM/dd/yyyy")
+            <label>End Date </label>
+            @Html.Kendo().DatePicker().Name("endDt").Value(Model.EndDt).Format("MM/dd/yyyy")
+            <button id="test" class="btn btn-primary btn-large" type="submit">Submit</button>
+        </div>
+    </center>
+   
+    @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.RWOsChanges.RWOsChangesData>()
+                                            .Name("RWOsChanges")
+                                            .Columns(columns =>
+                                            {
+                                                columns.Bound(t => t.Account).Title("Account").Filterable(f => f.UI("myfilter"));
+                                                columns.Bound(t => t.Primary_Payer_ID).Title("Primary Payer ID").Filterable(f => f.UI("myfilter"));
+                                                columns.Bound(t => t.Secondary_Payer_ID).Title("Secondary Payer ID").Filterable(f => f.UI("myfilter"));
+                                                columns.Bound(t => t.ProductCode).Title("Product Code");
+                                                columns.Bound(t => t.ProductDescription).Title("Product Description");
+                                                columns.Bound(t => t.LastChangedBy).Title("LastChangedBy");
+                                                columns.Bound(t => t.ChangedDate).Title("ChangedDate").Format("{0: MM/dd/yyyy}");
+                                                columns.Bound(t => t.CreatedBy).Title("CreatedBy");
+                                                columns.Bound(t => t.CreatedDate).Title("CreatedDate").Format("{0: MM/dd/yyyy}");
+                                                columns.Bound(t => t.NextRepeatDate).Title("NextRepeatDate").Format("{0: MM/dd/yyyy}");
+                                                columns.Bound(t => t.Qty).Title("Qty").Filterable(f => f.UI("myfilter"));
+                                            })
+                                            .ToolBar(tools => tools.Excel())
+                                            .Sortable()
+                                            .Pageable()
+                                            .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+                                            .Excel(excel => excel.FileName("RWOsChanges.xlsx").AllPages(true)
+                                            .Filterable(true)
+                                            .ProxyURL(Url.Action("Excel_Export_Save", "RWOsChanges")))
+                                            .HtmlAttributes(new { style = "width:1500px;" })
+                                            .Reorderable(r => r.Columns(true))
+                                            .Resizable(r => r.Columns(true))
+                                            .ColumnMenu()
+                                            .DataSource(dataSource => dataSource
+                                            .Ajax()
+                                            .PageSize(25)
+                                            .ServerOperation(false)
+                                            .Model(model => model.Id(p => p.Account))
+                                            .Read(read => read.Action("RWOsChangesReport", "RWOsChanges", Model))
+                                            )
+    )
+}
+<hr />
+
+<script>
+    
+    function myfilter(element) {
+        element.kendoNumericTextBox({
+            //format: "n0"
+            format: "#", decimals: 0
+        });
+    }
+</script>

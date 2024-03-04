@@ -148,6 +148,7 @@
                                                 <th style="width:12%">Product</th>
                                                 <th style="width:35%">Description</th>
                                                 <th style="width:12%">Unit Weight</th>
+                                                <th style="width:7%">UnitCost</th>
                                                 <th style="width:7%">UOM</th>
                                                 <th style="width:5%">Ordered</th>
                                                 <th style="width:5%">Shipped</th>
@@ -174,6 +175,10 @@
                                                     <td>
                                                         @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].UnitWeight)
                                                         @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].UnitWeight)
+                                                    </td>
+                                                    <td>
+                                                        @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].UnitCost)
+                                                        @Html.DisplayFor(x => x.workOrderDetail[i].productDetails[j].UnitCost)
                                                     </td>
                                                     <td>
                                                         @Html.HiddenFor(x => x.workOrderDetail[i].productDetails[j].UOM)

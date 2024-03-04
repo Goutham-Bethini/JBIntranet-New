@@ -14,7 +14,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         public static void AutoEmail(string _email, string _fileName, string name)
         {
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
 
             string messageHtml = @"<html><body> 
                   <img src=""cid:123"" /> ";
@@ -127,7 +127,7 @@ namespace USPS_Report.Areas.Reports.Models
 
         public static void AutoEmailCSL(string _email, string _fileName, string name)
         {
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             string JB_Img = System.Web.HttpContext.Current.Server.MapPath("~/Image/Cover_HMO.JPG");
          
             string messageHtml = @"<!DOCTYPE html>
@@ -266,7 +266,7 @@ If you are not an intended recipient, please contact us immediately by telephone
 
         public static void AutoEmailDRL(string _email, string _fileName, string name, string memberName)
         {
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
 
             string messageHtml = @"<html><body> 
                   <img src=""cid:123"" /> ";
@@ -356,7 +356,7 @@ If you are not an intended recipient, please contact us immediately by telephone
 
         public static void AutoEmailSpanish(string _email, string _fileName, string name)
         {
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
 
             string messageHtml = @"<html><body> 
                   <img src=""cid:123"" /> ";
@@ -463,7 +463,7 @@ If you are not an intended recipient, please contact us immediately by telephone
         /*   public static void AutoEmailAOB(string _email, string _fileName, string name)
 
             {
-                SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+                SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
 
                 string messageHtml = @"<html><body> 
                       <img src=""cid:12345"" />
@@ -529,7 +529,7 @@ If you are not an intended recipient, please contact us immediately by telephone
 
         public static void AutoEmailAOB(string _email, string _fileName, string name)
         {
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
 
           //  string messageHtml = @"<html><body> 
                 //  <img src=""cid:123"" /> ";
@@ -657,7 +657,7 @@ The information contained in this e-mail is intended solely for its authorized r
 
         public static void AutoEmailAOBEnglishSpanish(string _email,string emailTemplate,string filePathToSave)
         {
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             string contents = File.ReadAllText(emailTemplate);
 
             AlternateView view = AlternateView.CreateAlternateViewFromString(contents, null, MediaTypeNames.Text.Html);
@@ -710,7 +710,7 @@ The information contained in this e-mail is intended solely for its authorized r
             string faxNo = "fax=" + _fax + "@10.10.2.19";
 
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("autofax@jandbmedical.com");
 
             mail.To.Add(faxNo);

@@ -25,7 +25,7 @@ namespace USPS_Report.Areas.ColdFusionReports.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<FedExMeterNumber> FedExMeterNumbers { get; set; }
         public virtual DbSet<FedExLogin> FedExLogins { get; set; }
+        public virtual DbSet<FedExMeterNumber> FedExMeterNumbers { get; set; }
     }
 }

@@ -134,110 +134,103 @@
         </div>
     </center>
 }
-    <center>
-        <table>
-            <tr>
-                <td><a id="ancSendLetter" style="text-decoration:underline;cursor: pointer;">Send Contact Letter</a></td>
-                <td width="25px"></td>
-                <td><a id="ancHold" style="text-decoration:underline;cursor: pointer;">Click here to hold</a></td>
-            </tr>
-        </table>
-    </center>
+<center>
+    <table>
+        <tr>
+            <td><a id="ancSendLetter" style="text-decoration:underline;cursor: pointer;">Send Contact Letter</a></td>
+            <td width="25px"></td>
+            <td><a id="ancHold" style="text-decoration:underline;cursor: pointer;">Click here to hold</a></td>
+        </tr>
+    </table>
+</center>
+<a href="#" class="k-button" id="save">Save State</a>
+<a href="#" class="k-button" id="load">Load State</a>
 
-        <div class="center">
+<div class="center">
 
-            @(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.AssessmentDueByMonthVM>()
-                                                                                                                                .Name("Assessment")
-                                                                                                                                .Columns(columns =>
+@(Html.Kendo().Grid<USPS_Report.Areas.Reports.Models.AssessmentDueByMonthVM>()
+.Name("Assessment")
+.Columns(columns =>
+{
+columns.Bound(t => t.Account).Title("Account").HtmlAttributes(new { style = "cursor: pointer;" }).ClientTemplate("<a onclick=showTest()>#=Account#</a>");
+columns.Bound(t => t.Expires).Title("Expires").Filterable(false);
+columns.Bound(t => t.state).Title("State");
+columns.Bound(t => t.Age).Title("Age");
+columns.Bound(t => t.Duration).Title("Duration");
+columns.Bound(t => t.HasPullOns).Title("Has Pull Ons?");
+columns.Bound(t => t.Attempt1st).Title("1st Attempt?");
+columns.Bound(t => t.Attempted1stName).Title("1st Attempted By");
+columns.Bound(t => t.Attempted1stDate).Title("1st Attempted Date").Format("{0:MM/dd/yyyy}");
+columns.Bound(t => t.Attempt2nd).Title("2nd Attempt?");
+columns.Bound(t => t.Attempted2ndName).Title("2nd Attempted By");
+columns.Bound(t => t.Attempted2ndDate).Title("2nd Attempted Date").Format("{0:MM/dd/yyyy}");
+columns.Bound(t => t.Clin_Ass_ID).Title("Clinical Id").HeaderHtmlAttributes(new { style = "display:none;" }).HtmlAttributes(new { style = "display:none;" });
+})
+.ToolBar(tools => tools.Excel())
+.Sortable()
+.Pageable()
+.Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
+.Excel(excel => excel
+.FileName("AssessmentDue.xlsx")
+.AllPages(true)
+.Filterable(true)
+.ProxyURL(Url.Action("Excel_Export_Save", "ClinicalAssessment"))
+)
+.HtmlAttributes(new { style = "width:fit-content;" })
+.Reorderable(r => r.Columns(true))
+.Resizable(r => r.Columns(true))
+.ColumnMenu()
+.DataSource(dataSource => dataSource
+.Ajax()
+.PageSize(50)
+.ServerOperation(false)
+.Model(model => model.Id(p => p.Account))
+.Read(read => read.Action("AssessmentsDueByMonthYr", "ClinicalAssessment", new { year = @Request.QueryString["year"], month = @Request.QueryString["month"] }))
+)
+)
+</div>
 
-                                                                                                                                {
-                                                                                                                                    columns.Bound(t => t.Account).Title("Account").HtmlAttributes(new { style = "cursor: pointer;" }).ClientTemplate("<a onclick=showTest()>#=Account#</a>");
-                                                                                                                                    columns.Bound(t => t.Expires).Title("Expires").Filterable(false);
-                                                                                                                                    columns.Bound(t => t.state).Title("State");
-                                                                                                                                    columns.Bound(t => t.Age).Title("Age");
-                                                                                                                                    columns.Bound(t => t.Duration).Title("Duration");
-                                                                                                                                    columns.Bound(t => t.HasPullOns).Title("Has Pull Ons?");
-                                                                                                                                    columns.Bound(t => t.Attempt1st).Title("1st Attempt?");
-                                                                                                                                    columns.Bound(t => t.Attempted1stName).Title("1st Attempted By");
-                                                                                                                                    columns.Bound(t => t.Attempted1stDate).Title("1st Attempted Date").Format("{0:MM/dd/yyyy}");
-                                                                                                                                    columns.Bound(t => t.Attempt2nd).Title("2nd Attempt?");
-                                                                                                                                    columns.Bound(t => t.Attempted2ndName).Title("2nd Attempted By");
-                                                                                                                                    columns.Bound(t => t.Attempted2ndDate).Title("2nd Attempted Date").Format("{0:MM/dd/yyyy}");
-                                                                                                                                    columns.Bound(t => t.Clin_Ass_ID).Title("Clinical Id").HeaderHtmlAttributes(new { style = "display:none;" }).HtmlAttributes(new { style = "display:none;" });
-                                                                                                                                })
-                                                                                                                                               .ToolBar(tools => tools.Excel())
-                                                                                                                                        .Sortable()
-                                                                                                                                         .Pageable()
-                                                                                                                                             .Filterable(ftb => ftb.Mode(GridFilterMode.Menu))
-                                                                                                                                           .Excel(excel => excel
-                                                                                                                                                .FileName("AssessmentDue.xlsx")
-                                                                                                                                                .AllPages(true)
-                                                                                                                                                .Filterable(true)
-                                                                                                                                                .ProxyURL(Url.Action("Excel_Export_Save", "ClinicalAssessment"))
-                                                                                                                                            )
-                                                                                                                                            .HtmlAttributes(new { style = "width:fit-content;" })
-                                                                                                                                            .Reorderable(r => r.Columns(true))
-                                                                                                                                            .Resizable(r => r.Columns(true))
-                                                                                                                                            .ColumnMenu()
-                                                                                                                                        .DataSource(dataSource => dataSource
-                                                                                                                                            .Ajax()
-                                                                                                                                             .PageSize(50)
-                                                                                                                                             .ServerOperation(false)
-                                                                                                                                            .Model(model => model.Id(p => p.Account))
-                                                                                                                                            .Read(read => read.Action("AssessmentsDueByMonthYr", "ClinicalAssessment", new { year = @Request.QueryString["year"], month = @Request.QueryString["month"] }))
-                                                                                                                                        )
-            )
-        </div>
 
+<script>
+    $(document).ready(function () { 
+        var grid = $("#Assessment").data("kendoGrid");
+        //debugger;
+        $("#save").click(function (e) {
+            e.preventDefault();
+            localStorage["kendo-grid-options"] = kendo.stringify(grid.getOptions());
+        });
 
-        <script>
-            $(function () {
-                $("#ancHold").click(function () {
-                    
-                    if (Number.isInteger(parseInt($("#displayAc").html(), 10))) {
-                        if (confirm("Press make sure you sent contact letter, if already sent press ok to proceed...")) {
-                            $("#hidAc").val($("#displayAc").html());
-                            $("#hidExp").val($("#displayExp").html());
-                            $("#hidState").val($("#displayState").html());
-                            $("#hidAge").val($("#displayAge").html());
-                            $("#hidDur").val($("#displayDuration").html());
-                            $("#hidPullOns").val($("#displayPullOns").html());
-                            $("#hidCount").val($("#displayCount").html());
-                            $("#hidFirstDate").val($("#displayDate").html());
-                            $("#hidClinicalId").val($("#displayClinicalId").html());
-                            $("#hidSetToHold").val(true);
-                            document.forms[0].submit();
-                            return false;
-                        }
-                    }
-                    else {
-                        $("#hidSetToHold").val(false);
-                        alert('Please select account to hold!');
-                    }                       
-                });
-            });
-         
-            function showTest() {
-                document.body.scrollTop = 0; // For Safari
-                document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-                var grid = $("#Assessment").data("kendoGrid");
-                var model = grid.dataItem($(event.target).closest("tr"));
-                $("#displayAc").html(model.Account);
-                $("#displayExp").html(model.Expires);
-                $("#displayState").html(model.state);
-                $("#displayAge").html(model.Age);
-                $("#displayDuration").html(model.Duration);
-                $("#displayPullOns").html(model.HasPullOns);
-                $('#Attempt1st').prop('checked', model.Attempt1st);
-                $("#displayAttempted1stName").html(model.Attempted1stName);
-                $("#displayAttempted1stDate").html(model.Attempted1stDate != null ? model.Attempted1stDate.toLocaleDateString('en-US') : null);
-                $('#Attempt2nd').prop('checked', model.Attempt2nd);
-                $("#displayAttempted2ndName").html(model.Attempted2ndName);
-                $("#displayAttempted2ndDate").html(model.Attempted2ndDate != null ? model.Attempted2ndDate.toLocaleDateString('en-US') : null);
-                $('#displayClinicalId').html(model.Clin_Ass_ID);
+        ////e.preventDefault();
+        //var options = localStorage["kendo-grid-options"];
+        //var optionsJSON = JSON.parse(options);
+
+        //if (optionsJSON) {
+        //    grid.setOptions(optionsJSON);
+        //}
+
+        //grid.hideColumn(12);
+
+        $("#load").click(function (e) {
+            e.preventDefault();
+            var options = localStorage["kendo-grid-options"];
+            var optionsJSON = JSON.parse(options);
+
+            if (optionsJSON) {
+                grid.setOptions(optionsJSON);
             }
-            $('#btnSubmit').click(
-                function () {
+           
+            grid.hideColumn(12);
+
+            //$(".k-button k-button-icontext k-grid-excel", "#grid").show();
+            //grid.find("button.className").css("k-grid-excel", "block");
+        });        
+    });
+    
+    $(function () {
+        $("#ancHold").click(function () {
+
+            if (Number.isInteger(parseInt($("#displayAc").html(), 10))) {
+                if (confirm("Press make sure you sent contact letter, if already sent press ok to proceed...")) {
                     $("#hidAc").val($("#displayAc").html());
                     $("#hidExp").val($("#displayExp").html());
                     $("#hidState").val($("#displayState").html());
@@ -247,26 +240,67 @@
                     $("#hidCount").val($("#displayCount").html());
                     $("#hidFirstDate").val($("#displayDate").html());
                     $("#hidClinicalId").val($("#displayClinicalId").html());
-                    $("#hidSetToHold").val(false);
-                });
-
-            document.getElementById("ancSendLetter").onclick = function () {
-                if (Number.isInteger(parseInt($("#displayAc").html(), 10)))
-                {
-                    var newWindow = window.open('http://10.10.1.49/LetterGenerator?account=' + $("#displayAc").html() + '&ddselection=2');
-
-                    //var newWindow = window.open('http://10.10.1.49/TestLetterGenerator2?account=' + $("#displayAc").html() + '&ddselection=2');
-
-                    //var newWindow = window.open('http://10.10.1.49/LetterGenerator');
+                    $("#hidSetToHold").val(true);
+                    document.forms[0].submit();
+                    return false;
                 }
-                else
-                    alert('Please select account to send contact letter!');
-            };
-        </script>
-
-        <style>
-            .middle {
-                margin: auto;
-                width: 900px;
             }
-        </style>
+            else {
+                $("#hidSetToHold").val(false);
+                alert('Please select account to hold!');
+            }
+        });
+    });
+
+    function showTest() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        var grid = $("#Assessment").data("kendoGrid");
+        var model = grid.dataItem($(event.target).closest("tr"));
+        $("#displayAc").html(model.Account);
+        $("#displayExp").html(model.Expires);
+        $("#displayState").html(model.state);
+        $("#displayAge").html(model.Age);
+        $("#displayDuration").html(model.Duration);
+        $("#displayPullOns").html(model.HasPullOns);
+        $('#Attempt1st').prop('checked', model.Attempt1st);
+        $("#displayAttempted1stName").html(model.Attempted1stName);
+        $("#displayAttempted1stDate").html(model.Attempted1stDate != null ? model.Attempted1stDate.toLocaleDateString('en-US') : null);
+        $('#Attempt2nd').prop('checked', model.Attempt2nd);
+        $("#displayAttempted2ndName").html(model.Attempted2ndName);
+        $("#displayAttempted2ndDate").html(model.Attempted2ndDate != null ? model.Attempted2ndDate.toLocaleDateString('en-US') : null);
+        $('#displayClinicalId').html(model.Clin_Ass_ID);
+    }
+    $('#btnSubmit').click(
+        function () {
+            $("#hidAc").val($("#displayAc").html());
+            $("#hidExp").val($("#displayExp").html());
+            $("#hidState").val($("#displayState").html());
+            $("#hidAge").val($("#displayAge").html());
+            $("#hidDur").val($("#displayDuration").html());
+            $("#hidPullOns").val($("#displayPullOns").html());
+            $("#hidCount").val($("#displayCount").html());
+            $("#hidFirstDate").val($("#displayDate").html());
+            $("#hidClinicalId").val($("#displayClinicalId").html());
+            $("#hidSetToHold").val(false);
+        });
+
+    document.getElementById("ancSendLetter").onclick = function () {
+        if (Number.isInteger(parseInt($("#displayAc").html(), 10))) {
+            var newWindow = window.open('http://JBMAZWeb01/LetterGenerator?account=' + $("#displayAc").html() + '&ddselection=2');
+
+            //var newWindow = window.open('http://JBMAZWeb01/TestLetterGenerator2?account=' + $("#displayAc").html() + '&ddselection=2');
+
+            //var newWindow = window.open('http://JBMAZWeb01/LetterGenerator');
+        }
+        else
+            alert('Please select account to send contact letter!');
+    };
+</script>
+
+<style>
+    .middle {
+        margin: auto;
+        width: 900px;
+    }
+</style>

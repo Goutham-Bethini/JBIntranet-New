@@ -90,5 +90,7 @@ namespace ReportsDatabase
         public string Replacement_Modifier { get; set; }
         public Nullable<short> Replacement_SuppressNU { get; set; }
         public Nullable<short> HCFA1500Box32Number { get; set; }
+        public Nullable<System.DateTime> DeletedDate { get; set; }
+        public Nullable<int> ID_DeletedBy { get; set; }
     }
 }

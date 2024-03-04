@@ -29,6 +29,8 @@ namespace USPS_Report.Areas.Reports.Models
                                    productDetails = (from wol in _db.tbl_PS_WorkOrderLine
                                                      join pro in _db.tbl_Product_Table
                                                      on wol.ID_Product equals pro.ID
+                                                     join vpro in _db.tbl_Inv_VendorProduct_Table
+                                                     on pro.ID equals vpro.ID_Product
                                                      join uom in _db.tbl_Inv_UOM_Table
                                                      on pro.ID_UOM equals uom.ID
                                                      //  from wo in _db.ERP_OrdersSent.Where(w => w.woWorkOrder == wol.ID_PS_WorkOrder).DefaultIfEmpty()
@@ -40,6 +42,7 @@ namespace USPS_Report.Areas.Reports.Models
                                                          Description = pro.ProductDescription,
                                                          Ordered = wol.QtyOrdered,
                                                          Shipped = wol.QtyShipped,
+                                                         UnitCost = vpro.UOMCost,
                                                          UOM = uom.UOMName + " of " + pro.PerUnitQty,
                                                          UnitWeight = pro.UnitWeight
 

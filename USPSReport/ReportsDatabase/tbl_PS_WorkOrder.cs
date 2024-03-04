@@ -111,7 +111,7 @@ namespace ReportsDatabase
         public string DeliveredComment { get; set; }
         public Nullable<short> DeliveredSignatureRel { get; set; }
         public string DeliveredSignatureReason { get; set; }
-        public bool DeliveredMobileDriver { get; set; }
+        public short DeliveredMobileDriver { get; set; }
         public Nullable<System.DateTime> EDIGatherDateTime { get; set; }
         public string EDIGatherControlNumber { get; set; }
         public Nullable<System.DateTime> ConfirmationDateTime { get; set; }
@@ -139,5 +139,7 @@ namespace ReportsDatabase
         public Nullable<int> ID_AssignedToWhse_By { get; set; }
         public Nullable<System.DateTime> DeliveryRouteAssigned_Date { get; set; }
         public Nullable<int> ID_DeliveryRouteAssigned_By { get; set; }
+        public Nullable<int> RxDrug_MovedToFill_By { get; set; }
+        public Nullable<int> WO_Insight_User { get; set; }
     }
 }

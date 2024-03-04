@@ -81,7 +81,6 @@ namespace ReportsDatabase
         public Nullable<short> D_NumberOfLabels { get; set; }
         public Nullable<short> D_DosesPerDay { get; set; }
         public Nullable<short> D_TotalDaysSupply { get; set; }
-        public Nullable<short> D_Cmp_DosesPerBag { get; set; }
         public Nullable<short> D_Cmp_NumberOfBags { get; set; }
         public string ProcedureCodeOverride { get; set; }
         public Nullable<short> WasAutoCreatedFromOutReach { get; set; }
@@ -158,5 +157,8 @@ namespace ReportsDatabase
         public Nullable<int> D_TotalDoses { get; set; }
         public Nullable<short> D_TotalAdminDays { get; set; }
         public Nullable<System.DateTime> RentalTerminationDate { get; set; }
+        public Nullable<int> ID_RxNumber { get; set; }
+        public Nullable<System.DateTime> D_NextCompoundDate { get; set; }
+        public Nullable<short> D_DosesPerContainer { get; set; }
     }
 }

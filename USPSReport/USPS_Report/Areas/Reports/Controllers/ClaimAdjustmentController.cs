@@ -17,7 +17,7 @@ namespace USPS_Report.Areas.Reports.Controllers
     public class ClaimAdjustmentController : Controller
     {
         // GET: Reports/ClaimAdjustment
-        string dir = @"\\JBMMIWEB001\StateAudit$\Files\";
+        string dir = @"\\jbmwix-azfs01\IT\IntranetDocuments\StateAudit$\Files\";
         // GET: Reports/ManageOrders
         public ActionResult ClaimAdjustment()
         {
@@ -233,7 +233,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         public static void SendEmail(bool error, string  Subject , string Body, string Receipent )
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.To.Add(Receipent);
             mail.From = new MailAddress("noreply@jandbmedical.com");
          

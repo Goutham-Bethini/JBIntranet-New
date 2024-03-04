@@ -911,7 +911,7 @@ namespace USPS_Report.Areas.Reports.Models
                     }
 
                     //COMMUNICATOIN
-                    if (_vm.ProductNeeds != null)
+                    if (_vm.ProductNeeds != null || _vm.ProductSupplies != null || _vm.ProductServices != null)
                     {
                         _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();   //&& t.NoteCreatedBy == id
                         if (_note == null)
@@ -930,186 +930,133 @@ namespace USPS_Report.Areas.Reports.Models
                         }
                         if (_note != null)
                         {
-                            StringBuilder _sbNeeds = new StringBuilder();
-                            //string str1 = "";
-                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                            _tHist.ID_Note = _note.ID;
-                            _tHist.NoteDate = DateTime.Now;
-                            _sbNeeds.Append("Are the products you are receiving meeting your needs? " + Environment.NewLine);
-                            _sbNeeds.Append(_vm.ProductNeeds + Environment.NewLine);
-                            if (_vm.ProductNeeds == "No")
-                            {
-                                _sbNeeds.Append("Products not meeting needs: " + Environment.NewLine);
-
-                                if (_vm.BPM_Needs)
-                                    _sbNeeds.Append("Blood Pressure Monitor " + Environment.NewLine);
-
-                                if (_vm.BreastPumps_Needs)
-                                    _sbNeeds.Append("Breast Pump " + Environment.NewLine);
-
-                                if (_vm.CGM_Needs)
-                                    _sbNeeds.Append("Continuous Glucose Monitor (CGM) " + Environment.NewLine);
-
-                                if (_vm.Diabetes_Needs)
-                                    _sbNeeds.Append("Diabetes Testing " + Environment.NewLine);
-
-                                if (_vm.Nutrition_Needs)
-                                    _sbNeeds.Append("Enteral Nutrition " + Environment.NewLine);
-
-                                if (_vm.Incontinence_Needs)
-                                    _sbNeeds.Append("Incontinence " + Environment.NewLine);
-
-                                if (_vm.Pump_Needs)
-                                    _sbNeeds.Append("Insulin Pump " + Environment.NewLine);
-
-                                if (_vm.Injectibles_Needs)
-                                    _sbNeeds.Append("Insulin Injectibles " + Environment.NewLine);
-
-                                if (_vm.Ostomy_Needs)
-                                    _sbNeeds.Append("Ostomy " + Environment.NewLine);
-
-                                if (_vm.Urological_Needs)
-                                    _sbNeeds.Append("Urological " + Environment.NewLine);
-
-                                if (_vm.Wound_Needs)
-                                    _sbNeeds.Append("Wound Care " + Environment.NewLine);
-
-                                if (_vm.Other_Needs)
-                                    _sbNeeds.Append(_vm.OthersText_Needs + Environment.NewLine);
-
-                                _sbNeeds.Append("Explanation of how products do not meet members needs: " + Environment.NewLine);
-                                _sbNeeds.Append(_vm.Comment_Needs + Environment.NewLine);
-
-                            }
 
                             StringBuilder _sbmain = new StringBuilder();
                             _sbmain.Append(noteString);
-                            _sbmain.Append(_sbNeeds + Environment.NewLine);
+                            if (_vm.ProductNeeds != null)
+                            {
+                                StringBuilder _sbNeeds = new StringBuilder();
+                                _sbNeeds.Append("Are the products you are receiving meeting your needs? " + Environment.NewLine);
+                                _sbNeeds.Append(_vm.ProductNeeds + Environment.NewLine);
+                                if (_vm.ProductNeeds == "No")
+                                {
+                                    _sbNeeds.Append("Products not meeting needs: " + Environment.NewLine);
+
+                                    if (_vm.BPM_Needs)
+                                        _sbNeeds.Append("Blood Pressure Monitor " + Environment.NewLine);
+
+                                    if (_vm.BreastPumps_Needs)
+                                        _sbNeeds.Append("Breast Pump " + Environment.NewLine);
+
+                                    if (_vm.CGM_Needs)
+                                        _sbNeeds.Append("Continuous Glucose Monitor (CGM) " + Environment.NewLine);
+
+                                    if (_vm.Diabetes_Needs)
+                                        _sbNeeds.Append("Diabetes Testing " + Environment.NewLine);
+
+                                    if (_vm.Nutrition_Needs)
+                                        _sbNeeds.Append("Enteral Nutrition " + Environment.NewLine);
+
+                                    if (_vm.Incontinence_Needs)
+                                        _sbNeeds.Append("Incontinence " + Environment.NewLine);
+
+                                    if (_vm.Pump_Needs)
+                                        _sbNeeds.Append("Insulin Pump " + Environment.NewLine);
+
+                                    if (_vm.Injectibles_Needs)
+                                        _sbNeeds.Append("Insulin Injectibles " + Environment.NewLine);
+
+                                    if (_vm.Ostomy_Needs)
+                                        _sbNeeds.Append("Ostomy " + Environment.NewLine);
+
+                                    if (_vm.Urological_Needs)
+                                        _sbNeeds.Append("Urological " + Environment.NewLine);
+
+                                    if (_vm.Wound_Needs)
+                                        _sbNeeds.Append("Wound Care " + Environment.NewLine);
+
+                                    if (_vm.Other_Needs)
+                                        _sbNeeds.Append(_vm.OthersText_Needs + Environment.NewLine);
+
+                                    _sbNeeds.Append("Explanation of how products do not meet members needs: " + Environment.NewLine);
+                                    _sbNeeds.Append(_vm.Comment_Needs + Environment.NewLine);
+
+                                }
+                                _sbmain.Append(_sbNeeds + Environment.NewLine);
+                            }
+
+                            if (_vm.ProductSupplies != null)
+                            {
+                                StringBuilder _sbSupplies = new StringBuilder();
+                                _sbSupplies.Append("Are there any supplies you are receiving too many of? " + Environment.NewLine);
+                                _sbSupplies.Append(_vm.ProductSupplies + Environment.NewLine);
+                                if (_vm.ProductSupplies == "Yes")
+                                {
+                                    _sbSupplies.Append("Products receiving too many of: " + Environment.NewLine);
+
+                                    if (_vm.BPM_Supplies)
+                                        _sbSupplies.Append("Blood Pressure Monitor " + Environment.NewLine);
+
+                                    if (_vm.BreastPumps_Supplies)
+                                        _sbSupplies.Append("Breast Pump " + Environment.NewLine);
+
+                                    if (_vm.CGM_Supplies)
+                                        _sbSupplies.Append("Continuous Glucose Monitor (CGM) " + Environment.NewLine);
+
+                                    if (_vm.Diabetes_Supplies)
+                                        _sbSupplies.Append("Diabetes Testing " + Environment.NewLine);
+
+                                    if (_vm.Nutrition_Supplies)
+                                        _sbSupplies.Append("Enteral Nutrition " + Environment.NewLine);
+
+                                    if (_vm.Incontinence_Supplies)
+                                        _sbSupplies.Append("Incontinence " + Environment.NewLine);
+
+                                    if (_vm.Pump_Supplies)
+                                        _sbSupplies.Append("Insulin Pump " + Environment.NewLine);
+
+                                    if (_vm.Injectibles_Supplies)
+                                        _sbSupplies.Append("Insulin Injectibles " + Environment.NewLine);
+
+                                    if (_vm.Ostomy_Supplies)
+                                        _sbSupplies.Append("Ostomy " + Environment.NewLine);
+
+                                    if (_vm.Urological_Supplies)
+                                        _sbSupplies.Append("Urological " + Environment.NewLine);
+
+                                    if (_vm.Wound_Supplies)
+                                        _sbSupplies.Append("Wound Care " + Environment.NewLine);
+
+                                    if (_vm.Other_Supplies)
+                                        _sbSupplies.Append(_vm.OthersText_Supplies + Environment.NewLine);
+
+                                    _sbSupplies.Append("Agent was directed to follow Overstock Process " + Environment.NewLine);
+                                }
+                                _sbmain.Append(_sbSupplies + Environment.NewLine);
+                            }
+
+                            if (_vm.ProductServices != null)
+                            {
+                                StringBuilder _sbServices = new StringBuilder();
+                                _sbServices.Append("J&B Pharmacy Services is now available for any of your medication or pharmacy needs.  You have freedom of choice for which pharmacy you would like to use.  Would you like to obtain any supplies from J&B Pharmacy Services? " + Environment.NewLine);
+                                _sbServices.Append(_vm.ProductServices + Environment.NewLine);
+                                if (_vm.ProductServices == "Yes")
+                                {
+                                    _sbServices.Append("Agent was directed to follow Pharmacy Referral Process " + Environment.NewLine);
+                                }
+                                _sbmain.Append(_sbServices + Environment.NewLine);
+                            }
+
+                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
+                            _tHist.ID_Note = _note.ID;
+                            _tHist.NoteDate = DateTime.Now;
                             _tHist.NoteText = _sbmain.ToString();
                             _tHist.ID_Operator = id;
                             _db.tbl_Account_Note_History.Add(_tHist);
                         }
-                    }
 
-                    //COMMUNICATOIN
-                    if (_vm.ProductSupplies != null)
-                    {
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();   //&& t.NoteCreatedBy == id
-                        if (_note == null)
-                        {
-                            tbl_Account_Note _tbl = new tbl_Account_Note();
-                            _tbl.Account = Convert.ToInt32(_vm.Account);
-                            _tbl.Member = 1;
-                            _tbl.NoteHeading = "COMMUNICATION";
-                            _tbl.NoteCreateDate = DateTime.Now;
-                            _tbl.NoteCreatedBy = id;
-                            _tbl.SystemRecordType = 100;
-                            _tbl.ID_NoteLibrary = 9;
-                            _db.tbl_Account_Note.Add(_tbl);
-                            _db.SaveChanges();
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();  //&& t.NoteCreatedBy == id
-                        }
-                        if (_note != null)
-                        {
-                            StringBuilder _sbSupplies = new StringBuilder();
-                            //string str1 = "";
-                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                            _tHist.ID_Note = _note.ID;
-                            _tHist.NoteDate = DateTime.Now;
-                            _sbSupplies.Append("Are there any supplies you are receiving too many of? " + Environment.NewLine);
-                            _sbSupplies.Append(_vm.ProductSupplies + Environment.NewLine);
-                            if (_vm.ProductSupplies == "Yes")
-                            {
-                                _sbSupplies.Append("Products receiving too many of: " + Environment.NewLine);
 
-                                if (_vm.BPM_Supplies)
-                                    _sbSupplies.Append("Blood Pressure Monitor " + Environment.NewLine);
-
-                                if (_vm.BreastPumps_Supplies)
-                                    _sbSupplies.Append("Breast Pump " + Environment.NewLine);
-
-                                if (_vm.CGM_Supplies)
-                                    _sbSupplies.Append("Continuous Glucose Monitor (CGM) " + Environment.NewLine);
-
-                                if (_vm.Diabetes_Supplies)
-                                    _sbSupplies.Append("Diabetes Testing " + Environment.NewLine);
-
-                                if (_vm.Nutrition_Supplies)
-                                    _sbSupplies.Append("Enteral Nutrition " + Environment.NewLine);
-
-                                if (_vm.Incontinence_Supplies)
-                                    _sbSupplies.Append("Incontinence " + Environment.NewLine);
-
-                                if (_vm.Pump_Supplies)
-                                    _sbSupplies.Append("Insulin Pump " + Environment.NewLine);
-
-                                if (_vm.Injectibles_Supplies)
-                                    _sbSupplies.Append("Insulin Injectibles " + Environment.NewLine);
-
-                                if (_vm.Ostomy_Supplies)
-                                    _sbSupplies.Append("Ostomy " + Environment.NewLine);
-
-                                if (_vm.Urological_Supplies)
-                                    _sbSupplies.Append("Urological " + Environment.NewLine);
-
-                                if (_vm.Wound_Supplies)
-                                    _sbSupplies.Append("Wound Care " + Environment.NewLine);
-
-                                if (_vm.Other_Supplies)
-                                    _sbSupplies.Append(_vm.OthersText_Supplies + Environment.NewLine);
-
-                                _sbSupplies.Append("Agent was directed to follow Overstock Process " + Environment.NewLine);
-                            }
-
-                            StringBuilder _sbmain = new StringBuilder();
-                            _sbmain.Append(noteString);
-                            _sbmain.Append(_sbSupplies + Environment.NewLine);
-                            _tHist.NoteText = _sbmain.ToString();
-                            _tHist.ID_Operator = id;
-                            _db.tbl_Account_Note_History.Add(_tHist);
-                        }
-                    }
-
-                    //COMMUNICATOIN
-                    if (_vm.ProductServices != null)
-                    {
-                        _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();   //&& t.NoteCreatedBy == id
-                        if (_note == null)
-                        {
-                            tbl_Account_Note _tbl = new tbl_Account_Note();
-                            _tbl.Account = Convert.ToInt32(_vm.Account);
-                            _tbl.Member = 1;
-                            _tbl.NoteHeading = "COMMUNICATION";
-                            _tbl.NoteCreateDate = DateTime.Now;
-                            _tbl.NoteCreatedBy = id;
-                            _tbl.SystemRecordType = 100;
-                            _tbl.ID_NoteLibrary = 9;
-                            _db.tbl_Account_Note.Add(_tbl);
-                            _db.SaveChanges();
-                            _note = _db.tbl_Account_Note.Where(t => t.Account == _vm.Account && t.NoteHeading == "COMMUNICATION").FirstOrDefault();  //&& t.NoteCreatedBy == id
-                        }
-                        if (_note != null)
-                        {
-                            StringBuilder _sbServices = new StringBuilder();
-                            //string str1 = "";
-                            tbl_Account_Note_History _tHist = new tbl_Account_Note_History();
-                            _tHist.ID_Note = _note.ID;
-                            _tHist.NoteDate = DateTime.Now;
-                            _sbServices.Append("J&B Pharmacy Services is now available for any of your medication or pharmacy needs.  You have freedom of choice for which pharmacy you would like to use.  Would you like to obtain any supplies from J&B Pharmacy Services? " + Environment.NewLine);
-                            _sbServices.Append(_vm.ProductServices + Environment.NewLine);
-                            if (_vm.ProductServices == "Yes")
-                            {
-                                _sbServices.Append("Agent was directed to follow Pharmacy Referral Process " + Environment.NewLine);
-                            }
-
-                            StringBuilder _sbmain = new StringBuilder();
-                            _sbmain.Append(noteString);
-                            _sbmain.Append(_sbServices + Environment.NewLine);
-                            _tHist.NoteText = _sbmain.ToString();
-                            _tHist.ID_Operator = id;
-                            _db.tbl_Account_Note_History.Add(_tHist);
-                        }
-                    }
+                    }                    
 
                     // BILLING
                     if (_vm.Billing == true && (_vm.BillingTxt != "" && _vm.BillingTxt != null))
@@ -3594,10 +3541,10 @@ namespace USPS_Report.Areas.Reports.Models
 
 
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
-
-            mail.To.Add("disteamleader@jandbmedical.com");
+            mail.To.Add("ResolutionTeam@jandbmedical.com");
+            //mail.To.Add("disteamleader@jandbmedical.com");
             //  mail.To.Add("gbethini@jandbmedical.com");
             mail.Bcc.Add("grani@jandbmedical.com");
 
@@ -3620,7 +3567,7 @@ namespace USPS_Report.Areas.Reports.Models
 
 
             mail.Body += "<tr>";
-            mail.Body += "<td> Link : http://10.10.1.49/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
+            mail.Body += "<td> Link : http://JBMAZWeb01/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Thank You!</td><td></td>";
@@ -3670,7 +3617,7 @@ namespace USPS_Report.Areas.Reports.Models
 
 
             mail.Body += "<tr>";
-            mail.Body += "<td> Link : http://10.10.1.49/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
+            mail.Body += "<td> Link : http://JBMAZWeb01/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Thank You!</td><td></td>";
@@ -3692,7 +3639,8 @@ namespace USPS_Report.Areas.Reports.Models
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
-            mail.To.Add("DISTeamLeader@jandbmedical.com");
+            mail.To.Add("ResolutionTeam@jandbmedical.com");
+            //mail.To.Add("DISTeamLeader@jandbmedical.com");
             //mail.CC.Add("maheshkattamuribpl@jandbmedical.com");
             mail.Subject = "CSR Call Complaint Log To Supervisors";
             mail.Body += " <html>";
@@ -3708,7 +3656,7 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "<td>  Note:  </td> " + message + "<td></td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
-            mail.Body += "<td> Link : http://10.10.1.49/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
+            mail.Body += "<td> Link : http://JBMAZWeb01/JBIntranet/Reports/CustomerServices/CSRComlaintlog </td> <td>  </td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
             mail.Body += "<td>Thank You!</td><td></td>";
@@ -3885,7 +3833,7 @@ namespace USPS_Report.Areas.Reports.Models
             mail.Body += "<td>Complaint Status: </td><td>" + _vm.ComplaintHasBeen + "</td>";
             mail.Body += "</tr>";
             mail.Body += "<tr>";
-            mail.Body += "<td> Link to Complaint Log: </td><td>http://10.10.1.49/JBIntranet/Reports/CustomerServices/CSRComlaintlog</td>";
+            mail.Body += "<td> Link to Complaint Log: </td><td>http://JBMAZWeb01/JBIntranet/Reports/CustomerServices/CSRComlaintlog</td>";
             mail.Body += "</tr>";
             mail.Body += "</table>";
             mail.Body += "<br />";

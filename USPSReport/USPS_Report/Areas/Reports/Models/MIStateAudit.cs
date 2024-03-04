@@ -100,7 +100,8 @@ namespace USPS_Report.Areas.Reports.Models
         {
             List<MINewAccounts> lstMINewAccounts = new List<MINewAccounts>();
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
-            {                
+            {
+                _db.Database.CommandTimeout = 180;
                 lstMINewAccounts = (from item in _db.Database.SqlQuery<sp_GetMINewAccounts_Result>("exec sp_GetMINewAccounts @startDate,@endDate", new SqlParameter("startDate", startDate), new SqlParameter("endDate", endDate)).ToList<sp_GetMINewAccounts_Result>()
                                     select new MINewAccounts
                                     {
@@ -118,7 +119,8 @@ namespace USPS_Report.Areas.Reports.Models
         {
             List<MIPRODUCTSADDED> lstMIPRODUCTSADDED = new List<MIPRODUCTSADDED>();
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
-            {                
+            {
+                _db.Database.CommandTimeout = 180;
                 lstMIPRODUCTSADDED = (from item in _db.Database.SqlQuery<sp_GetMIPRODUCTSADDED_Result>("exec sp_GetMIPRODUCTSADDED @startDate,@endDate", new SqlParameter("startDate", startDate), new SqlParameter("endDate", endDate)).ToList<sp_GetMIPRODUCTSADDED_Result>()
                                       select new MIPRODUCTSADDED
                                       {
@@ -137,7 +139,8 @@ namespace USPS_Report.Areas.Reports.Models
         {
             List<MIDeactivatedAccounts> lstMIDeactivatedAccounts = new List<MIDeactivatedAccounts>();
             using (USPS_Report.Models.ReportsEntities _db = new USPS_Report.Models.ReportsEntities())
-            {                
+            {
+                _db.Database.CommandTimeout = 180;
                 lstMIDeactivatedAccounts = (from item in _db.Database.SqlQuery<sp_GetMIDeactivatedAccounts_Result>("exec sp_GetMIDeactivatedAccounts @startDate,@endDate", new SqlParameter("startDate", startDate), new SqlParameter("endDate", endDate)).ToList<sp_GetMIDeactivatedAccounts_Result>()
                                             select new MIDeactivatedAccounts
                                       {

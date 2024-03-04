@@ -32,5 +32,23 @@ namespace ReportsDatabase
         public Nullable<short> StateRegulationRxRenewal { get; set; }
         public Nullable<short> ComplexItemsType { get; set; }
         public Nullable<short> PharmacyRxTPNType { get; set; }
+        public Nullable<short> PhysicianOrderType { get; set; }
+        public Nullable<short> PharmacyRxCompoundType { get; set; }
+        public Nullable<short> NursingDocumentType { get; set; }
+        public string DefaultHCPC5 { get; set; }
+        public string DefaultHCPC6 { get; set; }
+        public string DefaultHCPC7 { get; set; }
+        public string DefaultHCPC8 { get; set; }
+        public string DefaultHCPC9 { get; set; }
+        public string DefaultHCPC10 { get; set; }
+        public string DefaultHCPC11 { get; set; }
+        public string DefaultHCPC12 { get; set; }
+        public Nullable<short> PharmacyRxFactorType { get; set; }
+        public Nullable<short> PharmacyRxTrackByDoses { get; set; }
+        public Nullable<short> PharmacyRxLabelSize { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<int> ID_CreatedBy { get; set; }
+        public Nullable<System.DateTime> DeletedDate { get; set; }
+        public Nullable<int> ID_DeletedBy { get; set; }
     }
 }

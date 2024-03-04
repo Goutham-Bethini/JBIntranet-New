@@ -142,6 +142,10 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="returnId" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_GetReturnReasonList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetRWOChanges" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fromdate" Type="date" Mode="In" />
+          <Parameter Name="toDate" Type="date" Mode="In" />
+        </Function>
         <Function Name="sp_GetRWOs2099Audit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetRWOsWith2099Dates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="operatorName" Type="varchar(max)" Mode="In" />
@@ -240,6 +244,8 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
         <Function Name="sp_UpdateReturn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="return_ID" Type="int" Mode="In" />
           <Parameter Name="reshipped" Type="varchar" Mode="In" />
+          <Parameter Name="returnForCredit" Type="varchar" Mode="In" />
+          <Parameter Name="returnWreceipt" Type="varchar" Mode="In" />
           <Parameter Name="tracking_Number" Type="varchar" Mode="In" />
           <Parameter Name="return_Note" Type="varchar" Mode="In" />
           <Parameter Name="tag_Type" Type="varchar" Mode="In" />
@@ -257,6 +263,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="return_Line_ID" Type="int" Mode="In" />
           <Parameter Name="qty_Return" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_GetInsulinPumpSupplies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ReportsModelStoreContainer">
           <EntitySet Name="AOBAttempts" EntityType="Self.AOBAttempts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BarCodeAttempts" EntityType="Self.BarCodeAttempts" Schema="dbo" store:Type="Tables" />
@@ -373,7 +380,7 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Parameter Name="returnId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetReturnItemsData" ReturnType="Collection(ReportsModel.sp_GetReturnItemsData_Result)" >
-            <Parameter Name="operatorName" Mode="In" Type="String" />
+          <Parameter Name="operatorName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetReturnLineItems" ReturnType="Collection(ReportsModel.sp_GetReturnLineItems_Result)">
           <Parameter Name="returnId" Mode="In" Type="Int32" />
@@ -432,6 +439,8 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <FunctionImport Name="sp_UpdateReturn">
             <Parameter Name="return_ID" Mode="In" Type="Int32" />
             <Parameter Name="reshipped" Mode="In" Type="String" />
+            <Parameter Name="returnForCredit" Mode="In" Type="String" />
+            <Parameter Name="returnWreceipt" Mode="In" Type="String" />
             <Parameter Name="tracking_Number" Mode="In" Type="String" />
             <Parameter Name="return_Note" Mode="In" Type="String" />
             <Parameter Name="tag_Type" Mode="In" Type="String" />
@@ -454,14 +463,14 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <EntitySet Name="BarCodeAttempts" EntityType="ReportsModel.BarCodeAttempt" />
           <FunctionImport Name="sp_GetHistoryReturnItemsData" ReturnType="Collection(ReportsModel.sp_GetHistoryReturnItemsData_Result)" />
           <FunctionImport Name="sp_GetReturnItemsData_Result1" >
-            <Parameter Name="operatorName" Mode="In" Type="String" />
+          <Parameter Name="operatorName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetReturnItem_Result" ReturnType="Collection(ReportsModel.sp_GetReturnItem_Result)">
           <Parameter Name="returnId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetReturnItemsData_Result2" ReturnType="Collection(ReportsModel.sp_GetReturnItem_Result)" />
           <FunctionImport Name="sp_GetReturnItemsData_Result" ReturnType="Collection(ReportsModel.sp_GetReturnItemsData_Result)" >
-            <Parameter Name="operatorName" Mode="In" Type="String" />
+          <Parameter Name="operatorName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetRWOs2099Audit" ReturnType="Collection(ReportsModel.sp_GetRWOs2099Audit_Result)" />
           <FunctionImport Name="sp_GetRWOsWith2099Dates" ReturnType="Collection(ReportsModel.sp_GetRWOsWith2099Dates_Result)">
@@ -471,6 +480,11 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <FunctionImport Name="sp_GetReportAuditInfo" ReturnType="Collection(ReportsModel.sp_GetReportAuditInfo_Result)">
           <Parameter Name="reportId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_GetRWOChanges" ReturnType="Collection(ReportsModel.sp_GetRWOChanges_Result)">
+            <Parameter Name="fromdate" Mode="In" Type="DateTime" />
+            <Parameter Name="toDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetInsulinPumpSupplies" ReturnType="Collection(ReportsModel.usp_GetInsulinPumpSupplies_Result)" />
         </EntityContainer>
         <EntityType Name="FedEx_POD_tbl">
           <Key>
@@ -772,6 +786,28 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
           <Property Type="String" Name="Report" Nullable="true" />
           <Property Type="String" Name="OperatorName" Nullable="true" />
           <Property Type="DateTime" Name="ReportAccessDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="sp_GetRWOChanges_Result">
+          <Property Type="Int32" Name="Account" Nullable="false" />
+          <Property Type="String" Name="ProductCode" Nullable="true" MaxLength="16" />
+          <Property Type="String" Name="productdescription" Nullable="true" MaxLength="64" />
+          <Property Type="String" Name="LastChangedBy" Nullable="true" MaxLength="64" />
+          <Property Type="DateTime" Name="ChangedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="64" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="NextRepeatDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Qty" Nullable="true" />
+          <Property Type="Int32" Name="Primary_Payer_ID" Nullable="true" />
+          <Property Type="Int32" Name="Secondary_Payer_ID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetInsulinPumpSupplies_Result">
+          <Property Type="Int32" Name="Account" Nullable="false" />
+          <Property Type="DateTime" Name="NextRepeatDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="ID_ProductCategory" Nullable="true" />
+          <Property Type="String" Name="ProductCode" Nullable="false" MaxLength="16" />
+          <Property Type="Int32" Name="Qty" Nullable="true" />
+          <Property Type="String" Name="PayerName" Nullable="true" MaxLength="64" />
+          <Property Type="Int32" Name="ID_Payer" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1180,6 +1216,36 @@ warning 6002: The table/view 'Reports.dbo.v_FutureOrderTypes2' does not have a p
                 <ScalarProperty Name="Report" ColumnName="Report" />
                 <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
                 <ScalarProperty Name="ReportAccessDate" ColumnName="ReportAccessDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetRWOChanges" FunctionName="ReportsModel.Store.sp_GetRWOChanges">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.sp_GetRWOChanges_Result">
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="productdescription" ColumnName="productdescription" />
+                <ScalarProperty Name="LastChangedBy" ColumnName="LastChangedBy" />
+                <ScalarProperty Name="ChangedDate" ColumnName="ChangedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="NextRepeatDate" ColumnName="NextRepeatDate" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Primary_Payer_ID" ColumnName="Primary Payer ID" />
+                <ScalarProperty Name="Secondary_Payer_ID" ColumnName="Secondary Payer ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetInsulinPumpSupplies" FunctionName="ReportsModel.Store.usp_GetInsulinPumpSupplies">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ReportsModel.usp_GetInsulinPumpSupplies_Result">
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="NextRepeatDate" ColumnName="NextRepeatDate" />
+                <ScalarProperty Name="ID_ProductCategory" ColumnName="ID_ProductCategory" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="PayerName" ColumnName="PayerName" />
+                <ScalarProperty Name="ID_Payer" ColumnName="ID_Payer" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

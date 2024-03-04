@@ -60,44 +60,60 @@ namespace USPS_Report.Areas.Reports.Models
 
         private void setQOHOracleDataQuery(QOHDetails data, string ProductCode)
         {
-            string _conn = ConfigurationManager.ConnectionStrings["EntitiesOracle2"].ConnectionString;
-            OleDbConnection myConnection = new OleDbConnection(_conn);
-            OleDbCommand cmd = new OleDbCommand();
-
             try
             {
+                string _conn = ConfigurationManager.ConnectionStrings["OracleConnection"].ConnectionString;
+                Oracle.ManagedDataAccess.Client.OracleConnection myConnection = new Oracle.ManagedDataAccess.Client.OracleConnection(_conn);
                 myConnection.Open();
-                cmd.CommandText = "jbm_inv_pkg.get_atr_quantity";
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = myConnection;
-
-                OleDbParameter paramA = new OleDbParameter();
-                paramA.ParameterName = "opqProductCode";
-                paramA.OleDbType = OleDbType.VarChar;
-                paramA.Direction = ParameterDirection.Input;
-                paramA.Value = ProductCode;
-
-                OleDbParameter paramReturnValue = new OleDbParameter();
-                paramReturnValue.ParameterName = "Qty_Available2";
-                paramReturnValue.OleDbType = OleDbType.Integer;
-                paramReturnValue.Direction = ParameterDirection.Output;
-
-
-
-                cmd.Parameters.Add(paramA);
-                cmd.Parameters.Add(paramReturnValue);
-
-
-                cmd.ExecuteNonQuery();
-
-                data.Qty_Available2 = (int)cmd.Parameters["Qty_Available2"].Value;
-
+                string Query = @"select Available_qty from XXJBM_ITEM_ONHAND_QUANTITY where HDMS_ITEM ='" + ProductCode + "'";
+                //int availableQty = 0;
+                Oracle.ManagedDataAccess.Client.OracleCommand cmd = new Oracle.ManagedDataAccess.Client.OracleCommand(Query, myConnection);
+                data.Qty_Available2 = cmd.ExecuteScalar() != null ? string.IsNullOrEmpty(cmd.ExecuteScalar().ToString()) ? 0 : (int)cmd.ExecuteScalar() : 0;
                 myConnection.Close();
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+
+            //string _conn = ConfigurationManager.ConnectionStrings["EntitiesOracle2"].ConnectionString;
+            //OleDbConnection myConnection = new OleDbConnection(_conn);
+            //OleDbCommand cmd = new OleDbCommand();
+
+            //try
+            //{
+            //    myConnection.Open();
+            //    cmd.CommandText = "jbm_inv_pkg.get_atr_quantity";
+            //    cmd.CommandType = CommandType.StoredProcedure;
+            //    cmd.Connection = myConnection;
+
+            //    OleDbParameter paramA = new OleDbParameter();
+            //    paramA.ParameterName = "opqProductCode";
+            //    paramA.OleDbType = OleDbType.VarChar;
+            //    paramA.Direction = ParameterDirection.Input;
+            //    paramA.Value = ProductCode;
+
+            //    OleDbParameter paramReturnValue = new OleDbParameter();
+            //    paramReturnValue.ParameterName = "Qty_Available2";
+            //    paramReturnValue.OleDbType = OleDbType.Integer;
+            //    paramReturnValue.Direction = ParameterDirection.Output;
+
+
+
+            //    cmd.Parameters.Add(paramA);
+            //    cmd.Parameters.Add(paramReturnValue);
+
+
+            //    cmd.ExecuteNonQuery();
+
+            //    data.Qty_Available2 = (int)cmd.Parameters["Qty_Available2"].Value;
+
+            //    myConnection.Close();
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception(ex.Message);
+            //}
         }
 
 

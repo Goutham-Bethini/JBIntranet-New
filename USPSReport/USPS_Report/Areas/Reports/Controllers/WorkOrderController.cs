@@ -28,7 +28,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
         public ActionResult woReports(int? ID)
-        {
+        {            
             var components = User.Identity.Name.Split('\\');
 
             var userName = components.Last();
@@ -185,7 +185,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                         HttpClient client = new HttpClient();
 
 
-                        client.BaseAddress = new Uri("http://10.10.1.49/TrackingOracle/");
+                        client.BaseAddress = new Uri("http://JBMAZWeb01/TrackingOracle/");
 
 
                         var result2 = client.GetAsync("api/Interface/" + _vm.ID).Result;

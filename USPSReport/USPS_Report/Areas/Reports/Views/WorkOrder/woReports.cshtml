@@ -56,7 +56,7 @@
                                     <th style="width:8%">Cancelled By</th>
                                     <th style="width:8%">Shipped By</th>
                                     <th style="width:5%">Weight</th>
-                                    @*<th style="width:10%;">Active Insurance</th>*@  
+                                    @*<th style="width:10%;">Active Insurance</th>*@
                                     <th style="width:11%">Status</th>
                                     <th style="width:10%">Tracking #'s</th>
                                     <th style="width:21%">History</th>
@@ -82,7 +82,7 @@
                                     <td>@rec.CancelledBy</td>
                                     <td>@rec.ShippedBy</td>
                                     <td>@rec.Weight</td>
-                                    @*<td>@rec.ActiveInsurance</td>*@  
+                                    @*<td>@rec.ActiveInsurance</td>*@
                                     @if (@rec.Status.Contains("Cancelled"))
                                     {
                                         <td style="background-color:#FF9966">@MvcHtmlString.Create(@rec.Status.Replace(Environment.NewLine, "<br />"))</td>
@@ -103,15 +103,29 @@
                                             <a href='https://tools.usps.com/go/TrackConfirmAction.action?tRef=fullpage&tLc=1&text28777=&tLabels=@rec.TrackingNumbers' target='_blank'>@rec.TrackingNumbers</a>
                                         }
                                         @*else if (rec.Length != null && rec.Length == 20)
-            {
+                                            {
 
-             <a href='https://tools.usps.com/go/TrackConfirmAction.action?tRef=fullpage&tLc=1&text28777=&tLabels= "92"+@rec.TrackingNumbers' target='_blank'>@rec.TrackingNumbers</a>
-             }*@
+                                             <a href='https://tools.usps.com/go/TrackConfirmAction.action?tRef=fullpage&tLc=1&text28777=&tLabels= "92"+@rec.TrackingNumbers' target='_blank'>@rec.TrackingNumbers</a>
+                                             }*@
                                         else
                                         {
-                                            <!--http://www.fedex.com/tracking?cntry_code=us&tracknumber_list=@@rec.trackingnumbers&language=english          old one-->
-                                            <a href='https://www.fedex.com/fedextrack/?trknbr=@rec.TrackingNumbers' target='_blank'>@rec.TrackingNumbers</a>
+                                            if (@rec.TrackingNumbersList != null)
+                                            {
+                                       <div>
+                                        @foreach (var rec2 in @rec.TrackingNumbersList)
+                                        {
+                                            if (rec2.Length <= 9)
+                                            {
+                                                <a href='https://promeddel.e-courier.com/promeddel/home/wizard_tracking.asp?AllRef=@rec2' target='_blank'>@rec2</a>
+                                            }
+                                            else
+                                            {
+                                                <a href='https://www.fedex.com/fedextrack/?trknbr=@rec2' target='_blank'>@rec2</a>
+                                            }
                                         }
+                                       </div>
+                                      }
+                                    }
                                     </td>
                                     <td>@MvcHtmlString.Create(@rec.History.Replace(Environment.NewLine, "<br />"))</td>
 
@@ -167,6 +181,7 @@
 
                                     <th style="width:13%">Product</th>
                                     <th style="width:35%">Description</th>
+                                    @*<th style="width:35%">Prodct Id</th>*@
                                     <th style="width:7%">UOM</th>
                                     <th style="width:7%">Ordered</th>
                                     <th style="width:7%">Shipped</th>
@@ -177,30 +192,44 @@
                             </thead>
                             @foreach (var pro in @rec.productDetails)
                             {
-                                <tbody>
-                                    @if (@pro.LineOrderQty == 0)
-                                    {
-                                        <tr style="background-color:#FFFF66">
-                                            <td style="background-color:#FFFF66">@pro.Product</td>
-                                            <td style="background-color:#FFFF66">@pro.Description</td>
-                                            <td style="background-color:#FFFF66">@pro.UOM</td>
-                                            <td style="background-color:#FFFF66">@pro.Ordered</td>
-                                            <td style="background-color:#FFFF66">@pro.Shipped</td>
+                            <tbody>
+                                @if (@pro.LineOrderQty == 0)
+                                {
+                                    <tr style="background-color:#FFFF66">
+                                        <td style="background-color:#FFFF66">@pro.Product</td>
+                                        <td style="background-color:#FFFF66">@pro.Description</td>
+                                        @*<td style="background-color:#FFFF66">@pro.ProductId</td>*@
+                                        <td style="background-color:#FFFF66">@pro.UOM</td>
+                                        <td style="background-color:#FFFF66">@pro.Ordered</td>
+                                        <td style="background-color:#FFFF66">@pro.Shipped</td>
 
-                                        </tr>
-                                    }
-                                    else
-                                    {
+                                    </tr>
+                                }
+                                else if (@pro.isLineRMAdone)
+                                {
+                                    <tr style="background-color:red">
+                                        <td style="background-color:red">@pro.Product</td>
+                                        <td style="background-color:red">@pro.Description</td>
+                                        @*<td style="background-color:red">@pro.ProductId</td>*@
+                                        <td style="background-color:red">@pro.UOM</td>
+                                        <td style="background-color:red">@pro.Ordered</td>
+                                        <td style="background-color:red">@pro.Shipped</td>
 
-                                        <tr>
-                                            <td>@pro.Product</td>
-                                            <td>@pro.Description</td>
-                                            <td>@pro.UOM</td>
-                                            <td>@pro.Ordered</td>
-                                            <td>@pro.Shipped</td>
+                                    </tr>
+                                }
+                                else
+                                {
 
-                                        </tr>}
-                                </tbody>
+                                    <tr>
+                                        <td>@pro.Product</td>
+                                        <td>@pro.Description</td>
+                                        @*<td>@pro.ProductId</td>*@
+                                        <td>@pro.UOM</td>
+                                        <td>@pro.Ordered</td>
+                                        <td>@pro.Shipped</td>
+
+                                    </tr>}
+                            </tbody>
                             }
 
                         </table>
@@ -210,29 +239,29 @@
                 }
 
                 @*<div style="color:green" class="Flip">Account = @Model.workOrder.First().Account</div>
-                <div class="Panel">
-                    <table data-sortable class="table table-hover table-striped table-bordered" style="width:95%" align="center">
-                        <thead>
-                            <tr>
-                                <th style="text-align:center">Note Heading</th>
-                                <th style="text-align:center">Note Text</th>
-                                <th style="text-align:center">Note Date</th>
-                                <th style="text-align:center;width:15%">Note CreatedBy</th>
-                            </tr>
-                        </thead>
-                        @foreach (var ac in Model.workOrder.First().AccountNotes)
-                        {
-                            <tbody>
+                    <div class="Panel">
+                        <table data-sortable class="table table-hover table-striped table-bordered" style="width:95%" align="center">
+                            <thead>
                                 <tr>
-                                    <td>@ac.NoteHeading</td>
-                                    <td>@ac.NoteText</td>
-                                    <td>@ac.NoteDate</td>
-                                    <td>@ac.NoteCreatedBy</td>
+                                    <th style="text-align:center">Note Heading</th>
+                                    <th style="text-align:center">Note Text</th>
+                                    <th style="text-align:center">Note Date</th>
+                                    <th style="text-align:center;width:15%">Note CreatedBy</th>
                                 </tr>
-                            </tbody>
-                        }
-                    </table>
-                </div>*@
+                            </thead>
+                            @foreach (var ac in Model.workOrder.First().AccountNotes)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>@ac.NoteHeading</td>
+                                        <td>@ac.NoteText</td>
+                                        <td>@ac.NoteDate</td>
+                                        <td>@ac.NoteCreatedBy</td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+                    </div>*@
             </div>
         </div>
     </div>
@@ -311,18 +340,18 @@
 //}
 
 
-        //$(document).ready(function(){
-        //    $(".ChkFlip").click(function () {
+            //$(document).ready(function(){
+            //    $(".ChkFlip").click(function () {
 
-        //        var _chkId = this.id;
-        //        alert(_chkId);
-        //        var _panelName = _chkId.replace("flip", "panel");
-        //        var _panelID = '#' + _panelName;
-        //        alert(_panelID);
-        //        $("panel 1").slideToggle("slow");
+            //        var _chkId = this.id;
+            //        alert(_chkId);
+            //        var _panelName = _chkId.replace("flip", "panel");
+            //        var _panelID = '#' + _panelName;
+            //        alert(_panelID);
+            //        $("panel 1").slideToggle("slow");
 
-        //    })
-        //});
+            //    })
+            //});
 
 //$(document).ready(function(){
 //    $(".ChkFlip").click(function () {

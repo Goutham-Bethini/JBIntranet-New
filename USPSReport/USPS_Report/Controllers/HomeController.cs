@@ -134,7 +134,7 @@ namespace USPS_Report.Controllers
             string filename = _dRpt.Confirmation + "_" + _dRpt.WorkOrderId.ToString() + ".pdf";
             _dRpt.PdfExists = false;
 
-            string path = "C://USPS_Pdf" + "//";
+            string path = "//jbmwix-azfs01//IT//IntranetDocuments//USPS_Pdf" + "//";
             if (System.IO.File.Exists(path + filename)) 
             {
                 _dRpt.PdfExists = true;
@@ -150,22 +150,25 @@ namespace USPS_Report.Controllers
         {
            // DetailReport _dRpt = uspsDB.GetData(_pId);
 
-            string _conn = ConfigurationManager.ConnectionStrings["EntitiesOracle1"].ConnectionString;
+            string _conn = ConfigurationManager.ConnectionStrings["OracleConnection"].ConnectionString;
             string _dt = _date.Value.Month + "/" + _date.Value.Day + "/" + _date.Value.Year;
-
-
-            OleDbConnection myConnection = new OleDbConnection(_conn);
             String OrdersFedExQuery = string.Empty;
-            myConnection.Open();
+            Oracle.ManagedDataAccess.Client.OracleConnection conn = new Oracle.ManagedDataAccess.Client.OracleConnection(_conn);
+            conn.Open();
+            OrdersFedExQuery = "select Reference_Number, tracking_Number,RECIP_ADDR,RECIP_ADDR2,RECIP_CITY,REC_ST,RECIP_ZIP, DELIVER_DATE,Ship_Date,RATED_WGT,RECIP_NAME,Invoice_date, Invoice_number  from jbm_FEDEX_PODS where tracking_Number = '" + _pId + "' and Ship_Date = TO_DATE ('" + _dt + "', 'MM/DD/YYYY')  ";
+            //OleDbConnection myConnection = new OleDbConnection(_conn);
+            //String OrdersFedExQuery = string.Empty;
+            //myConnection.Open();
 
-            // OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from apps.TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "' and CANCELDATE is Null";
-         OrdersFedExQuery = "select Reference_Number, tracking_Number,RECIP_ADDR,RECIP_ADDR2,RECIP_CITY,REC_ST,RECIP_ZIP, DELIVER_DATE,Ship_Date,RATED_WGT,RECIP_NAME,Invoice_date, Invoice_number  from XXCUST01.jbm_FEDEX_PODS where tracking_Number = '" + _pId + "' and Ship_Date = TO_DATE ('"+_dt+"', 'MM/DD/YYYY')  ";
-          
-               // "select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED, INTWEIGHT from  TBL_UPS_WORKORDERS where ConfirmationNumber = '" + _pId + "' ; ";
+            //   // OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "' and CANCELDATE is Null";
+            //OrdersFedExQuery = "select Reference_Number, tracking_Number,RECIP_ADDR,RECIP_ADDR2,RECIP_CITY,REC_ST,RECIP_ZIP, DELIVER_DATE,Ship_Date,RATED_WGT,RECIP_NAME,Invoice_date, Invoice_number  from jbm_FEDEX_PODS where tracking_Number = '" + _pId + "' and Ship_Date = TO_DATE ('"+_dt+"', 'MM/DD/YYYY')  ";
 
-            OleDbCommand myFedExCommand = new OleDbCommand(OrdersFedExQuery, myConnection);
+            // "select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED, INTWEIGHT from  TBL_UPS_WORKORDERS where ConfirmationNumber = '" + _pId + "' ; ";
+            Oracle.ManagedDataAccess.Client.OracleCommand myFedExCommand = new Oracle.ManagedDataAccess.Client.OracleCommand(OrdersFedExQuery, conn);
+            Oracle.ManagedDataAccess.Client.OracleDataReader FedExReader = myFedExCommand.ExecuteReader();
+            //OleDbCommand myFedExCommand = new OleDbCommand(OrdersFedExQuery, myConnection);
 
-            OleDbDataReader FedExReader = myFedExCommand.ExecuteReader();
+            //OleDbDataReader FedExReader = myFedExCommand.ExecuteReader();
 
             DetailReport _dRpt = new DetailReport();
             int RecordsFedEx = 0;
@@ -243,20 +246,23 @@ namespace USPS_Report.Controllers
            
 
 
-                string _conn = ConfigurationManager.ConnectionStrings["EntitiesOracle1"].ConnectionString;
+                string _conn = ConfigurationManager.ConnectionStrings["OracleConnection"].ConnectionString;
             string _dt = _date.Value.Month + "/" + _date.Value.Day + "/" + _date.Value.Year;
+            Oracle.ManagedDataAccess.Client.OracleConnection conn = new Oracle.ManagedDataAccess.Client.OracleConnection(_conn);
+            conn.Open();
 
-
-            OleDbConnection myConnection = new OleDbConnection(_conn);
+            //OleDbConnection myConnection = new OleDbConnection(_conn);
             String OrdersFedExQuery = string.Empty;
-            myConnection.Open();
+            //myConnection.Open();
 
-            // OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from apps.TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "' and CANCELDATE is Null";
+            // OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER , DATESHIPPED from TBL_UPS_WORKORDERS a where CONFIRMATIONNUMBER = '" + _tracNum + "' and CANCELDATE is Null";
+
             OrdersFedExQuery = "Select ID_WORKORDER, CONFIRMATIONNUMBER, DATESHIPPED, INTWEIGHT from TBL_UPS_WORKORDERS where CONFIRMATIONNUMBER = '" + _pId + "' ";
+            Oracle.ManagedDataAccess.Client.OracleCommand myFedExCommand = new Oracle.ManagedDataAccess.Client.OracleCommand(OrdersFedExQuery, conn);
+            Oracle.ManagedDataAccess.Client.OracleDataReader FedExReader = myFedExCommand.ExecuteReader();
+            //OleDbCommand myFedExCommand = new OleDbCommand(OrdersFedExQuery, myConnection);
 
-            OleDbCommand myFedExCommand = new OleDbCommand(OrdersFedExQuery, myConnection);
-
-            OleDbDataReader FedExReader = myFedExCommand.ExecuteReader();
+            //OleDbDataReader FedExReader = myFedExCommand.ExecuteReader();
 
        
             int RecordsFedEx = 0;
@@ -407,7 +413,7 @@ namespace USPS_Report.Controllers
             
             _dRpt.FileExists = null;
 
-            string path = "C://POD_Docs//USPS_Pdf" + "//";
+            string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//USPS_Pdf" + "//";
 
             string FilePath =path+filename;
             WebClient User = new WebClient();
@@ -428,7 +434,7 @@ namespace USPS_Report.Controllers
 
             _dRpt.FileExists = null;
 
-            string path = "C://POD_Docs//FedEx_Pdf" + "//";
+            string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//FedEx_Pdf" + "//";
 
             string FilePath = path + filename;
             WebClient User = new WebClient();
@@ -471,7 +477,7 @@ namespace USPS_Report.Controllers
             var fileName = _trackNum.Trim() + "-" + Dateshipped.Value.Date.ToString("MMddyyyy") + ".pdf";
             WebClient webClient = new WebClient();
 
-            // string path = "C://POD_Docs//FedEx_Pdf//" + Year.ToString() + "//";
+            // string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//FedEx_Pdf//" + Year.ToString() + "//";
             string path = @"\\jbmmifs003\POD\NewFedEx\" + Year.ToString() + "\\";
             
 
@@ -644,7 +650,7 @@ namespace USPS_Report.Controllers
             DateTime? Dateshipped = Convert.ToDateTime(_date);
             Int32? Year = Convert.ToInt32(Dateshipped.Value.Date.Year);
             Int32? Month = Convert.ToInt32(Dateshipped.Value.Date.Month);
-            //string path = "C://POD_Docs//FedEx_Pdf//" + Year.ToString() + "//";
+            //string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//FedEx_Pdf//" + Year.ToString() + "//";
             string path = @"\\jbmmifs003\POD\NewFedEx\" + Year.ToString() + "\\";
             var fileName = _trackNum.Trim() + "-" + Dateshipped.Value.Date.ToString("MMddyyyy") + ".pdf";
             DateTime _dt = Convert.ToDateTime("2/24/2014");
@@ -744,7 +750,7 @@ namespace USPS_Report.Controllers
            
             _dRpt.FileExists = null;
             
-                string path = "C://POD_Docs//USPS_Pdf" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//USPS_Pdf" + "//";
                 if (System.IO.File.Exists(path + filename))
                 {
                     _dRpt.FileExists = true;
@@ -793,7 +799,7 @@ namespace USPS_Report.Controllers
 
             _dRpt.FileExists = null;
 
-            string path = "C://POD_Docs//FedEx_Pdf" + "//";
+            string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//FedEx_Pdf" + "//";
             if (System.IO.File.Exists(path + filename))
             {
                 _dRpt.FileExists = true;
@@ -1612,7 +1618,7 @@ namespace USPS_Report.Controllers
 
             _dRpt.FileExists = null;
 
-            string path = "C://POD_Docs//USPS_Pdf" + "//";
+            string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//USPS_Pdf" + "//";
             if (System.IO.File.Exists(path + filename))
             {
                 _dRpt.FileExists = true;
@@ -1656,7 +1662,7 @@ namespace USPS_Report.Controllers
 
             _dRpt.FileExists = null;
 
-            string path = "C://POD_Docs//USPS_Pdf" + "//";
+            string path = "//jbmwix-azfs01//IT//IntranetDocuments//POD_Docs//USPS_Pdf" + "//";
 
             string FilePath = path + filename;
             WebClient User = new WebClient();

@@ -249,7 +249,8 @@ namespace USPS_Report.Areas.Reports.Controllers
 
             int attemptnumber = USPS_Report.Models.BarCodeInfo.AddBarcodeAttempt((int)Account, Type);
             var reader1 = new PdfReader(fpath);
-            string barcodeallfiles = @"C://LettersTemp//AOBbarcodeallfiles" + Account.ToString() + ".pdf";
+            //string barcodeallfiles = @"//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//AOBbarcodeallfiles" + Account.ToString() + ".pdf";
+            string barcodeallfiles = @"\\jbmwix-azfs01\IT\IntranetDocuments\LettersTemp\AOBbarcodeallfiles" + Account.ToString() + ".pdf";
             var fileStream = new FileStream(barcodeallfiles, FileMode.Create, FileAccess.Write);
             var document = new Document(reader1.GetPageSizeWithRotation(1));
             var writer = PdfWriter.GetInstance(document, fileStream);
@@ -283,7 +284,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             //add to attempts table
             int attemptnumber = USPS_Report.Models.AOBInfo.AddAOBAttempt((int)Account);
             var reader1 = new PdfReader(fpath);
-            string barcodeallfiles = @"C://LettersTemp//barcodeallfiles" + Account.ToString() + ".pdf";
+            string barcodeallfiles = @"\\jbmwix-azfs01\IT\IntranetDocuments\LettersTemp\barcodeallfiles" + Account.ToString() + ".pdf";
             var fileStream = new FileStream(barcodeallfiles, FileMode.Create, FileAccess.Write);
             var document = new Document(reader1.GetPageSizeWithRotation(1));
             var writer = PdfWriter.GetInstance(document, fileStream);
@@ -392,15 +393,15 @@ namespace USPS_Report.Areas.Reports.Controllers
                                 string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
                                 string filename = Date + "_" + _vm.Account.ToString() + "_AOB_C" + ".pdf";
                                 List<string> files = new List<string>();
-                                string path1 = "C://LettersTemp//AOB" + "//" + filename;
-                                string path2 = "C://LettersTemp//AOB" + "//Static_AOB_Chinese.pdf";
+                                string path1 = "\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\AOB" + "\\" + filename;
+                                string path2 = "\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\AOB" + "\\Static_AOB_Chinese.pdf";
                                 files.Add(path1);
                                 files.Add(path2);
 
 
                                 // Merge it with Welcome Letter
-                                //   MergePdfs.MergeFilesInbetween("C://Letters//AOB//" + filename, files, 2);
-                                MergePdfs.MergeFiles("C://Letters//AOB//" + filename, files, 2);
+                                //   MergePdfs.MergeFilesInbetween("//jbmwix-azfs01//IT//IntranetDocuments//Letters//AOB//" + filename, files, 2);
+                                MergePdfs.MergeFiles("//jbmwix-azfs01//IT//IntranetDocuments//Letters//AOB//" + filename, files, 2);
                                 // Delete the temp files
                                 MergePdfs.DeleteFiles(path1);
 
@@ -413,15 +414,15 @@ namespace USPS_Report.Areas.Reports.Controllers
                                 string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
                                 string filename = Date + "_" + _vm.Account.ToString() + "_AOB_R" + ".pdf";
                                 List<string> files = new List<string>();
-                                string path1 = "C://LettersTemp//AOB" + "//" + filename;
-                                string path2 = "C://LettersTemp//AOB" + "//Static_AOB_Russian.pdf";
+                                string path1 = "\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\AOB" + "\\" + filename;
+                                string path2 = "\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\AOB" + "\\Static_AOB_Russian.pdf";
                                 files.Add(path1);
                                 files.Add(path2);
 
 
                                 // Merge it with Welcome Letter
-                                //  MergePdfs.MergeFilesInbetween("C://Letters//AOB//" + filename, files, 2);
-                                MergePdfs.MergeFiles("C://Letters//AOB//" + filename, files, 2);
+                                //  MergePdfs.MergeFilesInbetween("//jbmwix-azfs01//IT//IntranetDocuments//Letters//AOB//" + filename, files, 2);
+                                MergePdfs.MergeFiles("//jbmwix-azfs01//IT//IntranetDocuments//Letters//AOB//" + filename, files, 2);
                                 // Delete the temp files
                                 MergePdfs.DeleteFiles(path1);
                             }
@@ -432,15 +433,15 @@ namespace USPS_Report.Areas.Reports.Controllers
                                 string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
                                 string filename = Date + "_" + _vm.Account.ToString() + "_AOB_A" + ".pdf";
                                 List<string> files = new List<string>();
-                                string path1 = "C://LettersTemp//AOB" + "//" + filename;
-                                string path2 = "C://LettersTemp//AOB" + "//Static_AOB_Armenian.pdf";
+                                string path1 = "\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\AOB" + "\\" + filename;
+                                string path2 = "\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\AOB" + "\\Static_AOB_Armenian.pdf";
                                 files.Add(path1);
                                 files.Add(path2);
 
 
                                 // Merge it with Welcome Letter
-                                //  MergePdfs.MergeFilesInbetween("C://Letters//AOB//" + filename, files, 2);
-                                MergePdfs.MergeFiles("C://Letters//AOB//" + filename, files, 2);
+                                //  MergePdfs.MergeFilesInbetween("//jbmwix-azfs01//IT//IntranetDocuments//Letters//AOB//" + filename, files, 2);
+                                MergePdfs.MergeFiles("//jbmwix-azfs01//IT//IntranetDocuments//Letters//AOB//" + filename, files, 2);
                                 // Delete the temp files
                                 MergePdfs.DeleteFiles(path1);
                             }
@@ -450,7 +451,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                                 string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
                                 string filename = Date + "_" + _vm.Account.ToString() + "_AOB_AR" + ".pdf";
 
-                                string path = "C://Letters//AOB" + "//";
+                                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//AOB" + "//";
                                 if (System.IO.File.Exists(path + filename))
                                 {
                                     _vm.FileExists = true;
@@ -458,17 +459,17 @@ namespace USPS_Report.Areas.Reports.Controllers
                                 else { _vm.FileExists = false; }
 
                                 List<string> files = new List<string>();
-                                string path1_oldfile = "C://LettersTemp//AOB//arabic//AOB_Arabic_firstPage.pdf";
-                                string path1_newfile = "C://LettersTemp//AOB//arabic//AOB_Arabic_firstPage_" + _vm.Account.ToString() + ".pdf";
+                                string path1_oldfile = "\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\AOB\\arabic\\AOB_Arabic_firstPage.pdf";
+                                string path1_newfile = "\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\AOB\\arabic\\AOB_Arabic_firstPage_" + _vm.Account.ToString() + ".pdf";
                                 string text = _vm.details.firstName;
                                 manipulateArabianFirstPagePdf(path1_oldfile, path1_newfile, _vm);
 
 
-                                string path2 = "C://LettersTemp//AOB//arabic//AOB_Arabic_middlePages.pdf";
+                                string path2 = "\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\AOB\\arabic\\AOB_Arabic_middlePages.pdf";
 
 
-                                string path3_oldFile = "C://LettersTemp//AOB//arabic//AOB_Arabic_lastPage.pdf";
-                                string path3_newFile = "C://LettersTemp//AOB//arabic//AOB_Arabic_lastPage_" + _vm.Account.ToString() + ".pdf";
+                                string path3_oldFile = "\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\AOB\\arabic\\AOB_Arabic_lastPage.pdf";
+                                string path3_newFile = "\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\AOB\\arabic\\AOB_Arabic_lastPage_" + _vm.Account.ToString() + ".pdf";
                                 manipulateArabianLastPagePdf(path3_oldFile, path3_newFile, _vm.Account.ToString(), text);
 
 
@@ -479,8 +480,8 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
                                 // Merge it with Welcome Letter
-                                //  MergePdfs.MergeFilesInbetween("C://Letters//AOB//" + filename, files, 2);
-                                MergePdfs.MergeFiles("C://Letters//AOB//" + filename, files, 3);
+                                //  MergePdfs.MergeFilesInbetween("//jbmwix-azfs01//IT//IntranetDocuments//Letters//AOB//" + filename, files, 2);
+                                MergePdfs.MergeFiles("//jbmwix-azfs01//IT//IntranetDocuments//Letters//AOB//" + filename, files, 3);
                                 // Delete the temp files
                                 MergePdfs.DeleteFiles(path3_newFile);
                                 MergePdfs.DeleteFiles(path1_newfile);
@@ -499,24 +500,24 @@ namespace USPS_Report.Areas.Reports.Controllers
                         string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
 
                         string filename = "";
-                        string BCNLetter = "C://LettersTemp//BCN//BCN.pdf";
-                        var reader = new PdfReader("C://LettersTemp//BCN//BCN.pdf");
+                        string BCNLetter = "\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\BCN\\BCN.pdf";
+                        var reader = new PdfReader("\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\BCN\\BCN.pdf");
 
 
                         if (_vm.spanish != true)
                         {
                             filename = Date + "_" + _vm.Account.ToString() + "_BCNAOB" + ".pdf";
-                            BCNLetter = "C://LettersTemp//BCN//BCN.pdf";
+                            BCNLetter = "\\\\jbmwix-azfs01\\IT\\IntranetDocuments\\LettersTemp\\BCN\\BCN.pdf";
                         }
                         else
                         {
                             filename = Date + "_" + _vm.Account.ToString() + "_BCNAOB_S" + ".pdf";
-                            BCNLetter = "C://LettersTemp//BCN//BCN_S.pdf";
+                            BCNLetter = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//BCN//BCN_S.pdf";
                         }
 
 
 
-                        string AOB = "C://LettersTemp//AOB" + "//";
+                        string AOB = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//AOB" + "//";
                         string welcomeLetter = "";
 
                         string path = "";
@@ -528,8 +529,8 @@ namespace USPS_Report.Areas.Reports.Controllers
                         if (_vm.FileFax != true && _vm.FileEmail != true)
                         {
                             List<string> files = new List<string>();
-                            path = "C://Letters//AOB" + "//";
-                            welcomeLetter = "C://LettersTemp//Mail" + "//";
+                            path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//AOB" + "//";
+                            welcomeLetter = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Mail" + "//";
                             files.Add(welcomeLetter + filename);
                             files.Add(BCNLetter);
                             files.Add(AOB + filename);
@@ -547,8 +548,8 @@ namespace USPS_Report.Areas.Reports.Controllers
                         if (_vm.FileEmail == true)
                         {
                             List<string> files = new List<string>();
-                            path = "C://Letters//Email" + "//";
-                            welcomeLetter = "C://LettersTemp//Email" + "//";
+                            path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
+                            welcomeLetter = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Email" + "//";
                             files.Add(welcomeLetter + filename);
                             files.Add(BCNLetter);
                             files.Add(AOB + filename);
@@ -574,8 +575,8 @@ namespace USPS_Report.Areas.Reports.Controllers
                         if (_vm.FileFax == true)
                         {
                             List<string> files = new List<string>();
-                            path = "C://Letters//Fax" + "//";
-                            welcomeLetter = "C://LettersTemp//Fax" + "//";
+                            path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
+                            welcomeLetter = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Fax" + "//";
                             files.Add(welcomeLetter + filename);
                             files.Add(BCNLetter);
                             files.Add(AOB + filename);
@@ -612,22 +613,22 @@ namespace USPS_Report.Areas.Reports.Controllers
                         string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
 
                         string filename = "";
-                        string BCNLetter = "C://LettersTemp//MAPPO//MAPPO.pdf";
+                        string BCNLetter = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//MAPPO//MAPPO.pdf";
 
                         if (_vm.spanish != true)
                         {
                             filename = Date + "_" + _vm.Account.ToString() + "_MAPPOAOB" + ".pdf";
-                            BCNLetter = "C://LettersTemp//MAPPO//MAPPO.pdf";
+                            BCNLetter = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//MAPPO//MAPPO.pdf";
                         }
                         else
                         {
                             filename = Date + "_" + _vm.Account.ToString() + "_MAPPOAOB_S" + ".pdf";
-                            BCNLetter = "C://LettersTemp//MAPPO//MAPPO_S.pdf";
+                            BCNLetter = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//MAPPO//MAPPO_S.pdf";
                         }
 
 
 
-                        string AOB = "C://LettersTemp//AOB" + "//";
+                        string AOB = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//AOB" + "//";
                         string welcomeLetter = "";
 
                         string path = "";
@@ -639,8 +640,8 @@ namespace USPS_Report.Areas.Reports.Controllers
                         if (_vm.FileFax != true && _vm.FileEmail != true)
                         {
                             List<string> files = new List<string>();
-                            path = "C://Letters//AOB" + "//";
-                            welcomeLetter = "C://LettersTemp//Mail" + "//";
+                            path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//AOB" + "//";
+                            welcomeLetter = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Mail" + "//";
                             files.Add(welcomeLetter + filename);
                             files.Add(BCNLetter);
                             files.Add(AOB + filename);
@@ -658,8 +659,8 @@ namespace USPS_Report.Areas.Reports.Controllers
                         if (_vm.FileEmail == true)
                         {
                             List<string> files = new List<string>();
-                            path = "C://Letters//Email" + "//";
-                            welcomeLetter = "C://LettersTemp//Email" + "//";
+                            path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
+                            welcomeLetter = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Email" + "//";
                             files.Add(welcomeLetter + filename);
                             files.Add(BCNLetter);
                             files.Add(AOB + filename);
@@ -685,8 +686,8 @@ namespace USPS_Report.Areas.Reports.Controllers
                         if (_vm.FileFax == true)
                         {
                             List<string> files = new List<string>();
-                            path = "C://Letters//Fax" + "//";
-                            welcomeLetter = "C://LettersTemp//Fax" + "//";
+                            path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
+                            welcomeLetter = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Fax" + "//";
                             files.Add(welcomeLetter + filename);
                             files.Add(BCNLetter);
                             files.Add(AOB + filename);
@@ -754,7 +755,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
 
                 string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
-                string path = "C://Letters//3 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//3 Page" + "//";
                 string filename = Date + "_" + _vm.Account.ToString() + "_LNM" + ".pdf";
                 if (_vm.FileEmail != true && _vm.FileFax != true)
                 {
@@ -763,13 +764,13 @@ namespace USPS_Report.Areas.Reports.Controllers
                 }
                 else if (_vm.FileEmail == true && _vm.FileFax != true)
                 {
-                    if (System.IO.File.Exists("C://Letters//Email" + "//" + filename))
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
                 else if (_vm.FileFax == true && _vm.FileEmail != true)
                 {
-                    if (System.IO.File.Exists("C://Letters//Fax" + "//" + filename))
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
@@ -789,7 +790,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     else if (_vm.FileEmail == true && _vm.FileFax == true)
                     {
                         //Fax
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         BuildLibreMemberLetter(_vm, path, filename);
                         //added pradeep BarCode
                     //    AddBarCodeallpagesAOB(path + filename, _vm.Account, filename, 15f, 750f);
@@ -797,7 +798,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
                         // Email
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                         BuildLibreMemberLetter(_vm, path, filename);
                         //added pradeep BarCode
                      //   AddBarCodeallpagesAOB(path + filename, _vm.Account, filename, 15f, 750f);
@@ -807,7 +808,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     else if (_vm.FileFax == true)
                     {
                         //Fax
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         BuildLibreMemberLetter(_vm, path, filename);
                         //added pradeep BarCode
                     //    AddBarCodeallpagesAOB(path + filename, _vm.Account, filename, 15f, 750f);
@@ -816,7 +817,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     else if (_vm.FileEmail == true)
                     {
                         // Email
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                         BuildLibreMemberLetter(_vm, path, filename);
                         //added pradeep BarCode
                   //      AddBarCodeallpagesAOB(path + filename, _vm.Account, filename, 15f, 750f);
@@ -830,7 +831,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
 
                 string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
-                string path = "C://Letters//2 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//2 Page" + "//";
                 string filename = Date + "_" + _vm.Account.ToString() + "_DNM_G6" + ".pdf";
                 if (_vm.FileEmail != true && _vm.FileFax != true)
                 {
@@ -839,13 +840,13 @@ namespace USPS_Report.Areas.Reports.Controllers
                 }
                 else if (_vm.FileEmail == true && _vm.FileFax != true)
                 {
-                    if (System.IO.File.Exists("C://Letters//Email" + "//" + filename))
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
                 else if (_vm.FileFax == true && _vm.FileEmail != true)
                 {
-                    if (System.IO.File.Exists("C://Letters//Fax" + "//" + filename))
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
@@ -854,14 +855,14 @@ namespace USPS_Report.Areas.Reports.Controllers
                 if (_vm.FileExists != true)
                 {
                     _vm.FileExists = false;
-                    string oldfile = "C://LettersTemp//DexcomG6//Dexcom.pdf";
-                    string CoverLetterGen = "C://LettersTemp//DexcomG6//FaxCoverLetter.pdf";
-                    string CoverLetterNew = "C://LettersTemp//DexcomG6//FaxCoverLetter" + _vm.Account.ToString() + ".pdf";
-                    string NewfileWithName = "C://LettersTemp//DexcomG6//Dexcom" + _vm.Account.ToString() + ".pdf";
-                    string Newfile = "C://LettersTemp//DexcomG6//Dexcom" + _vm.Account.ToString() + "_Temp.pdf";
-                    string FirstPage = "C://LettersTemp//DexcomG6//DexcomFirstPage.pdf";
-                    string BlankPage = "C://LettersTemp//DexcomG6//blank.pdf";
-                    string FirstPageWithAdd = "C://LettersTemp//DexcomG6//DexcomFirstPage" + _vm.Account.ToString() + ".pdf";
+                    string oldfile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//Dexcom.pdf";
+                    string CoverLetterGen = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//FaxCoverLetter.pdf";
+                    string CoverLetterNew = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//FaxCoverLetter" + _vm.Account.ToString() + ".pdf";
+                    string NewfileWithName = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//Dexcom" + _vm.Account.ToString() + ".pdf";
+                    string Newfile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//Dexcom" + _vm.Account.ToString() + "_Temp.pdf";
+                    string FirstPage = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//DexcomFirstPage.pdf";
+                    string BlankPage = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//blank.pdf";
+                    string FirstPageWithAdd = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//DexcomFirstPage" + _vm.Account.ToString() + ".pdf";
                     string name = _vm.details.lastName;
                     string Account = _vm.Account.ToString();
                     string text1 = "Account: " + _vm.Account.ToString();
@@ -886,7 +887,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     else if (_vm.FileEmail == true && _vm.FileFax == true)
                     {
                         //Fax
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         AddTxtToFaxCoverLetter(CoverLetterGen, CoverLetterNew, _vm.details.firstName, _vm.FedEx);
                         files = new List<string>();
                         files.Add(CoverLetterNew);
@@ -899,7 +900,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
                         // Email
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                         files = new List<string>();
 
                         files.Add(FirstPageWithAdd);
@@ -923,7 +924,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
 
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         MergePdfs.MergeFiles(path + filename, files, 3);
                         MergePdfs.DeleteFiles(NewfileWithName);
                         MergePdfs.DeleteFiles(CoverLetterNew);
@@ -934,7 +935,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     }
                     else if (_vm.FileEmail == true)
                     {
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                         files = new List<string>();
 
                         files.Add(FirstPageWithAdd);
@@ -953,7 +954,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
 
                 string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
-                string path = "C://Letters//3 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//3 Page" + "//";
                 string filename = Date + "_" + _vm.Account.ToString() + "_DNM" + ".pdf";
                 if (_vm.FileEmail != true && _vm.FileFax != true)
                 {
@@ -962,13 +963,13 @@ namespace USPS_Report.Areas.Reports.Controllers
                 }
                 else if (_vm.FileEmail == true && _vm.FileFax != true)
                 {
-                    if (System.IO.File.Exists("C://Letters//Email" + "//" + filename))
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
                 else if (_vm.FileFax == true && _vm.FileEmail != true)
                 {
-                    if (System.IO.File.Exists("C://Letters//Fax" + "//" + filename))
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
@@ -988,14 +989,14 @@ namespace USPS_Report.Areas.Reports.Controllers
                     else if (_vm.FileFax == true && _vm.FileEmail == true)
                     {
                         //Fax
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         BuildDexcomMemberLetter(_vm, path, filename);
                         //added pradeep BarCode
                      //   AddBarCodeallpagesAOB(path + filename, _vm.Account, filename, 15f, 750f);
                         Emails.AutoFax(_vm.FedEx, path + filename);
 
                         //Email
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                         BuildDexcomMemberLetter(_vm, path, filename);
                         //added pradeep BarCode
                    //     AddBarCodeallpagesAOB(path + filename, _vm.Account, filename, 15f, 750f);
@@ -1005,7 +1006,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     }
                     else if (_vm.FileFax == true)
                     {
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         BuildDexcomMemberLetter(_vm, path, filename);
                         //added pradeep BarCode
                    //     AddBarCodeallpagesAOB(path + filename, _vm.Account, filename, 15f, 750f);
@@ -1013,7 +1014,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     }
                     else if (_vm.FileEmail == true)
                     {
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                         BuildDexcomMemberLetter(_vm, path, filename);
                         //added pradeep BarCode
                    //     AddBarCodeallpagesAOB(path + filename, _vm.Account, filename, 15f, 750f);
@@ -1026,7 +1027,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             else if (_vm.Option == "21")  //_vm.Option == "Dexcom-G5 Training Letter"
             {
                 string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
-                string path = "C://Letters//2 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//2 Page" + "//";
                 string filename = Date + "_" + _vm.Account.ToString() + "_DXT_G5" + ".pdf";
                 if (_vm.FileEmail != true && _vm.FileFax != true)
                 {
@@ -1035,13 +1036,13 @@ namespace USPS_Report.Areas.Reports.Controllers
                 }
                 else if (_vm.FileEmail == true && _vm.FileFax != true)
                 {
-                    if (System.IO.File.Exists("C://Letters//Email" + "//" + filename))
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
                 else if (_vm.FileFax == true && _vm.FileEmail != true)
                 {
-                    if (System.IO.File.Exists("C://Letters//Fax" + "//" + filename))
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
@@ -1050,14 +1051,14 @@ namespace USPS_Report.Areas.Reports.Controllers
                 {
                     _vm.FileExists = false;
 
-                    string oldfile = "C://LettersTemp//Dexcom//DexcomTraining.pdf";
-                    string CoverLetterGen = "C://LettersTemp//Dexcom//FaxCoverLetter.pdf";
-                    string CoverLetterNew = "C://LettersTemp//Dexcom//FaxCoverLetter" + _vm.Account.ToString() + ".pdf";
-                    string NewfileWithName = "C://LettersTemp//Dexcom//DexcomTraining" + _vm.Account.ToString() + ".pdf";
-                    string Newfile = "C://LettersTemp//Dexcom//DexcomTraining" + _vm.Account.ToString() + "_Temp.pdf";
-                    string FirstPage = "C://LettersTemp//Dexcom//DexcomFirstPageTraining.pdf";
-                    string BlankPage = "C://LettersTemp//Dexcom//blank.pdf";
-                    string FirstPageWithAdd = "C://LettersTemp//Dexcom//DexcomFirstPageTraining" + _vm.Account.ToString() + ".pdf";
+                    string oldfile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Dexcom//DexcomTraining.pdf";
+                    string CoverLetterGen = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Dexcom//FaxCoverLetter.pdf";
+                    string CoverLetterNew = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Dexcom//FaxCoverLetter" + _vm.Account.ToString() + ".pdf";
+                    string NewfileWithName = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Dexcom//DexcomTraining" + _vm.Account.ToString() + ".pdf";
+                    string Newfile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Dexcom//DexcomTraining" + _vm.Account.ToString() + "_Temp.pdf";
+                    string FirstPage = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Dexcom//DexcomFirstPageTraining.pdf";
+                    string BlankPage = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Dexcom//blank.pdf";
+                    string FirstPageWithAdd = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Dexcom//DexcomFirstPageTraining" + _vm.Account.ToString() + ".pdf";
                     string name = _vm.details.lastName;
                     string Account = _vm.Account.ToString();
                     string text1 = "Account: " + _vm.Account.ToString();
@@ -1082,7 +1083,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     else if (_vm.FileEmail == true && _vm.FileFax == true)
                     {
                         //Fax
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         AddTxtToFaxCoverLetter(CoverLetterGen, CoverLetterNew, _vm.details.firstName, _vm.FedEx);
                         files = new List<string>();
                         files.Add(CoverLetterNew);
@@ -1095,7 +1096,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
                         // Email
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                         files = new List<string>();
 
                         files.Add(FirstPageWithAdd);
@@ -1119,7 +1120,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
 
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         MergePdfs.MergeFiles(path + filename, files, 3);
                         MergePdfs.DeleteFiles(NewfileWithName);
                         MergePdfs.DeleteFiles(CoverLetterNew);
@@ -1130,7 +1131,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     }
                     else if (_vm.FileEmail == true)
                     {
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                         files = new List<string>();
 
                         files.Add(FirstPageWithAdd);
@@ -1148,7 +1149,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             else if (_vm.Option == "22")  //_vm.Option == "Dexcom-G6 Training Letter"
             {
                 string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
-                string path = "C://Letters//2 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//2 Page" + "//";
                 string filename = Date + "_" + _vm.Account.ToString() + "_DXT_G6" + ".pdf";
                 if (_vm.FileEmail != true && _vm.FileFax != true)
                 {
@@ -1157,13 +1158,13 @@ namespace USPS_Report.Areas.Reports.Controllers
                 }
                 else if (_vm.FileEmail == true && _vm.FileFax != true)
                 {
-                    if (System.IO.File.Exists("C://Letters//Email" + "//" + filename))
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
                 else if (_vm.FileFax == true && _vm.FileEmail != true)
                 {
-                    if (System.IO.File.Exists("C://Letters//Fax" + "//" + filename))
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
@@ -1172,14 +1173,14 @@ namespace USPS_Report.Areas.Reports.Controllers
                 {
                     _vm.FileExists = false;
 
-                    string oldfile = "C://LettersTemp//DexcomG6//DexcomTraining.pdf";
-                    string CoverLetterGen = "C://LettersTemp//DexcomG6//FaxCoverLetter.pdf";
-                    string CoverLetterNew = "C://LettersTemp//DexcomG6//FaxCoverLetter" + _vm.Account.ToString() + ".pdf";
-                    string NewfileWithName = "C://LettersTemp//DexcomG6//DexcomTraining" + _vm.Account.ToString() + ".pdf";
-                    string Newfile = "C://LettersTemp//DexcomG6//DexcomTraining" + _vm.Account.ToString() + "_Temp.pdf";
-                    string FirstPage = "C://LettersTemp//DexcomG6//DexcomFirstPageTraining.pdf";
-                    string BlankPage = "C://LettersTemp//DexcomG6//blank.pdf";
-                    string FirstPageWithAdd = "C://LettersTemp//DexcomG6//DexcomFirstPageTraining" + _vm.Account.ToString() + ".pdf";
+                    string oldfile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//DexcomTraining.pdf";
+                    string CoverLetterGen = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//FaxCoverLetter.pdf";
+                    string CoverLetterNew = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//FaxCoverLetter" + _vm.Account.ToString() + ".pdf";
+                    string NewfileWithName = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//DexcomTraining" + _vm.Account.ToString() + ".pdf";
+                    string Newfile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//DexcomTraining" + _vm.Account.ToString() + "_Temp.pdf";
+                    string FirstPage = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//DexcomFirstPageTraining.pdf";
+                    string BlankPage = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//blank.pdf";
+                    string FirstPageWithAdd = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DexcomG6//DexcomFirstPageTraining" + _vm.Account.ToString() + ".pdf";
                     string name = _vm.details.lastName;
                     string Account = _vm.Account.ToString();
                     string text1 = "Account: " + _vm.Account.ToString();
@@ -1204,7 +1205,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     else if (_vm.FileEmail == true && _vm.FileFax == true)
                     {
                         //Fax
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         AddTxtToFaxCoverLetter(CoverLetterGen, CoverLetterNew, _vm.details.firstName, _vm.FedEx);
                         files = new List<string>();
                         files.Add(CoverLetterNew);
@@ -1217,7 +1218,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
                         // Email
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                         files = new List<string>();
 
                         files.Add(FirstPageWithAdd);
@@ -1241,7 +1242,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
 
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         MergePdfs.MergeFiles(path + filename, files, 3);
                         MergePdfs.DeleteFiles(NewfileWithName);
                         MergePdfs.DeleteFiles(CoverLetterNew);
@@ -1252,7 +1253,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     }
                     else if (_vm.FileEmail == true)
                     {
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                         files = new List<string>();
 
                         files.Add(FirstPageWithAdd);
@@ -1270,7 +1271,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             else if (_vm.Option == "25")  //_vm.Option == "Out of State BCBS Letter"
             {
                 string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 string filename = Date + "_" + _vm.Account.ToString() + "_OOS" + ".pdf";
                 if (_vm.FileEmail != true && _vm.FileFax != true)
                 {
@@ -1279,31 +1280,31 @@ namespace USPS_Report.Areas.Reports.Controllers
                 }
                 else if (_vm.FileEmail == true && _vm.FileFax != true)
                 {
-                    path = "C://Letters//Email" + "//";
-                    if (System.IO.File.Exists("C://Letters//Email" + "//" + filename))
+                    path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
                 else if (_vm.FileFax == true && _vm.FileEmail != true)
                 {
-                    path = "C://Letters//Email" + "//";
-                    if (System.IO.File.Exists("C://Letters//Fax" + "//" + filename))
+                    path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
                 else if (_vm.FileFax == true && _vm.FileEmail == true)
                 {
-                    path = "C://Letters//Email" + "//";
+                    path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                 }
 
                 if (_vm.FileExists != true)
                 {
                     _vm.FileExists = false;
 
-                    string Newfile = "C://LettersTemp//BCBS//OutOFState" + _vm.Account.ToString() + "_Temp.pdf";
-                    string CoverLetterGen = "C://LettersTemp//BCBS//FaxCoverLetter.pdf";
-                    string CoverLetterNew = "C://LettersTemp//BCBS//FaxCoverLetter" + _vm.Account.ToString() + ".pdf";
-                    string FirstPage = "C://LettersTemp//BCBS//OutOFState.pdf";
+                    string Newfile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//BCBS//OutOFState" + _vm.Account.ToString() + "_Temp.pdf";
+                    string CoverLetterGen = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//BCBS//FaxCoverLetter.pdf";
+                    string CoverLetterNew = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//BCBS//FaxCoverLetter" + _vm.Account.ToString() + ".pdf";
+                    string FirstPage = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//BCBS//OutOFState.pdf";
                     string FirstPageWithAdd = path + filename;
                     string name = _vm.details.lastName;
                     string Account = _vm.Account.ToString();
@@ -1318,7 +1319,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     if (_vm.FileEmail == true && _vm.FileFax == true)
                     {
                         //Fax
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         AddTxtToFaxCoverLetter(CoverLetterGen, CoverLetterNew, _vm.details.firstName, _vm.FedEx);
                         files = new List<string>();
                         files.Add(CoverLetterNew);
@@ -1331,7 +1332,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
                         // Email
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                         files = new List<string>();
 
 
@@ -1351,7 +1352,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
 
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         MergePdfs.MergeFiles(path + filename, files, 2);
 
                         MergePdfs.DeleteFiles(CoverLetterNew);
@@ -1373,7 +1374,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             else if (_vm.Option == "18")  //_vm.Option == "Libre Training Letter"
             {
                 string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
-                string path = "C://Letters//2 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//2 Page" + "//";
                 string filename = Date + "_" + _vm.Account.ToString() + "_LMT" + ".pdf";
                 if (_vm.FileEmail != true && _vm.FileFax != true)
                 {
@@ -1382,13 +1383,13 @@ namespace USPS_Report.Areas.Reports.Controllers
                 }
                 else if (_vm.FileEmail == true && _vm.FileFax != true)
                 {
-                    if (System.IO.File.Exists("C://Letters//Email" + "//" + filename))
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
                 else if (_vm.FileFax == true && _vm.FileEmail != true)
                 {
-                    if (System.IO.File.Exists("C://Letters//Fax" + "//" + filename))
+                    if (System.IO.File.Exists("//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//" + filename))
                         _vm.FileExists = true;
 
                 }
@@ -1397,14 +1398,14 @@ namespace USPS_Report.Areas.Reports.Controllers
                 {
                     _vm.FileExists = false;
 
-                    string oldfile = "C://LettersTemp//Libre//LMTraining.pdf";
-                    string CoverLetterGen = "C://LettersTemp//Libre//FaxCoverLetter.pdf";
-                    string CoverLetterNew = "C://LettersTemp//Libre//FaxCoverLetter" + _vm.Account.ToString() + ".pdf";
-                    string NewfileWithName = "C://LettersTemp//Libre//LMTraining" + _vm.Account.ToString() + ".pdf";
-                    string Newfile = "C://LettersTemp//Libre//LMTraining" + _vm.Account.ToString() + "_Temp.pdf";
-                    string FirstPage = "C://LettersTemp//Libre//LMFirstPageTraining.pdf";
-                    string BlankPage = "C://LettersTemp//Libre//blank.pdf";
-                    string FirstPageWithAdd = "C://LettersTemp//Libre//LMFirstPageTraining" + _vm.Account.ToString() + ".pdf";
+                    string oldfile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Libre//LMTraining.pdf";
+                    string CoverLetterGen = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Libre//FaxCoverLetter.pdf";
+                    string CoverLetterNew = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Libre//FaxCoverLetter" + _vm.Account.ToString() + ".pdf";
+                    string NewfileWithName = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Libre//LMTraining" + _vm.Account.ToString() + ".pdf";
+                    string Newfile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Libre//LMTraining" + _vm.Account.ToString() + "_Temp.pdf";
+                    string FirstPage = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Libre//LMFirstPageTraining.pdf";
+                    string BlankPage = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Libre//blank.pdf";
+                    string FirstPageWithAdd = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Libre//LMFirstPageTraining" + _vm.Account.ToString() + ".pdf";
                     string name = _vm.details.lastName;
                     string Account = _vm.Account.ToString();
                     string text1 = "Account: " + _vm.Account.ToString();
@@ -1429,7 +1430,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     else if (_vm.FileEmail == true && _vm.FileFax == true)
                     {
                         //Fax
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         AddTxtToFaxCoverLetter(CoverLetterGen, CoverLetterNew, _vm.details.firstName, _vm.FedEx);
                         files = new List<string>();
                         files.Add(CoverLetterNew);
@@ -1442,7 +1443,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
                         // Email
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                         files = new List<string>();
 
                         files.Add(FirstPageWithAdd);
@@ -1466,7 +1467,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
 
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                         MergePdfs.MergeFiles(path + filename, files, 3);
                         MergePdfs.DeleteFiles(NewfileWithName);
                         MergePdfs.DeleteFiles(CoverLetterNew);
@@ -1477,7 +1478,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                     }
                     else if (_vm.FileEmail == true)
                     {
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                         files = new List<string>();
 
                         files.Add(FirstPageWithAdd);
@@ -1496,7 +1497,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
                 int numberOfPages = 0;
                 string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 string filename = Date + "_" + _vm.Account.ToString() + "_PC" + ".pdf";
 
 
@@ -1508,11 +1509,11 @@ namespace USPS_Report.Areas.Reports.Controllers
                 {
                     if (_vm.FileEmail == true)
                     {
-                        path = "C://Letters//Email" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                     }
                     if (_vm.FileFax == true)
                     {
-                        path = "C://Letters//Fax" + "//";
+                        path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                     }
                     if (System.IO.File.Exists(path + filename))
                     {
@@ -1561,7 +1562,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
                 int numberOfPages = 0;
                 string Date = DateTime.Today.Month.ToString() + DateTime.Today.Day.ToString() + DateTime.Today.Year.ToString();
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 string filename = Date + "_" + _vm.Account.ToString() + "_DRL" + ".pdf";
 
 
@@ -1572,7 +1573,7 @@ namespace USPS_Report.Areas.Reports.Controllers
                 if (_vm.FileEmail == true)
                 {
 
-                    path = "C://Letters//Email" + "//";
+                    path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
                     if (System.IO.File.Exists(path + filename))
@@ -1595,7 +1596,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
                 if (_vm.FileFax == true)
                 {
-                    path = "C://Letters//Fax" + "//";
+                    path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
                     if (System.IO.File.Exists(path + filename))
                     {
                         PdfReader pdfReader = new PdfReader(path + filename);
@@ -1617,7 +1618,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
                 if (_vm.FileFax != true && _vm.FileEmail != true)
                 {
-                    path = "C://Letters//1 Page" + "//";
+                    path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                     if (System.IO.File.Exists(path + filename))
                     {
                         PdfReader pdfReader = new PdfReader(path + filename);
@@ -1764,9 +1765,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 if (res == true)
-                { path = "C://Letters//BCN" + "//"; }
+                { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
 
                 if (System.IO.File.Exists(path + filenameOrigin))
@@ -1821,7 +1822,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
 
@@ -1877,7 +1878,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -2124,9 +2125,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 if (res == true)
-                { path = "C://Letters//BCN" + "//"; }
+                { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
 
                 if (System.IO.File.Exists(path + filenameOrigin))
@@ -2181,7 +2182,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
 
@@ -2236,7 +2237,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -2324,9 +2325,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 // if (res == true)
-                //  { path = "C://Letters//BCN" + "//"; }
+                //  { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
 
                 if (System.IO.File.Exists(path + filename))
@@ -2381,7 +2382,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
 
@@ -2436,7 +2437,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -2524,9 +2525,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 // if (res == true)
-                //  { path = "C://Letters//BCN" + "//"; }
+                //  { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
 
                 if (System.IO.File.Exists(path + filename))
@@ -2581,7 +2582,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
 
@@ -2636,7 +2637,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -2723,9 +2724,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 if (res == true)
-                { path = "C://Letters//BCN" + "//"; }
+                { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
 
                 if (System.IO.File.Exists(path + filenameOrigin))
@@ -2780,7 +2781,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
 
@@ -2836,7 +2837,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -3945,7 +3946,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
 
 
 
@@ -3992,7 +3993,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
 
@@ -4044,7 +4045,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -4127,9 +4128,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
 
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 if (res == true)
-                { path = "C://Letters//BCN" + "//"; }
+                { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
 
                 if (System.IO.File.Exists(path + filenameOrigin))
@@ -4188,7 +4189,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
 
@@ -4248,7 +4249,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -4333,7 +4334,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
 
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
 
 
 
@@ -4378,7 +4379,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
 
@@ -4429,7 +4430,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -4926,7 +4927,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
 
 
 
@@ -4970,7 +4971,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
 
@@ -5021,7 +5022,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -5095,7 +5096,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//2 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//2 Page" + "//";
 
 
 
@@ -5136,8 +5137,8 @@ namespace USPS_Report.Areas.Reports.Controllers
                     this.SetStandardPageSize(doc);  // Reset the margins and page size
                     doc.Close();
                     doc = null;
-                    string oldFile = "C://LettersTemp//Reassessment//ReassessmentLetterMail.pdf";
-                    string newFile = "C://LettersTemp//Reassessment//ReassessmentLetterMail" + _vm.Account + ".pdf";
+                    string oldFile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Reassessment//ReassessmentLetterMail.pdf";
+                    string newFile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Reassessment//ReassessmentLetterMail" + _vm.Account + ".pdf";
                     string text = "Name : " + _vm.details.firstName + ", Account : " + _vm.Account;
 
                     manipulatePdf(oldFile, newFile, _vm.Account.ToString(), text);
@@ -5145,8 +5146,8 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
                     //Manupuate second page and add items from RWO
-                    string oldFile2 = "C://LettersTemp//Reassessment//ReassessmentLetterMail_2.pdf";
-                    string newFile2 = "C://LettersTemp//Reassessment//ReassessmentLetterMail_2" + _vm.Account + ".pdf";
+                    string oldFile2 = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Reassessment//ReassessmentLetterMail_2.pdf";
+                    string newFile2 = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Reassessment//ReassessmentLetterMail_2" + _vm.Account + ".pdf";
                     manipulatePdf2(oldFile2, newFile2, _vm.Account.ToString(), text, _vm.Account);
 
 
@@ -5159,7 +5160,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
 
@@ -5200,15 +5201,15 @@ namespace USPS_Report.Areas.Reports.Controllers
                     doc.Close();
                     doc = null;
 
-                    string oldFile = "C://LettersTemp//Reassessment//ReassessmentLetterEmail.pdf";
-                    string newFile = "C://LettersTemp//Reassessment//ReassessmentLetterEmail" + _vm.Account + ".pdf";
+                    string oldFile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Reassessment//ReassessmentLetterEmail.pdf";
+                    string newFile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Reassessment//ReassessmentLetterEmail" + _vm.Account + ".pdf";
                     string text = "Name : " + _vm.details.firstName + ", Account : " + _vm.Account;
                     manipulatePdf(oldFile, newFile, _vm.Account.ToString(), text);
 
 
                     //Manupuate second page and add items from RWO
-                    string oldFile2 = "C://LettersTemp//Reassessment//ReassessmentLetterMail_2.pdf";
-                    string newFile2 = "C://LettersTemp//Reassessment//ReassessmentLetterMail_2" + _vm.Account + ".pdf";
+                    string oldFile2 = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Reassessment//ReassessmentLetterMail_2.pdf";
+                    string newFile2 = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Reassessment//ReassessmentLetterMail_2" + _vm.Account + ".pdf";
                     manipulatePdf2(oldFile2, newFile2, _vm.Account.ToString(), text, _vm.Account);
 
 
@@ -5227,7 +5228,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -5267,15 +5268,15 @@ namespace USPS_Report.Areas.Reports.Controllers
 
                     doc1.Close();
                     doc1 = null;
-                    string oldFile = "C://LettersTemp//Reassessment//ReassessmentLetterEmail.pdf";
-                    string newFile = "C://LettersTemp//Reassessment//ReassessmentLetterEmail" + _vm.Account + ".pdf";
+                    string oldFile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Reassessment//ReassessmentLetterEmail.pdf";
+                    string newFile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Reassessment//ReassessmentLetterEmail" + _vm.Account + ".pdf";
                     string text = "Name : " + _vm.details.firstName + " " + _vm.details.lastName + ", Account : " + _vm.Account;
                     manipulatePdf(oldFile, newFile, _vm.Account.ToString(), text);
 
 
                     //Manupuate second page and add items from RWO
-                    string oldFile2 = "C://LettersTemp//Reassessment//ReassessmentLetterMail_2.pdf";
-                    string newFile2 = "C://LettersTemp//Reassessment//ReassessmentLetterMail_2" + _vm.Account + ".pdf";
+                    string oldFile2 = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Reassessment//ReassessmentLetterMail_2.pdf";
+                    string newFile2 = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Reassessment//ReassessmentLetterMail_2" + _vm.Account + ".pdf";
                     manipulatePdf2(oldFile2, newFile2, _vm.Account.ToString(), text, _vm.Account);
 
 
@@ -5317,7 +5318,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//2 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//2 Page" + "//";
 
 
 
@@ -5358,9 +5359,9 @@ namespace USPS_Report.Areas.Reports.Controllers
                     this.SetStandardPageSize(doc);  // Reset the margins and page size
                     doc.Close();
                     doc = null;
-                    string oldFile = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterMail.pdf";
-                    string newFileTemp = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterMail" + _vm.Account + "_WS" + ".pdf";
-                    string newFile = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterMail" + _vm.Account + ".pdf";
+                    string oldFile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterMail.pdf";
+                    string newFileTemp = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterMail" + _vm.Account + "_WS" + ".pdf";
+                    string newFile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterMail" + _vm.Account + ".pdf";
                     string text = "Name : " + _vm.details.firstName + ", Account : " + _vm.Account;
 
                     manipulateDiaRessmentLPdf(oldFile, newFileTemp, _vm.Account.ToString(), text);
@@ -5368,8 +5369,8 @@ namespace USPS_Report.Areas.Reports.Controllers
 
 
                     //Manupuate second page and add items from RWO
-                    string oldFile2 = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterMail_2.pdf";
-                    //  string newFile2 = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterMail_2" + _vm.Account + ".pdf";
+                    string oldFile2 = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterMail_2.pdf";
+                    //  string newFile2 = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterMail_2" + _vm.Account + ".pdf";
                     // manipulatePdf2(oldFile2, newFile2, _vm.Account.ToString(), text, _vm.Account);
                     MergePdfs.DeleteFiles(newFileTemp);
 
@@ -5382,7 +5383,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
 
@@ -5423,17 +5424,17 @@ namespace USPS_Report.Areas.Reports.Controllers
                     doc.Close();
                     doc = null;
 
-                    string oldFile = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterEmail.pdf";
-                    string newFileTemp = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterEmail" + _vm.Account + "_WS" + ".pdf";
-                    string newFile = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterEmail" + _vm.Account + ".pdf";
+                    string oldFile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterEmail.pdf";
+                    string newFileTemp = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterEmail" + _vm.Account + "_WS" + ".pdf";
+                    string newFile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterEmail" + _vm.Account + ".pdf";
                     string text = "Name : " + _vm.details.firstName + ", Account : " + _vm.Account;
                     manipulateDiaRessmentLPdf(oldFile, newFileTemp, _vm.Account.ToString(), text);
                     manipulateDiabeticRLPdf2(newFileTemp, newFile, _vm.Account.ToString(), text, _vm.Account);
 
 
                     //Manupuate second page and add items from RWO
-                    string oldFile2 = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterMail_2.pdf";
-                    // string newFile2 = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterMail_2" + _vm.Account + ".pdf";
+                    string oldFile2 = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterMail_2.pdf";
+                    // string newFile2 = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterMail_2" + _vm.Account + ".pdf";
                     //   manipulatePdf2(oldFile2, newFile2, _vm.Account.ToString(), text, _vm.Account);
                     MergePdfs.DeleteFiles(newFileTemp);
 
@@ -5452,7 +5453,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -5492,16 +5493,16 @@ namespace USPS_Report.Areas.Reports.Controllers
 
                     doc1.Close();
                     doc1 = null;
-                    string oldFile = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterEmail.pdf";
-                    string newFileTemp = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterEmail" + _vm.Account + "_WS" + ".pdf";
-                    string newFile = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterEmail" + _vm.Account + ".pdf";
+                    string oldFile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterEmail.pdf";
+                    string newFileTemp = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterEmail" + _vm.Account + "_WS" + ".pdf";
+                    string newFile = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterEmail" + _vm.Account + ".pdf";
                     string text = "Name : " + _vm.details.firstName + " " + _vm.details.lastName + ", Account : " + _vm.Account;
                     manipulateDiaRessmentLPdf(oldFile, newFileTemp, _vm.Account.ToString(), text);
                     manipulateDiabeticRLPdf2(newFileTemp, newFile, _vm.Account.ToString(), text, _vm.Account);
                     MergePdfs.DeleteFiles(newFileTemp);
                     //Manupuate second page and add items from RWO
-                    string oldFile2 = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterMail_2.pdf";
-                    // string newFile2 = "C://LettersTemp//DiabeticReassessment//ReassessmentLetterMail_2" + _vm.Account + ".pdf";
+                    string oldFile2 = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterMail_2.pdf";
+                    // string newFile2 = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//DiabeticReassessment//ReassessmentLetterMail_2" + _vm.Account + ".pdf";
                     //manipulatePdf2(oldFile2, newFile2, _vm.Account.ToString(), text, _vm.Account);
 
 
@@ -5834,10 +5835,10 @@ namespace USPS_Report.Areas.Reports.Controllers
 
         public void MergeBCNFinalNotice(string filePath, string destination, bool EmailFax)
         {
-            string BCNFinalNotice = "C://LettersTemp//BCN//FinalNotice.pdf";
+            string BCNFinalNotice = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//BCN//FinalNotice.pdf";
             if (EmailFax == true)
             {
-                BCNFinalNotice = "C://LettersTemp//BCN//FinalNoticeFaxEmail.pdf";
+                BCNFinalNotice = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//BCN//FinalNoticeFaxEmail.pdf";
             }
 
             List<string> files = new List<string>();
@@ -5854,7 +5855,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         public void MergeReassessment(string filePath, string destination, bool EmailFax, string FileToAdd, string Form2)
         {
             string ReassessmentForm = FileToAdd;
-            //   string Form2 = "C://LettersTemp//Reassessment//ReassessmentLetterMail_2.pdf";
+            //   string Form2 = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Reassessment//ReassessmentLetterMail_2.pdf";
 
             List<string> files = new List<string>();
 
@@ -6488,9 +6489,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
 
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 if (res == true)
-                { path = "C://Letters//BCN" + "//"; }
+                { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
 
 
@@ -6555,7 +6556,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
                 if (System.IO.File.Exists(path + filenameOrigin))
                 {
@@ -6626,7 +6627,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -6734,9 +6735,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
 
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 if (res == true)
-                { path = "C://Letters//BCN" + "//"; }
+                { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
 
 
@@ -6801,7 +6802,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
                 if (System.IO.File.Exists(path + filenameOrigin))
                 {
@@ -6872,7 +6873,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -6989,9 +6990,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
 
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 if (res == true)
-                { path = "C://Letters//BCN" + "//"; }
+                { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
 
 
@@ -7066,7 +7067,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
                 if (System.IO.File.Exists(path + filenameOrigin))
                 {
@@ -7145,7 +7146,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -7259,9 +7260,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
 
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 if (res == true)
-                { path = "C://Letters//BCN" + "//"; }
+                { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
 
 
@@ -7336,7 +7337,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
                 if (System.IO.File.Exists(path + filenameOrigin))
                 {
@@ -7415,7 +7416,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -7528,9 +7529,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
 
-                string path = "C://Letters//2 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//2 Page" + "//";
                 if (res == true)
-                { path = "C://Letters//BCN" + "//"; }
+                { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
 
 
@@ -7610,7 +7611,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
                 if (System.IO.File.Exists(path + filenameOrigin))
                 {
@@ -7690,7 +7691,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -7804,9 +7805,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
 
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
                 if (res == true)
-                { path = "C://Letters//BCN" + "//"; }
+                { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
 
 
@@ -7883,7 +7884,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
                 if (System.IO.File.Exists(path + filenameOrigin))
                 {
@@ -7962,7 +7963,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -8064,10 +8065,10 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//2 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//2 Page" + "//";
 
                 if (res == true)
-                { path = "C://Letters//BCN" + "//"; }
+                { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
                 if (System.IO.File.Exists(path + filenameOrigin))
                 {
@@ -8127,7 +8128,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
                 if (System.IO.File.Exists(path + filenameOrigin))
                 {
@@ -8186,7 +8187,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -10199,7 +10200,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
 
 
 
@@ -10244,7 +10245,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
                 if (System.IO.File.Exists(path + filename))
                 {
@@ -10288,7 +10289,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -10530,7 +10531,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//1 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//1 Page" + "//";
 
 
 
@@ -10575,7 +10576,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
                 if (System.IO.File.Exists(path + filename))
                 {
@@ -10624,7 +10625,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -10899,9 +10900,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//2 Page" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//2 Page" + "//";
                 if (res == true)
-                { path = "C://Letters//BCN" + "//"; }
+                { path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//BCN" + "//"; }
 
 
                 if (System.IO.File.Exists(path + filenameOrigin))
@@ -10964,7 +10965,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
 
@@ -11024,7 +11025,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -12597,7 +12598,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://Letters//AOB" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//AOB" + "//";
                 if (System.IO.File.Exists(path + filename))
                 {
                     _vm.FileExists = true;
@@ -12760,7 +12761,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
                 //"//10.10.1.200//Letters//Fax" + "//";
 
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -12917,7 +12918,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail == true)
             {
 
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
                 if (_vm.spanish == true)
                 {
                     filename = Date + "_" + _vm.Account.ToString() + "_AOB_S" + ".eml";
@@ -12980,7 +12981,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileEmail != true && _vm.FileFax != true)
             {
                 // "//10.10.1.200//Letters//AOB" + "//";
-                string path = "C://LettersTemp//AOB" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//AOB" + "//";
                 if (System.IO.File.Exists(path + filename))
                 {
                     _vm.FileExists = true;
@@ -13113,7 +13114,7 @@ namespace USPS_Report.Areas.Reports.Controllers
 
                 //"//10.10.1.200//Letters//Fax" + "//";
 
-                string path = "C://Letters//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Fax" + "//";
 
 
 
@@ -13263,9 +13264,9 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
 
                 // "//10.10.1.200//Letters//Email" + "//";
-                // "C://Letters//AOB"
+                // "//jbmwix-azfs01//IT//IntranetDocuments//Letters//AOB"
 
-                string path = "C://Letters//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//Letters//Email" + "//";
 
 
                 if (System.IO.File.Exists(path + filename))
@@ -13449,7 +13450,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
 
 
-                string path = "C://LettersTemp//AOB" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//AOB" + "//";
 
                 if (System.IO.File.Exists(path + filename))
                 {
@@ -13552,7 +13553,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax != true && _vm.FileEmail != true)
             {
 
-                string path = "C://LettersTemp//Mail" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Mail" + "//";
 
 
 
@@ -13609,7 +13610,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
 
-                string path = "C://LettersTemp//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Fax" + "//";
 
 
 
@@ -13666,7 +13667,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
 
 
-                string path = "C://LettersTemp//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Email" + "//";
 
 
                 if (System.IO.File.Exists(path + filename))
@@ -13751,7 +13752,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
 
 
-                string path = "C://LettersTemp//AOB" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//AOB" + "//";
 
                 if (System.IO.File.Exists(path + filename))
                 {
@@ -13853,7 +13854,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax != true && _vm.FileEmail != true)
             {
 
-                string path = "C://LettersTemp//Mail" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Mail" + "//";
 
 
 
@@ -13909,7 +13910,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             if (_vm.FileFax == true)
             {
 
-                string path = "C://LettersTemp//Fax" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Fax" + "//";
 
 
 
@@ -13966,7 +13967,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             {
 
 
-                string path = "C://LettersTemp//Email" + "//";
+                string path = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Email" + "//";
 
 
                 if (System.IO.File.Exists(path + filename))
@@ -14032,7 +14033,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             else
                 payerName = "J & B Medical";
 
-            string pdfTemplate = "C://LettersTemp//Dexcom//NEW Dexcom Member Letter_2019.pdf";
+            string pdfTemplate = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Dexcom//NEW Dexcom Member Letter_2019.pdf";
 
             PdfReader pdfReader = new PdfReader(pdfTemplate);
             PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileStream(path + filename, FileMode.Create));
@@ -14076,7 +14077,7 @@ namespace USPS_Report.Areas.Reports.Controllers
             else
                 payerName = "J & B Medical";
 
-            string pdfTemplate = "C://LettersTemp//Libre//NEW Libre Member Letter_2019.pdf";
+            string pdfTemplate = "//jbmwix-azfs01//IT//IntranetDocuments//LettersTemp//Libre//NEW Libre Member Letter_2019.pdf";
 
             PdfReader pdfReader = new PdfReader(pdfTemplate);
             PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileStream(path + filename, FileMode.Create));
@@ -21034,7 +21035,7 @@ namespace USPS_Report.Areas.Reports.Controllers
         {
 
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("jandbmedical-com.mail.protection.outlook.com");
+            SmtpClient SmtpServer = new SmtpClient("smtp.jandbmedical.com");
             mail.From = new MailAddress("noreply@jandbmedical.com");
 
             //  mail.To.Add("vtarugu@jandbmedical.com");
