@@ -36,7 +36,7 @@ namespace USPS_Report.Areas.Reports.Models
                 {
                     query = ";With table1 as (Select Distinct t1.ID_Claim,t1.ID_Payer, " +
       " t1.Account as Acct,  t1.ID_Bill, Billing_Date as DOS, Procedure_Code as HCPC,mem.First_Name, mem.Last_Name,  " +
-    " t1.ClaimBalance, ins.Policy_Number, t3.RespDate, t1.SumAllowed as AllowableAmt , t1.sumpay as PaymentAmt " +
+    " t1.ClaimBalance, ins.Policy_Number, t3.RespDate, t1.SumAllowed as AllowableAmt , t1.sumpay as PaymentAmt, DateChanged " +
      " from[dbo].[v_AR_ClaimDetail_Selection] t1 Left join tbl_Account_Insurance t2 on t1.Account = t2.Account AND t2.ID_Payer = " + payerId + " AND " +
        " ((t2.Effective_Date is NULL OR t2.Effective_Date < Billing_Date) " +
       " AND(t2.Expiration_Date is NULL or t2.Expiration_Date > Billing_Date))  " +
@@ -54,7 +54,7 @@ namespace USPS_Report.Areas.Reports.Models
                 else {
                    query = ";With table1 as (Select Distinct t1.ID_Claim,t1.ID_Payer, " +
      " t1.Account as Acct,  t1.ID_Bill, Billing_Date as DOS, Procedure_Code as HCPC,mem.First_Name, mem.Last_Name,  " +
-   " t1.ClaimBalance, ins.Policy_Number, t3.RespDate, t1.SumAllowed as AllowableAmt , t1.sumpay as PaymentAmt " +
+   " t1.ClaimBalance, ins.Policy_Number, t3.RespDate, t1.SumAllowed as AllowableAmt , t1.sumpay as PaymentAmt, DateChanged " +
     " from[dbo].[v_AR_ClaimDetail_Selection] t1 Left join tbl_Account_Insurance t2 on t1.Account = t2.Account AND t2.ID_Payer = " + payerId + " AND " +
       " ((t2.Effective_Date is NULL OR t2.Effective_Date < Billing_Date) " +
      " AND(t2.Expiration_Date is NULL or t2.Expiration_Date > Billing_Date))  " +
@@ -853,6 +853,7 @@ namespace USPS_Report.Areas.Reports.Models
         public string Last_Name { get; set; }
         public int? ID_Bill { get; set; }
         public DateTime? DOS { get; set; }
+        public DateTime? DateChanged { get; set; }
         public string HCPC { get; set; }
         public decimal? ClaimBalance { get; set; }
 
